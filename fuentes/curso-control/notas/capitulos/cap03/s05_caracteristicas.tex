@@ -1,0 +1,140 @@
+%% ---------------------------------------------------------------------
+\section{La respuesta del subamortiguado, en números}
+\label{sec:so-caracteristicas}
+%% ---------------------------------------------------------------------
+
+El escalón es la entrada de prueba clásica: es un cambio brusco, fácil de generar y suficientemente drástico para ver la dinámica (y, conocida su respuesta, se obtienen las demás por linealidad). Tomemos $K=1$, condiciones iniciales nulas y $0<\zeta<1$. Con $U(s)=1/s$,
+\[
+  Y(s)=\frac{\wn^2}{s(s^2+2\zeta\wn s+\wn^2)}
+  =\frac1s-\frac{s+\zeta\wn}{(s+\zeta\wn)^2+\wdamp^2}-\frac{\zeta\wn}{(s+\zeta\wn)^2+\wdamp^2},
+\]
+y con las dos últimas filas de la tabla de transformadas,
+\[
+  y(t)=1-e^{-\zeta\wn t}\left(\cos\wdamp t+\frac{\zeta}{\sqrt{1-\zeta^2}}\sin\wdamp t\right).
+\]
+Con la identidad $C\cos\theta+D\sin\theta=\sqrt{C^2+D^2}\,\sin\bigl(\theta+\tan^{-1}(C/D)\bigr)$ queda
+\begin{equation}
+  y(t)=1-\frac{e^{-\zeta\wn t}}{\sqrt{1-\zeta^2}}\,\sin\left(\wdamp t+\beta\right),\qquad \beta=\cos^{-1}\zeta.
+  \label{eq:so-subamortiguado}
+\end{equation}
+La salida oscila a la frecuencia $\wdamp$ dentro de las \clave{envolventes} $1\pm e^{-\zeta\wn t}/\sqrt{1-\zeta^2}$, y el error $1-y(t)$ tiende a cero. (Con $\zeta=0$ no: oscila para siempre a $\wn$.)
+
+El ángulo $\beta$ tiene una lectura geométrica muy útil (\cref{fig:so-beta}): es el ángulo entre el semieje real negativo y la recta que une el origen con el polo. Como la distancia del polo al origen es $\wn$ y su parte real es $-\zeta\wn$, $\cos\beta=\zeta$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.55\linewidth]{cap03/plano_s_beta}
+\caption{Geometría de los polos subamortiguados: distancia al origen $\wn$, parte real $-\zeta\wn$, parte imaginaria $\wdamp$ y $\cos\beta=\zeta$.}
+\label{fig:so-beta}
+\end{figure}
+
+\subsection{Las cuatro características}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap03/f_caracteristicas}
+\caption{Características de la respuesta al escalón con $\zeta=0.4$ y $\wn=1$. La franja verde es la banda del $\pm2\%$; las líneas punteadas, las envolventes.}
+\label{fig:so-caracteristicas}
+\end{figure}
+
+\paragraph{Tiempo de subida $\tr$} Hay varias definiciones: del $10$ al $90\%$ del valor final (la de \cmd{stepinfo} y la usual para sobreamortiguados), del $5$ al $95\%$, o del $0$ al $100\%$ (común para subamortiguados). Para la de $0$--$100\%$, $y(\tr)=1$ en \eqref{eq:so-subamortiguado} exige $\sin(\wdamp\tr+\beta)=0$, es decir $\wdamp\tr+\beta=\pi$:
+\begin{equation}
+  \tr=\frac{\pi-\beta}{\wdamp}\quad(0\text{--}100\%).
+  \label{eq:so-tr}
+\end{equation}
+Para la de $10$--$90\%$ no hay fórmula cerrada; un ajuste a la solución exacta es
+\begin{equation}
+  \tr\approx\frac{2.3\zeta^2-0.078\zeta+1.12}{\wn}\quad(10\text{--}90\%),
+  \label{eq:so-tr1090}
+\end{equation}
+con error menor que el $3.1\%$ para $0.1\leq\zeta\leq0.9$ (lo comprobamos numéricamente; otra aproximación muy citada, $(1-0.4167\zeta+2.917\zeta^2)/\wn$, se equivoca hasta un $14\%$ con $\zeta$ pequeño).
+
+\paragraph{Tiempo de pico $\tp$} Es el instante del primer máximo. Derivando \eqref{eq:so-subamortiguado} e igualando a cero se llega a $\frac{\wn}{\sqrt{1-\zeta^2}}e^{-\zeta\wn t}\sin\wdamp t=0$; el primer cero positivo es $\wdamp\tp=\pi$:
+\begin{equation}
+  \tp=\frac{\pi}{\wdamp}.
+  \label{eq:so-tp}
+\end{equation}
+
+\paragraph{Sobrepico porcentual $\OS$} Es cuánto se pasa el máximo del valor final, en porcentaje: $\OS=\frac{y(\tp)-y(\infty)}{y(\infty)}\times100\%$. Evaluando en $\tp$:
+\begin{equation}
+  \OS=100\,e^{-\zeta\pi/\sqrt{1-\zeta^2}}\ \%,
+  \qquad\text{y al revés,}\qquad
+  \zeta=\frac{-\ln(\OS/100)}{\sqrt{\pi^2+\ln^2(\OS/100)}}.
+  \label{eq:so-os}
+\end{equation}
+\emph{Solo depende de $\zeta$} (\cref{fig:so-os}). Más $\zeta$, menos sobrepico, pero respuesta más lenta.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap03/f_os_zeta}
+\caption{Sobrepico en función de $\zeta$, con algunos valores que aparecen en el curso ($\zeta=0.4559$ da $20\%$; $\zeta=0.5912$, $10\%$; $\zeta=0.707$, $4.3\%$).}
+\label{fig:so-os}
+\end{figure}
+
+\paragraph{Tiempo de establecimiento $\ts$} Es el tiempo a partir del cual la respuesta se queda dentro de una banda alrededor del valor final ($\pm2\%$ en el curso; a veces $\pm5\%$). Usando las envolventes, que decaen con constante de tiempo $1/(\zeta\wn)$, y el mismo criterio del primer orden ($4\tau$ para el $2\%$, $3\tau$ para el $5\%$):
+\begin{equation}
+  \ts\approx\frac{4}{\zeta\wn}\ (2\%),\qquad \ts\approx\frac{3}{\zeta\wn}\ (5\%).
+  \label{eq:so-ts}
+\end{equation}
+Es una estimación por la envolvente: el valor exacto puede ser menor (en la \cref{fig:so-caracteristicas}, $8.41$ en lugar de $10$), porque la oscilación entra a la banda antes que la envolvente.
+
+\begin{table}[ht]
+\centering
+\caption{Resumen del segundo orden subamortiguado $\wn^2/(s^2+2\zeta\wn s+\wn^2)$.}
+\label{tab:so-resumen}
+\renewcommand{\arraystretch}{1.9}
+\begin{tabular}{@{}lll@{}}
+\toprule
+característica & fórmula & depende de\\
+\midrule
+tiempo de subida (0--100\%) & $\tr=\dfrac{\pi-\cos^{-1}\zeta}{\wn\sqrt{1-\zeta^2}}$ & $\zeta$ y $\wn$\\
+tiempo de pico & $\tp=\dfrac{\pi}{\wn\sqrt{1-\zeta^2}}$ & parte imaginaria del polo\\
+sobrepico & $\OS=100\,e^{-\zeta\pi/\sqrt{1-\zeta^2}}$ & solo $\zeta$ (ángulo del polo)\\
+establecimiento (2\%) & $\ts\approx\dfrac{4}{\zeta\wn}$ & parte real del polo\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej3_SegundoOrden.m}{formulas}{fórmulas contra \cmd{stepinfo}}
+
+\begin{cuidado}[¿Qué $\tr$ reporta \matlab?]
+\cmd{stepinfo} usa $10$--$90\%$. Si compara con \eqref{eq:so-tr} (de $0$--$100\%$) le van a dar números distintos y ninguno está mal. Diga siempre qué definición usa.
+\end{cuidado}
+
+\subsection{Moverse en el plano-$s$}
+
+La \cref{tab:so-resumen} dice algo que conviene ver geométricamente: con los polos en $-\zeta\wn\pm j\wdamp$,
+\begin{itemize}
+  \item sobre una \emph{recta vertical} (parte real fija) el $\ts$ es constante;
+  \item sobre una \emph{recta horizontal} (parte imaginaria fija) el $\tp$ es constante;
+  \item sobre una \emph{recta radial} (ángulo $\beta$ fijo) el $\zeta$, y con él el $\OS$, son constantes.
+\end{itemize}
+La \cref{fig:so-lineas} muestra qué pasa al moverse por cada una. Por eso las especificaciones ``$\OS$ máximo y $\ts$ máximo'' se convierten en una \emph{región} del plano-$s$ donde deben quedar los polos: a la izquierda de una vertical y dentro de un cono alrededor del semieje real negativo. Esa idea es la base del lugar de las raíces.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_lineas_plano}
+\caption{Moviendo los polos por rectas del plano-$s$. Vertical: mismo $\ts$, más oscilación hacia arriba. Horizontal: mismo $\tp$, menos sobrepico hacia la izquierda. Radial: mismo $\OS$, más rápido lejos del origen.}
+\label{fig:so-lineas}
+\end{figure}
+
+\subsection{Críticamente amortiguado y sobreamortiguado}
+
+\paragraph{$\zeta=1$} Hay un polo doble en $-\wn$ y
+\begin{equation}
+  y(t)=1-e^{-\wn t}\,(1+\wn t),
+  \label{eq:so-critico}
+\end{equation}
+que también se obtiene de \eqref{eq:so-subamortiguado} con $\lim_{\zeta\to1}\sin(\wdamp t)/\sqrt{1-\zeta^2}=\wn t$. Es la respuesta más rápida \emph{sin} sobrepico.
+
+\paragraph{$\zeta>1$} Hay dos polos reales en $-s_1$ y $-s_2$, con $s_{1,2}=\zeta\wn\pm\wn\sqrt{\zeta^2-1}$, y
+\begin{equation}
+  y(t)=1+\frac{\wn}{2\sqrt{\zeta^2-1}}\left(\frac{e^{-s_1t}}{s_1}-\frac{e^{-s_2t}}{s_2}\right).
+  \label{eq:so-sobre}
+\end{equation}
+Si $s_1\gg s_2$, el término en $e^{-s_1t}$ muere muy rápido y la respuesta se parece a la de un primer orden con el polo lento: $T(s)\approx\dfrac{s_2}{s+s_2}$. Es la primera aparición de la idea de \emph{polo dominante} (\cref{sec:so-ordensuperior}). Los tanques del ejemplo~\ref{ej:so-tanques} son así: $s_2=0.0024$ y $s_1=0.0434$, y $4/s_2\approx1670$\,s es una buena estimación del $\ts$ exacto ($1655$\,s).
+
+\begin{pausa}
+Un sistema tiene polos en $-2\pm j4$. Sin simular: ¿cuánto valen $\wn$, $\zeta$, $\tp$, $\OS$ y $\ts$?
+\respuesta{$\wn=\sqrt{4+16}=4.47$\,rad/s, $\zeta=2/4.47=0.447$, $\tp=\pi/4=0.785$\,s, $\OS=100e^{-0.447\pi/0.894}=20.8\%$ y $\ts\approx4/2=2$\,s.}
+\end{pausa}

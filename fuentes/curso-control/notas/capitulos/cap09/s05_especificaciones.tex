@@ -1,0 +1,63 @@
+%% ---------------------------------------------------------------------
+\section{De las especificaciones a los polos}
+\label{sec:re-especificaciones}
+%% ---------------------------------------------------------------------
+
+Con $n$ estados hay que escoger $n$ polos. La estrategia es la del \cref{cap:so}: dos polos \emph{dominantes} fijados por las especificaciones del segundo orden ($\OS$ fija $\zeta$; $\tp$ o $\ts$ fijan $\wn$) y los demás bastante más a la izquierda, para que sus modos mueran rápido. Una regla usual es ponerlos entre cinco y diez veces más lejos que la parte real de los dominantes. Si la planta tiene un cero de fase mínima cerca de los dominantes, conviene usar uno de los polos sobrantes para \emph{cancelarlo} (sin modificar la ganancia).
+
+\begin{ejemplo}[label=ej:re-trespolos]{Un tercer orden con especificaciones}
+La planta $G_p(s)=\dfrac{10}{(s+10)(s^2+0.5s+1)}$ tiene $\OS=44\%$ y $\tp=3.35$\,s. Diseñe $u=r-\Km x$ para $\OS=10\%$ y $\tp=1$\,s.
+\solucion $\OS=10\%$ da $\zeta=0.591$, y $\tp=1$ da $\wn=\pi/\sqrt{1-\zeta^2}=3.90$\,rad/s: polos dominantes en $-2.30\pm j3.14$. El tercero va diez veces más lejos, en $-23.0$. Con la representación que entrega \cmd{tf2ss},
+\[
+  \Km=[17.131\;\;115.21\;\;339.34].
+\]
+La respuesta (\cref{fig:re-trespolos}) tiene $\OS=9.8\%$ y $\tp=1.05$\,s: el tercer polo, aunque lejano, la desvía un poco de las fórmulas. Pero el valor final es $0.029$: la salida no sigue la referencia. Lo arreglamos en la \cref{sec:re-integral}.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_tres_polos}
+\caption{Ejemplo~\ref{ej:re-trespolos}. La forma de la respuesta cumple; el valor final (que a la derecha se normalizó para comparar la forma), no.}
+\label{fig:re-trespolos}
+\end{figure}
+
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej5_Especificaciones.m}{tercerorden}{ejemplo \ref{ej:re-trespolos}}
+
+\begin{cuidado}[Las ganancias dependen de la representación; los polos, no]
+El mismo sistema tiene infinitas representaciones de estado, y $\Km$ cambia con cada una porque los estados son otros. \cmd{tf2ss} entrega la forma con la primera fila $[-a_{n-1}\;\cdots\;-a_0]$; las \emph{variables de fase} del capítulo de espacio de estado tienen la última fila $[-a_0\;\cdots\;-a_{n-1}]$. En el ejemplo~\ref{ej:re-trespolos}, en variables de fase sale $\Km=[339.34\;\;115.21\;\;17.131]$: las mismas cifras al revés, porque los estados están numerados al revés. Los polos del lazo cerrado son idénticos. Diga siempre en qué representación trabaja; la función del curso \cmd{variablesFase} construye la de las notas.
+\end{cuidado}
+
+\subsection{Cuando la referencia entra por otro lado}
+
+No siempre la referencia se suma a $u$. Si la salida es un estado (por ejemplo $y=x_1$), lo natural es compararla con $r$ como en un lazo clásico.
+
+\begin{ejemplo}[label=ej:re-servo]{Un servo de tercer orden}
+La planta es $\dfrac{Y(s)}{U(s)}=\dfrac{1}{s(s+1)(s+2)}$ con la configuración de la \cref{fig:re-servo}: $u=K_1(r-x_1)-K_2x_2-K_3x_3$. Ubique los polos en $-2\pm j3.464$ y $-10$.
+\solucion En variables de fase, $\Am=\begin{bmatrix}0&1&0\\0&0&1\\0&-2&-3\end{bmatrix}$, $\Bm=\begin{bmatrix}0\\0\\1\end{bmatrix}$, $\Cm=[1\;\;0\;\;0]$. La matriz de controlabilidad,
+\[
+  \Ctrb=[\Bm\;\;\Am\Bm\;\;\Am^2\Bm]=\begin{bmatrix}0&0&1\\0&1&-3\\1&-3&7\end{bmatrix},
+\]
+tiene rango $3$. La ley es $u=-\Km x+K_1r$ con $\Km=[K_1\;\;K_2\;\;K_3]$, y el polinomio característico es
+\[
+  \lambda^3+(3+K_3)\lambda^2+(2+K_2)\lambda+K_1.
+\]
+El deseado es $(\lambda+10)(\lambda^2+4\lambda+16)=\lambda^3+14\lambda^2+56\lambda+160$, luego $\Km=[160\;\;54\;\;11]$ y
+\[
+  \dot x=\begin{bmatrix}0&1&0\\0&0&1\\-160&-56&-14\end{bmatrix}x+\begin{bmatrix}0\\0\\160\end{bmatrix}r,\qquad y=[1\;\;0\;\;0]\,x.
+\]
+Ahora el valor final \emph{sí} es $1$: la planta tiene un integrador y la referencia se compara con la salida, como en un lazo tipo 1 (capítulo de error).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap09/servo_k1}
+\caption{Ejemplo~\ref{ej:re-servo}: la referencia se compara con $x_1=y$; los otros estados se retroalimentan con $K_2$ y $K_3$.}
+\label{fig:re-servo}
+\end{figure}
+
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej6_Servo.m}{servo}{ejemplo \ref{ej:re-servo}}
+
+\begin{pausa}
+Para $T(s)=\dfrac{100(s+1)}{s(s+2)(s+3)}$ se pide $\OS=10\%$ y $\tp=1$\,s con $u=r-\Km x$, cancelando el cero con el tercer polo. ¿Dónde va el tercer polo y qué función de transferencia queda en lazo cerrado?
+\respuesta{En $-1$, sobre el cero. Queda $\dfrac{100}{s^2+4.605s+15.17}$: la forma pedida ($\zeta=0.591$, $\wn=3.90$), pero con valor final $100/15.17=6.59$, no $1$. Otra vez hace falta la acción integral.}
+\end{pausa}

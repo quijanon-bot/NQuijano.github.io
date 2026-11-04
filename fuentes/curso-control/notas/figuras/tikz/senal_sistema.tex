@@ -1,0 +1,13 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=10mm]
+  \matrix[row sep=5mm, column sep=9mm]{
+   \node (a1) {$V(t)$}; & \node[bloque,text width=30mm,align=center] (b1) {\textbf{sistema:} bombillo\\ en contenedor}; & \node (c1) {$T(t)$}; & \node[rot] {(a) la intuición};\\
+   \node (a2) {$u(t)$}; & \node[bloque,text width=30mm,align=center] (b2) {\textbf{sistema}}; & \node (c2) {$y(t)$}; & \node[rot] {(b) en general};\\
+   \node (a3) {$V(t)$}; & \node[bloque,fill=ctrlverde!10,text width=30mm,align=center] (b3) {$\dfrac{\dif T}{\dif t}+0.15\,T=V$}; & \node (c3) {$T(t)$}; & \node[rot,align=left] {(c) dinámico:\\ una ODE};\\
+   \node (a4) {$u(t)$}; & \node[bloque,fill=ctrlambar!12,text width=30mm,align=center] (b4) {$y=\frac59\,(u-32)$}; & \node (c4) {$y(t)$}; & \node[rot,align=left] {(d) estático:\\ sin derivadas};\\
+  };
+  \foreach \i in {1,...,4}{\draw[senal] (a\i)--(b\i); \draw[senal] (b\i)--(c\i);}
+\end{tikzpicture}
+\end{document}

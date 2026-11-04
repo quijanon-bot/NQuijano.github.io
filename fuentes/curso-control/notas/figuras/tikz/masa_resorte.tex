@@ -1,0 +1,19 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\usetikzlibrary{decorations.pathmorphing,patterns}
+\begin{document}
+\begin{tikzpicture}[font=\small]
+  \fill[pattern=north east lines,pattern color=ctrlgris] (-0.3,-0.2) rectangle (0,1.8);
+  \draw[thick,ctrlnoche] (0,-0.2)--(0,1.8);
+  \draw[thick,ctrlnoche,decorate,decoration={zigzag,segment length=5pt,amplitude=4pt}] (0,1.3)--(2,1.3);
+  \node[above] at (1,1.45) {$k$};
+  \draw[thick,ctrlnoche] (0,0.3)--(0.8,0.3); \draw[thick,ctrlnoche] (0.8,0.12) rectangle (1.4,0.48);
+  \draw[thick,ctrlnoche] (1.05,0.3)--(2,0.3); \draw[thick,ctrlnoche] (1.05,0.18)--(1.05,0.42);
+  \node[below] at (1.1,0.1) {$b$};
+  \draw[thick,ctrlnoche,fill=ctrlazul!12] (2,0) rectangle (3.2,1.6); \node at (2.6,0.8) {$m$};
+  \draw[senal] (3.2,0.8)--(4.2,0.8) node[right]{$F(t)$};
+  \draw[->,thick,ctrlcoral] (2,1.85)--(2.8,1.85) node[right]{$x(t)$};
+  \draw[ctrlgris] (2,1.7)--(2,2.0);
+  \draw[ctrlgris] (0,-0.2)--(3.8,-0.2);
+\end{tikzpicture}
+\end{document}

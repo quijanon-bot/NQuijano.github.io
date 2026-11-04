@@ -1,0 +1,117 @@
+%% =====================================================================
+%%  notacion.sty -- Notación unificada del curso
+%%  Análisis de Sistemas de Control (IELE 2300) -- Universidad de los Andes
+%%
+%%  REGLA DE ORO: en los capítulos NO se escriben los símbolos "a mano";
+%%  se usan estas macros. Si mañana se decide cambiar un símbolo (por
+%%  ejemplo, G'(s) por L(s)), se cambia aquí y cambia en todo el libro.
+%%  La tabla completa, con las equivalencias en inglés y en MATLAB, está
+%%  en el capítulo "Convenciones y notación" (00_convenciones.tex).
+%% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{notacion}[2026/11/03 Notacion unificada del curso de control]
+\RequirePackage{amsmath,amssymb,mathtools}
+\RequirePackage{xspace}
+
+%% ---------- Variables y transformadas --------------------------------
+\newcommand{\Lap}[1]{\mathcal{L}\left\{#1\right\}}        % L{f(t)}
+\newcommand{\iLap}[1]{\mathcal{L}^{-1}\left\{#1\right\}}  % L^{-1}{F(s)}
+\newcommand{\dif}{\mathrm{d}}                              % d de derivada
+\newcommand{\deriv}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\jw}{j\omega}                                  % s = j omega (j, no i)
+\newcommand{\escalon}{\mathbf{1}}                      % escalón unitario 1(t) (NO u(t): u es la entrada)
+\newcommand{\impulso}{\delta}                          % impulso de Dirac
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+%% ---------- Equilibrio y variables desviación ------------------------
+%  Punto de equilibrio (u operación): x^*, u^*, y^*.
+%  Variable desviación ("NO incremental"): \hat{x}(t) = x(t) - x^*.
+\newcommand{\eq}[1]{#1^{*}}                 % \eq{x}  -> x^*
+\newcommand{\dev}[1]{\hat{#1}}              % \dev{x} -> \hat{x}
+\newcommand{\Dev}[1]{\hat{#1}}              % \Dev{X}(s) -> \hat{X}(s)
+
+%% ---------- Bloques de un lazo de control ----------------------------
+\newcommand{\Gp}{G_p}       % proceso / planta
+\newcommand{\Gc}{G_c}       % controlador o compensador
+\newcommand{\Gcp}{G_c'}     % parte del compensador con G_c'(0)=1
+\newcommand{\Gv}{G_v}       % elemento final de control (válvula, actuador)
+\newcommand{\Gs}{G_s}       % sensor
+\newcommand{\Gt}{G_t}       % transmisor
+\newcommand{\Gff}{G_{FF}}   % prealimentación (feedforward)
+\newcommand{\Hs}{H}         % retroalimentación
+\newcommand{\Gma}{G'}       % MALLA ABIERTA:  G'(s) = G(s)H(s)  (loop transfer function, L)
+\newcommand{\Gla}{G_{OL}}   % LAZO ABIERTO:   G_OL(s) (para tipo y error)
+\newcommand{\Tlc}{T}        % lazo cerrado:   T(s) = Y(s)/R(s)
+\newcommand{\Sens}{S}       % sensitividad:   S(s) = 1/(1+G'(s))
+
+%% ---------- Señales ----------------------------------------------------
+%  r: referencia, y: salida, e = r - y: error, u: señal de control,
+%  d: perturbación, n: ruido de medición.  Mayúsculas en el dominio s.
+
+%% ---------- Respuesta transitoria -------------------------------------
+\newcommand{\wn}{\omega_n}                  % frecuencia natural
+\newcommand{\wdamp}{\omega_d}               % frecuencia amortiguada
+\newcommand{\OS}{\%\mathrm{OS}}             % sobrepico porcentual (NO M_p)
+\newcommand{\ts}{t_s}                       % tiempo de establecimiento (2 %)
+\newcommand{\tp}{t_p}                       % tiempo de pico
+\newcommand{\tr}{t_r}                       % tiempo de subida
+\newcommand{\Kb}{K_b}                       % ganancia en forma de Bode
+
+%% ---------- Error en estado estacionario ------------------------------
+\newcommand{\ess}{e_{ss}}
+\newcommand{\kp}{\kappa_p}                  % constante estática de posición
+\newcommand{\kv}{\kappa_v}                  % ... de velocidad
+\newcommand{\ka}{\kappa_a}                  % ... de aceleración
+
+%% ---------- PID --------------------------------------------------------
+%  K_c ganancia del controlador (NUNCA K_p: K_p es la ganancia del PROCESO)
+\newcommand{\Kc}{K_c}
+\newcommand{\Kproc}{K_p}                    % ganancia del proceso (FOPDT)
+\newcommand{\Ti}{T_i}
+\newcommand{\Td}{T_d}
+\newcommand{\Kcr}{K_{cr}}                   % ganancia crítica (última)
+\newcommand{\Pcr}{P_{cr}}                   % periodo crítico
+\newcommand{\wcr}{\omega_{cr}}              % frecuencia crítica
+
+%% ---------- Respuesta frecuencial -------------------------------------
+\newcommand{\dB}{\,\mathrm{dB}}
+\newcommand{\dBdec}{\,\mathrm{dB/dec}}
+\newcommand{\PM}{\mathrm{PM}}               % margen de fase
+\newcommand{\GM}{\mathrm{GM}}               % margen de ganancia (en dB)
+\newcommand{\PMdes}{\mathrm{PM}_{\mathrm{des}}}
+\newcommand{\wpm}{\omega_{PM}}              % cruce de ganancia: |G'|=0 dB (MATLAB: Wcp)
+\newcommand{\wgm}{\omega_{GM}}              % cruce de fase: fase=-180 (MATLAB: Wcg)
+\newcommand{\Mr}{M_r}                       % pico de resonancia del lazo cerrado
+\newcommand{\wres}{\omega_r}                % frecuencia de resonancia (\wr ya existe en LaTeX)
+\newcommand{\wbw}{\omega_{BW}}              % ancho de banda (-3 dB)
+\newcommand{\phiM}{\phi_M}                  % fase máxima del adelanto
+\newcommand{\wM}{\omega_M}
+\newcommand{\wL}{\omega_L}
+\newcommand{\wH}{\omega_H}
+\newcommand{\phiseg}{\phi_{\mathrm{seg}}}
+
+%% ---------- Espacio de estado -----------------------------------------
+%  Matrices con \mathbb (convención histórica del curso).
+\newcommand{\Am}{\mathbb{A}}
+\newcommand{\Bm}{\mathbb{B}}
+\newcommand{\Cm}{\mathbb{C}}
+\newcommand{\Dm}{\mathbb{D}}
+\newcommand{\Km}{\mathbb{K}}               % ganancia de retroalimentación de estado
+\newcommand{\Lm}{\mathbb{L}}               % ganancia del observador
+\newcommand{\Id}{\mathbb{I}}               % identidad
+\newcommand{\Ctrb}{\mathfrak{C}}           % matriz de controlabilidad
+\newcommand{\Obsv}{\mathfrak{O}}           % matriz de observabilidad
+\newcommand{\xv}{x}                        % vector de estado (sin negrilla)
+\newcommand{\est}[1]{\tilde{#1}}           % ESTIMADO del observador (no \hat: \hat es variable desviación)
+\newcommand{\errest}{\varepsilon}          % error de estimación  x - \tilde{x}
+\newcommand{\Phit}{\Phi(t)}                % matriz de transición
+
+%% ---------- Utilidades -------------------------------------------------
+\newcommand{\grados}{^{\circ}}
+\newcommand{\radps}{\,\mathrm{rad/s}}
+\newcommand{\matlab}{MATLAB\xspace}
+\newcommand{\simulink}{Simulink\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}          % comando de MATLAB en el texto
+
+\endinput

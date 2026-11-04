@@ -1,0 +1,20 @@
+%% ---------------------------------------------------------------------
+\section{¿Y si el sistema no es lineal?}
+\label{sec:so-nolineal}
+%% ---------------------------------------------------------------------
+
+En el \cref{cap:po} todo era lineal: el tanque agitado, con sus suposiciones, daba una ODE lineal de primer orden y la transformada de Laplace hacía el resto. Pero la mayoría de los procesos reales no son lineales: el caudal por una válvula depende de la \emph{raíz cuadrada} de la diferencia de presiones, la velocidad de una reacción del \emph{cuadrado} de una concentración, la fuerza de un resorte endurecido del \emph{cubo} de la elongación. Con un sistema no lineal:
+\begin{itemize}
+  \item No se puede usar la transformada de Laplace (no es lineal), así que no hay función de transferencia.
+  \item El análisis cambia: por lo general se busca entender cualitativamente el comportamiento más que calcularlo exactamente.
+\end{itemize}
+¿Podemos rescatar algo de la teoría que ya tenemos? Sí: si el proceso opera \emph{cerca} de un punto de operación, se comporta casi como un sistema lineal. Esa aproximación, la \clave{linealización}, es lo primero que haremos. Con ella llegaremos a una función de transferencia de \emph{segundo orden}, el otro gran protagonista de los modelos orientados al control, y a la necesidad de describir sistemas con varios bloques interconectados.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap03/dos_tanques}
+\caption{Dos tanques que interactúan. El caudal $f_1$ depende de \emph{las dos} alturas: lo que pasa en un tanque afecta al otro. Adaptado de~\citep{SmCo06}.}
+\label{fig:so-tanques}
+\end{figure}
+
+\textbf{El problema guía.} En el sistema de la \cref{fig:so-tanques}~\citep{SmCo06}: (1) determinar cómo afecta el caudal de entrada $f_i(t)$ al nivel del segundo tanque $h_2(t)$; (2) escribir el modelo; (3) obtener una función de transferencia entre esa entrada y esa salida; y (4) representar el sistema con un diagrama de bloques. Lo resolvemos en la \cref{sec:so-tanques}, después de aprender a linealizar.

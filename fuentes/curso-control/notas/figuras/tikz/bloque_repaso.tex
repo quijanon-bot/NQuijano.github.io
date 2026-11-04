@@ -1,0 +1,8 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=12mm]
+  \node (u) {$U(s)$}; \node[bloque,right=of u] (T) {$\dfrac{s^3+2s^2+3s+4}{s^4+5s^3+6s^2+7s+8}$}; \node[right=of T] (y) {$Y(s)$};
+  \draw[senal] (u)--(T); \draw[senal] (T)--(y);
+\end{tikzpicture}
+\end{document}

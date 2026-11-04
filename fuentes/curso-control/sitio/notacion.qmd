@@ -1,0 +1,69 @@
+---
+title: "Notación del curso"
+subtitle: "Una sola notación para notas, presentaciones, códigos y esta página"
+---
+
+La notación se define en un solo archivo, `notas/notacion.sty`; las ecuaciones de esta página usan las mismas macros (por ejemplo, `\Gma` produce $\Gma$). Si un símbolo cambia, se cambia allí.
+
+## Señales y bloques
+
+| Símbolo | Significado | MATLAB | En inglés |
+|:--|:--|:--|:--|
+| $r,\ y,\ e,\ u$ | referencia, salida, error $e=r-y$, señal de control | `r, y, e, u` | reference, output, error, input |
+| $\Gp(s),\ \Gc(s)$ | proceso (planta), controlador o compensador | `Gp, Gc` | plant, controller |
+| $\Hs(s)$ | retroalimentación | `H` | feedback |
+| $\Gma(s)=G\Hs$ | **malla abierta**: una vuelta completa al lazo, sin el signo del comparador | `Gma` | loop transfer function $L$ |
+| $\Gla(s)$ | **lazo abierto**: el lazo reescrito con retroalimentación unitaria (tipo y error) | `Gol` | open-loop t.f. |
+| $\Tlc(s)=Y/R$ | lazo cerrado | `T = feedback(...)` | closed loop |
+
+## Modelado y espacio de estado
+
+| Símbolo | Significado | MATLAB |
+|:--|:--|:--|
+| $\eq{x},\ \eq{u}$ | punto de equilibrio (de operación) | `xe, ue` |
+| $\dev{x}=x-\eq{x}$ | **variable desviación** (no "incremental") | `xd` |
+| $\Delta$ | **discriminante** del diagrama, ley de Mason (no "determinante") | — |
+| $\Am,\Bm,\Cm,\Dm$ | matrices de estado | `A, B, C, D` |
+| $\Ctrb,\ \Obsv$ | matrices de controlabilidad y observabilidad | `ctrb, obsv` |
+| $\Km,\ \Lm$ | ganancias de retroalimentación de estado y del observador (fórmula de Ackermann) | `K, L` |
+
+## Respuesta transitoria, error y PID
+
+| Símbolo | Significado | MATLAB |
+|:--|:--|:--|
+| $\zeta,\ \wn$ | factor de amortiguamiento, frecuencia natural | `zeta, wn` |
+| $\OS$ | **sobrepico** porcentual (no $M_p$) | `S.Overshoot` |
+| $\ts,\ \tp$ | tiempo de establecimiento (2 %) y de pico | `stepinfo` |
+| $\kp,\ \kv,\ \ka$ | constantes estáticas de error | `kp, kv, ka` |
+| $\Kc,\ \Ti,\ \Td$ | ganancia del **controlador**, tiempos integral y derivativo ($K_p$ es la ganancia del *proceso*) | `Kc, Ti, Td` |
+| $\Kcr,\ \Pcr$ | ganancia y periodo críticos | `Kcr, Pcr` |
+
+## Respuesta frecuencial
+
+| Símbolo | Significado | MATLAB |
+|:--|:--|:--|
+| $\Kb$ | ganancia en forma de Bode | `Kb` |
+| $\GM,\ \wgm$ | margen de ganancia (dB) y su frecuencia (fase $=-180\grados$) | `Gm` (¡en veces!), `Wcg` |
+| $\PM,\ \wpm$ | margen de fase y su frecuencia ($|\Gma|=0\dB$) | `Pm, Wcp` |
+| $\Mr,\ \wres$ | pico de resonancia del lazo cerrado (no $M_P$) | `Mr, wr` |
+| $\wbw$ | ancho de banda ($-3\dB$) | `bandwidth(T)` |
+| $\alpha,\ \phiM,\ \wM,\ \wL,\ \wH$ | parámetros de adelanto y atraso | `alpha, phiM, wM, wL, wH` |
+
+::: {.cuidado}
+[MATLAB invita a confundirse]{.caja-titulo}
+
+En `[Gm,Pm,Wcg,Wcp] = margin(G)`, `Wcg` es la frecuencia donde se mide el **GM** ($\wgm$) y `Wcp` la del **PM** ($\wpm$); `Gm` sale en veces (en dB: `20*log10(Gm)`). La función del curso `margenesTabla(G)` imprime todo ya convertido.
+:::
+
+## Decisiones de lenguaje
+
+| Usamos | En lugar de |
+|:--|:--|
+| retroalimentación | realimentación |
+| malla abierta $\Gma$ / lazo abierto $\Gla$ | "open loop" para ambas |
+| variable desviación | variable incremental |
+| discriminante (Mason) | determinante |
+| sobrepico $\OS$; pico de resonancia $\Mr$ | overshoot, $M_p$, $M_P$ |
+| tiempo de establecimiento | tiempo de asentamiento |
+| $\Kc$ (controlador) | $K_p$ (es la del proceso) |
+| fórmula de Ackermann | Ackerman |

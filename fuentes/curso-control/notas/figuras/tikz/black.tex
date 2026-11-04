@@ -1,0 +1,14 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=12mm]
+  \node (vi) {$v_i$};
+  \node[suma,right=8mm of vi] (S) {};
+  \node[draw=ctrlnoche,fill=ctrlambar!15,thick,isosceles triangle,isosceles triangle apex angle=60,minimum width=12mm,right=10mm of S] (A) {$A$};
+  \coordinate[right=10mm of A] (v0); \node[right=5mm of v0] (vo) {$v_o$};
+  \node[bloque,below=8mm of A] (B) {$\beta$};
+  \draw[senal] (vi)--(S); \draw[senal] (S)--(A); \draw[senal] (A)--(vo);
+  \draw[senal] (v0) |- (B); \draw[senal] (B) -| (S); \node[rot] at ($(S)+(-3mm,-3.5mm)$) {$-$};
+  \node[below=3mm of B,font=\footnotesize] {$A_f=\dfrac{A}{1+A\beta}\;\xrightarrow{\,A\beta\gg1\,}\;\dfrac1\beta$};
+\end{tikzpicture}
+\end{document}

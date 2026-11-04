@@ -1,0 +1,45 @@
+---
+title: "Análisis de Sistemas de Control"
+subtitle: "IELE 2300 · Departamento de Ingeniería Eléctrica y Electrónica · Universidad de los Andes"
+toc: false
+---
+
+```{=html}
+<div class="franja"><div class="rotulo">Notas, códigos y videos del curso</div><div class="titulo">Modelar, analizar y diseñar sistemas de control</div><div class="cita">Caminante, son tus huellas el camino y nada más; caminante, no hay camino, se hace camino al andar. — Antonio Machado</div><svg class="bode" viewBox="0 0 600 160" preserveAspectRatio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"/><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"/></svg></div>
+```
+
+Este sitio acompaña el curso **Análisis de Sistemas de Control**. Cada parte del curso tiene una página con:
+
+- el **handout** (notas de clase en PDF), escrito para leerse *antes* de la clase;
+- los **códigos de MATLAB y Simulink**, los mismos que aparecen en las notas, con lo que hay que observar y los resultados esperados;
+- los **videos** que se usan en clase y las **pausas activas** para comprobar que se entendió;
+- los **problemas**, con soluciones seleccionadas.
+
+## Partes del curso
+
+```{=html}
+<div class="partes">
+<a class="parte" href="partes/01-introduccion.html"><div class="num">1</div><div class="nom">Introducción</div><div class="sem">Semana 1</div><span class="estado migrar">por migrar</span></a>
+<a class="parte piloto" href="partes/02-modelado-primer-orden.html"><div class="num">2</div><div class="nom">Modelado I: Laplace y primer orden</div><div class="sem">Semanas 1–2</div><span class="estado listo">completo</span></a>
+<a class="parte piloto" href="partes/03-modelado-segundo-orden.html"><div class="num">3</div><div class="nom">Modelado II: linealización, segundo orden, bloques</div><div class="sem">Semanas 3–4</div><span class="estado listo">completo</span></a>
+<a class="parte" href="partes/04-espacio-estado.html"><div class="num">4</div><div class="nom">Espacio de estado</div><div class="sem">Semanas 4–5</div><span class="estado migrar">por migrar</span></a>
+<a class="parte" href="partes/05-estabilidad.html"><div class="num">5</div><div class="nom">Estabilidad</div><div class="sem">Semana 6</div><span class="estado migrar">por migrar</span></a>
+<a class="parte" href="partes/06-error.html"><div class="num">6</div><div class="nom">Error en estado estacionario</div><div class="sem">Semana 7</div><span class="estado migrar">por migrar</span></a>
+<a class="parte" href="partes/07-pid-nociones.html"><div class="num">7</div><div class="nom">PID: nociones básicas</div><div class="sem">Semana 7</div><span class="estado migrar">por migrar</span></a>
+<a class="parte" href="partes/08-pid-sintonizacion.html"><div class="num">8</div><div class="nom">PID: sintonización e IMC</div><div class="sem">Semana 9</div><span class="estado migrar">por migrar</span></a>
+<a class="parte piloto" href="partes/09-retroalimentacion-estado.html"><div class="num">9</div><div class="nom">Retroalimentación de estado y observadores</div><div class="sem">Semanas 10–11</div><span class="estado listo">completo</span></a>
+<a class="parte piloto" href="partes/10-respuesta-frecuencial.html"><div class="num">10</div><div class="nom">Respuesta frecuencial y diagramas de Bode</div><div class="sem">Semanas 13–16</div><span class="estado listo">piloto · completo</span></a>
+</div>
+```
+
+## Cómo usar este material
+
+1. **Antes de la clase:** lea el handout de la parte. Las cajas azules (*Lo esencial*) son el resumen; las verdes (*Pausa activa*) son preguntas cortas para comprobar que entendió.
+2. **En clase:** traiga MATLAB listo. Ejecute una vez `iniciarCurso` (carpeta `codigo/` del [repositorio](https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control)) y podrá correr cualquier script desde cualquier carpeta.
+3. **Después:** resuelva los problemas. Los marcados **[M]** se hacen en MATLAB/Simulink; los marcados **(\*)** son de profundización.
+
+::: {.ideaclave}
+[Una sola notación]{.caja-titulo}
+
+Las notas, las presentaciones, los códigos y esta página usan la misma notación. Si tiene dudas sobre un símbolo, consulte la página de [notación](notacion.qmd).
+:::

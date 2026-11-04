@@ -1,0 +1,78 @@
+%% ---------------------------------------------------------------------
+\section{Dos tanques que interactúan}
+\label{sec:so-tanques}
+%% ---------------------------------------------------------------------
+
+\paragraph{Modelo} Los dos tanques de la \cref{fig:so-tanques} están abiertos a la atmósfera y las válvulas descargan a presión atmosférica, así que la diferencia de presión en cada válvula es
+\[
+  \Delta P_1=(P_A+\rho g h_1)-(P_A+\rho g h_2)=\rho g\,(h_1-h_2),\qquad
+  \Delta P_2=(P_A+\rho g h_2)-P_A=\rho g\,h_2,
+\]
+con $\rho$ la densidad (kg/m$^3$), $g=9.8$\,m/s$^2$ y $h_i$ los niveles (m). Con las aperturas fijas, el caudal por una válvula es $f=C_v\sqrt{\Delta P/G_f}$ ($C_v$: coeficiente de la válvula; $G_f$: gravedad específica), así que
+\begin{equation}
+  f_1=C'_{v1}\sqrt{h_1-h_2},\qquad f_2=C'_{v2}\sqrt{h_2},\qquad C'_{vi}=C_{vi}\sqrt{\rho g/G_f}.
+  \label{eq:so-valvulas}
+\end{equation}
+El caudal $f_1$ depende de los dos niveles: lo que pasa en un tanque se refleja en el otro y viceversa. El sistema está \emph{acoplado}. Los balances de masa (con densidad constante y áreas $A_1$, $A_2$) son
+\begin{equation}
+  A_1\deriv{h_1}{t}=f_i-C'_{v1}\sqrt{h_1-h_2},\qquad
+  A_2\deriv{h_2}{t}=C'_{v1}\sqrt{h_1-h_2}-C'_{v2}\sqrt{h_2}.
+  \label{eq:so-tanques-nl}
+\end{equation}
+Son no lineales: hay que linealizar.
+
+\paragraph{Equilibrio} Operamos con $\eq{f_i}=\eq{f_1}=\eq{f_2}$, que fija los niveles $\eq{h_1}$ y $\eq{h_2}$ (las derivadas se anulan).
+
+\paragraph{Linealización} Aplicando \eqref{eq:so-taylorn} a \eqref{eq:so-valvulas},
+\[
+  f_1\approx\eq{f_1}+C_1\,\dev{h}_1+C_2\,\dev{h}_2,\qquad f_2\approx\eq{f_2}+C_3\,\dev{h}_2,
+\]
+\begin{equation}
+  C_1=\left.\frac{\partial f_1}{\partial h_1}\right|_\ast=\frac{C'_{v1}}{2\sqrt{\eq{h_1}-\eq{h_2}}},\qquad
+  C_2=\left.\frac{\partial f_1}{\partial h_2}\right|_\ast=-C_1,\qquad
+  C_3=\left.\frac{\partial f_2}{\partial h_2}\right|_\ast=\frac{C'_{v2}}{2\sqrt{\eq{h_2}}}.
+  \label{eq:so-coeficientes}
+\end{equation}
+Reemplazando en los balances y restando el equilibrio,
+\[
+  A_1\,\dot{\dev{h}}_1=\dev{f}_i-C_1\dev{h}_1-C_2\dev{h}_2,\qquad
+  A_2\,\dot{\dev{h}}_2=C_1\dev{h}_1+(C_2-C_3)\,\dev{h}_2.
+\]
+
+\paragraph{Función de transferencia} Transformando y despejando cada nivel,
+\[
+  \Dev{H}_1(s)=\frac{K_1}{\tau_1s+1}\bigl(\Dev{F}_i(s)-C_2\Dev{H}_2(s)\bigr),\qquad
+  \Dev{H}_2(s)=\frac{K_2}{\tau_2s+1}\,\Dev{H}_1(s),
+\]
+con $K_1=1/C_1$, $\tau_1=A_1/C_1$, $K_2=C_1/(C_3-C_2)$ y $\tau_2=A_2/(C_3-C_2)$. Eliminando $\Dev{H}_1$:
+\begin{equation}
+  \frac{\Dev{H}_2(s)}{\Dev{F}_i(s)}=\frac{K_1K_2}{\tau_1\tau_2s^2+(\tau_1+\tau_2)s+1+K_1K_2C_2}.
+  \label{eq:so-tanques-ft}
+\end{equation}
+Las dos ecuaciones de primer orden, acopladas, producen un sistema de \clave{segundo orden}. (La estructura de bloques de esta deducción está en el problema~\ref{prob:so-bloques-tanques}.)
+
+\begin{ejemplo}[label=ej:so-tanques]{Los tanques con números}
+Con $A_1=2$\,m$^2$, $A_2=3$\,m$^2$, $C'_{v1}=0.1$ y $C'_{v2}=0.05$\,m$^{5/2}$/s, y el tanque 2 operando en $\eq{h_2}=4$\,m: halle el equilibrio, la función de transferencia y sus polos.
+\solucion Equilibrio: $\eq{f}=C'_{v2}\sqrt{4}=0.1$\,m$^3$/s y $\eq{h_1}-\eq{h_2}=(0.1/0.1)^2=1$, luego $\eq{h_1}=5$\,m. Coeficientes: $C_1=0.1/(2\cdot1)=0.05$, $C_2=-0.05$, $C_3=0.05/(2\cdot2)=0.0125$\,m$^2$/s. Entonces $K_1=20$, $\tau_1=40$\,s, $K_2=0.8$, $\tau_2=48$\,s y
+\[
+  \frac{\Dev{H}_2(s)}{\Dev{F}_i(s)}=\frac{16}{1920s^2+88s+0.2}=\frac{80}{9600s^2+440s+1}.
+\]
+La ganancia es $80$\,s/m$^2$ ($=1/C_3$: en estado estacionario todo lo que entra sale por la segunda válvula). Los polos son $-0.0024$ y $-0.0434$\,s$^{-1}$: \emph{reales}. La \cref{fig:so-tanques-nl} compara el modelo lineal con el no lineal: con un escalón de $0.01$\,m$^3$/s ($10\%$ del caudal) el error final es de $4$\,cm; con $0.05$\,m$^3$/s, de casi un metro.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_tanques}
+\caption{Ejemplo~\ref{ej:so-tanques}: nivel del tanque 2 con el modelo no lineal \eqref{eq:so-tanques-nl} y con el linealizado. Cuanto más grande el escalón, más nos alejamos del punto de operación y peor la aproximación.}
+\label{fig:so-tanques-nl}
+\end{figure}
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej2_Tanques.m}{tanques}{ejemplo \ref{ej:so-tanques}}
+
+\begin{cuidado}[Esta planta nunca oscila]
+Como $C_2=-C_1$ \emph{siempre} (lo que sube $f_1$ al subir $h_1$ es lo que baja al subir $h_2$), la ecuación característica se puede escribir $s^2+\bigl(\tfrac{C_1+C_3}{A_2}+\tfrac{C_1}{A_1}\bigr)s+\tfrac{C_1C_3}{A_1A_2}$, y la desigualdad entre las medias aritmética y geométrica muestra que $\zeta\geq1$ para cualesquiera parámetros físicos (problema~\ref{prob:so-zeta-tanques}): \alerta{dos tanques que interactúan por gravedad nunca dan una respuesta subamortiguada}. La versión anterior de estas notas usaba $\tau_1=1$, $\tau_2=4$, $C_2=2$, $K_1=K_2=1$ para mostrar un sobrepico de $3.78\%$; esos valores no corresponden a ningún par de tanques reales ($C_2>0$ exigiría que el caudal entre tanques \emph{aumentara} al llenarse el segundo). Para ver oscilaciones usaremos un sistema mecánico (\cref{sec:so-segundoorden}).
+\end{cuidado}
+
+\begin{modelo}[Tanques.slx]
+El script \cmd{crearModelo\_Tanques.m} calcula el equilibrio y la función de transferencia, y construye por código el modelo no lineal (integradores y bloques \emph{Fcn} con las raíces cuadradas) al lado del linealizado, con el mismo escalón en $f_i$. Pruebe \cmd{df = 0.01} y \cmd{df = 0.05} y cuantifique el error final.
+\end{modelo}

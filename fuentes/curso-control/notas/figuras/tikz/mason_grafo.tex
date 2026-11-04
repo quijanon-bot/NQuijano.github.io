@@ -1,0 +1,26 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[x=17mm,y=14mm,
+  nodo/.style={circle,draw=ctrlnoche,thick,fill=white,minimum size=4.5mm,inner sep=0pt,font=\scriptsize},
+  rama/.style={-{Stealth[length=2mm]},thick,draw=ctrlnoche},
+  ret/.style={-{Stealth[length=2mm]},thick,draw=ctrlcoral},
+  et/.style={font=\footnotesize}]
+  \foreach \i/\x/\y in {1/0/0,2/1/0,3/2/0,4/3/0,5/4/0,6/5/0,7/6/0,8/3/-1.4,9/4/-1.4}
+     \node[nodo] (n\i) at (\x,\y) {\i};
+  \node[left=1mm of n1] {$R$}; \node[right=1mm of n7] {$Y$};
+  \draw[rama] (n1)--node[above,et]{$G_1$}(n2);
+  \draw[rama] (n2)--node[above,et]{$G_2$}(n3);
+  \draw[rama] (n3)--node[above,et]{$G_3$}(n4);
+  \draw[rama] (n4)--node[above,et]{$G_4$}(n5);
+  \draw[rama] (n5)--node[above,et]{$G_5$}(n6);
+  \draw[rama] (n6)--node[above,et]{$G_6$}(n7);
+  \draw[rama] (n3)--node[left,et]{$G_7$}(n8);
+  \draw[rama] (n8)--node[above,et]{$G_8$}(n9);
+  \draw[rama] (n9) to[out=0,in=-110] node[right,et]{$G_9$}(n7);
+  \draw[ret] (n3) to[out=-110,in=-70,looseness=1.4] node[below,et]{$-H_1$}(n2);
+  \draw[ret] (n5) to[out=-110,in=-70,looseness=1.4] node[below,et]{$-H_2$}(n4);
+  \draw[ret] (n9) to[out=-110,in=-70,looseness=1.4] node[below,et]{$-H_3$}(n8);
+  \draw[ret] (n5) to[out=120,in=60,looseness=0.9] node[above,et]{$-H_4$}(n2);
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,104 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:po-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item Un sistema transforma una señal de entrada en una de salida. Es dinámico si la relación es una ODE: la salida ``recuerda''.
+  \item Un modelo orientado al control parte de un balance con suposiciones explícitas. En el equilibrio se definen las variables desviación $\dev{x}=x-\eq{x}$: arrancan en cero.
+  \item Laplace convierte derivadas en productos por $s$ \emph{e incluye las condiciones iniciales}. Para regresar al tiempo: fracciones parciales (polos simples, múltiples o complejos) y la tabla.
+  \item Cada polo aporta un modo $e^{pt}$: parte real, crecimiento o decaimiento; parte imaginaria, oscilación. Los residuos dicen cuánto pesa cada modo.
+  \item Función de transferencia: $Y(s)/U(s)$ con condiciones iniciales nulas. Propia, grado relativo, ecuación característica.
+  \item Teorema del valor final: \emph{primero} verificar que los polos de $sY(s)$ estén en el semiplano izquierdo.
+  \item Primer orden $K_1/(\tau s+1)$: $63.2\%$ en $\tau$, $\ts\approx4\tau$, pendiente inicial $K_1/\tau$, error ante rampa $K_1\tau$.
+\end{enumerate}
+\end{parallevar}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
+(i) El punto de equilibrio se escribe $\eq{T}$ (antes $\bar T$) y el escalón $\escalon(t)$ (antes $u(t)$, que chocaba con la entrada). (ii) Polos complejos del ejemplo~\ref{ej:po-complejos}: $-\tfrac13\pm j\tfrac{\sqrt2}{3}$ (faltaba la $j$). (iii) La fase de un número complejo es $\angle p$ (el texto decía ``magnitud''). (iv) Se eliminó la ``inversión del tiempo'', que no vale para la transformada unilateral. (v) El ejemplo de \cmd{dsolve} usa $\dot y(0)=0$ en el texto y en el código. (vi) El error ante la rampa es $K_1\tau(1-e^{-t/\tau})$. (vii) Se quitó una mención a ``la posición final de la masa'' que no correspondía a ningún ejemplo. Todos los números del capítulo se verificaron con \texttt{herramientas/cap02\_numeros.py} y \cmd{verificarCap02.m}.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:po-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización.
+
+\subsection*{Transformadas y fracciones parciales}
+
+\begin{problema}[transformadas]\label{prob:po-1}
+Determine $X(s)$ para: (a) $x(t)=3-2e^{-4t}+5te^{-4t}$; (b) $x(t)=e^{-2t}\cos3t+4t^2$; (c) $x(t)=t\,e^{-t}\sin2t$; (d) $x(t)=\int_0^t e^{-3\lambda}\,\dif\lambda$; (e) el pulso $x(t)=2$ para $0\leq t<3$ y $0$ en otro caso. En (a)--(d) use la tabla y las propiedades; en (e), la definición \eqref{eq:po-laplace}, y diga qué propiedad le habría permitido evitar la integral. \etiquetaM{} Verifique con \cmd{laplace}.
+\end{problema}
+
+\begin{problema}[fracciones parciales]\label{prob:po-2}
+Para $F_1(s)=\dfrac{s+3}{(s+1)(s+4)}$, $F_2(s)=\dfrac{10}{s(s+2)^2}$ y $F_3(s)=\dfrac{2s+5}{s^2+4s+13}$: (a) ubique polos y ceros en el plano-$s$; (b) expanda en fracciones parciales y obtenga $f_i(t)$; (c) \etiquetaM{} verifique con \cmd{residue} y \cmd{pzplot}; (d) diga qué términos desaparecen cuando $t\to\infty$ y relaciónelo con la ubicación de los polos.
+\end{problema}
+
+\begin{problema}[ODE con condiciones iniciales]\label{prob:po-3}
+Considere $2\ddot y+10\dot y+12y=24u$ con $u(t)=\escalon(t)$, $y(0)=1$, $\dot y(0)=0$. (a) Obtenga $Y(s)$ sin despreciar las condiciones iniciales. (b) Halle $y(t)$ y verifique las dos condiciones iniciales. (c) Calcule $\lim_{t\to\infty}y(t)$ de dos maneras. (d) Repita (c) para $\ddot y-\dot y-2y=3u$ con condiciones iniciales nulas; obtenga $y(t)$ y explique por qué el teorema del valor final falla. (e) \etiquetaM{} Resuelva ambos con \cmd{ode45} y grafique.
+\end{problema}
+
+\subsection*{Función de transferencia}
+
+\begin{problema}[función de transferencia]\label{prob:po-4}
+Para (i) $\dddot y+2\ddot y+3\dot y+4y=\dddot u+5\dot u+6u$; (ii) $\ddot y+7\dot y+10y=4\dot u+8u$; (iii) $5\dot y+2y=3u$: (a) escriba $T(s)$; (b) diga si es propia o estrictamente propia y su grado relativo; (c) halle polos y ceros; (d) ¿cuál es de primer orden de la forma \eqref{eq:po-primerorden}? Identifique $K_1$ y $\tau$. (e) Mire con cuidado el sistema (ii): ¿qué le pasa a $T(s)$?
+\end{problema}
+
+\begin{problema}[del bloque a la ODE]\label{prob:po-5}
+Escriba la ecuación diferencial que representa el bloque de la \cref{fig:po-repaso}.
+\end{problema}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.6\linewidth]{cap02/bloque_repaso}
+\caption{Problema~\ref{prob:po-5}.}
+\label{fig:po-repaso}
+\end{figure}
+
+\subsection*{Primer orden}
+
+\begin{problema}[exploración]\label{prob:po-6}
+\etiquetaM{} Con \cmd{C2\_Ej8\_PrimerOrden.m} y \cmd{crearModelo\_Termico.m}, varíe $K_1$ y $\tau$ y compruebe las afirmaciones de la \cref{sec:po-primerorden} para el escalón y la rampa. ¿Qué parámetro cambia el valor final y cuál la velocidad?
+\end{problema}
+
+\begin{problema}[identificación de un proceso térmico]\label{prob:po-7}
+Un proceso opera en estado estacionario con temperatura de salida $\eq{T}=40$\,°C y entrada $\eq{u}=10$ unidades. En $t=0$ la entrada pasa a $15$ unidades; la salida se estabiliza en $52$\,°C y a los $30$\,s marca $47.6$\,°C.
+(a) Halle $K_1$ y $\tau$ y escriba la función de transferencia en variables desviación.
+(b) Calcule la pendiente inicial y el $\ts$ (2\%).
+(c) ¿Qué entrada lleva la salida a $55$\,°C?
+(d) Si desde el equilibrio la entrada sube como una rampa de $0.01$ unidades/s, halle $y(t)$ y el error final $\lim e(t)$ con $e=K_1\dev{u}-\dev{y}$.
+(e) Si ese error no puede superar $0.5$\,°C, ¿cuál es el máximo $\tau$ admisible? ¿Qué implicaría para el diseño del equipo?
+(f) \etiquetaM{} Verifique (a)--(d) en \simulink.
+\end{problema}
+
+\begin{problema}[teorema del valor inicial]\label{prob:po-8}
+\etiquetaEstrella{} Use el teorema del valor inicial para hallar $y(0^+)$ y $\dot y(0^+)$ ante un escalón unitario en (a) $\dfrac{K_1}{\tau s+1}$ y (b) $\dfrac{s+3}{s+1}$. Relacione el resultado con el grado relativo y explique por qué en (b) la salida ``salta''.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:po-1}}
+(a) $\dfrac3s-\dfrac2{s+4}+\dfrac5{(s+4)^2}$. (b) $\dfrac{s+2}{(s+2)^2+9}+\dfrac8{s^3}$. (c) $\Lap{e^{-t}\sin2t}=\dfrac{2}{(s+1)^2+4}$ y, por diferenciación en $s$, $\dfrac{4(s+1)}{\bigl[(s+1)^2+4\bigr]^2}$. (d) Por integración, $\dfrac{1}{s(s+3)}$. (e) $\int_0^3 2e^{-st}\dif t=\dfrac{2(1-e^{-3s})}{s}$; es $2\escalon(t)-2\escalon(t-3)$ y basta el corrimiento en el tiempo.
+
+\paragraph{Problema~\ref{prob:po-2}}
+$f_1=\tfrac23e^{-t}+\tfrac13e^{-4t}$ (polos $-1,-4$; cero $-3$). $f_2=2.5-2.5e^{-2t}-5t\,e^{-2t}$ (polos $0$ y $-2$ doble): el término constante no desaparece porque hay un polo en el origen. $f_3=e^{-2t}\bigl(2\cos3t+\tfrac13\sin3t\bigr)$ (polos $-2\pm3j$, cero $-2.5$).
+
+\paragraph{Problema~\ref{prob:po-3}}
+(a) $Y(s)=\dfrac{s^2+5s+12}{s(s+2)(s+3)}$. (b) $y(t)=2-3e^{-2t}+2e^{-3t}$; $y(0)=1$, $\dot y(0)=6-6=0$. (c) $2$ por los dos caminos. (d) $Y=\dfrac{3}{s(s-2)(s+1)}$, el teorema daría $-1.5$; pero $y(t)=-1.5+0.5e^{2t}+e^{-t}$ diverge por el polo en $+2$.
+
+\paragraph{Problema~\ref{prob:po-4}}
+(i) $\dfrac{s^3+5s+6}{s^3+2s^2+3s+4}$, propia, grado relativo $0$. (ii) $\dfrac{4(s+2)}{(s+2)(s+5)}$: el cero cancela el polo en $-2$ y queda $\dfrac{4}{s+5}=\dfrac{0.8}{0.2s+1}$; el modo $e^{-2t}$ no se ve desde la entrada (volveremos sobre esto en espacio de estado). (iii) $\dfrac{3}{5s+2}=\dfrac{1.5}{2.5s+1}$: primer orden con $K_1=1.5$ y $\tau=2.5$.
+
+\paragraph{Problema~\ref{prob:po-5}}
+$y^{(4)}+5\dddot y+6\ddot y+7\dot y+8y=\dddot u+2\ddot u+3\dot u+4u$.
+
+\paragraph{Problema~\ref{prob:po-7}}
+(a) $K_1=12/5=2.4$\,°C/unidad; $1-e^{-30/\tau}=7.6/12$ da $\tau=29.9\approx30$\,s; $\Dev{T}/\Dev{U}=2.4/(29.9s+1)$. (b) $0.40$\,°C/s y $\ts\approx4\tau\approx120$\,s. (c) $\dev{u}=15/2.4=6.25$, es decir $u=16.25$. (d) $\dev{y}=0.024\bigl(t-\tau+\tau e^{-t/\tau}\bigr)$ y $e_\infty=K_1a\tau=0.72$\,°C. (e) $\tau\leq0.5/(2.4\cdot0.01)=20.8$\,s: habría que hacer el proceso un $30\%$ más rápido (menos volumen o más caudal), o, mejor, cerrar un lazo de control.
+
+\script[verificación automática de los números del capítulo]{cap02_modelado_primer_orden/verificarCap02.m}
+
+\respuestaspausas

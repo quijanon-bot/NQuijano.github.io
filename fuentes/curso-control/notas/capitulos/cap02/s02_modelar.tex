@@ -1,0 +1,92 @@
+%% ---------------------------------------------------------------------
+\section{¿Para qué y cómo se modela?}
+\label{sec:po-modelar}
+%% ---------------------------------------------------------------------
+
+\subsection{El modelo dentro del proceso de diseño}
+
+Un sistema de control se diseña en cuatro grandes pasos: (i) establecer los objetivos, las variables a controlar y las especificaciones con las que se medirá el desempeño; (ii) definir el sistema y \emph{modelarlo} (la configuración, los modelos del proceso, de los actuadores y de los sensores, y su simulación); (iii) escoger el controlador y los parámetros que se van a ajustar; y (iv) optimizar esos parámetros y analizar el desempeño. Este capítulo y el siguiente son el paso (ii). La \cref{fig:po-intercambiador} muestra un caso típico~\citep{SmCo06}: un intercambiador de calor cuya temperatura de salida se controla manipulando el vapor.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\linewidth]{cap02/intercambiador_pid}\\[-1mm]{\footnotesize (a)}\\[2mm]
+\includegraphics[width=\linewidth]{cap02/lazo_proceso}\\[1mm]{\footnotesize (b)}
+\caption{(a) Diagrama de instrumentación de un intercambiador de calor (adaptado de~\citep{SmCo06}). (b) El mismo lazo como diagrama de bloques: cada equipo es un bloque y cada flecha, una señal con sus unidades.}
+\label{fig:po-intercambiador}
+\end{figure}
+
+Antes de escribir una sola ecuación conviene hacerse tres preguntas~\citep{Mar00}:
+\begin{itemize}
+  \item \textbf{¿Qué variables influyen y cuáles son influenciadas?} Las \clave{variables manipuladas} son las que podemos ajustar (el vapor); las \clave{variables controladas} son las que se ven afectadas (la temperatura de salida). Las demás entradas son perturbaciones.
+  \item \textbf{¿En qué rango se pueden mover?} Una válvula no abre más del $100\%$; un calentador no enfría.
+  \item \textbf{¿Qué tan efectivamente puede la retroalimentación mantener el proceso donde queremos?} Depende de tres rasgos de la respuesta del proceso: el \emph{signo y la magnitud} (que no cambien con el punto de operación), la \emph{velocidad} (si manipulamos muy agresivamente, el lazo puede oscilar o inestabilizarse) y la \emph{forma} (dos procesos con la misma velocidad pueden ser muy distintos de controlar).
+\end{itemize}
+Un proceso ``fácil'' tiene ganancia de signo y magnitud estables, responde rápido y su comportamiento no cambia mucho con el tiempo.
+
+\subsection{Modelos orientados al control}
+
+\begin{receta}[Cómo se construye un modelo~\citep{Mar00}]
+\begin{enumerate}
+  \item \textbf{Definir objetivos:} qué decisiones se van a tomar con el modelo, qué valores numéricos y con qué precisión.
+  \item \textbf{Preparar la información:} bosquejo del proceso, variables de interés, \emph{suposiciones} y datos.
+  \item \textbf{Formular el modelo:} balances de conservación (masa, energía, momento), ecuaciones constitutivas, y verificar los grados de libertad (tantas ecuaciones como incógnitas).
+  \item \textbf{Resolver:} analítica o numéricamente.
+  \item \textbf{Analizar los resultados:} ¿tienen sentido? ¿qué tan sensibles son a los parámetros? ¿qué pasa ``si\ldots''?
+  \item \textbf{Validar:} comparar con experimentos o con modelos más completos.
+\end{enumerate}
+\end{receta}
+
+Buscamos \clave{modelos orientados al control} (\emph{control-oriented models}): los más simples que capturen lo esencial de la estática y la dinámica, porque se usan dentro de optimizaciones, en lazos de tiempo real y para diseñar controladores.\nota{``Essentially, all models are wrong, but some are useful'', escribió el estadístico George E.\,P.\ Box~\citep[p.~424]{BoDr87}.} Los modelos de \emph{principios físicos} tienen ventajas sobre los basados solo en datos: explican la dinámica interna, se pueden extrapolar a otras condiciones y se pueden escribir antes de que el equipo exista. Los modelos basados en datos brillan cuando no entendemos bien el proceso, pero su gran debilidad es la extrapolación: nada garantiza que valgan fuera de los datos con que se entrenaron.
+
+\subsection{Sistemas lineales e invariantes en el tiempo}
+
+En casi todo el curso trabajaremos con sistemas \clave{lineales e invariantes en el tiempo} (LTI). Si $y=h(u)$ es la salida para la entrada $u$:
+\begin{itemize}
+  \item \textbf{Linealidad} (homogeneidad y superposición): $h(a\,u_1+b\,u_2)=a\,h(u_1)+b\,h(u_2)$. Doble entrada, doble salida; la respuesta a una suma es la suma de las respuestas.
+  \item \textbf{Invarianza en el tiempo:} si la entrada se retrasa $T$ segundos, la salida se retrasa lo mismo: $u(t-T)\mapsto y(t-T)$. El sistema responde igual hoy que mañana.
+\end{itemize}
+Ningún sistema real es exactamente LTI.\nota{Richard Feynman lo resumía así: ``Linear systems are important because we can solve them''.} Pero muchos se comportan como tales \emph{alrededor de un punto de operación}, y en esa región podemos usar todo el arsenal de herramientas lineales. En el \cref{cap:so} veremos cómo construir esa aproximación (linealización).
+
+%% ---------------------------------------------------------------------
+\subsection{Ejemplo motivador: un tanque agitado}
+\label{sec:po-termico-modelo}
+
+Tomemos el tanque de la \cref{fig:po-tanque}~\citep{SmCo06}. Un líquido entra con caudal $f$ y temperatura $T_i(t)$, se mezcla y sale con el mismo caudal y temperatura $T(t)$. Suposiciones: (1) caudales de entrada y salida constantes; (2) densidades constantes; (3) capacidades caloríficas constantes; (4) líquido bien mezclado (la temperatura de salida es la del tanque); (5) tanque bien aislado (sin pérdidas al ambiente); (6) se desprecia la energía que aporta el agitador.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.55\linewidth]{cap02/tanque_termico}
+\caption{Tanque agitado: ¿cómo responde la temperatura de salida $T(t)$ a un cambio en la de entrada $T_i(t)$? Adaptado de~\citep{SmCo06}.}
+\label{fig:po-tanque}
+\end{figure}
+
+\textbf{Objetivo:} obtener un modelo matemático y una función de transferencia que describan cómo responde $T(t)$ a un cambio en $T_i(t)$.
+
+El balance de energía (lo que entra menos lo que sale es lo que se acumula) es
+\[
+  f\rho_i h_i(t)-f\rho\,h(t)=\deriv{}{t}\bigl[V\rho\,u(t)\bigr],
+\]
+con $f$ el caudal (m$^3$/s), $\rho_i,\rho$ las densidades (kg/m$^3$), $V$ el volumen (m$^3$), $h_i,h$ las entalpías (J/kg) y $u$ la energía interna del líquido (J/kg).\nota{Aquí $u$ es energía interna, no la entrada del sistema. Es la única vez que la usamos así.} Con una temperatura de referencia, $h=C_pT$ y $u=C_vT$; con las suposiciones (2) y (3) queda
+\begin{equation}
+  f\rho C_p\,T_i(t)-f\rho C_p\,T(t)=V\rho C_v\,\deriv{T(t)}{t}.
+  \label{eq:po-balance}
+\end{equation}
+$T_i(t)$ la imponemos nosotros, así que hay una ecuación y una incógnita: el modelo está completo.
+
+\paragraph{Equilibrio y variables desviación} En estado estacionario la derivada es cero y $f\rho C_p\,\eq{T_i}-f\rho C_p\,\eq{T}=0$: el punto de equilibrio es $\eq{T}=\eq{T_i}$. Definimos las \clave{variables desviación}
+\begin{equation}
+  \dev{T}(t)=T(t)-\eq{T},\qquad \dev{T}_i(t)=T_i(t)-\eq{T_i}.
+  \label{eq:po-desviacion}
+\end{equation}
+Restando la ecuación de equilibrio de \eqref{eq:po-balance}, y como $\dif\dev{T}/\dif t=\dif T/\dif t$,
+\begin{equation}
+  \tau\,\deriv{\dev{T}(t)}{t}+\dev{T}(t)=\dev{T}_i(t),\qquad
+  \tau=\frac{V C_v}{f C_p}\quad\left[\frac{\text{m}^3\cdot\text{J/(kg\,°C)}}{(\text{m}^3/\text{s})\cdot\text{J/(kg\,°C)}}=\text{s}\right].
+  \label{eq:po-termico-ode}
+\end{equation}
+
+\begin{ideaclave}
+Las variables desviación son un \emph{cambio de coordenadas}: ponen el origen en el punto de equilibrio. Así el sistema ``arranca en cero'', con condiciones iniciales nulas, que es justamente lo que exige la función de transferencia (\cref{sec:po-ft}). Para volver a la variable física basta sumar el equilibrio: $T(t)=\eq{T}+\dev{T}(t)$.
+\end{ideaclave}
+
+Podríamos resolver \eqref{eq:po-termico-ode} con cualquier herramienta numérica si conociéramos la entrada. Pero hay una herramienta que además nos da una \emph{representación} del sistema que no depende de la entrada: la transformada de Laplace. La introducimos ahora y volvemos al tanque en la \cref{sec:po-termico}.

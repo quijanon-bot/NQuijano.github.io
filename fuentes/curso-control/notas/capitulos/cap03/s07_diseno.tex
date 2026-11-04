@@ -1,0 +1,48 @@
+%% ---------------------------------------------------------------------
+\section{Diseñar con especificaciones de tiempo}
+\label{sec:so-diseno}
+%% ---------------------------------------------------------------------
+
+Las fórmulas de la \cref{sec:so-caracteristicas} sirven al revés: dadas unas especificaciones, encontrar los parámetros que las cumplen. Es nuestro primer diseño.
+
+\begin{ejemplo}[label=ej:so-diseno]{Servo de posición con tacómetro}
+En el servo de la \cref{fig:so-kkh}, la posición se mide con un sensor y la velocidad con un tacómetro de ganancia $K_h$. Halle $K$ y $K_h$ para que la respuesta al escalón tenga $\OS=20\%$ y $\tp=1$\,s.
+\solucion \textbf{1. Lazo cerrado.} El camino directo es $G=\frac{K}{s}\cdot\frac{1}{s+1}=\frac{K}{s(s+1)}$ y la retroalimentación $\Hs=1+K_hs$. Por \eqref{eq:so-retro},
+\[
+  \frac{Y(s)}{R(s)}=\frac{K}{s^2+(1+KK_h)\,s+K}.
+\]
+Es la forma estándar \eqref{eq:so-estandar} con ganancia $1$, $\wn^2=K$ y $2\zeta\wn=1+KK_h$.
+
+\textbf{2. De las especificaciones a $\zeta$ y $\wn$.} Con \eqref{eq:so-os}, $\OS=20\%$ da $\zeta=0.4559$; con \eqref{eq:so-tp}, $\wn=\dfrac{\pi}{\tp\sqrt{1-\zeta^2}}=3.5299$\,rad/s.
+
+\textbf{3. Igualar coeficientes.} $K=\wn^2=12.46$ y $K_h=\dfrac{2\zeta\wn-1}{K}=0.178$\,s. El lazo cerrado queda
+\[
+  T(s)=\frac{12.46}{s^2+3.219\,s+12.46}.
+\]
+\textbf{4. Verificar} (\cref{fig:so-diseno}): \cmd{stepinfo} reporta $20.0\%$ y $1.00$\,s.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap03/lazo_kkh}
+\caption{Servo de posición con retroalimentación de posición y de velocidad (tacómetro).}
+\label{fig:so-kkh}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap03/f_diseno_kkh}
+\caption{Ejemplo~\ref{ej:so-diseno}. Con $K=12.46$ y sin tacómetro el sobrepico sería del $64\%$: la retroalimentación de velocidad agrega amortiguamiento sin cambiar $\wn$.}
+\label{fig:so-diseno}
+\end{figure}
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej4_DisenoKKh.m}{diseno}{ejemplo \ref{ej:so-diseno}}
+
+\begin{modelo}[Servo.slx]
+El script \cmd{crearModelo\_Servo.m} arma el servo como $K\to\frac{1}{s+1}\to\frac1s$: la salida del motor es la velocidad, que el tacómetro realimenta sin necesidad de un bloque derivador. Cambie $K$ y $K_h$ por separado y observe qué hace cada uno con el sobrepico y el tiempo de pico.
+\end{modelo}
+
+\begin{pausa}
+En el ejemplo~\ref{ej:so-diseno}, ¿qué pasa con el $\OS$ y el $\tp$ si se duplica $K$ dejando $K_h=0.178$?
+\respuesta{$\wn=\sqrt{24.92}=4.99$ y $2\zeta\wn=1+24.92\cdot0.178=5.44$, luego $\zeta=0.545$. El sobrepico baja (a $13\%$) y el $\tp$ también ($\pi/(4.99\sqrt{1-0.297})=0.75$\,s): con tacómetro, subir $K$ no necesariamente empeora el sobrepico.}
+\end{pausa}

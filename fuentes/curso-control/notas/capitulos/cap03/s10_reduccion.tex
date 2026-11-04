@@ -1,0 +1,53 @@
+%% ---------------------------------------------------------------------
+\section{Simplificación de sistemas lineales}
+\label{sec:so-reduccion}
+%% ---------------------------------------------------------------------
+
+A veces conviene \emph{reemplazar} un modelo de orden alto por uno más simple, por ejemplo para diseñar un controlador con las fórmulas del segundo orden. Veremos dos maneras.
+
+\paragraph{1. Despreciar un polo rápido, conservando la ganancia} Si un polo real negativo tiene magnitud mucho mayor que los demás, se elimina, pero dividiendo por su valor para no cambiar la ganancia en baja frecuencia. Por ejemplo,
+\[
+  G(s)=\frac{K}{s(s+2)(s+30)}\approx\frac{K/30}{s(s+2)},
+\]
+porque para $|s|\ll30$, $s+30\approx30$. Con $K=60$ y retroalimentación unitaria los sobrepicos son $5.3\%$ y $4.3\%$ y las respuestas casi se superponen (\cref{fig:so-reduccion}, izquierda). La aproximación empeora cuando el lazo es más agresivo: con $K=300$ los polos dominantes del lazo cerrado se alejan del origen, se acercan en magnitud al de $-30$, y los sobrepicos pasan a $42.3\%$ y $35.1\%$.
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej8_Reduccion.m}{despreciar}{despreciar el polo en $-30$}
+
+\paragraph{2. Igualación de momentos} Cuando ningún polo es despreciable hay que buscar un modelo de orden menor que se \emph{parezca} en frecuencia al original~\citep{DoBi08}. Escribimos el modelo de orden alto y el de orden bajo con la misma ganancia $K$ (para conservar el estado estacionario) y con término independiente $1$:
+\[
+  G_H(s)=K\,\frac{a_ms^m+\cdots+a_1s+1}{b_ns^n+\cdots+b_1s+1},\qquad
+  G_L(s)=K\,\frac{c_ps^p+\cdots+c_1s+1}{d_gs^g+\cdots+d_1s+1},\quad p\leq g<n.
+\]
+Sea $\dfrac{G_H(s)}{G_L(s)}=\dfrac{M(s)}{\Delta(s)}$ (aquí $\Delta$ no es el discriminante de Mason, solo un denominador). Se definen
+\begin{equation}
+  M_{2q}=\sum_{k=0}^{2q}\frac{(-1)^{k+q}\,M^{(k)}(0)\,M^{(2q-k)}(0)}{k!\,(2q-k)!},\qquad q=0,1,2,\dots
+  \label{eq:so-momentos}
+\end{equation}
+($M^{(k)}$ es la $k$-ésima derivada) y lo mismo para $\Delta_{2q}$. Los coeficientes desconocidos $c_i,d_i$ se obtienen igualando
+\[
+  M_{2q}=\Delta_{2q},\qquad q=1,2,\dots
+\]
+hasta tener tantas ecuaciones como incógnitas. (Como $M^{(k)}(0)/k!$ es el coeficiente de $s^k$, la fórmula solo usa coeficientes.) La idea: $|G_H(\jw)/G_L(\jw)|^2=\dfrac{\sum_q M_{2q}\omega^{2q}}{\sum_q\Delta_{2q}\omega^{2q}}$, así que igualar los primeros momentos hace que ese cociente se parezca a $1$ en baja frecuencia.
+
+\begin{ejemplo}[label=ej:so-momentos]{De tercer a segundo orden}
+Reduzca $G_H(s)=\dfrac{6}{s^3+6s^2+11s+6}=\dfrac{1}{\frac16s^3+s^2+\frac{11}6s+1}$ a $G_L(s)=\dfrac{1}{d_2s^2+d_1s+1}$.
+\solucion $\dfrac{G_H}{G_L}=\dfrac{1+d_1s+d_2s^2}{\frac16s^3+s^2+\frac{11}6s+1}$, así que $M(s)=1+d_1s+d_2s^2$ y $\Delta(s)=\frac16s^3+s^2+\frac{11}6s+1$. Las derivadas en cero son $M^{(0)}=1$, $M^{(1)}=d_1$, $M^{(2)}=2d_2$; $\Delta^{(0)}=1$, $\Delta^{(1)}=\frac{11}6$, $\Delta^{(2)}=2$, $\Delta^{(3)}=1$. Con dos incógnitas usamos $q=1,2$:
+\[
+  M_2=d_1^2-2d_2,\quad \Delta_2=\tfrac{121}{36}-2=\tfrac{49}{36};\qquad
+  M_4=d_2^2,\quad \Delta_4=1-2\cdot\tfrac{11}{6}\cdot\tfrac16=\tfrac{7}{18}.
+\]
+Entonces $d_2=\sqrt{7/18}=0.6236$ y $d_1=\sqrt{49/36+2d_2}=1.615$ (se toman las raíces positivas: con las negativas $G_L$ tendría polos inestables). Así
+\[
+  G_L(s)=\frac{1}{0.6236s^2+1.615s+1}=\frac{1.604}{s^2+2.590s+1.604},
+\]
+con polos en $-1.024$ y $-1.565$ (los de $G_H$ estaban en $-1$, $-2$ y $-3$). La \cref{fig:so-reduccion} (derecha) compara los escalones: la diferencia máxima es de $0.10$, al principio, porque $G_L$ tiene grado relativo $2$ y arranca más rápido.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_reduccion}
+\caption{Izquierda: despreciar el polo en $-30$ (lazo cerrado, $K=60$). Derecha: ejemplo~\ref{ej:so-momentos}, igualación de momentos.}
+\label{fig:so-reduccion}
+\end{figure}
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej8_Reduccion.m}{momentos}{ejemplo \ref{ej:so-momentos} con \cmd{reduccionMomentos}}

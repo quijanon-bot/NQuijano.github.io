@@ -1,0 +1,118 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:so-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item Linealizar es reemplazar cada no linealidad por su recta tangente en el punto de operación: $\dot{\dev{x}}=\sum\frac{\partial f}{\partial x_j}\big|_\ast\dev{x}_j+\sum\frac{\partial f}{\partial u_k}\big|_\ast\dev{u}_k$. Solo vale cerca del punto.
+  \item Segundo orden: $K\wn^2/(s^2+2\zeta\wn s+\wn^2)$. $\zeta$ decide si oscila; $\wn$, qué tan rápido.
+  \item Subamortiguado: $\tp=\pi/\wdamp$ (parte imaginaria), $\OS=100e^{-\zeta\pi/\sqrt{1-\zeta^2}}$ (ángulo), $\ts\approx4/(\zeta\wn)$ (parte real), $\tr=(\pi-\cos^{-1}\zeta)/\wdamp$ ($0$--$100\%$). Especificaciones de tiempo $\leftrightarrow$ región del plano-$s$.
+  \item Bloques: serie multiplica, paralelo suma, retroalimentación da $G/(1+G\Hs)$. $1+G\Hs=0$ es la ecuación característica; $G\Hs$ es la malla abierta.
+  \item Mason: $T=\frac1\Delta\sum P_k\Delta_k$. El discriminante $\Delta$ es el denominador: $\Delta=0$ es la ecuación característica.
+  \item Polos dominantes: un polo extra se desprecia si está unas diez veces más a la izquierda (Clement), \emph{conservando la ganancia DC}; un cero cerca de los dominantes cambia mucho el sobrepico.
+  \item Reducir orden: despreciar polos rápidos o igualar momentos. Siempre verificar con una simulación.
+\end{enumerate}
+\end{parallevar}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
+(i) El ejemplo numérico de los dos tanques ($\tau_1=1$, $\tau_2=4$, $C_2=2$) no era físico: en esa planta $C_2=-C_1$ y $\zeta\geq1$ siempre. Se reemplazó por datos físicos y el subamortiguado se ilustra con la masa-resorte. (ii) $\beta=\cos^{-1}\zeta$ (decía $\beta=\cos\zeta$). (iii) La condición para polos complejos de los tanques estaba mal escrita; con $C_2=-C_1$ nunca se cumple. (iv) El sobrepico se escribe $\OS$ (antes $MP$, que se confundía con el pico de resonancia), ``tiempo de establecimiento'' (no ``de asentamiento'') y $\Delta$ es el \emph{discriminante}. (v) Ejemplo con cero y polo adicionales: $54.5\%$ y $38.0\%$ (antes $55\%$ y $38\%$) y $\ts=1.47$ y $1.59$\,s (antes $1.33$, que era la fórmula $4/(\zeta\wn)$, y $1.6$). (vi) La aproximación de $\tr$ de $10$--$90\%$ se verificó: error menor que el $3.1\%$ para $0.1\leq\zeta\leq0.9$. (vii) El ejercicio de reducción de orden con un cero tenía una respuesta que no satisface las ecuaciones de momentos; se reformuló. Todo se verificó con \texttt{herramientas/cap03\_numeros.py} y \cmd{verificarCap03.m}.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:so-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización.
+
+\subsection*{Linealización}
+
+\begin{problema}[linealización]\label{prob:so-lin}
+Linealice alrededor del equilibrio y obtenga la función de transferencia, la ganancia y la constante de tiempo: (a) $\dot x=-x+2\sqrt x+u$ con $\eq{u}=0$ y $\eq{x}>0$; (b) $\dot x=-x^3+2xu$ con $\eq{u}=2$ (equilibrio no trivial). (c) \etiquetaM{} Para el tanque de la pausa de la \cref{sec:so-linealizacion}, grafique $c\sqrt h$ y su aproximación lineal y encuentre el rango de alturas en el que el error relativo es menor que el $5\%$. Compárelo con la \cref{fig:so-lin1}.
+\end{problema}
+
+\begin{problema}[estructura de los tanques]\label{prob:so-bloques-tanques}
+Dibuje el diagrama de bloques que corresponde a las dos ecuaciones de $\Dev{H}_1$ y $\Dev{H}_2$ de la \cref{sec:so-tanques} (un lazo de retroalimentación con ganancia $C_2$). Redúzcalo con \eqref{eq:so-retro} y con la ley de Mason y verifique \eqref{eq:so-tanques-ft}. ¿De qué signo es la retroalimentación cuando $C_2=-C_1$?
+\end{problema}
+
+\begin{problema}[tanques con otros datos]\label{prob:so-tanques}
+Con $A_1=1$\,m$^2$, $A_2=2$\,m$^2$, $C'_{v1}=0.2$, $C'_{v2}=0.1$\,m$^{5/2}$/s y $\eq{h_2}=1$\,m: (a) halle $\eq{f_i}$ y $\eq{h_1}$; (b) $C_1$, $C_2$, $C_3$, $K_1$, $\tau_1$, $K_2$, $\tau_2$; (c) la función de transferencia, su ganancia, $\wn$, $\zeta$ y sus polos; (d) la respuesta ante un escalón de $0.01$\,m$^3$/s y su $\ts$; (e) verifique que en el nuevo estado estacionario $h_1>h_2$ (si no, el modelo \eqref{eq:so-valvulas} pierde sentido); (f) \etiquetaM{} adapte \cmd{crearModelo\_Tanques.m} y compare los modelos lineal y no lineal con escalones de $0.01$ y $0.05$\,m$^3$/s.
+\end{problema}
+
+\begin{problema}[los tanques nunca oscilan]\label{prob:so-zeta-tanques}
+\etiquetaEstrella{} Con $A_1,A_2,C'_{v1},C'_{v2}>0$ arbitrarios: (a) muestre que $C_2=-C_1$ y $C_1,C_3>0$ en cualquier punto de operación admisible; (b) muestre que $\wn^2=\dfrac{C_1C_3}{A_1A_2}$ y $2\zeta\wn=\dfrac{C_1+C_3}{A_2}+\dfrac{C_1}{A_1}$; (c) con la desigualdad de las medias aritmética y geométrica, demuestre que $\zeta\geq1$. ¿Cuándo se alcanzaría $\zeta=1$? ¿Es realizable? (d) Explique por qué el ejemplo con $C_2=2$ de la versión anterior no corresponde a ningún par de tanques. (e) Proponga una modificación física (por ejemplo, una bomba en lugar de la válvula entre tanques) que permita $C_2>0$ y diga cuándo el sistema sería subamortiguado.
+\end{problema}
+
+\subsection*{Segundo orden y diseño}
+
+\begin{problema}[cuatro sistemas]\label{prob:so-cuatro}
+Para $T_1=\dfrac{50}{s^2+6s+25}$, $T_2=\dfrac{16}{s^2+16}$, $T_3=\dfrac{9}{s^2+6s+9}$ y $T_4=\dfrac{100}{s^2+30s+100}$: (a) identifique $K$, $\wn$, $\zeta$, clasifíquelos y ubique sus polos; (b) para el subamortiguado calcule $\tp$, $\OS$, $\ts$ al $2$ y al $5\%$, y $\tr$ con las dos definiciones; (c) para el crítico, con \eqref{eq:so-critico}, halle el instante en que llega al $95\%$; (d) para el sobreamortiguado, construya la aproximación $s_2/(s+s_2)$ y cuantifique el error máximo ante el escalón; (e) \etiquetaM{} verifique con \cmd{stepinfo} y explique las diferencias en $\tr$.
+\end{problema}
+
+\begin{problema}[diseño con tacómetro]\label{prob:so-diseno}
+En la estructura de la \cref{fig:so-kkh}, con camino directo $\dfrac{K}{s(s+4)}$: (a) muestre que $\dfrac YR=\dfrac{K}{s^2+(4+KK_h)s+K}$; (b) halle $K$ y $K_h$ para $\OS=10\%$ y $\ts=1.5$\,s; (c) calcule $\tp$, $\tr$ y los polos; (d) si además se pide $\tp\leq0.8$\,s, ¿es compatible? Si no, ¿qué $\ts$ lo permitiría con el mismo $\OS$? Explíquelo con la \cref{fig:so-lineas}; (e) \etiquetaM{} verifique con \cmd{series} y \cmd{feedback}.
+\end{problema}
+
+\begin{problema}[región de diseño]\label{prob:so-region}
+Dibuje en el plano-$s$ la región donde deben quedar los polos de un segundo orden para que $\OS\leq10\%$ y $\ts\leq2$\,s. ¿Cumplen los polos $-3\pm j3$? ¿Y $-1\pm j1$?
+\end{problema}
+
+\subsection*{Bloques y Mason}
+
+\begin{problema}[sistema multilazo]\label{prob:so-multilazo}
+Las señales cumplen $E=R-H_2Y$, $V=G_1E$, $W=G_2(V-H_1W)$, $Y=G_3W$, con $G_1=\frac1{s+1}$, $G_2=\frac2s$, $G_3=\frac5{s+3}$, $H_1=1$ y $H_2=0.5$. (a) Dibuje el diagrama de bloques. (b) Obtenga $T=Y/R$ reduciendo primero el lazo interno. (c) Obtenga $T$ con Mason (trayectos, lazos, disyuntos, $\Delta$ y $\Delta_k$). (d) Escriba la ecuación característica y sus raíces. (e) \etiquetaM{} Verifique con \cmd{feedback}.
+\end{problema}
+
+\subsection*{Orden superior y reducción}
+
+\begin{problema}[tres aproximaciones]\label{prob:so-tres}
+Para $T(s)=\dfrac{10}{s^3+6s^2+11s+11}$ (el del problema anterior): (a) halle los polos y verifique el criterio \eqref{eq:so-clement}; (b) construya la aproximación por polos dominantes (conservando la ganancia DC) y prediga $\OS$ y $\ts$; (c) obtenga otra por igualación de momentos; (d) \etiquetaM{} simule las tres, compare $\OS$ y $\ts$ y decida cuál es preferible; (e) explique por qué el criterio de (a), aunque no se cumpla, no impidió una aproximación aceptable.
+\end{problema}
+
+\begin{problema}[momentos con un cero]\label{prob:so-momentos}
+\etiquetaM{} Reduzca $G_H(s)=\dfrac{s^3+7s^2+24s+24}{(s+1)(s+2)(s+3)(s+4)}$ a $G_L(s)=\dfrac{1}{d_2s^2+d_1s+1}$ por igualación de momentos (note que ahora $M(s)$ incluye el numerador de $G_H$). Compare los escalones. \etiquetaEstrella{} Intente luego $G_L=\dfrac{1+c_1s}{d_2s^2+d_1s+1}$ con $q=1,2,3$: ¿tiene solución real?
+\end{problema}
+
+\begin{problema}[un resorte no lineal]\label{prob:so-resorte}
+\etiquetaEstrella{} Una masa con resorte endurecido y amortiguamiento cuadrático cumple $m\ddot x+b\,\dot x|\dot x|+k_1x+k_3x^3=F$, con $m=1$\,kg, $b=0.8$\,N\,s$^2$/m$^2$, $k_1=4$\,N/m y $k_3=1$\,N/m$^3$. (a) Halle el equilibrio para $\eq{F}=5$\,N. (b) Linealice y obtenga $\Dev{X}/\Dev{F}$, $\wn$ y $\zeta$. (c) El $\zeta$ debe llamarle la atención: explique por qué el amortiguamiento desaparece al linealizar y qué predice el modelo lineal. (d) \etiquetaM{} Simule el no lineal con un escalón adicional de $0.5$\,N y compárelo con el lineal; defina un criterio y diga durante cuántos ciclos es aceptable la predicción lineal. (e) Estime un $\zeta$ equivalente con el decremento logarítmico. (f) Repita (a)--(b) con $\eq{F}=16$\,N y explique por qué un solo modelo LTI no describe todo el rango.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:so-lin}}
+(a) $\eq{x}=4$; $\partial f/\partial x=-1+1/\sqrt{\eq{x}}=-0.5$, $\partial f/\partial u=1$: $\dfrac{\Dev{X}}{\Dev{U}}=\dfrac{1}{s+0.5}=\dfrac{2}{2s+1}$ ($K_1=2$, $\tau=2$). (b) $\eq{x}=2$; $-3(\eq{x})^2+2\eq{u}=-8$ y $2\eq{x}=4$: $\dfrac{4}{s+8}=\dfrac{0.5}{0.125s+1}$. (c) $2.13\leq h\leq7.51$\,m: un rango asimétrico alrededor de $\eq{h}=4$, porque la raíz cuadrada se curva más para alturas bajas.
+
+\paragraph{Problema~\ref{prob:so-bloques-tanques}}
+Es un lazo con camino directo $\frac{K_1}{\tau_1s+1}\frac{K_2}{\tau_2s+1}$ y retroalimentación $C_2$ (signo $-$ en el comparador): $T=\dfrac{K_1K_2}{(\tau_1s+1)(\tau_2s+1)+K_1K_2C_2}$. Con $C_2=-C_1<0$ la retroalimentación es \emph{positiva}: al subir $h_2$ disminuye $f_1$, el tanque 1 se llena más y empuja más agua hacia el 2. Pero su ganancia de malla, $K_1K_2C_1=C_1/(C_1+C_3)<1$, no alcanza a inestabilizar el sistema.
+
+\paragraph{Problema~\ref{prob:so-tanques}}
+(a) $\eq{f}=0.1$\,m$^3$/s, $\eq{h_1}=1.25$\,m. (b) $C_1=0.2$, $C_2=-0.2$, $C_3=0.05$\,m$^2$/s; $K_1=5$, $\tau_1=5$\,s, $K_2=0.8$, $\tau_2=8$\,s. (c) $\dfrac{20}{200s^2+65s+1}$: ganancia $20$\,s/m$^2$, $\wn=0.0707$\,rad/s, $\zeta=2.30$, polos $-0.0162$ y $-0.309$. (d) $\Delta h_2\to0.2$\,m con $\ts=245$\,s (la estimación con el polo lento, $4/0.0162=247$\,s). (e) $h_1=1.25+0.05+0.2=1.5>h_2=1.2$\,m.
+
+\paragraph{Problema~\ref{prob:so-zeta-tanques}}
+(c) $2\zeta\wn=\dfrac{C_1}{A_2}+\dfrac{C_3}{A_2}+\dfrac{C_1}{A_1}\geq\dfrac{C_3}{A_2}+\dfrac{C_1}{A_1}\geq2\sqrt{\dfrac{C_1C_3}{A_1A_2}}=2\wn$, luego $\zeta\geq1$. La primera desigualdad es estricta porque $C_1/A_2>0$: $\zeta=1$ exigiría $C_1\to0$ (válvula entre tanques cerrada), que desacopla los tanques.
+
+\paragraph{Problema~\ref{prob:so-cuatro}}
+(a) $T_1$: $K=2$, $\wn=5$, $\zeta=0.6$; $T_2$: $K=1$, $\wn=4$, $\zeta=0$; $T_3$: $K=1$, $\wn=3$, $\zeta=1$; $T_4$: $K=1$, $\wn=10$, $\zeta=1.5$ (polos $-3.82$ y $-26.2$). (b) $\tp=0.785$\,s, $\OS=9.48\%$, $\ts\approx1.33$\,s ($2\%$) y $1.0$\,s ($5\%$), $\tr=0.554$\,s ($0$--$100\%$) y $\approx0.38$\,s ($10$--$90\%$; exacto $0.371$). (c) $1.58$\,s. (d) $\dfrac{3.82}{s+3.82}$; error máximo $0.105$, al principio.
+
+\paragraph{Problema~\ref{prob:so-diseno}}
+(b) $\zeta=0.591$, $\zeta\wn=4/1.5=2.67$, $\wn=4.51$\,rad/s; $K=20.35$ y $K_h=(2\zeta\wn-4)/K=0.0655$. (c) $\tp=0.864$\,s. (d) No: $\tp\leq0.8$ con $\zeta=0.591$ exige $\wn\geq4.87$, y entonces $\ts\leq1.39$\,s: hay que mover los polos \emph{por la recta de $\zeta$ constante}, alejándolos del origen.
+
+\paragraph{Problema~\ref{prob:so-region}}
+$\zeta\geq0.591$ (un cono de semiángulo $\cos^{-1}0.591=53.8\grados$ alrededor del semieje real negativo) y $\zeta\wn\geq2$ (a la izquierda de $\Re s=-2$). $-3\pm j3$: $\zeta=0.707$ y parte real $-3$, cumple. $-1\pm j1$: $\zeta=0.707$ pero parte real $-1$, no cumple el $\ts$.
+
+\paragraph{Problema~\ref{prob:so-multilazo}}
+Lazo interno: $\frac{2/s}{1+2/s}=\frac{2}{s+2}$. $T=\dfrac{10}{(s+1)(s+2)(s+3)+5}=\dfrac{10}{s^3+6s^2+11s+11}$. Con Mason: un trayecto $P_1=G_1G_2G_3$; lazos $L_1=-G_2H_1$ y $L_2=-G_1G_2G_3H_2$, que se tocan; $\Delta=1-L_1-L_2$, $\Delta_1=1$. Polos: $-3.90$ y $-1.05\pm j1.31$.
+
+\paragraph{Problema~\ref{prob:so-tres}}
+(a) La relación entre partes reales es $3.90/1.05=3.7<10$. (b) $\dfrac{(10/11)\,2.817}{s^2+2.096s+2.817}$: $\zeta=0.624$, $\wn=1.68$; $\OS=8.1\%$ y $\ts\approx3.6$\,s. (c) $d_1=0.768$, $d_2=0.340$. (d) Original: $\OS=7.2\%$, $\ts=3.84$\,s; dominantes: $8.1\%$ y $3.56$\,s; momentos: $6.4\%$ y $3.51$\,s. (e) El residuo del polo real es pequeño.
+
+\paragraph{Problema~\ref{prob:so-momentos}}
+$d_1=1.211$ y $d_2=0.2295$ (polos $-1.03$ y $-4.25$); diferencia máxima entre escalones $\approx0.10$. Con un cero, las tres ecuaciones no tienen solución real exacta.
+
+\paragraph{Problema~\ref{prob:so-resorte}}
+(a) $4x+x^3=5\Rightarrow\eq{x}=1$\,m. (b) $k_{\text{ef}}=k_1+3k_3(\eq{x})^2=7$ y la derivada de $b\dot x|\dot x|$ en $\dot x=0$ es cero: $\dfrac{1}{s^2+7}$, $\wn=2.65$\,rad/s, $\zeta=0$. (c) El amortiguamiento cuadrático es de segundo orden en $\dot x$: la linealización lo borra y predice una oscilación eterna. (f) $\eq{x}=2$\,m, $k_{\text{ef}}=16$, $\wn=4$\,rad/s.
+
+\respuestaspausas

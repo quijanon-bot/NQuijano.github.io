@@ -1,0 +1,52 @@
+%% ---------------------------------------------------------------------
+\section{Leer un Bode al revés: de la curva a la función de transferencia}
+\label{sec:rf-identificacion}
+%% ---------------------------------------------------------------------
+
+La receta de la sección anterior también funciona en reversa. Si alguien mide el diagrama de magnitud de un sistema (con la máquina de Bode, por ejemplo), podemos reconstruir $\Gma(s)$ leyendo las pendientes y las esquinas de izquierda a derecha; la ganancia sale al final de un valor conocido.
+
+\begin{ejemplo}[label=ej:rf-ident]{¿Qué función de transferencia es esta?}
+El sistema es de fase mínima y de ganancia positiva. Su diagrama asintótico de magnitud (negro en la \cref{fig:rf-ident}) baja con $-20\dBdec$ en bajas frecuencias, se vuelve plano en $36\dB$ desde $\omega=1$ y cae con $-40\dBdec$ desde $\omega=10$. Determine $\Gma(s)$ y dibuje la fase.
+\solucion Leemos las pendientes de izquierda a derecha:
+\begin{itemize}
+  \item $-20\dBdec$ desde el principio: un \textbf{polo en el origen}.
+  \item En $\omega=1$ la pendiente pasa a $0$ ($-20+20$): un \textbf{cero en $-1$}.
+  \item En $\omega=10$ la pendiente pasa a $-40$ ($0-40$): un \textbf{polo doble en $-10$}.
+\end{itemize}
+En forma de Bode, $\Gma(s)=\Kb\,\dfrac{s+1}{s\,(s/10+1)^2}$. Entre $\omega=1$ y $\omega=10$ la asíntota vale $20\log\Kb$ (el integrador y el cero se cancelan), de modo que
+\[
+  20\log \Kb=36\dB\ \Rightarrow\ \Kb=10^{36/20}=63.1,\qquad
+  \Gma(s)=\frac{63.1\,(s+1)}{s\,(s/10+1)^2}=\frac{6309.6\,(s+1)}{s\,(s+10)^2}.
+\]
+La fase asintótica arranca en $-90\grados$ (integrador), sube hasta $-45\grados$ en $\omega=1$ por el cero, vuelve a $-90\grados$ en $\omega=10$ y termina en $-180\grados$ desde $\omega=100$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{cap10/f_identificacion}
+\caption{Identificación: el asintótico de magnitud es el dato; la fase sale ``gratis'' porque el sistema es de fase mínima.}
+\label{fig:rf-ident}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase2_Margenes/C2_Ej1_Identificacion.m}{identificacion}{ejemplo \ref{ej:rf-ident}}
+
+\subsection{La fase sale gratis\ldots{} si el sistema es de fase mínima}
+\label{sec:rf-faseminima}
+
+En el ejemplo usamos una hipótesis fuerte: \emph{fase mínima}, es decir, sin ceros ni polos en el semiplano derecho. Bode demostró que, bajo esa hipótesis, la magnitud determina la fase~\citep{Bod40}. Sin ella, la magnitud no basta: $(1+s)/(1+2s)$ y $(1-s)/(1+2s)$ tienen \emph{exactamente} el mismo diagrama de magnitud, porque $|1+\jw|=|1-\jw|$, pero sus fases son muy distintas (\cref{fig:rf-nominima}). El cero en $+1$ agrega atraso de fase sin cambiar la magnitud.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.82\linewidth]{cap10/f_fase_no_minima}
+\caption{Misma magnitud, distinta fase: el cero en el semiplano derecho (coral) atrasa la fase hasta $-180\grados$.}
+\label{fig:rf-nominima}
+\end{figure}
+
+\begin{cuidado}
+Antes de reconstruir la fase a partir de la magnitud, hay que saber (por la física del problema o por una medición de fase) que el sistema es de fase mínima. Los sistemas de fase no mínima aparecen en la práctica: la respuesta inversa de una caldera, un avión que cabecea, o el control de nivel con ciertas configuraciones. Para ellos el Bode de magnitud solo no basta y se requiere un estudio más detallado (criterio de Nyquist).
+\end{cuidado}
+
+\begin{pausa}
+Una malla abierta de fase mínima tiene pendiente de $-40\dBdec$ en bajas frecuencias. ¿Cuántos integradores tiene y cuánto vale su fase a muy baja frecuencia?
+\respuesta{Dos integradores ($-20\dBdec$ cada uno) y fase $-180\grados$. Es un sistema tipo 2 (\cref{sec:rf-tipo}).}
+\end{pausa}

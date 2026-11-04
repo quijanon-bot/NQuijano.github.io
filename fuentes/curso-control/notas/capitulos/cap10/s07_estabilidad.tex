@@ -1,0 +1,193 @@
+%% ---------------------------------------------------------------------
+\section{Estabilidad desde la malla abierta: márgenes de ganancia y de fase}
+\label{sec:rf-estabilidad}
+%% ---------------------------------------------------------------------
+
+\subsection{La frontera: $|\Gma|=1$ y fase $-180\grados$}
+
+La ecuación característica del lazo cerrado es $1+\Gma(s)=0$, es decir, $\Gma(s)=-1$. Evaluada sobre el eje imaginario, la frontera entre estabilidad e inestabilidad es una frecuencia en la que, a la vez,
+\begin{equation}
+  |\Gma(\jw)|=1\ \ (0\dB)\qquad\text{y}\qquad \angle\Gma(\jw)=-180\grados .
+  \label{eq:rf-frontera}
+\end{equation}
+La intuición es la de la \cref{sec:rf-lenguaje}: una senoide que da la vuelta al lazo regresa del mismo tamaño ($|\Gma|=1$) e invertida ($-180\grados$); el signo menos del comparador la vuelve a invertir, se suma a sí misma y el lazo oscila solo. Si en la frecuencia donde la fase vale $-180\grados$ la senoide regresa \emph{más pequeña} ($|\Gma|<1$), cada vuelta la achica y la oscilación muere.
+
+\begin{ideaclave}
+Si la malla abierta es estable y de fase mínima, el lazo cerrado es asintóticamente estable cuando la magnitud de $\Gma(\jw)$ es menor que $0\dB$ en la frecuencia en que su fase vale $-180\grados$.
+\end{ideaclave}
+
+\subsection{Márgenes de ganancia y de fase}
+
+Saber que el lazo es estable no basta: queremos saber \emph{qué tan lejos} está de la frontera. Los dos márgenes miden esa distancia, cada uno en una dirección (\cref{fig:rf-margenes}).
+
+\begin{definicion}[label=def:rf-gm]{Margen de ganancia}
+El \clave{margen de ganancia} ($\GM$) es cuánto se puede aumentar la ganancia de la malla abierta, en decibeles, en la frecuencia donde la fase vale $-180\grados$ ($\wgm$, cruce de fase), antes de que el lazo cerrado se vuelva inestable:
+\begin{equation}
+  \GM=-20\log|\Gma(\jw_{GM})|\quad\text{dB},\qquad \angle\Gma(\jw_{GM})=-180\grados.
+\end{equation}
+\end{definicion}
+
+\begin{definicion}[label=def:rf-pm]{Margen de fase}
+El \clave{margen de fase} ($\PM$) es cuánto atraso de fase adicional se tolera en la frecuencia donde $|\Gma|=1$ ($\wpm$, cruce de ganancia) antes de llegar a $-180\grados$:
+\begin{equation}
+  \PM=180\grados+\angle\Gma(\jw_{PM}),\qquad |\Gma(\jw_{PM})|=1\ (0\dB).
+\end{equation}
+\end{definicion}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{cap10/f_margenes_def}
+\caption{Lectura de los márgenes. El $\GM$ se mide en magnitud, en la frecuencia donde la fase cruza $-180\grados$; el $\PM$ se mide en fase, en la frecuencia donde la magnitud cruza $0\dB$.}
+\label{fig:rf-margenes}
+\end{figure}
+
+\begin{cuidado}[Los nombres de MATLAB invitan a confundirse]
+En \cmd{[Gm,Pm,Wcg,Wcp] = margin(G)}, \cmd{Wcg} (\emph{gain crossover} en otros textos) es en realidad la frecuencia donde se mide el $\GM$, es decir, nuestro $\wgm$, y \cmd{Wcp} es la frecuencia del $\PM$, nuestro $\wpm$. Además \cmd{Gm} sale en \emph{veces}: el $\GM$ en dB es \cmd{20*log10(Gm)}. La función del curso \cmd{margenesTabla(G)} imprime todo ya convertido.
+\end{cuidado}
+
+\begin{ejemplo}[label=ej:rf-margenes]{Márgenes asintóticos contra exactos}
+Determine el $\GM$ y el $\PM$ de $\Gma(s)=\dfrac{10\,000}{(s+1)(s+10)(s+100)}$ con el diagrama asintótico y compare con \cmd{margin}.
+\solucion \textbf{Forma de Bode:} $\Gma(s)=\dfrac{10}{(s+1)(s/10+1)(s/100+1)}$, es decir, $20\dB$ en bajas frecuencias y tres esquinas.
+
+\textbf{Cruce por $0\dB$ (PM).} La asíntota baja $-20\dBdec$ desde $\omega=1$ y llega a $0\dB$ justo en $\omega=10$. La fase asintótica allí: el polo en $1$ ya aportó $-90\grados$, el de $10$ está en su esquina ($-45\grados$) y el de $100$ todavía no empieza. Total $-135\grados$: $\PM\approx45\grados$.
+
+\textbf{Cruce por $-180\grados$ (GM).} Entre $\omega=10$ y $\omega=100$ la fase asintótica cae $-45\grados$ por década por el polo en $10$ y otros $-45\grados$ por década por el de $100$, desde $-135\grados$: llega a $-180\grados$ media década después de $10$, en $\wgm=10^{1.5}=31.6$\,rad/s. La magnitud asintótica allí es $0-40\times0.5=-20\dB$: $\GM\approx20\dB$.
+
+\textbf{Comparación.}
+\begin{center}\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & asintótico & exacto (\cmd{margin})\\
+\midrule
+$\PM$ & $45\grados$ ($\omega=10$) & $54.9\grados$ ($\omega=7.80$)\\
+$\GM$ & $20\dB$ ($\omega=31.6$) & $21.7\dB$ ($\omega=33.3$)\\
+\bottomrule
+\end{tabular}
+\end{center}
+El asintótico es conservador aquí: sirve para estimar en el tablero; el número final siempre con \cmd{margin}.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap10/f_margenes_asint}
+\caption{Ejemplo~\ref{ej:rf-margenes}: los cuatro factores, su suma asintótica y la curva real, con los márgenes asintóticos marcados.}
+\label{fig:rf-margenes-asint}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase2_Margenes/C2_Ej2_Margenes.m}{margenes}{ejemplo \ref{ej:rf-margenes}}
+\video{V3_asintotico_margenes}{El Bode se arma término a término; al final, PM y GM sobre la asintótica.}
+
+%% ---------------------------------------------------------------------
+\subsection{¿Qué significan los márgenes en la práctica?}
+\label{sec:rf-significado}
+
+\paragraph{El GM: el micrófono y el parlante}
+\notamargen{El ``aullido'' de un sistema de sonido es un lazo cerrado que perdió su margen de ganancia.}
+Un micrófono frente a un parlante forma un lazo: lo que sale del parlante vuelve a entrar al micrófono. Subir el volumen es subir la ganancia de la malla abierta \emph{sin cambiar la fase}. Mientras haya margen de ganancia no pasa nada; cuando el volumen sube más que el $\GM$, en la frecuencia donde la fase acústica vale $-180\grados$ aparece el aullido: una oscilación sostenida. El $\GM$ es, literalmente, cuánto se puede subir el volumen.
+
+\paragraph{El PM: un presupuesto de fase para lo que no modelamos}
+Ningún modelo es perfecto. Sensores, actuadores y filtros que dejamos por fuera agregan atraso de fase que la malla abierta modelada no ve. El $\PM$ es el \emph{presupuesto} con el que pagamos ese atraso. Para verlo, pongamos un sensor de primer orden $\Hs(s)=a/(s+a)$ en la retroalimentación del ejemplo~\ref{ej:rf-margenes} (\cref{fig:rf-lazosensor}). En el cruce, el sensor resta aproximadamente $\tan^{-1}(\wpm/a)$, de modo que
+\begin{equation}
+  \PM_{\text{nuevo}}\approx\PM-\tan^{-1}\frac{\wpm}{a}\qquad(\text{buena estimación si } a\gg\wpm).
+\end{equation}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.55\linewidth]{cap10/lazo_sensor}
+\caption{El lazo del ejemplo~\ref{ej:rf-margenes} con un sensor de primer orden. La malla abierta es ahora $\Gma=G\,\Hs$.}
+\label{fig:rf-lazosensor}
+\end{figure}
+
+\begin{center}\small
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$a$ (rad/s) & $\PM$ estimado & $\PM$ (\cmd{margin}) & $\GM$ & sobrepico\\
+\midrule
+sin sensor & -- & $54.9\grados$ & $21.7\dB$ & $18\%$\\
+$50$ & $46.0\grados$ & $46.5\grados$ & $12.7\dB$ & $28\%$\\
+$20$ & $33.6\grados$ & $36.4\grados$ & $8.6\dB$ & $44\%$\\
+$10$ & $17.0\grados$ & $26.3\grados$ & $6.1\dB$ & $68\%$\\
+$5$  & $-2.4\grados$ & $18.7\grados$ & $4.7\dB$ & $104\%$\\
+\bottomrule
+\end{tabular}
+\captionof{table}{El sensor ``gasta'' fase. Con $a=50$, casi diez veces más rápido que el cruce, la estimación es buena; con sensores lentos la estimación es pesimista (el sensor también baja la magnitud y corre el cruce a la izquierda), pero la tendencia es la misma.}
+\label{tab:rf-sensor}
+\end{center}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_sensor}
+\caption{Un sensor más lento gasta más fase en el cruce (derecha) y el lazo cerrado se vuelve más oscilatorio (izquierda), aunque la planta sea la misma.}
+\label{fig:rf-sensor}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase2_Margenes/C2_Video_SensorMargenFase.m}{sensor}{tabla \ref{tab:rf-sensor}}
+\video{V12_sensor_margen_fase}{El polo del sensor baja de $300$ a $5$\,rad/s: se ve cómo se consume el PM y crece el sobrepico.}
+
+\begin{ideaclave}
+El $\GM$ dice cuánta ganancia de más aguanta el lazo; el $\PM$, cuánto atraso de fase no modelado aguanta. Un buen diseño necesita los dos.
+\end{ideaclave}
+
+\begin{profundiza}[Los márgenes como distancia al punto $-1$]
+Ambos márgenes miden qué tan cerca pasa $\Gma(\jw)$ del punto crítico $-1$, cada uno en una dirección: el $\GM$ sobre el eje real negativo y el $\PM$ sobre el círculo unitario. Una medida que los resume es la distancia mínima $\min_\omega|1+\Gma(\jw)|=1/M_s$, donde $M_s=\max_\omega|\Sens(\jw)|$ es el pico de la sensitividad $\Sens=1/(1+\Gma)$. Un $M_s$ entre $1.3$ y $2$ garantiza a la vez $\GM\geq20\log\frac{M_s}{M_s-1}$ y $\PM\geq2\sin^{-1}\frac{1}{2M_s}$; por ejemplo, $M_s=2$ asegura $\GM\geq6\dB$ y $\PM\geq29\grados$~\citep{AsMu10}.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\subsection{¿Cuánto margen es suficiente?}
+
+\begin{itemize}
+  \item \textbf{Fase mínima:} $\GM$ y $\PM$ positivos $\Rightarrow$ estable. Márgenes negativos $\Rightarrow$ inestable.
+  \item \textbf{Regla práctica:} $30\grados<\PM<60\grados$ y $\GM>6\dB$ dan una estabilidad que tolera variaciones razonables de la ganancia y de las constantes de tiempo.
+  \item \textbf{Fase no mínima} (ceros o polos en el semiplano derecho): el Bode solo no basta; se requiere un estudio más detallado (criterio de Nyquist).
+\end{itemize}
+
+\begin{pausa}
+Tres lazos de fase mínima: (A) $\PM=40\grados$, $\GM=12\dB$; (B) $\PM=-15\grados$, $\GM=-4\dB$; (C) $\PM=70\grados$, $\GM=2\dB$. ¿Cuáles son estables? ¿Cuál le preocupa más?
+\respuesta{(A) estable, con márgenes cómodos. (B) inestable: hay que bajar la ganancia al menos $4\dB$. (C) estable pero frágil: $2\dB$ es un factor $10^{2/20}=1.26$, así que un $26\%$ más de ganancia lo inestabiliza. Un $\PM$ grande no basta: hay que mirar los dos márgenes.}
+\end{pausa}
+
+%% ---------------------------------------------------------------------
+\subsection{¿Cuánta ganancia aguanta? Routh-Hurwitz contra Bode}
+\label{sec:rf-rangokc}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.62\linewidth]{cap10/lazo_basico}
+\caption{Lazo de control con retroalimentación. En los ejemplos de diseño, $\Hs(s)=1$.}
+\label{fig:rf-lazo}
+\end{figure}
+
+\begin{ejemplo}[label=ej:rf-rangokc]{Rango de $\Kc$ por dos caminos}
+En el lazo de la \cref{fig:rf-lazo}, con $\Hs=1$, $\Gc(s)=\Kc$ y $\Gp(s)=\dfrac{1}{(s+1)(s+10)(s+100)}$, determine el rango de $\Kc$ que garantiza estabilidad asintótica con Routh-Hurwitz y con el diagrama de Bode.
+\solucion \textbf{Routh-Hurwitz.} El polinomio característico es $s^3+111s^2+1110s+(1000+\Kc)$. La fila $s^1$ exige $111\cdot1110-(1000+\Kc)>0$ y la fila $s^0$, $1000+\Kc>0$:
+\[
+  -1000<\Kc<122\,210 .
+\]
+En $\Kc=\Kcr=122\,210$ el polinomio auxiliar $111s^2+123\,210=0$ da $s=\pm j\sqrt{1110}$: el lazo oscila con $\wcr=33.32$\,rad/s y periodo $\Pcr=2\pi/\wcr=0.189$\,s.
+
+\textbf{Bode.} Para dibujar hay que fijar algún $\Kc$. Conviene el que deja la ganancia DC en $0\dB$, $\Kc=1000$, con lo que $\Gma(s)=\dfrac{1}{(s+1)(s/10+1)(s/100+1)}$. El cruce de fase asintótico está otra vez en $\omega=31.6$, donde la magnitud asintótica vale $-40\dB$: hay $\GM\approx+40\dB$, es decir, la ganancia se puede multiplicar por $100$. Así $\Kcr\approx1000\times100=100\,000$ y el rango positivo es $0<\Kc<100\,000$. Con \cmd{margin} el $\GM$ exacto es $41.74\dB$ ($\times122.2$), que reproduce $\Kcr=122\,210$.
+
+La lectura asintótica se equivoca hacia el lado seguro: subestima la ganancia crítica.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap10/f_rango_kc}
+\caption{Respuesta al escalón del lazo cerrado al subir $\Kc$: en $\Kc=\Kcr$ la oscilación ya no se amortigua.}
+\label{fig:rf-rangokc}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase2_Margenes/C2_Ej3_RangoKc.m}{routh}{Routh-Hurwitz sin Symbolic Toolbox}
+\video{V4_barrido_Kc}{Subir $\Kc$ solo sube la magnitud: la barra roja del GM se acorta hasta cero en $\Kc=122\,210$.}
+
+\begin{modelo}[LazoKc.slx]
+\cmd{crearModelo\_LazoKc.m} arma el lazo escalón $\to$ suma $\to$ $\Kc$ $\to$ $\Gp(s)$ con retroalimentación unitaria. Pruebe $\Kc=1000$, $50\,000$, $122\,210$ (marginal) y $150\,000$ (inestable). Para otra planta cambie el parámetro \emph{Poles} del bloque $\Gp$.
+\end{modelo}
+
+\paragraph{Conexión con lo que ya vimos: Ziegler-Nichols}
+\notamargen{Ziegler y Nichols publicaron sus reglas en 1942~\citep{ZiNi42}.}
+El $\GM$ entrega la ganancia crítica y $\wgm$ la frecuencia crítica: son justo los datos del método de oscilación sostenida de Ziegler y Nichols (capítulo de sintonización). Con nuestro ejemplo, $\Kcr=122\,210$ y $\Pcr=0.189$\,s, y la tabla de ZN para un PID da
+\[
+  \Kc=0.6\,\Kcr=73\,326,\qquad \Ti=\Pcr/2=0.0943\ \text{s},\qquad \Td=\Pcr/8=0.0236\ \text{s}.
+\]
+La ventaja del Bode es que \emph{no hay que llevar la planta real al borde de la inestabilidad} para medir $\Kcr$ y $\Pcr$: se leen en el diagrama. En la \cref{sec:rf-pid} veremos qué margen de fase deja esa sintonización.

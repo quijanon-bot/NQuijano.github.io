@@ -1,0 +1,98 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:re-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item La función de transferencia solo muestra la parte controlable y observable. Estabilizable: los modos no controlables son estables; detectable: los no observables lo son. Nunca se cancelan polos inestables.
+  \item Retroalimentación de estado: $u=r-\Km x$ y lazo cerrado $\dot x=(\Am-\Bm\Km)x+\Bm r$. Se pueden poner los $n$ polos donde se quiera si y solo si $\operatorname{rango}\Ctrb=n$, con $\Ctrb=[\Bm\;\Am\Bm\;\cdots\;\Am^{n-1}\Bm]$.
+  \item $\Km$ por comparación de coeficientes o por Ackermann: $\Km=[0\cdots0\;1]\,\Ctrb^{-1}q(\Am)$. Las ganancias dependen de la representación; los polos, no.
+  \item Polos: dos dominantes por las especificaciones y los demás de cinco a diez veces más lejos (o sobre un cero). Más lejos cuesta más esfuerzo.
+  \item Observador: $\dot{\est{x}}=(\Am-\Lm\Cm)\est{x}+\Bm u+\Lm y$; el error cumple $\dot\errest=(\Am-\Lm\Cm)\errest$. Requiere $\operatorname{rango}\Obsv=n$. $\Lm$ se diseña como $\Km$ en el sistema dual.
+  \item Separación: los polos del lazo con observador son los de control más los del observador. El compensador resultante es una función de transferencia $U/Y$.
+  \item Acción integral: $\dot z=r-y$, $u=-\Km x+K_ez$. Un polo más y error nulo ante escalones.
+\end{enumerate}
+\end{parallevar}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
+(i) El estimado del observador se escribe $\est{x}$ y el error de estimación $\errest$ (antes $\hat{x}$ y $e$, que chocaban con la variable desviación y con el error de seguimiento). (ii) ``Ackerman'' $\to$ Ackermann. (iii) En el servo de tercer orden, el polinomio es $\lambda^3+(3+K_3)\lambda^2+(2+K_2)\lambda+K_1$ (decía $-\lambda(2-K_2)$). (iv) La ubicación de polos da un $\Km$ \emph{único} solo con una entrada. (v) El ejemplo $\operatorname{diag}(-1,-3)$ ahora tiene solución: $\Km=[0.5\;\;-0.5]$. (vi) $K_e=18\,314$ con $\wn^2$ exacto. (vii) Se agregó la prueba PBH y la noción cuantitativa de controlabilidad. Todos los números se verificaron con \texttt{herramientas/cap09\_numeros.py} y \cmd{verificarCap09.m}.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:re-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización.
+
+\subsection*{Controlabilidad y observabilidad}
+
+\begin{problema}[estructura]\label{prob:re-estructura}
+Sean (i) $\Am=\operatorname{diag}(-1,-3)$, $\Bm=[1\;\;1]^\top$, $\Cm=[1\;\;0]$ y (ii) $\Am=\operatorname{diag}(-1,-2,-3,-4)$, $\Bm=[1\;\;0\;\;1\;\;0]^\top$, $\Cm=[1\;\;1\;\;0\;\;0]$. (a) Para (i), construya $\Ctrb$ y $\Obsv$ y concluya. (b) Para (i), halle $\Km$ para polos en $\{-2,-2\}$ y simule desde $x(0)=[1\;\;1]^\top$. (c) El sistema (ii) es la forma modal del ejemplo~\ref{ej:re-friedland}: verifique con los rangos que exactamente dos modos son controlables y dos observables, y diga cuáles. (d) Calcule su función de transferencia y relacione su orden con (c). (e) ¿Es estabilizable? ¿Detectable? (f) Reemplace el valor propio $-2$ por $+2$ y repita (e). ¿Qué consecuencia práctica tiene?
+\end{problema}
+
+\begin{problema}[controlabilidad cuantitativa]\label{prob:re-cuantitativa}
+\etiquetaEstrella{} Para el sistema del ejemplo~\ref{ej:re-motivador}: (a) calcule $\det\Ctrb$ en función de $a$. (b) Con $a=0$, identifique el modo no controlable escribiendo las ecuaciones y concluya si es estabilizable. (c) Con $a=0$ y $a_{11}=+1$, muestre que \emph{ningún} $\Km$ estabiliza el sistema. (d) Aplique la prueba PBH a (b) y (c). (e) Con polos deseados en $-2$ y $-3$, evalúe $\|\Km\|$ y el número de condición de $\Ctrb$ para $a=2$, $1$, $0.1$ y $0.01$. (f) \etiquetaM{} Simule desde $x(0)=[1\;\;1]^\top$ y reporte el pico de $|u|$. ¿Por qué ``controlable sí o no'' no basta para juzgar un diseño?
+\end{problema}
+
+\subsection*{Ubicación de polos}
+
+\begin{problema}[Ackermann y especificaciones]\label{prob:re-ackermann}
+(a) Para $1/(s(s+3))$ en variables de fase, verifique controlabilidad y calcule $\Km$ a mano con Ackermann para polos en $-4\pm j4$ (reporte $\Ctrb^{-1}$ y $q(\Am)$); verifique con \cmd{acker} y \cmd{place}. (b) Para $1/(s(s+1)(s+2))$ con la configuración de la \cref{fig:re-servo}, diseñe $\Km$ para $\OS\leq5\%$ y $\ts=2$\,s, con el tercer polo diez veces más a la izquierda. (c) \etiquetaM{} Simule y reporte el pico de $u$. (d) Repita con el tercer polo a $5$ y $50$ veces y haga una tabla con $\OS$, $\ts$ y $|u|_{\max}$. ¿Qué precio se paga por alejarlo?
+\end{problema}
+
+\begin{problema}[dos representaciones]\label{prob:re-representaciones}
+Para $G_p(s)=\dfrac{10}{(s+10)(s^2+0.5s+1)}$ (ejemplo~\ref{ej:re-trespolos}): (a) \etiquetaM{} reproduzca $\Km$ con \cmd{tf2ss} y diga en qué forma está; (b) repita en variables de fase y explique por qué $\Km$ cambia y los polos no; (c) calcule el error ante escalón y agregue el integrador con un cuarto polo en $-50$.
+\end{problema}
+
+\subsection*{Observadores y separación}
+
+\begin{problema}[observador]\label{prob:re-observador}
+Para $\Am=\begin{bmatrix}0&1\\-2&-3\end{bmatrix}$, $\Cm=[1\;\;0]$: (a) verifique observabilidad; (b) halle $\Lm$ para polos dobles en $-10$, por coeficientes y por Ackermann; (c) \etiquetaM{} simule planta y observador desde $x(0)=[1\;\;0]^\top$, $\est{x}(0)=0$, sin entrada, y mida cuándo el error cae por debajo del $2\%$; (d) repita con polos en $-4$, $-25$ y $-50$; (e) \etiquetaM{} agregue a $y$ ruido de desviación $0.01$ y mida la desviación del error de estimación en régimen permanente para cada observador. Grafíquela contra la ubicación de los polos y discuta.
+\end{problema}
+
+\begin{problema}[compensador completo]\label{prob:re-compensador}
+Con la planta del problema anterior, diseñe $\Km$ para polos en $-3\pm j3$ y un observador con polos dobles en $-15$. (a) Halle $\Km$ y $\Lm$. (b) Arme la matriz \eqref{eq:re-aumentado} y verifique que sus valores propios son la unión de los dos conjuntos. (c) Obtenga $U(s)/Y(s)$ con \eqref{eq:re-compensador}: ¿a qué compensador clásico se parece? (d) \etiquetaM{} Simule con $u=-\Km x$ y con el observador partiendo de $\errest(0)=[1\;\;-1]^\top$, y cuantifique el deterioro. (e) Verifique que $\errest(t)$ no depende de la referencia.
+\end{problema}
+
+\begin{problema}[robustez del compensador]\label{prob:re-robustez}
+\etiquetaEstrella{}\etiquetaM{} Para la planta del problema~\ref{prob:re-representaciones}, con el integrador y un observador cinco veces más rápido que los polos de control: (a) verifique la separación; (b) suponga que el polo real verdadero está en $-8$ y no en $-10$, pero $\Km$ y $\Lm$ se calcularon con el modelo nominal: ¿sigue estable? Encuentre el rango de ubicaciones de ese polo con el que lo es. (c) Perturbe ahora la ganancia de la planta y halle el margen de ganancia efectivo, con y sin observador. ¿Qué dice esto sobre el principio de separación?
+\end{problema}
+
+\subsection*{Acción integral}
+
+\begin{problema}[integrador con un cero]\label{prob:re-integralcero}
+Para $\Am=\begin{bmatrix}0&1\\-7&-9\end{bmatrix}$, $\Bm=[0\;\;1]^\top$, $\Cm=[4\;\;1]$: (a) verifique controlabilidad y observabilidad y halle $Y/U$ y su cero. (b) Diseñe $u=r-\Km x$ para $\OS=10\%$ y $\tp=2$\,s y calcule el error ante escalón. (c) Agregue el integrador y escriba el polinomio aumentado: ¿por qué $K_e$ aparece en dos coeficientes? (d) Ubique el tercer polo sobre el cero y halle $\Km$ y $K_e$. (e) \etiquetaM{} Verifique que el error es nulo y compare con (b). (f) Repita (d) con el tercer polo en $-8$ y en $-20$ y explique por qué cancelar el cero da el mejor transitorio.
+\end{problema}
+
+\begin{problema}[la conexión con el PID]\label{prob:re-ipd}
+Para $G_p=\dfrac{1}{(s+1)(s+2)}$ en variables de fase ($x_1=y$, $x_2=\dot y$): (a) escriba $\Am$, $\Bm$, $\Cm$; (b) arme el sistema aumentado con el integrador y su polinomio en función de $K_1$, $K_2$, $K_e$; (c) diseñe para $\OS=10\%$, $\ts=2$\,s y un tercer polo cinco veces más lejos; (d) escriba la ley en el tiempo con $x_1=y$, $x_2=\dot y$, $z=\int e$ y muestre que es un I-PD, identificando $K_c$, $K_i$ y $K_d$; (e) \etiquetaM{} compruébelo numéricamente; (f) ¿qué aporta la formulación de estado si la planta es de orden mayor o si $\dot y$ no se mide?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:re-estructura}}
+(a) $\Ctrb=\begin{bmatrix}1&-1\\1&-3\end{bmatrix}$ (rango 2: controlable); $\Obsv=\begin{bmatrix}1&0\\-1&0\end{bmatrix}$ (rango 1: el modo $-3$ no se ve). (b) $\Km=[0.5\;\;-0.5]$. (c) Controlables: $-1$ y $-3$; observables: $-1$ y $-2$. (d) $1/(s+1)$: solo el modo controlable y observable. (e) Estabilizable y detectable (los modos escondidos son estables). (f) El modo $+2$ es observable pero no controlable: el sistema es detectable pero \emph{no estabilizable}; ningún controlador lo estabiliza, y la salida crecerá aunque $u$ haga lo que haga.
+
+\paragraph{Problema~\ref{prob:re-cuantitativa}}
+(a) $\det\Ctrb=-a$. (b) Con $a=0$, $\dot x_1=-x_1$: el modo $-1$ no es controlable, pero es estable: estabilizable. (c) Con $a_{11}=+1$ el polinomio es $(\lambda-1)(\lambda+2+K_2)$ para todo $\Km$: no estabilizable. (e) $\|\Km\|=4.47$, $5.39$, $23.1$ y $203$; número de condición $4.3$, $5.8$, $50$ y $500$. (f) Pico de $|u|$: $6$, $7$, $25$ y $205$.
+
+\paragraph{Problema~\ref{prob:re-ackermann}}
+(a) $\Km=[32\;\;5]$ (pausa de la \cref{sec:re-ackermann}). (b) $\zeta=0.690$, $\wn=2.90$, polos $-2\pm j2.10$ y $-20$: $\Km=[168.0\;\;86.4\;\;21]$. (d) Con el tercer polo a $5$, $10$ y $50$ veces: $\OS=4.73$, $4.94$ y $5.00\%$; $\ts=2.17$, $2.12$ y $2.08$\,s; $|u|_{\max}=84$, $168$ y $840$. Alejar el polo casi no mejora la respuesta y multiplica el esfuerzo.
+
+\paragraph{Problema~\ref{prob:re-observador}}
+(b) $\Lm=[17\;\;47]^\top$. (d) Con polos dobles en $-4$, $-25$ y $-50$: $\Lm=[5\;\;-1]^\top$, $[47\;\;482]^\top$ y $[97\;\;2207]^\top$: la ganancia crece con el cuadrado de la velocidad, y con ella la amplificación del ruido.
+
+\paragraph{Problema~\ref{prob:re-compensador}}
+(a) $\Km=[16\;\;3]$ y $\Lm=[27\;\;142]^\top$. (b) $\{-3\pm j3,\,-15,\,-15\}$.
+
+\paragraph{Problema~\ref{prob:re-integralcero}}
+(a) $\dfrac{s+4}{s^2+9s+7}$, cero en $-4$. (b) $\zeta=0.591$, $\wn=1.95$: $\Km=[-3.21\;\;-6.70]$ y valor final $1.055$ (error $-0.055$). (c) $\lambda^3+(9+K_2)\lambda^2+(7+K_1+K_e)\lambda+4K_e$: $K_e$ entra por los dos elementos de $\Cm$. (d) $\Km=[2.21\;\;-2.70]$, $K_e=3.79$; $\OS=10\%$ y $\tp=2$\,s exactos. (f) Con $-8$: $\OS=11.4\%$, $\tp=1.82$\,s; con $-20$: $11.7\%$ y $1.73$\,s. Cancelando el cero, el lazo es exactamente el segundo orden especificado.
+
+\paragraph{Problema~\ref{prob:re-ipd}}
+(b) $\lambda^3+(3+K_2)\lambda^2+(2+K_1)\lambda+K_e$. (c) $\zeta\wn=2$, $\wn=3.38$; con el polo en $-10$: $K_1=49.45$, $K_2=11$, $K_e=114.46$. (d) $u=K_e\int_0^t e\,\dif\tau-K_1y-K_2\dot y$: I-PD con $K_i=K_e$, $K_c=K_1$ y $K_d=K_2$ (proporcional y derivativa sobre la salida).
+
+\respuestaspausas

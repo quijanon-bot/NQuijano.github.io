@@ -1,0 +1,38 @@
+%% =====================================================================
+%%  Capítulo 10 -- Respuesta frecuencial y diagramas de Bode
+%%  PILOTO del formato nuevo (noviembre de 2026).
+%%  Integra: Handout8 (versión anterior), notas de la Clase 1, las cuatro
+%%  presentaciones Bode1-Bode4 (v3) y los códigos de Bode_4Clases/matlab.
+%%  Correcciones respecto al handout anterior (ver \S\ref{sec:rf-cierre}):
+%%    adelanto w_M = 8.85 (no 14); atraso con holgura w = 1.68, PM = 44.8°;
+%%    rango de Kc: GM = +40 dB (no -40 dB); w_GM asintótico 31.6 (no 50);
+%%    Kc exacto 33 056; se usa M_r (no M_P) para el pico de resonancia.
+%%  Sin retardos (decisión del curso): el PM se explica como presupuesto de
+%%  fase frente a dinámicas no modeladas (un sensor de primer orden).
+%% =====================================================================
+
+\capitulo[cap:rf]{Respuesta frecuencial y diagramas de Bode}
+  {Compramos libros porque creemos que compramos el tiempo para leerlos.}
+  {Warren Zevon}
+
+\begin{objetivos}[partes/10-respuesta-frecuencial.html]
+  \item Explicar por qué un sistema lineal y estable responde a una senoide con otra senoide, y calcular su amplitud y su fase.
+  \item Dibujar a mano el diagrama de Bode asintótico de una malla abierta con ganancia, integradores y polos y ceros reales, y estimar cuánto se equivoca.
+  \item Leer en un diagrama de Bode los márgenes de ganancia y de fase, decidir si el lazo cerrado es estable y cuánta ganancia admite.
+  \item Predecir el sobrepico, la velocidad y el error en estado estacionario del lazo cerrado mirando solamente la malla abierta.
+  \item Diseñar un controlador proporcional, un compensador en adelanto, en atraso o atraso-adelanto para cumplir especificaciones de error y de margen de fase, y verificar el diseño en \matlab/\simulink.
+\end{objetivos}
+
+\input{capitulos/cap10/s01_por_que}
+\input{capitulos/cap10/s02_senoide}
+\input{capitulos/cap10/s03_decibel}
+\input{capitulos/cap10/s04_factores}
+\input{capitulos/cap10/s05_ejemplo}
+\input{capitulos/cap10/s06_identificacion}
+\input{capitulos/cap10/s07_estabilidad}
+\input{capitulos/cap10/s08_lazo_cerrado}
+\input{capitulos/cap10/s09_tipo_error}
+\input{capitulos/cap10/s10_ajuste_ganancia}
+\input{capitulos/cap10/s11_compensadores}
+\input{capitulos/cap10/s12_pid}
+\input{capitulos/cap10/s13_cierre}

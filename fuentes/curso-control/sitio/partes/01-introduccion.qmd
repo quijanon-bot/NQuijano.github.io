@@ -1,0 +1,30 @@
+---
+title: "1. Introducción"
+subtitle: "Semana 1 · por migrar al formato nuevo"
+toc: false
+---
+
+```{=html}
+<div class="franja"><div class="rotulo">Parte 1 · Semana 1</div><div class="titulo">Introducción</div><div class="cita">Es que con los ojos del presente ningún pasado es tolerable… — Juan Esteban Constain</div><svg class="bode" viewBox="0 0 600 160" preserveAspectRatio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"/><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"/></svg></div>
+```
+
+::: {.profundiza}
+[Página en construcción]{.caja-titulo}
+
+Esta parte todavía está en el formato anterior de las notas (`Introduccion.tex`). Se migrará siguiendo el piloto de la [parte 10](10-respuesta-frecuencial.qmd): notación unificada, cajas pedagógicas, códigos tomados del repositorio y una página como esta con todo el material.
+:::
+
+## Temas
+
+- Mapa de ruta
+- Palabras clave: análisis, sistemas y control
+- Motivación
+- Ejemplos
+- Historia
+
+## Lo que tendrá esta página
+
+- El **handout en PDF** de la parte, con el formato nuevo.
+- Los **códigos de MATLAB y Simulink**, con instrucciones y resultados esperados.
+- Los **videos** de la parte y las **pausas activas** con respuesta.
+- Los **problemas** con soluciones seleccionadas.

@@ -1,0 +1,56 @@
+%% ---------------------------------------------------------------------
+\section{Controlabilidad}
+\label{sec:re-controlabilidad}
+%% ---------------------------------------------------------------------
+
+La pausa anterior muestra que no siempre se pueden poner los polos donde uno quiera. ¿Cuándo sí?
+
+\begin{definicion}[label=def:re-controlable]{Controlabilidad}
+El sistema $\dot x=\Am x+\Bm u$ es \clave{controlable} si, para \emph{cualquier} estado inicial $x(0)=x_0$ y \emph{cualquier} estado final $x_T$, existe una entrada $u(t)$ que lleva el sistema de $x_0$ a $x_T$ en un tiempo \emph{finito} $T$.
+\end{definicion}
+
+Hay una caracterización equivalente que es la que nos interesa para diseñar: el sistema es controlable si y solo si, para cualquier polinomio mónico $\alpha_c(\lambda)$ de grado $n$ con coeficientes reales, existe $\Km$ tal que el polinomio característico de $\Am-\Bm\Km$ es $\alpha_c(\lambda)$ (\emph{ubicación arbitraria de polos}). En sistemas de una entrada ese $\Km$ es, además, único. Y hay una prueba algebraica que no exige calcular nada más que productos de matrices.
+
+\begin{definicion}[label=def:re-ctrb]{Matriz de controlabilidad}
+El sistema con $\Am\in\mathbb{R}^{n\times n}$ es controlable si y solo si la \clave{matriz de controlabilidad}
+\begin{equation}
+  \Ctrb=\bigl[\,\Bm\;\;\Am\Bm\;\;\Am^2\Bm\;\;\cdots\;\;\Am^{n-1}\Bm\,\bigr]
+  \label{eq:re-ctrb}
+\end{equation}
+tiene rango $n$. Con una sola entrada $\Ctrb$ es cuadrada y basta revisar que $\det\Ctrb\neq0$.
+\end{definicion}
+
+La intuición: $\Bm u$ empuja el estado en la dirección de $\Bm$; un instante después la dinámica ha llevado ese empujón a la dirección $\Am\Bm$, luego a $\Am^2\Bm$, y así. Si esas $n$ direcciones generan todo $\mathbb{R}^n$, la entrada puede llevar el estado a cualquier parte. En el ejemplo~\ref{ej:re-motivador}, $\Ctrb=\begin{bmatrix}0&a\\1&-2\end{bmatrix}$ y $\det\Ctrb=-a$: controlable si y solo si $a\neq0$.
+
+\begin{ejemplo}[label=ej:re-diag]{Dos modos y una entrada}
+Para $\Am=\begin{bmatrix}-1&0\\0&-3\end{bmatrix}$, $\Bm=\begin{bmatrix}1\\1\end{bmatrix}$: ¿es controlable? Si lo es, halle $\Km$ para tener los dos polos en $-2$.
+\solucion $\Ctrb=[\Bm\;\;\Am\Bm]=\begin{bmatrix}1&-1\\1&-3\end{bmatrix}$, con $\det\Ctrb=-2\neq0$: controlable (la entrada llega a los dos modos). Los polos de la planta son $-1$ y $-3$. Con $\Km=[K_1\;\;K_2]$,
+\[
+  \det\bigl(\lambda\Id-(\Am-\Bm\Km)\bigr)=\lambda^2+(4+K_1+K_2)\lambda+3+3K_1+K_2,
+\]
+e igualando con $(\lambda+2)^2=\lambda^2+4\lambda+4$: $K_1+K_2=0$ y $3K_1+K_2=1$, de donde $\Km=[0.5\;\;-0.5]$.
+\end{ejemplo}
+
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej3_Controlabilidad.m}{rango}{ejemplo \ref{ej:re-diag}}
+
+\begin{profundiza}[¿Cuál modo falla? La prueba PBH]
+El rango de $\Ctrb$ dice \emph{si} el sistema es controlable, pero no \emph{qué} modo falla. La prueba de Popov-Belevitch-Hautus lo dice: $(\Am,\Bm)$ es controlable si y solo si
+\[
+  \operatorname{rango}\bigl[\,\Am-\lambda\Id\;\;\Bm\,\bigr]=n\quad\text{para cada valor propio }\lambda\text{ de }\Am.
+\]
+El valor propio para el cual el rango cae es el modo no controlable. En el ejemplo~\ref{ej:re-motivador} con $a=0$, el rango cae en $\lambda=-1$. Y el sistema es estabilizable si y solo si los $\lambda$ que fallan tienen parte real negativa.
+\end{profundiza}
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej3_Controlabilidad.m}{pbh}{prueba PBH}
+
+\subsection{Controlable no quiere decir barato}
+
+La controlabilidad es una propiedad de sí o no, pero en la práctica importa \emph{cuánto}. En el ejemplo~\ref{ej:re-motivador}, $K_1=3+2/a$: cuando $a\to0$ el sistema sigue siendo controlable, pero la ganancia necesaria crece sin límite, y con ella el esfuerzo de control (\cref{fig:re-condicion}). El número de condición de $\Ctrb$ es un buen termómetro: si es muy grande, $\Ctrb$ está ``casi'' sin rango completo y mover los polos sale caro (actuadores que se saturan, ruido amplificado).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap09/f_condicion}
+\caption{Ejemplo~\ref{ej:re-motivador} con los polos siempre en $-2$ y $-3$: a medida que $a\to0$, el número de condición de $\Ctrb$ y el pico de $|u|$ crecen como $1/a$.}
+\label{fig:re-condicion}
+\end{figure}
+
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej3_Controlabilidad.m}{condicion}{\cref{fig:re-condicion}}

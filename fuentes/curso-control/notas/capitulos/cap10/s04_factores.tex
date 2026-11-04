@@ -1,0 +1,150 @@
+%% ---------------------------------------------------------------------
+\section{La forma de Bode y los cuatro factores}
+\label{sec:rf-factores}
+%% ---------------------------------------------------------------------
+
+Toda función de transferencia racional se puede escribir en la \clave{forma de Bode}:
+\begin{equation}
+  \Gma(s)=\frac{\Kb\prod_{i=1}^{m}(1+\tau_i s)}
+  {s^N\prod_{l=1}^{M}(1+\tau_l s)\prod_{k=1}^{n-M-N}\Big(\frac{s^2}{\omega_{n_k}^2}+\frac{2\zeta_k}{\omega_{n_k}}s+1\Big)},
+  \label{eq:rf-formabode}
+\end{equation}
+con $m$ ceros reales, $N$ polos en el origen, $M$ polos reales y el resto en pares complejos conjugados; el grado relativo es $n-m$. (Si hay ceros complejos se tratan igual que los polos complejos, con el signo cambiado.) Lo importante es que cada factor está escrito como $(1+\tau s)$ y \emph{no} como $(s+a)$: así cada factor vale $1$ ($0\dB$) en bajas frecuencias y la ganancia $\Kb$ aparece sola. Tomando $20\log$ y el ángulo,
+\begin{align}
+  20\log|\Gma|&=20\log \Kb+\sum_i 20\log|1+\jw\tau_i|-20N\log\omega
+  -\sum_l 20\log|1+\jw\tau_l|-\sum_k 20\log\Big|1-\tfrac{\omega^2}{\omega_{n_k}^2}+j\tfrac{2\zeta_k\omega}{\omega_{n_k}}\Big|,\notag\\
+  \phi(\omega)&=\sum_i\tan^{-1}(\omega\tau_i)-N\cdot 90\grados
+  -\sum_l\tan^{-1}(\omega\tau_l)
+  -\sum_k\tan^{-1}\frac{2\zeta_k\omega_{n_k}\omega}{\omega_{n_k}^2-\omega^2}.
+  \label{eq:rf-sumas}
+\end{align}
+El diagrama completo es la \emph{suma} de los diagramas de cada factor. Basta entonces aprender cuatro recetas.
+
+%% ---------------------------------------------------------------------
+\subsection{Factor 1: ganancia constante}
+\[
+  \Gma(s)=\Kb:\qquad 20\log|\Kb|\ \text{dB},\qquad
+  \phi=\begin{cases}0\grados & \Kb>0,\\ \pm180\grados & \Kb<0.\end{cases}
+\]
+Una ganancia sube o baja \emph{toda} la curva de magnitud y no toca la fase. Esta idea, que parece trivial, es la base del diseño por ajuste de ganancia (\cref{sec:rf-ajuste}).
+
+\subsection{Factor 2: polos y ceros en el origen}
+\[
+  \Gma(\jw)=\frac{1}{\jw}\ \Rightarrow\ 20\log\Big|\frac{1}{\jw}\Big|=-20\log\omega,\qquad\phi=-90\grados.
+\]
+En escala logarítmica es una recta de $-20\dBdec$ que pasa por $0\dB$ en $\omega=1$. En general $1/s^N$ da $-20N\dBdec$ y $-90N\grados$, y $s^N$ da $+20N\dBdec$ y $+90N\grados$. Todas estas rectas pasan por $0\dB$ en $\omega=1$ (\cref{fig:rf-simples}). El número de integradores, $N$, es el \emph{tipo} del sistema, y se lee en la pendiente de baja frecuencia (\cref{sec:rf-tipo}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_factores_simples}
+\caption{Factores 1 y 2: una ganancia es una recta horizontal que no toca la fase; un integrador es una recta de $-20\dBdec$ que pasa por $0\dB$ en $\omega=1$ con fase constante de $-90\grados$.}
+\label{fig:rf-simples}
+\end{figure}
+
+\subsection{Factor 3: polos y ceros reales}
+Para el cero $\Gma(s)=s/\omega_1+1$,
+\[
+  20\log|\Gma(\jw)|=20\log\sqrt{\Big(\frac{\omega}{\omega_1}\Big)^2+1}\ \approx\
+  \begin{cases}0\dB, & \omega\ll\omega_1,\\[2pt]
+  20\log\dfrac{\omega}{\omega_1}\ \ (+20\dBdec), & \omega\gg\omega_1,\end{cases}
+\]
+y en la esquina $\omega=\omega_1$ el valor real es $20\log\sqrt2=3\dB$: el error máximo de la asíntota. La fase es $\phi=\tan^{-1}(\omega/\omega_1)$; su aproximación asintótica vale $0\grados$ hasta $\omega_1/10$, sube $45\grados$ por década pasando por $45\grados$ en $\omega_1$ y se queda en $90\grados$ desde $10\,\omega_1$ (el error en los extremos es $\tan^{-1}0.1=5.7\grados$). El polo es el espejo: $-20\dBdec$ desde $\omega_1$, $-3\dB$ en la esquina y fase de $0\grados$ a $-90\grados$ (\cref{fig:rf-polo}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{cap10/f_polo_real}
+\caption{Polo real: asíntotas (negro) y curva real (verde). El error máximo en magnitud es de $3\dB$ en la esquina; en fase, de $5.7\grados$ en $\omega_1/10$ y en $10\,\omega_1$.}
+\label{fig:rf-polo}
+\end{figure}
+
+\begin{cuidado}[La trampa clásica: la ganancia escondida]
+La regla solo vale si el factor está escrito como $s/\omega_1+1$. Como $s+10=10\,(s/10+1)$, el factor $1/(s+10)$ trae una ganancia $1/10=-20\dB$ escondida. Si se olvida sacarla, toda la curva queda corrida $20\dB$. Es el error más frecuente en las evaluaciones.
+\end{cuidado}
+
+\subsection{Factor 4: polos complejos (lo esencial)}
+\label{sec:rf-complejos}
+Para el factor normalizado de segundo orden,
+\begin{equation}
+  \Gma(s)=\frac{\wn^2}{s^2+2\zeta\wn s+\wn^2}\ \Rightarrow\
+  |\Gma(\jw)|=\frac{\wn^2}{\sqrt{(\wn^2-\omega^2)^2+4\zeta^2\wn^2\omega^2}}.
+\end{equation}
+Las asíntotas son sencillas: $0\dB$ hasta $\wn$ y $-40\dBdec$ después; la fase va de $0\grados$ a $-180\grados$ y pasa por $-90\grados$ en $\wn$. Lo que la asíntota \emph{no} ve es el pico de resonancia. En $\omega=\wn$ el término $\wn^2-\omega^2$ se anula y
+\begin{equation}
+  \Gma(\jw_n)=\frac{1}{j2\zeta}\ \Rightarrow\ |\Gma(\jw_n)|=\frac{1}{2\zeta},\qquad
+  \angle \Gma(\jw_n)=-90\grados,
+  \label{eq:rf-pico}
+\end{equation}
+exactamente y para cualquier $\zeta$. Con $\zeta=0.1$ la curva real está $14\dB$ por encima de la asíntota (\cref{fig:rf-complejos}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{cap10/f_complejos}
+\caption{Polos complejos: magnitud y fase reales para varios $\zeta$, con las asíntotas en negro. Todas las fases pasan por $-90\grados$ en $\wn$.}
+\label{fig:rf-complejos}
+\end{figure}
+
+\begin{ideaclave}
+$\zeta$ pequeño $\Rightarrow$ pico grande en $\wn$ $\Rightarrow$ sobrepico grande en el tiempo. En el curso \alerta{no dibujamos asintóticos de segundo orden}: se dibujan las asíntotas, se marca el punto $20\log\frac{1}{2\zeta}$ en $\wn$ para recordar que la curva real se separa, y para la curva real se usa \cmd{bode}.
+\end{ideaclave}
+
+\video{V2_resonancia_zeta}{Tres vistas del mismo $\zeta$: los polos se acercan al eje imaginario, crece el pico del Bode y crece el sobrepico.}
+
+\subsection{¿Por qué no basta la asíntota? Un ejemplo}
+\label{sec:rf-sorpresa}
+
+\begin{ejemplo}[label=ej:rf-sorpresa]{La asíntota dice ``estable''; la realidad, no}
+¿Es estable el lazo cerrado con retroalimentación unitaria si
+\begin{equation*}
+  \Gma(s)=\frac{1000}{(s+1)(s^2+4s+100)}=\frac{10}{(s+1)\big(\frac{s^2}{100}+0.04s+1\big)}\ ?
+\end{equation*}
+\solucion Aquí $\wn=10$ y $\zeta=0.2$. Las asíntotas dicen: $20\dB$ hasta $\omega=1$, $-20\dBdec$ hasta $\omega=10$ (donde llegan exactamente a $0\dB$) y $-60\dBdec$ después. La fase real en $\omega=10$ es $-84.3\grados-90\grados=-174.3\grados$. Solo con asíntotas, el lazo cerrado parece estable por poco.
+
+La curva real cuenta otra historia (\cref{fig:rf-sorpresa}): la resonancia suma $20\log\frac{1}{2(0.2)}=+7.96\dB$ en $\wn=10$, de modo que $|\Gma(j10)|=7.92\dB$. El cruce por $0\dB$ se corre a $12.7$\,rad/s, donde la fase ya pasó $-180\grados$: el margen de fase es $-45.5\grados$ y el lazo cerrado es \alerta{inestable}. Se comprueba con Routh-Hurwitz sobre $s^3+5s^2+104s+1100$: como $5\cdot104=520<1100$, hay dos cambios de signo.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{cap10/f_sorpresa}
+\caption{Asíntotas contra curva real para $1000/[(s+1)(s^2+4s+100)]$: la resonancia empuja el cruce de ganancia hasta donde la fase ya pasó $-180\grados$.}
+\label{fig:rf-sorpresa}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej3_SegundoOrden.m}{sorpresa}{ejemplo \ref{ej:rf-sorpresa}}
+
+\begin{profundiza}[El factor de segundo orden en detalle]
+\textbf{Pico de resonancia.} El máximo de la magnitud y su frecuencia, para $\zeta<1/\sqrt2$, son
+\begin{equation}
+  \Mr=\frac{1}{2\zeta\sqrt{1-\zeta^2}},\qquad \wres=\wn\sqrt{1-2\zeta^2}.
+  \label{eq:rf-Mr}
+\end{equation}
+Para $\zeta\geq1/\sqrt2\approx0.707$ no hay pico. La \cref{tab:rf-zeta} reúne los valores útiles, junto con el sobrepico de la respuesta al escalón, $\OS=100\,e^{-\pi\zeta/\sqrt{1-\zeta^2}}$.
+
+\begin{center}\small
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+$\zeta$ & $20\log\frac{1}{2\zeta}$ (dB) & $\Mr$ & $\Mr$ (dB) & $\wres/\wn$ & $\OS$\\
+\midrule
+0.05 & 20.00 & 10.01 & 20.01 & 0.997 & 85.4\\
+0.1  & 13.98 & 5.03 & 14.02 & 0.990 & 72.9\\
+0.2  & 7.96  & 2.55 & 8.14  & 0.959 & 52.7\\
+0.3  & 4.44  & 1.75 & 4.85  & 0.906 & 37.2\\
+0.5  & 0.00  & 1.15 & 1.25  & 0.707 & 16.3\\
+0.707& $-3.01$ & 1 & 0 & -- & 4.3\\
+1    & $-6.02$ & 1 & 0 & -- & 0\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Corrección del factor de segundo orden en $\wn$, pico de resonancia y sobrepico al escalón.}
+\label{tab:rf-zeta}
+\end{center}
+
+\textbf{La pendiente de la fase.} Cerca de $\wn$ la fase cae con pendiente
+$\left.\frac{\dif\phi}{\dif\log_{10}\omega}\right|_{\wn}=-\frac{180\grados}{\pi}\,\frac{\ln10}{\zeta}\approx-\frac{132\grados}{\zeta}$ por década. Con $\zeta=0.2$ son $-660\grados$ por década: la fase cae casi como un escalón de $-180\grados$. Por eso una asíntota de fase de segundo orden dependería de $\zeta$, y por eso no la usamos.
+
+\textbf{El factor de calidad.} En física y electrónica se usa $Q=1/(2\zeta)$, que es precisamente $|\Gma(\jw_n)|$. En un RLC serie $\zeta=\frac{R}{2}\sqrt{C/L}$, y en un sistema masa-resorte-amortiguador $\zeta=b/(2\sqrt{km})$.
+
+\textbf{Leer $\zeta$ en un Bode medido.} La fase cruza $-90\grados$ en $\wn$; el pico da $\Mr$ y de ahí $\zeta$. Si la fase vale $-90\grados$ en $\omega=10$ y el pico es de $8.14\dB$, entonces $\wn=10$, $\Mr=10^{8.14/20}=2.55$ y $\zeta=0.20$ (para $\zeta$ pequeño, $\zeta\approx\frac{1}{2\Mr}=0.196$). La planta era $100/(s^2+4s+100)$.
+
+\textbf{Ceros complejos: el filtro \emph{notch}.} Ceros sobre el eje imaginario anulan la ganancia en una frecuencia: $N(s)=\dfrac{s^2+\omega_0^2}{s^2+\frac{\omega_0}{Q}s+\omega_0^2}$ con $\omega_0=2\pi(60)=377$\,rad/s es el filtro que quita el zumbido de $60$\,Hz de la red en señales de ECG y de audio; $Q$ controla qué tan angosta es la muesca.
+\end{profundiza}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej3_SegundoOrden.m}{leerzeta}{leer $\wn$ y $\zeta$ de un Bode medido}

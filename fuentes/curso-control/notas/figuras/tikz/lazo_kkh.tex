@@ -1,0 +1,13 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=8mm]
+  \node (r) {$R(s)$}; \node[suma,right=5mm of r] (S) {};
+  \node[bloque,right=of S] (k) {$\dfrac{K}{s}$}; \node[bloque,right=of k] (p) {$\dfrac{1}{s+1}$};
+  \coordinate[right=6mm of p] (o); \node[right=4mm of o] (y) {$Y(s)$};
+  \node[bloque,below=6mm of k,xshift=10mm,fill=ctrlambar!12] (h) {$1+K_h s$};
+  \draw[senal] (r)--(S); \draw[senal] (S)--(k); \draw[senal] (k)--(p); \draw[thick,draw=ctrlnoche] (p)--(o); \draw[senal] (o)--(y);
+  \draw[senal] (o)|-(h); \draw[senal] (h)-|(S); \node[rot] at ($(S)+(-3mm,-3.5mm)$) {$-$};
+  \node[rot,below=1mm of h] {sensor de posición + tacómetro};
+\end{tikzpicture}
+\end{document}

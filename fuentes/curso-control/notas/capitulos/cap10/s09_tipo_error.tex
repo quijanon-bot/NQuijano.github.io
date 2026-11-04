@@ -1,0 +1,46 @@
+%% ---------------------------------------------------------------------
+\section{Tipo y error: todo está en las bajas frecuencias}
+\label{sec:rf-tipo}
+%% ---------------------------------------------------------------------
+
+Con retroalimentación unitaria, el error de seguimiento $E(s)=R(s)-Y(s)$ en estado estacionario depende del número de integradores de la malla abierta (el \emph{tipo}) y de una constante estática (capítulo de error). Las dos cosas se leen en el extremo izquierdo del diagrama de magnitud (\cref{fig:rf-tipos}):
+
+\begin{itemize}
+  \item \textbf{Tipo 0:} la magnitud arranca plana. El nivel de baja frecuencia es $20\log\kp$.
+  \item \textbf{Tipo 1:} arranca con $-20\dBdec$. La asíntota de baja frecuencia, $\kv/\omega$, cruza $0\dB$ en $\omega=\kv$.
+  \item \textbf{Tipo 2:} arranca con $-40\dBdec$. La asíntota, $\ka/\omega^2$, cruza $0\dB$ en $\omega=\sqrt{\ka}$.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_tipos}
+\caption{El tipo se ve en la pendiente inicial y la constante estática, en un nivel o en un cruce de la asíntota de baja frecuencia.}
+\label{fig:rf-tipos}
+\end{figure}
+
+\begin{ejemplo}[label=ej:rf-tipos]{Lea las constantes y el error}
+Los tres diagramas de la \cref{fig:rf-tipos} corresponden a $\dfrac{0.01}{s/10+1}$, $\dfrac{1}{s(s/10+1)}$ y $\dfrac{100}{s^2(s/100+1)}$. Determine el tipo, la constante estática y el error ante escalón, rampa y parábola unitarios (los tres lazos cerrados son estables).
+\solucion
+\begin{center}\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Sistema & lectura en el Bode & constante & escalón & rampa & parábola\\
+\midrule
+Tipo 0 & nivel $-40\dB$ & $\kp=10^{-40/20}=0.01$ & $\frac{1}{1+\kp}=0.99$ & $\infty$ & $\infty$\\
+Tipo 1 & cruce en $\omega=1$ & $\kv=1$ & $0$ & $\frac{1}{\kv}=1$ & $\infty$\\
+Tipo 2 & cruce en $\omega=10$ & $\ka=10^2=100$ & $0$ & $0$ & $\frac{1}{\ka}=0.01$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{ejemplo}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej2_TipoSistema.m}{tipos}{ejemplo \ref{ej:rf-tipos}}
+
+\begin{ideaclave}
+Para mejorar el error hay que \emph{subir la curva en bajas frecuencias}; para el transitorio importa la \emph{zona del cruce}. Un compensador en atraso explota exactamente esta separación (\cref{sec:rf-atraso}).
+\end{ideaclave}
+
+\begin{pausa}
+¿Por qué en un sistema tipo 2 la asíntota de baja frecuencia cruza $0\dB$ en $\sqrt{\ka}$ y no en $\ka$?
+\respuesta{En bajas frecuencias $\Gma(\jw)\approx\ka/(\jw)^2$, cuya magnitud es $\ka/\omega^2$. Igualándola a $1$ resulta $\omega^2=\ka$, es decir, $\omega=\sqrt{\ka}$.}
+\end{pausa}

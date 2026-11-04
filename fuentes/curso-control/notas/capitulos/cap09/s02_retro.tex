@@ -1,0 +1,54 @@
+%% ---------------------------------------------------------------------
+\section{Retroalimentación de estado}
+\label{sec:re-retro}
+%% ---------------------------------------------------------------------
+
+Supongamos que medimos todos los estados. La ley de control más sencilla que los usa es lineal:
+\begin{equation}
+  u(t)=r(t)-\Km\,x(t),
+  \label{eq:re-ley}
+\end{equation}
+donde $r$ es una nueva entrada de referencia y $\Km$ (de $m\times n$; un vector fila en sistemas de una entrada) es lo \emph{único} que diseñamos (\cref{fig:re-lazo}). Reemplazando en \eqref{eq:re-estado},
+\begin{equation}
+  \dot x=(\Am-\Bm\Km)\,x+\Bm r,\qquad y=\Cm x.
+  \label{eq:re-lazocerrado}
+\end{equation}
+El lazo cerrado es otro sistema de estado con matriz $\Am-\Bm\Km$: sus polos son las raíces de
+\begin{equation}
+  \det\bigl(\lambda\Id-(\Am-\Bm\Km)\bigr)=0,
+  \label{eq:re-ecaracteristica}
+\end{equation}
+y escoger $\Km$ es escoger esa ecuación característica. Con $r=0$ el lazo es un \clave{regulador}: lleva el estado al equilibrio en el origen, y basta que $\Am-\Bm\Km$ sea Hurwitz (todos sus valores propios con parte real negativa). Con $r\neq0$ acotada, el punto de equilibrio se mueve, pero sigue siendo asintóticamente estable.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap09/lazo_estado}
+\caption{Retroalimentación de estado $u=r-\Km x$. Con $r=0$ es un regulador.}
+\label{fig:re-lazo}
+\end{figure}
+
+\begin{ejemplo}[label=ej:re-motivador]{Estabilizar una planta inestable}
+Sea $\dot x=\begin{bmatrix}-1&a\\3&-2\end{bmatrix}x+\begin{bmatrix}0\\1\end{bmatrix}u$, $y=[1\;\;0]\,x$. Diseñe $u=-\Km x$ para que los polos queden en $-2$ y $-3$.
+\solucion Con $\Km=[K_1\;\;K_2]$,
+\[
+  \Am-\Bm\Km=\begin{bmatrix}-1&a\\3-K_1&-2-K_2\end{bmatrix},\qquad
+  \det\bigl(\lambda\Id-(\Am-\Bm\Km)\bigr)=\lambda^2+(3+K_2)\lambda+2+K_2+a(K_1-3).
+\]
+El polinomio deseado es $(\lambda+2)(\lambda+3)=\lambda^2+5\lambda+6$. Igualando coeficientes, $K_2=2$ y $K_1=3+\dfrac2a$ (con $a\neq0$).
+
+Con $a=2$ la planta tiene valores propios en $1$ y $-4$: el equilibrio es inestable. Con $\Km=[4\;\;2]$ los estados regresan al origen (\cref{fig:re-motivador}); el precio es un esfuerzo inicial $u(0)=-\Km x(0)=-6$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_motivador}
+\caption{Ejemplo~\ref{ej:re-motivador} con $a=2$ y $x(0)=[1\;\;1]^\top$: sin control los estados divergen; con $u=-\Km x$ vuelven al origen.}
+\label{fig:re-motivador}
+\end{figure}
+
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej2_Motivador.m}{motivador}{ejemplo \ref{ej:re-motivador}}
+
+\begin{pausa}
+En el ejemplo~\ref{ej:re-motivador}, ¿qué pasa si $a=0$? ¿Qué polo no se puede mover?
+\respuesta{Con $a=0$ el polinomio queda $\lambda^2+(3+K_2)\lambda+2+K_2=(\lambda+1)(\lambda+2+K_2)$: el factor $(\lambda+1)$ no depende de $\Km$. El polo en $-1$ no se mueve, porque con $a=0$ la ecuación de $x_1$ es $\dot x_1=-x_1$ y la entrada no llega a $x_1$. Es el tema de la próxima sección.}
+\end{pausa}

@@ -1,0 +1,107 @@
+%% ---------------------------------------------------------------------
+\section{La transformada de Laplace}
+\label{sec:po-laplace}
+%% ---------------------------------------------------------------------
+
+\begin{historia}[De los operadores de Heaviside a la transformada de Laplace]
+Oliver Heaviside (1850--1925) resolvía circuitos y líneas de transmisión con un \emph{cálculo operacional}: reemplazaba $\dif/\dif t$ por un símbolo $p$ y manipulaba las ecuaciones diferenciales como si fueran algebraicas~\citep{Mah17}. Funcionaba, pero sin demostraciones, y los matemáticos de su tiempo lo despreciaron. Thomas Bromwich, en Cambridge, mostró que muchas de esas manipulaciones se podían justificar tratando $p$ como un número complejo e integrando en el plano complejo~\citep{Bro17}; John R.\ Carson, ingeniero de AT\&T, dio en los años veinte una fórmula integral que producía la función operacional a partir de la función del tiempo~\citep{Car26}; y el matemático alemán Gustav Doetsch reunió todo en una teoría rigurosa con el nombre que usamos hoy~\citep{Doe37}, en honor de Pierre-Simon Laplace (1749--1827). El escalón unitario se sigue llamando \emph{función de Heaviside}, y la expansión en fracciones parciales que usaremos para regresar al tiempo también es suya. Heaviside, además, dio a las ecuaciones de Maxwell la forma vectorial que hoy se enseña e hizo posibles las líneas telefónicas largas sin distorsión.
+\end{historia}
+
+\begin{definicion}[label=def:po-laplace]{Transformada unilateral de Laplace}
+Para una señal $x(t)$ definida para $t\geq0$,
+\begin{equation}
+  \Lap{x(t)}=X(s)=\int_0^\infty x(t)\,e^{-st}\,\dif t,\qquad s=\sigma+j\omega\in\mathbb{C}.
+  \label{eq:po-laplace}
+\end{equation}
+\end{definicion}
+
+El factor $e^{-st}=e^{-\sigma t}e^{-j\omega t}$ tiene dos partes: una exponencial $e^{-\sigma t}$ que ayuda a que la integral converja y una oscilación $e^{-j\omega t}$. Por eso $s$ es complejo: la transformada descompone la señal en exponenciales y senoides, que son exactamente las funciones que aparecen en las soluciones de las ODE lineales. Con $\sigma=0$ se recupera la transformada de Fourier, que volverá en el capítulo de respuesta frecuencial.
+
+\paragraph{El plano-$s$} Un número complejo $p_1=\sigma_1+j\omega_1$ ($j^2=-1$) tiene parte real $\Re p_1=\sigma_1$, parte imaginaria $\Im p_1=\omega_1$, magnitud $|p_1|=\sqrt{\sigma_1^2+\omega_1^2}$ y fase $\angle p_1=\phi_1$ (el ángulo medido desde el semieje real positivo; ojo con el cuadrante, $\tan^{-1}(\omega_1/\sigma_1)$ sola no lo distingue). Su conjugado es $\bar p_1=\sigma_1-j\omega_1$ y $|p_1|^2=p_1\bar p_1$. Todos se dibujan en el \clave{plano complejo-$s$} (\cref{fig:po-planos}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.62\linewidth]{cap02/plano_s}
+\caption{Un número complejo y su conjugado en el plano-$s$. La fase se mide desde el semieje real positivo: aquí $\phi_1$ está en el segundo cuadrante.}
+\label{fig:po-planos}
+\end{figure}
+
+\paragraph{Existencia} Basta que $x(t)$ sea \emph{continua a trozos} (en cada intervalo finito tiene un número finito de saltos, con límites a izquierda y derecha) y de \emph{orden exponencial} (existe $a$ tal que $e^{-at}|x(t)|$ es acotada para $t$ grande). La segunda condición impone $\Re s>\sigma_a$ para algún $\sigma_a$: es la \emph{región de convergencia}. En el curso todas las señales cumplen estas condiciones y no insistiremos en la región de convergencia.
+
+\begin{cuidado}[Todas las señales empiezan en $t=0$]
+La transformada unilateral solo ``ve'' $t\geq0$. Por eso, cuando escribimos $x(t)$ queremos decir $x(t)\,\escalon(t)$, donde $\escalon(t)$ es el escalón unitario (1 para $t\geq0$ y 0 antes). En las notas anteriores el escalón se escribía $u(t)$; aquí lo escribimos $\escalon(t)$ porque $u(t)$ es la \emph{entrada} de un sistema.
+\end{cuidado}
+
+\begin{ejemplo}[label=ej:po-lap-escalon]{Escalón y exponencial, desde la definición}
+Calcule $\Lap{\escalon(t)}$ y $\Lap{e^{-at}}$ con $a>0$.
+\solucion
+\[
+  \Lap{\escalon(t)}=\int_0^\infty e^{-st}\,\dif t=\Bigl[-\tfrac1s e^{-st}\Bigr]_0^\infty=\frac1s\quad(\Re s>0),
+\]
+porque $e^{-st}\to0$ cuando $\sigma>0$. De igual forma,
+\[
+  \Lap{e^{-at}}=\int_0^\infty e^{-(s+a)t}\,\dif t=\frac{1}{s+a}\quad(\Re s>-a).
+\]
+\end{ejemplo}
+
+\Cref{tab:po-transformadas} reúne los pares que usaremos todo el semestre. \matlab los calcula con el \emph{Symbolic Math Toolbox}:
+\codigorepo{cap02_modelado_primer_orden/C2_Ej2_Laplace.m}{transformadas}{tabla \ref{tab:po-transformadas}}
+
+\begin{table}[ht]
+\centering
+\caption{Pares de transformadas de Laplace ($t\geq0$, $a,\omega>0$).}
+\label{tab:po-transformadas}
+\renewcommand{\arraystretch}{2.3}
+\begin{tabular}{@{}>{$}l<{$}>{$}l<{$}@{\qquad}>{$}l<{$}>{$}l<{$}@{}}
+\toprule
+x(t) & X(s) & x(t) & X(s)\\
+\midrule
+\impulso(t) & 1 & t\,e^{-at} & \dfrac{1}{(s+a)^2}\\
+\escalon(t) & \dfrac1s & t^n e^{-at} & \dfrac{n!}{(s+a)^{n+1}}\\
+t & \dfrac1{s^2} & \sin\omega t & \dfrac{\omega}{s^2+\omega^2}\\
+t^n & \dfrac{n!}{s^{n+1}} & \cos\omega t & \dfrac{s}{s^2+\omega^2}\\
+e^{-at} & \dfrac{1}{s+a} & e^{-at}\sin\omega t & \dfrac{\omega}{(s+a)^2+\omega^2}\\
+ & & e^{-at}\cos\omega t & \dfrac{s+a}{(s+a)^2+\omega^2}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%% ---------------------------------------------------------------------
+\subsection{Propiedades}
+\label{sec:po-propiedades}
+
+Con unas pocas propiedades la tabla alcanza para casi todo. Sea $x(t)\leftrightarrow X(s)$.
+
+\begin{enumerate}
+  \item \textbf{Linealidad:} $a\,x_1(t)+b\,x_2(t)\ \leftrightarrow\ a\,X_1(s)+b\,X_2(s)$. (La integral es lineal.)
+  \item \textbf{Corrimiento en el tiempo} ($t_0>0$): $x(t-t_0)\,\escalon(t-t_0)\ \leftrightarrow\ e^{-st_0}X(s)$.
+  \item \textbf{Corrimiento en $s$:} $e^{s_0t}x(t)\ \leftrightarrow\ X(s-s_0)$. Por ejemplo, $e^{-2t}\cos3t\leftrightarrow\dfrac{s+2}{(s+2)^2+9}$, y como $\cos\omega_0t=\tfrac12(e^{j\omega_0t}+e^{-j\omega_0t})$, $\cos(\omega_0t)\,x(t)\leftrightarrow\tfrac12X(s-j\omega_0)+\tfrac12X(s+j\omega_0)$.
+  \item \textbf{Escalamiento} ($a>0$): $x(at)\ \leftrightarrow\ \dfrac1a X\!\left(\dfrac sa\right)$. (Con el cambio de variable $\tau=at$.)
+  \item \textbf{Diferenciación:} $\dot x(t)\ \leftrightarrow\ sX(s)-x(0)$ y, en general,
+  \begin{equation}
+    \frac{\dif^n x}{\dif t^n}\ \leftrightarrow\ s^nX(s)-s^{n-1}x(0)-s^{n-2}\dot x(0)-\cdots-x^{(n-1)}(0).
+    \label{eq:po-derivada}
+  \end{equation}
+  \item \textbf{Integración:} $\displaystyle\int_0^t x(\lambda)\,\dif\lambda\ \leftrightarrow\ \frac{X(s)}{s}$.
+  \item \textbf{Diferenciación en $s$:} $t\,x(t)\ \leftrightarrow\ -\dfrac{\dif X(s)}{\dif s}$. (De aquí sale $t\,e^{-at}\leftrightarrow1/(s+a)^2$.)
+  \item \textbf{Convolución:} $\displaystyle (x_1*x_2)(t)=\int_0^t x_1(\lambda)\,x_2(t-\lambda)\,\dif\lambda\ \leftrightarrow\ X_1(s)\,X_2(s)$.
+\end{enumerate}
+
+La propiedad de diferenciación es la que convierte una ecuación diferencial en una algebraica. Su demostración es una integración por partes con $u=x(t)$ y $\dif v=e^{-st}\dif t$:
+\[
+  \Lap{\dot x}=\int_0^\infty \dot x\,e^{-st}\,\dif t
+  =\Bigl[x\,e^{-st}\Bigr]_0^\infty+s\int_0^\infty x\,e^{-st}\,\dif t
+  =-x(0)+sX(s),
+\]
+porque $x\,e^{-st}\to0$ (orden exponencial). Aplicándola dos veces se obtiene la de la segunda derivada, y así sucesivamente. Observe que \alerta{las condiciones iniciales aparecen solas}: no hay que agregarlas al final como con los métodos clásicos.
+
+\codigorepo{cap02_modelado_primer_orden/C2_Ej2_Laplace.m}{propiedades}{propiedades de la transformada}
+
+\begin{profundiza}[¿Y la ``inversión del tiempo''?]
+La versión anterior de estas notas listaba la propiedad $x(-t)\leftrightarrow X(-s)$. Es válida para la transformada \emph{bilateral} (integral de $-\infty$ a $\infty$), pero no para la unilateral que usamos: si $x(t)$ solo existe para $t\geq0$, entonces $x(-t)$ solo existe para $t\leq0$ y la integral \eqref{eq:po-laplace} la ve como cero. Por la misma razón el escalamiento solo se enuncia con $a>0$.
+\end{profundiza}
+
+\begin{pausa}
+Use las propiedades y la tabla para obtener $\Lap{3-2e^{-4t}+5t\,e^{-4t}}$.
+\respuesta{Por linealidad, $\dfrac3s-\dfrac{2}{s+4}+\dfrac{5}{(s+4)^2}$.}
+\end{pausa}

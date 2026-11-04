@@ -1,0 +1,66 @@
+%% ---------------------------------------------------------------------
+\section{Retroalimentación de estado con observador}
+\label{sec:re-separacion}
+%% ---------------------------------------------------------------------
+
+El diseño completo se hace en cuatro pasos: (1) diseñar $\Km$ como si todos los estados se midieran; (2) diseñar un observador para los que no se miden; (3) conectar los dos, usando el estimado en lugar del estado:
+\begin{equation}
+  u=-\Km\est{x}\;(+Nr),
+  \label{eq:re-leyobs}
+\end{equation}
+y (4) agregar la entrada de referencia. Al conjunto ``observador más $\Km$'' se le llama \clave{compensador} (\cref{fig:re-compensador}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap09/compensador}
+\caption{Compensador por variables de estado: el observador produce $\est{x}$ y la ley de control lo usa en lugar de $x$.}
+\label{fig:re-compensador}
+\end{figure}
+
+¿Sigue siendo estable el lazo si usamos $\est{x}$ en lugar de $x$? Con $\est{x}=x-\errest$, la ley \eqref{eq:re-leyobs} (con $r=0$) da $\dot x=(\Am-\Bm\Km)x+\Bm\Km\errest$, y el error sigue cumpliendo \eqref{eq:re-errorobs}. Juntando,
+\begin{equation}
+  \begin{bmatrix}\dot x\\ \dot{\errest}\end{bmatrix}=
+  \begin{bmatrix}\Am-\Bm\Km & \Bm\Km\\ 0 & \Am-\Lm\Cm\end{bmatrix}
+  \begin{bmatrix}x\\ \errest\end{bmatrix}.
+  \label{eq:re-aumentado}
+\end{equation}
+La matriz es triangular por bloques, así que su ecuación característica es el producto
+\begin{equation}
+  \det\bigl(\lambda\Id-(\Am-\Bm\Km)\bigr)\cdot\det\bigl(\lambda\Id-(\Am-\Lm\Cm)\bigr)=0.
+\end{equation}
+
+\begin{ideaclave}
+\textbf{Principio de separación.} Los polos del lazo con observador son la unión de los polos de control (los de $\Am-\Bm\Km$) y los del observador (los de $\Am-\Lm\Cm$). Por eso $\Km$ y $\Lm$ se diseñan \emph{por separado}: si cada parte es estable, el conjunto lo es.
+\end{ideaclave}
+
+Visto desde afuera, el compensador es simplemente una función de transferencia entre la salida medida y la entrada a la planta (con $r=0$):
+\begin{equation}
+  \frac{U(s)}{Y(s)}=-\Km\bigl(s\Id-(\Am-\Bm\Km-\Lm\Cm)\bigr)^{-1}\Lm.
+  \label{eq:re-compensador}
+\end{equation}
+
+\begin{ejemplo}[label=ej:re-separacion]{Un compensador completo}
+Para $\Am=\begin{bmatrix}0&1\\-2&-3\end{bmatrix}$, $\Bm=\begin{bmatrix}0\\1\end{bmatrix}$, $\Cm=[1\;\;0]$ (la planta $1/((s+1)(s+2))$, de la que solo se mide la posición), diseñe $\Km$ para polos en $-2\pm j2$ y un observador con polos dobles en $-10$.
+\solucion Control: $\lambda^2+(3+K_2)\lambda+2+K_1=\lambda^2+4\lambda+8$, luego $\Km=[6\;\;1]$. Observador: $\Am-\Lm\Cm=\begin{bmatrix}-L_1&1\\-2-L_2&-3\end{bmatrix}$ tiene polinomio $\lambda^2+(3+L_1)\lambda+3L_1+2+L_2$; igualando con $(\lambda+10)^2$, $\Lm=[17\;\;47]^\top$. Los cuatro polos de \eqref{eq:re-aumentado} son $-2\pm j2$, $-10$ y $-10$. Y el compensador \eqref{eq:re-compensador} resulta
+\[
+  \frac{U(s)}{Y(s)}=-\frac{149s+554}{s^2+21s+123},
+\]
+un compensador de segundo orden con un cero en $-3.72$ y polos en $-10.5\pm j3.57$: un ``adelanto con filtro'' que salió del espacio de estado sin que lo buscáramos.
+\end{ejemplo}
+
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej8_Compensador.m}{separacion}{ejemplo \ref{ej:re-separacion}}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap09/f_separacion}
+\caption{Ejemplo~\ref{ej:re-separacion} con la referencia escalada por $N$ para que el valor final sea $1$. Con un error inicial de estimación, el observador rápido (polos en $-10$) casi no se nota; uno lento (en $-4$) deforma el transitorio.}
+\label{fig:re-separacionfig}
+\end{figure}
+
+\begin{modelo}[Observador.slx]
+El script \cmd{crearModelo\_Observador.m} construye la planta (que arranca en $x(0)=[1\;\;-1]^\top$), el observador con entradas $[u;\,y]$ y la ley $u=-\Km\est{x}+Nr$. Un interruptor manual cambia $\est{x}$ por el estado real para comparar. Mueva los polos del observador (\cmd{po}) y observe cuánto tarda $\est{x}$ en alcanzar a $x$.
+\end{modelo}
+
+\begin{cuidado}[La separación no garantiza robustez]
+El principio de separación supone que el modelo es exacto. Si la planta real difiere del modelo con que se diseñó el observador, el error de estimación ya no obedece \eqref{eq:re-errorobs} y los márgenes de estabilidad del compensador completo pueden ser mucho menores que los de la retroalimentación de estado sola. Hay que verificar el diseño con la planta perturbada (problema~\ref{prob:re-robustez}).
+\end{cuidado}

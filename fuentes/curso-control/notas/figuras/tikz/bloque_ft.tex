@@ -1,0 +1,9 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=12mm]
+  \node (u) {$U(s)$}; \node[bloque,right=of u] (T) {$T(s)$}; \node[right=of T] (y) {$Y(s)=T(s)\,U(s)$};
+  \draw[senal] (u)--(T); \draw[senal] (T)--(y);
+  \node[rot,below=1mm of T] {condiciones iniciales nulas};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,57 @@
+%% ---------------------------------------------------------------------
+\section{Lo que la función de transferencia esconde}
+\label{sec:re-kalman}
+%% ---------------------------------------------------------------------
+
+Hasta ahora hemos diseñado controladores en el dominio de Laplace: un PID, un compensador ajustado sobre la función de transferencia. Volvemos ahora a la representación de estado del capítulo~4,
+\begin{equation}
+  \dot x=\Am x+\Bm u,\qquad y=\Cm x+\Dm u,
+  \label{eq:re-estado}
+\end{equation}
+con $x\in\mathbb{R}^n$ (estado), $u\in\mathbb{R}^m$ (entradas), $y\in\mathbb{R}^p$ (salidas), $\Am$ de $n\times n$, $\Bm$ de $n\times m$, $\Cm$ de $p\times n$ y $\Dm$ de $p\times m$. La idea del capítulo es sencilla de enunciar: si medimos \emph{todo} el estado, podemos escoger $u$ como una combinación de los estados y poner los polos del lazo cerrado donde queramos. Antes de hacerlo hay que contestar dos preguntas: ¿la entrada alcanza a mover todos los estados? y ¿la salida alcanza a mostrarlos todos? Son la \clave{controlabilidad} y la \clave{observabilidad}.
+
+\begin{historia}[Kalman y la teoría de sistemas de estado]
+Rudolf E.\ Kalman introdujo los conceptos de controlabilidad y observabilidad, y su dualidad, en el primer congreso de la IFAC, en Moscú, en 1960~\citep{Kal60}. Una de sus motivaciones era explicar por qué fracasaba un método popular para controlar plantas inestables: cancelar los polos inestables con ceros del compensador. La cancelación algebraica podía ser perfecta y aun así el sistema real resultaba inestable. En 1963 mostró que todo sistema lineal se puede descomponer en cuatro partes según sea o no controlable y observable, y que la función de transferencia solo ``ve'' la parte que es ambas cosas~\citep{Kal63}.
+\end{historia}
+
+\begin{ejemplo}[label=ej:re-friedland]{Cuatro estados, una función de primer orden}
+Considere el sistema~\citep{Fri86}
+\[
+\begin{aligned}
+  \dot x_1&=2x_1+3x_2+2x_3+x_4+u, & \dot x_2&=-2x_1-3x_2-2u,\\
+  \dot x_3&=-2x_1-2x_2-4x_3+2u,   & \dot x_4&=-2x_1-2x_2-2x_3-5x_4-u,
+\end{aligned}
+\qquad y=7x_1+6x_2+4x_3+2x_4.
+\]
+Calcule su función de transferencia.
+\solucion $H(s)=\Cm(s\Id-\Am)^{-1}\Bm+\Dm$ da
+\[
+  H(s)=\frac{s^3+9s^2+26s+24}{s^4+10s^3+35s^2+50s+24}=\frac{(s+2)(s+3)(s+4)}{(s+1)(s+2)(s+3)(s+4)}=\frac{1}{s+1}.
+\]
+¡Un sistema de cuarto orden se ve desde afuera como uno de primer orden! Con un cambio de variables (una \emph{transformación de similaridad} que lleva $\Am$ a su forma diagonal) el mismo sistema queda
+\[
+  \dot z_1=-z_1+u,\qquad \dot z_2=-2z_2,\qquad \dot z_3=-3z_3+u,\qquad \dot z_4=-4z_4,\qquad y=z_1+z_2,
+\]
+y la \cref{fig:re-friedland} lo dice todo: $z_1$ es afectado por $u$ y visible en $y$; $z_2$ es visible pero $u$ no lo mueve; $z_3$ lo mueve $u$ pero no se ve en $y$; $z_4$ ni lo uno ni lo otro. Solo $z_1$ llega a la función de transferencia.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap09/modal_friedland}
+\caption{Ejemplo~\ref{ej:re-friedland} en coordenadas modales. Solo el modo $z_1$ conecta la entrada con la salida; los otros tres existen, pero la función de transferencia no los muestra.}
+\label{fig:re-friedland}
+\end{figure}
+
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej1_Kalman.m}{kalman}{ejemplo \ref{ej:re-friedland}}
+
+Kalman mostró que esto es general: todo sistema \eqref{eq:re-estado} se puede descomponer en (1) una parte controlable y observable, (2) una observable pero no controlable, (3) una controlable pero no observable y (4) una que no es ni lo uno ni lo otro~\citep{Kal63}. La función de transferencia está determinada solo por la primera. Un sistema que contiene una parte no controlable se dice \emph{no controlable}; uno que contiene una parte no observable, \emph{no observable}.
+
+\begin{definicion}[label=def:re-estabilizable]{Estabilizable y detectable}
+Un sistema es \clave{estabilizable} si todos sus modos no controlables son estables, y \clave{detectable} si todos sus modos no observables son estables.
+\end{definicion}
+
+En el ejemplo, los modos ``escondidos'' están en $-2$, $-3$ y $-4$: son estables, el sistema es estabilizable y detectable, y podemos ignorar esas dinámicas internas sin riesgo. Pero si uno de ellos estuviera en el semiplano derecho, ninguna medición de $y$ lo delataría y ningún diseño sobre $u$ lo corregiría: el sistema se desestabilizaría ``por dentro''.
+
+\begin{cuidado}[Cancelar un polo inestable con un cero]
+Cancelar un polo en el semiplano derecho con un cero del controlador produce, en el papel, una función de transferencia estable. En la realidad, el modo inestable sigue ahí: se volvió no controlable o no observable, y cualquier perturbación o condición inicial lo excita. Es exactamente lo que Kalman explicó. Nunca se cancelan polos inestables.
+\end{cuidado}

@@ -1,0 +1,21 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=8mm]
+  \node (r) {$r$}; \node[suma,right=5mm of r] (S1) {};
+  \node[bloque,right=6mm of S1] (I) {$\dfrac1s$};
+  \node[bloque,right=6mm of I,fill=ctrlcoral!12] (Ke) {$K_e$};
+  \node[suma,right=6mm of Ke] (S2) {};
+  \node[bloque,right=8mm of S2,minimum width=24mm] (P) {$\dot x=\Am x+\Bm u$};
+  \node[bloque,right=8mm of P] (C) {$\Cm$};
+  \node[right=8mm of C] (y) {$y$};
+  \coordinate (nx) at ($(P.east)!0.5!(C.west)$); \coordinate (ny) at ($(C.east)!0.5!(y.west)$);
+  \node[bloque,below=7mm of P,fill=ctrlcoral!12] (K) {$\Km$};
+  \draw[senal] (r)--(S1); \draw[senal] (S1)--node[above]{$e$}(I); \draw[senal] (I)--node[above]{$z$}(Ke); \draw[senal] (Ke)--(S2);
+  \draw[senal] (S2)--node[above]{$u$}(P); \draw[senal] (P)--(C); \draw[senal] (C)--(y);
+  \fill[ctrlnoche] (nx) circle (1.5pt) (ny) circle (1.5pt); \node[above] at (nx) {$x$};
+  \draw[senal] (nx)|-(K); \draw[senal] (K)-|(S2);
+  \draw[senal] (ny)--++(0,-20mm)-|(S1);
+  \node[rot] at ($(S1)+(-3mm,-3.5mm)$) {$-$}; \node[rot] at ($(S2)+(-3mm,-3.5mm)$) {$-$};
+\end{tikzpicture}
+\end{document}

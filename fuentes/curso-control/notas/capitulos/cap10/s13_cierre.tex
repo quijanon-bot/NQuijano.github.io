@@ -1,0 +1,162 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:rf-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item Un sistema LTI estable responde a $x_0\sin\omega t$ con $x_0|\Gma(\jw)|\sin(\omega t+\angle\Gma(\jw))$. El diagrama de Bode guarda esos dos números para cada $\omega$.
+  \item Antes de dibujar, \textbf{forma de Bode}: cada factor como $(s/\omega_i+1)$ y la ganancia $\Kb$ sola. La ganancia escondida es el error más frecuente.
+  \item Magnitud: rectas de $\pm20\dBdec$ por factor; error de $3\dB$ en cada esquina real. Fase: $\pm45\grados$/dec entre $\omega_i/10$ y $10\omega_i$. Con polos complejos, \cmd{bode}: la resonancia puede cambiar la conclusión.
+  \item La frontera de estabilidad es $\Gma(\jw)=-1$. $\GM$: cuánta ganancia de más se aguanta; $\PM$: cuánto atraso de fase no modelado se aguanta. Regla: $30\grados<\PM<60\grados$, $\GM>6\dB$.
+  \item $\PM\leftrightarrow\zeta\leftrightarrow\OS$ (\cref{tab:rf-pmzeta}); el cruce y el ancho de banda dan la velocidad. Las bajas frecuencias dan el tipo y el error.
+  \item Diseño: $\Kc$ para el error; luego la forma con $\Gcp(0)=1$. Adelanto para velocidad y margen; atraso para precisión con poco esfuerzo; atraso-adelanto cuando hacen falta las dos cosas. Siempre verificar con \cmd{margin} y en el tiempo.
+\end{enumerate}
+\end{parallevar}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
+Para quien tenga el handout anterior: (i) adelanto, $\wM=8.85$ (no $14$); (ii) atraso, con la holgura de $5\grados$, $\omega_{des}=1.68$ y $\PM=44.8\grados$; (iii) rango de $\Kc$, $\GM=+40\dB$ (no $-40\dB$); (iv) $\wgm$ asintótico del ejemplo $10\,000/[\cdots]$, $31.6$ (no $50$); (v) ajuste de ganancia, $\Kc$ exacto $33\,056$; (vi) el pico de resonancia se llama ahora $\Mr$ (antes $M_P$) para no confundirlo con el sobrepico. Todos los números del capítulo se verificaron de forma independiente (\texttt{herramientas/cap10\_numeros.py} en el repositorio y \cmd{verificarCap10.m} en \matlab).
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:rf-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización. Al final hay soluciones de los primeros.
+
+\subsection*{Diagramas asintóticos y respuesta senoidal}
+
+\begin{problema}[asintótico]\label{prob:rf-1}
+Dibuje el diagrama asintótico de magnitud y fase de $\Gma(s)=\dfrac{100(s+1)}{s(s+10)}$. Marque el valor en $\omega=1$ y compare con \cmd{bode} en las esquinas.
+\end{problema}
+
+\begin{problema}[asintótico]\label{prob:rf-2}
+Ídem para $\Gma(s)=\dfrac{50}{(s+2)(s+5)}$.
+\end{problema}
+
+\begin{problema}[respuesta senoidal]\label{prob:rf-3}
+Para $\Gma(s)=\dfrac{10}{s+10}$ y $x(t)=2\sin(10t)$, calcule $z_{ss}(t)$ a mano y verifique con \cmd{lsim}.
+\end{problema}
+
+\begin{problema}[Simulink]\label{prob:rf-4}
+\etiquetaM{} Ejecute \cmd{crearModelo\_RespuestaSenoidal.m} con $G(s)=100/(s^2+4s+100)$. Mida amplitud y desfase para $\omega=1$, $10$ y $50$ y ubique los tres puntos sobre el Bode de \matlab. ¿En cuál de los tres la salida es mayor que la entrada? ¿Por qué?
+\end{problema}
+
+\begin{problema}[repaso]\label{prob:rf-5}
+Sea $\Gma(s)=\dfrac{20(s+2)}{s(s+20)}$. (a) Escríbala en forma de Bode. (b) Dibuje el diagrama asintótico de magnitud y fase. (c) Compare con los valores reales en $\omega=2$ y $\omega=20$. (d) ¿Cuál es el tipo del sistema y cuánto vale $\kv$?
+\end{problema}
+
+\begin{problema}[repaso]\label{prob:rf-6}
+Sea $G(s)=\dfrac{50}{(s+5)(s+10)}$ con $x(t)=3\sin(5t)$. (a) Calcule $z_{ss}(t)$ exacta. (b) Estímela solo con el diagrama asintótico y compare. (c) ¿A qué frecuencia la salida es diez veces más pequeña que la entrada (asintótico y exacto)?
+\end{problema}
+
+\begin{problema}[el error de la asíntota]\label{prob:rf-7}
+Para las mallas abiertas (i) $\dfrac{200}{(s+1)(s+20)}$, (ii) $\dfrac{50(s+2)}{s(s+10)(s+50)}$ y (iii) $\dfrac{5(s+1)}{s^2(s+5)}$:
+(a) escríbalas en forma de Bode e identifique $\Kb$, el número de integradores y las esquinas;
+(b) justifique a partir de la expresión de la magnitud las reglas asintóticas de un polo real simple;
+(c) trace los tres diagramas indicando la pendiente de cada tramo;
+(d) calcule el valor exacto de magnitud y fase en cada esquina y verifique que el error de magnitud en una esquina simple es siempre el mismo;
+(e) para (ii), determine analíticamente dónde es máximo el error entre la asíntota y la curva real en el tramo $2<\omega<10$ y cuantifíquelo;
+(f) superponga los diagramas sobre los de \cmd{bode} y comente dónde la aproximación es aceptable.
+\end{problema}
+
+\subsection*{Estabilidad y márgenes}
+
+\begin{problema}[identificación]\label{prob:rf-8}
+Un sistema de fase mínima y ganancia positiva tiene un diagrama asintótico de magnitud con pendiente de $-20\dBdec$ en bajas frecuencias, pasando por $40\dB$ en $\omega=0.1$; quiebre a $0\dBdec$ en $\omega=2$; quiebre a $-40\dBdec$ en $\omega=20$, y quiebre a $-20\dBdec$ en $\omega=200$. (a) Reconstruya $\Gma(s)$, justificando cada factor. (b) Trace la fase y determine $\PM$ y $\GM$. (c) Al medir la fase se encuentra que en alta frecuencia tiende a $-270\grados$ en lugar del valor predicho. ¿Qué modificación de $\Gma(s)$ es compatible con la misma magnitud y explica esa fase? (d) Demuestre que ambas funciones tienen diagramas de magnitud idénticos. (e) Compare sus fases en $\omega=20$, $200$ y $2000$\,rad/s y concluya cuál es estable en lazo cerrado con retroalimentación unitaria. (f) Enuncie qué información \emph{no} contiene el diagrama de magnitud y bajo qué condición la magnitud determina la fase.
+\end{problema}
+
+\begin{problema}[márgenes y rango de ganancia]\label{prob:rf-9}
+Para $\Gma(s)=\dfrac{10\,000}{(s+1)(s+10)(s+100)}$:
+(a) trace el asintótico de magnitud y halle $\wpm$;
+(b) trace el asintótico de fase con sus puntos de quiebre y halle $\wgm$ y el $\GM$;
+(c) compare los cuatro valores con \cmd{margin} y calcule el error porcentual de cada uno;
+(d) con $\Gp=\dfrac{1}{(s+1)(s+10)(s+100)}$ y $\Gc=\Kc$, halle el rango de $\Kc$ con Routh-Hurwitz;
+(e) obtenga $\Kcr$ del $\GM$ leído en el Bode, compare y explique por qué el error de la lectura asintótica va en la dirección conveniente para el diseño;
+(f) repita (a)--(e) para $\Gp=\dfrac{1}{s(s+2)(s+10)}$, obteniendo además la frecuencia crítica por sustitución $s=\jw$; con $\Kcr$ y $\Pcr$ sintonice un PID por Ziegler-Nichols y determine el margen de fase resultante. ¿Es aceptable?
+\end{problema}
+
+\begin{problema}[presupuesto de fase]\label{prob:rf-10}
+Al lazo del problema~\ref{prob:rf-9}(a) se le agrega el sensor $\Hs(s)=20/(s+20)$. (a) Estime el nuevo $\PM$ con $\PM-\tan^{-1}(\wpm/20)$. (b) Calcúlelo con \cmd{margin}. (c) ¿Por qué la estimación es pesimista? (d) \etiquetaM{} Simule el escalón con y sin sensor y compare los sobrepicos.
+\end{problema}
+
+\subsection*{Lazo cerrado, tipo y ajuste de ganancia}
+
+\begin{problema}[PM y transitorio]\label{prob:rf-11}
+Para $\Gma(s)=\dfrac{K}{s(s+5)}$ con retroalimentación unitaria:
+(a) con $K=100$, identifique $\wn$ y $\zeta$ del lazo cerrado por comparación directa;
+(b) obtenga lo mismo por la vía frecuencial ($\omega_1$, $\PM$, ecuación~\eqref{eq:rf-PMzeta});
+(c) calcule $\OS$, $\ts$ y $\tp$ y valide simulando;
+(d) calcule $\wbw$ con \eqref{eq:rf-BW} y verifíquelo en el Bode del lazo cerrado;
+(e) ¿hay pico de resonancia? Si lo hay, calcule $\Mr$ y $\wres$;
+(f) halle el $K$ que da $\PM=60\grados$ y compare con $K=100$ en términos de $\wbw$: ¿cuál es más rápido y cuál más amortiguado?
+\end{problema}
+
+\begin{problema}[tipo y error]\label{prob:rf-12}
+Para (i) $\dfrac{20}{(s+2)(s+5)}$, (ii) $\dfrac{30}{s(s+3)(s+10)}$ y (iii) $\dfrac{400(s+2)}{s^2(s+8)}$ con retroalimentación unitaria:
+(a) determine el tipo mirando solo la pendiente de baja frecuencia;
+(b) lea gráficamente la constante de error;
+(c) verifíquela analíticamente;
+(d) calcule el error ante escalón, rampa y parábola, verificando primero la estabilidad;
+(e) uno de los tres no admite el cálculo de (d): ¿cuál, por qué y qué rasgo de su Bode lo anticipa?
+\end{problema}
+
+\begin{problema}[ajuste de ganancia]\label{prob:rf-13}
+Con $\Gc=\Kc$ y $\Gp=\dfrac{1}{s(s+20)(s+100)}$:
+(a) halle $\zeta$ y el $\PM$ para $\OS=10\%$;
+(b) en el Bode de $2000\,\Gp$ localice la frecuencia con la fase objetivo y lea la magnitud;
+(c) determine $\Kc$ y $\kv$;
+(d) \etiquetaM{} adapte \cmd{C3\_Ej3\_AjusteGanancia.m}, simule y mida el $\OS$ real;
+(e) explique por qué no coincide exactamente con el especificado;
+(f) calcule el $\GM$ del sistema ajustado y compárelo con el criterio $\GM>6\dB$.
+\end{problema}
+
+\subsection*{Compensadores}
+
+\begin{problema}[adelanto]\label{prob:rf-14}
+Diseñe un compensador en adelanto para $\Gp(s)=\dfrac{100K}{s(s+36)(s+100)}$ con $\kv=40$ y $\OS=20\%$. Use $\phiseg=10\grados$ y aplique la verificación estricta; si el $\PM$ no se cumple, itere. \etiquetaM{} Verifique con \cmd{disenoAdelanto(Gp,48.1,10,true)}.
+\end{problema}
+
+\begin{problema}[atraso y comparación]\label{prob:rf-15}
+Para la planta del problema anterior diseñe un compensador en atraso con las mismas especificaciones (\cmd{disenoAtraso(Gp,48.1)}) y construya una tabla como la \cref{tab:rf-comparacion}. ¿En qué aplicación preferiría cada uno?
+\end{problema}
+
+\begin{problema}[implementación]\label{prob:rf-16}
+Calcule $R_1$ y $R_2$ de la red de adelanto del problema~\ref{prob:rf-14} con $C=1\,\mu$F. ¿Qué ganancia debe tener el amplificador que la acompaña?
+\end{problema}
+
+\begin{problema}[límites del adelanto]\label{prob:rf-17}
+\etiquetaEstrella{} Con $\Gp=K/[s(s+2)]$ exija $\kv\geq200$ y $\PM\geq45\grados$. (a) Halle $K$ y el $\PM$ sin compensar. (b) ¿Qué $\alpha$ necesitaría un adelanto de una sola etapa? (c) Repita con $\PM\geq65\grados$ y evalúe si es realizable (un adelanto de primer orden no aporta $90\grados$ y un $\alpha$ muy grande amplifica el ruido). (d) Si no lo es, diseñe una alternativa (dos etapas o atraso-adelanto) y verifique que cumple.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:rf-1}}
+$\Gma(s)=\dfrac{10(s+1)}{s(s/10+1)}$: $\Kb=10$, un integrador, un cero en $1$ y un polo en $10$. La magnitud baja a $-20\dBdec$ y pasa por $20\dB$ en $\omega=1$; entre $1$ y $10$ queda plana en $20\dB$; después cae a $-20\dBdec$. Fase asintótica: $-90\grados$ hasta $0.1$, sube hasta $-45\grados$ en $\omega=1$, plana en $-45\grados$ hasta $10$, y vuelve a $-90\grados$ en $100$. Valores reales: $22.97\dB$ en $\omega=1$ y $17.03\dB$ en $\omega=10$ (la asíntota dice $20\dB$ en ambos: error de $\pm3\dB$), y $-50.7\grados$ en ambas esquinas.
+
+\paragraph{Problema~\ref{prob:rf-2}}
+$\Gma(s)=\dfrac{5}{(s/2+1)(s/5+1)}$: $13.98\dB$ hasta $\omega=2$, $-20\dBdec$ entre $2$ y $5$, $-40\dBdec$ después; la fase va de $0\grados$ a $-180\grados$. Valor real en $\omega=2$: $10.33\dB$ y $-66.8\grados$.
+
+\paragraph{Problema~\ref{prob:rf-3}}
+$|\Gma(j10)|=10/|10+j10|=0.707$ y $\phi=-45\grados$: $z_{ss}(t)=1.414\sin(10t-45\grados)$.
+
+\paragraph{Problema~\ref{prob:rf-4}}
+$\omega=1$: $1.01$ ($+0.08\dB$), $-2.3\grados$; $\omega=10$: $2.5$ ($+7.96\dB$), $-90\grados$; $\omega=50$: $0.042$ ($-27.6\dB$), $-175.2\grados$. La salida es mayor que la entrada en $\omega=10$, la frecuencia natural ($\zeta=0.2$).
+
+\paragraph{Problema~\ref{prob:rf-5}}
+(a) $20(s+2)=40(s/2+1)$ y $s(s+20)=20\,s\,(s/20+1)$, luego $\Gma(s)=\dfrac{2\,(s/2+1)}{s\,(s/20+1)}$, $\Kb=2$ ($6.02\dB$).
+(b) Magnitud asintótica: $6.02-20\log\omega$ para $\omega<2$; $0\dB$ entre $2$ y $20$ (el integrador y el cero se cancelan); $-20\log(\omega/20)$ después. Fase: $-90\grados$ hasta $0.2$; entre $2$ y $20$ el cero y el polo se compensan y la fase queda plana en $-45\grados$; vuelve a $-90\grados$ en $200$.
+(c) $|\Gma(j2)|=+2.97\dB$ y $|\Gma(j20)|=-2.97\dB$ (la asíntota dice $0$: el error de cada esquina); fase real $-50.7\grados$ en ambas (asintótica: $-45\grados$).
+(d) Tipo 1, $\kv=\lim_{s\to0}s\Gma(s)=2$; error ante rampa unitaria $1/\kv=0.5$.
+
+\paragraph{Problema~\ref{prob:rf-6}}
+(a) $|G(j5)|=\dfrac{50}{7.071\cdot11.18}=0.632$ ($-3.98\dB$), $\phi=-45\grados-26.6\grados=-71.6\grados$, luego $z_{ss}(t)=1.90\sin(5t-71.6\grados)$.
+(b) En forma de Bode $G=1/[(s/5+1)(s/10+1)]$: en $\omega=5$ la asíntota vale $0\dB$ y la fase asintótica $-45\grados-45\grados\log_{10}5=-76.5\grados$, así que $z_{ss}\approx3\sin(5t-76.5\grados)$. La asíntota se equivoca en $3.98\dB$ (un factor $1.58$): sirve para estimar; para calcular se usa $G(\jw)$.
+(c) Asintótico: $-6.02-40\log(\omega/10)=-20\Rightarrow\omega\approx22.4$\,rad/s. Exacto: $\omega^4+125\omega^2-247\,500=0\Rightarrow\omega=20.95$\,rad/s.
+
+\codigorepo{cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej4_Repaso.m}{}{verificación de los problemas \ref{prob:rf-5} y \ref{prob:rf-6}}
+
+\respuestaspausas

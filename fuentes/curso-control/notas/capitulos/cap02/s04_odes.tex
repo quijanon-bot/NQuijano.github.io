@@ -1,0 +1,118 @@
+%% ---------------------------------------------------------------------
+\section{Resolver ecuaciones diferenciales con Laplace}
+\label{sec:po-odes}
+%% ---------------------------------------------------------------------
+
+El método tiene tres pasos: \textbf{(1)} transformar la ODE con \eqref{eq:po-derivada}, incluyendo las condiciones iniciales; \textbf{(2)} despejar $X(s)$, que queda como un cociente de polinomios; \textbf{(3)} regresar al tiempo expandiendo $X(s)$ en fracciones parciales y usando la tabla.
+
+\begin{ejemplo}[label=ej:po-motor]{El calibrador óptico}
+Un calibrador óptico que verificaba la alineación de las piezas metálicas de varios sedanes de cuatro puertas de Chrysler tenía dinámicas no forzadas (la ODE igualada a cero)
+\[
+  \ddot x+5\dot x+6x=0,\qquad x(0)=1,\ \dot x(0)=0.
+\]
+Halle $X(s)$ y $x(t)$.
+\solucion Transformando término a término,
+\[
+  \bigl[s^2X-s\,x(0)-\dot x(0)\bigr]+5\bigl[sX-x(0)\bigr]+6X=0
+  \;\Longrightarrow\;
+  X(s)(s^2+5s+6)=s+5,
+\]
+\[
+  X(s)=\frac{s+5}{(s+2)(s+3)}=\frac{3}{s+2}-\frac{2}{s+3}
+  \quad\Longrightarrow\quad x(t)=3e^{-2t}-2e^{-3t}.
+\]
+La \cref{fig:po-motor} muestra la respuesta y sus dos componentes.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_chrysler}
+\caption{Ejemplo~\ref{ej:po-motor}. Cada polo de $X(s)$ aporta un \emph{modo} $e^{p_it}$; el residuo es su peso. El polo en $-3$ muere más rápido que el de $-2$.}
+\label{fig:po-motor}
+\end{figure}
+
+\codigorepo{cap02_modelado_primer_orden/C2_Ej3_Motor.m}{simbolico}{ejemplo \ref{ej:po-motor} con Laplace simbólico}
+
+\begin{definicion}[label=def:po-polos]{Polos y ceros}
+Si $X(s)=N(s)/D(s)$ es un cociente de polinomios, los \clave{ceros} de $X$ son las raíces de $N(s)=0$ y los \clave{polos} son las raíces de $D(s)=0$. En el plano-$s$ se dibujan los polos con $\times$ y los ceros con $\circ$.
+\end{definicion}
+
+La expansión en fracciones parciales, que introdujo Heaviside, depende del tipo de polos. Supondremos $X(s)$ estrictamente propia (grado de $N$ menor que el de $D$); si no lo es, se divide primero.
+
+\subsection{Polos simples}
+Si $D(s)=(s-p_1)(s-p_2)\cdots(s-p_n)$ con raíces distintas,
+\begin{equation}
+  X(s)=\sum_{i=1}^n\frac{k_i}{s-p_i},\qquad
+  k_i=\Bigl[(s-p_i)\,X(s)\Bigr]_{s=p_i},\qquad
+  x(t)=\sum_{i=1}^n k_i\,e^{p_it}.
+  \label{eq:po-residuos}
+\end{equation}
+En el ejemplo~\ref{ej:po-motor}: $k_1=\bigl[(s+5)/(s+3)\bigr]_{s=-2}=3$ y $k_2=\bigl[(s+5)/(s+2)\bigr]_{s=-3}=-2$. A los $k_i$ se les llama \clave{residuos}, y \matlab los calcula con \cmd{residue}:
+\codigorepo{cap02_modelado_primer_orden/C2_Ej3_Motor.m}{residue}{residuos, polos y diagrama de polos y ceros}
+
+\subsection{Polos múltiples}
+Si $p$ es un polo de multiplicidad $r$, aporta $r$ términos:
+\[
+  \frac{k_{1}}{s-p}+\frac{k_{2}}{(s-p)^2}+\cdots+\frac{k_{r}}{(s-p)^r},\qquad
+  k_{r-m}=\frac{1}{m!}\,\frac{\dif^m}{\dif s^m}\Bigl[(s-p)^rX(s)\Bigr]_{s=p},\ m=0,\dots,r-1,
+\]
+y en el tiempo, por la tabla, $k_m\dfrac{t^{m-1}}{(m-1)!}e^{pt}$: aparecen términos $t\,e^{pt}$, $t^2e^{pt}$\ldots
+
+\begin{ejemplo}[label=ej:po-multiples]{Dos polos dobles}
+Expanda $X(s)=\dfrac{1}{s^2(s+1)^2}$ y obtenga $x(t)$.
+\solucion Con $s=0$ (doble): $k_2=\bigl[1/(s+1)^2\bigr]_0=1$ y $k_1=\bigl[\tfrac{\dif}{\dif s}(s+1)^{-2}\bigr]_0=-2$. Con $s=-1$ (doble): $k_2=\bigl[1/s^2\bigr]_{-1}=1$ y $k_1=\bigl[-2s^{-3}\bigr]_{-1}=2$. Luego
+\[
+  X(s)=-\frac2s+\frac1{s^2}+\frac2{s+1}+\frac1{(s+1)^2},\qquad
+  x(t)=-2+t+2e^{-t}+t\,e^{-t}.
+\]
+\end{ejemplo}
+\codigorepo{cap02_modelado_primer_orden/C2_Ej4_FraccionesParciales.m}{multiples}{ejemplo \ref{ej:po-multiples}}
+
+\subsection{Polos complejos conjugados}
+Un par $-\alpha\pm j\beta$ tiene residuos complejos conjugados y produce, juntos, un término real $e^{-\alpha t}(A\cos\beta t+B\sin\beta t)$. En la práctica es más cómodo \emph{completar el cuadrado} en el denominador y usar las dos últimas filas de la \cref{tab:po-transformadas}.
+
+\begin{ejemplo}[label=ej:po-complejos]{Una oscilación amortiguada}
+Resuelva $3\ddot x+2\dot x+x=0$ con $x(0)=-1$, $\dot x(0)=2$.
+\solucion Transformando, $3(s^2X+s-2)+2(sX+1)+X=0$, de donde
+\[
+  X(s)=\frac{4-3s}{3s^2+2s+1},\qquad\text{polos: } s=-\tfrac13\pm j\,\tfrac{\sqrt2}{3}.
+\]
+Completando el cuadrado, $3s^2+2s+1=3\bigl[(s+\tfrac13)^2+\tfrac29\bigr]$, y escribiendo el numerador en términos de $s+\tfrac13$:
+\[
+  X(s)=\frac{-(s+\frac13)+\frac53}{(s+\frac13)^2+(\frac{\sqrt2}{3})^2}
+  \;\Longrightarrow\;
+  x(t)=e^{-t/3}\left[-\cos\frac{\sqrt2\,t}{3}+\frac{5\sqrt2}{2}\sin\frac{\sqrt2\,t}{3}\right].
+\]
+Se comprueba que $x(0)=-1$ y $\dot x(0)=\tfrac13+\tfrac53=2$. La parte real de los polos ($-\tfrac13$) da la envolvente; la imaginaria ($\tfrac{\sqrt2}3$), la frecuencia de oscilación (\cref{fig:po-complejos}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap02/f_polos_complejos}
+\caption{Ejemplo~\ref{ej:po-complejos}: la parte real de los polos fija la envolvente $e^{-t/3}$; la imaginaria, la frecuencia $\sqrt2/3$\,rad/s.}
+\label{fig:po-complejos}
+\end{figure}
+\codigorepo{cap02_modelado_primer_orden/C2_Ej4_FraccionesParciales.m}{complejos}{ejemplo \ref{ej:po-complejos}}
+
+\subsection{De los polos a la forma de la respuesta}
+Los tres casos se resumen en un solo mapa (\cref{fig:po-modos}): cada polo $p$ aporta un modo $e^{pt}$. La parte real dice si el modo crece o muere, y qué tan rápido; la parte imaginaria dice si oscila, y a qué frecuencia. Un polo en el semiplano derecho basta para que la respuesta crezca sin límite.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_polos_modos}
+\caption{Cada ubicación de polo en el plano-$s$ produce un modo distinto. Izquierda del eje imaginario: el modo se extingue (más rápido cuanto más a la izquierda). Sobre el eje: oscila sin amortiguarse. A la derecha: crece.}
+\label{fig:po-modos}
+\end{figure}
+
+\begin{ideaclave}
+Los polos determinan \emph{qué} modos aparecen en la respuesta; los residuos (y por lo tanto los ceros y las condiciones iniciales) determinan \emph{cuánto} pesa cada uno. Volveremos sobre esto en el \cref{cap:so} con los polos dominantes.
+\end{ideaclave}
+
+\subsection{Sin transformar: \texttt{dsolve} y \texttt{ode45}}
+\matlab puede resolver el problema de valor inicial directamente: \cmd{dsolve} lo hace simbólicamente (internamente, con las mismas ideas) y \cmd{ode45} numéricamente, sin necesidad de que la ecuación sea lineal.
+\codigorepo{cap02_modelado_primer_orden/C2_Ej5_dsolve.m}{dsolve}{$\dot y=-2y+t$ y $\ddot y+\dot y+y=\sin t$ con $y(0)=1$, $\dot y(0)=0$}
+
+\begin{pausa}
+En el ejemplo~\ref{ej:po-motor}, ¿qué condición inicial $\dot x(0)$ haría desaparecer el modo $e^{-3t}$?
+\respuesta{Con $\dot x(0)=v$, $X(s)=\dfrac{s+5+v}{(s+2)(s+3)}$. El residuo en $-3$ es $\dfrac{-3+5+v}{-1}=-(2+v)$, que se anula con $v=-2$. Entonces $X=1/(s+2)$ y $x(t)=e^{-2t}$: la condición inicial ``cae'' justo sobre el modo lento.}
+\end{pausa}

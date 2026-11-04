@@ -1,0 +1,85 @@
+%% ---------------------------------------------------------------------
+\section{La ley de Mason}
+\label{sec:so-mason}
+%% ---------------------------------------------------------------------
+
+Con muchos lazos entrelazados, el álgebra de bloques se vuelve un juego de paciencia. Hay una alternativa que da la respuesta de una vez.
+
+\begin{historia}[Samuel J.\ Mason y los grafos de flujo de señal]
+En 1953, Samuel J.\ Mason, del MIT, propuso representar un sistema de ecuaciones lineales como un \emph{grafo de flujo de señal} y mostró cómo leer la retroalimentación en él~\citep{Mas53}; en 1956 publicó la fórmula general de la ganancia entre dos nodos, que tiene en cuenta los lazos que no se tocan~\citep{Mas56}. Su fórmula completó lo que Arnold Tustin había dejado sin resolver en un trabajo previo sobre diagramas de flujo. Hoy se la conoce como \emph{Mason's gain formula} o \clave{ley de Mason}.
+\end{historia}
+
+En un grafo de flujo, las señales son \emph{nodos} y cada \emph{rama} dirigida lleva una ganancia (una función de transferencia). Un nodo suma las señales de todas las ramas que le llegan y transmite esa suma por todas las que salen. Vocabulario~\citep{ogata10}:
+
+\begin{definicion}[label=def:so-grafo]{Grafo de flujo de señal}
+\begin{itemize}
+  \item \textbf{Nodo de entrada} (\emph{source}): solo tiene ramas salientes. \textbf{Nodo de salida} (\emph{sink}): solo entrantes. \textbf{Nodo mixto}: ambas.
+  \item \textbf{Trayecto}: un recorrido por ramas en el sentido de las flechas. \textbf{Trayecto directo}: va del nodo de entrada al de salida sin pasar dos veces por el mismo nodo.
+  \item \textbf{Lazo}: un trayecto cerrado que no repite nodos. Dos lazos son \textbf{disyuntos} si no tienen ningún nodo en común (no se tocan).
+  \item \textbf{Ganancia} de un trayecto o de un lazo: el producto de las ganancias de sus ramas.
+\end{itemize}
+\end{definicion}
+
+\begin{definicion}[label=def:so-mason]{Ley de Mason}
+La función de transferencia entre el nodo de entrada y uno de salida es
+\begin{equation}
+  T(s)=\frac{1}{\Delta}\sum_{k=1}^{n}P_k\,\Delta_k,
+  \label{eq:so-mason}
+\end{equation}
+donde $n$ es el número de trayectos directos, $P_k$ la ganancia del $k$-ésimo, $\Delta$ el \clave{discriminante} del grafo,
+\begin{equation}
+  \Delta=1-\sum_a L_a+\sum_{b,c}L_bL_c-\sum_{d,e,f}L_dL_eL_f+\cdots
+  \label{eq:so-discriminante}
+\end{equation}
+(uno, menos la suma de las ganancias de todos los lazos, más la suma de los productos de pares de lazos disyuntos, menos la de ternas de lazos disyuntos, y así sucesivamente), y $\Delta_k$ el discriminante de la parte del grafo que \emph{no toca} el trayecto $P_k$ (se calcula como $\Delta$, eliminando los lazos que tocan $P_k$).
+\end{definicion}
+
+\begin{cuidado}[Discriminante, no determinante]
+En la versión anterior se llamaba ``determinante'' a $\Delta$. Lo llamamos \clave{discriminante} para no confundirlo con el determinante de una matriz (aunque, en el fondo, es el determinante del sistema de ecuaciones de los nodos, y por eso funciona).
+\end{cuidado}
+
+Antes de un caso grande, comprobemos con el lazo de siempre: un trayecto $P_1=G$, un lazo $L_1=-G\Hs$ que toca al trayecto, así que $\Delta=1+G\Hs$, $\Delta_1=1$ y $T=G/(1+G\Hs)$, la regla \eqref{eq:so-retro}.
+
+\begin{ejemplo}[label=ej:so-mason]{Dos trayectos y cuatro lazos}
+Halle $Y(s)/R(s)$ para el grafo de la \cref{fig:so-mason}.
+\solucion \textbf{Trayectos directos:} $P_1=G_1G_2G_3G_4G_5G_6$ (nodos 1-2-3-4-5-6-7) y $P_2=G_1G_2G_7G_8G_9$ (nodos 1-2-3-8-9-7).
+
+\textbf{Lazos:} $L_1=-G_2H_1$ (nodos 2-3), $L_2=-G_2G_3G_4H_4$ (2-3-4-5), $L_3=-G_4H_2$ (4-5) y $L_4=-G_8H_3$ (8-9).
+
+\textbf{Lazos disyuntos:} en pares, $L_1L_3$, $L_1L_4$, $L_2L_4$ y $L_3L_4$ ($L_1$ y $L_2$ comparten los nodos 2 y 3; $L_2$ y $L_3$, el 4 y el 5). En ternas, solo $L_1L_3L_4$.
+\[
+  \Delta=1-(L_1+L_2+L_3+L_4)+(L_1L_3+L_1L_4+L_2L_4+L_3L_4)-L_1L_3L_4.
+\]
+\textbf{Cofactores:} $P_1$ toca los nodos 1 a 7, así que solo queda libre $L_4$: $\Delta_1=1-L_4$. $P_2$ toca 1, 2, 3, 8, 9 y 7, así que solo queda libre $L_3$: $\Delta_2=1-L_3$. Finalmente,
+\[
+  \frac{Y(s)}{R(s)}=\frac{P_1(1-L_4)+P_2(1-L_3)}{\Delta}.
+\]
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap03/mason_grafo}
+\caption{Ejemplo~\ref{ej:so-mason}: grafo de flujo de señal con nueve nodos, dos trayectos directos y cuatro lazos (en coral, las ramas de retroalimentación).}
+\label{fig:so-mason}
+\end{figure}
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej6_Mason.m}{mason}{ejemplo \ref{ej:so-mason}: Mason contra resolver las ecuaciones de los nodos}
+
+\begin{ideaclave}
+El discriminante es siempre el denominador de la función de transferencia: \alerta{$\Delta(s)=0$ es la ecuación característica} y sus raíces son los polos del lazo cerrado. Para el lazo simple, $\Delta=1+G\Hs$: lo mismo que encontramos con el álgebra de bloques.
+\end{ideaclave}
+
+\begin{receta}[Aplicar la ley de Mason]
+\begin{enumerate}
+  \item Numerar los nodos. Listar \emph{todos} los trayectos directos con sus nodos.
+  \item Listar todos los lazos con sus nodos y sus ganancias (incluyendo el signo de cada retroalimentación).
+  \item Buscar pares, ternas\ldots\ de lazos que no compartan nodos y armar $\Delta$.
+  \item Para cada trayecto, tachar los lazos que lo tocan y armar $\Delta_k$ con los que quedan.
+  \item Aplicar \eqref{eq:so-mason} y, si se puede, verificar con álgebra de bloques o con \matlab.
+\end{enumerate}
+\end{receta}
+
+\begin{pausa}
+En la \cref{fig:so-mason}, si se elimina la rama $-H_4$, ¿cuánto vale el nuevo $\Delta$?
+\respuesta{Quedan $L_1$, $L_3$ y $L_4$, todos disyuntos entre sí: $\Delta=1-(L_1+L_3+L_4)+(L_1L_3+L_1L_4+L_3L_4)-L_1L_3L_4=(1-L_1)(1-L_3)(1-L_4)$. Cuando ningún lazo se toca, el discriminante se factoriza.}
+\end{pausa}

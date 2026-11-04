@@ -1,0 +1,19 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=9mm]
+  \node (r) {$r$}; \node[bloque,right=5mm of r] (N) {$N$}; \node[suma,right=6mm of N] (S) {};
+  \node[bloque,right=9mm of S,minimum width=26mm,align=center] (P) {planta\\ $\dot x=\Am x+\Bm u$, $y=\Cm x$};
+  \node[right=9mm of P] (y) {$y$};
+  \node[bloque,below=9mm of P,minimum width=26mm,fill=ctrlverde!10,align=center] (O) {observador\\ $\dot{\tilde x}=(\Am-\Lm\Cm)\tilde x+\Bm u+\Lm y$};
+  \node[bloque,left=12mm of O,fill=ctrlcoral!12] (K) {$\Km$};
+  \draw[senal] (r)--(N); \draw[senal] (N)--(S); \draw[senal] (S)--node[above]{$u$}(P); \draw[senal] (P)--(y);
+  \coordinate (ny) at ($(P.east)!0.5!(y.west)$); \fill[ctrlnoche] (ny) circle (1.5pt);
+  \draw[senal] (ny)|-(O.east);
+  \coordinate (nu) at ($(S.east)!0.5!(P.west)$); \fill[ctrlnoche] (nu) circle (1.5pt);
+  \draw[senal] (nu)--([xshift=-2mm]O.north west|-O.north) ;
+  \draw[senal] (O)--node[above]{$\tilde x$}(K); \draw[senal] (K)-|(S); \node[rot] at ($(S)+(-3mm,-3.5mm)$) {$-$};
+  \draw[dashed,ctrlgris,rounded corners] ($(K.south west)+(-3mm,-6mm)$) rectangle ($(O.north east)+(3mm,3mm)$);
+  \node[rot,anchor=north] at ($(K.south)!0.5!(O.south)+(0,-6.5mm)$) {compensador: $U(s)=-\Km\bigl(s\Id-(\Am-\Bm\Km-\Lm\Cm)\bigr)^{-1}\Lm\,Y(s)$ (con $r=0$)};
+\end{tikzpicture}
+\end{document}

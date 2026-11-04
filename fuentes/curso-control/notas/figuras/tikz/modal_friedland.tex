@@ -1,0 +1,22 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[b/.style={bloque,minimum width=16mm}]
+  \node (u) at (0,0) {$u$};
+  \coordinate (n) at (1.0,0);
+  \node[b] (z1) at (2.6, 1.8) {$\dfrac{1}{s+1}$};
+  \node[b,fill=ctrlgris!10] (z2) at (2.6, 0.6) {$\dfrac{1}{s+2}$};
+  \node[b] (z3) at (2.6,-0.6) {$\dfrac{1}{s+3}$};
+  \node[b,fill=ctrlgris!10] (z4) at (2.6,-1.8) {$\dfrac{1}{s+4}$};
+  \node[suma] (S) at (7.4,1.2) {};
+  \node (y) at (8.5,1.2) {$y$};
+  \draw[thick,draw=ctrlnoche] (u)--(n); \fill[ctrlnoche] (n) circle (1.5pt);
+  \draw[senal] (n)|-(z1); \draw[senal] (n)|-(z3);
+  \draw[senal] (z1.east)--node[above,pos=0.45,rot]{controlable y observable}(7.4,1.8)--(S);
+  \draw[senal] (z2.east)--node[below,pos=0.45,rot]{observable, no controlable}(7.4,0.6)--(S);
+  \draw[senal] (S)--(y);
+  \node[rot,anchor=west] at ($(z3.east)+(2mm,0)$) {controlable, no observable: $z_3$ no llega a $y$};
+  \node[rot,anchor=west] at ($(z4.east)+(2mm,0)$) {ni controlable ni observable};
+  \foreach \i in {1,...,4} \node[font=\footnotesize,anchor=south east] at ($(z\i.north east)+(4mm,-1mm)$) {$z_\i$};
+\end{tikzpicture}
+\end{document}

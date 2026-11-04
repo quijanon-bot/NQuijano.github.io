@@ -1,0 +1,15 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[scale=1.15]
+  \draw[->,ctrlgris] (-3,0)--(1,0) node[right] {$\sigma$};
+  \draw[->,ctrlgris] (0,-2.2)--(0,2.5) node[above] {$j\omega$};
+  \coordinate (p) at (-1.2,1.9); \coordinate (q) at (-1.2,-1.9);
+  \draw[thick,ctrlazul] (0,0)--node[left=2pt,pos=0.6]{$\omega_n$}(p);
+  \draw[dashed,ctrlgris] (p)--(0,1.9) node[right]{$\omega_d=\omega_n\sqrt{1-\zeta^2}$};
+  \draw[dashed,ctrlgris] (p)--(-1.2,0) node[below]{$-\zeta\omega_n$};
+  \draw[ctrlcoral,thick] (-0.55,0) arc (180:122:0.55); \node[ctrlcoral] at (-0.72,0.32) {$\beta$};
+  \node[ctrlcoral,font=\large] at (p) {$\times$}; \node[ctrlcoral,font=\large] at (q) {$\times$};
+  \node[align=left,font=\footnotesize,anchor=west] at (-3,-1.2) {$\cos\beta=\zeta$\\ $\tr=\dfrac{\pi-\beta}{\omega_d}$};
+\end{tikzpicture}
+\end{document}

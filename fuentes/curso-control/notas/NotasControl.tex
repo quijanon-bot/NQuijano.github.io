@@ -1,0 +1,45 @@
+%% =====================================================================
+%%  Notas de Análisis de Sistemas de Control -- archivo principal
+%%  Compilar desde esta carpeta (notas/):
+%%      latexmk -pdf NotasControl.tex
+%%  o   pdflatex NotasControl; bibtex NotasControl; pdflatex x2
+%% =====================================================================
+\documentclass{apuntescontrol}   % opciones: borrador, sinqr
+\usepackage{notacion}
+%% Dirección de la página web y del repositorio (cambiar al publicar):
+\definirsitio{https://quijanon-bot.github.io/NQuijano.github.io/curso-control}{https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control}[https://github.com/quijanon-bot/NQuijano.github.io/blob/main/fuentes/curso-control/codigo]
+
+\begin{document}
+\pagenumbering{arabic}  % (sin \frontmatter: babel-spanish + números romanos rompen \label)
+\portada{Notas de Análisis de Sistemas de Control}{Nicanor Quijano\\[2pt]
+  {\large Departamento de Ingeniería Eléctrica y Electrónica}}{Versión piloto \textperiodcentered{} noviembre de 2026}
+\tableofcontents
+\input{capitulos/00_convenciones}
+
+
+%% ---------------------------------------------------------------------
+%% Capítulos. Los que dicen "por migrar" todavía están en el formato
+%% anterior (LibroCtrl2026_V2/Chapters); compilan con esta clase gracias a
+%% las cajas de compatibilidad, pero conviene migrarlos uno a uno siguiendo
+%% el piloto (capítulo 10) y la guía notas/MIGRACION.md.
+%% ---------------------------------------------------------------------
+% Mientras se migran los demás, se fija el número de cada capítulo migrado
+% para que coincida con el del curso (y con las rutas de la página web).
+% \input{capitulos/01_introduccion}                 % por migrar (Introduccion.tex)
+\setcounter{chapter}{1}
+\input{capitulos/02_modelado_primer_orden}          % migrado (Handout2_CtrlParte1.tex)
+\input{capitulos/03_modelado_segundo_orden}         % migrado (Handout2_CtrlParte2.tex)
+% \input{capitulos/04_espacio_estado}               % por migrar (Handout3_Ctrl.tex)
+% \input{capitulos/05_estabilidad}                  % por migrar (Handout4_Ctrl.tex)
+% \input{capitulos/06_error}                        % por migrar (Handout5_Ctrl.tex)
+% \input{capitulos/07_pid_nociones}                 % por migrar (Handout6a_Ctrl.tex)
+% \input{capitulos/08_pid_sintonizacion}            % por migrar (Handout6b_Ctrl.tex)
+\setcounter{chapter}{8}
+\input{capitulos/09_retroalimentacion_estado}       % migrado (Handout7_Ctrl.tex)
+\setcounter{chapter}{9}
+\input{capitulos/10_respuesta_frecuencial}          % PILOTO (formato nuevo)
+
+
+\bibliographystyle{plainnat}
+\bibliography{referencias}
+\end{document}

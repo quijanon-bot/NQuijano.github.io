@@ -1,0 +1,16 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=9mm]
+  \node (r) {$r$}; \node[suma,right=6mm of r] (S) {};
+  \node[bloque,right=9mm of S,minimum width=30mm,align=center] (P) {$\dot x=\Am x+\Bm u$};
+  \node[bloque,right=9mm of P] (C) {$\Cm$};
+  \node[right=7mm of C] (y) {$y$};
+  \coordinate (n) at ($(P.east)!0.5!(C.west)$);
+  \node[bloque,below=7mm of P,fill=ctrlcoral!12] (K) {$\Km$};
+  \draw[senal] (r)--(S); \draw[senal] (S)--node[above]{$u$}(P); \draw[senal] (P)--(C); \draw[senal] (C)--(y);
+  \fill[ctrlnoche] (n) circle (1.5pt); \node[above] at (n) {$x$};
+  \draw[senal] (n)|-(K); \draw[senal] (K)-|(S); \node[rot] at ($(S)+(-3mm,-3.5mm)$) {$-$};
+  \node[rot,below=1mm of K] {todos los estados se miden};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,2 @@
+function sgtitle(varargin)
+end

@@ -1,0 +1,37 @@
+%% ---------------------------------------------------------------------
+\section{El PID visto desde la frecuencia}
+\label{sec:rf-pid}
+%% ---------------------------------------------------------------------
+
+Los compensadores de este capítulo y el PID de los capítulos anteriores son parientes cercanos:
+\begin{itemize}
+  \item un \textbf{PI}, $\Kc\big(1+\frac{1}{\Ti s}\big)=\Kc\,\frac{\Ti s+1}{\Ti s}$, es un atraso con el polo llevado al origen: ganancia infinita en DC (sube el tipo) a cambio de algo de fase en el cruce;
+  \item un \textbf{PD con filtro}, $\Kc\,\frac{1+\Td s}{1+\Td s/N}$, es exactamente un adelanto con $\alpha=N$;
+  \item un \textbf{PID} serie con filtro es un atraso-adelanto.
+\end{itemize}
+Esto permite sintonizar un PID \emph{mirando el Bode}, y entender qué hacen las reglas empíricas.
+
+\paragraph{Ziegler-Nichols leído en frecuencia}
+Con la planta del \cref{ej:rf-rangokc} y la sintonización de ZN ($\Kc=73\,326$, $\Ti=0.0943$\,s, $\Td=0.0236$\,s), la malla abierta en la frecuencia crítica vale $\Gc\Gp(\jw_{cr})=-0.6-0.28j$: ZN ``mueve'' el punto que estaba en $-1$ a un lugar fijo, sin importar la planta. El resultado es un lazo agresivo, con $\PM\approx20\grados$ y mucho sobrepico (\cref{fig:rf-pid}).
+
+\paragraph{Moldeo del lazo}
+Alternativa: escoger el cruce y el margen y construir el PID para cumplirlos. Con $\omega_c=20$\,rad/s y $\PMdes=50\grados$:
+\begin{enumerate}
+  \item cero del PI una década abajo del cruce: $\Ti=10/\omega_c=0.5$\,s;
+  \item fase que debe aportar el PD filtrado ($N=10$): $-180\grados+50\grados-\big(\angle\Gp+\angle\mathrm{PI}\big)(j20)=37.6\grados$, de donde $\Td=0.0465$\,s;
+  \item ganancia para que $|\Gc\Gp(j20)|=1$: $\Kc=33\,427$.
+\end{enumerate}
+El lazo queda con $\PM=50\grados$ y $\GM=24.4\dB$. La función \cmd{pidtune(Gp,'PIDF',wc,pidtuneOptions('PhaseMargin',50))} hace esto automáticamente.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap10/f_pid_frecuencia}
+\caption{Dos PID para la misma planta: Ziegler-Nichols (agresivo) y moldeo del lazo con $\PM=50\grados$.}
+\label{fig:rf-pid}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej5_PID_Frecuencia.m}{moldeo}{moldeo del lazo}
+
+\begin{profundiza}[El relé de Åström y Hägglund]
+Para medir $\Kcr$ y $\Pcr$ sin llevar la planta al borde de la inestabilidad, Åström y Hägglund propusieron reemplazar el controlador por un relé de amplitud $d$~\citep{AsHa84}. El lazo oscila en la frecuencia donde la fase vale $-180\grados$, con amplitud $a\approx\frac{4d}{\pi\Kcr}$ (aproximación de la función descriptiva), de donde se despeja $\Kcr$. Es el principio de muchos autosintonizadores industriales.
+\end{profundiza}

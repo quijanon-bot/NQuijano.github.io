@@ -1,0 +1,76 @@
+%% ---------------------------------------------------------------------
+\section{Observadores de estado}
+\label{sec:re-observador}
+%% ---------------------------------------------------------------------
+
+Todo lo anterior supone que medimos todos los estados. Casi nunca es así: medir cuesta, y algunos estados (una velocidad interna, una concentración) no tienen sensor. La salida de este problema es \emph{estimarlos}: construir dentro del controlador una copia del modelo que, alimentada con la entrada y con la salida medida, reproduzca el estado.
+
+\begin{historia}[David Luenberger]
+David G.\ Luenberger acuñó el término \emph{observador} en su tesis doctoral en Stanford (1963) y lo publicó en 1964~\citep{Lue64}. Mostró que para cualquier sistema lineal observable se puede construir un observador cuyo error de estimación tienda a cero tan rápido como se quiera, y que su diseño es el ``dual'' de la ubicación de polos por retroalimentación de estado.
+\end{historia}
+
+\paragraph{La idea}
+Una copia del modelo, $\dot{\est{x}}=\Am\est{x}+\Bm u$, reproduciría el estado si arrancara exactamente en $x(0)$ y el modelo fuera perfecto. Como no es así, la corregimos con lo que sí sabemos: la diferencia entre la salida medida $y$ y la que predice la copia, $\Cm\est{x}$ (\cref{fig:re-observador}):
+\begin{equation}
+  \dot{\est{x}}=\Am\est{x}+\Bm u+\Lm\,(y-\Cm\est{x})=(\Am-\Lm\Cm)\,\est{x}+\Bm u+\Lm y.
+  \label{eq:re-observador}
+\end{equation}
+$\Lm$ (de $n\times p$) es la \clave{ganancia del observador}. Restando \eqref{eq:re-observador} de \eqref{eq:re-estado}, el \clave{error de estimación} $\errest=x-\est{x}$ cumple
+\begin{equation}
+  \dot{\errest}=(\Am-\Lm\Cm)\,\errest.
+  \label{eq:re-errorobs}
+\end{equation}
+Si $\Am-\Lm\Cm$ es Hurwitz, $\est{x}\to x$ \emph{sin importar la entrada}, y la velocidad la fijan los valores propios de $\Am-\Lm\Cm$, que escogemos con $\Lm$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap09/observador}
+\caption{Observador de Luenberger: una copia del modelo corregida con el error de salida $y-\Cm\est{x}$.}
+\label{fig:re-observador}
+\end{figure}
+
+\begin{cuidado}[$\est{x}$ y no $\hat{x}$]
+En muchos libros el estimado se escribe $\hat{x}$. En este curso $\hat{x}$ es la \emph{variable desviación} (\cref{cap:so}), y los dos símbolos aparecen juntos cuando se diseña un observador para un modelo linealizado. Por eso el estimado es $\est{x}$ y el error de estimación es $\errest$ (la letra $e$ queda para el error de seguimiento $r-y$).
+\end{cuidado}
+
+\begin{definicion}[label=def:re-observable]{Observabilidad}
+El sistema \eqref{eq:re-estado} es \clave{observable} si el estado inicial $x(0)$ (y con él todo $x(t)$) se puede determinar a partir de la entrada $u(\tau)$ y la salida $y(\tau)$ en un intervalo finito $0\leq\tau\leq t$. Equivalentemente, si y solo si la \clave{matriz de observabilidad}
+\begin{equation}
+  \Obsv=\begin{bmatrix}\Cm\\ \Cm\Am\\ \vdots\\ \Cm\Am^{n-1}\end{bmatrix}
+  \label{eq:re-obsv}
+\end{equation}
+tiene rango $n$. Y los polos del observador (los valores propios de $\Am-\Lm\Cm$) se pueden ubicar arbitrariamente si y solo si $(\Am,\Cm)$ es observable.
+\end{definicion}
+
+\paragraph{Dualidad}
+Los valores propios de $\Am-\Lm\Cm$ son los de su transpuesta, $\Am^\top-\Cm^\top\Lm^\top$, que tiene la forma $\Am-\Bm\Km$ con $\Am\to\Am^\top$, $\Bm\to\Cm^\top$ y $\Km\to\Lm^\top$. Diseñar un observador es ubicar polos en el sistema ``dual''. En \matlab: \cmd{L = acker(A',C',p)'} (o \cmd{place}). La fórmula de Ackermann para el observador es
+\begin{equation}
+  \Lm=\rho(\Am)\,\Obsv^{-1}\begin{bmatrix}0\\ \vdots\\ 0\\ 1\end{bmatrix},\qquad
+  \rho(\Am)=\Am^n+\beta_{n-1}\Am^{n-1}+\cdots+\beta_0\Id,
+  \label{eq:re-ackermannobs}
+\end{equation}
+donde $\rho(\lambda)=\lambda^n+\beta_{n-1}\lambda^{n-1}+\cdots+\beta_0$ es el polinomio deseado del observador.
+
+\begin{ejemplo}[label=ej:re-observador]{Un observador con Ackermann}
+Para $\Am=\begin{bmatrix}2&3\\-1&4\end{bmatrix}$, $\Cm=[1\;\;0]$, halle $\Lm$ para que el observador tenga $\rho(\lambda)=\lambda^2+2\zeta\wn\lambda+\wn^2$ con $\zeta=0.8$ y $\wn=10$.
+\solucion $\rho(\lambda)=\lambda^2+16\lambda+100$. Entonces
+\[
+  \rho(\Am)=\Am^2+16\Am+100\Id=\begin{bmatrix}133&66\\-22&177\end{bmatrix},\qquad
+  \Obsv=\begin{bmatrix}1&0\\2&3\end{bmatrix},\qquad
+  \Obsv^{-1}=\begin{bmatrix}1&0\\-2/3&1/3\end{bmatrix},
+\]
+y $\Lm=\rho(\Am)\Obsv^{-1}[0\;\;1]^\top=\rho(\Am)\,[0\;\;\tfrac13]^\top=[22\;\;59]^\top$. Con la planta $\Am=\begin{bmatrix}0&1\\-10&-2\end{bmatrix}$ y el mismo $\rho$, $\Obsv=\Id$ y sale $\Lm=[14\;\;62]^\top$; la \cref{fig:re-obs} muestra cómo el estimado alcanza al estado real partiendo de condiciones iniciales distintas.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_observador}
+\caption{Ejemplo~\ref{ej:re-observador} con $\Am=\begin{bmatrix}0&1\\-10&-2\end{bmatrix}$: la planta arranca en $x(0)=[1\;\;0]^\top$ y el observador en cero. En medio segundo el error de estimación ya es menor que el $4\%$.}
+\label{fig:re-obs}
+\end{figure}
+
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej7_Observador.m}{observador}{ejemplo \ref{ej:re-observador}}
+
+\begin{ideaclave}
+¿Qué tan rápido debe ser el observador? Lo bastante para que el estimado esté listo antes de que el controlador lo necesite: es usual ponerlo de dos a cinco veces más rápido que los polos de control. Más rápido no es gratis: un $\Lm$ grande amplifica el ruido de medición que entra por $y$. Es el mismo compromiso entre velocidad y ruido de todo el curso.
+\end{ideaclave}

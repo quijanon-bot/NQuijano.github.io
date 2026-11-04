@@ -1,0 +1,66 @@
+%% ---------------------------------------------------------------------
+\section{El decibel}
+\label{sec:rf-decibel}
+%% ---------------------------------------------------------------------
+
+\subsection{Un invento de ingenieros telefónicos}
+
+Antes de 1923, la pérdida de una línea telefónica se expresaba en \emph{millas de cable estándar} (MSC): cuántas millas de un cable de referencia atenuaban lo mismo a $5000$\,rad/s ($\approx796$\,Hz, una frecuencia representativa de la voz). La unidad dependía de la frecuencia y del cable. En 1924, W.~H.~Martin, de Bell Labs, propuso reemplazarla por la \emph{transmission unit} (TU): diez veces el logaritmo decimal de la razón de potencias~\citep{martin24}. La TU casi coincidía con la milla de cable,
+\begin{equation}
+  1\ \text{MSC}\approx\frac{1}{1.056}\ \text{TU}\approx 0.95\ \text{dB},
+\end{equation}
+de modo que los ingenieros no tuvieron que cambiar su intuición. En 1928 el Bell System adoptó el nombre \emph{decibel}, en honor a Alexander Graham Bell, siguiendo la propuesta internacional de llamar \emph{bel} a la unidad decimal y \emph{neper} (por John Napier) a la natural~\citep{martin29}:
+\begin{gather}
+  \text{bel}=\log_{10}\frac{P_2}{P_1},\qquad
+  \text{dB}=10\log_{10}\frac{P_2}{P_1},\qquad
+  1\ \text{Np}=20\log_{10}e=8.686\ \text{dB}.
+\end{gather}
+El bel resultó demasiado grande para el trabajo diario; sobrevivió su décima parte.
+
+\subsection{¿Por qué 10 log y por qué 20 log?}
+
+El decibel se define para \emph{potencias}. Si la potencia se disipa sobre la misma resistencia, $P=V^2/R$ y
+\begin{equation}
+  10\log_{10}\frac{V_2^2/R}{V_1^2/R}=20\log_{10}\frac{V_2}{V_1}.
+\end{equation}
+En el diagrama de Bode $|\Gma(\jw)|$ es una razón de \emph{amplitudes} (salida sobre entrada); por eso siempre se usa
+\begin{equation}
+  |\Gma|_{\mathrm{dB}}=20\log_{10}|\Gma(\jw)|.
+\end{equation}
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}cc l@{}}
+\toprule
+$|G|$ & dB & para recordar\\
+\midrule
+$10$ & $+20$ & una década de amplitud\\
+$2$ & $+6.02$ & el doble\\
+$\sqrt2$ & $+3.01$ & la esquina de un cero real\\
+$1$ & $0$ & cruce de ganancia\\
+$1/\sqrt2$ & $-3.01$ & ancho de banda; esquina de un polo real\\
+$0.1$ & $-20$ & una década menos\\
+\bottomrule
+\end{tabular}
+\caption{Valores que conviene memorizar. La mitad de la \emph{potencia} es $-3$\,dB: por eso la frecuencia de corte de un filtro se define donde la magnitud cae $3$\,dB.}
+\label{tab:rf-db}
+\end{table}
+
+\paragraph{Tres razones para usar logaritmos}
+\begin{enumerate}
+  \item \textbf{Cascadas.} Las ganancias se multiplican; en dB se suman, y las fases también se suman:
+  \[
+    20\log|G_1G_2G_3|=20\log|G_1|+20\log|G_2|+20\log|G_3|,\qquad
+    \angle(G_1G_2G_3)=\angle G_1+\angle G_2+\angle G_3 .
+  \]
+  Por ejemplo, $\times10\cdot\times0.5\cdot\times4=\times20$ en amplitud equivale a $20-6.02+12.04=26.02$\,dB.
+  \item \textbf{Rangos enormes.} Una razón de amplitudes de $10^6$ son ``solo'' $120$\,dB.
+  \item \textbf{Percepción.} La sonoridad que percibimos crece aproximadamente con el logaritmo de la intensidad; un cambio de $1$\,dB apenas se nota.
+\end{enumerate}
+
+\notamargen{Cuando se agrega una referencia, el decibel deja de ser una razón y pasa a ser un \emph{nivel}: dBm ($1$\,mW), dBV ($1$\,V), dB SPL ($20\,\mu$Pa). Un número en dB sin referencia es siempre una razón.}
+
+\begin{pausa}
+Un amplificador de $+26$\,dB se conecta en cascada con un filtro que, a cierta frecuencia, atenúa $-32$\,dB. ¿Por cuánto queda multiplicada la amplitud de una senoide de esa frecuencia?
+\respuesta{$26-32=-6$\,dB, es decir, $10^{-6/20}=0.50$: la amplitud queda a la mitad. En dB las cascadas se suman.}
+\end{pausa}

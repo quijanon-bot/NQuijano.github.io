@@ -1,0 +1,77 @@
+%% ---------------------------------------------------------------------
+\section{Una senoide entra, una senoide sale}
+\label{sec:rf-senoide}
+%% ---------------------------------------------------------------------
+
+\begin{definicion}[label=def:rf-respuesta]{Respuesta en frecuencia}
+La \clave{respuesta en frecuencia} de un sistema lineal, invariante en el tiempo y \emph{estable} es su respuesta en estado estacionario a una entrada senoidal. La salida es una senoide de la \emph{misma} frecuencia; solo cambian la amplitud y la fase.
+\end{definicion}
+
+El supuesto de estabilidad (en malla abierta, cuando lo que se excita es $\Gma(s)$) es esencial: si hay polos en el semiplano derecho, los transitorios no se apagan y no hay un estado estacionario que medir. Lo mantendremos durante todo el capítulo.
+
+\subsection{¿Por qué sale una senoide? Deducción}
+\label{sec:rf-deduccion}
+
+Sea $x(t)=x_0\sin(\omega t)$, cuya transformada es
+\begin{equation}
+  X(s)=\frac{x_0\,\omega}{s^2+\omega^2}=\frac{x_0\,\omega}{(s-\jw)(s+\jw)}.
+\end{equation}
+Si $\Gma(s)$ tiene polos $-p_1,\dots,-p_n$ (distintos, para simplificar), la salida se expande en fracciones parciales como
+\begin{equation}
+  Z(s)=\Gma(s)X(s)=\underbrace{\frac{K_1}{s+p_1}+\cdots+\frac{K_n}{s+p_n}}_{\text{modos del sistema}}
+  +\underbrace{\frac{a}{s-\jw}+\frac{\bar a}{s+\jw}}_{\text{modo de la entrada}}.
+\end{equation}
+En el tiempo, los términos $K_ie^{-p_it}$ se extinguen si todos los polos tienen parte real negativa. Lo que queda es el modo de la entrada. El residuo en $s=\jw$ es
+\begin{equation}
+  a=\Big[(s-\jw)\,\Gma(s)\,\frac{x_0\,\omega}{(s-\jw)(s+\jw)}\Big]_{s=\jw}
+  =\Gma(\jw)\,\frac{x_0}{2j},
+\end{equation}
+y el de $s=-\jw$ es su conjugado. Escribiendo $\Gma(\jw)=|\Gma(\jw)|\,e^{j\phi}$, con $\phi=\angle\Gma(\jw)$, y usando que $\Gma(-\jw)$ es el conjugado de $\Gma(\jw)$ (coeficientes reales):
+\begin{equation}
+  z_{ss}(t)=a\,e^{\jw t}+\bar a\,e^{-\jw t}
+  =x_0\,|\Gma(\jw)|\,\frac{e^{j(\omega t+\phi)}-e^{-j(\omega t+\phi)}}{2j}
+  =x_0\,|\Gma(\jw)|\,\sin(\omega t+\phi).
+  \label{eq:rf-zss}
+\end{equation}
+
+\begin{ideaclave}
+Para cada frecuencia, el sistema \emph{multiplica} la amplitud por $|\Gma(\jw)|$ y \emph{desplaza} la fase en $\phi=\angle\Gma(\jw)$. El diagrama de Bode es la gráfica de esos dos números en función de $\omega$.
+\end{ideaclave}
+
+\begin{ejemplo}[label=ej:rf-seno]{Un primer orden excitado con $\sin t$}
+Calcule la salida en estado estacionario de $\Gma(s)=1/(s+10)$ cuando $x(t)=\sin t$.
+\solucion Con $\omega=1$\,rad/s,
+\[
+  \Gma(j1)=\frac{1}{10+j}\ \Rightarrow\ |\Gma(j1)|=\frac{1}{\sqrt{101}}=0.0995,\qquad
+  \phi=-\tan^{-1}\frac{1}{10}=-5.71\grados,
+\]
+y por \eqref{eq:rf-zss}, $z_{ss}(t)=0.0995\,\sin(t-5.71\grados)$. La salida es diez veces más pequeña y llega $5.7\grados$ tarde. Eso es \emph{todo} lo que el diagrama de Bode guarda para $\omega=1$. La \cref{fig:rf-seno} muestra que la simulación completa coincide con esta predicción en cuanto se apaga el transitorio $e^{-10t}$ (unas cuatro constantes de tiempo, $0.4$\,s).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_seno_primer_orden}
+\caption{$1/(s+10)$ excitado con $\sin t$: la simulación completa (azul) y la predicción de estado estacionario \eqref{eq:rf-zss} (coral) coinciden después del transitorio.}
+\label{fig:rf-seno}
+\end{figure}
+
+\script[lsim y la fórmula dan lo mismo]{cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej1_RespuestaSenoidal.m}
+\codigorepo{cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej1_RespuestaSenoidal.m}{senoide}{ejemplo \ref{ej:rf-seno}}
+
+\video{V1_maquina_bode}{La máquina de Bode: se barre la frecuencia, se miden los dos números y el Bode se dibuja punto a punto.}
+\begin{modelo}[RespuestaSenoidal.slx]
+El script \cmd{crearModelo\_RespuestaSenoidal.m} construye por código el diagrama \emph{Sine Wave} $\to$ $G(s)$ $\to$ \emph{Scope}, lo simula y mide automáticamente la amplitud y el desfase en el último periodo, comparándolos con \cmd{bode(G,w)}. Cambie \cmd{w}, \cmd{num} y \cmd{den} en el \emph{workspace} y repita: está midiendo el diagrama de Bode como se hacía en Bell Labs, un punto a la vez.
+\end{modelo}
+
+\begin{pausa}
+Sin calcular nada: si la entrada de $1/(s+10)$ fuera $\sin(100t)$, ¿la salida sería más grande o más pequeña que la del \cref{ej:rf-seno}? ¿Llegaría más o menos atrasada?
+\respuesta{Más pequeña y más atrasada: $|\Gma(j100)|=1/\sqrt{10\,100}=0.00995$ (diez veces menor que en $\omega=1$) y $\phi=-\tan^{-1}10=-84.3\grados$. Un polo real atenúa y atrasa más a medida que la frecuencia sube.}
+\end{pausa}
+
+\subsection{¿Qué ganamos trabajando en frecuencia?}
+\begin{enumerate}
+  \item \textbf{Se mide.} Hay generadores de senoides en rangos enormes de frecuencia y amplitud: el modelo se puede obtener experimentalmente.
+  \item \textbf{Se multiplica sumando.} En escala logarítmica, los bloques en cascada se suman (\cref{sec:rf-decibel}).
+  \item \textbf{Se diseña a ojo.} La estabilidad relativa (márgenes), el error en estado estacionario y la velocidad de respuesta se leen en el mismo diagrama.
+  \item \textbf{Se filtra.} El ruido de medición y las perturbaciones suelen vivir en bandas de frecuencia conocidas; el diseñador ve de inmediato qué deja pasar el lazo.
+\end{enumerate}

@@ -1,0 +1,85 @@
+%% ---------------------------------------------------------------------
+\section{Diagramas de bloques}
+\label{sec:so-bloques}
+%% ---------------------------------------------------------------------
+
+Un proceso real tiene válvulas, sensores, transmisores y controladores, cada uno con su propia función de transferencia. Para representar esa cadena de causas y efectos usamos \clave{diagramas de bloques}: elementos \emph{unidireccionales}, cada uno con la función de transferencia entre su entrada y su salida (\cref{fig:so-elementos}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/bloques_elementos}
+\caption{Los elementos de un diagrama de bloques: (a) una señal, (b) un comparador, (c) un punto de bifurcación (la señal se copia, no se reparte), (d) un sumador con varios signos y (e) un bloque.}
+\label{fig:so-elementos}
+\end{figure}
+
+Tres reglas bastan para reducir casi cualquier diagrama (\cref{fig:so-reglas}):
+\begin{itemize}
+  \item \textbf{Serie:} $Z=G_1R$ y $Y=G_2Z$ dan $Y=G_1G_2\,R$. Las funciones de transferencia en cascada se multiplican.
+  \item \textbf{Paralelo:} $Y=G_1R+G_2R=(G_1+G_2)\,R$.
+  \item \textbf{Retroalimentación negativa:} con $E=R-\Hs Y$ y $Y=GE$,
+  \begin{equation}
+    \frac{Y(s)}{R(s)}=\frac{G(s)}{1+G(s)\Hs(s)}.
+    \label{eq:so-retro}
+  \end{equation}
+  Con retroalimentación positiva ($E=R+\Hs Y$) el signo del denominador cambia: $G/(1-G\Hs)$.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap03/bloques_reglas}
+\caption{Las tres reglas del álgebra de bloques.}
+\label{fig:so-reglas}
+\end{figure}
+
+\begin{ideaclave}
+El denominador de \eqref{eq:so-retro} igualado a cero, $1+G(s)\Hs(s)=0$, es la \clave{ecuación característica} del lazo cerrado. El producto $G\Hs$ es la \clave{malla abierta} $\Gma(s)$ (\cref{def:rf-malla}): lo que recorre una señal al dar una vuelta completa al lazo. Casi todo el análisis del curso (estabilidad, lugar de las raíces, Bode) gira alrededor de esa función.
+\end{ideaclave}
+
+\begin{ejemplo}[label=ej:so-dosentradas]{Dos entradas, dos salidas}
+Para el diagrama de la \cref{fig:so-dosentradas}, demuestre que $Y_2(s)=G_3(s)\bigl[G_1(s)R_1(s)+G_2(s)R_2(s)\bigr]$.
+\solucion La salida del sumador es $G_1R_1+G_2R_2$; el punto de bifurcación la copia en $Y_1$ y en la entrada de $G_3$. Por la regla de la serie, $Y_2=G_3Y_1=G_3(G_1R_1+G_2R_2)$. Por linealidad, cada entrada contribuye por su propio camino (superposición).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.75\linewidth]{cap03/bloques_dos_entradas}
+\caption{Ejemplo~\ref{ej:so-dosentradas}.}
+\label{fig:so-dosentradas}
+\end{figure}
+
+No siempre se quiere \emph{simplificar}: a veces se busca que el diagrama tenga cierta \emph{estructura}. El caso más importante es reescribir un lazo con retroalimentación $\Hs(s)$ como uno con retroalimentación unitaria, que es la forma en la que se estudia el error en estado estacionario.
+
+\begin{ejemplo}[label=ej:so-equivalente]{Lazo abierto equivalente}
+Demuestre que los dos lazos de la \cref{fig:so-equivalente} son equivalentes si
+\begin{equation}
+  \Gla(s)=\frac{G(s)}{1+G(s)\Hs(s)-G(s)}.
+  \label{eq:so-gla}
+\end{equation}
+\solucion El lazo (b) tiene $T=\Gla/(1+\Gla)$. Con \eqref{eq:so-gla},
+\[
+  1+\Gla=\frac{1+G\Hs-G+G}{1+G\Hs-G}=\frac{1+G\Hs}{1+G\Hs-G}
+  \quad\Longrightarrow\quad
+  \frac{\Gla}{1+\Gla}=\frac{G}{1+G\Hs},
+\]
+que es el lazo cerrado de (a). A $\Gla$ la llamamos \clave{lazo abierto} (\cref{def:rf-malla}); no hay que confundirla con la malla abierta $G\Hs$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap03/lazo_equivalente}
+\caption{Ejemplo~\ref{ej:so-equivalente}: el mismo lazo cerrado con retroalimentación $\Hs$ y con retroalimentación unitaria.}
+\label{fig:so-equivalente}
+\end{figure}
+
+En \matlab las tres reglas son \cmd{series}, \cmd{parallel} y \cmd{feedback} (o, simplemente, \cmd{*}, \cmd{+} y \cmd{feedback}); \cmd{minreal} cancela los polos y ceros repetidos que deja el álgebra:
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej5_Bloques.m}{algebra}{un lazo interno dentro de uno externo (problema \ref{prob:so-multilazo})}
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej5_Bloques.m}{equivalente}{ejemplo \ref{ej:so-equivalente}}
+
+\begin{cuidado}[\texttt{feedback} supone signo negativo]
+\cmd{feedback(G,H)} calcula $G/(1+GH)$. Para retroalimentación positiva hay que escribir \cmd{feedback(G,H,+1)}. Y \cmd{feedback(G,1)} es retroalimentación \emph{unitaria}, no ``sin retroalimentación''.
+\end{cuidado}
+
+\begin{pausa}
+Si en la regla de retroalimentación $G\Hs\gg1$ en las frecuencias de interés, ¿a qué se parece $Y/R$? ¿Qué consecuencia práctica tiene?
+\respuesta{$Y/R\approx1/\Hs$: el lazo cerrado depende casi solo del sensor y no de la planta. Por eso un buen sensor es más importante que una planta precisa, y por eso Black pudo construir amplificadores precisos con tubos imprecisos (\cref{cap:rf}).}
+\end{pausa}

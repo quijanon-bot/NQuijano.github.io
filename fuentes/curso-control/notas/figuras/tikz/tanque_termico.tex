@@ -1,0 +1,19 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[font=\small]
+  \fill[ctrlazul!12] (0,0) rectangle (3,1.9);
+  \draw[ctrlazul,dashed] (0,1.9)--(3,1.9);
+  \draw[very thick,ctrlnoche] (0,2.8)--(0,0)--(3,0)--(3,2.8);
+  % agitador
+  \draw[thick,ctrlnoche] (1.9,3.1)--(1.5,0.9);
+  \draw[thick,ctrlnoche,fill=ctrlgris!30] (1.5,0.9) .. controls (1.0,1.2) and (0.8,0.7) .. (1.5,0.9) .. controls (2.2,1.1) and (2.2,0.6) .. (1.5,0.9);
+  % entrada
+  \draw[senal] (-1.8,2.5)--(1.0,2.5)--(1.0,2.05);
+  \node[above,align=left] at (-1.0,2.5) {$f$ (m$^3$/s)}; \node[below] at (-1.0,2.5) {$T_i(t)$ (°C)};
+  % salida
+  \draw[senal] (3,0.5)--(4.8,0.5);
+  \node[above] at (4.0,0.5) {$f$ (m$^3$/s)}; \node[below] at (4.0,0.5) {$T(t)$ (°C)};
+  \node[ctrlnoche] at (0.6,0.35) {$V,\ \rho$};
+\end{tikzpicture}
+\end{document}

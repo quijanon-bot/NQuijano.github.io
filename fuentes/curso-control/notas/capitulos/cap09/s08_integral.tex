@@ -1,0 +1,67 @@
+%% ---------------------------------------------------------------------
+\section{Acción integral: error nulo en estado estacionario}
+\label{sec:re-integral}
+%% ---------------------------------------------------------------------
+
+Los ejemplos~\ref{ej:re-trespolos} y la pausa de la \cref{sec:re-especificaciones} mostraron el problema: $u=r-\Km x$ pone los polos donde queremos, pero nada obliga a que $y$ llegue a $r$. En el capítulo de error vimos que el remedio es un integrador en el lazo. En espacio de estado se hace igual.
+
+\begin{ejemplo}[label=ej:re-sinintegral]{El error de la retroalimentación de estado pura}
+Para $\Am=\begin{bmatrix}0&1\\-3&-5\end{bmatrix}$, $\Bm=\begin{bmatrix}0\\1\end{bmatrix}$, $\Cm=[1\;\;0]$, diseñe $u=r-\Km x$ con $\OS=10\%$ y $\ts=0.5$\,s, y calcule el error en estado estacionario ante un escalón unitario.
+\solucion $\zeta=0.591$ y $\zeta\wn=4/0.5=8$, así que $\wn=13.53$ y el polinomio deseado es $s^2+16s+183.1$ (polos en $-8\pm j10.91$). El lazo cerrado tiene $s^2+(5+K_2)s+(3+K_1)$, luego $\Km=[180.1\;\;11]$. Con $\bar{\Am}=\Am-\Bm\Km$, $Y(s)/R(s)=\Cm(s\Id-\bar{\Am})^{-1}\Bm=1/(s^2+16s+183.1)$ y
+\[
+  \ess=\lim_{s\to0}s\,\frac1s\bigl(1-\Cm(s\Id-\bar{\Am})^{-1}\Bm\bigr)=1-\frac{1}{183.1}=0.9945.
+\]
+¡La salida llega a menos del $1\%$ de la referencia!
+\end{ejemplo}
+
+\paragraph{El estado integrador}
+Agregamos un estado nuevo, la integral del error de seguimiento (\cref{fig:re-integral}):
+\begin{equation}
+  z(t)=\int_0^t e(\tau)\,\dif\tau,\qquad \dot z=e=r-\Cm x,
+\end{equation}
+y la ley de control $u=-\Km x+K_e z=-\bigl[\Km\;\;-K_e\bigr]\begin{bmatrix}x\\z\end{bmatrix}$. El sistema aumentado es
+\begin{equation}
+  \begin{bmatrix}\dot x\\ \dot z\end{bmatrix}=
+  \begin{bmatrix}\Am-\Bm\Km & \Bm K_e\\ -\Cm & 0\end{bmatrix}
+  \begin{bmatrix}x\\ z\end{bmatrix}+\begin{bmatrix}0\\1\end{bmatrix}r,
+  \qquad y=\bigl[\Cm\;\;0\bigr]\begin{bmatrix}x\\ z\end{bmatrix}.
+  \label{eq:re-integral}
+\end{equation}
+Si el lazo aumentado es estable, en estado estacionario $\dot z=0$, es decir $y=r$: el error es nulo para \emph{cualquier} valor de los parámetros de la planta, mientras el lazo siga estable. Hay un polo más que ubicar: si no hay ceros cerca, de cinco a diez veces más a la izquierda que los dominantes; si los hay, sobre el cero.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap09/integral_estado}
+\caption{Retroalimentación de estado con acción integral: $u=-\Km x+K_ez$, con $\dot z=r-y$.}
+\label{fig:re-integral}
+\end{figure}
+
+\begin{ejemplo}[label=ej:re-integral]{Ahora con integrador}
+Repita el ejemplo~\ref{ej:re-sinintegral} con acción integral, con el tercer polo en $-100$.
+\solucion El polinomio característico de \eqref{eq:re-integral} es $s^3+(5+K_2)s^2+(3+K_1)s+K_e$, y el deseado, $(s+100)(s^2+16s+183.1)=s^3+116s^2+1783.1s+18\,310$. Luego
+\[
+  K_1=1780.1,\qquad K_2=111,\qquad K_e=18\,314
+\]
+(con $\wn^2$ sin redondear, $183.137$; con $183.1$ saldría $18\,310$). La \cref{fig:re-integralfig} muestra que el error se anula. El precio es el esfuerzo: un tercer polo tan rápido pide picos de $u$ de más de cien veces el escalón.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_integral}
+\caption{Ejemplos~\ref{ej:re-sinintegral} y~\ref{ej:re-integral}: sin integrador la salida no sigue la referencia; con él la sigue, a cambio de un esfuerzo de control mucho mayor.}
+\label{fig:re-integralfig}
+\end{figure}
+
+\codigorepo{cap09_retroalimentacion_estado/C9_Ej9_Integral.m}{integrador}{ejemplo \ref{ej:re-integral}}
+
+\begin{cuidado}[Cuando la salida combina estados]
+Si $\Cm$ tiene más de un elemento no nulo (por ejemplo $\Cm=[4\;\;1]$), $K_e$ aparece en \emph{varios} coeficientes del polinomio aumentado, no solo en el independiente. Calcule siempre $\det(\lambda\Id-\Am_{aum})$ completo; no copie la forma del ejemplo anterior (problema~\ref{prob:re-integralcero}).
+\end{cuidado}
+
+\begin{modelo}[RetroEstado.slx]
+El script \cmd{crearModelo\_RetroEstado.m} diseña las dos leyes del ejemplo y construye dos copias de la planta: una con $u=r-\Km x$ y otra con $u=-\Km x+K_ez$. Los \emph{Scope} comparan las salidas y los esfuerzos. Pruebe a cambiar el tercer polo y a perturbar $\Am$ (la planta real): la versión con integrador sigue llegando a $1$.
+\end{modelo}
+
+\begin{profundiza}[Retroalimentación de estado con integrador = un PID]
+Para una planta de segundo orden en variables de fase, $x_1=y$ y $x_2=\dot y$. La ley $u=-K_1y-K_2\dot y+K_e\int e$ es exactamente un controlador \textbf{I-PD}: la acción integral actúa sobre el error y las acciones proporcional y derivativa, solo sobre la salida (capítulo del PID). La formulación de estado agrega dos cosas: una manera sistemática de ubicar \emph{todos} los polos, y la posibilidad de usar un observador cuando $\dot y$ no se mide o la planta es de orden mayor (problema~\ref{prob:re-ipd}).
+\end{profundiza}

@@ -1,0 +1,122 @@
+%% ---------------------------------------------------------------------
+\section{¿Por qué la frecuencia?}
+\label{sec:rf-porque}
+%% ---------------------------------------------------------------------
+
+Hasta ahora hemos analizado los sistemas de control de dos maneras: con la función de transferencia, mirando dónde quedan los polos en el plano-$s$, y con la representación de estado, mirando los valores propios de $\Am$. Las dos exigen \emph{tener el modelo}. La respuesta frecuencial cambia la pregunta. En lugar de preguntar dónde están los polos, pregunta
+\begin{center}
+\sffamily\large\color{ctrlazul}¿qué le hace el sistema a una senoide?
+\end{center}
+La respuesta, como veremos en la \cref{sec:rf-senoide}, son dos números por cada frecuencia: cuánto cambia la amplitud y cuánto se corre la fase. Lo valioso es que esos dos números se pueden \emph{medir} en un laboratorio con un generador de señales y un osciloscopio, aun cuando nadie haya escrito nunca la función de transferencia. Y, sobre todo, con esos dos números dibujados en una sola gráfica, el \clave{diagrama de Bode}, vamos a poder responder las tres preguntas del curso (estabilidad, respuesta transitoria y error) y además \emph{diseñar}: la \cref{fig:rf-mapa} es el mapa del capítulo.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[font=\sffamily\small,
+  caja/.style={draw=#1,fill=#1!8,thick,rounded corners=2pt,align=center,minimum height=10mm,text width=27mm},
+  flecha/.style={-{Stealth[length=2.2mm]},thick,draw=ctrlgris}]
+  \node[caja=ctrlnoche] (sen) {una senoide entra\\ y sale otra};
+  \node[caja=ctrlazul,right=6mm of sen] (bode) {diagrama de Bode\\ de $\Gma(\jw)$};
+  \node[caja=ctrlverde,right=9mm of bode,yshift=13mm] (est) {estabilidad\\ \footnotesize $\GM$, $\PM$ (\S\ref{sec:rf-estabilidad})};
+  \node[caja=ctrlvioleta,right=9mm of bode] (tra) {transitorio\\ \footnotesize $\PM\to\zeta$, $\wbw$ (\S\ref{sec:rf-lazocerrado})};
+  \node[caja=ctrlambar,right=9mm of bode,yshift=-13mm] (err) {error\\ \footnotesize tipo, $\kp,\kv,\ka$ (\S\ref{sec:rf-tipo})};
+  \node[caja=ctrlcoral,below=7mm of bode] (dis) {diseño: $\Kc$, adelanto,\\ atraso (\S\ref{sec:rf-ajuste}--\ref{sec:rf-pid})};
+  \draw[flecha] (sen) -- (bode);
+  \draw[flecha] (bode.east) -- (est.west);
+  \draw[flecha] (bode.east) -- (tra.west);
+  \draw[flecha] (bode.east) -- (err.west);
+  \draw[flecha] (bode) -- (dis);
+\end{tikzpicture}
+\caption{Mapa del capítulo. Todo sale de un mismo dibujo: la malla abierta $\Gma(\jw)$ en magnitud y fase.}
+\label{fig:rf-mapa}
+\end{figure}
+
+%% ---------------------------------------------------------------------
+\subsection{Un poco de historia: el control nace en un laboratorio de teléfonos}
+
+En los años veinte, las líneas telefónicas transcontinentales de AT\&T necesitaban cientos de amplificadores de tubos de vacío en cascada. La distorsión de cada uno se acumulaba y la ganancia derivaba con la temperatura y con el envejecimiento de los tubos. Harold S.\ Black propuso en 1927 una solución que hoy parece obvia: \emph{retroalimentar} negativamente el amplificador, sacrificando ganancia a cambio de precisión y linealidad~\citep{black34}.\nota{Black cuenta que la idea se le ocurrió el 2 de agosto de 1927 en el ferry de Lackawanna, camino al trabajo, y que la anotó en una página del \emph{New York Times}~\citep{black77}. La patente, presentada en 1928, se concedió en 1937~\citep{blackpat}.} El precio fue un problema nuevo: con mucha ganancia de lazo, los amplificadores \emph{oscilaban}.
+
+\notamargen{\textbf{Pregunta para la clase.} ¿Por qué una compañía telefónica necesitaba una teoría de estabilidad?}
+Harry Nyquist dio en 1932 el criterio para predecir la estabilidad del lazo cerrado a partir de mediciones de la malla abierta~\citep{Nyq32}, y Hendrik W.\ Bode, entre 1940 y 1945, convirtió esas ideas en un método de diseño de regla y lápiz: las gráficas de magnitud en decibeles y de fase contra el logaritmo de la frecuencia que hoy llevan su nombre, las aproximaciones asintóticas, los márgenes de ganancia y de fase, y la relación entre la pendiente de la magnitud y la fase en los sistemas de fase mínima~\citep{Bod40,bode45}. Durante la Segunda Guerra Mundial estos métodos salieron de los teléfonos y llegaron a los servomecanismos de radares y cañones~\citep{JaNiPh47}; el lugar de las raíces de Evans llegaría después~\citep{Eva50}. La \cref{fig:rf-linea} resume la cronología.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_linea_tiempo}
+\caption{De Black a Evans: casi todo el control clásico en frecuencia salió de Bell Labs (en ámbar, los aportes de Bode).}
+\label{fig:rf-linea}
+\end{figure}
+
+\begin{historia}[Hendrik Wade Bode (1905--1982)]
+Ingeniero de redes y amplificadores en Bell Labs. Su problema era diseñar retroalimentación con mucha ganancia y sin oscilaciones. En 1940 mostró que en los sistemas de fase mínima la magnitud determina la fase: basta mirar la pendiente. En la guerra trabajó en directores de tiro antiaéreo y en 1967 pasó a Harvard como profesor de ingeniería de sistemas. Su gran aporte práctico fueron las aproximaciones con líneas rectas, que permiten dibujar a mano, en minutos, el comportamiento de un sistema en \emph{todas} las frecuencias.
+\end{historia}
+
+%% ---------------------------------------------------------------------
+\subsection{El lenguaje: malla abierta, lazo abierto y \emph{open loop}}
+\label{sec:rf-lenguaje}
+
+En el curso distinguimos dos funciones que en los libros en inglés suelen aparecer con el mismo nombre. Considere el lazo de la \cref{fig:rf-mallalazo}(a), con camino directo $G(s)$ y retroalimentación $\Hs(s)$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/malla_vs_lazo}
+\caption{(a) La malla abierta es lo que recorre una señal al dar una vuelta completa al lazo. (b) El lazo abierto aparece al reescribir el mismo lazo con retroalimentación unitaria.}
+\label{fig:rf-mallalazo}
+\end{figure}
+
+\begin{definicion}[label=def:rf-malla]{Malla abierta y lazo abierto}
+La \clave{malla abierta} es el producto de todo lo que recorre una señal al dar una vuelta completa al lazo, \emph{sin} el signo del comparador:
+\begin{equation}
+  \Gma(s)=G(s)\,\Hs(s).
+  \label{eq:rf-mallaabierta}
+\end{equation}
+Es la función con la que se estudia la estabilidad del lazo cerrado y la que se dibuja en el diagrama de Bode. Si el lazo tiene válvula, planta, sensor y transmisor, $\Gma=\Gv\,\Gp\,\Gs\,\Gt$.
+
+El \clave{lazo abierto} es la función que relaciona el error con la salida cuando el lazo se reescribe con retroalimentación unitaria:
+\begin{equation}
+  \Gla(s)=\frac{G(s)}{1+G(s)\Hs(s)-G(s)}.
+  \label{eq:rf-lazoabierto}
+\end{equation}
+Es la que se usa para el tipo del sistema y los errores en estado estacionario (capítulo de error).
+\end{definicion}
+
+Las dos llevan a la misma ecuación característica,
+\begin{equation}
+  1+G(s)\Hs(s)=0\quad\Longleftrightarrow\quad 1+\Gla(s)=0,
+  \label{eq:rf-ecuacioncaracteristica}
+\end{equation}
+y cuando $\Hs(s)=1$ (el caso de casi todos nuestros ejemplos) coinciden: $\Gma(s)=\Gla(s)=G(s)$. Por eso los textos las mezclan. Ogata, por ejemplo, llama \emph{open-loop transfer function} a $B(s)/E(s)=G(s)H(s)$, que es nuestra malla abierta, y \emph{feedforward transfer function} a $C(s)/E(s)=G(s)$~\citep{ogata10}; Åström y Murray la llaman \emph{loop transfer function}, $L=PC$~\citep{AsMu10}; en electrónica se dice \emph{loop gain}, $A\beta$. La regla para no confundirse es preguntar \emph{qué se corta y qué se mide}.
+
+\begin{cuidado}
+Con $\Gma(s)$ estudiamos estabilidad y diseñamos en frecuencia; con $\Gla(s)$ calculamos el tipo y el error. Cuando $\Hs\neq1$ son funciones \emph{distintas}: un sensor con dinámica cambia la malla abierta y, con ella, los márgenes, aunque el error se calcule con otra función.
+\end{cuidado}
+
+\paragraph{Cortar el lazo}
+Imagine que corta el lazo justo después del comparador (\cref{fig:rf-corte}), inyecta una señal $x$ en el corte y mide lo que regresa, $z$. La señal recorre $G$, luego $\Hs$, y llega al comparador, que le cambia el signo:
+\begin{equation}
+  \frac{Z(s)}{X(s)}=-\,G(s)\,\Hs(s)=-\,\Gma(s).
+\end{equation}
+Si para alguna frecuencia $\omega$ lo que vuelve es exactamente $-x$ (misma amplitud, invertido), es decir, si $\Gma(\jw)=-1$, el comparador lo convierte en $+x$: el lazo se alimenta solo y oscila sin necesidad de entrada. Por eso el punto crítico del análisis en frecuencia es $-1$ (magnitud $1=0\dB$ y fase $-180\grados$), y por eso el signo del comparador \emph{no} se incluye en $\Gma(s)$. Bode llamó \clave{diferencia de retorno} a $1+\Gma(s)$: la diferencia entre la señal inyectada y la que regresa. Sus ceros son los polos del lazo cerrado,
+\begin{equation}
+  \Tlc(s)=\frac{Y(s)}{R(s)}=\frac{G(s)}{1+\Gma(s)}.
+\end{equation}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.62\linewidth]{cap10/cortar_lazo}
+\caption{Cortar el lazo: se inyecta $x$ y se mide lo que regresa, $z=-\Gma x$.}
+\label{fig:rf-corte}
+\end{figure}
+
+\paragraph{El mismo lenguaje en electrónica}
+\notamargen{En las hojas de datos de los amplificadores operacionales, la \emph{open-loop gain} es $A$, del orden de $10^5$.}
+En el amplificador de Black (\cref{fig:rf-black}), $A$ es la ganancia del amplificador sin retroalimentar y $\beta$ la fracción de la salida que se resta a la entrada:
+\begin{equation}
+  A_f=\frac{A}{1+A\beta}\ \xrightarrow{\ A\beta\gg 1\ }\ \frac{1}{\beta}.
+\end{equation}
+Con $A=10^5$ y $\beta=0.01$ resulta $A_f=99.90$; si los tubos envejecen y $A$ cae a la mitad, $A_f=99.80$. La ganancia del amplificador cayó un $50\%$ y la del amplificador retroalimentado apenas un $0.1\%$. Es la misma razón por la que retroalimentamos plantas: la ganancia de lazo $A\beta\leftrightarrow\Gma(s)$ compra insensibilidad a las variaciones del sistema.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\linewidth]{cap10/black}
+\caption{El amplificador retroalimentado de Black: $A\beta$ es la malla abierta.}
+\label{fig:rf-black}
+\end{figure}

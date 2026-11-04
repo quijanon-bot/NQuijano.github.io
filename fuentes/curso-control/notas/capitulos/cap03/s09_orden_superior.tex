@@ -1,0 +1,70 @@
+%% ---------------------------------------------------------------------
+\section{Sistemas de orden superior y polos dominantes}
+\label{sec:so-ordensuperior}
+%% ---------------------------------------------------------------------
+
+Un lazo cerrado con controlador, válvula y sensor rara vez es de segundo orden. ¿Sirve entonces todo lo anterior? Sí, gracias a una idea: los \clave{polos dominantes}, los que contienen la mayor parte de la información del comportamiento. Si los demás polos están lejos (a la izquierda), sus modos mueren rápido y la respuesta se parece a la de un segundo orden. Así no hace falta antitransformar para estimar $\OS$ y $\ts$.
+
+\paragraph{Cuándo despreciar un polo} Para $T(s)=\dfrac{1}{(s^2+2\zeta\wn s+\wn^2)(\gamma s+1)}$, P.\,R.\ Clement mostró que el $\OS$ y el $\ts$ se parecen a los del segundo orden cuando~\citep{Cle60}
+\begin{equation}
+  \left|\frac1\gamma\right|\geq10\,|\zeta\wn|,
+  \label{eq:so-clement}
+\end{equation}
+es decir, cuando la parte real del polo adicional es al menos diez veces la de los dominantes. Es una regla conservadora: con cinco veces suele bastar en la práctica.
+
+\begin{ejemplo}[label=ej:so-dominantes]{Un polo lejano}
+Para $T(s)=\dfrac{20}{(s+10)(s^2+2s+2)}$ obtenga la respuesta al escalón y compárela con la del segundo orden dominante.
+\solucion Los polos dominantes están en $-1\pm j$ ($\zeta\wn=1$) y el tercero en $-10$: se cumple \eqref{eq:so-clement}. Con fracciones parciales,
+\[
+  Y(s)=\frac1s-\frac{1/41}{s+10}-\frac{\frac{40}{41}(s+1)+\frac{50}{41}}{(s+1)^2+1},
+  \qquad
+  y(t)=1-\tfrac{40}{41}e^{-t}\cos t-\tfrac{50}{41}e^{-t}\sin t-\tfrac1{41}e^{-10t}.
+\]
+El término del polo en $-10$ es pequeño ($1/41$) \emph{y} rápido. La aproximación debe conservar la ganancia DC: $T(s)\approx\dfrac{20/10}{s^2+2s+2}$. Los sobrepicos son $4.27\%$ y $4.32\%$ (\cref{fig:so-dominantes}, izquierda).
+\end{ejemplo}
+
+\paragraph{Los ceros también cuentan} El análisis anterior supone que no hay ceros cerca de los polos dominantes. Un cero en $-a$ cerca de ellos cambia mucho la respuesta: en $T(s)=\dfrac{(\wn^2/a)(s+a)}{s^2+2\zeta\wn s+\wn^2}$ el sobrepico depende de $a/(\zeta\wn)$, y crece cuanto más cerca está el cero. Con un polo y un cero adicionales, $T(s)=\dfrac{(\wn^2/a)(s+a)}{(s^2+2\zeta\wn s+\wn^2)(\tau s+1)}$, ambos se pueden ignorar si $a\gg\zeta\wn$ y $1/\tau\gg\zeta\wn$; si no, no.
+
+\begin{ejemplo}[label=ej:so-cero]{Un cero y un polo que no se pueden ignorar}
+Analice $T(s)=\dfrac{62.5\,(s+2.5)}{(s^2+6s+25)(s+6.25)}$.
+\solucion La ganancia DC es $1$. Los dominantes tienen $\zeta=0.6$, $\wn=5$ ($\zeta\wn=3$), el cero está en $-2.5$ y el polo extra en $-6.25$ ($\tau=0.16$). Ninguno está lejos. Comparemos tres modelos (\cref{fig:so-dominantes}, derecha):
+\begin{center}\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+modelo & $\OS$ & $\ts$ (s) & comentario\\
+\midrule
+completo & $38.0\%$ & $1.59$ & la respuesta real\\
+sin el polo: $\dfrac{10(s+2.5)}{s^2+6s+25}$ & $54.5\%$ & $1.47$ & el cero solo dispara el sobrepico\\
+solo los dominantes: $\dfrac{25}{s^2+6s+25}$ & $9.5\%$ & $1.19$ & la fórmula del segundo orden\\
+\bottomrule
+\end{tabular}
+\end{center}
+El tercer polo amortigua el sobrepico que provoca el cero, pero alarga el $\ts$; ninguna de las dos aproximaciones sirve.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_dominantes}
+\caption{Izquierda: ejemplo~\ref{ej:so-dominantes}, el polo en $-10$ se puede despreciar. Derecha: ejemplo~\ref{ej:so-cero}, el cero en $-2.5$ y el polo en $-6.25$ no.}
+\label{fig:so-dominantes}
+\end{figure}
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej7_Dominantes.m}{cero}{ejemplo \ref{ej:so-cero}}
+
+\subsection{Ubicación de las raíces y respuesta transitoria}
+
+En general, el lazo cerrado es $T(s)=\dfrac{\sum_kP_k\Delta_k}{\Delta(s)}$ y sus polos son las raíces de $\Delta(s)=0$ (para un lazo simple, $1+G\Hs=0$). Sin raíces repetidas y con ganancia unitaria, la respuesta al escalón tiene la forma
+\[
+  y(t)=1+\sum_{i}A_i\,e^{-\sigma_it}+\sum_kD_k\,e^{-\alpha_kt}\sin(\omega_kt+\theta_k),
+\]
+una suma de exponenciales (polos reales $-\sigma_i$) y senoides amortiguadas (polos $-\alpha_k\pm j\omega_k$). Para que la salida sea acotada todas las partes reales deben ser negativas (\cref{fig:po-modos}). Y para leer la forma de la respuesta:
+\begin{itemize}
+  \item La respuesta está determinada por los polos \emph{y} por los residuos.
+  \item Los polos más cercanos al eje imaginario son los modos más lentos: dominan la forma de la respuesta, a menos que su residuo sea pequeño.
+  \item Los polos fijan \emph{qué} modos hay; los ceros fijan \emph{cuánto} pesa cada uno. Un cero cerca de un polo reduce la contribución de ese modo (en el límite, lo cancela).
+\end{itemize}
+
+\begin{pausa}
+En el ejemplo~\ref{ej:so-dominantes}, ¿cuánto pesaría el modo $e^{-10t}$ si el polo extra estuviera en $-3$ en lugar de $-10$ (manteniendo la ganancia DC)? ¿Se podría despreciar?
+\respuesta{Con $T=\dfrac{6}{(s+3)(s^2+2s+2)}$, el residuo de $Y=T/s$ en $-3$ es $\dfrac{6}{(-3)(9-6+2)}=-0.4$: casi la mitad del valor final, y el modo $e^{-3t}$ es apenas tres veces más rápido que la envolvente $e^{-t}$. No se puede despreciar.}
+\end{pausa}

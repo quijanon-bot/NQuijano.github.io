@@ -1,0 +1,16 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=8mm]
+  \node (r1) {$R_1(s)$}; \node[bloque,right=of r1] (g1) {$G_1(s)$};
+  \node[below=12mm of r1] (r2) {$R_2(s)$}; \node[bloque,right=of r2] (g2) {$G_2(s)$};
+  \node[suma,right=10mm of g1,yshift=-10.5mm] (S) {};
+  \coordinate[right=8mm of S] (n); \fill[ctrlnoche] (n) circle (1.6pt);
+  \node[right=12mm of n] (y1) {$Y_1(s)$};
+  \node[bloque,below=6mm of n,xshift=8mm] (g3) {$G_3(s)$}; \node[right=6mm of g3] (y2) {$Y_2(s)$};
+  \draw[senal] (r1)--(g1); \draw[senal] (r2)--(g2);
+  \draw[senal] (g1)-|(S); \draw[senal] (g2)-|(S);
+  \node[rot] at ($(S)+(-3mm,3.5mm)$) {$+$}; \node[rot] at ($(S)+(-3mm,-3.5mm)$) {$+$};
+  \draw[thick,draw=ctrlnoche] (S)--(n); \draw[senal] (n)--(y1); \draw[senal] (n)|-(g3); \draw[senal] (g3)--(y2);
+\end{tikzpicture}
+\end{document}

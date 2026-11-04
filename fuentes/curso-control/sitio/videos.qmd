@@ -1,0 +1,28 @@
+---
+title: "Videos"
+subtitle: "Los videos que se usan en clase, generados con los scripts del repositorio"
+---
+
+Cada video se genera con un script de MATLAB (columna *Script*); si quiere cambiar algo, cambie el script y vuelva a grabarlo. Los archivos `.mp4` se publican en la carpeta `sitio/videos/` del repositorio.
+
+## Parte 10 · Respuesta frecuencial
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V1_maquina_bode}[V1 · La máquina de Bode](videos/V1_maquina_bode.mp4) | Se barre la frecuencia de una senoide y el Bode se dibuja punto a punto. | `C1_Video_MaquinaBode.m` |
+| []{#V2_resonancia_zeta}[V2 · Resonancia y ζ](videos/V2_resonancia_zeta.mp4) | Polos, pico de resonancia y sobrepico para el mismo ζ. | `C1_Video_Resonancia.m` |
+| []{#V10_asintotico_s_s10}V10 · s/(s+10) término a término *(pendiente: genérelo con el script)* | Construcción del asintótico, suma y curva real. | `C1_Video_Asintotico_s_s10.m` |
+| []{#V11_pasaaltos_s_s10}V11 · Un filtro pasa-altos *(pendiente: genérelo con el script)* | Barrido de frecuencia y entrada compuesta. | `C1_Video_PasaAltos_s_s10.m` |
+| []{#V3_asintotico_margenes}[V3 · Márgenes asintóticos](videos/V3_asintotico_margenes.mp4) | Bode término a término y márgenes. | `C2_Ej2_Margenes.m` |
+| []{#V4_barrido_Kc}[V4 · Subiendo K~c~](videos/V4_barrido_Kc.mp4) | El GM se agota y el lazo oscila. | `C2_Video_BarridoKc.m` |
+| []{#V12_sensor_margen_fase}V12 · El sensor lento *(pendiente: genérelo con el script)* | El PM como presupuesto de fase. | `C2_Video_SensorMargenFase.m` |
+| []{#V5_PM_zeta}[V5 · PM y sobrepico](videos/V5_PM_zeta.mp4) | Subir K baja el PM y sube el sobrepico. | `C3_Video_PM_zeta.m` |
+| []{#V6_ajuste_ganancia}[V6 · Ajuste de ganancia](videos/V6_ajuste_ganancia.mp4) | La curva sube hasta cruzar en 13.56 rad/s. | `C3_Video_AjusteGanancia.m` |
+| []{#V7_adelanto_alpha}[V7 · El adelanto](videos/V7_adelanto_alpha.mp4) | α crece con ω~M~ fijo. | `C4_Ej1_Adelanto.m` |
+| []{#V8_adelanto_vs_atraso}[V8 · Adelanto contra atraso](videos/V8_adelanto_vs_atraso.mp4) | Seguimiento de una rampa. | `C4_Ej3_Comparacion.m` |
+
+::: {.cuidado}
+[Para publicar los videos]{.caja-titulo}
+
+Copie los `.mp4` de `Bode_4Clases/videos/` a `sitio/videos/`. Si pesan más de unos 50 MB en total, es mejor subirlos a YouTube o a Stream y cambiar aquí los enlaces.
+:::

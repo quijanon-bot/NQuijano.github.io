@@ -1,0 +1,93 @@
+%% ---------------------------------------------------------------------
+\section{Ejemplo resuelto: $\Gma(s)=s/(s+10)$}
+\label{sec:rf-ejemplo}
+%% ---------------------------------------------------------------------
+
+Este ejemplo recoge todo lo anterior y es el que más conviene dominar. Lo resolvemos en cinco pasos que sirven para cualquier malla abierta.
+
+\begin{ejemplo}[label=ej:rf-ss10]{Diagrama asintótico de $s/(s+10)$}
+Dibuje el diagrama de Bode asintótico de magnitud y fase de $\Gma(s)=s/(s+10)$ y compárelo con el real.
+\solucion
+\textbf{Paso 1: forma de Bode.} Se saca el $10$ del polo:
+\[
+  \Gma(s)=\frac{s}{10\big(\frac{s}{10}+1\big)}
+  =\underbrace{\textcolor{ctrlazul}{\frac{1}{10}}}_{\text{ganancia}}\cdot\underbrace{\textcolor{ctrlcoral}{s}}_{\text{cero en el origen}}\cdot
+  \underbrace{\textcolor{ctrlvioleta}{\frac{1}{\frac{s}{10}+1}}}_{\text{polo en }-10}.
+\]
+\textbf{Paso 2: identificar los factores.}
+\begin{itemize}
+  \item \textcolor{ctrlazul}{$1/10$}: $20\log\frac{1}{10}=-20\dB$ y $0\grados$ (recta horizontal).
+  \item \textcolor{ctrlcoral}{$s$}: $+20\dBdec$ pasando por $0\dB$ en $\omega=1$, y $+90\grados$.
+  \item \textcolor{ctrlvioleta}{$1/(s/10+1)$}: $0\dB$ hasta $\omega=10$ y $-20\dBdec$ después; fase de $0\grados$ a $-90\grados$ entre $\omega=1$ y $\omega=100$.
+\end{itemize}
+\textbf{Paso 3: dibujar cada factor por separado} (líneas delgadas de la \cref{fig:rf-ss10}).
+
+\textbf{Paso 4: sumar.} En magnitud,
+\[
+  \omega<10:\ -20+20\log\omega,\qquad
+  \omega>10:\ -20+20\log\omega-20\log\frac{\omega}{10}=0\dB .
+\]
+Desde $\omega=10$ las pendientes $+20$ y $-20$ se cancelan y la curva queda plana en $0\dB$. En $\omega=1$ la asíntota vale $-20\dB$ y en $\omega=0.1$, $-40\dB$. En fase, $\phi(\omega)=90\grados-\tan^{-1}(\omega/10)$: $90\grados$ para $\omega\le1$, $45\grados$ en $\omega=10$ y $0\grados$ para $\omega\ge100$.
+
+\textbf{Paso 5: comparar con la curva real.} En la esquina,
+\[
+  \Big|\frac{j10}{10+j10}\Big|=\frac{1}{\sqrt2}\to-3\dB,\qquad\phi=90\grados-45\grados=45\grados.
+\]
+Otros valores reales: en $\omega=1$, $-20.04\dB$ y $84.3\grados$; en $\omega=20$, $-0.97\dB$ y $26.6\grados$; en $\omega=0.1$, $-40.0\dB$ y $89.4\grados$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_ej_s_s10}
+\caption{Los tres factores de $s/(s+10)$ (delgados), su suma asintótica (negro) y la curva real (verde). Los puntos marcan la esquina: $-3\dB$ y $45\grados$.}
+\label{fig:rf-ss10}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej2_Asintotico_s_s10.m}{factores}{ejemplo \ref{ej:rf-ss10}}
+
+\video{V10_asintotico_s_s10}{El diagrama se arma término a término con el mismo código de colores; al final, la curva real y los $-3\dB$ de la esquina.}
+
+\paragraph{Interpretación: un filtro pasa-altos}
+$s/(s+10)$ deja pasar con ganancia $1$ las frecuencias por encima de $10$\,rad/s y atenúa las de abajo ($-20\dB$ por cada década hacia la izquierda). En bajas frecuencias la salida, además de pequeña, va adelantada casi $90\grados$: el cero en el origen es un \emph{derivador}. Por ejemplo, para $x(t)=\sin(0.1t)$ la salida es $0.01\sin(0.1t+89.4\grados)$. Con una entrada compuesta $x(t)=\sin t+0.3\sin 20t$, la componente lenta sale multiplicada por $0.0995$ ($-20\dB$) y la rápida por $0.894$: en la salida domina la componente de $20$\,rad/s (\cref{fig:rf-pasaaltos}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_pasaaltos}
+\caption{$s/(s+10)$ como filtro pasa-altos: de $\sin t+0.3\sin20t$ sobrevive casi solo la componente rápida.}
+\label{fig:rf-pasaaltos}
+\end{figure}
+
+\video{V11_pasaaltos_s_s10}{Barrido de $0.1$ a $1000$\,rad/s mostrando entrada y salida junto al punto del Bode; al final, la entrada compuesta.}
+
+\subsection{La receta y la hoja de trucos}
+
+\begin{receta}[Diagrama de Bode asintótico, paso a paso]
+\begin{enumerate}
+  \item Llevar $\Gma(s)$ a la forma de Bode \eqref{eq:rf-formabode}: cada factor como $(s/\omega_i+1)$, y la ganancia $\Kb$ sola.
+  \item Ordenar las esquinas de menor a mayor.
+  \item Magnitud: arrancar con la recta de baja frecuencia, $20\log \Kb-20N\log\omega$, y recorrer de izquierda a derecha sumando $+20\dBdec$ por cada cero y $-20$ por cada polo ($-40$ por cada par complejo).
+  \item Fase: factor por factor ($\pm45\grados$/dec entre $\omega_i/10$ y $10\,\omega_i$ para los reales; $-90N\grados$ de los integradores) y sumar.
+  \item Verificar con \cmd{bode}. Con polos complejos y $\zeta$ pequeño, la curva real puede estar muy por encima de la asíntota.
+\end{enumerate}
+\end{receta}
+
+\begin{anchocompleto}
+\centering\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Factor & Magnitud & Fase & Cuidado\\
+\midrule
+$\Kb$ & $20\log|\Kb|$, plana & $0\grados$ ($\pm180\grados$ si $\Kb<0$) & calcular $\Kb$ en forma de Bode\\
+$1/s^N$ & $-20N\dBdec$, $0\dB$ en $\omega=1$ & $-90N\grados$ & define el tipo del sistema\\
+$(s/\omega_1+1)^{\pm1}$ & $\pm20\dBdec$ desde $\omega_1$ & $0\to\pm90\grados$ ($\pm45\grados$ en $\omega_1$) & real: $\pm3\dB$ en $\omega_1$\\
+polos complejos & $-40\dBdec$ desde $\wn$; pico $\approx\frac{1}{2\zeta}$ & $0\to-180\grados$ ($-90\grados$ en $\wn$) & curva real: \cmd{bode}\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Hoja de trucos de Bode.}
+\label{tab:rf-trucos}
+\end{anchocompleto}
+
+\begin{pausa}
+Sin dibujar: ¿cuánto vale la asíntota de magnitud de $\Gma(s)=\dfrac{100(s+1)}{s(s+10)}$ en $\omega=1$? ¿Y la curva real?
+\respuesta{Forma de Bode: $\Gma=\dfrac{10(s+1)}{s(s/10+1)}$, $\Kb=10$. En $\omega=1$ la asíntota vale $20\log10-20\log1=20\dB$. La curva real está $3\dB$ por encima por el cero en $1$ (y un poco menos por el polo en $10$): $22.97\dB$.}
+\end{pausa}

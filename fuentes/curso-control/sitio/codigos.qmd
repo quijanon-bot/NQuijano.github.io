@@ -1,0 +1,73 @@
+---
+title: "Códigos de MATLAB y Simulink"
+subtitle: "Cómo están organizados, cómo se corren y cómo se mejoran"
+---
+
+Todos los códigos viven en la carpeta [`codigo/`](https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo) del repositorio. Son la **misma fuente** que se ve en las notas en PDF y en estas páginas: los bloques de código se extraen de los archivos al compilar, de modo que nunca se desincronizan.
+
+## Primeros pasos
+
+```matlab
+>> cd ruta/al/repositorio/codigo
+>> iniciarCurso            % agrega comun/ y todos los capítulos al path
+>> C1_Ej1_RespuestaSenoidal
+```
+
+Se necesita **Control System Toolbox** (y Simulink para los `crearModelo_*.m`).
+
+## Organización
+
+```
+codigo/
+├── iniciarCurso.m
+├── comun/                       funciones que usan todos los capítulos
+│   ├── bodeAsintotico.m         Bode asintótico (ganancia, origen, polos y ceros reales)
+│   ├── margenesTabla.m          GM (dB), PM y frecuencias, con los nombres del curso
+│   ├── faseEn.m                 fase continua, para buscar frecuencias con fzero
+│   ├── pmDeZeta.m, zetaDePM.m   la relación PM <-> zeta
+│   ├── zetaDeOS.m               zeta a partir del sobrepico
+│   ├── segundoOrden.m           tr, tp, %OS y ts de un segundo orden (fórmulas de las notas)
+│   ├── polosDeseados.m          polos a partir de %OS y tp o ts (y un polo adicional)
+│   ├── variablesFase.m          representación de estado en variables de fase (la del curso)
+│   ├── estiloFigura.m           figuras con la paleta del curso
+│   └── abrirVideo.m             grabar videos en cualquier sistema operativo
+├── cap02_modelado_primer_orden/      C2_Ej1..Ej8 (señales, Laplace, ODE, valor final, primer orden),
+│                                     crearModelo_Termico.m, verificarCap02.m
+├── cap03_modelado_segundo_orden/     C3_Ej1..Ej8 (linealización, tanques, segundo orden, bloques, Mason,
+│                                     dominantes, reducción), reduccionMomentos.m,
+│                                     crearModelo_Tanques.m, crearModelo_Servo.m, verificarCap03.m
+├── cap09_retroalimentacion_estado/   C9_Ej1..Ej9 (Kalman, controlabilidad, Ackermann, especificaciones,
+│                                     observador, separación, acción integral), crearModelo_RetroEstado.m,
+│                                     crearModelo_Observador.m, verificarCap09.m
+└── cap10_respuesta_frecuencial/
+    ├── Clase1_RespuestaFrecuencial/   C1_Ej*.m, C1_Video_*.m, crearModelo_RespuestaSenoidal.m
+    ├── Clase2_Margenes/               C2_Ej*.m, C2_Video_*.m, crearModelo_LazoKc.m
+    ├── Clase3_LazoCerrado/            C3_Ej*.m, C3_Video_*.m
+    ├── Clase4_Compensadores/          C4_Ej*.m, disenoAdelanto.m, disenoAtraso.m, crearModelo_Compensadores.m
+    └── verificarCap10.m               pruebas automáticas de los números del capítulo
+```
+
+## Convenciones de los scripts
+
+Cada script empieza con un encabezado como este:
+
+```{.matlab include="../codigo/cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej3_AjusteGanancia.m"}
+```
+
+- **QUÉ HACE / OBSERVE / ESPERADO / EXPLORE**: para qué sirve, qué mirar, qué números deben salir y qué cambiar para aprender más.
+- Los fragmentos que aparecen en las notas están entre `% [ini:nombre]` y `% [fin:nombre]`.
+- Los modelos de Simulink se **construyen por código** (`crearModelo_*.m`): no hay `.slx` binarios en el repositorio y cualquiera puede ver qué bloques tiene cada modelo.
+- Los nombres de variables siguen la [notación del curso](notacion.qmd): `Gp`, `Gc`, `Kc`, `PM`, `wPM`, `Mr`, `wr`…
+
+## ¿Quiere mejorar un código?
+
+1. Haga el cambio en el archivo de `codigo/`.
+2. Corra `verificarCap10` (o el `verificarCapNN` del capítulo): si algún número de las notas deja de coincidir, lo dirá.
+3. Recompile las notas y el sitio: los fragmentos se actualizan solos.
+4. Si encontró un error, abra un *issue* en el repositorio.
+
+::: {.profundiza}
+[¿Y si no tengo MATLAB?]{.caja-titulo}
+
+Los cálculos (no las figuras ni los videos) corren también en GNU Octave con el paquete `control` (`pkg load control`), salvo `allmargin`, `pidtune` y `VideoWriter`, usando las funciones de reemplazo de `herramientas/octave_shims/` (por ejemplo, `evalfr`). Además, todos los números del capítulo 10 se verificaron de forma independiente en Python (`herramientas/cap10_numeros.py`).
+:::

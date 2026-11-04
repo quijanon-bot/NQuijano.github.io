@@ -1,0 +1,124 @@
+%% ---------------------------------------------------------------------
+\section{Del Bode de malla abierta al transitorio del lazo cerrado}
+\label{sec:rf-lazocerrado}
+%% ---------------------------------------------------------------------
+
+Los márgenes dicen \emph{si} el lazo cerrado es estable. Ahora queremos saber \emph{cómo} se comporta: cuánto sobrepasa, qué tan rápido responde. Lo haremos con el caso de referencia que conocemos desde el capítulo de segundo orden y luego lo usaremos como aproximación de polos dominantes.
+
+\subsection{El caso de referencia}
+Con $\Gc=1$ y $\Gp(s)=\dfrac{\wn^2}{s(s+2\zeta\wn)}$, la malla abierta es tipo 1 y el lazo cerrado es el segundo orden estándar,
+\begin{equation}
+  \Tlc(s)=\frac{Y(s)}{R(s)}=\frac{\wn^2}{s^2+2\zeta\wn s+\wn^2}.
+  \label{eq:rf-T2}
+\end{equation}
+
+\subsection{El lazo cerrado visto en frecuencia: pico de resonancia y ancho de banda}
+
+El diagrama de magnitud del \emph{lazo cerrado} $|\Tlc(\jw)|$ tiene dos rasgos que resumen su comportamiento (\cref{fig:rf-Tzeta}).
+
+\paragraph{Pico de resonancia}
+Maximizar $|\Tlc(\jw)|=\wn^2/\sqrt{(\wn^2-\omega^2)^2+4\zeta^2\wn^2\omega^2}$ equivale a minimizar el radicando como función de $\omega^2$; derivando e igualando a cero se obtienen el pico $\Mr$ y su frecuencia $\wres$ de la ecuación~\eqref{eq:rf-Mr}:
+\[
+  \Mr=\frac{1}{2\zeta\sqrt{1-\zeta^2}},\qquad \wres=\wn\sqrt{1-2\zeta^2},\qquad 0<\zeta<\tfrac{1}{\sqrt2}.
+\]
+Un $\Mr$ grande indica polos dominantes poco amortiguados y una respuesta oscilatoria; para $\zeta>0.707$ no hay pico ($\Mr=1$).
+
+\begin{cuidado}
+No confundir el pico de resonancia $\Mr$ (frecuencia, lazo cerrado) con el sobrepico $\OS$ (tiempo, respuesta al escalón). Están relacionados porque ambos dependen solo de $\zeta$, pero son números distintos: con $\zeta=0.5$, $\Mr=1.15$ ($1.25\dB$) y $\OS=16.3\%$. En versiones anteriores de estas notas el pico de resonancia se llamaba $M_P$; para evitar la confusión con el sobrepico, ahora es $\Mr$.
+\end{cuidado}
+
+\paragraph{Ancho de banda}
+El \clave{ancho de banda} $\wbw$ es la frecuencia donde $|\Tlc|$ cae $3\dB$ respecto a su valor de baja frecuencia, $|\Tlc(\jw_{BW})|=1/\sqrt2$. Mide la habilidad del lazo para reproducir fielmente la referencia:
+\begin{equation}
+  \wbw=\wn\sqrt{(1-2\zeta^2)+\sqrt{4\zeta^4-4\zeta^2+2}} .
+  \label{eq:rf-BW}
+\end{equation}
+Como $\ts=4/(\zeta\wn)$ y $\tp=\pi/(\wn\sqrt{1-\zeta^2})$, para un $\zeta$ dado un ancho de banda mayor significa un sistema más rápido. Más ancho de banda también deja pasar más ruido de medición: nada es gratis.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap10/f_lazo_cerrado_zeta}
+\caption{Magnitud del lazo cerrado $|\Tlc(\jw)|$ para varios $\zeta$: el pico $\Mr$ crece al bajar $\zeta$; la línea punteada marca los $-3\dB$ que definen $\wbw$.}
+\label{fig:rf-Tzeta}
+\end{figure}
+
+\subsection{Del margen de fase a $\zeta$, paso a paso}
+
+Ahora la idea central de la sección: obtener $\zeta$ \emph{sin} cerrar el lazo, mirando solo la malla abierta $\Gma(s)=\wn^2/[s(s+2\zeta\wn)]$.
+
+\textbf{Paso 1: frecuencia de cruce.} Imponiendo $|\Gma(\jw_1)|=\wn^2/|{-\omega_1^2}+j2\zeta\wn\omega_1|=1$ y despejando,
+\begin{equation}
+  \omega_1=\wn\sqrt{-2\zeta^2+\sqrt{1+4\zeta^4}} .
+  \label{eq:rf-omega1}
+\end{equation}
+\textbf{Paso 2: fase en el cruce y margen de fase.} $\angle\Gma(\jw_1)=-90\grados-\tan^{-1}\dfrac{\omega_1}{2\zeta\wn}$, de donde
+\begin{equation}
+  \PM=180\grados+\angle\Gma(\jw_1)=\tan^{-1}\frac{2\zeta}{\sqrt{-2\zeta^2+\sqrt{1+4\zeta^4}}}.
+  \label{eq:rf-PMzeta}
+\end{equation}
+El margen de fase depende \emph{solo} de $\zeta$. La \cref{fig:rf-pmzeta} es la curva que usaremos todo el capítulo; para $\zeta<0.6$ vale la aproximación $\PM\approx100\,\zeta$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap10/f_pm_zeta}
+\caption{Margen de fase y sobrepico en función de $\zeta$.}
+\label{fig:rf-pmzeta}
+\end{figure}
+
+\begin{center}\small
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+$\zeta$ & 0.25 & 0.40 & 0.50 & 0.60 & 0.707\\
+\midrule
+$\PM$ & $28.0\grados$ & $43.1\grados$ & $51.8\grados$ & $59.2\grados$ & $65.5\grados$\\
+$\OS$ & $44.4\%$ & $25.4\%$ & $16.3\%$ & $9.5\%$ & $4.3\%$\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Valores de referencia de la relación $\PM\leftrightarrow\zeta\leftrightarrow\OS$. Un $\PM\geq65.5\grados$ asegura que el lazo cerrado no tiene pico de resonancia.}
+\label{tab:rf-pmzeta}
+\end{center}
+
+\video{V5_PM_zeta}{Al subir $K$ en $K/[s(s+10)]$ el cruce se va a la derecha, el PM baja y el punto rojo recorre la curva $\PM(\zeta)$ mientras el escalón se vuelve más oscilatorio.}
+
+\begin{receta}[Del Bode de malla abierta al transitorio]
+\begin{enumerate}
+  \item \textbf{Leer el PM} y su frecuencia $\wpm=\omega_1$ en la malla abierta.
+  \item \textbf{Obtener $\zeta$} de \eqref{eq:rf-PMzeta} (función \cmd{zetaDePM}, o $\zeta\approx\PM/100$).
+  \item \textbf{Obtener $\wn$} de \eqref{eq:rf-omega1}.
+  \item \textbf{Transitorio:} $\OS=100\,e^{-\pi\zeta/\sqrt{1-\zeta^2}}$, $\tp=\pi/(\wn\sqrt{1-\zeta^2})$, $\ts=4/(\zeta\wn)$; o $\wbw$ con \eqref{eq:rf-BW}.
+\end{enumerate}
+Es exacto para el segundo orden de referencia; para órdenes mayores es una aproximación de polos dominantes. Siempre verificar con \cmd{step}.
+\end{receta}
+
+\begin{ejemplo}[label=ej:rf-pmzeta]{$\OS$, $\tp$ y $\ts$ sin simular}
+Para $\Gma(s)=\dfrac{100}{s(s+10)}$ con retroalimentación unitaria, determine $\OS$, $\tp$ y $\ts$ del lazo cerrado a partir de la malla abierta.
+\solucion Con \cmd{margin}: $\PM=51.8\grados$ en $\wpm=7.86$\,rad/s. De \eqref{eq:rf-PMzeta}, $\zeta=0.50$; de \eqref{eq:rf-omega1}, $\wn=7.86/0.786=10$\,rad/s. Entonces
+\[
+  \OS=16.3\%,\qquad \tp=\frac{\pi}{10\sqrt{1-0.25}}=0.363\ \text{s},\qquad \ts=\frac{4}{0.5\cdot10}=0.8\ \text{s},
+\]
+y además $\Mr=1.25\dB$ en $\wres=7.07$\,rad/s y $\wbw=12.7$\,rad/s. Como este sistema \emph{es} el segundo orden de referencia ($\wn^2=100$, $2\zeta\wn=10$), los valores son exactos (\cref{fig:rf-ejpmzeta}).
+
+\textbf{¿Y si solo tengo el asintótico?} La asíntota $10/[s(s/10+1)]$ cruza $0\dB$ en $\omega=10$, donde la fase asintótica es $-135\grados$: $\PM\approx45\grados$, $\zeta\approx0.42$ y $\OS\approx23\%$. Son unos siete puntos de error en el sobrepico. La razón: cerca de la esquina $\omega=10$ la magnitud real está $3\dB$ por debajo de la asíntota, así que el cruce real ocurre antes ($7.86$) y con más fase.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_ej_pm_zeta}
+\caption{Ejemplo~\ref{ej:rf-pmzeta}: el PM de la malla abierta predice el sobrepico del lazo cerrado.}
+\label{fig:rf-ejpmzeta}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej1_PM_zeta.m}{receta}{ejemplo \ref{ej:rf-pmzeta}}
+
+\begin{pausa}
+Repita el ejemplo para $\Gma(s)=100/[s(s+5)]$. ¿Qué cambió y por qué?
+\respuesta{Ahora $\wn=10$ y $2\zeta\wn=5$, así que $\zeta=0.25$: $\PM=28.0\grados$, $\OS=44.4\%$, $\ts=4/(0.25\cdot10)=1.6$\,s y $\tp=0.32$\,s. El polo de la planta está más cerca del origen: en el cruce aporta más atraso de fase, el PM baja y el lazo cerrado oscila más.}
+\end{pausa}
+
+\begin{ideaclave}
+\begin{itemize}
+  \item El $\OS$ baja al aumentar el $\PM$; la velocidad sube al aumentar $\wbw$ (en la práctica, al correr el cruce $\wpm$ a la derecha).
+  \item En diseño es más común especificar $\PM$ y $\GM$ que $\Mr$.
+  \item El error en estado estacionario mejora al subir la magnitud en \emph{bajas} frecuencias; el transitorio depende de lo que pasa \emph{en el cruce}. Esa separación es la que explotan los compensadores (\cref{sec:rf-compensadores}).
+\end{itemize}
+\end{ideaclave}

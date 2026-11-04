@@ -1,0 +1,66 @@
+%% ---------------------------------------------------------------------
+\section{El sistema de segundo orden}
+\label{sec:so-segundoorden}
+%% ---------------------------------------------------------------------
+
+La función \eqref{eq:so-tanques-ft} y muchas otras se pueden escribir en la \clave{forma estándar del segundo orden}:
+\begin{equation}
+  T(s)=\frac{Y(s)}{U(s)}=K\,\frac{\wn^2}{s^2+2\zeta\wn s+\wn^2},
+  \label{eq:so-estandar}
+\end{equation}
+con tres parámetros: la \clave{ganancia} $K$ (el valor final ante un escalón unitario), la \clave{frecuencia natural} $\wn$ (rad/s) y el \clave{factor de amortiguamiento} $\zeta$ (adimensional). Para los tanques, $\wn^2=\frac{1+K_1K_2C_2}{\tau_1\tau_2}$ y $2\zeta\wn=\frac{\tau_1+\tau_2}{\tau_1\tau_2}$. Los polos son
+\begin{equation}
+  p_{1,2}=-\zeta\wn\pm\wn\sqrt{\zeta^2-1},
+  \label{eq:so-polos}
+\end{equation}
+y su naturaleza depende solo de $\zeta$:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+$\zeta$ & polos & respuesta al escalón\\
+\midrule
+$\zeta=0$ & imaginarios puros $\pm j\wn$ & oscilación sostenida (\emph{no amortiguado})\\
+$0<\zeta<1$ & complejos: $-\zeta\wn\pm j\wdamp$ & oscilación que se extingue (\clave{subamortiguado})\\
+$\zeta=1$ & reales e iguales: $-\wn$ (doble) & la más rápida sin sobrepico (\clave{críticamente amortiguado})\\
+$\zeta>1$ & reales y distintos & lenta, sin sobrepico (\clave{sobreamortiguado})\\
+\bottomrule
+\end{tabular}
+\end{center}
+donde $\wdamp=\wn\sqrt{1-\zeta^2}$ es la \clave{frecuencia natural amortiguada}. La \cref{fig:so-zetas} lo resume.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_zetas}
+\caption{Segundo orden con $\wn=1$. Izquierda: al aumentar $\zeta$ los polos recorren la circunferencia de radio $\wn$ hasta juntarse en $-1$ ($\zeta=1$) y luego se separan sobre el eje real. Derecha: las respuestas al escalón correspondientes.}
+\label{fig:so-zetas}
+\end{figure}
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej3_SegundoOrden.m}{zetas}{\cref{fig:so-zetas}}
+
+\subsection{Un segundo orden que sí oscila: masa, resorte y amortiguador}
+
+La \cref{fig:so-masa} es el prototipo mecánico del segundo orden (una suspensión, un edificio en un sismo, el brazo de un disco duro). La segunda ley de Newton da
+\begin{equation}
+  m\ddot x+b\dot x+kx=F
+  \quad\Longrightarrow\quad
+  \frac{X(s)}{F(s)}=\frac{1}{ms^2+bs+k}=\frac1k\,\frac{k/m}{s^2+\frac bm s+\frac km},
+  \label{eq:so-masa}
+\end{equation}
+así que $K=1/k$, $\wn=\sqrt{k/m}$ y $\zeta=\dfrac{b}{2\sqrt{km}}$. Con poco amortiguamiento ($b$ pequeño) la masa oscila: la energía va y viene entre el resorte y la masa, y el amortiguador la va disipando. Con $m=1$\,kg, $b=1.2$\,N\,s/m y $k=4$\,N/m resultan $\wn=2$\,rad/s y $\zeta=0.3$.
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}{0.4\linewidth}\centering
+\includegraphics[width=\linewidth]{cap03/masa_resorte}
+\end{minipage}\hfill
+\begin{minipage}{0.57\linewidth}\centering
+\includegraphics[width=\linewidth]{cap03/f_masa_resorte}
+\end{minipage}
+\caption{Masa-resorte-amortiguador y su respuesta a un escalón de $1$\,N. El valor final es $1/k=0.25$\,m y el sobrepico, $37\%$.}
+\label{fig:so-masa}
+\end{figure}
+
+\begin{pausa}
+En la masa-resorte de la \cref{fig:so-masa}, ¿qué valor de $b$ la vuelve críticamente amortiguada?
+\respuesta{$\zeta=1\Rightarrow b=2\sqrt{km}=2\sqrt{4}=4$\,N\,s/m.}
+\end{pausa}

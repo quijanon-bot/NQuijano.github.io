@@ -1,0 +1,21 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=12mm]
+  \node (r) {$R(s)$};
+  \node[suma,right=9mm of r] (S) {};
+  \node[bloque,right=11mm of S] (Gc) {$\Gc(s)$};
+  \node[bloque,right=12mm of Gc] (Gp) {$\Gp(s)$};
+  \coordinate[right=12mm of Gp] (y0);
+  \node[right=6mm of y0] (y) {$Y(s)$};
+  \node[bloque,below=8mm of Gp] (H) {$\Hs(s)$};
+  \draw[senal] (r) -- (S);
+  \draw[senal] (S) -- node[above,rot]{$E(s)$} (Gc);
+  \draw[senal] (Gc) -- node[above,rot]{$U(s)$} (Gp);
+  \draw[senal] (Gp) -- (y);
+  \draw[senal] (y0) |- (H);
+  \draw[senal] (H) -| node[pos=0.95,left,rot]{$-$} (S);
+  \node[rot] at ($(S)+(-3mm,3.5mm)$) {$+$};
+  \fill (y0) circle (1.3pt);
+\end{tikzpicture}
+\end{document}

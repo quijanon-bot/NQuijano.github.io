@@ -1,0 +1,33 @@
+%% =====================================================================
+%%  Capítulo 2 -- Modelado I: Laplace, función de transferencia y primer orden
+%%  Migrado al formato nuevo (noviembre de 2026) desde Handout2_CtrlParte1.tex
+%%  y las presentaciones Modelado1Prof, Modelado2 y Modelado3.
+%%  Cambios de fondo respecto a la versión anterior (ver MIGRACION.md):
+%%    equilibrio T^* (antes \bar T); escalón \escalon(t) (antes u(t), que
+%%    chocaba con la entrada u); polos complejos -1/3 ± j sqrt(2)/3 (faltaba
+%%    la j); error ante rampa e(t) = K1 tau (1 - e^{-t/tau}) (signo); se
+%%    eliminó la "inversión del tiempo" (no aplica a la transformada
+%%    unilateral); el ejemplo de dsolve usa y'(0)=0 en texto y código.
+%% =====================================================================
+
+\capitulo[cap:po]{Modelado I: Laplace, función de transferencia y primer orden}
+  {La ilusión es el mejor alimento espiritual, el motor del alma. No engaña, entusiasma.}
+  {Jorge Barraza}
+
+\begin{objetivos}[partes/02-modelado-primer-orden.html]
+  \item Distinguir señal, sistema estático y sistema dinámico, y describir un sistema con un diagrama de bloques de flujo de información.
+  \item Escribir el modelo de un proceso a partir de un balance de conservación, con sus suposiciones, y expresarlo en variables desviación.
+  \item Calcular transformadas y antitransformadas de Laplace con la tabla, las propiedades y las fracciones parciales, y usarlas para resolver ecuaciones diferenciales lineales.
+  \item Definir función de transferencia, polos, ceros, grado relativo y ecuación característica, y usar (bien) el teorema del valor final.
+  \item Reconocer un sistema de primer orden, leer $K_1$ y $\tau$ de su respuesta al escalón y predecir su error ante una rampa, verificando todo en \matlab/\simulink.
+\end{objetivos}
+
+\input{capitulos/cap02/s01_senales}
+\input{capitulos/cap02/s02_modelar}
+\input{capitulos/cap02/s03_laplace}
+\input{capitulos/cap02/s04_odes}
+\input{capitulos/cap02/s05_ft}
+\input{capitulos/cap02/s06_valor_final}
+\input{capitulos/cap02/s07_termico}
+\input{capitulos/cap02/s08_primer_orden}
+\input{capitulos/cap02/s09_cierre}

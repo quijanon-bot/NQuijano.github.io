@@ -1,0 +1,25 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=10mm, b/.style={bloque,minimum width=15mm,font=\footnotesize,align=center}]
+  \node (r) {\footnotesize referencia};
+  \node[suma,right=6mm of r] (S) {};
+  \node[b,right=7mm of S,fill=ctrlcoral!10] (c) {controlador};
+  \node[b,right=of c] (ip) {I/P};
+  \node[b,right=of ip,fill=ctrlambar!12] (v) {válvula};
+  \node[b,right=of v,fill=ctrlverde!10] (p) {intercam-\\biador};
+  \node[b,right=of p] (se) {sensor};
+  \node[b,right=of se] (tr) {transmisor};
+  \coordinate[right=5mm of tr] (o); \node[right=2mm of o] (y) {$y(t)$};
+  \node[above=7mm of p,font=\footnotesize,text=ctrlgris] (d) {otras entradas (perturbaciones)};
+  \draw[senal] (r)--(S); \draw[senal] (S)--(c);
+  \draw[senal] (c)--node[above,rot]{$u(t)$}(ip);
+  \draw[senal] (ip)--node[below,rot]{psig}(v);
+  \draw[senal] (v)--node[below,rot]{vapor}(p);
+  \draw[senal] (p)--node[below,rot]{$T(t)$}(se);
+  \draw[senal] (se)--node[below,rot]{mV}(tr);
+  \draw[thick,draw=ctrlnoche] (tr)--(o); \draw[senal] (o)--(y);
+  \draw[senal,draw=ctrlgris] (d)--(p);
+  \draw[senal] (o)--++(0,-12mm) -| node[pos=0.95,right,rot]{$-$} (S);
+\end{tikzpicture}
+\end{document}

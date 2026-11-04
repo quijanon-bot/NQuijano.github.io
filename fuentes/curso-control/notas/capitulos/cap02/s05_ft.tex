@@ -1,0 +1,50 @@
+%% ---------------------------------------------------------------------
+\section{Función de transferencia}
+\label{sec:po-ft}
+%% ---------------------------------------------------------------------
+
+Las herramientas anteriores nos llevan al concepto central de todo el curso.
+
+\begin{definicion}[label=def:po-ft]{Función de transferencia}
+La \clave{función de transferencia} de un sistema LTI es el cociente entre la transformada de Laplace de la salida y la de la entrada, \emph{con condiciones iniciales nulas}:
+\begin{equation}
+  T(s)=\left.\frac{\Lap{\text{salida}}}{\Lap{\text{entrada}}}\right|_{\text{CI}=0}=\frac{Y(s)}{U(s)}.
+\end{equation}
+\end{definicion}
+
+Si el sistema se describe con la ecuación entrada-salida
+\begin{equation}
+  \frac{\dif^n y}{\dif t^n}+a_1\frac{\dif^{n-1}y}{\dif t^{n-1}}+\cdots+a_n y
+  =b_0\frac{\dif^m u}{\dif t^m}+\cdots+b_{m-1}\frac{\dif u}{\dif t}+b_m u,
+  \label{eq:po-inout}
+\end{equation}
+la linealidad y la diferenciación con condiciones iniciales nulas dan
+\begin{equation}
+  T(s)=\frac{Y(s)}{U(s)}=\frac{b_0s^m+b_1s^{m-1}+\cdots+b_m}{s^n+a_1s^{n-1}+\cdots+a_n}.
+  \label{eq:po-ft}
+\end{equation}
+
+Algunos nombres que usaremos todo el tiempo:
+\begin{itemize}
+  \item $T(s)$ es \clave{propia} si $n\geq m$, y \clave{estrictamente propia} si $n>m$. Los sistemas físicos son propios: una función impropia derivaría la entrada y amplificaría sin límite el ruido de alta frecuencia.
+  \item El \clave{grado relativo} es $n-m$. El \clave{orden} del sistema es $n$.
+  \item El polinomio del denominador igualado a cero, $s^n+a_1s^{n-1}+\cdots+a_n=0$, es la \clave{ecuación característica}. Sus raíces son los polos de $T(s)$: los modos naturales del sistema.
+\end{itemize}
+
+La función de transferencia permite describir el sistema con un bloque (\cref{fig:po-bloqueft}): la señal de salida es el producto $Y(s)=T(s)\,U(s)$. En el tiempo, por la propiedad de convolución, eso es $y(t)=\int_0^t g(\lambda)\,u(t-\lambda)\,\dif\lambda$, donde $g(t)=\iLap{T(s)}$ es la \clave{respuesta al impulso}: el producto en $s$ es mucho más cómodo que la integral en $t$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.62\linewidth]{cap02/bloque_ft}
+\caption{Un bloque de flujo de información: la función de transferencia es un mapeo lineal entre la transformada de la entrada y la de la salida. Las reglas para combinar bloques están en el \cref{cap:so}.}
+\label{fig:po-bloqueft}
+\end{figure}
+
+\begin{cuidado}[La función de transferencia no ve las condiciones iniciales]
+$T(s)$ describe la respuesta \emph{forzada} desde el reposo. Si el sistema no arranca en reposo, la respuesta total es la forzada más la libre (la que producen las condiciones iniciales, como en el ejemplo~\ref{ej:po-motor}). Por eso trabajamos en variables desviación alrededor de un equilibrio: allí las condiciones iniciales son cero.
+\end{cuidado}
+
+\begin{pausa}
+Para $\dddot y+2\ddot y+3\dot y+4y=\dddot u+5\dot u+6u$, escriba $T(s)$. ¿Es propia? ¿Cuál es su grado relativo?
+\respuesta{$T(s)=\dfrac{s^3+5s+6}{s^3+2s^2+3s+4}$. Es propia pero no estrictamente propia ($n=m=3$): grado relativo $0$. Una parte de la entrada pasa directamente a la salida.}
+\end{pausa}

@@ -1,0 +1,50 @@
+%% ---------------------------------------------------------------------
+\section{Señales y sistemas}
+\label{sec:po-senales}
+%% ---------------------------------------------------------------------
+
+En el capítulo anterior vimos qué significa ``análisis de sistemas de control'' y cómo nació el área. Ahora empezamos el trabajo de fondo: \emph{construir modelos} de sistemas dinámicos. Todo lo que hagamos en el curso (estabilidad, error, PID, Bode) se apoya en dos palabras que conviene precisar desde ya: señal y sistema.
+
+\begin{definicion}[label=def:po-senal]{Señal}
+Una \clave{señal} es una función del tiempo que describe cómo cambia una variable. Se escribe con el tiempo entre paréntesis: $T(t)$, $V(t)$, $y(t)$. Su valor en un instante particular se obtiene evaluándola: $T(2)$ es la temperatura en $t=2$\,s.
+\end{definicion}
+
+La \cref{fig:po-senal} muestra la temperatura $T(t)=20-3e^{-0.15t}$ de un recinto que arranca en $17$\,°C y se acerca a $20$\,°C. Esa curva es una señal; la pregunta que nos interesa es \emph{qué la produce}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap02/f_senal_temperatura}
+\caption{Una señal de temperatura. Es la salida de un sistema dinámico de primer orden: en la \cref{sec:po-primerorden} sabremos leer, de esta misma curva, su ganancia y su constante de tiempo.}
+\label{fig:po-senal}
+\end{figure}
+
+Considere un bombillo dentro de un contenedor aislado (\cref{fig:po-bombillo}). Dos señales nos importan: el voltaje $V(t)$ aplicado al bombillo y la temperatura $T(t)$ dentro del contenedor. Intuimos que a más voltaje, más temperatura: $T(t)$ \emph{depende} de $V(t)$. Esa relación de causa y efecto es lo que llamamos sistema.
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}{0.36\linewidth}\centering
+\includegraphics[width=\linewidth]{cap02/bombillo}
+\end{minipage}\hfill
+\begin{minipage}{0.6\linewidth}\centering
+\includegraphics[width=\linewidth]{cap02/senal_sistema}
+\end{minipage}
+\caption{Izquierda: el bombillo en un contenedor aislado. Derecha: (a)--(b) el diagrama de bloques de flujo de información: la flecha que entra es la causa, la que sale es el efecto; (c) un sistema dinámico, descrito por una ecuación diferencial; (d) un sistema estático.}
+\label{fig:po-bombillo}
+\end{figure}
+
+\begin{definicion}[label=def:po-sistema]{Sistema, sistema dinámico}
+Un \clave{sistema} es una transformación que toma una señal de entrada $u(t)$ y devuelve una señal de salida $y(t)$. Es \clave{dinámico} cuando la relación entre $u$ e $y$ es una \emph{ecuación diferencial ordinaria} (ODE): involucra a $u$, a $y$ y al menos una de sus derivadas. A esa ecuación la llamamos las \clave{dinámicas} del sistema. Si no hay derivadas, el sistema es \clave{estático}: la salida en $t$ solo depende de la entrada en ese mismo $t$.
+\end{definicion}
+
+El bombillo es dinámico (\cref{fig:po-bombillo}c): su temperatura no salta cuando se cambia el voltaje, sino que ``recuerda'' su historia a través de $\dif T/\dif t$. La conversión de unidades del ejemplo siguiente, en cambio, es estática.
+
+\begin{ejemplo}[label=ej:po-fc]{De Fahrenheit a Celsius: un sistema estático}
+Si $u(t)$ es una temperatura en °F, la temperatura en °C es $y(t)=\tfrac59\,(u(t)-32)$ (\cref{fig:po-bombillo}d). ¿Cuánto es $90$\,°F?
+\solucion $y=\tfrac59(90-32)=\tfrac{290}{9}\approx32.22$\,°C. No hay derivadas: si la entrada cambia de golpe, la salida cambia de golpe. En \matlab se evalúa sobre un vector de temperaturas, numérica o simbólicamente:
+\codigorepo{cap02_modelado_primer_orden/C2_Ej1_Senales.m}{fc}{ejemplo \ref{ej:po-fc}}
+\end{ejemplo}
+
+\begin{pausa}
+La señal de la \cref{fig:po-senal} cumple $\dif T/\dif t+0.15\,T=V$ con $V$ constante. ¿Cuánto vale $V$? ¿Y $T(0)$?
+\respuesta{En estado estacionario $\dif T/\dif t=0$, luego $0.15\cdot20=V$, es decir $V=3$. Y $T(0)=20-3=17$\,°C. Se puede comprobar derivando: $\dot T=0.45e^{-0.15t}$ y $\dot T+0.15T=0.45e^{-0.15t}+3-0.45e^{-0.15t}=3$.}
+\end{pausa}

@@ -1,0 +1,85 @@
+%% ---------------------------------------------------------------------
+\section{Linealización}
+\label{sec:so-linealizacion}
+%% ---------------------------------------------------------------------
+
+La idea es vieja y sencilla: \emph{de cerca, toda curva suave parece una recta}. Si el proceso se mueve poco alrededor de un punto, reemplazamos cada función no lineal por su recta tangente (su serie de Taylor truncada en el primer orden). La suposición de fondo es que la respuesta de la aproximación lineal representa la del proceso en la región cercana al punto de operación~\citep{SmCo06,DoBi08}.
+
+\paragraph{Variables desviación} Como en el \cref{cap:po}, medimos cada variable desde el punto de operación:
+\begin{equation}
+  \dev{x}(t)=x(t)-\eq{x}.
+  \label{eq:so-desviacion}
+\end{equation}
+Es mover el cero del eje hasta $\eq{x}$; las derivadas no cambian: $\dif^n\dev{x}/\dif t^n=\dif^n x/\dif t^n$. En casi todos los casos el punto de operación será un \clave{punto de equilibrio} (donde las derivadas se anulan); cuando no lo sea, lo diremos.
+
+\paragraph{Una variable} Sea $\dot x=f(x)$ con $f$ suave.\nota{Continuamente diferenciable; para la existencia y unicidad de la solución basta, además, que sea Lipschitz.} Su serie de Taylor alrededor de $x_0$ es
+\[
+  f(x)=\underbrace{f(x_0)+\left.\deriv{f}{x}\right|_{x_0}(x-x_0)}_{\text{lo que se conserva}}
+  +\underbrace{\frac{1}{2!}\left.\frac{\dif^2f}{\dif x^2}\right|_{x_0}(x-x_0)^2+\cdots}_{\text{lo que se desprecia}}
+\]
+y la aproximación lineal es
+\begin{equation}
+  f(x)\approx f(x_0)+\left.\deriv{f}{x}\right|_{x_0}\,\dev{x}.
+  \label{eq:so-taylor1}
+\end{equation}
+Si $x_0=\eq{x}$ es un equilibrio, $f(\eq{x})=0$ y queda $\dot{\dev{x}}=a\,\dev{x}$ con $a=f'(\eq{x})$: un modelo lineal en variables desviación.
+
+\begin{ejemplo}[label=ej:so-lin1]{Linealizar alrededor de un punto que no es de equilibrio}
+Linealice $\dot x=x\sqrt{x^2+5x}$ alrededor de $x_0=5$.
+\solucion La derivada es
+\[
+  \deriv{f}{x}=\sqrt{x^2+5x}+\frac{x(2x+5)}{2\sqrt{x^2+5x}},
+\]
+y en $x_0=5$: $f(5)=5\sqrt{50}=35.36$ y $f'(5)=\sqrt{50}+\dfrac{75}{2\sqrt{50}}=12.37$. Entonces
+\[
+  \dot{\dev{x}}\approx35.36+12.37\,\dev{x}.
+\]
+Como $x_0=5$ \emph{no} es un equilibrio (los equilibrios son $x=0$ y $x=-5$), queda un término constante: la aproximación es \emph{afín}. La \cref{fig:so-lin1} muestra que solo es buena cerca de $x_0$: el error relativo es menor que el $5\%$ entre $x\approx3.9$ y $x\approx6.7$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap03/f_linealizacion}
+\caption{Ejemplo~\ref{ej:so-lin1}: la función y su recta tangente en $x_0=5$. En la franja verde el error relativo es menor que el $5\%$.}
+\label{fig:so-lin1}
+\end{figure}
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej1_Linealizacion.m}{simbolica}{ejemplo \ref{ej:so-lin1}: derivada simbólica}
+
+\paragraph{Varias variables} Si $f$ depende de $x_1,\dots,x_n$ (o de estados y entradas), se suma una derivada parcial por variable:
+\begin{equation}
+  f(x_1,\dots,x_n)\approx f(\eq{x}_1,\dots,\eq{x}_n)+\sum_{i=1}^n\left.\frac{\partial f}{\partial x_i}\right|_{\ast}\dev{x}_i,
+  \label{eq:so-taylorn}
+\end{equation}
+donde ``$\ast$'' indica que las derivadas se evalúan en el punto de operación.
+
+\begin{ejemplo}[label=ej:so-reactor]{Un reactor}
+La concentración $x$ de un producto evoluciona según $\dot x=f(x,u)=-kx^2+\tfrac1V\,u\,(c-x)$, donde $u$ es el caudal de alimentación, $k=1$\,L/(mol\,min), $V=1$\,L y $c=2$\,mol/L~\citep{Mar00}. Linealice alrededor de $\eq{x}=1$\,mol/L, $\eq{u}=1$\,L/min.
+\solucion Primero, es un equilibrio: $f(1,1)=-1+1\cdot(2-1)=0$. Las derivadas parciales son
+\[
+  \left.\frac{\partial f}{\partial x}\right|_\ast=-2k\eq{x}-\frac{\eq{u}}{V}=-3,\qquad
+  \left.\frac{\partial f}{\partial u}\right|_\ast=\frac{c-\eq{x}}{V}=1,
+\]
+de modo que $\dot{\dev{x}}=-3\,\dev{x}+\dev{u}$ y, con Laplace,
+\[
+  \frac{\Dev{X}(s)}{\Dev{U}(s)}=\frac{1}{s+3}=\frac{1/3}{\tfrac13 s+1}:
+\]
+un primer orden con $K_1=1/3$ y $\tau=1/3$\,min.
+\end{ejemplo}
+
+\codigorepo{cap03_modelado_segundo_orden/C3_Ej1_Linealizacion.m}{reactor}{ejemplo \ref{ej:so-reactor}: \cmd{jacobian}}
+
+\begin{receta}[Linealizar un modelo]
+\begin{enumerate}
+  \item Escribir el modelo como $\dot x_i=f_i(x,u)$ y hallar el punto de operación: resolver $f_i(\eq{x},\eq{u})=0$.
+  \item Calcular las derivadas parciales de cada $f_i$ respecto a cada estado y cada entrada, y evaluarlas en el punto.
+  \item Escribir el modelo en variables desviación: $\dot{\dev{x}}_i=\sum_j\frac{\partial f_i}{\partial x_j}\big|_\ast\dev{x}_j+\sum_k\frac{\partial f_i}{\partial u_k}\big|_\ast\dev{u}_k$.
+  \item Transformar con condiciones iniciales nulas y despejar la función de transferencia.
+  \item Verificar contra el modelo no lineal con escalones pequeños \emph{y} grandes: el lineal solo vale cerca del punto.
+\end{enumerate}
+\end{receta}
+
+\begin{pausa}
+Linealice el tanque con descarga libre $A\dot h=q-c\sqrt h$ ($A=2$\,m$^2$, $c=0.5$\,m$^{5/2}$/s) alrededor de $\eq{q}=1$\,m$^3$/s. ¿Cuánto valen $K_1$ y $\tau$?
+\respuesta{Equilibrio: $c\sqrt{\eq{h}}=1\Rightarrow\eq{h}=4$\,m. Derivada: $\partial(c\sqrt h)/\partial h=c/(2\sqrt{\eq{h}})=0.125$. Entonces $2\,\dot{\dev{h}}=\dev{q}-0.125\,\dev{h}$ y $\dfrac{\Dev{H}}{\Dev{Q}}=\dfrac{8}{16s+1}$: $K_1=8$\,s/m$^2$ y $\tau=16$\,s.}
+\end{pausa}

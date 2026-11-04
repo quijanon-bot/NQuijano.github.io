@@ -1,0 +1,14 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+  \draw[->,ctrlgris] (-3.2,0)--(1.2,0) node[right] {$\sigma=\Re s$};
+  \draw[->,ctrlgris] (0,-2.2)--(0,2.4) node[above] {$j\omega=\Im s$};
+  \coordinate (p) at (-2,1.5); \coordinate (q) at (-2,-1.5);
+  \draw[thick,ctrlazul] (0,0)--node[above right=-1pt]{$|p_1|$}(p);
+  \draw[dashed,ctrlgris] (p)--(-2,0) node[below]{$\sigma_1$}; \draw[dashed,ctrlgris] (p)--(0,1.5) node[right]{$\omega_1$};
+  \draw[ctrlcoral,thick,->] (0.5,0) arc (0:143:0.5) node[midway,above right=-2pt]{$\phi_1$};
+  \node[ctrlcoral,font=\large] at (p) {$\times$}; \node[above left] at (p) {$p_1=\sigma_1+j\omega_1$};
+  \node[ctrlcoral,font=\large] at (q) {$\times$}; \node[below left] at (q) {$\bar p_1=\sigma_1-j\omega_1$};
+\end{tikzpicture}
+\end{document}

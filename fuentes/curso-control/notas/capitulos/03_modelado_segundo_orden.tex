@@ -1,0 +1,36 @@
+%% =====================================================================
+%%  Capítulo 3 -- Modelado II: linealización, segundo orden, bloques y Mason
+%%  Migrado al formato nuevo (noviembre de 2026) desde Handout2_CtrlParte2.tex
+%%  y las presentaciones Modelado3, Modelado4 y Modelado5.
+%%  Cambios de fondo respecto a la versión anterior (ver MIGRACION.md):
+%%    el ejemplo numérico de los dos tanques (tau1=1, tau2=4, C2=2) no era
+%%    físico (C2 = -C1 siempre, y la planta es SIEMPRE sobreamortiguada): se
+%%    usan datos físicos y el subamortiguado se ilustra con masa-resorte;
+%%    beta = acos(zeta) (decía cos zeta); MP -> %OS; "determinante" ->
+%%    discriminante; "asentamiento" -> establecimiento; los números del
+%%    ejemplo con cero y polo adicionales se recalcularon (54.5 % / 38.0 %).
+%% =====================================================================
+
+\capitulo[cap:so]{Modelado II: linealización, segundo orden y diagramas de bloques}
+  {Mi misión es matar el tiempo, la suya, matarme a mí. Se está perfectamente a gusto entre asesinos.}
+  {Emil Michel Cioran}
+
+\begin{objetivos}[partes/03-modelado-segundo-orden.html]
+  \item Linealizar un modelo no lineal alrededor de un punto de operación y obtener su función de transferencia en variables desviación.
+  \item Reconocer un sistema de segundo orden en forma estándar, clasificarlo por su $\zeta$ y ubicar sus polos.
+  \item Calcular $\tr$, $\tp$, $\OS$ y $\ts$ de un subamortiguado, y traducir especificaciones de tiempo en una región del plano-$s$.
+  \item Reducir diagramas de bloques con álgebra de bloques y con la ley de Mason, y escribir la ecuación característica.
+  \item Decidir cuándo un sistema de orden superior se puede aproximar por sus polos dominantes y simplificarlo, verificando en \matlab/\simulink.
+\end{objetivos}
+
+\input{capitulos/cap03/s01_no_lineal}
+\input{capitulos/cap03/s02_linealizacion}
+\input{capitulos/cap03/s03_tanques}
+\input{capitulos/cap03/s04_segundo_orden}
+\input{capitulos/cap03/s05_caracteristicas}
+\input{capitulos/cap03/s06_bloques}
+\input{capitulos/cap03/s07_diseno}
+\input{capitulos/cap03/s08_mason}
+\input{capitulos/cap03/s09_orden_superior}
+\input{capitulos/cap03/s10_reduccion}
+\input{capitulos/cap03/s11_cierre}

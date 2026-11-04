@@ -1,0 +1,43 @@
+%% ---------------------------------------------------------------------
+\section{De vuelta al tanque: la primera función de transferencia}
+\label{sec:po-termico}
+%% ---------------------------------------------------------------------
+
+\begin{ejemplo}[label=ej:po-termico]{El tanque agitado ante un escalón}
+El modelo \eqref{eq:po-termico-ode} es $\tau\,\dif\dev{T}/\dif t+\dev{T}=\dev{T}_i$. (a) Obtenga la función de transferencia. (b) Si la temperatura de entrada, que estaba en el equilibrio $\eq{T_i}=\eq{T}$, sube bruscamente $M$ grados, ¿cómo responde la salida? (c) ¿A qué valor llega?
+\solucion (a) Con condiciones iniciales nulas (variables desviación), $\tau s\,\Dev{T}(s)+\Dev{T}(s)=\Dev{T}_i(s)$, luego
+\begin{equation}
+  \frac{\Dev{T}(s)}{\Dev{T}_i(s)}=\frac{1}{\tau s+1}.
+  \label{eq:po-termico-ft}
+\end{equation}
+(b) La entrada es $\dev{T}_i(t)=M\,\escalon(t)$, es decir, $\Dev{T}_i(s)=M/s$. Por polos simples,
+\[
+  \Dev{T}(s)=\frac{M}{s(\tau s+1)}=\frac{M}{s}-\frac{M}{s+1/\tau}
+  \;\Longrightarrow\;
+  \dev{T}(t)=M\left(1-e^{-t/\tau}\right),\qquad
+  T(t)=\eq{T}+M\left(1-e^{-t/\tau}\right).
+\]
+(c) Todos los polos de $s\Dev{T}(s)=M/(\tau s+1)$ están en el semiplano izquierdo, así que el teorema aplica: $\lim_{s\to0}s\Dev{T}(s)=M$. Es lo mismo que se obtiene de $\lim_{t\to\infty}\dev{T}(t)$. La salida sube exactamente lo que subió la entrada: la ganancia del tanque es $1$, como pide la conservación de la energía sin pérdidas.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_termico}
+\caption{Ejemplo~\ref{ej:po-termico} con $\eq{T}=\eq{T_i}=25$\,°C, $M=2$\,°C y $\tau=5$\,s. Izquierda: las variables desviación, que arrancan en cero. Derecha: las temperaturas físicas, que se obtienen sumando el equilibrio.}
+\label{fig:po-termico}
+\end{figure}
+
+\codigorepo{cap02_modelado_primer_orden/C2_Ej7_Termico.m}{termico}{ejemplo \ref{ej:po-termico}}
+
+\begin{cuidado}[\texttt{step} es un escalón \emph{unitario}]
+\cmd{step(G)} aplica $\escalon(t)$. Para un escalón de tamaño $M$ se multiplica: \cmd{M*step(G,t)} (por linealidad). Y \cmd{step} devuelve la \emph{desviación}: si quiere la temperatura física, sume el equilibrio.
+\end{cuidado}
+
+\begin{modelo}[Termico.slx]
+El script \cmd{crearModelo\_Termico.m} construye por código el diagrama escalón (o rampa) $\to$ $K_1/(\tau s+1)$ $\to$ $+\eq{T}$, con un \emph{Scope} para las variables desviación y otro para las físicas. Cambie \cmd{tau}, \cmd{M} y \cmd{Teq} en el \emph{workspace} y vuelva a simular; con el interruptor manual pase a la entrada rampa de la \cref{sec:po-primerorden}.
+\end{modelo}
+
+\begin{pausa}
+Si se duplica el caudal $f$ del tanque, ¿la respuesta es más rápida o más lenta? ¿Cambia el valor final?
+\respuesta{Más rápida: $\tau=VC_v/(fC_p)$ se reduce a la mitad (el líquido se renueva en la mitad del tiempo). El valor final no cambia: la ganancia sigue siendo $1$.}
+\end{pausa}

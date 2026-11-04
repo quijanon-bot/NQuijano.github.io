@@ -1,0 +1,242 @@
+%% ---------------------------------------------------------------------
+\section{Compensadores en adelanto, en atraso y atraso-adelanto}
+\label{sec:rf-compensadores}
+%% ---------------------------------------------------------------------
+
+\subsection{El dilema y la filosofía de diseño}
+
+En el lazo de la \cref{fig:rf-lazo} con $\Gp(s)=K/[s(s+2)]$ queremos dos cosas: un error del $5\%$ ante una rampa ($\kv=20$, es decir, $K=40$) y un margen de fase de $45\grados$. Con $K=40$ el margen de fase es apenas $18\grados$ (sobrepico del $60\%$); bajando $K$ se recupera el margen pero se pierde el error. Con una sola perilla no alcanza: necesitamos cambiar la forma de la curva.
+
+\begin{historia}[De las redes RC a los servomecanismos]
+En Bell Labs las redes de adelanto y atraso eran simples combinaciones de resistencias y condensadores dentro del lazo de los amplificadores. Durante la Segunda Guerra Mundial los servomecanismos de radares y cañones se diseñaron en frecuencia en el MIT Radiation Laboratory, de donde salió el libro de James, Nichols y Phillips~\citep{JaNiPh47}. Hoy las mismas redes se implementan con amplificadores operacionales o en software: un adelanto es ``un PD con filtro'' y un atraso es ``casi un PI''. Lo que no ha cambiado es que se diseña mirando el Bode de $\Gc\Gp$: \emph{baja frecuencia = error; cruce = transitorio y estabilidad; alta frecuencia = ruido}.
+\end{historia}
+
+\begin{receta}[Cómo se reparte el trabajo del compensador]
+\begin{enumerate}
+  \item \textbf{$\Kc$ para el error.} Se escoge la ganancia DC más pequeña que cumpla $\ess$ (con $\kp$, $\kv$ o $\ka$).
+  \item \textbf{$\Gcp(s)$ para la forma.} Se agregan términos con ganancia DC unitaria, $\Gcp(0)=1$: no cambian el error, pero sí el $\PM$ y la velocidad. El compensador es $\Gc(s)=\Kc\,\Gcp(s)$.
+  \item \textbf{Verificar} en el Bode de $\Gc\Gp$ ($\PM$, $\GM$) y en el tiempo (escalón, rampa, esfuerzo de control).
+\end{enumerate}
+Supuestos: $\Gc\Gp$ sin polos en el semiplano derecho ni cancelaciones en el eje imaginario; así basta el Bode para decidir la estabilidad.
+\end{receta}
+
+%% ---------------------------------------------------------------------
+\subsection{El compensador en adelanto: agregar fase justo donde hace falta}
+\label{sec:rf-adelanto}
+
+\begin{equation}
+  \Gcp(s)=\frac{1+s/\wL}{1+s/\wH}=\alpha\,\frac{s+\wL}{s+\wH},\qquad
+  \alpha=\frac{\wH}{\wL}>1 .
+  \label{eq:rf-adelanto}
+\end{equation}
+Un cero antes que el polo ($\wL<\wH$): entre ellos la magnitud sube $20\dBdec$ (en total $20\log\alpha$) y la fase se vuelve positiva (\cref{fig:rf-comp}, izquierda). Efectos: más $\PM$ (menos sobrepico) y cruce más a la derecha (más ancho de banda, más rápido). Costo: amplifica el ruido de alta frecuencia en $20\log\alpha$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_compensadores_bode}
+\caption{Bode del adelanto y del atraso con $\alpha=10$. El adelanto se usa por su fase positiva; el atraso, por su atenuación en alta frecuencia.}
+\label{fig:rf-comp}
+\end{figure}
+
+\paragraph{¿Dónde está el máximo de fase? Paso a paso}
+\begin{enumerate}
+  \item La fase del adelanto es $\phi(\omega)=\tan^{-1}\dfrac{\omega}{\wL}-\tan^{-1}\dfrac{\omega}{\wH}$.
+  \item Derivando respecto a $\omega$ e igualando a cero, $\dfrac{1/\wL}{1+\omega^2/\wL^2}=\dfrac{1/\wH}{1+\omega^2/\wH^2}$, de donde
+  \begin{equation}
+    \wM=\sqrt{\wL\,\wH}=\wL\sqrt\alpha .
+  \end{equation}
+  En escala logarítmica, $\wM$ queda justo en el centro entre el cero y el polo.
+  \item Reemplazando, $\tan\phiM=\dfrac{\alpha-1}{2\sqrt\alpha}$, que es lo mismo que
+  \begin{equation}
+    \sin\phiM=\frac{\alpha-1}{\alpha+1}\qquad\Longleftrightarrow\qquad \alpha=\frac{1+\sin\phiM}{1-\sin\phiM}.
+    \label{eq:rf-alpha}
+  \end{equation}
+  \item En $\wM$ la magnitud está a mitad de camino de su subida: $|\Gcp(\jw_M)|=\sqrt\alpha$, es decir, $+10\log\alpha\dB$.
+\end{enumerate}
+
+\paragraph{Rendimientos decrecientes}
+La \cref{fig:rf-phimax} muestra $\phiM(\alpha)$. Pasar de $55\grados$ a $65\grados$ exige duplicar $\alpha$ (de $10$ a $20$) y con él el ruido de alta frecuencia. Si se necesitan más de unos $60\grados$, se usan dos etapas de adelanto en cascada o se cambia de estrategia.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{cap10/f_phimax}
+\caption{Fase máxima del adelanto en función de $\alpha$: nunca llega a $90\grados$.}
+\label{fig:rf-phimax}
+\end{figure}
+
+\paragraph{¿Por qué buscar $|\Gp(\jw_M)|=-10\log\alpha$?}
+En $\wM$ el compensador suma $+10\log\alpha\dB$. Si en esa frecuencia la planta vale $-10\log\alpha\dB$, el producto vale $0\dB$: $\wM$ se vuelve el nuevo cruce y el máximo de fase cae exactamente donde se mide el $\PM$. \textbf{¿Y el ángulo de seguridad?} Al correr el cruce de $\wpm$ a $\wM$ (a la derecha) la fase de la planta baja un poco más; $\phiseg$ compensa esa pérdida. Si la pérdida supera a $\phiseg$, se aumenta $\phiseg$ de $5\grados$ en $5\grados$ y se repite.\notamargen{\emph{Caminante, no hay camino, se hace camino al andar.} El diseño en frecuencia es iterativo.}
+
+\begin{receta}[Diseño en adelanto, en siete pasos]
+\begin{enumerate}
+  \item Escoger $\Kc$ para el error en estado estacionario; anotar $\PMdes$ (o $\zeta$, $\OS$).
+  \item Bode de $\Kc\Gp$: medir $\PM$ y $\wpm$.
+  \item $\phiM=\PMdes-\PM+\phiseg$, con $\phiseg$ entre $5\grados$ y $10\grados$.
+  \item $\alpha=(1+\sin\phiM)/(1-\sin\phiM)$.
+  \item Encontrar $\wM$ tal que $20\log|\Kc\Gp(\jw_M)|=-10\log\alpha$.
+  \item $\wL=\wM/\sqrt\alpha$ y $\wH=\alpha\,\wL$.
+  \item Bode de $\Gc\Gp$: verificar el $\PM$ (y simular). \emph{Verificación estricta:} comprobar que $\phiseg\geq\angle\Gp(\jw_{PM})-\angle\Gp(\jw_M)$; si no, volver al paso 3 con $\phiseg+5\grados$. Si $\phiM\geq90\grados$, el $\PM$ pedido no se alcanza con una sola etapa.
+\end{enumerate}
+\end{receta}
+
+\begin{ejemplo}[label=ej:rf-adelanto]{Diseño en adelanto}
+Diseñe un compensador en adelanto para $\Gp(s)=K/[s(s+2)]$ con error del $5\%$ ante rampa y $\PM=45\grados$.
+\solucion
+\textbf{Paso 1.} $\ess=1/\kv=0.05\Rightarrow\kv=20$; como $\kv=\lim_{s\to0}s\Gp(s)=K/2$, $K=40$.
+
+\textbf{Paso 2.} Con $K=40$: $\PM=18.0\grados$ en $\wpm=6.17$\,rad/s. Sin compensar, $\OS=60\%$ y $\ts=3.7$\,s.
+
+\textbf{Paso 3.} Con $\phiseg=10\grados$: $\phiM=45-18.0+10=37.0\grados$ (faltan unos $27\grados$; se piden $37\grados$ por la holgura).
+
+\textbf{Paso 4.} $\alpha=(1+\sin37.0\grados)/(1-\sin37.0\grados)=4.03$.
+
+\textbf{Paso 5.} $-10\log\alpha=-6.05\dB$. La magnitud de la planta vale eso en $\wM=8.85$\,rad/s.
+
+\textbf{Paso 6.} $\wL=8.85/\sqrt{4.03}=4.41$ y $\wH=4.03\times4.41=17.76$:
+\[
+  \Gc(s)=4.03\,\frac{s+4.41}{s+17.76}\qquad(\text{con } K=40 \text{ en la planta}).
+\]
+\textbf{Paso 7.} $\PM=49.8\grados$ en $8.85$\,rad/s: se cumple con holgura. La verificación estricta también: la planta pierde $5.2\grados$ al correr el cruce de $6.17$ a $8.85$, menos que los $10\grados$ de seguridad. El sobrepico baja de $60\%$ a $22\%$ y $\ts$ de $3.7$ a unos $0.6$\,s (\cref{fig:rf-adelanto-ej}).
+\end{ejemplo}
+
+\begin{cuidado}[Una errata del handout anterior]
+En la versión anterior de estas notas el texto decía $\wM=14$; era un error tipográfico. Su propio código usaba $8.84$, y los $\wL$ y $\wH$ que reportaba corresponden a $\wM=8.85$.
+\end{cuidado}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_adelanto_ej}
+\caption{Ejemplo~\ref{ej:rf-adelanto}: la ``joroba'' de fase del adelanto se ubica en el nuevo cruce y el PM sube de $18.0\grados$ a $49.8\grados$, sin cambiar la ganancia en bajas frecuencias.}
+\label{fig:rf-adelanto-ej}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej1_Adelanto.m}{adelanto}{ejemplo \ref{ej:rf-adelanto}}
+\codigorepo{cap10_respuesta_frecuencial/Clase4_Compensadores/disenoAdelanto.m}{}{los siete pasos como función}
+\video{V7_adelanto_alpha}{$\alpha$ sube de $1$ a $4.03$ con $\wM$ fijo: la joroba crece, el PM sube y el sobrepico baja, con $\kv=20$ todo el tiempo.}
+
+%% ---------------------------------------------------------------------
+\subsection{El compensador en atraso: ganancia en bajas, atenuación en el cruce}
+\label{sec:rf-atraso}
+
+\begin{equation}
+  \Gcp(s)=\frac{1+s/\wH}{1+s/\wL}=\frac{1}{\alpha}\,\frac{s+\wH}{s+\wL},\qquad
+  \alpha=\frac{\wH}{\wL}>1 .
+  \label{eq:rf-atraso}
+\end{equation}
+Un polo antes que el cero ($\wL<\wH$). No se usa por su fase (que es negativa) sino por su \emph{atenuación} de $-20\log\alpha$ en alta frecuencia (\cref{fig:rf-comp}, derecha). El truco es poner las esquinas una década por debajo del cruce: allí el atraso ya solo atenúa y ``roba'' apenas unos $5\grados$ de fase.
+
+\begin{receta}[Diseño en atraso]
+\begin{enumerate}
+  \item Buscar la frecuencia $\omega_{des}$ donde la planta (con el $\Kc$ del error) ya tiene la fase que daría el margen deseado, más una holgura de $5\grados$: $\angle\Gp(\jw_{des})=-180\grados+\PMdes+5\grados$.
+  \item Poner el cero una década abajo: $\wH=\omega_{des}/10$.
+  \item Escoger $\alpha$ para que $\omega_{des}$ sea el nuevo cruce: $20\log\alpha=20\log|\Gp(\jw_{des})|$; el polo queda en $\wL=\wH/\alpha$.
+\end{enumerate}
+Es más sencillo que el adelanto (no hay que iterar sobre $\phiM$). El costo: el cruce se mueve a la izquierda y el sistema se vuelve más lento.
+\end{receta}
+
+\begin{ejemplo}[label=ej:rf-atraso]{El mismo problema, con atraso}
+Repita el diseño del \cref{ej:rf-adelanto} con un compensador en atraso.
+\solucion Con $K=40$, la fase vale $-180\grados+45\grados+5\grados=-130\grados$ en $\omega_{des}=1.68$\,rad/s. Allí $|\Gp(j1.68)|=9.13$ ($19.2\dB$), así que $\alpha=9.13$; $\wH=0.168$ y $\wL=0.168/9.13=0.0184$:
+\[
+  \Gc(s)=\frac{1}{9.13}\,\frac{s+0.168}{s+0.0184}\qquad(\text{con } K=40 \text{ en la planta}),
+\]
+con $\PM=44.8\grados$. La ganancia en bajas frecuencias no cambió ($\Gcp(0)=1$, $\kv=20$), pero el cruce pasó de $6.17$ a $1.68$\,rad/s (\cref{fig:rf-atraso-ej}).
+\end{ejemplo}
+
+\begin{cuidado}[La holgura de $5\grados$ no es opcional]
+El handout anterior tomaba $\omega_{des}=2$, es decir, sin la holgura; con ese diseño el $\PM$ queda en unos $40\grados$, por debajo de lo pedido. Los $5\grados$ pagan la fase que el atraso roba en el cruce.
+\end{cuidado}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap10/f_atraso_ej}
+\caption{Ejemplo~\ref{ej:rf-atraso}: el atraso baja la curva $19.2\dB$ a partir de $\omega\approx0.2$ y conserva la ganancia de bajas frecuencias.}
+\label{fig:rf-atraso-ej}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase4_Compensadores/disenoAtraso.m}{}{los tres pasos como función}
+
+%% ---------------------------------------------------------------------
+\subsection{Adelanto contra atraso: el mismo $\kv$, dos personalidades}
+
+\begin{center}\small
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+ & cruce (rad/s) & $\PM$ & $\OS$ & $\ts$ (s) & $\wbw$ (rad/s) & $u(0^+)$\\
+\midrule
+sin compensar & 6.17 & $18.0\grados$ & $60\%$ & 3.7 & 9.8 & 1\\
+adelanto & 8.85 & $49.8\grados$ & $22\%$ & 0.6 & 14.5 & 4.03\\
+atraso & 1.68 & $44.8\grados$ & $27\%$ & 7.1 & 2.8 & 0.11\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Comparación de los dos diseños. $u(0^+)$ es el valor inicial de la señal de control ante un escalón unitario, que es $\Gcp(\infty)$: $\alpha$ para el adelanto y $1/\alpha$ para el atraso.}
+\label{tab:rf-comparacion}
+\end{center}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_comparacion}
+\caption{Escalón, error ante rampa y esfuerzo de control. Mismo error final ($5\%$): el adelanto llega rápido; el atraso sobrepasa y luego se arrastra hacia $0.05$ (la cola lenta del par polo-cero), pero con mucho menos esfuerzo.}
+\label{fig:rf-comparacion}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej3_Comparacion.m}{comparacion}{tabla \ref{tab:rf-comparacion}}
+\video{V8_adelanto_vs_atraso}{Siguiendo una rampa: los dos llegan al mismo error, por caminos distintos.}
+
+\begin{anchocompleto}
+\centering\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & \textbf{Adelanto} & \textbf{Atraso}\\
+\midrule
+Estructura & $\alpha(s+\wL)/(s+\wH)$, $\alpha>1$ & $(1/\alpha)(s+\wH)/(s+\wL)$, $\alpha>1$\\
+Se usa por su\ldots & fase positiva en el cruce & atenuación en el cruce\\
+Cruce & se mueve a la derecha & se mueve a la izquierda\\
+Velocidad, ancho de banda & aumentan & disminuyen\\
+Ruido de alta frecuencia & lo amplifica ($+20\log\alpha$) & lo atenúa\\
+Esfuerzo inicial & mayor ($\alpha$) & menor ($1/\alpha$)\\
+Límite & unos $60\grados$ por etapa & cola lenta del par polo-cero\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Resumen: adelanto para velocidad; atraso para precisión con poco esfuerzo.}
+\label{tab:rf-resumencomp}
+\end{anchocompleto}
+
+%% ---------------------------------------------------------------------
+\subsection{Atraso-adelanto: cuando hacen falta las dos cosas}
+
+\begin{ejemplo}[label=ej:rf-atrasoadelanto]{Una planta que con el $\kv$ pedido es inestable}
+Para $\Gp(s)=K/[s(s+1)(s+2)]$ se pide $\kv=10$, $\PM\geq50\grados$ y $\GM\geq10\dB$.
+\solucion $\kv=K/2=10\Rightarrow K=20$, y con esa ganancia el lazo cerrado es inestable: $\PM=-28.1\grados$, $\GM=-10.5\dB$. Un adelanto solo necesitaría unos $85\grados$ de fase; un atraso solo, un cruce muy lento. Se combinan:
+\begin{enumerate}
+  \item \textbf{Escoger el nuevo cruce}, $\omega_c=1.2$\,rad/s, donde la fase de la planta es $-171.2\grados$.
+  \item \textbf{Adelanto centrado en $\omega_c$} con $\alpha=10$ (aporta $\phiM=54.9\grados$): $\wL=1.2/\sqrt{10}=0.38$ y $\wH=1.2\sqrt{10}=3.79$.
+  \item \textbf{Atraso que baja la magnitud} en $\omega_c$ lo que sobra para que $\omega_c$ sea el cruce: con el adelanto, $|\Gc\Gp(j1.2)|=23.2\dB$, así que $\beta=10^{23.2/20}=14.5$; el cero va una década abajo ($0.12$) y el polo en $0.12/14.5=0.0083$.
+\end{enumerate}
+Resultado: $\PM=58.2\grados$ y $\GM=13.2\dB$, con $\kv=10$ intacto (\cref{fig:rf-atrasoadelanto}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_atraso_adelanto}
+\caption{Ejemplo~\ref{ej:rf-atrasoadelanto}: el atraso baja la curva en el cruce y el adelanto pone la fase que falta.}
+\label{fig:rf-atrasoadelanto}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej4_AtrasoAdelanto.m}{atrasoadelanto}{ejemplo \ref{ej:rf-atrasoadelanto}}
+
+%% ---------------------------------------------------------------------
+\subsection{Implementación: de la función de transferencia al circuito}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap10/redes_rc}
+\caption{Redes RC pasivas de adelanto y de atraso, con $\alpha=(R_1+R_2)/R_2$. En el adelanto, $\tau=\frac{R_1R_2}{R_1+R_2}C$ y $\alpha\tau=R_1C$; en el atraso, $\tau=R_2C$.}
+\label{fig:rf-rc}
+\end{figure}
+
+La red de adelanto (\cref{fig:rf-rc}) atenúa en $1/\alpha$: hace falta una etapa de ganancia $\alpha$ (un amplificador operacional) para recuperar el $\kv$. Para el adelanto del \cref{ej:rf-adelanto}, el cero en $\wL=4.41$ da $\alpha\tau=R_1C=0.227$\,s y el polo en $\wH=17.76$ da $\tau=0.0563$\,s; con $C=1\,\mu$F resultan $R_1=227$\,k$\Omega$ y $R_2=R_1/(\alpha-1)=74.9$\,k$\Omega$.
+
+\begin{modelo}[Compensadores.slx]
+\cmd{crearModelo\_Compensadores.m} diseña los dos compensadores con \cmd{disenoAdelanto} y \cmd{disenoAtraso} y arma tres lazos en paralelo (sin compensar, adelanto, atraso) con la misma referencia, un selector escalón/rampa y dos osciloscopios: salidas y esfuerzos. Ideal para ver en vivo el error y el sobrepico. La herramienta interactiva \cmd{controlSystemDesigner(Gp)} permite además arrastrar polos y ceros del compensador sobre el Bode y ver el PM en tiempo real.
+\end{modelo}

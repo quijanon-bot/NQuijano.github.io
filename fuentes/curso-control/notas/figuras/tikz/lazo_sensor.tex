@@ -1,0 +1,14 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=12mm]
+  \node (r) {$R$};
+  \node[suma,right=8mm of r] (S) {};
+  \node[bloque,right=10mm of S,minimum width=30mm] (G) {$\dfrac{10\,000}{(s+1)(s+10)(s+100)}$};
+  \coordinate[right=9mm of G] (y0); \node[right=5mm of y0] (y) {$Y$};
+  \node[bloque,below=8mm of G,fill=ctrlcoral!10] (H) {$\dfrac{a}{s+a}$};
+  \node[below=1mm of H,font=\footnotesize,text=ctrlcoral] {sensor};
+  \draw[senal] (r)--(S); \draw[senal] (S)--(G); \draw[senal] (G)--(y);
+  \draw[senal] (y0) |- (H); \draw[senal] (H) -| (S); \node[rot] at ($(S)+(-3mm,-3.5mm)$) {$-$};
+\end{tikzpicture}
+\end{document}

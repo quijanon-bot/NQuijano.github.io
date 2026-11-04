@@ -1,0 +1,791 @@
+[
+  {
+    "objectID": "notacion.html",
+    "href": "notacion.html",
+    "title": "Notación del curso",
+    "section": "",
+    "text": "La notación se define en un solo archivo, notas/notacion.sty; las ecuaciones de esta página usan las mismas macros (por ejemplo, \\Gma produce \\(\\Gma\\)). Si un símbolo cambia, se cambia allí.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Notación del curso"
+    ]
+  },
+  {
+    "objectID": "notacion.html#señales-y-bloques",
+    "href": "notacion.html#señales-y-bloques",
+    "title": "Notación del curso",
+    "section": "Señales y bloques",
+    "text": "Señales y bloques\n\n\n\n\n\n\n\n\n\nSímbolo\nSignificado\nMATLAB\nEn inglés\n\n\n\n\n\\(r,\\ y,\\ e,\\ u\\)\nreferencia, salida, error \\(e=r-y\\), señal de control\nr, y, e, u\nreference, output, error, input\n\n\n\\(\\Gp(s),\\ \\Gc(s)\\)\nproceso (planta), controlador o compensador\nGp, Gc\nplant, controller\n\n\n\\(\\Hs(s)\\)\nretroalimentación\nH\nfeedback\n\n\n\\(\\Gma(s)=G\\Hs\\)\nmalla abierta: una vuelta completa al lazo, sin el signo del comparador\nGma\nloop transfer function \\(L\\)\n\n\n\\(\\Gla(s)\\)\nlazo abierto: el lazo reescrito con retroalimentación unitaria (tipo y error)\nGol\nopen-loop t.f.\n\n\n\\(\\Tlc(s)=Y/R\\)\nlazo cerrado\nT = feedback(...)\nclosed loop",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Notación del curso"
+    ]
+  },
+  {
+    "objectID": "notacion.html#modelado-y-espacio-de-estado",
+    "href": "notacion.html#modelado-y-espacio-de-estado",
+    "title": "Notación del curso",
+    "section": "Modelado y espacio de estado",
+    "text": "Modelado y espacio de estado\n\n\n\n\n\n\n\n\nSímbolo\nSignificado\nMATLAB\n\n\n\n\n\\(\\eq{x},\\ \\eq{u}\\)\npunto de equilibrio (de operación)\nxe, ue\n\n\n\\(\\dev{x}=x-\\eq{x}\\)\nvariable desviación (no “incremental”)\nxd\n\n\n\\(\\Delta\\)\ndiscriminante del diagrama, ley de Mason (no “determinante”)\n—\n\n\n\\(\\Am,\\Bm,\\Cm,\\Dm\\)\nmatrices de estado\nA, B, C, D\n\n\n\\(\\Ctrb,\\ \\Obsv\\)\nmatrices de controlabilidad y observabilidad\nctrb, obsv\n\n\n\\(\\Km,\\ \\Lm\\)\nganancias de retroalimentación de estado y del observador (fórmula de Ackermann)\nK, L",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Notación del curso"
+    ]
+  },
+  {
+    "objectID": "notacion.html#respuesta-transitoria-error-y-pid",
+    "href": "notacion.html#respuesta-transitoria-error-y-pid",
+    "title": "Notación del curso",
+    "section": "Respuesta transitoria, error y PID",
+    "text": "Respuesta transitoria, error y PID\n\n\n\n\n\n\n\n\nSímbolo\nSignificado\nMATLAB\n\n\n\n\n\\(\\zeta,\\ \\wn\\)\nfactor de amortiguamiento, frecuencia natural\nzeta, wn\n\n\n\\(\\OS\\)\nsobrepico porcentual (no \\(M_p\\))\nS.Overshoot\n\n\n\\(\\ts,\\ \\tp\\)\ntiempo de establecimiento (2 %) y de pico\nstepinfo\n\n\n\\(\\kp,\\ \\kv,\\ \\ka\\)\nconstantes estáticas de error\nkp, kv, ka\n\n\n\\(\\Kc,\\ \\Ti,\\ \\Td\\)\nganancia del controlador, tiempos integral y derivativo (\\(K_p\\) es la ganancia del proceso)\nKc, Ti, Td\n\n\n\\(\\Kcr,\\ \\Pcr\\)\nganancia y periodo críticos\nKcr, Pcr",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Notación del curso"
+    ]
+  },
+  {
+    "objectID": "notacion.html#respuesta-frecuencial",
+    "href": "notacion.html#respuesta-frecuencial",
+    "title": "Notación del curso",
+    "section": "Respuesta frecuencial",
+    "text": "Respuesta frecuencial\n\n\n\n\n\n\n\n\nSímbolo\nSignificado\nMATLAB\n\n\n\n\n\\(\\Kb\\)\nganancia en forma de Bode\nKb\n\n\n\\(\\GM,\\ \\wgm\\)\nmargen de ganancia (dB) y su frecuencia (fase \\(=-180\\grados\\))\nGm (¡en veces!), Wcg\n\n\n\\(\\PM,\\ \\wpm\\)\nmargen de fase y su frecuencia (\\(|\\Gma|=0\\dB\\))\nPm, Wcp\n\n\n\\(\\Mr,\\ \\wres\\)\npico de resonancia del lazo cerrado (no \\(M_P\\))\nMr, wr\n\n\n\\(\\wbw\\)\nancho de banda (\\(-3\\dB\\))\nbandwidth(T)\n\n\n\\(\\alpha,\\ \\phiM,\\ \\wM,\\ \\wL,\\ \\wH\\)\nparámetros de adelanto y atraso\nalpha, phiM, wM, wL, wH\n\n\n\n\nMATLAB invita a confundirse\nEn [Gm,Pm,Wcg,Wcp] = margin(G), Wcg es la frecuencia donde se mide el GM (\\(\\wgm\\)) y Wcp la del PM (\\(\\wpm\\)); Gm sale en veces (en dB: 20*log10(Gm)). La función del curso margenesTabla(G) imprime todo ya convertido.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Notación del curso"
+    ]
+  },
+  {
+    "objectID": "notacion.html#decisiones-de-lenguaje",
+    "href": "notacion.html#decisiones-de-lenguaje",
+    "title": "Notación del curso",
+    "section": "Decisiones de lenguaje",
+    "text": "Decisiones de lenguaje\n\n\n\nUsamos\nEn lugar de\n\n\n\n\nretroalimentación\nrealimentación\n\n\nmalla abierta \\(\\Gma\\) / lazo abierto \\(\\Gla\\)\n“open loop” para ambas\n\n\nvariable desviación\nvariable incremental\n\n\ndiscriminante (Mason)\ndeterminante\n\n\nsobrepico \\(\\OS\\); pico de resonancia \\(\\Mr\\)\novershoot, \\(M_p\\), \\(M_P\\)\n\n\ntiempo de establecimiento\ntiempo de asentamiento\n\n\n\\(\\Kc\\) (controlador)\n\\(K_p\\) (es la del proceso)\n\n\nfórmula de Ackermann\nAckerman",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Notación del curso"
+    ]
+  },
+  {
+    "objectID": "videos.html",
+    "href": "videos.html",
+    "title": "Videos",
+    "section": "",
+    "text": "Cada video se genera con un script de MATLAB (columna Script); si quiere cambiar algo, cambie el script y vuelva a grabarlo. Los archivos .mp4 se publican en la carpeta sitio/videos/ del repositorio.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Videos"
+    ]
+  },
+  {
+    "objectID": "videos.html#parte-10-respuesta-frecuencial",
+    "href": "videos.html#parte-10-respuesta-frecuencial",
+    "title": "Videos",
+    "section": "Parte 10 · Respuesta frecuencial",
+    "text": "Parte 10 · Respuesta frecuencial\n\n\n\nVideo\nQué muestra\nScript\n\n\n\n\nV1 · La máquina de Bode\nSe barre la frecuencia de una senoide y el Bode se dibuja punto a punto.\nC1_Video_MaquinaBode.m\n\n\nV2 · Resonancia y ζ\nPolos, pico de resonancia y sobrepico para el mismo ζ.\nC1_Video_Resonancia.m\n\n\nV10 · s/(s+10) término a término (pendiente: genérelo con el script)\nConstrucción del asintótico, suma y curva real.\nC1_Video_Asintotico_s_s10.m\n\n\nV11 · Un filtro pasa-altos (pendiente: genérelo con el script)\nBarrido de frecuencia y entrada compuesta.\nC1_Video_PasaAltos_s_s10.m\n\n\nV3 · Márgenes asintóticos\nBode término a término y márgenes.\nC2_Ej2_Margenes.m\n\n\nV4 · Subiendo Kc\nEl GM se agota y el lazo oscila.\nC2_Video_BarridoKc.m\n\n\nV12 · El sensor lento (pendiente: genérelo con el script)\nEl PM como presupuesto de fase.\nC2_Video_SensorMargenFase.m\n\n\nV5 · PM y sobrepico\nSubir K baja el PM y sube el sobrepico.\nC3_Video_PM_zeta.m\n\n\nV6 · Ajuste de ganancia\nLa curva sube hasta cruzar en 13.56 rad/s.\nC3_Video_AjusteGanancia.m\n\n\nV7 · El adelanto\nα crece con ωM fijo.\nC4_Ej1_Adelanto.m\n\n\nV8 · Adelanto contra atraso\nSeguimiento de una rampa.\nC4_Ej3_Comparacion.m\n\n\n\n\nPara publicar los videos\nCopie los .mp4 de Bode_4Clases/videos/ a sitio/videos/. Si pesan más de unos 50 MB en total, es mejor subirlos a YouTube o a Stream y cambiar aquí los enlaces.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Videos"
+    ]
+  },
+  {
+    "objectID": "partes/10-respuesta-frecuencial.html",
+    "href": "partes/10-respuesta-frecuencial.html",
+    "title": "10. Respuesta frecuencial y diagramas de Bode",
+    "section": "",
+    "text": "Parte 10 · Semanas 13–16Respuesta frecuencial y diagramas de BodeCompramos libros porque creemos que compramos el tiempo para leerlos. — Warren Zevon\nHasta ahora analizamos los sistemas mirando dónde están los polos. En esta parte cambiamos la pregunta: ¿qué le hace el sistema a una senoide? La respuesta son dos números por frecuencia, que se pueden medir en el laboratorio aunque no se tenga el modelo, y con ellos dibujados en una sola gráfica, el diagrama de Bode, vamos a responder las tres preguntas del curso (estabilidad, transitorio y error) y a diseñar compensadores.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "10. Respuesta frecuencial y diagramas de Bode"
+    ]
+  },
+  {
+    "objectID": "partes/10-respuesta-frecuencial.html#ruta-de-las-cuatro-clases",
+    "href": "partes/10-respuesta-frecuencial.html#ruta-de-las-cuatro-clases",
+    "title": "10. Respuesta frecuencial y diagramas de Bode",
+    "section": "Ruta de las cuatro clases",
+    "text": "Ruta de las cuatro clases\n\nLea la sección del handout antes de cada clase.\n\n\n\n\n\n\n\n\n\nClase\nQué se ve\nHandout\nScripts\nVideos\n\n\n\n\n1\nHistoria, malla abierta y lazo abierto, la senoide, el decibel, los cuatro factores, el ejemplo \\(s/(s+10)\\)\n§10.1–10.5\nC1_*\nV1, V2, V10, V11\n\n\n2\nLeer un Bode al revés, márgenes, el sensor lento, rango de \\(\\Kc\\), Ziegler-Nichols\n§10.6–10.7\nC2_*\nV3, V4, V12\n\n\n3\n\\(\\Mr\\) y \\(\\wbw\\), \\(\\PM\\leftrightarrow\\zeta\\), tipo y error, ajuste de ganancia\n§10.8–10.10\nC3_*\nV5, V6\n\n\n4\nAdelanto, atraso, atraso-adelanto, redes RC, el PID visto en frecuencia\n§10.11–10.12\nC4_*\nV7, V8",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "10. Respuesta frecuencial y diagramas de Bode"
+    ]
+  },
+  {
+    "objectID": "partes/10-respuesta-frecuencial.html#lo-esencial-en-una-página",
+    "href": "partes/10-respuesta-frecuencial.html#lo-esencial-en-una-página",
+    "title": "10. Respuesta frecuencial y diagramas de Bode",
+    "section": "Lo esencial, en una página",
+    "text": "Lo esencial, en una página\n\nRespuesta en frecuencia\nUn sistema lineal, invariante y estable excitado con \\(x_0\\sin\\omega t\\) responde en estado estacionario con \\[\nz_{ss}(t)=x_0\\,|\\Gma(\\jw)|\\,\\sin\\big(\\omega t+\\angle \\Gma(\\jw)\\big).\n\\] El diagrama de Bode guarda esos dos números, \\(20\\log|\\Gma(\\jw)|\\) y \\(\\angle\\Gma(\\jw)\\), para cada \\(\\omega\\).\n\n\n\n\n\\(1/(s+10)\\) excitado con \\(\\sin t\\): después del transitorio solo quedan magnitud (\\(0.0995\\)) y fase (\\(-5.71^\\circ\\)).\n\n\n\nLa trampa clásica: la ganancia escondida\nLas reglas asintóticas solo valen con cada factor escrito como \\(s/\\omega_1+1\\). Como \\(s+10=10\\,(s/10+1)\\), el factor \\(1/(s+10)\\) trae \\(1/10=-20\\dB\\) escondidos. Es el error más frecuente en las evaluaciones.\n\n\nDiagrama de Bode asintótico, paso a paso\n\nLlevar \\(\\Gma(s)\\) a la forma de Bode: cada factor como \\((s/\\omega_i+1)\\) y la ganancia \\(\\Kb\\) sola.\nOrdenar las esquinas de menor a mayor.\nMagnitud: arrancar con \\(20\\log\\Kb-20N\\log\\omega\\) y sumar \\(+20\\dBdec\\) por cada cero y \\(-20\\) por cada polo.\nFase: \\(\\pm45^\\circ\\)/década entre \\(\\omega_i/10\\) y \\(10\\,\\omega_i\\) por cada factor real, \\(-90N^\\circ\\) por los integradores.\nVerificar con bode. Con polos complejos y \\(\\zeta\\) pequeño, la curva real puede estar muy por encima de la asíntota.\n\n\n\n\n\nLos tres factores de \\(s/(s+10)\\), su suma asintótica (negro) y la curva real (verde).\n\n\n\nMárgenes de ganancia y de fase\nLa frontera de estabilidad es \\(\\Gma(\\jw)=-1\\): magnitud \\(0\\dB\\) y fase \\(-180^\\circ\\) a la vez.\n\n\\(\\GM=-20\\log|\\Gma(\\jw_{GM})|\\), medido donde la fase vale \\(-180^\\circ\\): cuánta ganancia de más aguanta el lazo.\n\\(\\PM=180^\\circ+\\angle\\Gma(\\jw_{PM})\\), medido donde \\(|\\Gma|=0\\dB\\): cuánto atraso de fase no modelado aguanta.\n\nRegla práctica (fase mínima): \\(30^\\circ&lt;\\PM&lt;60^\\circ\\) y \\(\\GM&gt;6\\dB\\).\n\n\n\n\nLectura de los márgenes de \\(10\\,000/[(s+1)(s+10)(s+100)]\\): \\(\\GM=21.7\\dB\\) y \\(\\PM=54.9^\\circ\\).\n\n\n\nEl PM es un presupuesto de fase\nUn sensor de primer orden \\(a/(s+a)\\) que nadie modeló resta cerca de \\(\\tan^{-1}(\\wpm/a)\\) de fase en el cruce. Con el lazo anterior: \\(a=50\\) deja \\(\\PM=46.5^\\circ\\) (sobrepico 28 %); \\(a=10\\), \\(26.3^\\circ\\) (68 %). La planta es la misma; lo que cambió fue cuánto presupuesto quedó.\n\n\n\n\nUn sensor más lento gasta más fase y el lazo cerrado se vuelve más oscilatorio.\n\n\n\nDel margen de fase al transitorio\nPara la malla abierta \\(\\wn^2/[s(s+2\\zeta\\wn)]\\) el margen de fase depende solo de \\(\\zeta\\): \\[\n\\PM=\\tan^{-1}\\frac{2\\zeta}{\\sqrt{-2\\zeta^2+\\sqrt{1+4\\zeta^4}}}\\qquad(\\PM\\approx100\\,\\zeta\\ \\text{si}\\ \\zeta&lt;0.6).\n\\]\n\n\n\n\n\n\n\n\n\n\n\n\\(\\zeta\\)\n0.25\n0.40\n0.50\n0.60\n0.707\n\n\n\n\n\\(\\PM\\)\n\\(28.0^\\circ\\)\n\\(43.1^\\circ\\)\n\\(51.8^\\circ\\)\n\\(59.2^\\circ\\)\n\\(65.5^\\circ\\)\n\n\n\\(\\OS\\)\n44.4 %\n25.4 %\n16.3 %\n9.5 %\n4.3 %\n\n\n\n\n\nDiseño: primero el error, después la forma\n\n\\(\\Kc\\): la ganancia DC más pequeña que cumple el error (\\(\\kp\\), \\(\\kv\\) o \\(\\ka\\) se leen en las bajas frecuencias).\nTérminos con \\(G_c'(0)=1\\) para cambiar la forma en el cruce: un adelanto agrega fase (más rápido, más ruido); un atraso atenúa (más lento, menos esfuerzo); un atraso-adelanto, ambas cosas.\nVerificar con margin y en el tiempo.\n\n\n\n\\(40/[s(s+2)]\\) con \\(\\kv=20\\) y \\(\\PM_{des}=45^\\circ\\): mismo error, dos personalidades.\n\n\n\n\n\n\n\n\n\n\n\n\ncruce (rad/s)\n\\(\\PM\\)\n\\(\\OS\\)\n\\(\\ts\\) (s)\n\\(\\wbw\\) (rad/s)\n\\(u(0^+)\\)\n\n\n\n\nsin compensar\n6.17\n\\(18.0^\\circ\\)\n60 %\n3.7\n9.8\n1\n\n\nadelanto\n8.85\n\\(49.8^\\circ\\)\n22 %\n0.6\n14.5\n4.03\n\n\natraso\n1.68\n\\(44.8^\\circ\\)\n27 %\n7.1\n2.8\n0.11\n\n\n\n\n\n\nEscalón, error ante rampa y esfuerzo de control de los dos diseños.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "10. Respuesta frecuencial y diagramas de Bode"
+    ]
+  },
+  {
+    "objectID": "partes/10-respuesta-frecuencial.html#explorador",
+    "href": "partes/10-respuesta-frecuencial.html#explorador",
+    "title": "10. Respuesta frecuencial y diagramas de Bode",
+    "section": "Explorador de Bode",
+    "text": "Explorador de Bode\nMueva la ganancia, los integradores, los polos y el cero. La curva negra es el asintótico que usted dibujaría a mano y la verde, la real; abajo aparecen los márgenes y lo que ellos predicen para el lazo cerrado con retroalimentación unitaria. Intente reproducir los ejemplos del handout.\n\n\n\nRetos con el explorador\n\nCon los valores iniciales (\\(K=10\\,000\\), polos en 1, 10 y 100) lea los márgenes y compárelos con el ejemplo 10.5 del handout.\nSuba \\(K\\) hasta que el GM llegue a 0 dB. ¿Qué valor de \\(K\\) obtuvo? Compárelo con \\(\\Kcr=122\\,210\\) (Routh-Hurwitz).\nPonga un integrador, quite el polo en 1 y busque el \\(K\\) que da \\(\\PM\\approx52^\\circ\\) con el polo en 10 (el ejemplo \\(100/[s(s+10)]\\)).",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "10. Respuesta frecuencial y diagramas de Bode"
+    ]
+  },
+  {
+    "objectID": "partes/10-respuesta-frecuencial.html#códigos-de-esta-parte",
+    "href": "partes/10-respuesta-frecuencial.html#códigos-de-esta-parte",
+    "title": "10. Respuesta frecuencial y diagramas de Bode",
+    "section": "Códigos de esta parte",
+    "text": "Códigos de esta parte\nLos bloques salen directamente de los archivos del repositorio. Ejecute antes iniciarCurso. Cada script tiene un encabezado con qué hace, qué observar, los resultados esperados y una sugerencia para explorar.\n\nClase 1Clase 2Clase 3Clase 4Pruebas\n\n\nLa senoide (handout §10.2). Simulación completa contra la predicción de estado estacionario.\nG   = tf(1, [1 10]);                 % G'(s) = 1/(s+10)\nw   = 1;                             % frecuencia de la entrada (rad/s)\nGjw = evalfr(G, 1j*w);               % G'(jw): un número complejo\nM   = abs(Gjw)                       % 0.0995  -&gt; la salida es ~10 veces menor\nphi = rad2deg(angle(Gjw))            % -5.71°  -&gt; y llega 5.71° tarde\n\nt   = 0:0.001:12;   x = sin(w*t);\nz   = lsim(G, x, t);                 % simulación completa (transitorio + ee)\nzss = M*sin(w*t + deg2rad(phi));     % solo el estado estacionario, ec. (10.3)\nEl ejemplo \\(s/(s+10)\\) (§10.5). Los tres factores con la función del curso bodeAsintotico.\nG = tf([1 0], [1 10]);                         % G'(s) = s/(s+10)\nw = logspace(-1, 3, 600);\n[m1, f1] = bodeAsintotico(w, 0.1, 0);          % factor 1: ganancia 1/10\n[m2, f2] = bodeAsintotico(w, 1, -1);           % factor 2: cero en el origen (N = -1)\n[m3, f3] = bodeAsintotico(w, 1, 0, [10 -1]);   % factor 3: polo en -10\n[mA, fA] = bodeAsintotico(w, 0.1, -1, [10 -1]);% la suma: todo junto\n[mR, fR] = bode(G, w);  mR = 20*log10(squeeze(mR));  fR = squeeze(fR);\nLa asíntota que engaña (§10.4).\nG2 = tf(1000, conv([1 1], [1 4 100]));         % = 10/((s+1)(s^2/100 + 0.04 s + 1))\nmargenesTabla(G2, 'real');                     % PM = -45.5°, GM = -7.5 dB\nT2 = feedback(G2, 1);  pole(T2)                % dos polos con parte real &gt; 0\n\n\nMárgenes (§10.7). Ojo con los nombres de margin.\nG = zpk([], [-1 -10 -100], 1e4);\n[Gm, Pm, Wcg, Wcp] = margin(G);          % OJO: Gm en VECES; Wcg = w_GM; Wcp = w_PM\nGMdB = 20*log10(Gm)                      % 21.74 dB\nfprintf('GM = %.2f dB en w_GM = %.2f;  PM = %.2f° en w_PM = %.2f\\n', GMdB, Wcg, Pm, Wcp);\nRango de \\(\\Kc\\) con Routh-Hurwitz, sin Symbolic Toolbox.\na2 = 111;  a1 = 1110;                      % s^3 + a2 s^2 + a1 s + (1000 + Kc)\n% Fila s^1: (a2*a1 - (1000+Kc))/a2 &gt; 0   y   fila s^0: 1000 + Kc &gt; 0\nKcr = a2*a1 - 1000                         % 122 210  -&gt;  -1000 &lt; Kc &lt; 122 210\nwcr = sqrt(a1)                             % 33.32 rad/s (polinomio auxiliar a2 s^2 + 1000 + Kcr)\nPcr = 2*pi/wcr                             % 0.189 s  (periodo crítico, Ziegler-Nichols)\nEl sensor lento.\nG = zpk([], [-1 -10 -100], 1e4);\n[~, Pm, ~, Wcp] = margin(G)                      % 54.9°, 7.80 rad/s\nfprintf('\\n   a     PM estimado   PM (margin)   GM (dB)   sobrepico\\n');\nfor a = [50 20 10 5]\n    H = tf(a, [1 a]);                            % sensor de primer orden\n    [Gm, PmH] = margin(G*H);                     % malla abierta: G'(s) = G(s) H(s)\n    S = stepinfo(feedback(G, H));                % lazo cerrado: Y/R = G/(1+GH)\n    fprintf('%5g     %6.1f°       %6.1f°      %6.2f    %6.1f %%\\n', ...\n            a, Pm - atand(Wcp/a), PmH, 20*log10(Gm), S.Overshoot);\nend\n\n\nDel PM al transitorio (§10.8).\nG = zpk([], [0 -10], 100);\n[~, PM, ~, wPM] = margin(G)                          % 51.83° en 7.86 rad/s\nzeta = zetaDePM(PM)                                  % 0.50  (inversa de pmDeZeta)\nwn   = wPM/sqrt(-2*zeta^2 + sqrt(1 + 4*zeta^4))      % 10\nOS   = 100*exp(-zeta*pi/sqrt(1 - zeta^2))            % 16.3 %\ntp   = pi/(wn*sqrt(1 - zeta^2))                      % 0.363 s\nts   = 4/(zeta*wn)                                   % 0.8 s (criterio del 2 %)\nstepinfo(feedback(G, 1))                             % comprobación\nAjuste de ganancia (§10.10).\nG0   = zpk([], [0 -20 -100], 1);\nzeta = zetaDeOS(0.20)                                % 0.456\nPMd  = pmDeZeta(zeta)                                % 48.15°\nFdes = -180 + PMd                                    % -131.85°\nwd   = fzero(@(w) faseEn(G0, w) - Fdes, [1 30])      % 13.56 rad/s (la ganancia NO cambia la fase)\nKc   = 1/abs(evalfr(G0, 1j*wd))                      % 33 056: |Kc G0(j wd)| = 1 = 0 dB\n\n\nLos siete pasos del adelanto como función (§10.11).\nfunction [Gc, info] = disenoAdelanto(Gp, PMdes, phiSeg, estricto)\n% DISENOADELANTO  Compensador en adelanto por respuesta en frecuencia (notas, sección 10.11).\n%   [Gc, info] = disenoAdelanto(Gp, PMdes, phiSeg, estricto)\n%   Gp       planta YA con la ganancia que cumple el error (paso 1 del procedimiento)\n%   PMdes    margen de fase deseado (grados)\n%   phiSeg   ángulo de seguridad inicial (5°-10°)\n%   estricto (opcional) true: aumenta phiSeg de 5° en 5° hasta que\n%            phiSeg &gt;= fase(Gp, w_PM) - fase(Gp, w_M)  (verificación estricta)\n%   Gc = alpha (s + wL)/(s + wH),   Gc(0) = 1  (no cambia el error)\n%\n%   Ejemplo (notas): Gp = zpk([], [0 -2], 40); [Gc, info] = disenoAdelanto(Gp, 45, 10)\n%     -&gt; alpha = 4.03, wM = 8.85, wL = 4.41, wH = 17.76, PM = 49.8°\nif nargin &lt; 4, estricto = false; end\n[~, PM, ~, wPM] = margin(Gp);                            % paso 2\nwhile true\n    phiM = PMdes - PM + phiSeg;                          % paso 3\n    if phiM &gt;= 90\n        error('disenoAdelanto:phiM', 'phi_M = %.1f° &gt;= 90°: use dos etapas o atraso-adelanto.', phiM);\n    end\n    alpha    = (1 + sind(phiM))/(1 - sind(phiM));        % paso 4\n    objetivo = -10*log10(alpha);                         % paso 5: |Gp(j wM)| = -10 log(alpha) dB\n    wM = fzero(@(w) 20*log10(abs(evalfr(Gp, 1j*w))) - objetivo, [wPM, 100*wPM]);\n    perdida = faseEn(Gp, wPM) - faseEn(Gp, wM);          % fase que la planta pierde al correr el cruce\n    if ~estricto || phiSeg &gt;= perdida, break; end\n    phiSeg = phiSeg + 5;\nend\nwL = wM/sqrt(alpha);  wH = alpha*wL;                     % paso 6\nGc = zpk(-wL, -wH, alpha);\n[~, PMn, ~, wPMn] = margin(Gc*Gp);                       % paso 7: verificar\ninfo = struct('PM0', PM, 'wPM0', wPM, 'phiSeg', phiSeg, 'phiM', phiM, 'alpha', alpha, ...\n              'wM', wM, 'wL', wL, 'wH', wH, 'PM', PMn, 'wPM', wPMn, 'perdidaFase', perdida);\nend\nAtraso-adelanto.\nGp = zpk([], [0 -1 -2], 20);  margenesTabla(Gp, 'sin compensar');\nwc = 1.2;                                          % nuevo cruce elegido (fase de Gp = -171.2°)\nfase_wc = faseEn(Gp, wc)\n% 1) Adelanto centrado en wc con alpha = 10 (aporta 54.9°)\nalpha = 10;  phiM = asind((alpha-1)/(alpha+1))\nwL = wc/sqrt(alpha);  wH = wc*sqrt(alpha);         % 0.38 y 3.79\nClead = zpk(-wL, -wH, alpha);\n% 2) Atraso que baja la magnitud en wc lo que sobra para que wc sea el cruce\nMdB  = 20*log10(abs(evalfr(Clead*Gp, 1j*wc)))      % 23.2 dB que debe quitar el atraso\nbeta = 10^(MdB/20);  zl = wc/10;  pl = zl/beta;    % 14.5, 0.12, 0.0083\nClag = zpk(-zl, -pl, 1/beta);\nGc = minreal(Clead*Clag)\nmargenesTabla(Gc*Gp, 'atraso-adelanto');           % PM = 58.2°, GM = 13.2 dB\nkv = dcgain(minreal(tf('s')*Gc*Gp))                % 10: el error no cambió\nPID por moldeo del lazo (§10.12).\nwc = 20;  PMdes = 50;  N = 10;\nTi2 = 10/wc;                                        % cero del PI una década abajo de wc\nPI  = 1 + 1/(Ti2*s);\nfalta = -180 + PMdes - (faseEn(Gp, wc) + faseEn(PI, wc))     % 37.6° que debe dar el PD\nTd2 = fzero(@(Td) atand(wc*Td) - atand(wc*Td/N) - falta, [1e-4 5/wc])   % 0.0465\nC0  = PI*(1 + Td2*s)/(1 + Td2*s/N);\nKc2 = 1/abs(evalfr(C0*Gp, 1j*wc))                   % 33 427: |L(j wc)| = 1\nCls = Kc2*C0;\nmargenesTabla(Cls*Gp, 'moldeo del lazo');           % PM = 50°, GM = 24.4 dB\n\n\nverificarCap10 comprueba los números clave del capítulo. Córralo cada vez que modifique un código.\nfunction verificarCap10()\n% VERIFICARCAP10  Pruebas automáticas de los números del capítulo 10.\n% Corre los cálculos clave de las notas y verifica cada resultado con una\n% tolerancia. Úselo cada vez que MODIFIQUE un código: si algo deja de\n% coincidir con las notas, aquí se ve de inmediato.\n%   &gt;&gt; verificarCap10\n% (Los mismos números se verificaron de forma independiente con\n%  python-control en herramientas/cap10_numeros.py.)\nraiz = fileparts(mfilename('fullpath'));\naddpath(fullfile(raiz, '..', 'comun'), fullfile(raiz, 'Clase4_Compensadores'));\ns = tf('s');  fallas = 0;  n = 0;\n    function revisar(nombre, valor, esperado, tol)\n        n = n + 1;\n        if abs(valor - esperado) &lt;= tol\n            fprintf('  ok   %-36s %12.4f\\n', nombre, valor);\n        else\n            fprintf(2, '  FALLA %-35s %12.4f  (esperado %g +- %g)\\n', nombre, valor, esperado, tol);\n            fallas = fallas + 1;\n        end\n    end\n\nfprintf('10.2  Respuesta senoidal\\n');\nG = 1/(s+10);  g = evalfr(G, 1j);\nrevisar('|1/(j+10)|', abs(g), 0.0995, 5e-4);\nrevisar('fase (grados)', rad2deg(angle(g)), -5.71, 0.01);\n\nfprintf('10.5  Ejemplo s/(s+10)\\n');\nG = s/(s+10);\nrevisar('dB en w = 10', 20*log10(abs(evalfr(G, 10j))), -3.01, 0.01);\nrevisar('fase en w = 10', faseEn(G, 10), 45, 0.01);\nrevisar('dB en w = 1', 20*log10(abs(evalfr(G, 1j))), -20.04, 0.01);\n\nfprintf('10.4  Ejemplo con resonancia\\n');\n[Gm, Pm] = margin(1000/((s+1)*(s^2+4*s+100)));\nrevisar('PM (inestable)', mod(Pm + 180, 360) - 180, -45.5, 0.1);   % mod: algunas versiones dan +314.5\nrevisar('GM dB (inestable)', 20*log10(Gm), -7.5, 0.1);\n\nfprintf('10.7  Márgenes y rango de Kc\\n');\n[Gm, Pm, Wcg, Wcp] = margin(1e4/((s+1)*(s+10)*(s+100)));\nrevisar('GM (dB)', 20*log10(Gm), 21.74, 0.01);\nrevisar('w_GM', Wcg, 33.32, 0.01);\nrevisar('PM', Pm, 54.90, 0.01);\nrevisar('w_PM', Wcp, 7.80, 0.01);\n[Gm, ~, Wcg] = margin(1000/((s+1)*(s+10)*(s+100)));\nrevisar('Kcr = 1000*GM', 1000*Gm, 122210, 2);\nrevisar('Pcr', 2*pi/Wcg, 0.1886, 1e-4);\n[~, Pm] = margin(1e4/((s+1)*(s+10)*(s+100))*20/(s+20));\nrevisar('PM con sensor a = 20', Pm, 36.4, 0.1);\n\nfprintf('10.8  PM -&gt; zeta -&gt; transitorio\\n');\n[~, Pm, ~, Wcp] = margin(100/(s*(s+10)));\nz = zetaDePM(Pm);\nrevisar('zeta', z, 0.50, 1e-3);\nrevisar('wn', Wcp/sqrt(-2*z^2 + sqrt(1+4*z^4)), 10, 0.01);\nrevisar('w_BW', bandwidth(feedback(100/(s*(s+10)), 1)), 12.72, 0.01);\nrevisar('PM(zeta = 0.707)', pmDeZeta(0.707), 65.5, 0.06);\n\nfprintf('10.10 Ajuste de ganancia\\n');\nG0 = 1/(s*(s+20)*(s+100));\nwd = fzero(@(w) faseEn(G0, w) + 180 - pmDeZeta(zetaDeOS(0.2)), [1 30]);\nrevisar('w objetivo', wd, 13.56, 0.01);\nrevisar('Kc', 1/abs(evalfr(G0, 1j*wd)), 33056, 2);\n\nfprintf('10.11 Compensadores\\n');\nGp = zpk([], [0 -2], 40);\n[~, il] = disenoAdelanto(Gp, 45, 10);\nrevisar('adelanto alpha', il.alpha, 4.03, 0.01);\nrevisar('adelanto wM', il.wM, 8.85, 0.01);\nrevisar('adelanto PM', il.PM, 49.8, 0.1);\n[~, ig] = disenoAtraso(Gp, 45, 5);\nrevisar('atraso wdes', ig.wdes, 1.68, 0.01);\nrevisar('atraso alpha', ig.alpha, 9.13, 0.01);\nrevisar('atraso PM', ig.PM, 44.8, 0.1);\n\nfprintf('\\n%d de %d verificaciones correctas.\\n', n - fallas, n);\nif fallas &gt; 0, error('verificarCap10:falla', '%d verificaciones fallaron.', fallas); end\nend",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "10. Respuesta frecuencial y diagramas de Bode"
+    ]
+  },
+  {
+    "objectID": "partes/10-respuesta-frecuencial.html#modelos-de-simulink",
+    "href": "partes/10-respuesta-frecuencial.html#modelos-de-simulink",
+    "title": "10. Respuesta frecuencial y diagramas de Bode",
+    "section": "Modelos de Simulink",
+    "text": "Modelos de Simulink\n\nLos modelos se construyen por código\n\n\n\n\n\n\n\n\nScript\nModelo\nPara qué\n\n\n\n\ncrearModelo_RespuestaSenoidal.m\nSine Wave → \\(G(s)\\) → Scope\nmedir el Bode un punto a la vez; mide amplitud y desfase automáticamente\n\n\ncrearModelo_LazoKc.m\nlazo con \\(\\Kc\\) y planta de tercer orden\nver la oscilación sostenida en \\(\\Kc=\\Kcr\\)\n\n\ncrearModelo_Compensadores.m\ntres lazos en paralelo con selector escalón/rampa\ncomparar sin compensar, adelanto y atraso: salidas y esfuerzos\n\n\n\nCorra el script y se crea el .slx. Así cualquiera puede ver, versionar y mejorar exactamente qué bloques tiene cada modelo.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "10. Respuesta frecuencial y diagramas de Bode"
+    ]
+  },
+  {
+    "objectID": "partes/10-respuesta-frecuencial.html#pausas-activas",
+    "href": "partes/10-respuesta-frecuencial.html#pausas-activas",
+    "title": "10. Respuesta frecuencial y diagramas de Bode",
+    "section": "Pausas activas",
+    "text": "Pausas activas\n\n1. ¿Más grande o más pequeña?\nSi la entrada de \\(1/(s+10)\\) fuera \\(\\sin(100t)\\) en lugar de \\(\\sin t\\), ¿la salida sería más grande o más pequeña? ¿Más o menos atrasada?\n\n\nRespuesta\n\nMás pequeña y más atrasada: \\(|G(j100)|=0.00995\\) y \\(\\phi=-84.3^\\circ\\).\n\n\n\n2. Tres lazos\n\n\\(\\PM=40^\\circ\\), \\(\\GM=12\\dB\\); (B) \\(\\PM=-15^\\circ\\), \\(\\GM=-4\\dB\\); (C) \\(\\PM=70^\\circ\\), \\(\\GM=2\\dB\\). ¿Cuáles son estables? ¿Cuál le preocupa más?\n\n\n\nRespuesta\n\nA es estable con márgenes cómodos; B es inestable; C es estable pero frágil: un 26 % más de ganancia lo inestabiliza. Hay que mirar los dos márgenes.\n\n\n\n3. El tipo 2\n¿Por qué en un sistema tipo 2 la asíntota de baja frecuencia cruza \\(0\\dB\\) en \\(\\sqrt{\\ka}\\) y no en \\(\\ka\\)?\n\n\nRespuesta\n\nEn bajas frecuencias \\(|\\Gma(\\jw)|\\approx\\ka/\\omega^2\\); igualando a 1, \\(\\omega=\\sqrt{\\ka}\\).",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "10. Respuesta frecuencial y diagramas de Bode"
+    ]
+  },
+  {
+    "objectID": "partes/10-respuesta-frecuencial.html#problemas",
+    "href": "partes/10-respuesta-frecuencial.html#problemas",
+    "title": "10. Respuesta frecuencial y diagramas de Bode",
+    "section": "Problemas",
+    "text": "Problemas\nEl handout trae 17 problemas, desde el diagrama asintótico hasta el diseño de un atraso-adelanto, con soluciones de los seis primeros. Los marcados [M] se resuelven en MATLAB/Simulink.\nIr a los problemas (PDF)\n\nCorrecciones respecto a la versión anterior\nAdelanto: \\(\\omega_M=8.85\\) (no 14). Atraso: con la holgura de \\(5^\\circ\\), \\(\\omega=1.68\\) y \\(\\PM=44.8^\\circ\\). Rango de \\(\\Kc\\): \\(\\GM=+40\\dB\\) (no \\(-40\\)). \\(\\omega_{GM}\\) asintótico del ejemplo \\(10\\,000/[\\cdots]\\): 31.6 (no 50). Ajuste de ganancia: \\(\\Kc=33\\,056\\). El pico de resonancia se llama ahora \\(\\Mr\\) (antes \\(M_P\\)). Todos los números se verificaron de forma independiente.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "10. Respuesta frecuencial y diagramas de Bode"
+    ]
+  },
+  {
+    "objectID": "partes/02-modelado-primer-orden.html",
+    "href": "partes/02-modelado-primer-orden.html",
+    "title": "2. Modelado I: Laplace, función de transferencia y primer orden",
+    "section": "",
+    "text": "Parte 2 · Semanas 1–2Modelado I: Laplace, función de transferencia y primer ordenLa ilusión es el mejor alimento espiritual, el motor del alma. No engaña, entusiasma. — Jorge Barraza\nTodo lo que haremos en el curso (estabilidad, error, PID, Bode) se apoya en modelos. En esta parte construimos el primero a partir de un balance de energía, aprendemos la herramienta que convierte ecuaciones diferenciales en álgebra, la transformada de Laplace, y llegamos al concepto central del curso: la función de transferencia. Terminamos con el sistema más sencillo y más común, el de primer orden, y aprendemos a leer su ganancia y su constante de tiempo en una curva medida.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "2. Modelado I: Laplace, función de transferencia y primer orden"
+    ]
+  },
+  {
+    "objectID": "partes/02-modelado-primer-orden.html#ruta-de-las-clases",
+    "href": "partes/02-modelado-primer-orden.html#ruta-de-las-clases",
+    "title": "2. Modelado I: Laplace, función de transferencia y primer orden",
+    "section": "Ruta de las clases",
+    "text": "Ruta de las clases\n\nLea la sección del handout antes de cada clase.\n\n\n\n\n\n\n\n\nClase\nQué se ve\nHandout\nScripts\n\n\n\n\n1\nSeñales y sistemas; el modelo dentro del diseño; modelos orientados al control; LTI; el tanque agitado\n§2.1–2.2\nC2_Ej1\n\n\n2\nHistoria y definición de Laplace; tabla y propiedades\n§2.3\nC2_Ej2\n\n\n3\nResolver ODE: polos simples, múltiples y complejos; de los polos a los modos\n§2.4\nC2_Ej3–C2_Ej5\n\n\n4\nFunción de transferencia, valor final, el tanque otra vez, primer orden\n§2.5–2.8\nC2_Ej6–C2_Ej8, crearModelo_Termico",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "2. Modelado I: Laplace, función de transferencia y primer orden"
+    ]
+  },
+  {
+    "objectID": "partes/02-modelado-primer-orden.html#lo-esencial-en-una-página",
+    "href": "partes/02-modelado-primer-orden.html#lo-esencial-en-una-página",
+    "title": "2. Modelado I: Laplace, función de transferencia y primer orden",
+    "section": "Lo esencial, en una página",
+    "text": "Lo esencial, en una página\n\nSistema dinámico\nUn sistema transforma una señal de entrada \\(u(t)\\) en una de salida \\(y(t)\\). Es dinámico si la relación es una ecuación diferencial (la salida recuerda su historia) y estático si no hay derivadas.\n\n\n\n\n(a)–(b) Diagrama de bloques de flujo de información; (c) un sistema dinámico; (d) uno estático.\n\n\n\nVariables desviación\nEn el equilibrio se definen \\(\\dev{x}(t)=x(t)-\\eq{x}\\). Ponen el origen en el punto de operación: el sistema arranca con condiciones iniciales nulas, que es lo que pide la función de transferencia. Para volver a la variable física se suma el equilibrio. El tanque agitado queda \\[\n\\tau\\,\\frac{\\dif \\dev{T}}{\\dif t}+\\dev{T}=\\dev{T}_i,\\qquad \\tau=\\frac{VC_v}{fC_p}.\n\\]\n\n\n\n\nEl tanque agitado ante un escalón de 2 °C en la entrada: variables desviación (izquierda) y físicas (derecha).\n\n\n\nTransformada de Laplace\n\\[\n\\Lap{x(t)}=X(s)=\\int_0^\\infty x(t)\\,e^{-st}\\,\\dif t,\\qquad\n\\frac{\\dif x}{\\dif t}\\;\\leftrightarrow\\; sX(s)-x(0).\n\\] Las derivadas se vuelven productos por \\(s\\) y las condiciones iniciales aparecen solas.\n\n\nLos pares que más se usan (la tabla completa está en el handout).\n\n\n\n\n\n\n\n\n\\(x(t)\\)\n\\(X(s)\\)\n\\(x(t)\\)\n\\(X(s)\\)\n\n\n\n\n\\(\\delta(t)\\)\n\\(1\\)\n\\(t\\,e^{-at}\\)\n\\(1/(s+a)^2\\)\n\n\n\\(\\escalon(t)\\)\n\\(1/s\\)\n\\(\\sin\\omega t\\)\n\\(\\omega/(s^2+\\omega^2)\\)\n\n\n\\(t\\)\n\\(1/s^2\\)\n\\(\\cos\\omega t\\)\n\\(s/(s^2+\\omega^2)\\)\n\n\n\\(e^{-at}\\)\n\\(1/(s+a)\\)\n\\(e^{-at}\\sin\\omega t\\)\n\\(\\omega/[(s+a)^2+\\omega^2]\\)\n\n\n\n\n\n\nCada polo de \\(X(s)\\) aporta un modo \\(e^{pt}\\): la parte real dice si crece o muere; la imaginaria, si oscila.\n\n\n\nFunción de transferencia\n\\(T(s)=Y(s)/U(s)\\) con condiciones iniciales nulas. Propia si \\(n\\geq m\\); grado relativo \\(n-m\\); el denominador igualado a cero es la ecuación característica y sus raíces son los polos.\n\n\nEl teorema del valor final miente si no se revisan los polos\n\\(\\lim_{t\\to\\infty}y(t)=\\lim_{s\\to0}sY(s)\\) solo si todos los polos de \\(sY(s)\\) tienen parte real negativa. Con \\(Y=1/(s-2)\\) la fórmula da \\(0\\), pero \\(y(t)=e^{2t}\\) diverge.\n\n\n\n\nPrimer orden \\(K_1/(\\tau s+1)\\): 63.2 % en \\(\\tau\\), 98.2 % en \\(4\\tau\\); la tangente en el origen llega al valor final en \\(t=\\tau\\).\n\n\n\nEl sistema de primer orden en dos renglones.\n\n\n\n\n\n\n\nEntrada\nRespuesta\nLo que se lee\n\n\n\n\nescalón unitario\n\\(y=K_1(1-e^{-t/\\tau})\\)\nvalor final \\(K_1\\), 63.2 % en \\(\\tau\\), \\(\\ts\\approx4\\tau\\), pendiente inicial \\(K_1/\\tau\\)\n\n\nrampa \\(u=t\\)\n\\(y=K_1(t-\\tau+\\tau e^{-t/\\tau})\\)\nsigue la rampa atrasada \\(\\tau\\); error final \\(K_1\\tau\\)",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "2. Modelado I: Laplace, función de transferencia y primer orden"
+    ]
+  },
+  {
+    "objectID": "partes/02-modelado-primer-orden.html#explorador",
+    "href": "partes/02-modelado-primer-orden.html#explorador",
+    "title": "2. Modelado I: Laplace, función de transferencia y primer orden",
+    "section": "Explorador del primer orden",
+    "text": "Explorador del primer orden\nMueva \\(K_1\\) y \\(\\tau\\) y cambie la entrada. Compruebe que \\(K_1\\) cambia cuánto y \\(\\tau\\) cambia qué tan rápido, y que ante la rampa el error final es \\(K_1\\tau\\).\n\n\n\nRetos con el explorador\n\nPonga \\(K_1=2.4\\) y \\(\\tau=20\\). ¿Cuánto tarda en llegar al 98 %? Compare con \\(4\\tau\\).\nCon la rampa y \\(K_1=1\\), ¿qué \\(\\tau\\) deja un error final de \\(2\\)? ¿Y si además \\(K_1=2\\)?\nDuplique \\(\\tau\\): ¿qué pasa con la pendiente inicial? ¿Y con el valor final?",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "2. Modelado I: Laplace, función de transferencia y primer orden"
+    ]
+  },
+  {
+    "objectID": "partes/02-modelado-primer-orden.html#códigos-de-esta-parte",
+    "href": "partes/02-modelado-primer-orden.html#códigos-de-esta-parte",
+    "title": "2. Modelado I: Laplace, función de transferencia y primer orden",
+    "section": "Códigos de esta parte",
+    "text": "Códigos de esta parte\nLos bloques salen directamente de los archivos del repositorio. Ejecute antes iniciarCurso. Los que usan syms, laplace o dsolve necesitan el Symbolic Math Toolbox.\n\nLaplaceResolver ODETransferencia y primer ordenPruebas\n\n\nTabla de transformadas (§2.3).\nsyms t s\nsyms a w positive\nlaplace(heaviside(t), t, s)      % escalón       -&gt; 1/s\nlaplace(exp(-a*t), t, s)         % exponencial   -&gt; 1/(s+a)\nlaplace(cos(w*t), t, s)          % coseno        -&gt; s/(s^2+w^2)\nlaplace(t, t, s)                 % rampa         -&gt; 1/s^2\nlaplace(t*exp(-a*t), t, s)       % t e^{-at}     -&gt; 1/(s+a)^2\nlaplace(dirac(t), t, s)          % impulso       -&gt; 1\n% y de vuelta al tiempo:\nilaplace(1/(s*(s+a)), s, t)      % -&gt; (1 - e^{-at})/a\nPropiedades.\nsyms x(t)\nlaplace(diff(x(t), t), t, s)     % s X(s) - x(0)      (diferenciación)\nlaplace(diff(x(t), t, 2), t, s)  % s^2 X - s x(0) - x'(0)\nlaplace(int(x(t), t, 0, t), t, s)% X(s)/s             (integración)\nsimplify(laplace(exp(-2*t)*cos(3*t), t, s))   % corrimiento en s: (s+2)/((s+2)^2+9)\n\n\nEl calibrador óptico con Laplace simbólico (§2.4).\nsyms s t X\nsyms x(t)\node = diff(x, t, 2) + 5*diff(x, t) + 6*x == 0;\nF   = laplace(ode, t, s);                          % transforma toda la ecuación\nF   = subs(F, [x(0), subs(diff(x, t), t, 0)], [1, 0]);  % condiciones iniciales\nF   = subs(F, laplace(x(t), t, s), X);             % llama X a L{x(t)}\nXs  = solve(F, X)                                  % -&gt; (s+5)/(s^2+5s+6)\nxt  = ilaplace(Xs, s, t)                           % -&gt; 3e^{-2t} - 2e^{-3t}\nResiduos, polos y ceros.\n[r, p, k] = residue([1 5], [1 5 6])   % r = [-2; 3], p = [-3; -2], k = []\n% Lectura: X(s) = -2/(s+3) + 3/(s+2)   =&gt;   x(t) = -2e^{-3t} + 3e^{-2t}\nroots([1 5 6])                        % los polos son las raíces del denominador\npzplot(tf([1 5], [1 5 6])); grid on    % polos (x) y ceros (o) en el plano s\nPolos complejos.\nX = (4 - 3*s)/(3*s^2 + 2*s + 1);          % 3x''+2x'+x = 0, x(0) = -1, x'(0) = 2\n[r, p] = residue([-3 4], [3 2 1])         % residuos complejos conjugados\nxt = simplify(ilaplace(X))\n% -&gt; e^{-t/3} ( -cos(sqrt(2) t/3) + (5 sqrt(2)/2) sin(sqrt(2) t/3) )\nSin transformar: dsolve y ode45.\nsyms y(t)\ny1 = dsolve(diff(y) == -2*y + t, y(0) == 1)           % primer orden\nDy = diff(y);\ny2 = dsolve(diff(y, 2) + Dy + y == sin(t), y(0) == 1, Dy(0) == 0)\nfplot(y2, [0 10]); grid on;                          % gráfica de la solución\n\n\nValor final: primero los polos (§2.6).\ns = tf('s');\ncasos = {1/(s-2), 6*(s^2-2)/(s^3+s^2-4*s-4), 2/(s*(5*s+1))};\nfor k = 1:numel(casos)\n    Y = casos{k};\n    sY = minreal(s*Y);\n    p  = pole(sY);\n    if all(real(p) &lt; 0)\n        fprintf('caso %d: valor final = %g\\n', k, dcgain(sY));\n    else\n        fprintf('caso %d: NO aplica (polo con Re &gt;= 0 en %s)\\n', k, mat2str(p(real(p) &gt;= 0).', 3));\n    end\nend\nEl tanque agitado (§2.7).\ntau = 5;  M = 2;  Teq = 25;            % s, °C, °C  (T* = Ti* = 25)\ns = tf('s');\nG = 1/(tau*s + 1);                     % That(s)/Tihat(s)\nt = linspace(0, 40, 801);\neT  = M*step(G, t);                    % desviación: step es unitario -&gt; por M\nT   = Teq + eT;                        % variable física\nfprintf('T(tau) = %.2f C  (63.2 %% del cambio)\\n', interp1(t, T, tau));\nPrimer orden ante la rampa (§2.8).\nK1 = 1;\nfig = estiloFigura(1100, 420);\ntaus = [10 1];\nfor k = 1:2\n    G  = tf(K1, [taus(k) 1]);\n    t  = linspace(0, 40, 800);\n    yr = lsim(G, t, t);                % entrada u(t) = t\n    e  = K1*t(:) - yr;                 % error de seguimiento\n    subplot(1, 2, k); plot(t, t, '--', t, yr); grid on;\n    title(sprintf('$\\\\tau = %g$: $e(\\\\infty) = K_1\\\\tau = %g$', taus(k), K1*taus(k)));\n    fprintf('tau = %4.1f -&gt; e(40) = %.3f\\n', taus(k), e(end));\nend\n\n\nverificarCap02 comprueba los números clave del capítulo (no necesita el Symbolic Math Toolbox).\nfunction verificarCap02()\n% VERIFICARCAP02  Pruebas automáticas de los números del capítulo 2.\n% Corre los cálculos clave de las notas (sin Symbolic Math Toolbox) y\n% verifica cada resultado con una tolerancia.   &gt;&gt; verificarCap02\n% (Los mismos números se verificaron con sympy/python-control en\n%  herramientas/cap02_numeros.py.)\ns = tf('s');  fallas = 0;  n = 0;\n    function revisar(nombre, valor, esperado, tol)\n        n = n + 1;\n        if abs(valor - esperado) &lt;= tol\n            fprintf('  ok   %-36s %12.4f\\n', nombre, valor);\n        else\n            fprintf(2, '  FALLA %-35s %12.4f  (esperado %g +- %g)\\n', nombre, valor, esperado, tol);\n            fallas = fallas + 1;\n        end\n    end\n\nfprintf('2.1  Sistema estático\\n');\nrevisar('90 F en C', 5/9*(90 - 32), 32.22, 0.01);\n\nfprintf('2.4  Fracciones parciales\\n');\n[r, p] = residue([1 5], [1 5 6]);\nrevisar('residuo en -2', r(abs(p + 2) &lt; 1e-9), 3, 1e-9);\nrevisar('residuo en -3', r(abs(p + 3) &lt; 1e-9), -2, 1e-9);\n[r, p] = residue(1, conv([1 0 0], [1 2 1]));\nrevisar('1/(s^2(s+1)^2): suma residuos simples', sum(r([1 3])), 0, 1e-6);\np = roots([3 2 1]);\nrevisar('polos complejos: Re', real(p(1)), -1/3, 1e-9);\nrevisar('polos complejos: |Im|', abs(imag(p(1))), sqrt(2)/3, 1e-9);\nt = linspace(0, 20, 2001)';\nxf = exp(-t/3).*(-cos(sqrt(2)*t/3) + 2.5*sqrt(2)*sin(sqrt(2)*t/3));\ndx = gradient(xf, t);\nrevisar('x(0)', xf(1), -1, 1e-9);\nrevisar('xdot(0) (numérica)', dx(1), 2, 0.02);\n\nfprintf('2.6  Teorema del valor final\\n');\nrevisar('polo inestable de 6(s^2-2)/(...)', max(real(roots([1 1 -4 -4]))), 2, 1e-9);\n\nfprintf('2.7  Proceso térmico\\n');\nt = linspace(0, 40, 4001);\ny = 2*step(1/(5*s + 1), t);\nrevisar('T(5) = 25 + 2(1-e^-1)', 25 + interp1(t, y, 5), 26.264, 1e-3);\n\nfprintf('2.8  Primer orden\\n');\nrevisar('63.2 %', 100*(1 - exp(-1)), 63.21, 0.01);\nrevisar('98.2 %', 100*(1 - exp(-4)), 98.17, 0.01);\ny = step(tf(10, [5 1]), t);\nrevisar('pendiente inicial K1/tau', (y(2) - y(1))/(t(2) - t(1)), 2, 0.01);\nyr = lsim(tf(1, [10 1]), t, t);\nrevisar('error rampa en t = 40 (K1 tau = 10)', t(end) - yr(end), 10*(1 - exp(-4)), 1e-2);\n\nfprintf('2.10 Problemas\\n');\nK1 = 12/5;  tau = -30/log(1 - 7.6/12);\nrevisar('identificación K1', K1, 2.4, 1e-9);\nrevisar('identificación tau', tau, 29.90, 0.01);\nrevisar('e_ss rampa', K1*0.01*tau, 0.7176, 1e-3);\ny = step(tf(24, [2 10 12]), t);   % las condiciones iniciales no cambian el valor final\nrevisar('2y''''+10y''+12y=24u: valor final', y(end), 2, 1e-3);\n\nfprintf('\\n%d de %d verificaciones correctas.\\n', n - fallas, n);\nif fallas &gt; 0, error('verificarCap02:falla', '%d verificaciones fallaron.', fallas); end\nend",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "2. Modelado I: Laplace, función de transferencia y primer orden"
+    ]
+  },
+  {
+    "objectID": "partes/02-modelado-primer-orden.html#modelos-de-simulink",
+    "href": "partes/02-modelado-primer-orden.html#modelos-de-simulink",
+    "title": "2. Modelado I: Laplace, función de transferencia y primer orden",
+    "section": "Modelos de Simulink",
+    "text": "Modelos de Simulink\n\nLos modelos se construyen por código\n\n\n\n\n\n\n\n\nScript\nModelo\nPara qué\n\n\n\n\ncrearModelo_Termico.m\nescalón o rampa → \\(K_1/(\\tau s+1)\\) → \\(+\\eq{T}\\)\nver las variables desviación y las físicas lado a lado; verificar el problema de identificación\n\n\n\nCorra el script y se crea el .slx.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "2. Modelado I: Laplace, función de transferencia y primer orden"
+    ]
+  },
+  {
+    "objectID": "partes/02-modelado-primer-orden.html#pausas-activas",
+    "href": "partes/02-modelado-primer-orden.html#pausas-activas",
+    "title": "2. Modelado I: Laplace, función de transferencia y primer orden",
+    "section": "Pausas activas",
+    "text": "Pausas activas\n\n1. El bombillo\nLa señal \\(T(t)=20-3e^{-0.15t}\\) cumple \\(\\dot T+0.15T=V\\) con \\(V\\) constante. ¿Cuánto vale \\(V\\)? ¿Y \\(T(0)\\)?\n\n\nRespuesta\n\nEn estado estacionario \\(0.15\\cdot20=V\\), luego \\(V=3\\); y \\(T(0)=17\\) °C.\n\n\n\n2. Apagar un modo\nEn \\(\\ddot x+5\\dot x+6x=0\\) con \\(x(0)=1\\), ¿qué \\(\\dot x(0)\\) hace desaparecer el modo \\(e^{-3t}\\)?\n\n\nRespuesta\n\n\\(\\dot x(0)=-2\\): el residuo en \\(-3\\) es \\(-(2+\\dot x(0))\\). Entonces \\(x(t)=e^{-2t}\\).\n\n\n\n3. Más caudal\nSi se duplica el caudal del tanque agitado, ¿la respuesta es más rápida o más lenta? ¿Cambia el valor final?\n\n\nRespuesta\n\nMás rápida (\\(\\tau\\) se reduce a la mitad); el valor final no cambia (la ganancia sigue siendo 1).",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "2. Modelado I: Laplace, función de transferencia y primer orden"
+    ]
+  },
+  {
+    "objectID": "partes/02-modelado-primer-orden.html#problemas",
+    "href": "partes/02-modelado-primer-orden.html#problemas",
+    "title": "2. Modelado I: Laplace, función de transferencia y primer orden",
+    "section": "Problemas",
+    "text": "Problemas\nEl handout trae 8 problemas (transformadas, fracciones parciales, ODE con condiciones iniciales, funciones de transferencia e identificación de un proceso térmico) con soluciones seleccionadas. Los marcados [M] se resuelven en MATLAB/Simulink.\nIr a los problemas (PDF, §2.10)\n\nCorrecciones respecto a la versión anterior\nEquilibrio \\(\\eq{T}\\) (antes \\(\\bar T\\)) y escalón \\(\\escalon(t)\\) (antes \\(u(t)\\), que chocaba con la entrada). Polos complejos \\(-\\tfrac13\\pm j\\tfrac{\\sqrt2}{3}\\) (faltaba la \\(j\\)). Se eliminó la “inversión del tiempo”, que no vale para la transformada unilateral. Error ante rampa: \\(K_1\\tau(1-e^{-t/\\tau})\\) (había un signo errado). Todos los números se verificaron de forma independiente.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "2. Modelado I: Laplace, función de transferencia y primer orden"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html",
+    "href": "partes/01-introduccion.html",
+    "title": "1. Introducción",
+    "section": "",
+    "text": "Parte 1 · Semana 1IntroducciónEs que con los ojos del presente ningún pasado es tolerable… — Juan Esteban Constain",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html#temas",
+    "href": "partes/01-introduccion.html#temas",
+    "title": "1. Introducción",
+    "section": "Temas",
+    "text": "Temas\n\nMapa de ruta\nPalabras clave: análisis, sistemas y control\nMotivación\nEjemplos\nHistoria",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html#lo-que-tendrá-esta-página",
+    "href": "partes/01-introduccion.html#lo-que-tendrá-esta-página",
+    "title": "1. Introducción",
+    "section": "Lo que tendrá esta página",
+    "text": "Lo que tendrá esta página\n\nEl handout en PDF de la parte, con el formato nuevo.\nLos códigos de MATLAB y Simulink, con instrucciones y resultados esperados.\nLos videos de la parte y las pausas activas con respuesta.\nLos problemas con soluciones seleccionadas.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción"
+    ]
+  },
+  {
+    "objectID": "partes/04-espacio-estado.html",
+    "href": "partes/04-espacio-estado.html",
+    "title": "4. Espacio de estado",
+    "section": "",
+    "text": "Parte 4 · Semanas 4–5Espacio de estadoOtra consecuencia es que se está impulsando que la educación sea vista como una capacitación… — Junot Díaz",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "4. Espacio de estado"
+    ]
+  },
+  {
+    "objectID": "partes/04-espacio-estado.html#temas",
+    "href": "partes/04-espacio-estado.html#temas",
+    "title": "4. Espacio de estado",
+    "section": "Temas",
+    "text": "Temas\n\n¿Qué significa el estado de un sistema?\nDe función de transferencia a espacio de estado\nSolución: matriz de transición\nDe espacio de estado a función de transferencia\nLinealización en representación de estado",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "4. Espacio de estado"
+    ]
+  },
+  {
+    "objectID": "partes/04-espacio-estado.html#lo-que-tendrá-esta-página",
+    "href": "partes/04-espacio-estado.html#lo-que-tendrá-esta-página",
+    "title": "4. Espacio de estado",
+    "section": "Lo que tendrá esta página",
+    "text": "Lo que tendrá esta página\n\nEl handout en PDF de la parte, con el formato nuevo.\nLos códigos de MATLAB y Simulink, con instrucciones y resultados esperados.\nLos videos de la parte y las pausas activas con respuesta.\nLos problemas con soluciones seleccionadas.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "4. Espacio de estado"
+    ]
+  },
+  {
+    "objectID": "partes/09-retroalimentacion-estado.html",
+    "href": "partes/09-retroalimentacion-estado.html",
+    "title": "9. Retroalimentación de estado y observadores",
+    "section": "",
+    "text": "Parte 9 · Semanas 10–11Retroalimentación de estado y observadoresLa virginidad o, mejor, la inocencia se pierde de otro modo. — Alberto Fuguet\nHasta ahora diseñamos controladores sobre la función de transferencia. En esta parte volvemos al espacio de estado y lo usamos para diseñar: si medimos todos los estados, \\(u=r-\\Km x\\) pone todos los polos donde queramos, siempre que el sistema sea controlable. Si no los medimos, un observador los estima a partir de la entrada y la salida, siempre que sea observable. El principio de separación permite diseñar las dos cosas por aparte, y un integrador agregado al estado anula el error en estado estacionario.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "9. Retroalimentación de estado y observadores"
+    ]
+  },
+  {
+    "objectID": "partes/09-retroalimentacion-estado.html#ruta-de-las-clases",
+    "href": "partes/09-retroalimentacion-estado.html#ruta-de-las-clases",
+    "title": "9. Retroalimentación de estado y observadores",
+    "section": "Ruta de las clases",
+    "text": "Ruta de las clases\n\nLea la sección del handout antes de cada clase.\n\n\n\n\n\n\n\n\nClase\nQué se ve\nHandout\nScripts\n\n\n\n\n1\nLo que la función de transferencia esconde; \\(u=r-\\Km x\\); controlabilidad, PBH\n§9.1–9.3\nC9_Ej1–C9_Ej3\n\n\n2\nAckermann; de las especificaciones a los polos; el servo\n§9.4–9.5\nC9_Ej4–C9_Ej6, crearModelo_RetroEstado\n\n\n3\nObservabilidad y observador de Luenberger; dualidad\n§9.6\nC9_Ej7\n\n\n4\nPrincipio de separación y compensador; acción integral\n§9.7–9.8\nC9_Ej8, C9_Ej9, crearModelo_Observador",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "9. Retroalimentación de estado y observadores"
+    ]
+  },
+  {
+    "objectID": "partes/09-retroalimentacion-estado.html#lo-esencial-en-una-página",
+    "href": "partes/09-retroalimentacion-estado.html#lo-esencial-en-una-página",
+    "title": "9. Retroalimentación de estado y observadores",
+    "section": "Lo esencial, en una página",
+    "text": "Lo esencial, en una página\n\nLo que la función de transferencia esconde\nUn sistema de cuarto orden puede tener función de transferencia \\(1/(s+1)\\): solo se ve la parte controlable y observable. Es estabilizable si sus modos no controlables son estables y detectable si lo son los no observables. Por eso nunca se cancela un polo inestable con un cero.\n\n\n\n\nUn sistema de cuarto orden en coordenadas modales: solo \\(z_1\\) conecta la entrada con la salida.\n\n\n\nRetroalimentación de estado y controlabilidad\n\\[\nu=r-\\Km x\\quad\\Longrightarrow\\quad \\dot x=(\\Am-\\Bm\\Km)\\,x+\\Bm r .\n\\] Los \\(n\\) polos se pueden poner donde se quiera si y solo si \\(\\operatorname{rango}\\Ctrb=n\\), con \\(\\Ctrb=[\\Bm\\;\\;\\Am\\Bm\\;\\;\\cdots\\;\\;\\Am^{n-1}\\Bm]\\). Con una entrada, la fórmula de Ackermann da \\(\\Km=[0\\;\\cdots\\;0\\;1]\\,\\Ctrb^{-1}q(\\Am)\\).\n\n\n\n\nEstabilizar una planta inestable: sin control los estados divergen; con \\(u=-\\Km x\\) vuelven al origen.\n\n\n\nControlable no quiere decir barato\nCuando el sistema está “casi” sin controlabilidad (número de condición de \\(\\Ctrb\\) grande), las ganancias y el esfuerzo de control crecen sin límite. Y las ganancias dependen de la representación de estado: tf2ss y las variables de fase dan \\(\\Km\\) distintos para los mismos polos.\n\n\nObservador de Luenberger\n\\[\n\\dot{\\est{x}}=(\\Am-\\Lm\\Cm)\\,\\est{x}+\\Bm u+\\Lm y,\\qquad \\dot\\errest=(\\Am-\\Lm\\Cm)\\,\\errest,\\quad \\errest=x-\\est{x}.\n\\] Se puede diseñar si y solo si \\(\\operatorname{rango}\\Obsv=n\\). \\(\\Lm\\) se calcula como \\(\\Km\\) en el sistema dual: L = acker(A',C',p)'. En el curso el estimado se escribe \\(\\est{x}\\), porque \\(\\hat{x}\\) es la variable desviación.\n\n\n\n\nEl observador alcanza a la planta aunque arranquen en condiciones iniciales distintas.\n\n\n\nPrincipio de separación\nCon \\(u=-\\Km\\est{x}\\), los polos del conjunto son los de \\(\\Am-\\Bm\\Km\\) más los de \\(\\Am-\\Lm\\Cm\\): se diseñan por separado. El compensador completo es una función de transferencia \\(U/Y=-\\Km\\bigl(s\\Id-(\\Am-\\Bm\\Km-\\Lm\\Cm)\\bigr)^{-1}\\Lm\\). Ojo: la separación supone un modelo exacto; la robustez hay que verificarla.\n\n\nAcción integral\nSe agrega el estado \\(\\dot z=r-y\\) y la ley \\(u=-\\Km x+K_e z\\). Un polo más que ubicar y, si el lazo es estable, \\(y\\to r\\) ante cualquier escalón.\n\n\n\n\nSin integrador la salida llega a \\(0.0055\\); con integrador llega a \\(1\\), a cambio de un esfuerzo mucho mayor.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "9. Retroalimentación de estado y observadores"
+    ]
+  },
+  {
+    "objectID": "partes/09-retroalimentacion-estado.html#explorador",
+    "href": "partes/09-retroalimentacion-estado.html#explorador",
+    "title": "9. Retroalimentación de estado y observadores",
+    "section": "Explorador de ubicación de polos",
+    "text": "Explorador de ubicación de polos\nPlanta \\(1/(s^2+a_1s+a_0)\\) en variables de fase. Escoja las especificaciones, active o no la acción integral y mire la salida, el esfuerzo de control y las ganancias que resultan. Intente reproducir los ejemplos del handout.\n\n\n\nRetos con el explorador\n\nCon los valores iniciales y sin acción integral, compruebe \\(\\Km=[180.1\\;\\;11]\\) y el valor final \\(0.0055\\) del handout.\nActive la acción integral con el tercer polo a \\(12.5\\) veces \\(\\zeta\\wn\\) (el polo en \\(-100\\) del ejemplo): ¿obtiene \\(K_e\\approx18\\,314\\)? ¿Cuánto vale el pico de \\(u\\)?\nPonga \\(a_0=-2\\) (planta inestable): ¿sigue funcionando el diseño? ¿Qué le pasa a \\(K_1\\)?\nBaje \\(\\ts\\) a \\(0.2\\) s: ¿qué le pasa al esfuerzo de control?",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "9. Retroalimentación de estado y observadores"
+    ]
+  },
+  {
+    "objectID": "partes/09-retroalimentacion-estado.html#códigos-de-esta-parte",
+    "href": "partes/09-retroalimentacion-estado.html#códigos-de-esta-parte",
+    "title": "9. Retroalimentación de estado y observadores",
+    "section": "Códigos de esta parte",
+    "text": "Códigos de esta parte\nLos bloques salen directamente de los archivos del repositorio. Ejecute antes iniciarCurso.\n\nControlabilidadUbicación de polosObservadorAcción integralPruebas\n\n\nLo que la función de transferencia esconde (§9.1).\nA = [ 2  3  2  1;  -2 -3  0  0;  -2 -2 -4  0;  -2 -2 -2 -5];\nB = [1; -2; 2; -1];\nC = [7 6 4 2];   D = 0;\nH = tf(ss(A, B, C, D))          % cuarto orden \"en apariencia\"\nzpk(H)                          % ceros en -2, -3, -4 cancelan tres polos\nHmin = minreal(H)               % -&gt; 1/(s+1)\nrank(ctrb(A, B))                % 2 &lt; 4: dos modos no controlables\nrank(obsv(A, C))                % 2 &lt; 4: dos modos no observables\nRango, PBH y número de condición (§9.3).\na = 0;\nA = [-1 a; 3 -2];   B = [0; 1];\nfor lambda = eig(A).'\n    r = rank([A - lambda*eye(2), B]);\n    fprintf('lambda = %5.1f: rank[A-lambda I, B] = %d\\n', lambda, r);\nend\n% el modo con rango &lt; n es el que la entrada no puede mover\nfor a = [2 1 0.1 0.01]\n    A = [-1 a; 3 -2];\n    K = place(A, B, [-2 -3]);\n    fprintf('a = %5.2f: K = [%7.2f %5.2f], cond(ctrb) = %7.1f\\n', a, K, cond(ctrb(A, B)));\nend\n\n\nLa fórmula de Ackermann paso a paso (§9.4).\nA = [0 1; 0 0];   B = [0; 1];          % 1/s^2 en variables de fase\nq  = poly([-1+1j, -1-1j])              % [1 2 2]: lambda^2 + 2 lambda + 2\nqA = polyvalm(q, A)                    % A^2 + 2A + 2I\nCc = ctrb(A, B);\nn  = size(A, 1);\nK  = [zeros(1, n-1) 1] / Cc * qA       % fórmula de Ackermann -&gt; [2 2]\nacker(A, B, [-1+1j, -1-1j])            % lo mismo\nplace(A, B, [-1+1j, -1-1j])            % place: más robusto numéricamente\nDe las especificaciones a los polos (§9.5).\nnum = 10;   den = conv([1 10], [1 0.5 1]);\np = polosDeseados(0.10, 'tp', 1, 'extra', 10)   % dominantes + polo 10x\n[A, B, C, D] = tf2ss(num, den);                  % forma de MATLAB\nK  = place(A, B, p)                              % [17.131 115.21 339.34]\n[Af, Bf, Cf] = variablesFase(num, den);          % forma del curso\nKf = place(Af, Bf, p)                            % mismas cifras, otro orden\nT  = ss(A - B*K, B, C, D);                       % u = r - Kx\nstepinfo(T)                                      % %OS ~ 9.8, tp ~ 1.05\ndcgain(T)                                        % 0.029: ¡no sigue la referencia!\nLas funciones del curso polosDeseados y variablesFase.\nfunction p = polosDeseados(OS, varargin)\n% POLOSDESEADOS  Polos dominantes (y, si se pide, uno real adicional) a partir\n% de las especificaciones de la respuesta al escalón.\n%   p = polosDeseados(OS, 'tp', tp)              OS en fracción (0.1 = 10 %)\n%   p = polosDeseados(OS, 'ts', ts)              ts al 2 %\n%   p = polosDeseados(OS, 'ts', ts, 'extra', m)  agrega un polo real en m*Re(p)\n%   p = polosDeseados(OS, 'tp', tp, 'extra', -1) ... o en una posición fija (m&lt;0 =&gt; s=m)\n% Ejemplo: polosDeseados(0.1, 'tp', 1, 'extra', 10) -&gt; [-2.30±3.14j, -23.03]\nop = struct('tp', [], 'ts', [], 'extra', []);\nfor k = 1:2:numel(varargin), op.(varargin{k}) = varargin{k+1}; end\nzeta = -log(OS)/sqrt(pi^2 + log(OS)^2);\nif ~isempty(op.tp), wn = pi/(op.tp*sqrt(1 - zeta^2)); else, wn = 4/(zeta*op.ts); end\np = roots([1 2*zeta*wn wn^2]);\nif ~isempty(op.extra)\n    if op.extra &gt; 0, p(end+1) = op.extra*real(p(1)); else, p(end+1) = op.extra; end\nend\np = p(:);\nend\n\n\nObservador de Luenberger (§9.6).\nA = [0 1; -10 -2];   B = [0; 1];   C = [1 0];\nrank(obsv(A, C))                               % 2: observable\npo = roots([1 2*0.8*10 10^2]);                 % zeta = 0.8, wn = 10\nL  = acker(A.', C.', po).'                     % dualidad -&gt; [14; 62]\n% planta + observador, entrada nula, x(0) = [1 0], x~(0) = [0 0]\nAobs = [A, zeros(2); L*C, A - L*C];            % estados [x; x~]\nt = linspace(0, 3, 601);\nX = initial(ss(Aobs, zeros(4,1), eye(4), 0), [1 0 0 0], t);\nPrincipio de separación y compensador (§9.7).\nA = [0 1; -2 -3];   B = [0; 1];   C = [1 0];\nK = acker(A, B, [-2+2j, -2-2j])                % [6 1]\nL = acker(A.', C.', [-10 -10]).'               % [17; 47]\nAa = [A - B*K, B*K; zeros(2), A - L*C];        % coordenadas (x, e = x - x~)\neig(Aa)                                        % unión de eig(A-BK) y eig(A-LC)\nGc = tf(ss(A - B*K - L*C, L, -K, 0))           % compensador U(s)/Y(s)\nzpk(Gc)\n\n\nSin integrador (§9.8).\nA = [0 1; -3 -5];   B = [0; 1];   C = [1 0];\np  = polosDeseados(0.10, 'ts', 0.5)            % -8 ± 10.91j\nK  = acker(A, B, p)                            % [180.1 11]\nT0 = ss(A - B*K, B, C, 0);\ness0 = 1 - dcgain(T0)                          % 0.9945\nCon integrador.\nAa = [A, zeros(2,1); -C, 0];   Ba = [B; 0];    % estado aumentado [x; z]\nKa = acker(Aa, Ba, [p; -100]);                 % Ka = [K, -Ke]\nK  = Ka(1:2),  Ke = -Ka(3)                     % [1780.1 111], 18 314\nTi = ss(Aa - Ba*Ka, [0; 0; 1], [C 0], 0);      % r entra por z\nessI = 1 - dcgain(Ti)                          % 0\n\n\nverificarCap09 comprueba los números clave del capítulo.\nfunction verificarCap09()\n% VERIFICARCAP09  Pruebas automáticas de los números del capítulo 9.\n%   &gt;&gt; verificarCap09\n% (Los mismos números se verificaron con python-control y sympy en\n%  herramientas/cap09_numeros.py.)\nraiz = fileparts(mfilename('fullpath'));\naddpath(fullfile(raiz, '..', 'comun'));\nfallas = 0;  n = 0;\n    function revisar(nombre, valor, esperado, tol)\n        n = n + 1;\n        if abs(valor - esperado) &lt;= tol\n            fprintf('  ok   %-38s %12.4f\\n', nombre, valor);\n        else\n            fprintf(2, '  FALLA %-37s %12.4f  (esperado %g +- %g)\\n', nombre, valor, esperado, tol);\n            fallas = fallas + 1;\n        end\n    end\n\nfprintf('9.1  Friedland\\n');\nA = [2 3 2 1; -2 -3 0 0; -2 -2 -4 0; -2 -2 -2 -5];  B = [1; -2; 2; -1];  C = [7 6 4 2];\nrevisar('rank ctrb', rank(ctrb(A, B)), 2, 0);\nrevisar('rank obsv', rank(obsv(A, C)), 2, 0);\nrevisar('H(0) = 1 (como 1/(s+1))', dcgain(ss(A, B, C, 0)), 1, 1e-9);\n\nfprintf('9.2  Ejemplo motivador\\n');\nA = [-1 2; 3 -2];  B = [0; 1];\nrevisar('polo inestable', max(eig(A)), 1, 1e-9);\nK = acker(A, B, [-2 -3]);\nrevisar('K1', K(1), 4, 1e-9);  revisar('K2', K(2), 2, 1e-9);\n\nfprintf('9.3  Controlabilidad\\n');\nK = acker(diag([-1 -3]), [1; 1], [-2 -2]);\nrevisar('K1 (diag)', K(1), 0.5, 1e-9);  revisar('K2 (diag)', K(2), -0.5, 1e-9);\nrevisar('rank con a = 0', rank(ctrb([-1 0; 3 -2], [0; 1])), 1, 0);\n\nfprintf('9.4  Ackermann\\n');\nK = acker([0 1; 0 0], [0; 1], [-1+1j, -1-1j]);\nrevisar('1/s^2: K1', K(1), 2, 1e-9);  revisar('1/s^2: K2', K(2), 2, 1e-9);\n\nfprintf('9.5  Especificaciones\\n');\np = polosDeseados(0.10, 'tp', 1, 'extra', 10);\n[Af, Bf] = variablesFase(10, conv([1 10], [1 0.5 1]));\nK = acker(Af, Bf, p);\nrevisar('K (fase) 1', K(1), 339.3368, 1e-3);  revisar('K (fase) 3', K(3), 17.131, 1e-3);\n[A, B, C] = variablesFase(1, conv([1 0], conv([1 1], [1 2])));\nK = acker(A, B, [-2+3.4641j, -2-3.4641j, -10]);\nrevisar('servo K1', K(1), 160, 0.01);  revisar('servo K2', K(2), 54, 0.01);  revisar('servo K3', K(3), 11, 1e-6);\nrevisar('servo valor final', dcgain(ss(A - B*K, B*K(1), C, 0)), 1, 1e-6);\n\nfprintf('9.6  Observador\\n');\nL = acker([2 3; -1 4].', [1 0].', roots([1 16 100])).';\nrevisar('L1', L(1), 22, 1e-6);  revisar('L2', L(2), 59, 1e-6);\nL = acker([0 1; -10 -2].', [1 0].', roots([1 16 100])).';\nrevisar('L1', L(1), 14, 1e-6);  revisar('L2', L(2), 62, 1e-6);\n\nfprintf('9.7  Separación\\n');\nA = [0 1; -2 -3];  B = [0; 1];  C = [1 0];\nK = acker(A, B, [-2+2j, -2-2j]);  L = acker(A.', C.', [-10 -10]).';\nrevisar('K1', K(1), 6, 1e-9);  revisar('L2', L(2), 47, 1e-9);\nev = eig([A - B*K, B*K; zeros(2), A - L*C]);\nrevisar('suma de valores propios', real(sum(ev)), -24, 1e-6);\nrevisar('ganancia DC del compensador', dcgain(ss(A - B*K - L*C, L, -K, 0)), -554/123, 1e-6);\n\nfprintf('9.8  Acción integral\\n');\nA = [0 1; -3 -5];  B = [0; 1];  C = [1 0];\np = polosDeseados(0.10, 'ts', 0.5);\nK = acker(A, B, p);\nrevisar('K1 sin integrador', K(1), 180.1, 0.05);\nrevisar('e_ss sin integrador', 1 - dcgain(ss(A - B*K, B, C, 0)), 0.9945, 1e-4);\nAa = [A zeros(2,1); -C 0];  Ba = [B; 0];\nKa = acker(Aa, Ba, [p; -100]);\nrevisar('K1 con integrador', Ka(1), 1780.1, 0.1);\nrevisar('Ke', -Ka(3), 18313.7, 0.1);\nrevisar('valor final con integrador', dcgain(ss(Aa - Ba*Ka, [0;0;1], [C 0], 0)), 1, 1e-9);\n\nfprintf('\\n%d de %d verificaciones correctas.\\n', n - fallas, n);\nif fallas &gt; 0, error('verificarCap09:falla', '%d verificaciones fallaron.', fallas); end\nend",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "9. Retroalimentación de estado y observadores"
+    ]
+  },
+  {
+    "objectID": "partes/09-retroalimentacion-estado.html#modelos-de-simulink",
+    "href": "partes/09-retroalimentacion-estado.html#modelos-de-simulink",
+    "title": "9. Retroalimentación de estado y observadores",
+    "section": "Modelos de Simulink",
+    "text": "Modelos de Simulink\n\nLos modelos se construyen por código\n\n\n\n\n\n\n\n\nScript\nModelo\nPara qué\n\n\n\n\ncrearModelo_RetroEstado.m\ndos copias de la planta: \\(u=r-\\Km x\\) y \\(u=-\\Km x+K_e z\\)\ncomparar salidas y esfuerzos; perturbar la planta y ver que el integrador sigue llegando a 1\n\n\ncrearModelo_Observador.m\nplanta + observador + \\(u=-\\Km\\est{x}+Nr\\), con interruptor para usar el estado real\nver cuánto tarda \\(\\est{x}\\) en alcanzar a \\(x\\) y cómo afecta la respuesta\n\n\n\nCorra el script y se crea el .slx.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "9. Retroalimentación de estado y observadores"
+    ]
+  },
+  {
+    "objectID": "partes/09-retroalimentacion-estado.html#pausas-activas",
+    "href": "partes/09-retroalimentacion-estado.html#pausas-activas",
+    "title": "9. Retroalimentación de estado y observadores",
+    "section": "Pausas activas",
+    "text": "Pausas activas\n\n1. ¿Y si \\(a=0\\)?\nEn la planta \\(\\Am=\\begin{bmatrix}-1&a\\\\3&-2\\end{bmatrix}\\), \\(\\Bm=[0\\;\\;1]^\\top\\), ¿qué polo no se puede mover si \\(a=0\\)?\n\n\nRespuesta\n\nEl de \\(-1\\): el polinomio queda \\((\\lambda+1)(\\lambda+2+K_2)\\), porque con \\(a=0\\), \\(\\dot x_1=-x_1\\) y la entrada no llega a \\(x_1\\).\n\n\n\n2. Ackermann a mano\n\\(1/(s(s+3))\\) en variables de fase, polos en \\(-4\\pm j4\\). ¿Cuánto vale \\(\\Km\\)?\n\n\nRespuesta\n\n\\(\\Km=[32\\;\\;5]\\): \\(\\lambda^2+(3+K_2)\\lambda+K_1=\\lambda^2+8\\lambda+32\\).\n\n\n\n3. Cancelar el cero\nPara \\(100(s+1)/(s(s+2)(s+3))\\) con \\(\\OS=10\\,\\%\\) y \\(\\tp=1\\) s, el tercer polo va sobre el cero. ¿Qué queda en lazo cerrado con \\(u=r-\\Km x\\)?\n\n\nRespuesta\n\n\\(100/(s^2+4.605s+15.17)\\): la forma pedida, pero con valor final \\(6.59\\). Hace falta la acción integral.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "9. Retroalimentación de estado y observadores"
+    ]
+  },
+  {
+    "objectID": "partes/09-retroalimentacion-estado.html#problemas",
+    "href": "partes/09-retroalimentacion-estado.html#problemas",
+    "title": "9. Retroalimentación de estado y observadores",
+    "section": "Problemas",
+    "text": "Problemas\nEl handout trae 9 problemas (estructura de Kalman, controlabilidad cuantitativa, Ackermann con especificaciones, dos representaciones, observador y ruido, compensador completo, robustez, integrador con un cero y la conexión con el I-PD), con soluciones seleccionadas.\nIr a los problemas (PDF, §9.10)\n\nCorrecciones respecto a la versión anterior\nEl estimado del observador se escribe \\(\\est{x}\\) y el error de estimación \\(\\errest\\) (antes \\(\\hat{x}\\) y \\(e\\), que chocaban con la variable desviación y el error de seguimiento). “Ackerman” → Ackermann. Signo del polinomio del servo de tercer orden corregido. El ejemplo \\(\\operatorname{diag}(-1,-3)\\) tiene ahora solución (\\(\\Km=[0.5\\;\\;-0.5]\\)). \\(K_e=18\\,314\\) con \\(\\wn^2\\) sin redondear.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "9. Retroalimentación de estado y observadores"
+    ]
+  },
+  {
+    "objectID": "partes/05-estabilidad.html",
+    "href": "partes/05-estabilidad.html",
+    "title": "5. Estabilidad",
+    "section": "",
+    "text": "Parte 5 · Semana 6EstabilidadEn la cocina, la educación y el amor la rapidez va en contra del placer y la calidad. — Julián de Zubiría Samper",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "5. Estabilidad"
+    ]
+  },
+  {
+    "objectID": "partes/05-estabilidad.html#temas",
+    "href": "partes/05-estabilidad.html#temas",
+    "title": "5. Estabilidad",
+    "section": "Temas",
+    "text": "Temas\n\nHistoria\nCriterio de Routh-Hurwitz\nEstabilidad en el espacio de estado\nRobustez y estabilidad: Kharitonov",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "5. Estabilidad"
+    ]
+  },
+  {
+    "objectID": "partes/05-estabilidad.html#lo-que-tendrá-esta-página",
+    "href": "partes/05-estabilidad.html#lo-que-tendrá-esta-página",
+    "title": "5. Estabilidad",
+    "section": "Lo que tendrá esta página",
+    "text": "Lo que tendrá esta página\n\nEl handout en PDF de la parte, con el formato nuevo.\nLos códigos de MATLAB y Simulink, con instrucciones y resultados esperados.\nLos videos de la parte y las pausas activas con respuesta.\nLos problemas con soluciones seleccionadas.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "5. Estabilidad"
+    ]
+  },
+  {
+    "objectID": "partes/06-error.html",
+    "href": "partes/06-error.html",
+    "title": "6. Error en estado estacionario",
+    "section": "",
+    "text": "Parte 6 · Semana 7Error en estado estacionarioLos lectores del tercer mundo quieren que alguien les arme una buena ficción… — Rodrigo Fresán",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "6. Error en estado estacionario"
+    ]
+  },
+  {
+    "objectID": "partes/06-error.html#temas",
+    "href": "partes/06-error.html#temas",
+    "title": "6. Error en estado estacionario",
+    "section": "Temas",
+    "text": "Temas\n\nSensitividad y error\nSeñales de prueba\nTipo del sistema y constantes estáticas κp, κv, κa",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "6. Error en estado estacionario"
+    ]
+  },
+  {
+    "objectID": "partes/06-error.html#lo-que-tendrá-esta-página",
+    "href": "partes/06-error.html#lo-que-tendrá-esta-página",
+    "title": "6. Error en estado estacionario",
+    "section": "Lo que tendrá esta página",
+    "text": "Lo que tendrá esta página\n\nEl handout en PDF de la parte, con el formato nuevo.\nLos códigos de MATLAB y Simulink, con instrucciones y resultados esperados.\nLos videos de la parte y las pausas activas con respuesta.\nLos problemas con soluciones seleccionadas.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "6. Error en estado estacionario"
+    ]
+  },
+  {
+    "objectID": "partes/07-pid-nociones.html",
+    "href": "partes/07-pid-nociones.html",
+    "title": "7. Controladores PID: nociones básicas",
+    "section": "",
+    "text": "Parte 7 · Semana 7Controladores PID: nociones básicasNunca, ni en las situaciones más desesperadas, he perdido mi sentido del humor… — Enrique Vila-Matas",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "7. Controladores PID: nociones básicas"
+    ]
+  },
+  {
+    "objectID": "partes/07-pid-nociones.html#temas",
+    "href": "partes/07-pid-nociones.html#temas",
+    "title": "7. Controladores PID: nociones básicas",
+    "section": "Temas",
+    "text": "Temas\n\nControlador ON/OFF\nAcciones proporcional, integral y derivativa\nModificaciones: kicks, anti-windup, set-point weighting\nImplementación digital",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "7. Controladores PID: nociones básicas"
+    ]
+  },
+  {
+    "objectID": "partes/07-pid-nociones.html#lo-que-tendrá-esta-página",
+    "href": "partes/07-pid-nociones.html#lo-que-tendrá-esta-página",
+    "title": "7. Controladores PID: nociones básicas",
+    "section": "Lo que tendrá esta página",
+    "text": "Lo que tendrá esta página\n\nEl handout en PDF de la parte, con el formato nuevo.\nLos códigos de MATLAB y Simulink, con instrucciones y resultados esperados.\nLos videos de la parte y las pausas activas con respuesta.\nLos problemas con soluciones seleccionadas.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "7. Controladores PID: nociones básicas"
+    ]
+  },
+  {
+    "objectID": "partes/03-modelado-segundo-orden.html",
+    "href": "partes/03-modelado-segundo-orden.html",
+    "title": "3. Modelado II: linealización, segundo orden y diagramas de bloques",
+    "section": "",
+    "text": "Parte 3 · Semanas 3–4Modelado II: linealización, segundo orden y diagramas de bloquesMi misión es matar el tiempo, la suya, matarme a mí. Se está perfectamente a gusto entre asesinos. — Emil Michel Cioran\nLos procesos reales casi nunca son lineales, y casi nunca son un solo bloque. En esta parte aprendemos a linealizar alrededor de un punto de operación, llegamos al otro gran protagonista de los modelos orientados al control, el sistema de segundo orden, y traducimos sus polos en números que se miden en una respuesta: tiempo de subida, de pico, sobrepico y tiempo de establecimiento. Luego juntamos bloques: álgebra de bloques y ley de Mason. Cerramos con los sistemas de orden superior: cuándo se pueden aproximar por sus polos dominantes y cómo simplificarlos.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "3. Modelado II: linealización, segundo orden y diagramas de bloques"
+    ]
+  },
+  {
+    "objectID": "partes/03-modelado-segundo-orden.html#ruta-de-las-clases",
+    "href": "partes/03-modelado-segundo-orden.html#ruta-de-las-clases",
+    "title": "3. Modelado II: linealización, segundo orden y diagramas de bloques",
+    "section": "Ruta de las clases",
+    "text": "Ruta de las clases\n\nLea la sección del handout antes de cada clase.\n\n\n\n\n\n\n\n\nClase\nQué se ve\nHandout\nScripts\n\n\n\n\n1\n¿Y si no es lineal? Linealización con Taylor; el reactor; los dos tanques\n§3.1–3.3\nC3_Ej1, C3_Ej2, crearModelo_Tanques\n\n\n2\nForma estándar, casos por \\(\\zeta\\), masa-resorte; \\(t_r\\), \\(\\tp\\), \\(\\OS\\), \\(\\ts\\); el plano-\\(s\\)\n§3.4–3.5\nC3_Ej3\n\n\n3\nDiagramas de bloques; diseño de \\(K\\) y \\(K_h\\); ley de Mason\n§3.6–3.8\nC3_Ej4–C3_Ej6, crearModelo_Servo\n\n\n4\nPolos dominantes, efecto de los ceros, reducción de orden\n§3.9–3.10\nC3_Ej7, C3_Ej8",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "3. Modelado II: linealización, segundo orden y diagramas de bloques"
+    ]
+  },
+  {
+    "objectID": "partes/03-modelado-segundo-orden.html#lo-esencial-en-una-página",
+    "href": "partes/03-modelado-segundo-orden.html#lo-esencial-en-una-página",
+    "title": "3. Modelado II: linealización, segundo orden y diagramas de bloques",
+    "section": "Lo esencial, en una página",
+    "text": "Lo esencial, en una página\n\nLinealización\nAlrededor de un equilibrio \\((\\eq{x},\\eq{u})\\) cada no linealidad se reemplaza por su recta tangente: \\[\n\\dot{\\dev{x}}\\approx\\left.\\frac{\\partial f}{\\partial x}\\right|_\\ast\\dev{x}+\\left.\\frac{\\partial f}{\\partial u}\\right|_\\ast\\dev{u}.\n\\] Solo vale cerca del punto: con escalones grandes el modelo lineal se equivoca.\n\n\n\n\nDos tanques: modelo no lineal contra linealizado. Con un escalón del 10 % el error final es de 4 cm; con uno del 50 %, de casi un metro.\n\n\n\nDos tanques por gravedad nunca oscilan\nEn la planta de dos tanques \\(C_2=-C_1\\) siempre, y entonces \\(\\zeta\\geq1\\) para cualesquiera áreas y válvulas. El ejemplo subamortiguado de la versión anterior usaba valores que no corresponden a ningún par de tanques reales. Para ver oscilaciones usamos una masa con resorte y amortiguador.\n\n\nSegundo orden\n\\[\nT(s)=K\\,\\frac{\\wn^2}{s^2+2\\zeta\\wn s+\\wn^2},\\qquad p_{1,2}=-\\zeta\\wn\\pm j\\,\\wn\\sqrt{1-\\zeta^2}.\n\\] \\(\\zeta=0\\): oscila para siempre; \\(0&lt;\\zeta&lt;1\\): subamortiguado; \\(\\zeta=1\\): crítico; \\(\\zeta&gt;1\\): sobreamortiguado.\n\n\n\n\nAl aumentar \\(\\zeta\\) los polos recorren la circunferencia de radio \\(\\wn\\) y la respuesta deja de oscilar.\n\n\n\nSubamortiguado, con \\(\\omega_d=\\wn\\sqrt{1-\\zeta^2}\\). stepinfo usa \\(t_r\\) de 10–90 %.\n\n\n\n\n\n\n\ncaracterística\nfórmula\nla fija\n\n\n\n\ntiempo de subida (0–100 %)\n\\(t_r=(\\pi-\\cos^{-1}\\zeta)/\\omega_d\\)\n\\(\\zeta\\) y \\(\\wn\\)\n\n\ntiempo de pico\n\\(\\tp=\\pi/\\omega_d\\)\nla parte imaginaria del polo\n\n\nsobrepico\n\\(\\OS=100\\,e^{-\\zeta\\pi/\\sqrt{1-\\zeta^2}}\\)\nsolo \\(\\zeta\\) (el ángulo)\n\n\nestablecimiento (2 %)\n\\(\\ts\\approx4/(\\zeta\\wn)\\)\nla parte real del polo\n\n\n\n\n\n\nMoverse por rectas del plano-\\(s\\): vertical, mismo \\(\\ts\\); horizontal, mismo \\(\\tp\\); radial, mismo \\(\\OS\\).\n\n\n\nBloques y Mason\nSerie: \\(G_1G_2\\). Paralelo: \\(G_1+G_2\\). Retroalimentación negativa: \\(\\dfrac{G}{1+G\\Hs}\\). Ley de Mason: \\[\nT=\\frac{1}{\\Delta}\\sum_k P_k\\Delta_k,\\qquad \\Delta=1-\\sum L_a+\\sum L_bL_c-\\cdots\n\\] El discriminante \\(\\Delta\\) es el denominador: \\(\\Delta=0\\) es la ecuación característica.\n\n\n\n\nGrafo de flujo de señal con dos trayectos directos y cuatro lazos.\n\n\n\nPolos dominantes\nUn polo extra se puede despreciar si está unas diez veces más a la izquierda que los dominantes (criterio de Clement), conservando la ganancia DC. Un cero cerca de los dominantes, en cambio, cambia mucho el sobrepico.\n\n\n\n\nIzquierda: el polo en \\(-10\\) se puede despreciar. Derecha: el cero en \\(-2.5\\) y el polo en \\(-6.25\\), no (38 % real contra 54.5 % o 9.5 % de las aproximaciones).",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "3. Modelado II: linealización, segundo orden y diagramas de bloques"
+    ]
+  },
+  {
+    "objectID": "partes/03-modelado-segundo-orden.html#explorador",
+    "href": "partes/03-modelado-segundo-orden.html#explorador",
+    "title": "3. Modelado II: linealización, segundo orden y diagramas de bloques",
+    "section": "Explorador del segundo orden",
+    "text": "Explorador del segundo orden\nMueva \\(\\zeta\\), \\(\\wn\\) y la ganancia. Observe los polos en el plano-\\(s\\), la respuesta al escalón con sus envolventes y la banda del 2 %, y compare las fórmulas con lo que se mide sobre la curva.\n\n\n\nRetos con el explorador\n\nBusque el \\(\\zeta\\) que da 20 % de sobrepico y el \\(\\wn\\) que da \\(\\tp=1\\) s. Compárelos con el diseño del servo (\\(\\zeta=0.456\\), \\(\\wn=3.53\\)).\nCon \\(\\zeta=0.4\\), duplique \\(\\wn\\): ¿qué cambia y qué no?\nEncuentre el \\(\\zeta\\) para el cual el \\(\\ts\\) medido es mínimo con \\(\\wn=1\\). ¿Coincide con \\(4/(\\zeta\\wn)\\)?",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "3. Modelado II: linealización, segundo orden y diagramas de bloques"
+    ]
+  },
+  {
+    "objectID": "partes/03-modelado-segundo-orden.html#códigos-de-esta-parte",
+    "href": "partes/03-modelado-segundo-orden.html#códigos-de-esta-parte",
+    "title": "3. Modelado II: linealización, segundo orden y diagramas de bloques",
+    "section": "Códigos de esta parte",
+    "text": "Códigos de esta parte\nLos bloques salen directamente de los archivos del repositorio. Ejecute antes iniciarCurso.\n\nLinealizaciónSegundo ordenBloques y MasonOrden superiorPruebas\n\n\nDerivada simbólica (§3.2).\nsyms x real\nf  = x*sqrt(x^2 + 5*x);\ndf = diff(f, x)                        % derivada simbólica\nx0 = 5;\na0 = double(subs(f, x, x0))            % f(x0)  = 35.36 (no es cero: x0 no es equilibrio)\na1 = double(subs(df, x, x0))           % f'(x0) = 12.37\nflin = @(xx) a0 + a1*(xx - x0);        % aproximación de primer orden\nsolve(f == 0, x)                       % los equilibrios son x* = 0 y x* = -5\nEl reactor con jacobian.\nsyms xs us real\nk = 1;  V = 1;  c = 2;                 % L/(mol min), L, mol/L\nF  = -k*xs^2 + us*(c - xs)/V;\nJ  = jacobian(F, [xs us]);             % [df/dx, df/du]\nab = double(subs(J, [xs us], [1 1]))   % -&gt; [-3  1]:  xhat' = -3 xhat + uhat\nG  = tf(ab(2), [1 -ab(1)])             % Xhat(s)/Uhat(s) = 1/(s+3)\nLos dos tanques: equilibrio, coeficientes y función de transferencia (§3.3).\nA1 = 2;  A2 = 3;  Cv1 = 0.1;  Cv2 = 0.05;     % m^2, m^2, m^{5/2}/s\nh2e = 4;                                      % altura de operación del tanque 2 (m)\nfe  = Cv2*sqrt(h2e);                          % equilibrio: f_i* = f_1* = f_2*\nh1e = h2e + (fe/Cv1)^2;\nC1  = Cv1/(2*sqrt(h1e - h2e));  C2 = -C1;      % df1/dh1, df1/dh2\nC3  = Cv2/(2*sqrt(h2e));                       % df2/dh2\nK1 = 1/C1;  tau1 = A1/C1;  K2 = C1/(C3 - C2);  tau2 = A2/(C3 - C2);\ns  = tf('s');\nG  = K1*K2/((tau1*s + 1)*(tau2*s + 1) + K1*K2*C2)    % Hhat2/Fhat_i\nwn   = sqrt(C1*C3/(A1*A2));\nzeta = ((C1 + C3)/A2 + C1/A1)/(2*wn)\ndcgain(G)                                     % = 1/C3 = 80\nLineal contra no lineal.\nfig = estiloFigura(1100, 420);\npasos = [0.01 0.05];\nfor k = 1:2\n    df  = pasos(k);\n    rhs = @(t, h) [(fe + df - Cv1*sqrt(max(h(1) - h(2), 0)))/A1;\n                   (Cv1*sqrt(max(h(1) - h(2), 0)) - Cv2*sqrt(max(h(2), 0)))/A2];\n    [t, h] = ode45(rhs, [0 4000], [h1e; h2e]);        % modelo no lineal\n    yl = h2e + df*step(G, t);                         % modelo lineal + equilibrio\n    subplot(1, 2, k); plot(t, h(:,2), t, yl, '--'); grid on; xlabel('$t$ (s)');\n    title(sprintf('escal\\\\''on de %.2f m$^3$/s', df));\n    fprintf('df = %.2f: h2 final no lineal %.2f m, lineal %.2f m\\n', df, h(end,2), yl(end));\nend\nlegend('no lineal', 'linealizado', 'Location', 'southeast');\n\n\nFórmulas contra stepinfo (§3.5).\nzeta = 0.4;  wn = 1;\nF = segundoOrden(zeta, wn)                    % fórmulas de las notas\nS = stepinfo(wn^2/(s^2 + 2*zeta*wn*s + wn^2)) % medido sobre la simulación\nfprintf('%%OS:  fórmula %.2f   stepinfo %.2f\\n', F.OS, S.Overshoot);\nfprintf('tp:   fórmula %.3f  stepinfo %.3f\\n', F.tp, S.PeakTime);\nfprintf('ts:   fórmula %.3f  stepinfo %.3f\\n', F.ts, S.SettlingTime);\nfprintf('tr:   0-100 %.3f, aprox. 10-90 %.3f, stepinfo (10-90) %.3f\\n', F.tr0100, F.tr1090, S.RiseTime);\nLa función del curso segundoOrden.\nfunction F = segundoOrden(zeta, wn)\n% SEGUNDOORDEN  Características del escalón de wn^2/(s^2 + 2 zeta wn s + wn^2)\n% según las fórmulas de las notas (sección 3.5). Para 0 &lt; zeta &lt; 1:\n%   F.wd      frecuencia amortiguada  wn sqrt(1 - zeta^2)\n%   F.beta    ángulo del polo (rad)   acos(zeta)\n%   F.OS      sobrepico (%)           100 exp(-zeta pi / sqrt(1 - zeta^2))\n%   F.tp      tiempo de pico          pi/wd\n%   F.ts      establecimiento 2 %     4/(zeta wn)     (F.ts5: 3/(zeta wn))\n%   F.tr0100  subida 0-100 %          (pi - beta)/wd\n%   F.tr1090  subida 10-90 % (aprox.) (2.3 zeta^2 - 0.078 zeta + 1.12)/wn\n%   F.polos   -zeta wn ± j wd\nF.zeta = zeta;  F.wn = wn;\nF.wd   = wn*sqrt(1 - zeta^2);\nF.beta = acos(zeta);\nF.OS   = 100*exp(-zeta*pi/sqrt(1 - zeta^2));\nF.tp   = pi/F.wd;\nF.ts   = 4/(zeta*wn);\nF.ts5  = 3/(zeta*wn);\nF.tr0100 = (pi - F.beta)/F.wd;\nF.tr1090 = (2.3*zeta^2 - 0.078*zeta + 1.12)/wn;\nF.polos = -zeta*wn + [1; -1]*1j*F.wd;\nend\nDiseño de \\(K\\) y \\(K_h\\) (§3.7).\nOS = 0.20;  tp = 1;                       % especificaciones\nzeta = zetaDeOS(OS)                       % = -ln(OS)/sqrt(pi^2 + ln(OS)^2)\nwn   = pi/(tp*sqrt(1 - zeta^2))\nK    = wn^2                               % término independiente\nKh   = (2*zeta*wn - 1)/K                  % término en s: 1 + K Kh = 2 zeta wn\ns = tf('s');\nG = series(K/s, 1/(s + 1));               % camino directo\nH = 1 + Kh*s;                             % sensor de posición + tacómetro\nT = feedback(G, H)                        % lazo cerrado\nS = stepinfo(T)                           % Overshoot ~ 20, PeakTime ~ 1\n\n\nÁlgebra de bloques (§3.6).\ns  = tf('s');\nG1 = 1/(s + 1);  G2 = 2/s;  G3 = 5/(s + 3);  H1 = 1;  H2 = 0.5;\ninterno = feedback(G2, H1);               % lazo interno: 2/(s+2)\ndirecto = series(series(G1, interno), G3);\nT = minreal(feedback(directo, H2))        % -&gt; 10/(s^3+6s^2+11s+11)\npole(T)                                   % raíces de la ecuación característica\nparallel(G1, G3)                          % G1 + G3 (bloques en paralelo)\nMason contra resolver las ecuaciones de los nodos (§3.8).\nsyms G1 G2 G3 G4 G5 G6 G7 G8 G9 H1 H2 H3 H4 R\nx = sym('x', [1 9]);\necs = [x(1) == R\n       x(2) == G1*x(1) - H1*x(3) - H4*x(5)\n       x(3) == G2*x(2)\n       x(4) == G3*x(3) - H2*x(5)\n       x(5) == G4*x(4)\n       x(6) == G5*x(5)\n       x(7) == G7*x(3) - H3*x(8)\n       x(8) == G8*x(7)\n       x(9) == G6*x(6) + G9*x(8)];\nsol = solve(ecs, x);\nTdirecta = simplify(sol.x9/R);\n% Ley de Mason\nL1 = -G2*H1;  L2 = -G2*G3*G4*H4;  L3 = -G4*H2;  L4 = -G8*H3;\nD  = 1 - (L1+L2+L3+L4) + (L1*L3 + L1*L4 + L2*L4 + L3*L4) - L1*L3*L4;\nP1 = G1*G2*G3*G4*G5*G6;  D1 = 1 - L4;\nP2 = G1*G2*G7*G8*G9;     D2 = 1 - L3;\nTmason = (P1*D1 + P2*D2)/D;\nsimplify(Tdirecta - Tmason)              % -&gt; 0\n\n\nUn cero y un polo que no se pueden ignorar (§3.9).\nTc = 62.5*(s + 2.5)/((s^2 + 6*s + 25)*(s + 6.25));\nTa = 10*(s + 2.5)/(s^2 + 6*s + 25);         % sin el polo en -6.25\nTb = 25/(s^2 + 6*s + 25);                   % solo los polos dominantes\nfor T = {Tc, Ta, Tb}\n    S = stepinfo(T{1});\n    fprintf('%%OS = %5.1f   ts = %.2f s\\n', S.Overshoot, S.SettlingTime);\nend\nIgualación de momentos (§3.10).\nGH = 6/(s^3 + 6*s^2 + 11*s + 6);\n[GL, d] = reduccionMomentos(GH)            % d = [d1 d2]\npole(GL)\nfigure; step(GH, GL, '--', 8); grid on; legend('$G_H$', '$G_L$', 'Location', 'southeast');\n\n\nverificarCap03 comprueba los números clave del capítulo.\nfunction verificarCap03()\n% VERIFICARCAP03  Pruebas automáticas de los números del capítulo 3.\n%   &gt;&gt; verificarCap03\n% (Los mismos números se verificaron con python-control en\n%  herramientas/cap03_numeros.py.)\nraiz = fileparts(mfilename('fullpath'));\naddpath(fullfile(raiz, '..', 'comun'), raiz);\ns = tf('s');  fallas = 0;  n = 0;\n    function revisar(nombre, valor, esperado, tol)\n        n = n + 1;\n        if abs(valor - esperado) &lt;= tol\n            fprintf('  ok   %-38s %12.4f\\n', nombre, valor);\n        else\n            fprintf(2, '  FALLA %-37s %12.4f  (esperado %g +- %g)\\n', nombre, valor, esperado, tol);\n            fallas = fallas + 1;\n        end\n    end\n\nfprintf('3.2  Linealización\\n');\nf  = @(x) x.*sqrt(x.^2 + 5*x);\nrevisar('f(5)', f(5), 35.355, 1e-3);\nrevisar('f''(5) (diferencia central)', (f(5 + 1e-6) - f(5 - 1e-6))/2e-6, 12.374, 1e-3);\n\nfprintf('3.3  Dos tanques\\n');\nA1 = 2;  A2 = 3;  Cv1 = 0.1;  Cv2 = 0.05;  h2e = 4;\nfe = Cv2*sqrt(h2e);  h1e = h2e + (fe/Cv1)^2;\nC1 = Cv1/(2*sqrt(h1e - h2e));  C2 = -C1;  C3 = Cv2/(2*sqrt(h2e));\nK1 = 1/C1;  tau1 = A1/C1;  K2 = C1/(C3 - C2);  tau2 = A2/(C3 - C2);\nG = K1*K2/((tau1*s + 1)*(tau2*s + 1) + K1*K2*C2);\nrevisar('h1*', h1e, 5, 1e-9);\nrevisar('tau1', tau1, 40, 1e-9);  revisar('tau2', tau2, 48, 1e-9);\nrevisar('ganancia DC', dcgain(G), 80, 1e-6);\nwn = sqrt(C1*C3/(A1*A2));  z = ((C1 + C3)/A2 + C1/A1)/(2*wn);\nrevisar('zeta', z, 2.245, 1e-3);\nrevisar('polo lento', max(real(pole(G))), -0.002398, 1e-6);\n\nfprintf('3.5  Fórmulas del subamortiguado\\n');\nF = segundoOrden(0.4, 1);\nS = stepinfo(1/(s^2 + 0.8*s + 1));\nrevisar('%OS fórmula vs stepinfo', F.OS - S.Overshoot, 0, 0.05);\nrevisar('tp fórmula vs stepinfo', F.tp - S.PeakTime, 0, 0.02);\nrevisar('tr 0-100', F.tr0100, 2.16, 0.01);\nrevisar('%OS(0.4)', F.OS, 25.38, 0.01);\n\nfprintf('3.7  Diseño K, Kh\\n');\nz = zetaDeOS(0.2);  wn = pi/sqrt(1 - z^2);  K = wn^2;  Kh = (2*z*wn - 1)/K;\nrevisar('zeta', z, 0.4559, 1e-4);  revisar('wn', wn, 3.5299, 1e-4);\nrevisar('K', K, 12.46, 0.01);      revisar('Kh', Kh, 0.1781, 1e-4);\nT = feedback(K/s*1/(s + 1), 1 + Kh*s);\nS = stepinfo(T);\nrevisar('%OS simulado', S.Overshoot, 20, 0.05);\n\nfprintf('3.6  Bloques\\n');\nT = minreal(feedback(1/(s + 1)*feedback(2/s, 1)*5/(s + 3), 0.5));\n[nu, de] = tfdata(T, 'v');  de = de/de(1);\nrevisar('multilazo: coef. s^0', de(end), 11, 1e-6);\nrevisar('multilazo: polo real', min(real(pole(T))), -3.9042, 1e-4);\n\nfprintf('3.9  Orden superior\\n');\nS3 = stepinfo(20/((s + 10)*(s^2 + 2*s + 2)));  S2 = stepinfo(2/(s^2 + 2*s + 2));\nrevisar('%OS tercer orden', S3.Overshoot, 4.27, 0.05);\nrevisar('%OS aproximación', S2.Overshoot, 4.32, 0.05);\nSc = stepinfo(62.5*(s + 2.5)/((s^2 + 6*s + 25)*(s + 6.25)));\nSa = stepinfo(10*(s + 2.5)/(s^2 + 6*s + 25));\nrevisar('%OS completo', Sc.Overshoot, 38.0, 0.2);\nrevisar('%OS sin polo', Sa.Overshoot, 54.5, 0.2);\n\nfprintf('3.10 Reducción\\n');\n[GL, d] = reduccionMomentos(6/(s^3 + 6*s^2 + 11*s + 6));\nrevisar('d1', d(1), 1.615, 1e-3);  revisar('d2', d(2), 0.6236, 1e-4);\nrevisar('polo lento G_L', max(real(pole(GL))), -1.024, 1e-3);\n\nfprintf('\\n%d de %d verificaciones correctas.\\n', n - fallas, n);\nif fallas &gt; 0, error('verificarCap03:falla', '%d verificaciones fallaron.', fallas); end\nend",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "3. Modelado II: linealización, segundo orden y diagramas de bloques"
+    ]
+  },
+  {
+    "objectID": "partes/03-modelado-segundo-orden.html#modelos-de-simulink",
+    "href": "partes/03-modelado-segundo-orden.html#modelos-de-simulink",
+    "title": "3. Modelado II: linealización, segundo orden y diagramas de bloques",
+    "section": "Modelos de Simulink",
+    "text": "Modelos de Simulink\n\nLos modelos se construyen por código\n\n\n\n\n\n\n\n\nScript\nModelo\nPara qué\n\n\n\n\ncrearModelo_Tanques.m\nlos dos tanques no lineales al lado del modelo linealizado\nver cuándo deja de valer la linealización\n\n\ncrearModelo_Servo.m\nservo \\(K\\to1/(s+1)\\to1/s\\) con retroalimentación de posición y tacómetro\ncomprobar el diseño de \\(K\\) y \\(K_h\\) y ver qué hace cada uno\n\n\n\nCorra el script y se crea el .slx.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "3. Modelado II: linealización, segundo orden y diagramas de bloques"
+    ]
+  },
+  {
+    "objectID": "partes/03-modelado-segundo-orden.html#pausas-activas",
+    "href": "partes/03-modelado-segundo-orden.html#pausas-activas",
+    "title": "3. Modelado II: linealización, segundo orden y diagramas de bloques",
+    "section": "Pausas activas",
+    "text": "Pausas activas\n\n1. Un tanque con descarga libre\nLinealice \\(A\\dot h=q-c\\sqrt h\\) (\\(A=2\\), \\(c=0.5\\)) alrededor de \\(\\eq{q}=1\\). ¿Cuánto valen \\(K_1\\) y \\(\\tau\\)?\n\n\nRespuesta\n\n\\(\\eq{h}=4\\); la derivada de \\(c\\sqrt h\\) es \\(c/(2\\sqrt{\\eq{h}})=0.125\\); entonces \\(\\dfrac{\\hat H}{\\hat Q}=\\dfrac{8}{16s+1}\\): \\(K_1=8\\) y \\(\\tau=16\\) s.\n\n\n\n2. Polos en \\(-2\\pm j4\\)\nSin simular: ¿cuánto valen \\(\\wn\\), \\(\\zeta\\), \\(\\tp\\), \\(\\OS\\) y \\(\\ts\\)?\n\n\nRespuesta\n\n\\(\\wn=4.47\\), \\(\\zeta=0.447\\), \\(\\tp=0.785\\) s, \\(\\OS=20.8\\,\\%\\) y \\(\\ts\\approx2\\) s.\n\n\n\n3. Mucha ganancia de malla\nSi \\(G\\Hs\\gg1\\), ¿a qué se parece \\(Y/R=G/(1+G\\Hs)\\)? ¿Qué consecuencia práctica tiene?\n\n\nRespuesta\n\n\\(Y/R\\approx1/\\Hs\\): el lazo cerrado depende casi solo del sensor. Por eso Black pudo construir amplificadores precisos con tubos imprecisos.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "3. Modelado II: linealización, segundo orden y diagramas de bloques"
+    ]
+  },
+  {
+    "objectID": "partes/03-modelado-segundo-orden.html#problemas",
+    "href": "partes/03-modelado-segundo-orden.html#problemas",
+    "title": "3. Modelado II: linealización, segundo orden y diagramas de bloques",
+    "section": "Problemas",
+    "text": "Problemas\nEl handout trae 11 problemas (linealización, los tanques con otros datos, la demostración de que nunca oscilan, cuatro segundos órdenes, diseño con tacómetro, región de diseño, un sistema multilazo con Mason, aproximaciones de orden reducido y un resorte no lineal), con soluciones seleccionadas.\nIr a los problemas (PDF, §3.12)\n\nCorrecciones respecto a la versión anterior\nEl ejemplo numérico de los dos tanques no era físico (\\(C_2=-C_1\\) siempre y \\(\\zeta\\geq1\\)): se reemplazó por datos reales. \\(\\beta=\\cos^{-1}\\zeta\\) (decía \\(\\cos\\zeta\\)). Sobrepico \\(\\OS\\) (antes \\(MP\\)), tiempo de establecimiento (no de asentamiento), \\(\\Delta\\) es el discriminante. Ejemplo con cero y polo adicionales: 54.5 % y 38.0 %, \\(\\ts=1.47\\) y \\(1.59\\) s. El ejercicio de reducción con un cero se reformuló porque su respuesta no satisfacía las ecuaciones de momentos.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "3. Modelado II: linealización, segundo orden y diagramas de bloques"
+    ]
+  },
+  {
+    "objectID": "partes/08-pid-sintonizacion.html",
+    "href": "partes/08-pid-sintonizacion.html",
+    "title": "8. Controladores PID: sintonización",
+    "section": "",
+    "text": "Parte 8 · Semana 9Controladores PID: sintonizaciónLa autoridad y el dinero se rodean de calma… — Hernán Díaz",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "8. Controladores PID: sintonización"
+    ]
+  },
+  {
+    "objectID": "partes/08-pid-sintonizacion.html#temas",
+    "href": "partes/08-pid-sintonizacion.html#temas",
+    "title": "8. Controladores PID: sintonización",
+    "section": "Temas",
+    "text": "Temas\n\nTérminos de un sistema de control de procesos\nTipos de procesos y respuesta al escalón\nMétodos de malla abierta y de malla cerrada (Ziegler-Nichols, Tyreus-Luyben…)\nSíntesis directa\nInternal Model Control (IMC)",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "8. Controladores PID: sintonización"
+    ]
+  },
+  {
+    "objectID": "partes/08-pid-sintonizacion.html#lo-que-tendrá-esta-página",
+    "href": "partes/08-pid-sintonizacion.html#lo-que-tendrá-esta-página",
+    "title": "8. Controladores PID: sintonización",
+    "section": "Lo que tendrá esta página",
+    "text": "Lo que tendrá esta página\n\nEl handout en PDF de la parte, con el formato nuevo.\nLos códigos de MATLAB y Simulink, con instrucciones y resultados esperados.\nLos videos de la parte y las pausas activas con respuesta.\nLos problemas con soluciones seleccionadas.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "8. Controladores PID: sintonización"
+    ]
+  },
+  {
+    "objectID": "codigos.html",
+    "href": "codigos.html",
+    "title": "Códigos de MATLAB y Simulink",
+    "section": "",
+    "text": "Todos los códigos viven en la carpeta codigo/ del repositorio. Son la misma fuente que se ve en las notas en PDF y en estas páginas: los bloques de código se extraen de los archivos al compilar, de modo que nunca se desincronizan.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Códigos de MATLAB y Simulink"
+    ]
+  },
+  {
+    "objectID": "codigos.html#primeros-pasos",
+    "href": "codigos.html#primeros-pasos",
+    "title": "Códigos de MATLAB y Simulink",
+    "section": "Primeros pasos",
+    "text": "Primeros pasos\n&gt;&gt; cd ruta/al/repositorio/codigo\n&gt;&gt; iniciarCurso            % agrega comun/ y todos los capítulos al path\n&gt;&gt; C1_Ej1_RespuestaSenoidal\nSe necesita Control System Toolbox (y Simulink para los crearModelo_*.m).",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Códigos de MATLAB y Simulink"
+    ]
+  },
+  {
+    "objectID": "codigos.html#organización",
+    "href": "codigos.html#organización",
+    "title": "Códigos de MATLAB y Simulink",
+    "section": "Organización",
+    "text": "Organización\ncodigo/\n├── iniciarCurso.m\n├── comun/                       funciones que usan todos los capítulos\n│   ├── bodeAsintotico.m         Bode asintótico (ganancia, origen, polos y ceros reales)\n│   ├── margenesTabla.m          GM (dB), PM y frecuencias, con los nombres del curso\n│   ├── faseEn.m                 fase continua, para buscar frecuencias con fzero\n│   ├── pmDeZeta.m, zetaDePM.m   la relación PM &lt;-&gt; zeta\n│   ├── zetaDeOS.m               zeta a partir del sobrepico\n│   ├── segundoOrden.m           tr, tp, %OS y ts de un segundo orden (fórmulas de las notas)\n│   ├── polosDeseados.m          polos a partir de %OS y tp o ts (y un polo adicional)\n│   ├── variablesFase.m          representación de estado en variables de fase (la del curso)\n│   ├── estiloFigura.m           figuras con la paleta del curso\n│   └── abrirVideo.m             grabar videos en cualquier sistema operativo\n├── cap02_modelado_primer_orden/      C2_Ej1..Ej8 (señales, Laplace, ODE, valor final, primer orden),\n│                                     crearModelo_Termico.m, verificarCap02.m\n├── cap03_modelado_segundo_orden/     C3_Ej1..Ej8 (linealización, tanques, segundo orden, bloques, Mason,\n│                                     dominantes, reducción), reduccionMomentos.m,\n│                                     crearModelo_Tanques.m, crearModelo_Servo.m, verificarCap03.m\n├── cap09_retroalimentacion_estado/   C9_Ej1..Ej9 (Kalman, controlabilidad, Ackermann, especificaciones,\n│                                     observador, separación, acción integral), crearModelo_RetroEstado.m,\n│                                     crearModelo_Observador.m, verificarCap09.m\n└── cap10_respuesta_frecuencial/\n    ├── Clase1_RespuestaFrecuencial/   C1_Ej*.m, C1_Video_*.m, crearModelo_RespuestaSenoidal.m\n    ├── Clase2_Margenes/               C2_Ej*.m, C2_Video_*.m, crearModelo_LazoKc.m\n    ├── Clase3_LazoCerrado/            C3_Ej*.m, C3_Video_*.m\n    ├── Clase4_Compensadores/          C4_Ej*.m, disenoAdelanto.m, disenoAtraso.m, crearModelo_Compensadores.m\n    └── verificarCap10.m               pruebas automáticas de los números del capítulo",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Códigos de MATLAB y Simulink"
+    ]
+  },
+  {
+    "objectID": "codigos.html#convenciones-de-los-scripts",
+    "href": "codigos.html#convenciones-de-los-scripts",
+    "title": "Códigos de MATLAB y Simulink",
+    "section": "Convenciones de los scripts",
+    "text": "Convenciones de los scripts\nCada script empieza con un encabezado como este:\n%% C3_Ej3_AjusteGanancia -- Notas: sección 10.10 (diseño ajustando la ganancia; adaptado de Nise)\n% Gp(s) = 1/(s(s+20)(s+100)), Gc = Kc, meta: %OS = 20 %\n% ESPERADO  zeta = 0.456 -&gt; PM = 48.15° -&gt; fase objetivo -131.85° en 13.56 rad/s\n%           |2000 Gp| = -24.36 dB  -&gt;  Kc = 33 056;  %OS logrado 19.9 %\nclear; close all; clc;\nif ~exist('bodeAsintotico', 'file'), addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', 'comun')); end\n\nG0   = zpk([], [0 -20 -100], 1);\nzeta = zetaDeOS(0.20)                                % 0.456\nPMd  = pmDeZeta(zeta)                                % 48.15°\nFdes = -180 + PMd                                    % -131.85°\nwd   = fzero(@(w) faseEn(G0, w) - Fdes, [1 30])      % 13.56 rad/s (la ganancia NO cambia la fase)\nKc   = 1/abs(evalfr(G0, 1j*wd))                      % 33 056: |Kc G0(j wd)| = 1 = 0 dB\n\nL = Kc*G0;\nmargenesTabla(L, 'Kc ajustado');\nstepinfo(feedback(L, 1))\nfig = estiloFigura(1000, 600);\nsubplot(1,2,1); margin(L); grid on;\nsubplot(1,2,2); step(feedback(L, 1), 0.8); grid on; title(sprintf('K_c = %.0f', Kc));\nexportgraphics(fig, 'C3_ajuste_ganancia.png', 'Resolution', 200);\n\n%% El precio: kv = Kc/2000 = 16.5. Si se exige kv = 40 con la ganancia sola:\nL40 = 80000*G0;  margenesTabla(L40, 'Kc = 80000 (kv=40)');   % PM = 25.4°\nstepinfo(feedback(L40, 1))                                   % %OS ~ 49 %: hace falta un compensador\n\nQUÉ HACE / OBSERVE / ESPERADO / EXPLORE: para qué sirve, qué mirar, qué números deben salir y qué cambiar para aprender más.\nLos fragmentos que aparecen en las notas están entre % [ini:nombre] y % [fin:nombre].\nLos modelos de Simulink se construyen por código (crearModelo_*.m): no hay .slx binarios en el repositorio y cualquiera puede ver qué bloques tiene cada modelo.\nLos nombres de variables siguen la notación del curso: Gp, Gc, Kc, PM, wPM, Mr, wr…",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Códigos de MATLAB y Simulink"
+    ]
+  },
+  {
+    "objectID": "codigos.html#quiere-mejorar-un-código",
+    "href": "codigos.html#quiere-mejorar-un-código",
+    "title": "Códigos de MATLAB y Simulink",
+    "section": "¿Quiere mejorar un código?",
+    "text": "¿Quiere mejorar un código?\n\nHaga el cambio en el archivo de codigo/.\nCorra verificarCap10 (o el verificarCapNN del capítulo): si algún número de las notas deja de coincidir, lo dirá.\nRecompile las notas y el sitio: los fragmentos se actualizan solos.\nSi encontró un error, abra un issue en el repositorio.\n\n\n¿Y si no tengo MATLAB?\nLos cálculos (no las figuras ni los videos) corren también en GNU Octave con el paquete control (pkg load control), salvo allmargin, pidtune y VideoWriter, usando las funciones de reemplazo de herramientas/octave_shims/ (por ejemplo, evalfr). Además, todos los números del capítulo 10 se verificaron de forma independiente en Python (herramientas/cap10_numeros.py).",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Códigos de MATLAB y Simulink"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Análisis de Sistemas de Control",
+    "section": "",
+    "text": "Notas, códigos y videos del cursoModelar, analizar y diseñar sistemas de controlCaminante, son tus huellas el camino y nada más; caminante, no hay camino, se hace camino al andar. — Antonio Machado\nEste sitio acompaña el curso Análisis de Sistemas de Control. Cada parte del curso tiene una página con:",
+    "crumbs": [
+      "Inicio",
+      "Análisis de Sistemas de Control"
+    ]
+  },
+  {
+    "objectID": "index.html#partes-del-curso",
+    "href": "index.html#partes-del-curso",
+    "title": "Análisis de Sistemas de Control",
+    "section": "Partes del curso",
+    "text": "Partes del curso\n\n1IntroducciónSemana 1por migrar\n2Modelado I: Laplace y primer ordenSemanas 1–2completo\n3Modelado II: linealización, segundo orden, bloquesSemanas 3–4completo\n4Espacio de estadoSemanas 4–5por migrar\n5EstabilidadSemana 6por migrar\n6Error en estado estacionarioSemana 7por migrar\n7PID: nociones básicasSemana 7por migrar\n8PID: sintonización e IMCSemana 9por migrar\n9Retroalimentación de estado y observadoresSemanas 10–11completo\n10Respuesta frecuencial y diagramas de BodeSemanas 13–16piloto · completo",
+    "crumbs": [
+      "Inicio",
+      "Análisis de Sistemas de Control"
+    ]
+  },
+  {
+    "objectID": "index.html#cómo-usar-este-material",
+    "href": "index.html#cómo-usar-este-material",
+    "title": "Análisis de Sistemas de Control",
+    "section": "Cómo usar este material",
+    "text": "Cómo usar este material\n\nAntes de la clase: lea el handout de la parte. Las cajas azules (Lo esencial) son el resumen; las verdes (Pausa activa) son preguntas cortas para comprobar que entendió.\nEn clase: traiga MATLAB listo. Ejecute una vez iniciarCurso (carpeta codigo/ del repositorio) y podrá correr cualquier script desde cualquier carpeta.\nDespués: resuelva los problemas. Los marcados [M] se hacen en MATLAB/Simulink; los marcados (*) son de profundización.\n\n\nUna sola notación\nLas notas, las presentaciones, los códigos y esta página usan la misma notación. Si tiene dudas sobre un símbolo, consulte la página de notación.",
+    "crumbs": [
+      "Inicio",
+      "Análisis de Sistemas de Control"
+    ]
+  }
+]

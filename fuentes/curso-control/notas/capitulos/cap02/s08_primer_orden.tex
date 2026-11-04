@@ -1,0 +1,75 @@
+%% ---------------------------------------------------------------------
+\section{El sistema de primer orden}
+\label{sec:po-primerorden}
+%% ---------------------------------------------------------------------
+
+El tanque es el ejemplo típico de un \clave{sistema de primer orden}:
+\begin{equation}
+  \frac{Y(s)}{U(s)}=\frac{K_1}{\tau s+1},
+  \label{eq:po-primerorden}
+\end{equation}
+con dos parámetros: la \clave{ganancia} $K_1$ (cuánto cambia la salida en estado estacionario por unidad de cambio en la entrada) y la \clave{constante de tiempo} $\tau$ (qué tan rápido). El único polo está en $s=-1/\tau$. Veamos qué hacen ante las dos entradas de prueba más usadas.
+
+\subsection{Respuesta al escalón unitario}
+Con $U(s)=1/s$,
+\begin{equation}
+  Y(s)=\frac{K_1}{s}-\frac{K_1}{s+1/\tau}\quad\Longrightarrow\quad y(t)=K_1\left(1-e^{-t/\tau}\right).
+  \label{eq:po-escalon}
+\end{equation}
+La respuesta tiene dos partes: la de estado estacionario $y_{ss}=K_1$ (el teorema del valor final da lo mismo) y la transitoria $-K_1e^{-t/\tau}$, que se extingue. La \cref{fig:po-escalon} muestra los números que vale la pena memorizar.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\linewidth]{cap02/f_primer_orden_escalon}
+\caption{Respuesta al escalón de $K_1/(\tau s+1)$ con $K_1=10$ y $\tau=5$. Cada constante de tiempo, la salida recorre el $63.2\%$ de lo que le falta. La tangente en el origen llega al valor final justo en $t=\tau$.}
+\label{fig:po-escalon}
+\end{figure}
+
+\begin{itemize}
+  \item En $t=\tau$ la salida llega al $1-e^{-1}=63.2\%$ del valor final; en $2\tau$, al $86.5\%$; en $3\tau$, al $95.0\%$; en $4\tau$, al $98.2\%$; en $5\tau$, al $99.3\%$.
+  \item \clave{Tiempo de establecimiento} (2\%): $\ts\approx4\tau$ (exactamente $\tau\ln50=3.91\,\tau$).
+  \item La pendiente inicial es $\dot y(0)=K_1/\tau$: si la respuesta siguiera con esa pendiente, llegaría al valor final en $t=\tau$. Constante de tiempo pequeña, respuesta rápida.
+\end{itemize}
+
+\codigorepo{cap02_modelado_primer_orden/C2_Ej8_PrimerOrden.m}{escalon}{escalón: 63.2 \%, $\ts$ y \cmd{stepinfo}}
+
+\begin{receta}[Identificar un primer orden con una prueba al escalón]
+\begin{enumerate}
+  \item Llevar el proceso a un equilibrio $(\eq{u},\eq{y})$ y aplicar un escalón $\Delta u$.
+  \item Esperar el nuevo estado estacionario y medir $\Delta y$: $K_1=\Delta y/\Delta u$ (con sus unidades).
+  \item Buscar el instante en que la salida recorrió el $63.2\%$ de $\Delta y$: ese tiempo es $\tau$. (O, con un solo dato $y(t_1)$: $\tau=-t_1/\ln\bigl(1-\dev{y}(t_1)/\Delta y\bigr)$.)
+  \item Escribir $\Dev{Y}/\Dev{U}=K_1/(\tau s+1)$ y verificar superponiendo la simulación a los datos.
+\end{enumerate}
+\end{receta}
+
+\subsection{Respuesta a la rampa}
+Con $u(t)=t$, es decir $U(s)=1/s^2$,
+\[
+  Y(s)=\frac{K_1}{s^2}-\frac{K_1\tau}{s}+\frac{K_1\tau}{s+1/\tau}
+  \;\Longrightarrow\;
+  y(t)=K_1t-K_1\tau+K_1\tau\,e^{-t/\tau},\quad t\geq0.
+\]
+La parte $K_1t-K_1\tau$ es la de estado estacionario y $K_1\tau e^{-t/\tau}$ la transitoria. Definiendo el error de seguimiento como $e(t)=K_1u(t)-y(t)$ (lo que la salida ``debería'' valer si no tuviera dinámica),
+\begin{equation}
+  e(t)=K_1\tau\left(1-e^{-t/\tau}\right)\;\xrightarrow{\ t\to\infty\ }\;K_1\tau.
+  \label{eq:po-error-rampa}
+\end{equation}
+La salida sigue a la rampa con la misma pendiente, pero \emph{atrasada} $\tau$ segundos: el error final es $K_1\tau$ (\cref{fig:po-rampa}). Cuanto menor $K_1\tau$, mejor el seguimiento.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_primer_orden_rampa}
+\caption{Respuesta a la rampa con $K_1=1$: con $\tau=10$ el error final es $10$; con $\tau=1$, es $1$.}
+\label{fig:po-rampa}
+\end{figure}
+
+\codigorepo{cap02_modelado_primer_orden/C2_Ej8_PrimerOrden.m}{rampa}{rampa: el error tiende a $K_1\tau$}
+
+\begin{cuidado}[El signo del error ante la rampa]
+En la versión anterior de estas notas aparecía $e(t)=K_1\tau+K_1\tau e^{-t/\tau}$, que vale $2K_1\tau$ en $t=0$. Lo correcto es $e(t)=K_1\tau(1-e^{-t/\tau})$: en $t=0$ el error es nulo (la rampa arranca en cero) y crece hasta $K_1\tau$.
+\end{cuidado}
+
+\begin{pausa}
+Un primer orden con $K_1=2$ responde a un escalón de $3$ unidades y a los $12$\,s ya está en el $86.5\%$ del cambio final. ¿Cuánto valen $\tau$, el cambio final y el $\ts$?
+\respuesta{$86.5\%$ corresponde a $2\tau$, luego $\tau=6$\,s. Cambio final $K_1\cdot3=6$ unidades; $\ts\approx4\tau=24$\,s.}
+\end{pausa}

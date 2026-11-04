@@ -1,0 +1,25 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=12mm]
+  \node[suma] (S) {};
+  \node[bloque,right=16mm of S] (G) {$G(s)$};
+  \coordinate[right=10mm of G] (y0);
+  \node[bloque,below=9mm of G] (H) {$\Hs(s)$};
+  % corte
+  \coordinate (c1) at ($(S)!0.42!(G.west)$);
+  \coordinate (c2) at ($(S)!0.62!(G.west)$);
+  \draw[thick,ctrlnoche] (S) -- (c1);
+  \draw[senal] (c2) -- (G);
+  \draw[senal] (G) -- (y0) |- (H);
+  \draw[senal] (H) -| (S);
+  \node[rot] at ($(S)+(-3mm,-3.5mm)$) {$-$};
+  \draw[ctrlcoral,very thick] ($(c1)+(0.6mm,3.5mm)$) -- ($(c1)+(0.6mm,-3.5mm)$);
+  \draw[ctrlcoral,very thick] ($(c2)+(-0.6mm,3.5mm)$) -- ($(c2)+(-0.6mm,-3.5mm)$);
+  \node[ctrlcoral,above=5mm of c2,align=center,font=\footnotesize] (x) {inyecto\\ $x=\sin\omega t$};
+  \draw[->,ctrlcoral,thick] (x) -- ($(c2)+(0,2mm)$);
+  \node[ctrlverde,above=5mm of c1,xshift=-12mm,align=center,font=\footnotesize] (z) {mido lo que\\ regresa: $z$};
+  \draw[->,ctrlverde,thick] ($(c1)+(0,2mm)$) -- (z);
+  \node[below=4mm of H,font=\footnotesize,text=ctrlnoche] {$\dfrac{Z(s)}{X(s)}=-G(s)\Hs(s)=-\Gma(s)$};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,144 @@
+%% =====================================================================
+%%  Convenciones y notación del curso (capítulo sin número)
+%%  Fuente única de la notación: notacion.sty. Esta tabla la documenta.
+%% =====================================================================
+\chapter*{Cómo leer estas notas}
+\addcontentsline{toc}{chapter}{Cómo leer estas notas}
+\markboth{Cómo leer estas notas}{}
+
+\epigrafe{Caminante, son tus huellas el camino y nada más; caminante, no hay camino, se hace camino al andar.}{Antonio Machado, \emph{Proverbios y cantares}}
+
+Estas notas acompañan el curso \emph{Análisis de Sistemas de Control} (IELE 2300). Cada capítulo corresponde a una parte del curso y tiene una página web con los códigos de \matlab/\simulink, los videos y las actividades. El código QR al comienzo de cada capítulo lleva a esa página.
+
+\section*{Las cajas}
+
+Cada tipo de contenido tiene su caja y su color. Así se puede leer el capítulo a dos velocidades: la primera vez, completo; para repasar, solo las cajas azules y los procedimientos.
+
+\begin{definicion}[title={\textcolor{ctrlazul}{\faBookOpen}\hspace{0.45em}Definición 10.2: así se ve una definición}]{}
+Las definiciones, los ejemplos y las pausas están numerados por capítulo y se citan con ese número.
+\end{definicion}
+
+\begin{ideaclave}
+Lo que hay que recordar de una sección. Si solo tiene cinco minutos antes de un examen, lea estas cajas.
+\end{ideaclave}
+
+\begin{ejemplo}[title={\textcolor{ctrlvioleta}{\faPencil*}\hspace{0.45em}Ejemplo 10.5: título del ejemplo}]{}
+El enunciado va primero.
+\solucion Después de la línea viene el desarrollo. Intente resolverlo antes de leerlo.
+\end{ejemplo}
+
+\begin{cuidado}
+Los errores que más se repiten en las evaluaciones y las confusiones de notación o de lenguaje.
+\end{cuidado}
+
+\begin{pausa}[title={\textcolor{ctrlverde}{\faPauseCircle}\hspace{0.45em}Pausa activa 10.3}]
+Una pregunta corta para comprobar que entendió antes de seguir. Las respuestas están al final de cada capítulo.
+\end{pausa}
+
+\begin{historia}
+De dónde salió cada idea, con la referencia exacta del trabajo original.
+\end{historia}
+
+\begin{profundiza}
+Material opcional, marcado con (*): no se evalúa, pero ayuda a entender.
+\end{profundiza}
+
+\begin{receta}[Procedimiento]
+Los procedimientos de diseño, paso a paso, en una caja oscura para encontrarlos rápido.
+\end{receta}
+
+\begin{modelo}[Nombre.slx]
+Un modelo de \simulink. En el curso los modelos se \emph{construyen por código} con un script \cmd{crearModelo\_*.m}: así cualquiera puede ver, versionar y mejorar exactamente qué bloques tiene.
+\end{modelo}
+
+\paragraph{El código}
+Los bloques de código verde azulado salen \emph{directamente} de los archivos del repositorio del curso (la ruta aparece en el encabezado y es un enlace). Si un código se mejora en el repositorio, las notas se actualizan solas al compilar. Los números que aparecen en los comentarios de los códigos son los mismos del texto, y cada capítulo tiene un script \cmd{verificarCapNN.m} que comprueba que siguen coincidiendo. En el margen, \textcolor{ctrlteal}{\faFileCode} indica un script y \textcolor{ctrlcoral}{\faPlayCircle} un video. Los problemas marcados \etiquetaM{} requieren \matlab/\simulink.
+
+\paragraph{Antes de correr los códigos}
+Ejecute una vez por sesión \cmd{iniciarCurso} (carpeta \texttt{codigo/} del repositorio). Agrega al \emph{path} las funciones comunes (\cmd{bodeAsintotico}, \cmd{margenesTabla}, \cmd{faseEn}, \cmd{estiloFigura}, \ldots) y permite correr cualquier script desde cualquier carpeta.
+
+\section*{Notación}
+
+La notación se define en un solo lugar, el archivo \texttt{notacion.sty}, y todos los capítulos la usan. Las tablas siguientes la documentan, con su equivalente en \matlab{} y el nombre más común en los libros en inglés.
+
+{\small
+\begin{xltabular}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.9cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash\ttfamily\footnotesize}p{2.5cm}@{}}
+\caption{Notación del curso. La última columna es el nombre que usan los códigos. (¡!): \texttt{margin} entrega \texttt{Gm} en veces y llama \texttt{Wcg} a la frecuencia del $\GM$ y \texttt{Wcp} a la del $\PM$.}\label{tab:notacion}\\
+\toprule
+\textbf{Símbolo} & \textbf{Significado} \textcolor{ctrlgris}{\textit{(en inglés)}} & \textbf{\normalfont\small\bfseries En MATLAB}\\
+\midrule
+\endhead
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{ctrlazul}Señales y bloques}\\
+$r,\,y,\,e,\,u$ & referencia, salida, error $e=r-y$, señal de control \textcolor{ctrlgris}{\textit{(reference, output, error, input)}} & \texttt{r, y, e, u}\\
+$d,\,n$ & perturbación, ruido de medición \textcolor{ctrlgris}{\textit{(disturbance, noise)}} & \texttt{d, n}\\
+$\Gp(s)$, $\Gc(s)$ & proceso (planta), controlador o compensador \textcolor{ctrlgris}{\textit{(plant, controller)}} & \texttt{Gp, Gc}\\
+$\Gv,\Gs,\Gt$ & elemento final de control, sensor, transmisor \textcolor{ctrlgris}{\textit{(actuator, sensor)}} & \texttt{Gv, Gs, Gt}\\
+$\Hs(s)$ & retroalimentación \textcolor{ctrlgris}{\textit{(feedback)}} & \texttt{H}\\
+$\Gma(s)=G\Hs$ & \textbf{malla abierta}: una vuelta completa al lazo, sin el signo del comparador \textcolor{ctrlgris}{\textit{(loop transfer function $L$)}} & \texttt{Gma}\\
+$\Gla(s)$ & \textbf{lazo abierto}: el lazo reescrito con retroalimentación unitaria; tipo y error \textcolor{ctrlgris}{\textit{((open-loop t.f.))}} & \texttt{Gol}\\
+$\Tlc(s)=Y/R$ & lazo cerrado \textcolor{ctrlgris}{\textit{(closed loop)}} & \texttt{T = feedback(...)}\\
+$\Sens(s)=1/(1+\Gma)$ & sensitividad \textcolor{ctrlgris}{\textit{(sensitivity)}} & \texttt{S}\\
+\midrule
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{ctrlazul}Modelado y linealización}\\
+$\Lap{f(t)}=F(s)$ & transformada de Laplace (unilateral); $s=\sigma+\jw$, con $j$ \textcolor{ctrlgris}{\textit{(Laplace transform)}} & \texttt{laplace}\\
+$\escalon(t)$, $\impulso(t)$ & escalón unitario e impulso (no $u(t)$: $u$ es la entrada) \textcolor{ctrlgris}{\textit{(unit step, impulse)}} & \texttt{heaviside}, \texttt{dirac}\\
+$\eq{x},\ \eq{u}$ & punto de equilibrio (de operación) \textcolor{ctrlgris}{\textit{(equilibrium point)}} & \texttt{xe, ue}\\
+$\dev{x}=x-\eq{x}$ & \textbf{variable desviación}; en $s$: $\Dev{X}(s)$ \textcolor{ctrlgris}{\textit{(deviation variable)}} & \texttt{xd}\\
+$\Delta$ & \textbf{discriminante} del diagrama (ley de Mason) \textcolor{ctrlgris}{\textit{(graph determinant)}} & --\\
+\midrule
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{ctrlazul}Espacio de estado}\\
+$\Am,\Bm,\Cm,\Dm$ & matrices de la representación de estado \textcolor{ctrlgris}{\textit{(state-space matrices)}} & \texttt{A, B, C, D}\\
+$\Phit$ & matriz de transición, $e^{\Am t}$ \textcolor{ctrlgris}{\textit{(transition matrix)}} & \texttt{expm(A*t)}\\
+$\Ctrb,\ \Obsv$ & matrices de controlabilidad y observabilidad \textcolor{ctrlgris}{\textit{(controllability, observability)}} & \texttt{ctrb, obsv}\\
+$\Km,\ \Lm$ & ganancias de retroalimentación de estado y del observador \textcolor{ctrlgris}{\textit{(state feedback, observer gain)}} & \texttt{K, L}\\
+\midrule
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{ctrlazul}Respuesta transitoria y error}\\
+$\zeta,\ \wn,\ \wdamp$ & factor de amortiguamiento, frecuencia natural, frecuencia amortiguada \textcolor{ctrlgris}{\textit{(damping ratio, natural freq.)}} & \texttt{zeta, wn, wd}\\
+$\OS$ & \textbf{sobrepico} porcentual \textcolor{ctrlgris}{\textit{(percent overshoot)}} & \texttt{S.Overshoot}\\
+$\ts,\ \tp,\ \tr$ & tiempo de establecimiento (2\,\%), de pico, de subida \textcolor{ctrlgris}{\textit{(settling, peak, rise time)}} & \texttt{stepinfo}\\
+$\ess$ & error en estado estacionario \textcolor{ctrlgris}{\textit{(steady-state error)}} & \texttt{ess}\\
+$\kp,\ \kv,\ \ka$ & constantes estáticas de posición, velocidad y aceleración \textcolor{ctrlgris}{\textit{(static error constants)}} & \texttt{kp, kv, ka}\\
+\midrule
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{ctrlazul}PID}\\
+$\Kc,\ \Ti,\ \Td$ & ganancia del controlador, tiempo integral, tiempo derivativo \textcolor{ctrlgris}{\textit{(controller gain)}} & \texttt{Kc, Ti, Td}\\
+$\Kproc$ & ganancia del \emph{proceso} (modelos de primer orden con tiempo muerto) \textcolor{ctrlgris}{\textit{(process gain)}} & \texttt{Kp}\\
+$\Kcr,\ \Pcr,\ \wcr$ & ganancia, periodo y frecuencia críticos (últimos) \textcolor{ctrlgris}{\textit{(ultimate gain, period)}} & \texttt{Kcr, Pcr, wcr}\\
+\midrule
+\multicolumn{3}{@{}l}{\sffamily\bfseries\color{ctrlazul}Respuesta frecuencial}\\
+$\Kb$ & ganancia en forma de Bode (cada factor como $s/\omega_i+1$) \textcolor{ctrlgris}{\textit{(Bode gain)}} & \texttt{Kb}\\
+$\GM,\ \wgm$ & margen de ganancia (dB) y su frecuencia (fase $=-180\grados$) \textcolor{ctrlgris}{\textit{(gain margin)}} & \texttt{Gm, Wcg} (¡!)\\
+$\PM,\ \wpm$ & margen de fase y su frecuencia ($|\Gma|=0\dB$) \textcolor{ctrlgris}{\textit{(phase margin)}} & \texttt{Pm, Wcp} (¡!)\\
+$\Mr,\ \wres$ & pico de resonancia del lazo cerrado y su frecuencia \textcolor{ctrlgris}{\textit{(resonant peak)}} & \texttt{Mr, wr}\\
+$\wbw$ & ancho de banda ($-3\dB$ del lazo cerrado) \textcolor{ctrlgris}{\textit{(bandwidth)}} & \texttt{bandwidth}\\
+$\alpha,\ \phiM,\ \wM,\ \wL,\ \wH$ & parámetros de los compensadores en adelanto y atraso \textcolor{ctrlgris}{\textit{(lead/lag parameters)}} & \texttt{alpha, phiM, wM, wL, wH}\\
+\bottomrule
+\end{xltabular}}
+
+\section*{Decisiones de lenguaje}
+
+Algunas palabras tienen varias versiones en los libros y en el habla del laboratorio. En el curso usamos siempre la primera columna.
+
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Usamos} & \textbf{En lugar de} & \textbf{Por qué}\\
+\midrule
+retroalimentación & realimentación & término del curso y de la industria en Colombia\\
+malla abierta $\Gma$ y lazo abierto $\Gla$ & ``open loop'' para ambas & son funciones distintas cuando $\Hs\neq1$\\
+variable desviación & variable incremental & ``incremental'' se reserva para el algoritmo digital del PID\\
+discriminante (Mason) & determinante & no es el determinante de una matriz\\
+sobrepico ($\OS$) & overshoot, sobreimpulso, $M_p$ & $M_p$ se confundía con el pico de resonancia\\
+pico de resonancia $\Mr$ & $M_P$ & ídem\\
+tiempo de establecimiento & tiempo de asentamiento & una sola palabra para $\ts$ (criterio del 2\,\%)\\
+factor de amortiguamiento $\zeta$ & coeficiente o razón de amortiguamiento & una sola palabra\\
+$\Kc$ (controlador) & $K_p$ para el controlador & $K_p$ es la ganancia del proceso\\
+$\Pcr$ & $T_{cr}$, $P_u$ & $T$ ya nombra al lazo cerrado y a varios tiempos\\
+fórmula de Ackermann & Ackerman & el apellido es Ackermann\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{profundiza}[Dónde estaban las inconsistencias]
+Al unificar las notas se encontraron, entre otras: ``realimentación'' en los capítulos de modelado, PID y Bode; el punto de operación escrito como $\bar{x}$ en modelado y espacio de estado, y como $\eq{x}$ en otros lugares; ``determinante'' para el $\Delta$ de Mason; ``overshoot'' y $MP$ para el sobrepico en el capítulo de segundo orden y $M_P$ para el pico de resonancia en el de Bode; $K_p$ para la ganancia del controlador en la tabla de Ziegler-Nichols; ``Ackerman''; ``tiempo de asentamiento'' y ``de establecimiento'' mezclados. El detalle, capítulo por capítulo, está en \texttt{notas/MIGRACION.md} del repositorio. A medida que cada capítulo se migre al formato nuevo, se reemplazan los símbolos escritos a mano por las macros de \texttt{notacion.sty}.
+\end{profundiza}
+

@@ -1,0 +1,32 @@
+%% =====================================================================
+%%  Capítulo 9 -- Retroalimentación de estado, observadores y acción integral
+%%  Migrado al formato nuevo (noviembre de 2026) desde Handout7_Ctrl.tex.
+%%  Cambios de fondo respecto a la versión anterior (ver MIGRACION.md):
+%%    el ESTIMADO del observador se escribe \tilde{x} (macro \est), porque
+%%    \hat{x} es la variable desviación en todo el curso; el error de
+%%    estimación es \varepsilon (e queda para el error de seguimiento);
+%%    "Ackerman" -> Ackermann; signo del polinomio del servo corregido;
+%%    K del ejemplo diag(-1,-3) calculado; Ke = 18 314 (exacto).
+%% =====================================================================
+
+\capitulo[cap:re]{Retroalimentación de estado y observadores}
+  {[L]a virginidad o, mejor, la inocencia se pierde de otro modo. Se pierde, como se sabe, cuando entran en juego las emociones.}
+  {Alberto Fuguet}
+
+\begin{objetivos}[partes/09-retroalimentacion-estado.html]
+  \item Explicar con controlabilidad y observabilidad por qué una función de transferencia puede esconder modos, y decidir si un sistema es estabilizable y detectable.
+  \item Diseñar una retroalimentación de estado $u=r-\Km x$ que ubique los polos donde piden las especificaciones, por comparación de coeficientes y con la fórmula de Ackermann.
+  \item Diseñar un observador de Luenberger y unirlo con la retroalimentación de estado usando el principio de separación.
+  \item Agregar acción integral para anular el error en estado estacionario.
+  \item Verificar cada diseño en \matlab/\simulink, incluido el precio que se paga en esfuerzo de control.
+\end{objetivos}
+
+\input{capitulos/cap09/s01_kalman}
+\input{capitulos/cap09/s02_retro}
+\input{capitulos/cap09/s03_controlabilidad}
+\input{capitulos/cap09/s04_ackermann}
+\input{capitulos/cap09/s05_especificaciones}
+\input{capitulos/cap09/s06_observador}
+\input{capitulos/cap09/s07_separacion}
+\input{capitulos/cap09/s08_integral}
+\input{capitulos/cap09/s09_cierre}

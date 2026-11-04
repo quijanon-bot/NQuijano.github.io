@@ -1,0 +1,33 @@
+%% ---------------------------------------------------------------------
+\section{El teorema del valor final}
+\label{sec:po-tvf}
+%% ---------------------------------------------------------------------
+
+Muchas veces no necesitamos toda la respuesta, solo a dónde llega: el \clave{valor en estado estacionario}. Para eso existe una de las propiedades más útiles de la transformada.
+
+\begin{definicion}[label=def:po-tvf]{Teorema del valor final}
+Si \alerta{todos los polos de $sY(s)$ tienen parte real negativa}, entonces
+\begin{equation}
+  \lim_{t\to\infty}y(t)=\lim_{s\to0}sY(s).
+  \label{eq:po-tvf}
+\end{equation}
+\end{definicion}
+
+La condición es esencial: el teorema supone que el límite en el tiempo existe. Si no existe, la fórmula de la derecha da un número igual, y ese número no significa nada.
+
+\begin{ejemplo}[label=ej:po-tvf]{Dos casos en los que el teorema miente}
+Determine $\lim_{t\to\infty}h(t)$ para (a) $H(s)=\dfrac1{s-2}$ y (b) $H(s)=\dfrac{6(s^2-2)}{s^3+s^2-4s-4}$.
+\solucion (a) Aplicando \eqref{eq:po-tvf} a ciegas, $\lim_{s\to0}\frac{s}{s-2}=0$. Pero $h(t)=e^{2t}$ crece sin cota: el polo de $sH(s)$ en $+2$ invalida el teorema.
+
+(b) De nuevo $\lim_{s\to0}sH(s)=0$. Pero $s^3+s^2-4s-4=(s+1)(s+2)(s-2)$, y
+\[
+  H(s)=\frac{2}{s+1}+\frac{3}{s+2}+\frac{1}{s-2}\;\Longrightarrow\;h(t)=2e^{-t}+3e^{-2t}+e^{2t}\to\infty.
+\]
+Moraleja: \emph{primero} los polos, \emph{después} el límite.
+\end{ejemplo}
+
+\codigorepo{cap02_modelado_primer_orden/C2_Ej6_ValorFinal.m}{tvf}{ejemplo \ref{ej:po-tvf}: revisar los polos antes del límite}
+
+\begin{profundiza}[El teorema del valor inicial]
+Con una condición parecida (que el límite exista), $\displaystyle\lim_{t\to0^+}y(t)=\lim_{s\to\infty}sY(s)$. Sirve, por ejemplo, para saber si una respuesta al escalón arranca con salto (grado relativo $0$) o arranca en cero con pendiente (grado relativo $1$): aplíquelo a $sY(s)$ para obtener $\dot y(0^+)$.
+\end{profundiza}

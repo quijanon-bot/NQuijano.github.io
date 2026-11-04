@@ -1,0 +1,46 @@
+%% ---------------------------------------------------------------------
+\section{Diseño ajustando la ganancia}
+\label{sec:rf-ajuste}
+%% ---------------------------------------------------------------------
+
+Primer diseño, con una sola perilla. Como una ganancia sube o baja la curva de magnitud \emph{sin tocar la fase} (factor 1), podemos escoger la frecuencia donde la fase ya tiene el margen que queremos y luego subir o bajar la magnitud hasta que esa frecuencia sea el cruce.
+
+\begin{receta}[Ajuste de ganancia para un $\OS$ dado]
+\begin{enumerate}
+  \item De la especificación: $\OS\Rightarrow\zeta=\dfrac{-\ln(\OS/100)}{\sqrt{\pi^2+\ln^2(\OS/100)}}\Rightarrow\PMdes$ con \eqref{eq:rf-PMzeta}.
+  \item Dibujar el Bode con una ganancia cómoda y buscar la frecuencia $\omega_d$ donde $\angle\Gma(\jw_d)=-180\grados+\PMdes$.
+  \item Subir o bajar la magnitud hasta que valga $0\dB$ en $\omega_d$: $\Kc=1/|\Gp(\jw_d)|$.
+  \item Verificar con \cmd{margin} y \cmd{step}.
+\end{enumerate}
+\end{receta}
+
+\begin{ejemplo}[label=ej:rf-ajuste]{$\Kc$ para un $20\%$ de sobrepico}
+En el lazo de la \cref{fig:rf-lazo} con $\Gc=\Kc$ y $\Gp(s)=\dfrac{1}{s(s+20)(s+100)}$, determine $\Kc$ para que el lazo cerrado tenga $\OS=20\%$.
+\solucion Es un sistema de tercer orden y tipo 1. En lugar de despreciar un polo para parecerse a un segundo orden, usamos la receta directamente.
+
+\textbf{Paso 1.} $\zeta=0.456$ y $\PMdes=48.15\grados$: la fase objetivo es $-180\grados+48.15\grados=-131.85\grados$.
+
+\textbf{Paso 2.} Con $\Kc=2000$ (ganancia DC de los polos reales normalizada) se busca la frecuencia con fase $-131.85\grados$: $\omega_d=13.56$\,rad/s. Allí la magnitud vale $-24.36\dB$.
+
+\textbf{Paso 3.} Hay que subir $24.36\dB$: $\Kc=2000\times10^{24.364/20}\approx33\,056$.
+
+\textbf{Paso 4.} Con este $\Kc$ el lazo cerrado tiene $\OS=19.9\%$ y $\tp=0.21$\,s (\cref{fig:rf-ajuste}). El sistema es de tercer orden, pero el polo en $-100$ está lejos: domina el par complejo.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_ajuste_ganancia}
+\caption{Ejemplo~\ref{ej:rf-ajuste}: se busca la frecuencia con la fase objetivo y se sube la curva $24.36\dB$ para que allí esté el cruce.}
+\label{fig:rf-ajuste}
+\end{figure}
+
+\codigorepo{cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej3_AjusteGanancia.m}{ajuste}{ejemplo \ref{ej:rf-ajuste}: sin buscar a ojo}
+\video{V6_ajuste_ganancia}{La curva de magnitud sube hasta cruzar $0\dB$ en $13.56$\,rad/s mientras la fase queda quieta.}
+
+\begin{cuidado}[Leer a ojo cuesta cifras]
+Leyendo el diagrama a mano se obtiene algo como $-24.2\dB$ y $\Kc=2000\times10^{24.2/20}\approx32\,400$ (el handout anterior reportaba $33\,192$ para esa lectura: era un error aritmético); el valor exacto, buscando la frecuencia con \cmd{fzero}, es $\Kc=33\,056$. La diferencia no importa para el diseño, pero sí para reportar: diga siempre de dónde sale cada cifra.
+\end{cuidado}
+
+\subsection{El límite del ajuste de ganancia}
+
+Con una sola perilla solo se cumple \emph{una} especificación. Con $\Kc=33\,056$ la constante de velocidad es $\kv=\Kc/2000=16.5$. Si además se exigiera $\kv=40$, haría falta $\Kc=80\,000$, y entonces $\PM=25.4\grados$ y $\OS\approx49\%$: subir $\Kc$ para el error destruye el margen de fase. Necesitamos cambiar la \emph{forma} de la curva, no solo subirla o bajarla. Eso es un compensador.

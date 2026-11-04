@@ -1,0 +1,24 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=10mm]
+  % (a) lazo general
+  \node (ra) {$R$};
+  \node[suma,right=7mm of ra] (Sa) {};
+  \node[bloque,right=9mm of Sa] (Ga) {$G(s)$};
+  \coordinate[right=8mm of Ga] (ya0); \node[right=5mm of ya0] (ya) {$Y$};
+  \node[bloque,below=7mm of Ga] (Ha) {$\Hs(s)$};
+  \draw[senal] (ra)--(Sa); \draw[senal] (Sa)--(Ga); \draw[senal] (Ga)--(ya);
+  \draw[senal] (ya0) |- (Ha); \draw[senal] (Ha) -| (Sa); \node[rot] at ($(Sa)+(-3mm,-3.5mm)$) {$-$};
+  \node[above=2mm of Ga,font=\footnotesize\bfseries,text=ctrlazul] {(a) malla abierta: $\Gma=G\Hs$};
+  % (b) unitaria equivalente
+  \node[right=12mm of ya] (rb) {$R$};
+  \node[suma,right=7mm of rb] (Sb) {};
+  \node[bloque,right=9mm of Sb,minimum width=24mm] (Gb) {$\Gla(s)=\dfrac{G}{1+G\Hs-G}$};
+  \coordinate[right=8mm of Gb] (yb0); \node[right=5mm of yb0] (yb) {$Y$};
+  \coordinate[below=11mm of Gb] (hb);
+  \draw[senal] (rb)--(Sb); \draw[senal] (Sb)-- node[above,rot]{$E$} (Gb); \draw[senal] (Gb)--(yb);
+  \draw[senal] (yb0) |- (hb) -| (Sb); \node[rot] at ($(Sb)+(-3mm,-3.5mm)$) {$-$};
+  \node[above=2mm of Gb,font=\footnotesize\bfseries,text=ctrlvioleta] {(b) lazo abierto: $\Gla$ (error y tipo)};
+\end{tikzpicture}
+\end{document}

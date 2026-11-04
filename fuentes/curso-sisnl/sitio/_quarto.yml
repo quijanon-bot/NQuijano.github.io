@@ -1,0 +1,92 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - pdf/
+    - videos/
+    - figuras/
+    - recursos/explorador-pasividad.js
+
+lang: es
+
+website:
+  title: "Sistemas No Lineales"
+  description: "Notas, códigos MATLAB/Simulink, videos y actividades del curso IELE 4311 · Universidad de los Andes"
+  site-url: https://quijanon-bot.github.io/NQuijano.github.io/curso-sisnl
+  repo-url: https://github.com/quijanon-bot/NQuijano.github.io
+  repo-actions: [issue]
+  search: true
+  page-navigation: true
+  back-to-top-navigation: true
+  navbar:
+    background: "#14213D"
+    left:
+      - href: index.qmd
+        text: Inicio
+      - text: Partes del curso
+        menu:
+          - partes/01-introduccion.qmd
+          - partes/02-unidimensionales.qmd
+          - partes/03-preliminares.qmd
+          - partes/04-bidimensionales.qmd
+          - partes/05-orbitas-ciclos.qmd
+          - partes/06-bifurcaciones.qmd
+          - partes/07-lyapunov.qmd
+          - partes/08-invarianza.qmd
+          - partes/09-variantes.qmd
+          - partes/10-estabilidad-avanzada.qmd
+          - partes/11-pasividad.qmd
+          - partes/12-linealizacion.qmd
+      - href: notacion.qmd
+        text: Notación
+      - href: codigos.qmd
+        text: Códigos
+      - href: videos.qmd
+        text: Videos
+    right:
+      - icon: github
+        href: https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl
+  sidebar:
+    style: docked
+    contents:
+      - index.qmd
+      - section: "Partes del curso"
+        contents:
+          - partes/01-introduccion.qmd
+          - partes/02-unidimensionales.qmd
+          - partes/03-preliminares.qmd
+          - partes/04-bidimensionales.qmd
+          - partes/05-orbitas-ciclos.qmd
+          - partes/06-bifurcaciones.qmd
+          - partes/07-lyapunov.qmd
+          - partes/08-invarianza.qmd
+          - partes/09-variantes.qmd
+          - partes/10-estabilidad-avanzada.qmd
+          - partes/11-pasividad.qmd
+          - partes/12-linealizacion.qmd
+      - section: "Recursos"
+        contents:
+          - notacion.qmd
+          - codigos.qmd
+          - videos.qmd
+  page-footer:
+    left: "Nicanor Quijano · Departamento de Ingeniería Eléctrica y Electrónica · Universidad de los Andes"
+    right: "Hecho con [Quarto](https://quarto.org)"
+
+filters:
+  - recursos/incluir-codigo.lua
+
+format:
+  html:
+    theme:
+      light: [cosmo, recursos/estilos.scss]
+      dark: [darkly, recursos/estilos.scss, recursos/oscuro.scss]
+    toc: true
+    toc-title: "En esta página"
+    number-sections: false
+    code-copy: true
+    code-overflow: wrap
+    highlight-style: github
+    html-math-method: mathjax
+    include-in-header: recursos/macros.html
+    fig-align: center

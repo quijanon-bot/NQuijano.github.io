@@ -1,0 +1,16 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}
+ \node[suma] (s) {};
+ \node[bloque=snlazul,right=10mm of s,minimum width=30mm] (H1) {$H_1$ (pasivo)\\$\dot z=f(z)+G(z)u$, $y=h(z)$};
+ \node[bloque=snlcoral,right=14mm of H1,minimum width=30mm] (H2) {$H_2$\\$\dot x=f_a(x)+F(x,y)\,y$};
+ \node[bloque=snlvioleta,below=8mm of H1,minimum width=30mm] (K) {$\Bigl[\tfrac{\partial W}{\partial x}F(x,y)\Bigr]^{\!\top}$};
+ \draw[flecha] ($(s.west)+(-12mm,0)$) node[left,etq]{$v$} -- (s);
+ \draw[flecha] (s) -- node[above,etq]{$u$} (H1);
+ \draw[flecha] (H1) -- node[above,etq]{$y$} (H2);
+ \draw[flecha] (H2.south) |- (K.east) node[pos=0.25,right,etq]{$x$};
+ \draw[flecha] (K.west) -| (s.south);
+ \node[font=\scriptsize] at ($(s.south)+(-2mm,-2mm)$) {$-$};
+\end{tikzpicture}
+\end{document}

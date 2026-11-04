@@ -1,0 +1,95 @@
+%% =====================================================================
+%%  notacion.sty -- Notación unificada del curso Sistemas No Lineales
+%%  (IELE 4311) -- Universidad de los Andes
+%%
+%%  REGLA DE ORO (la misma del curso de Control): en los capítulos NO se
+%%  escriben los símbolos "a mano"; se usan estas macros. Si se cambia una
+%%  convención, se cambia AQUÍ, en el capítulo "Cómo leer estas notas"
+%%  (00_convenciones.tex) y en sitio/recursos/macros.html (MathJax).
+%%  Origen: LibroSisNL2026/estilo/notacion.sty (octubre de 2026).
+%% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{notacion}[2026/11/04 Notacion unificada SISNL]
+\RequirePackage{amsmath,amssymb,mathtools}
+\RequirePackage{xspace}
+
+%% --- Conjuntos numéricos ----------------------------------------------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rp}{\mathbb{R}_{\ge 0}}          % [0,\infty)
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Cneg}{\mathbb{C}^{-}}            % semiplano izquierdo abierto
+
+%% --- Vectores, matrices, normas ---------------------------------------
+\newcommand{\T}{^{\top}}                       % transpuesta
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+\newcommand{\inner}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\lmin}{\lambda_{\min}}
+\newcommand{\lmax}{\lambda_{\max}}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rango}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\sat}{sat}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\Real}{\Re}
+\newcommand{\Imag}{\Im}
+\newcommand{\jw}{j\omega}                       % s = j omega (j, no i)
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\dist}{dist}
+
+%% --- Sistemas -----------------------------------------------------------
+\newcommand{\D}{D}                             % dominio abierto de R^n
+\newcommand{\eq}{x^{*}}                        % punto de equilibrio
+\newcommand{\sol}{\phi}                        % solución / flujo
+% \flujo{t}{x_0}  ->  \phi(t;x_0)   (sistema invariante en el tiempo)
+\newcommand{\flujo}[2]{\phi(#1;#2)}
+% Jacobiano: \jac{f}{x} -> \partial f/\partial x
+\newcommand{\jac}[2]{\frac{\partial #1}{\partial #2}}
+% Jacobiano evaluado: \jacat{f}{x}{x^*}
+\newcommand{\jacat}[3]{\left.\frac{\partial #1}{\partial #2}\right|_{#3}}
+\newcommand{\Lie}[2]{L_{#1}#2}                 % derivada de Lie L_f h
+\newcommand{\Cont}[1]{\mathcal{C}^{#1}}        % clase de suavidad C^k
+
+%% --- Estabilidad --------------------------------------------------------
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\Kinf}{\mathcal{K}_{\infty}}
+\newcommand{\KL}{\mathcal{KL}}
+\newcommand{\Bola}[1]{B_{#1}}                  % {x : ||x|| <= r} (cerrada)
+\newcommand{\Nivel}[1]{\Omega_{#1}}            % {x : V(x) <= c}
+\newcommand{\Vdot}{\dot V}
+\newcommand{\omegalim}[1]{\omega(#1)}          % conjunto omega-límite
+\newcommand{\alphalim}[1]{\alpha(#1)}          % conjunto alfa-límite
+\newcommand{\RA}{\mathcal{R}_A}                % región de atracción
+
+%% --- Señales -------------------------------------------------------------
+\newcommand{\Linf}{\mathcal{L}_{\infty}}
+\newcommand{\Ldos}{\mathcal{L}_{2}}
+\newcommand{\Lext}{\mathcal{L}_{2e}}
+
+%% --- Juegos poblacionales ------------------------------------------------
+\newcommand{\simplex}{\Delta}
+
+%% --- Pasividad y disipatividad (capítulo 11) ----------------------------
+%  s(u,y): tasa de suministro;  V: almacenamiento;  d(x,u): tasa de disipación
+%  varphi(u), rho(y), psi(x): exceso de pasividad en entrada, salida, estado
+\newcommand{\Va}{V_a}                         % almacenamiento disponible
+\newcommand{\PR}{\mathrm{PR}}
+\newcommand{\SPR}{\mathrm{SPR}}
+
+%% --- Varios --------------------------------------------------------------
+\newcommand{\dd}{\mathrm{d}}                   % diferencial recta
+\newcommand{\ee}{\mathrm{e}}                   % número e
+\newcommand{\ii}{\mathrm{i}}                   % unidad imaginaria
+\newcommand{\defeq}{\coloneqq}
+\newcommand{\implica}{\;\Longrightarrow\;}
+\newcommand{\dif}{\mathrm{d}}                  % alias del curso de Control
+\newcommand{\grados}{^{\circ}}
+\newcommand{\matlab}{MATLAB\xspace}
+\newcommand{\simulink}{Simulink\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}             % comando de MATLAB en el texto
+
+\endinput

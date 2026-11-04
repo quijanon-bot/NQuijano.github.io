@@ -1,0 +1,40 @@
+---
+title: "Códigos de MATLAB y Simulink"
+subtitle: "Cómo están organizados, cómo se corren y cómo se mejoran"
+---
+
+Todos los códigos viven en la carpeta [`codigo/`](https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo) del repositorio. Son la **misma fuente** que se ve en las notas en PDF y en estas páginas: los bloques de código se extraen de los archivos al compilar, de modo que nunca se desincronizan.
+
+## Primeros pasos
+
+```matlab
+>> cd ruta/al/repositorio/codigo
+>> iniciarCurso              % agrega comun/ y todos los capítulos al path
+>> C11_Ej1_MasaResorte
+>> verificarCap11            % comprueba los números del handout
+```
+
+Los scripts `C*_Ej*` no requieren *toolboxes* (y corren en GNU Octave); los `crearModelo_*.m` requieren Simulink y los videos, `VideoWriter`.
+
+## Organización
+
+```
+codigo/
+├── iniciarCurso.m
+├── comun/                    funciones de todos los capítulos
+│   ├── estiloFigura.m        figuras con la paleta del curso
+│   ├── abrirVideo.m          grabar videos en cualquier sistema operativo
+│   ├── respFrec.m            G(jw) sin toolboxes
+│   ├── esPR.m                prueba numérica PR / SPR (Khalil, Lema 6.1)
+│   └── balanceEnergia.m      V - V(0) = int s - int d sobre una simulación
+└── cap11_pasividad/
+    ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
+    ├── C11_Video_*           los cinco videos de la parte
+    ├── crearModelo_*         LazoPasivo.slx, AguaReplicador.slx, PenduloPD.slx
+    ├── modeloOsciladores.m, modeloAgua.m, energiaAgua.m, energiaAguaSL.m
+    └── verificarCap11.m      39 pruebas de los números del handout
+```
+
+## Convenciones
+
+Cada script empieza con un encabezado **QUÉ HACE / OBSERVE / ESPERADO / EXPLORE**. Los fragmentos que aparecen en las notas van entre `% [ini:nombre]` y `% [fin:nombre]`. Los números del encabezado son los del texto, y `verificarCapNN` (MATLAB) y `herramientas/capNN_numeros.py` (Python, independiente) los comprueban.

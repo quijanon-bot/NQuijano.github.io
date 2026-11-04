@@ -1,0 +1,79 @@
+%% ---------------------------------------------------------------------
+\section{De la pasividad a la estabilidad}
+\label{sec:pa-estabilidad}
+%% ---------------------------------------------------------------------
+
+Con $u=0$ no entra energía, y un sistema pasivo solo puede conservar o perder la que tiene. Eso suena a estabilidad. La distancia entre ``suena a'' y ``es'' es el contenido de esta sección.
+
+\begin{lema}[label=lem:pa-estable]{Pasividad y estabilidad \citep[Lema~6.6]{Kha02}}
+Si el sistema \eqref{eq:pa-estado} es pasivo con un almacenamiento $V$ \emph{definido positivo}, el origen de $\dot x=f(x,0)$ es estable. Si es estrictamente pasivo, el origen es asintóticamente estable; si además $V$ es radialmente no acotada, es globalmente asintóticamente estable.
+\end{lema}
+
+\begin{proof}
+Con $u=0$, \eqref{eq:pa-pasivo} da $\Vdot\le u\T y=0$: $V$ es una función de Lyapunov y el origen es estable. Si es estrictamente pasivo, $\Vdot\le-\psi(x)$, negativa definida. Falta ver que $V$ es definida positiva: si $V(x_0)=0$ para algún $x_0$, a lo largo de la solución con $u=0$ se tiene $0\le V(x(t))\le V(x_0)-\int_0^t\psi(x(\tau))\,\dif\tau\le0$, luego $\psi(x(\tau))\equiv0$, $x(\tau)\equiv0$ y $x_0=0$. El teorema de Lyapunov (y el de Barbashin--Krasovskii para la parte global) termina la prueba.
+\end{proof}
+
+\begin{cuidado}[Pasividad pide $V\ge0$; estabilidad pide $V>0$]
+En la \cref{def:pa-pasivo} el almacenamiento solo tiene que ser semidefinido positivo. Si $V$ ``no ve'' una parte del estado, esa parte puede hacer lo que quiera. El sistema $\dot x_1=x_1$, $\dot x_2=u$, $y=x_2$ es sin pérdidas con $V=\tfrac12x_2^2$, y su origen es inestable.
+\end{cuidado}
+
+El caso interesante es el intermedio: el sistema OSP, que disipa solo a través de la salida. Con $u=0$,
+\begin{equation}
+  \Vdot\;\le\;-y\T\rho(y)\;\le\;0,\qquad\text{y }\Vdot=0\text{ solo donde }y=0 .
+  \label{eq:pa-ospu0}
+\end{equation}
+Para concluir algo hay que saber qué pasa con las soluciones que se quedan en $\{y=0\}$.
+
+\begin{definicion}[label=def:pa-zso]{Observabilidad en estado cero \citep[Def.~6.5]{Kha02}}
+El sistema \eqref{eq:pa-estado} es \clave{observable en estado cero} (ZSO, \emph{zero-state observable}) si ninguna solución de $\dot x=f(x,0)$ distinta de $x(t)\equiv0$ puede permanecer idénticamente en el conjunto $\{x:h(x,0)=0\}$. Dicho de otro modo: con $u\equiv0$, $y(t)\equiv0$ implica $x(t)\equiv0$.
+\end{definicion}
+
+\begin{lema}[label=lem:pa-ospzso]{OSP + ZSO \citep[Lema~6.7]{Kha02}, \citep{HiMo76}}
+Si el sistema \eqref{eq:pa-estado} es OSP y ZSO, el origen de $\dot x=f(x,0)$ es asintóticamente estable. Si además el almacenamiento es radialmente no acotado, es globalmente asintóticamente estable.
+\end{lema}
+
+\begin{proof}
+Primero, $V$ es definida positiva: si $V(x_0)=0$, con $u=0$ se tiene $0\le V(x(t))\le V(x_0)-\int_0^ty\T\rho(y)\,\dif\tau\le0$, luego $y\T\rho(y)\equiv0$, $y\equiv0$ y, por ZSO, $x\equiv0$: $x_0=0$. Entonces $V$ es una función de Lyapunov con $\Vdot\le-y\T\rho(y)\le0$. Sea $\Nivel{c}=\{V\le c\}$ un conjunto de nivel compacto alrededor del origen; es positivamente invariante. Por el principio de invarianza de LaSalle, toda solución que empieza en $\Nivel{c}$ converge al mayor conjunto invariante $M$ contenido en $E=\{x\in\Nivel{c}:\Vdot=0\}\subseteq\{y=0\}$. Una solución en $M$ tiene $y(t)\equiv0$ con $u=0$; por ZSO es $x(t)\equiv0$. Luego $M=\{0\}$. Si $V$ es radialmente no acotada, todo conjunto de nivel es compacto y el argumento es global.
+\end{proof}
+
+\begin{ideaclave}
+\begin{tabular}{@{}ll@{}}
+pasivo y $V$ definida positiva & $\Longrightarrow$ estable\\
+estrictamente pasivo & $\Longrightarrow$ asintóticamente estable\\
+OSP \textbf{y} ZSO & $\Longrightarrow$ asintóticamente estable (LaSalle)\\
+\multicolumn{2}{@{}l}{y global, si el almacenamiento es radialmente no acotado.}
+\end{tabular}
+\end{ideaclave}
+
+\begin{ejemplo}[label=ej:pa-rlclasalle]{El RLC serie con $u=0$}
+Pruebe que el origen del RLC de la \cref{tr:pa-osp} es globalmente asintóticamente estable.
+\solucion Con $u=0$: $\dot x_1=x_2$, $\dot x_2=-x_1-x_2$, $\Vdot=-x_2^2$. El sistema es OSP. Es ZSO: si $y=x_2\equiv0$, entonces $\dot x_2=-x_1\equiv0$, luego $x_1\equiv0$. Como $V=\tfrac12(x_1^2+x_2^2)$ es radialmente no acotada, el \cref{lem:pa-ospzso} da GAS. La \cref{fig:pa-lasalle} muestra cómo funciona: $\Vdot=0$ en toda la recta $x_2=0$ (en rojo), y cada vez que la trayectoria la cruza, $V(x(t))$ se aplana un instante; pero la trayectoria no se puede quedar en la recta, porque allí $\dot x_2=-x_1\neq0$.
+\end{ejemplo}
+
+\video{V11_2_lasalle}{La trayectoria toca $\{\Vdot=0\}$ y no se queda}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_lasalle_rlc}
+\caption{Izquierda: RLC serie con $u=0$, conjuntos de nivel de $V$ y el conjunto $E=\{x_2=0\}$ en rojo. Centro: $V(x(t))$ se aplana en cada cruce (líneas rojas). Derecha: el contraejemplo de la \cref{tr:pa-lasalle}, en el que las soluciones llegan a $E$ y se quedan, cada una en un punto distinto.}
+\label{fig:pa-lasalle}
+\end{figure}
+
+\codigorepo{cap11_pasividad/C11_Ej7_LaSalleRLC.m}{lasalle}{OSP + ZSO: la trayectoria cruza $\{y=0\}$}
+
+\begin{trampa}[label=tr:pa-lasalle]{La brecha de LaSalle}
+\plausible{$\Vdot\le0$ y $\Vdot=0$ solo cuando $y=0$; luego $y\to0$ y, por tanto, $x\to0$.}
+Falso sin ZSO. Considere
+\[
+  \dot x_1=0,\qquad \dot x_2=-x_2+u,\qquad y=x_2,\qquad V=\tfrac12(x_1^2+x_2^2),\qquad \Vdot=-y^2+u\,y .
+\]
+El sistema es OSP y $V$ es definida positiva, pero $x_1(t)\equiv x_1(0)$: el origen es estable y \emph{no} asintóticamente estable (\cref{fig:pa-lasalle}, derecha). Falla ZSO: con $u=0$, la solución $x(t)\equiv(x_1(0),0)$ permanece en $\{y=0\}$ sin ser cero.
+\correcto{De ``$\Vdot\le0$'' a ``converge al origen'' hay que pasar por el principio de invarianza: $x(t)$ converge al mayor conjunto invariante dentro de $\{\Vdot=0\}$. ZSO es exactamente la hipótesis que hace que ese conjunto sea el origen.}
+\end{trampa}
+
+\begin{profundiza}[Una función de Lyapunov estricta, sin LaSalle]
+Para el RLC se puede evitar LaSalle con un término cruzado. Con $V_\epsilon=V+\epsilon x_1x_2$,
+\[
+  \Vdot_\epsilon=-\epsilon x_1^2-\epsilon x_1x_2-(1-\epsilon)x_2^2 ,
+\]
+que es negativa definida si y solo si $\epsilon>0$ y $\epsilon(1-\epsilon)>\epsilon^2/4$, es decir, $0<\epsilon<4/5$ (y $V_\epsilon$ es definida positiva para $\epsilon<1$). El precio es que $V_\epsilon$ ya no es la energía física. La sección \texttt{veps} de \cmd{C11\_Ej7\_LaSalleRLC.m} lo comprueba en una malla: con $\epsilon=0.79$ el máximo de $\Vdot_\epsilon$ fuera del origen es negativo; con $\epsilon=0.81$ ya es positivo.
+\end{profundiza}

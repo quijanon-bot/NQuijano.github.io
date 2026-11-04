@@ -1,0 +1,10 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}
+ \node[bloque=snlazul,minimum width=42mm] (H1) {$H_1$: tanques (OSP)\\$\dot{\tilde v}_i=\tilde q_i+q_i^*-c_i\sqrt{\tilde v_i+v^*}$};
+ \node[bloque=snlcoral,below=10mm of H1,minimum width=42mm] (H2) {$H_2$: replicador (sin pérdidas)\\$\dot q_i=-q_i\bigl(Q\,u_{2,i}-q^\top u_2\bigr)$};
+ \draw[flecha] (H1.east) -- ++(14mm,0) |- node[pos=0.25,right,etq]{$y_1=\tfrac{r}{Qv_m}\tilde v=u_2$} (H2.east);
+ \draw[flecha] (H2.west) -- ++(-14mm,0) |- node[pos=0.25,left,etq]{$u_1=-y_2=\tilde q$} (H1.west);
+\end{tikzpicture}
+\end{document}

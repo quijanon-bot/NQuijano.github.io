@@ -1,0 +1,32 @@
+---
+title: "Notación del curso"
+subtitle: "Una sola notación para notas, presentaciones, códigos y esta página"
+---
+
+La notación se define en un solo archivo, `notas/notacion.sty`; las ecuaciones de esta página usan las mismas macros (en `recursos/macros.html`). Se sigue a Khalil (2002) salvo aviso. La tabla completa está en el capítulo *Cómo leer estas notas* del PDF.
+
+## Sistemas y estabilidad
+
+| Símbolo | Significado | MATLAB |
+|:--|:--|:--|
+| $\dot x=f(t,x,u)$, $y=h(t,x,u)$ | sistema; el tiempo es el **primer** argumento | `f = @(t,x) ...` |
+| $\eq$ | punto de equilibrio (Khalil escribe $\bar x$) | `xe` |
+| invariante / variante en el tiempo | en lugar de autónomo / no autónomo | — |
+| $V$, $\Vdot=\jac{V}{x}f$ | función de Lyapunov y su derivada (una función del estado) | `V, dV` |
+| $\K,\ \Kinf,\ \KL$ | funciones de comparación | — |
+| $u$, $w$ | entrada que se diseña; entrada exógena (ISS) | `u, w` |
+
+## Pasividad (parte 11)
+
+| Símbolo | Significado | MATLAB |
+|:--|:--|:--|
+| $u,\ y$ | variables de **puerto**: $u\T y$ es una potencia | `u, y` |
+| $s(u,y)$ | tasa de suministro (*supply rate*) | `s` |
+| $V\ge0$ | almacenamiento (*storage*; Willems escribe $S$) | `V` |
+| $d(x,u)\ge0$ | tasa de disipación | `d` |
+| $\Va$ | almacenamiento disponible | — |
+| $\varphi(u),\ \rho(y),\ \psi(x)$ | exceso de pasividad en entrada (ISP), salida (OSP) y estado | `phi, rho, psi` |
+| ZSO | observable en estado cero | — |
+| PR, SPR | real positiva, estrictamente real positiva | `esPR` |
+| $H_1,\ H_2$, $e_i$ | subsistemas de la conexión estándar y sus entradas | `modeloOsciladores` |
+| $q_i,\ F_i,\ \bar F$ | caudal, pago y pago promedio en el replicador | `modeloAgua` |

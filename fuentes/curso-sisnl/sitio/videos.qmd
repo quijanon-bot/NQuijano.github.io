@@ -1,0 +1,22 @@
+---
+title: "Videos"
+subtitle: "Los videos que se usan en clase, generados con los scripts del repositorio"
+---
+
+Cada video se genera con un script de MATLAB; si quiere cambiar algo, cambie el script y vuelva a grabarlo. Los `.mp4` se copian a `sitio/videos/`.
+
+## Parte 11 · Pasividad
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V11_1_balance}[V11.1 · Balance de energía](videos/V11_1_balance.mp4) | La masa con resorte duro y las tres energías. | `C11_Video_Balance.m` |
+| []{#V11_2_lasalle}[V11.2 · LaSalle](videos/V11_2_lasalle.mp4) | El RLC toca $\{\Vdot=0\}$ y no se queda. | `C11_Video_LaSalle.m` |
+| []{#V11_3_nyquist}[V11.3 · De SPR a no PR](videos/V11_3_nyquist.mp4) | Un cero que barre la familia $G_z$. | `C11_Video_Nyquist.m` |
+| []{#V11_4_interconexion}[V11.4 · Interconexión](videos/V11_4_interconexion.mp4) | La energía pasa de $H_1$ a $H_2$. | `C11_Video_Interconexion.m` |
+| []{#V11_5_agua}[V11.5 · Agua](videos/V11_5_agua.mp4) | Tanques, caudales y cambio de demanda. | `C11_Video_Agua.m` |
+
+::: {.cuidado}
+[Para publicar los videos]{.caja-titulo}
+
+Ejecute los scripts `C11_Video_*.m` (quedan en `codigo/cap11_pasividad/videos/`) y copie los `.mp4` a `sitio/videos/`. Si pesan mucho, súbalos a YouTube y cambie los enlaces.
+:::

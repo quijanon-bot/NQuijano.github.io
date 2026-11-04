@@ -1,0 +1,35 @@
+%% =====================================================================
+%%  Capítulo 11 -- Pasividad y disipatividad
+%%  PILOTO del formato nuevo para Sistemas No Lineales (noviembre de 2026).
+%%  Integra: Handout8.tex (versión anterior), las ecuaciones de las dos
+%%  clases de 2026 (EcuacionesPasividad2026.tex), los códigos de
+%%  codigo/cap11_pasividad y la aplicación de Ramírez-Llanos y Quijano (2010).
+%%  Correcciones respecto al handout anterior: ver \S\ref{sec:pa-cierre}.
+%%  Números verificados con herramientas/cap11_numeros.py (72/72) y
+%%  codigo/cap11_pasividad/verificarCap11.m (39/39 en Octave 8.4).
+%% =====================================================================
+
+\capitulo[cap:pasividad]{Pasividad y disipatividad}
+  {La vida es un embrollo, Benítez. [\dots] Pero, en cambio, cuando jugás al fútbol todo es clarísimo. Tus compañeros, tus rivales. Un deseo, un peligro. Una sola manera de seguir la vida.}
+  {Eduardo Sacheri}
+
+\begin{objetivos}[partes/11-pasividad.html]
+  \item Escribir el balance de energía de un sistema con puertos y reconocer en él una desigualdad de disipación, sin resolver la ecuación diferencial.
+  \item Clasificar un sistema (sin memoria o con estado) como pasivo, sin pérdidas, ISP, OSP o estrictamente pasivo, y decir \emph{dónde} se disipa la energía.
+  \item Concluir estabilidad a partir de la pasividad, y saber cuándo hace falta observabilidad en estado cero y el principio de invarianza.
+  \item Decidir si una función de transferencia es real positiva o estrictamente real positiva, en frecuencia y con el lema KYP.
+  \item Probar la estabilidad de una interconexión en retroalimentación sumando almacenamientos, y diseñar controladores por inyección de amortiguamiento y por pasivación.
+  \item Seguir, pieza por pieza, la prueba de estabilidad de un problema real: la distribución de agua con la dinámica del replicador.
+\end{objetivos}
+
+\input{capitulos/cap11/s01_por_que}
+\input{capitulos/cap11/s02_balance}
+\input{capitulos/cap11/s03_disipatividad}
+\input{capitulos/cap11/s04_sin_memoria}
+\input{capitulos/cap11/s05_modelos}
+\input{capitulos/cap11/s06_estabilidad}
+\input{capitulos/cap11/s07_lineales}
+\input{capitulos/cap11/s08_interconexion}
+\input{capitulos/cap11/s09_control}
+\input{capitulos/cap11/s10_agua}
+\input{capitulos/cap11/s11_cierre}

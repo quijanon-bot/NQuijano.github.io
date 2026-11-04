@@ -1,0 +1,273 @@
+%% =====================================================================
+%%  Cómo leer estas notas (capítulo sin número)
+%%  Fuente única de la notación: notacion.sty. Estas tablas la documentan.
+%%  Adaptado de curso-control (00_convenciones.tex) y del capítulo de
+%%  Notación del borrador LibroSisNL2026.
+%% =====================================================================
+\chapter*{Cómo leer estas notas}
+\addcontentsline{toc}{chapter}{Cómo leer estas notas}
+\markboth{Cómo leer estas notas}{}
+
+\epigrafe{Tengo por cierto que la hipocresía no deja de ser un homenaje que el vicio rinde a la virtud.}{Alfredo Relaño, glosando a La Rochefoucauld}
+
+Estas notas acompañan el curso \emph{Sistemas No Lineales} (IELE 4311). Cada capítulo corresponde a una parte del curso y tiene una página web con los códigos de \matlab/\simulink, los videos y las actividades. El código QR al comienzo de cada capítulo lleva a esa página. La bibliografía principal es \citet{Kha02}; las definiciones, la numeración de los resultados que se citan y las convenciones siguen la tercera edición de ese libro. \citet{KeBr23} es el texto complementario.
+
+\section*{Las cajas}
+
+Cada tipo de contenido tiene su caja y su color. Así se puede leer el capítulo a dos velocidades: la primera vez, completo; para repasar, solo las cajas azules y las trampas.
+
+\begin{definicion}[title={\textcolor{snlazul}{\faBookOpen}\hspace{0.45em}Definición 11.2: así se ve una definición}]{}
+Las definiciones, los teoremas, los lemas, las proposiciones y los corolarios comparten una sola numeración por capítulo (Definición~11.2, Teorema~11.3, \dots), y se citan con ese número.
+\end{definicion}
+
+\begin{teorema}[title={\textcolor{snlazul}{\faCheckCircle}\hspace{0.45em}Teorema 11.3: así se ve un resultado}]{}
+El enunciado, con todas sus hipótesis. La demostración, cuando se incluye, va después de la caja.
+\end{teorema}
+
+\begin{ideaclave}
+Lo que hay que recordar de una sección. Si solo tiene cinco minutos antes de un examen, lea estas cajas.
+\end{ideaclave}
+
+\begin{ejemplo}[title={\textcolor{snlvioleta}{\faPencil*}\hspace{0.45em}Ejemplo 11.5: título del ejemplo}]{}
+El enunciado va primero.
+\solucion Después de la línea viene el desarrollo. Intente resolverlo antes de leerlo.
+\end{ejemplo}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Trampa 11.2: así se ve una trampa}]{}
+\plausible{Una conclusión que suena bien, que un análisis apresurado (o una herramienta automática) produce con facilidad, y que es falsa.}
+Por qué falla, casi siempre con un contraejemplo concreto.
+\correcto{Lo que sí se puede afirmar, con sus hipótesis.}
+\end{trampa}
+
+Las trampas son la seña de identidad del curso: distinguen el dominio de un tema de la aplicación mecánica de recetas. Casi todas son \emph{generalizaciones indebidas} de algo que sí es cierto en un contexto más restringido.
+
+\begin{cuidado}
+Los errores que más se repiten en las evaluaciones y las confusiones de notación o de lenguaje.
+\end{cuidado}
+
+\begin{pausa}[title={\textcolor{snlverde}{\faPauseCircle}\hspace{0.45em}Pausa activa 11.3}]
+Una pregunta corta para comprobar que entendió antes de seguir. Las respuestas están al final de cada capítulo.
+\end{pausa}
+
+\begin{historia}
+De dónde salió cada idea, con la referencia exacta del trabajo original.
+\end{historia}
+
+\begin{profundiza}
+Material opcional, marcado con (*): no se evalúa, pero ayuda a entender.
+\end{profundiza}
+
+\begin{receta}[Procedimiento]
+Los procedimientos, paso a paso, en una caja oscura para encontrarlos rápido.
+\end{receta}
+
+\begin{modelo}[Nombre.slx]
+Un modelo de \simulink. En el curso los modelos se \emph{construyen por código} con un script \cmd{crearModelo\_*.m}: así cualquiera puede ver, versionar y mejorar exactamente qué bloques tiene.
+\end{modelo}
+
+\paragraph{El código}
+Los bloques de código verde azulado salen \emph{directamente} de los archivos del repositorio del curso (la ruta aparece en el encabezado y es un enlace). Si un código se mejora en el repositorio, las notas se actualizan solas al compilar. Los números que aparecen en los comentarios de los códigos son los mismos del texto, y cada capítulo tiene un script \cmd{verificarCapNN.m} que comprueba que siguen coincidiendo (y un \texttt{herramientas/capNN\_numeros.py} que los recalcula de forma independiente). En el margen, \textcolor{snlteal}{\faFileCode} indica un script y \textcolor{snlcoral}{\faPlayCircle} un video. Los problemas marcados \etiquetaM{} requieren \matlab/\simulink.
+
+\paragraph{Simular no es demostrar}
+\matlab/\simulink es una herramienta de \emph{verificación}, no de descubrimiento. La secuencia correcta es analizar primero ---equilibrios, linealización, candidata de Lyapunov o almacenamiento--- y simular después para confirmar. Cien condiciones iniciales que convergen no prueban estabilidad asintótica global; una sola que no converge sí la refuta.
+
+\paragraph{Antes de correr los códigos}
+Ejecute una vez por sesión \cmd{iniciarCurso} (carpeta \texttt{codigo/} del repositorio). Agrega al \emph{path} las funciones comunes y permite correr cualquier script desde cualquier carpeta. Los scripts del curso no requieren \emph{toolboxes} salvo que se indique; los \cmd{crearModelo\_*.m} requieren \simulink.
+
+\section*{Notación}
+
+La notación se define en un solo lugar, el archivo \texttt{notacion.sty}, y todos los capítulos la usan. Cuando hay que escoger, se sigue a \citet{Kha02} y se indica la correspondencia con \citet{KeBr23}. La forma general de un sistema es
+\[
+\dot x=f(t,x,u),\qquad y=h(t,x,u),\qquad x(t_0)=x_0,
+\]
+con el tiempo como \emph{primer} argumento. Los vectores y las matrices no se escriben en negrilla.
+
+\subsection*{Conjuntos, vectores y matrices}
+%% ---------------------------------------------------------------------
+
+
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{9.5cm}@{}}
+\toprule
+Símbolo & Significado \\
+\midrule
+$\R$, $\R^n$, $\R^{n\times m}$ & reales; vectores columna de $n$ componentes; matrices $n\times m$ \\
+$\Rp$ & $[0,\infty)$ \\
+$\N$, $\Z$, $\C$, $\Cneg$ & naturales, enteros, complejos, semiplano izquierdo abierto $\{\Real s<0\}$ \\
+$x$, $A$ & vectores en minúscula y matrices en mayúscula, \emph{sin negrilla}; $x_i$ es la $i$-ésima componente \\
+$x\T$, $A\T$ & transpuesta. La conjugada transpuesta se escribe $A^{\mathsf H}$; el asterisco se reserva para equilibrios \\
+$\norm{x}$ & norma euclidiana de $x\in\R^n$, salvo que se indique otra ($\norm{x}_1$, $\norm{x}_\infty$) \\
+$\abs{a}$ & valor absoluto de un escalar. (\citet{KeBr23} escribe $\abs{x}$ para la norma de un vector.) \\
+$\norm{A}$ & norma inducida: $\norm{A}=\sup_{x\neq0}\norm{Ax}/\norm{x}$ \\
+$\inner{x}{y}$ & producto interno; en $\R^n$, $x\T y$ \\
+$\lmin(P)$, $\lmax(P)$ & menor y mayor valor propio de una matriz simétrica $P$ \\
+$P>0$, $P\ge0$ & $P$ simétrica definida positiva, semidefinida positiva (como en \citet{Kha02}) \\
+$\diag(a_1,\dots,a_n)$ & matriz diagonal \\
+$\Bola{r}$ & bola cerrada $\{x\in\R^n:\norm{x}\le r\}$ \\
+$\D$ & dominio: subconjunto abierto y conexo de $\R^n$, usualmente con $0\in\D$ \\
+$\overline S$, $\partial S$, $\interior S$ & clausura, frontera e interior de $S$ \\
+$\dist(x,S)$ & distancia de un punto a un conjunto: $\inf_{y\in S}\norm{x-y}$ \\
+$\Cont{k}$ & funciones con $k$ derivadas continuas; $\Cont{\infty}$, suaves \\
+$\defeq$ & ``se define como'' \\
+\bottomrule
+\end{tabular}
+
+
+%% ---------------------------------------------------------------------
+\subsection*{Sistemas dinámicos}
+%% ---------------------------------------------------------------------
+
+La forma general de un sistema es
+\[
+\dot x=f(t,x,u),\qquad y=h(t,x,u),\qquad x(t_0)=x_0,
+\]
+con el tiempo como \emph{primer} argumento, como en \citet{Kha02}. Las notas de 2022--2024 escribían $f(x,u,t)$ y, en algunos capítulos, $f(x,t)$; esa forma no se usa.
+
+
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{9.5cm}@{}}
+\toprule
+Símbolo & Significado \\
+\midrule
+$x\in\R^n$ & estado \\
+$u\in\R^m$ & entrada \emph{que se diseña} (control) \\
+$w\in\R^{m}$ & entrada \emph{exógena} que no se controla: perturbación, referencia, error de actuador. Se usa en ISS y acotamiento último (capítulo~10); \citet{Kha02} la llama $u$ \\
+$y\in\R^p$ & salida \\
+$f$, $g$ & campo vectorial; en sistemas afines en el control, $\dot x=f(x)+g(x)u$ \\
+$h$ & función de salida \\
+$u=k(x)$, $u=k(t,x)$ & ley de control por retroalimentación del estado \\
+$\eq$ & punto de equilibrio: $f(\eq)=0$. Tras la traslación $z=x-\eq$ el equilibrio es el origen. (\citet{Kha02} escribe $\bar x$.) \\
+$\flujo{t}{x_0}$ & solución de $\dot x=f(x)$ con $x(0)=x_0$, vista como función de $(t,x_0)$: el \emph{flujo}. Para sistemas variantes en el tiempo, $\phi(t;t_0,x_0)$. Cuando no hay ambigüedad se escribe $x(t)$ \\
+$[t_0,T)$ & intervalo maximal de existencia de una solución \\
+$\jac{f}{x}(x)$ & matriz jacobiana, de tamaño $n\times n$; en un equilibrio, $A=\jac{f}{x}(\eq)$ \\
+$\nabla V(x)$ & gradiente (vector columna); $\jac{V}{x}=\nabla V\T$ es un vector fila \\
+$\Lie{f}{V}(x)$ & derivada de Lie: $\jac{V}{x}(x)\,f(x)$. Recursivamente, $L_f^kh=L_f(L_f^{k-1}h)$ y $L_gL_fh=\jac{(L_fh)}{x}g$ \\
+$\mu$ & parámetro de bifurcación (\citet{Str15} usa $r$) \\
+$\lambda$, $\lambda_i(A)$ & valores propios; también tasa de convergencia exponencial $\ee^{-\lambda t}$ \\
+$\tau$ & constante de tiempo \\
+\bottomrule
+\end{tabular}
+
+
+\paragraph{Terminología.} Un sistema es \emph{invariante en el tiempo} si $f$ no depende explícitamente de $t$, y \emph{variante en el tiempo} en caso contrario. No se usan las palabras \emph{autónomo} y \emph{no autónomo}, que en la literatura se emplean tanto para ``invariante en el tiempo'' como para ``sin entrada''. Un sistema es \emph{no forzado} si no tiene entrada o si $u\equiv0$.
+
+%% ---------------------------------------------------------------------
+\subsection*{Estabilidad}
+%% ---------------------------------------------------------------------
+
+
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{9.5cm}@{}}
+\toprule
+Símbolo & Significado \\
+\midrule
+$V(x)$, $V(t,x)$ & función de Lyapunov (o candidata) \\
+$\Vdot(x)$ & derivada de $V$ a lo largo de las trayectorias: $\Vdot(x)=\Lie{f}{V}(x)$; para $V(t,x)$, $\Vdot=\partial_tV+\jac{V}{x}f(t,x)$. Es una función \emph{del estado}, no de una solución particular \\
+$v(t)\defeq V(x(t))$ & la señal que se obtiene al evaluar $V$ sobre \emph{una} solución \\
+$\Nivel{c}$ & conjunto de nivel $\{x\in\D:V(x)\le c\}$ \\
+$\RA$ & región de atracción de un equilibrio asintóticamente estable \\
+$\omegalim{x_0}$, $\alphalim{x_0}$ & conjuntos $\omega$-límite y $\alpha$-límite de la solución que pasa por $x_0$ (\citet{Kha02} escribe $L^+$ para el $\omega$-límite) \\
+$E$, $M$ & en el principio de invarianza: $E=\{x\in\Nivel{c}:\Vdot(x)=0\}$ y $M$, el mayor conjunto invariante contenido en $E$ \\
+$\K$, $\Kinf$, $\KL$ & funciones de comparación, con las definiciones de \citet{Kha02}. $\alpha_1,\alpha_2,\alpha_3$ se usan para cotar $V$ y $\Vdot$ \\
+$\gamma$ & ganancia: ganancia ISS ($\gamma\in\K$) o ganancia $\Ldos$ (escalar) \\
+$\chi$ & umbral en el teorema de funciones ISS-Lyapunov (\citet{Kha02} escribe $\rho$; aquí $\rho$ se reserva para el grado relativo) \\
+$P$, $Q$ & matrices de la ecuación de Lyapunov $A\T P+PA=-Q$ \\
+\bottomrule
+\end{tabular}
+
+
+\paragraph{Abreviaturas.} Se conservan las siglas en inglés que el lector encontrará en la literatura, siempre presentadas junto al término en español la primera vez:
+GAS (estabilidad asintótica global), UAS y UGAS (uniforme, local y global), UUB (acotamiento último uniforme), ISS (estabilidad entrada--estado), CLF (función de control de Lyapunov), PR y SPR (real positiva y estrictamente real positiva), LTI (lineal invariante en el tiempo).
+
+%% ---------------------------------------------------------------------
+\subsection*{Señales, pasividad y diseño}
+%% ---------------------------------------------------------------------
+
+
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{9.5cm}@{}}
+\toprule
+Símbolo & Significado \\
+\midrule
+$\norm{w}_{\Linf}$ & $\sup_{t\ge t_0}\norm{w(t)}$ (supremo esencial si $w$ no es continua a trozos) \\
+$\norm{w}_{\Ldos}$ & $\bigl(\int_{t_0}^\infty\norm{w(t)}^2\dd t\bigr)^{1/2}$ \\
+$\Lext$ & espacio extendido: señales cuyo truncamiento a $[0,T]$ está en $\Ldos$ para todo $T$ \\
+$G(s)$ & función de transferencia \\
+$s(u,y)$ & tasa de suministro (\emph{supply rate}) en disipatividad; pasividad corresponde a $s=u\T y$. No se usa $w$, que está reservada para la entrada exógena. En el capítulo~11, $s$ es también la variable de Laplace; el contexto las distingue \\
+$u,\ y$ en pasividad & variables de \emph{puerto}: $u$ no es un control que se diseña ni una perturbación, sino la variable por donde entra energía; $u\T y$ es una potencia \\
+$\varphi(u),\ \rho(y),\ \psi(x)$ & exceso de pasividad en la entrada, en la salida y en el estado (como en \citet{Kha02}, cap.~6) \\
+$\Va(x)$ & almacenamiento disponible (\emph{available storage}) \\
+$H_1,\ H_2$ & subsistemas de una interconexión en retroalimentación; $e_i$ es la entrada de $H_i$ \\
+$V$ & función de almacenamiento (\emph{storage function}) \\
+$\rho$ & grado relativo \\
+$z=T(x)$ & difeomorfismo (cambio de coordenadas); en forma normal $z=(\eta,\xi)$ \\
+$\dot\eta=f_0(\eta,0)$ & dinámica cero \\
+\bottomrule
+\end{tabular}
+
+
+%% ---------------------------------------------------------------------
+\subsection*{Juegos poblacionales}
+%% ---------------------------------------------------------------------
+
+
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{9.5cm}@{}}
+\toprule
+Símbolo & Significado \\
+\midrule
+$p\in\simplex$ & estado de la población (proporciones) en el símplex $\simplex=\{p\in\R^N:p_i\ge0,\ \sum_ip_i=1\}$ \\
+$\Pi$ & matriz de pagos de un juego simétrico \\
+$F_i(p)$, $\bar F(p)$ & pago de la estrategia $i$, $F(p)=\Pi p$, y pago medio $\bar F(p)=p\T F(p)$ \\
+\bottomrule
+\end{tabular}
+
+
+%% ---------------------------------------------------------------------
+\subsection*{Colisiones resueltas}
+%% ---------------------------------------------------------------------
+
+Algunas letras se usaban en las notas anteriores para objetos distintos. La tabla resume la convención adoptada; donde una letra conserva dos usos, estos nunca aparecen en el mismo capítulo.
+
+
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.1cm}>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}p{5.6cm}@{}}
+\toprule
+Letra & Usos en las notas anteriores & Convención en el libro \\
+\midrule
+$\omega$ & frecuencia; conjunto $\omega$-límite; pago $\omega(\bar\pi_i,p)$ en el replicador & frecuencia $\omega$; $\omegalim{x_0}$ siempre con argumento; pagos $F_i(p)$ \\
+$w$ & entrada exógena; tasa de suministro; covector en linealización por retroalimentación & entrada exógena $w$; tasa de suministro $s(u,y)$; covector $\theta(x)$ \\
+$u$ & control diseñado; entrada exógena en ISS & control $u$; entrada exógena $w$ \\
+$\gamma$ & ley de control $u=\gamma(x)$; ganancia ISS; tasa exponencial; cota de perturbación & ley de control $k(x)$; ganancia $\gamma$; tasa $\lambda$; cota de perturbación $\nu$ \\
+$K$ & constante en $\norm{\ee^{At}}\le K\ee^{-\lambda t}$; clase $\K$ & constante $k$; clase $\K$ (caligráfica) \\
+$\rho$ & grado relativo; umbral ISS; función definida positiva & grado relativo $\rho$; umbral $\chi$ \\
+$\lambda$ & valor propio; tasa exponencial; función escalar en linealización por retroalimentación & valor propio y tasa $\lambda$; función escalar $h$ o $\psi$ \\
+$\phi,\varphi,\Phi$ & solución; señal genérica en Barbalat; difeomorfismo & solución $\phi$; señal $\psi$; difeomorfismo $T$ \\
+$a,b$ & radio y cota última en UUB; $L_fV$, $L_gV$ en la fórmula de Sontag & $a$, $b$ en UUB; en Sontag se escribe $L_fV$, $L_gV$ \\
+$h$ & función de salida; característica $i=h(v)$ del diodo túnel & ambas; el diodo aparece solo en los capítulos~2 y~4, sin salida \\
+$E$ & conjunto $\{\Vdot=0\}$ de LaSalle; voltaje de fuente & ambos, en capítulos distintos \\
+\bottomrule
+\end{tabular}
+
+
+
+\section*{Decisiones de lenguaje}
+
+Algunas palabras tienen varias versiones en los libros y en el habla del laboratorio. En el curso usamos siempre la primera columna (y la misma elección del curso de Control cuando el término es común a los dos).
+
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Usamos} & \textbf{En lugar de} & \textbf{Por qué}\\
+\midrule
+invariante / variante en el tiempo & autónomo / no autónomo & ``autónomo'' se usa también para ``sin entrada''\\
+retroalimentación & retroalimentación & el mismo término del curso de Control\\
+almacenamiento $V$ & función de energía, $S$ & \citet{Wil72a} escribe $S$; \citet{Kha02}, $V$\\
+tasa de suministro $s(u,y)$ & $w(u,y)$ & $w$ es la entrada exógena (ISS)\\
+sin pérdidas & \emph{lossless}, conservativo & ``conservativo'' tiene otro sentido en mecánica\\
+estrictamente pasivo en la salida (OSP) & pasivo estricto en la salida & se conservan las siglas inglesas ISP, OSP\\
+observable en estado cero (ZSO) & detectable & la detectabilidad es una propiedad más débil\\
+pasivo (sin calificativo) & pasivo ``cerca del origen'' & \emph{pasivo} significa para todo $(x,u)$; lo local se declara\\
+\bottomrule
+\end{tabularx}
+\end{center}

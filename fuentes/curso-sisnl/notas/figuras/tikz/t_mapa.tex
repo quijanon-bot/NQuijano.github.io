@@ -1,0 +1,18 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}[font=\sffamily\small,
+  caja/.style={draw=#1,fill=#1!8,thick,rounded corners=2pt,align=center,minimum height=10mm,text width=27mm},
+  fl/.style={-{Stealth[length=2.2mm]},thick,draw=snlgris}]
+  \node[caja=snlnoche] (bal) {balance de energía\\ \footnotesize $\dot V\le u^\top y$};
+  \node[caja=snlazul,right=7mm of bal] (dis) {disipatividad\\ \footnotesize Willems (\S11.3)};
+  \node[caja=snlverde,right=7mm of dis,yshift=14mm] (est) {estabilidad\\ \footnotesize ZSO + LaSalle (\S11.6)};
+  \node[caja=snlvioleta,right=7mm of dis] (lin) {frecuencia\\ \footnotesize PR, SPR, KYP (\S11.7)};
+  \node[caja=snlambar,right=7mm of dis,yshift=-14mm] (int) {interconexión\\ \footnotesize (\S11.8)};
+  \node[caja=snlcoral,below=7mm of dis] (dise) {diseño: $u=-\phi(y)$,\\ pasivación (\S11.9)};
+  \node[caja=snlteal,right=7mm of int] (agua) {aplicación: agua\\ \footnotesize replicador (\S11.10)};
+  \draw[fl] (bal) -- (dis);
+  \draw[fl] (dis.east) -- (est.west); \draw[fl] (dis.east) -- (lin.west); \draw[fl] (dis.east) -- (int.west);
+  \draw[fl] (dis) -- (dise); \draw[fl] (int) -- (agua); \draw[fl] (est.east) -| (agua.north);
+\end{tikzpicture}
+\end{document}

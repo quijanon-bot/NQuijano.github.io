@@ -1,0 +1,130 @@
+%% ---------------------------------------------------------------------
+\section{Control basado en pasividad}
+\label{sec:pa-control}
+%% ---------------------------------------------------------------------
+
+Hasta aquí usamos la pasividad para \emph{analizar}. Esta sección (de lectura, y base para el proyecto) la usa para \emph{diseñar}. La idea es la de cualquier ingeniero mecánico: un sistema pasivo guarda su energía; para llevarlo al reposo basta agregarle amortiguamiento.
+
+\begin{teorema}[label=thm:pa-amortiguamiento]{Inyección de amortiguamiento \citep[\S14.4]{Kha02}}
+Suponga que el sistema $\dot x=f(x,u)$, $y=h(x)$, es pasivo con un almacenamiento $V$ definido positivo y radialmente no acotado, y que es ZSO. Entonces la ley
+\begin{equation}
+  u=-\phi(y),
+  \label{eq:pa-amortiguamiento}
+\end{equation}
+con $\phi$ localmente Lipschitz, $\phi(0)=0$ y $y\T\phi(y)>0$ para todo $y\neq0$, hace globalmente asintóticamente estable el origen.
+\end{teorema}
+
+\begin{proof}
+En lazo cerrado, $\Vdot\le u\T y=-y\T\phi(y)\le0$, y $\Vdot=0$ solo donde $y=0$. Una solución que se queda en $\{y=0\}$ tiene $u=-\phi(0)=0$, y por ZSO es $x\equiv0$. LaSalle, con $V$ radialmente no acotada, da GAS.
+\end{proof}
+
+La función $\phi$ es el ``amortiguador'' y tiene mucha libertad: lineal, saturada, con zona muerta (siempre que $y\T\phi(y)>0$ fuera del origen).
+
+\begin{ejemplo}[label=ej:pa-amortiguar]{Amortiguar un resorte duro}
+Estabilice globalmente $\dot x_1=x_2$, $\dot x_2=-x_1^3+u$.
+\solucion Con $V=\tfrac14x_1^4+\tfrac12x_2^2$, $\Vdot=x_2u$: con la salida $y=x_2$ el sistema es sin pérdidas. Es ZSO: con $u=0$, $y=x_2\equiv0$ implica $\dot x_2=-x_1^3\equiv0$, luego $x_1\equiv0$. Por el \cref{thm:pa-amortiguamiento}, tanto $u=-k\,x_2$ como $u=-\tfrac{2k}\pi\arctan x_2$, con $k>0$, estabilizan globalmente el origen; la segunda nunca pide más de $2k/\pi$ (\cref{fig:pa-control}, izquierda y centro). Note que la convergencia es lenta: la linealización en el origen tiene un valor propio nulo (el resorte $x_1^3$ no tiene parte lineal), así que la estabilidad no es exponencial.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_control_pasividad}
+\caption{Izquierda y centro: inyección de amortiguamiento lineal y saturada ($k=1$, $x(0)=(2,0)$); la saturada nunca supera $2/\pi\approx0.637$ (punteado). Derecha: péndulo llevado a $q_r=60\grados$ con PD más compensación de gravedad y con PD solo.}
+\label{fig:pa-control}
+\end{figure}
+
+\codigorepo{cap11_pasividad/C11_Ej11_ControlPasividad.m}{amortiguamiento}{Dos amortiguadores para el mismo sistema}
+
+\subsection{Pasivación por retroalimentación}
+
+El \cref{thm:pa-amortiguamiento} exige que el sistema ya sea pasivo con respecto a la salida que se mide. Si no lo es, se puede intentar \emph{volverlo} pasivo con una retroalimentación preliminar $u=\alpha(x)+\beta(x)v$ y escoger una salida conveniente; luego se cierra el lazo con $v=-\phi(y)$. Eso se llama \clave{pasivación por retroalimentación} (\emph{feedback passivation}). Un caso que aparece en todas partes: si el sistema es afín en el control, $\dot x=f(x)+g(x)u$, y existe $V$ definida positiva y radialmente no acotada con $L_fV(x)=\jac Vxf(x)\le0$, entonces con la salida
+\begin{equation}
+  y\defeq\bigl(L_gV(x)\bigr)\T=\Bigl[\jac Vx(x)\,g(x)\Bigr]\T
+  \label{eq:pa-salidapasiva}
+\end{equation}
+el sistema es pasivo: $\Vdot=L_fV+L_gV\,u\le y\T u$. Byrnes, Isidori y Willems caracterizaron exactamente cuándo esto es posible: un sistema es equivalente por retroalimentación a uno pasivo (con almacenamiento definido positivo) si y solo si tiene grado relativo uno y es débilmente de fase mínima~\citep{BIW91}. Grado relativo y fase mínima son los temas del capítulo siguiente.
+
+\begin{ejemplo}[label=ej:pa-pendulo]{PD con compensación de gravedad \citep{TaAr81}}
+Un robot de $m$ eslabones obedece $M(q)\ddot q+C(q,\dot q)\dot q+D\dot q+g(q)=u$, con $M(q)=M(q)\T>0$, $\dot M-2C$ antisimétrica, $D=D\T>0$ y $g(q)=\bigl[\jac{P}{q}\bigr]\T$, con $P(q)$ la energía potencial. Lleve $q$ a una referencia constante $q_r$.
+\solucion Con el error $e=q-q_r$ y la ley preliminar $u=g(q)-K_pe+v$, con $K_p=K_p\T>0$, el sistema queda $M\ddot e+C\dot e+D\dot e+K_pe=v$: la gravedad desaparece y $K_p$ actúa como un resorte. Con el almacenamiento $V=\tfrac12\dot e\T M(q)\dot e+\tfrac12e\T K_pe$,
+\[
+  \Vdot=\tfrac12\dot e\T(\dot M-2C)\dot e-\dot e\T D\dot e+\dot e\T v\;\le\;\dot e\T v ,
+\]
+porque la forma cuadrática de una matriz antisimétrica es cero. Con salida $y=\dot e$ el sistema es pasivo (de hecho OSP), y es ZSO: con $v=0$, $\dot e\equiv0$ implica $\ddot e\equiv0$ y $K_pe\equiv0$. Con $v=-K_d\dot e$, $K_d>0$, se obtiene el PD con compensación de gravedad
+\[
+  u=g(q)-K_p(q-q_r)-K_d\dot q ,
+\]
+que hace GAS el equilibrio $q=q_r$, $\dot q=0$. En el péndulo, $m\ell^2\ddot q+b\dot q+mg\ell\sin q=u$, con $m=\ell=1$, $g=9.81$, $b=0.5$, $K_p=20$ y $K_d=5$, la posición llega a $q_r=60\grados$ (\cref{fig:pa-control}, derecha).
+\end{ejemplo}
+
+\begin{trampa}[label=tr:pa-pd]{``Un PD basta para posicionar un péndulo''}
+\plausible{Con $K_p>0$ y $K_d>0$, el PD $u=-K_p(q-q_r)-K_d\dot q$ lleva el péndulo a $q_r$.}
+Sin compensar la gravedad, el equilibrio del lazo cerrado no es $q_r$, sino la solución de $K_p(q_r-q)=mg\ell\sin q$. Con los números del ejemplo, $q=0.7228$\,rad$\,=41.41\grados$: un error de $18.59\grados$ que no desaparece con el tiempo. El PD hace estable \emph{un} equilibrio, no el que se quería. El almacenamiento del ejemplo pierde su mínimo en $q_r$: la energía potencial de la gravedad ya no se cancela.
+\correcto{O se compensa la gravedad (la ley del \cref{ej:pa-pendulo}), o se acepta el error, que baja como $1/K_p$, o se agrega acción integral. Pasividad dice \emph{dónde} quedó el mínimo de la energía.}
+\end{trampa}
+
+\codigorepo{cap11_pasividad/C11_Ej11_ControlPasividad.m}{pendulo}{PD con y sin compensación de gravedad}
+
+\begin{modelo}[PenduloPD.slx]
+\cmd{crearModelo\_Pendulo.m} arma el péndulo con un bloque \texttt{Fcn} para el controlador y otro para la planta, calcula en línea $V=\tfrac12m\ell^2\dot q^2+\tfrac12K_p(q-q_r)^2$, simula con \texttt{compensa = 1} y \texttt{compensa = 0} y reporta $q(10)$ en los dos casos.
+\end{modelo}
+
+\subsection{Pasivación de una cascada}
+
+Un caso estructural muy frecuente: un sistema pasivo $H_1$ maneja, a través de su salida, a un sistema $H_2$ que sin esa entrada sería estable (\cref{fig:pa-cascada}):
+\begin{equation}
+  H_1:\ \dot z=f(z)+G(z)u,\quad y=h(z);\qquad
+  H_2:\ \dot x=f_a(x)+F(x,y)\,y .
+  \label{eq:pa-cascada}
+\end{equation}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap11/t_cascada}
+\caption{Pasivación de una cascada: la ley realimenta $\bigl[\tfrac{\partial W}{\partial x}F(x,y)\bigr]\T$ para cancelar el efecto de $y$ sobre la energía de $H_2$.}
+\label{fig:pa-cascada}
+\end{figure}
+
+\begin{teorema}[label=thm:pa-cascada]{Pasivación de una cascada \citep[\S14.4]{Kha02}}
+Suponga que $H_1$ es pasivo y ZSO, con almacenamiento $V(z)$ definido positivo y radialmente no acotado, y que $\dot x=f_a(x)$ tiene una función de Lyapunov $W(x)$ definida positiva y radialmente no acotada con $\jac Wxf_a(x)<0$ para todo $x\neq0$. Entonces la ley
+\begin{equation}
+  u=-\Bigl[\jac Wx(x)\,F(x,y)\Bigr]\T-\phi(y),
+  \label{eq:pa-leycascada}
+\end{equation}
+con $\phi$ como en el \cref{thm:pa-amortiguamiento}, hace globalmente asintóticamente estable el origen $(z,x)=(0,0)$.
+\end{teorema}
+
+\begin{proof}
+Con $U=V(z)+W(x)$, la pasividad de $H_1$ da
+\[
+  \dot U\le\jac Wxf_a(x)+\jac WxF(x,y)\,y+y\T u=\jac Wxf_a(x)-y\T\phi(y)\le0 ,
+\]
+y $\dot U=0$ solo si $x=0$ y $y=0$. En una solución que se queda allí, $\jac Wx(0)=0$ y $\phi(0)=0$ dan $u\equiv0$, y la observabilidad en estado cero de $H_1$ da $z\equiv0$. LaSalle con $U$ radialmente no acotada termina la prueba.
+\end{proof}
+
+\begin{ejemplo}[label=ej:pa-cascada]{Una cascada que escapa}
+Estabilice globalmente $\dot z=u$, $\dot x=-x+x^2z$.
+\solucion $H_1$: $\dot z=u$, $y=z$, es pasivo con $V=\tfrac12z^2$ y ZSO. $H_2$: con $y=0$, $\dot x=-x$ es GAS con $W=\tfrac12x^2$, y $F(x,y)=x^2$. La ley \eqref{eq:pa-leycascada} con $\phi(y)=ky$ es
+\[
+  u=-x\cdot x^2-kz=-x^3-kz,\qquad k>0,
+\]
+y $\dot U=-x^2-kz^2$. Con $x(0)=1$, $z(0)=3$ y $k=1$, la solución llega al origen (\cref{fig:pa-cascadafig}, derecha). Es el mismo resultado que da el \emph{backstepping}~\citep{KoAr01}.
+\end{ejemplo}
+
+\begin{trampa}[label=tr:pa-cascada]{``Si $z\to0$ exponencialmente, entonces $x\to0$''}
+\plausible{Con $u=-kz$ se tiene $z(t)=z_0\ee^{-kt}\to0$; como $\dot x=-x$ es GAS cuando $z=0$, también $x\to0$.}
+El término $x^2z$ crece más rápido que lo que $-x$ puede contener. Con $w=1/x$, $\dot w=w-z_0\ee^{-kt}$, cuya solución es
+\[
+  w(t)=\ee^{t}\Bigl(w_0-\frac{z_0}{1+k}\Bigr)+\frac{z_0}{1+k}\,\ee^{-kt} .
+\]
+Si $x_0z_0>1+k$, $w$ se anula en tiempo finito: $x$ \emph{escapa a infinito} en $t_e=\frac{1}{1+k}\ln\dfrac{z_0/(1+k)}{z_0/(1+k)-1/x_0}$. Con $x_0=1$, $z_0=3$, $k=1$: $t_e=\tfrac12\ln3=0.5493$, mientras $z$ decae tranquilamente (\cref{fig:pa-cascadafig}, izquierda). Y hacer $k$ más grande no arregla el problema globalmente: solo corre el umbral~\citep{SuKo91}.
+\correcto{La estabilidad asintótica global de cada pieza no garantiza la de la cascada; hace falta una propiedad de la interconexión (ISS de $H_2$ respecto a $y$, o una ley que tenga en cuenta el acoplamiento, como \eqref{eq:pa-leycascada}).}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_cascada}
+\caption{Izquierda: con $u=-kz$ ($k=1$, $x_0=1$), $x$ escapa en tiempo finito cuando $z_0>2$. Derecha: con la ley por pasivación, $x\to0$ para todo $z_0$.}
+\label{fig:pa-cascadafig}
+\end{figure}
+
+\codigorepo{cap11_pasividad/C11_Ej12_Cascada.m}{escape}{El escape en tiempo finito, simulado y exacto}

@@ -1,0 +1,122 @@
+%% ---------------------------------------------------------------------
+\section{Interconexión en retroalimentación}
+\label{sec:pa-interconexion}
+%% ---------------------------------------------------------------------
+
+La propiedad que hace útil la pasividad en diseño es que se conserva al interconectar. Considere dos sistemas
+\begin{equation}
+  H_i:\quad \dot x_i=f_i(x_i,e_i),\qquad y_i=h_i(x_i,e_i),\qquad i=1,2,
+\end{equation}
+conectados como en la \cref{fig:pa-feedback}:
+\begin{equation}
+  e_1=u_1-y_2,\qquad e_2=u_2+y_1 .
+  \label{eq:pa-conexion}
+\end{equation}
+La retroalimentación es \emph{negativa} en $e_1$ y positiva en $e_2$. Ésa es la convención que hace cancelar las potencias.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.62\linewidth]{cap11/t_feedback}
+\caption{La conexión estándar en retroalimentación \citep[\S6.5]{Kha02}.}
+\label{fig:pa-feedback}
+\end{figure}
+
+\begin{cuidado}[Bien planteada]
+Si $h_1$ o $h_2$ dependen de su entrada, las ecuaciones $e_1=u_1-h_2(x_2,e_2)$, $e_2=u_2+h_1(x_1,e_1)$ deben tener solución única $(e_1,e_2)$ para todo $(x_1,x_2,u_1,u_2)$; si no, el lazo ni siquiera define un sistema. Con $h_1=h_1(x_1)$ (sin término directo) el problema desaparece.
+\end{cuidado}
+
+\begin{teorema}[label=thm:pa-pasivopasivo]{Pasivo con pasivo es pasivo \citep[Teo.~6.1]{Kha02}}
+Si $H_1$ y $H_2$ son pasivos, con almacenamientos $V_1$ y $V_2$, la conexión \eqref{eq:pa-conexion} con entrada $u=(u_1,u_2)$ y salida $y=(y_1,y_2)$ es pasiva con almacenamiento $V=V_1+V_2$.
+\end{teorema}
+
+\begin{proof}
+Por hipótesis, $e_i\T y_i\ge\Vdot_i$. Con \eqref{eq:pa-conexion},
+\[
+  e_1\T y_1+e_2\T y_2=(u_1-y_2)\T y_1+(u_2+y_1)\T y_2=u_1\T y_1+u_2\T y_2 :
+\]
+los términos $-y_2\T y_1$ y $+y_1\T y_2$ se cancelan. La potencia que $H_1$ entrega a $H_2$ es exactamente la que $H_2$ recibe. Luego $u\T y\ge\Vdot_1+\Vdot_2$.
+\end{proof}
+
+\begin{trampa}[label=tr:pa-signo]{``Dos sistemas pasivos en lazo forman un sistema pasivo''}
+\plausible{Si $H_1$ y $H_2$ son pasivos, su conexión en retroalimentación es pasiva.}
+Depende del signo. Con retroalimentación \emph{positiva}, $e_1=u_1+y_2$, la suma de potencias es $u_1\T y_1+u_2\T y_2+2\,y_1\T y_2$, y el término $2\,y_1\T y_2$ no tiene signo: la interconexión puede crear energía. Dos integradores, $1/s$ y $1/s$, con retroalimentación positiva dan $\ddot y_1=y_1$: un equilibrio inestable.
+\correcto{El teorema vale con la convención de signos de \eqref{eq:pa-conexion}: negativa en una entrada, positiva en la otra.}
+\end{trampa}
+
+\begin{pausa}
+Conecte dos integradores, $H_1=H_2=1/s$, en la forma estándar con $u=0$. ¿Qué tipo de pasividad tiene cada uno? ¿Qué hace el lazo?
+\respuesta{Cada integrador es sin pérdidas con $V_i=\tfrac12x_i^2$. El lazo es $\dot x_1=-x_2$, $\dot x_2=x_1$: un oscilador armónico, con $V_1+V_2=\tfrac12(x_1^2+x_2^2)$ constante. Pasivo con pasivo da pasivo, y nada más: sin disipación no hay estabilidad asintótica, y el \cref{thm:pa-lazoAS} no aplica.}
+\end{pausa}
+
+Con $u=0$ el lazo no recibe energía, y la suma de almacenamientos es candidata a función de Lyapunov. El resultado siguiente combina el \cref{thm:pa-pasivopasivo} con los lemas de la \cref{sec:pa-estabilidad}.
+
+\begin{teorema}[label=thm:pa-lazoAS]{Estabilidad del lazo \citep[Teo.~6.3]{Kha02}}
+Considere la conexión \eqref{eq:pa-conexion} con $u=0$. El origen del lazo cerrado es asintóticamente estable si se cumple alguna de las condiciones siguientes:
+\begin{enumerate}
+  \item $H_1$ y $H_2$ son estrictamente pasivos;
+  \item $H_1$ y $H_2$ son OSP y ZSO;
+  \item uno es estrictamente pasivo y el otro es OSP y ZSO.
+\end{enumerate}
+Si además $V_1$ y $V_2$ son radialmente no acotados, es globalmente asintóticamente estable.
+\end{teorema}
+
+\begin{proof}[Idea]
+Con $u=0$ y $V=V_1+V_2$, la cancelación da $\Vdot\le-(\text{lo que disipa }H_1)-(\text{lo que disipa }H_2)$. En el caso 2, $\Vdot\le-y_1\T\rho_1(y_1)-y_2\T\rho_2(y_2)$; en $\{\Vdot=0\}$ se tiene $y_1=y_2=0$, luego $e_1=e_2=0$, y la observabilidad en estado cero de cada uno da $x_1=x_2=0$. El resto es el argumento de LaSalle del \cref{lem:pa-ospzso}.
+\end{proof}
+
+\begin{trampa}[label=tr:pa-cadauno]{``Cada almacenamiento decrece''}
+\plausible{La prueba del \cref{thm:pa-lazoAS} usa que $\Vdot_1\le0$ y $\Vdot_2\le0$.}
+No. Cada almacenamiento puede subir mientras recibe energía del otro; solo la suma es monótona. La versión anterior de estas notas decía lo contrario. La \cref{fig:pa-interconexion} lo muestra: toda la energía empieza en $H_1$, $V_2$ sube de $0$ a casi $0.5$ y $V_1$ también sube en algunos intervalos, pero $V_1+V_2$ nunca crece.
+\correcto{El teorema solo pide $\Vdot_1+\Vdot_2\le0$ en el lazo, que se obtiene de la cancelación de las potencias.}
+\end{trampa}
+
+\subsection{Exceso de uno, escasez del otro}
+
+La pasividad de cada pieza no es necesaria: basta que lo que le \emph{falta} a una lo \emph{ponga} la otra. Suponga que, para $i=1,2$ y constantes $\epsilon_i,\delta_i$ de cualquier signo,
+\begin{equation}
+  e_i\T y_i\;\ge\;\Vdot_i+\epsilon_i\,e_i\T e_i+\delta_i\,y_i\T y_i .
+  \label{eq:pa-excesoescasez}
+\end{equation}
+Con $u=0$, $e_1=-y_2$ y $e_2=y_1$, la cancelación da
+\begin{equation}
+  \Vdot_1+\Vdot_2\;\le\;-(\epsilon_2+\delta_1)\,\norm{y_1}^2-(\epsilon_1+\delta_2)\,\norm{y_2}^2 .
+  \label{eq:pa-compensa}
+\end{equation}
+
+\begin{ideaclave}
+Basta $\epsilon_2+\delta_1>0$ y $\epsilon_1+\delta_2>0$: una escasez en la salida de $H_1$ ($\delta_1<0$) se compensa con un exceso en la entrada de $H_2$ ($\epsilon_2>0$). Con observabilidad en estado cero del lazo, el origen es asintóticamente estable. Es la versión de Lyapunov del teorema de pasividad con exceso y escasez \citep[\S6.5]{Kha02}, \citep[cap.~2]{SJK97}.
+\end{ideaclave}
+
+\begin{ejemplo}[label=ej:pa-osciladores]{Dos osciladores no lineales}
+Pruebe que el origen de la conexión estándar de
+\[
+  H_1:\ \dot x_1=x_2,\ \ \dot x_2=-a x_1^3-k x_2+e_1,\ \ y_1=x_2;\qquad
+  H_2:\ \dot x_3=x_4,\ \ \dot x_4=-b x_3-x_4^3+e_2,\ \ y_2=x_4,
+\]
+con $a,b,k>0$, es globalmente asintóticamente estable.
+\solucion Con los almacenamientos (energía de cada oscilador)
+\[
+  V_1=\tfrac a4x_1^4+\tfrac12x_2^2,\quad \Vdot_1=-k\,y_1^2+e_1y_1;
+  \qquad
+  V_2=\tfrac b2x_3^2+\tfrac12x_4^2,\quad \Vdot_2=-y_2^4+e_2y_2 .
+\]
+Ambos son OSP, con $\rho_1(y)=ky$ y $\rho_2(y)=y^3$. Ambos son ZSO: si $y_1=x_2\equiv0$ con $e_1=0$, entonces $\dot x_2=-ax_1^3\equiv0$ y $x_1\equiv0$; igual para $H_2$. $V_1$ y $V_2$ son radialmente no acotados. Por el \cref{thm:pa-lazoAS} (caso 2), el origen es GAS, con
+\[
+  \Vdot=-k\,y_1^2-y_2^4 .
+\]
+La \cref{fig:pa-interconexion} usa $a=1$, $k=0.5$, $b=2$ y toda la energía inicial en $H_1$ ($x_1(0)=1.5$, $V(0)=1.2656$).
+\end{ejemplo}
+
+\video{V11_4_interconexion}{La energía pasa de $H_1$ a $H_2$ y la suma solo baja}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_interconexion}
+\caption{Dos osciladores en lazo. Izquierda: posiciones. Derecha: $V_1$ y $V_2$ suben y bajan; solo $V=V_1+V_2$ es monótona.}
+\label{fig:pa-interconexion}
+\end{figure}
+
+\codigorepo{cap11_pasividad/C11_Ej10_Interconexion.m}{lazo}{Dos osciladores en la conexión estándar}
+
+\begin{modelo}[LazoPasivo.slx]
+El script \cmd{crearModelo\_LazoPasivo.m} construye el lazo con bloques: dos integradores y un bloque \texttt{Fcn} por oscilador, los dos sumadores de \eqref{eq:pa-conexion} y el cálculo en línea de $V_1$, $V_2$ y $V$, que se ven en el Scope \texttt{energias}. Al final simula y compara con \cmd{ode45} (\cmd{modeloOsciladores.m}). Cambie el signo del sumador \texttt{e1} a \texttt{++} y vuelva a simular desde $x_1(0)=0.1$: es la \cref{tr:pa-signo}.
+\end{modelo}

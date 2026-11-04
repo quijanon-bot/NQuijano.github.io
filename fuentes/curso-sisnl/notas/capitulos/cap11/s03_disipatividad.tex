@@ -1,0 +1,96 @@
+%% ---------------------------------------------------------------------
+\section{Sistemas disipativos}
+\label{sec:pa-disipatividad}
+%% ---------------------------------------------------------------------
+
+Willems tomó el balance \eqref{eq:pa-balanceint} y le quitó todo lo que dependía del ejemplo: la forma del almacenamiento, la forma del suministro y la diferenciabilidad. Consideremos un sistema con puertos
+\begin{equation}
+  \dot x=f(x,u),\qquad y=h(x,u),\qquad x\in\mathcal X\subseteq\R^n,\quad u,y\in\R^m .
+  \label{eq:pa-sistema}
+\end{equation}
+
+\begin{definicion}[label=def:pa-disipativo]{Sistema disipativo \citep{Wil72a}}
+Sea $s:\R^m\times\R^m\to\R$ una función localmente integrable a lo largo de las trayectorias, la \clave{tasa de suministro}. El sistema \eqref{eq:pa-sistema} es \clave{disipativo} respecto a $s$ si existe una función $V:\mathcal X\to\Rp$, llamada \clave{almacenamiento} (\emph{storage function}), tal que para toda condición inicial $x(t_0)$, todo $t_1\ge t_0$ y toda entrada admisible $u$,
+\begin{equation}
+  V\bigl(x(t_1)\bigr)\;\le\;V\bigl(x(t_0)\bigr)+\int_{t_0}^{t_1}s\bigl(u(t),y(t)\bigr)\,\dif t .
+  \label{eq:pa-desigualdad}
+\end{equation}
+\end{definicion}
+
+La desigualdad \eqref{eq:pa-desigualdad} se llama \clave{desigualdad de disipación}: lo almacenado al final no supera lo almacenado al comienzo más lo suministrado. Note lo que \emph{no} se pide: ni que $V$ sea diferenciable, ni que sea definida positiva. Solo $V\ge0$.
+
+\paragraph{La forma diferencial}
+Si $V\in\Cont1$, se divide \eqref{eq:pa-desigualdad} por $t_1-t_0$ y se hace $t_1\to t_0$. Como $x(t_0)$ y $u(t_0)$ son arbitrarios, se obtiene la \clave{desigualdad de disipación diferencial}
+\begin{equation}
+  \Vdot(x,u)=\jac{V}{x}(x)\,f(x,u)\;\le\;s\bigl(u,h(x,u)\bigr)\qquad\text{para todo }x\in\mathcal X,\ u\in\R^m .
+  \label{eq:pa-diferencial}
+\end{equation}
+\alerta{Es una desigualdad entre funciones de $(x,u)$}, no entre señales: se verifica punto a punto, sin resolver la ecuación, exactamente como $\Vdot\le0$ en Lyapunov. La diferencia la llamamos \clave{tasa de disipación},
+\begin{equation}
+  d(x,u)\defeq s\bigl(u,h(x,u)\bigr)-\Vdot(x,u)\;\ge\;0,
+  \qquad
+  V\bigl(x(t_1)\bigr)=V\bigl(x(t_0)\bigr)+\int_{t_0}^{t_1}s\,\dif t-\int_{t_0}^{t_1}d\,\dif t .
+  \label{eq:pa-tasa}
+\end{equation}
+En la masa con resorte, $s=u\,y$ y $d=\delta\,y^2$.
+
+\paragraph{Cambiar la tasa de suministro es cambiar la pregunta}
+El argumento es siempre el mismo balance; lo que cambia es qué se suministra.
+
+\begin{center}\small
+\begin{tabular}{@{}p{5.2cm}p{7.2cm}@{}}
+\toprule
+\textbf{Tasa de suministro} $s(u,y)$ & \textbf{Propiedad que expresa}\\
+\midrule
+$u\T y$ & \textbf{pasividad} (potencia)\\[2pt]
+$u\T y-\epsilon\,u\T u-\delta\,y\T y$ & pasividad con exceso en la entrada ($\epsilon>0$) o en la salida ($\delta>0$)\\[2pt]
+$\gamma^2\norm{u}^2-\norm{y}^2$ & ganancia $\Ldos$ menor o igual que $\gamma$\\[2pt]
+$-\alpha_3(\norm{x})+\sigma(\norm{w})$ & ISS (no es de la forma $s(u,y)$, pero es la misma idea)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Por ejemplo, si el sistema es disipativo con $s=\gamma^2\norm{u}^2-\norm{y}^2$ y almacenamiento $V\ge0$, \eqref{eq:pa-desigualdad} con $t_0=0$, $t_1=T$ da
+\[
+  \int_0^T\norm{y}^2\,\dif t\;\le\;\gamma^2\int_0^T\norm{u}^2\,\dif t+V(x(0)) ,
+\]
+es decir, $\norm{y}_{\Ldos[0,T]}\le\gamma\norm{u}_{\Ldos[0,T]}+\sqrt{V(x(0))}$: la salida tiene a lo sumo $\gamma$ veces la energía de la entrada, más un término que depende de la condición inicial.
+
+%% ---------------------------------------------------------------------
+\subsection{El almacenamiento disponible}
+\label{sec:pa-disponible}
+
+¿Cómo saber si un sistema es disipativo sin adivinar $V$? Willems propuso medir la energía que se puede \emph{sacar} del sistema.
+
+\begin{teorema}[label=thm:pa-disponible]{Almacenamiento disponible \citep{Wil72a}}
+Para cada $x\in\mathcal X$ defina
+\begin{equation}
+  \Va(x)\defeq\sup_{u(\cdot),\;T\ge0}\Bigl(-\int_0^T s\bigl(u(t),y(t)\bigr)\,\dif t\Bigr),\qquad x(0)=x .
+  \label{eq:pa-Va}
+\end{equation}
+El sistema es disipativo respecto a $s$ si y solo si $\Va(x)<\infty$ para todo $x$. En ese caso $\Va$ es un almacenamiento, y $\Va(x)\le V(x)$ para \emph{todo} almacenamiento $V$.
+\end{teorema}
+
+\begin{proof}[Idea de la demostración]
+($\Rightarrow$) Si $V$ es un almacenamiento, \eqref{eq:pa-desigualdad} con $t_0=0$, $t_1=T$ da $-\int_0^Ts\,\dif t\le V(x)-V(x(T))\le V(x)$ para toda entrada y todo $T$; tomando el supremo, $\Va(x)\le V(x)<\infty$. ($\Leftarrow$) $\Va\ge0$ (tome $T=0$). Para ver que cumple \eqref{eq:pa-desigualdad}, concatene una entrada cualquiera en $[t_0,t_1]$ con una entrada casi óptima desde $x(t_1)$: lo que se extrae desde $x(t_0)$ por ese camino no puede superar $\Va(x(t_0))$, y eso es exactamente $\Va(x(t_1))\le\Va(x(t_0))+\int_{t_0}^{t_1}s\,\dif t$.
+\end{proof}
+
+La interpretación es física: $\Va(x)$ es la máxima energía que el entorno puede \emph{extraer} del sistema partiendo de $x$. Un sistema que no crea energía no puede entregar una cantidad infinita.
+
+\begin{ejemplo}[label=ej:pa-integrador]{El ancla: el integrador}
+Halle el almacenamiento disponible de $\dot x=u$, $y=x$, con $s=u\,y$.
+\solucion Para cualquier entrada,
+\[
+  -\int_0^Tu\,y\,\dif t=-\int_0^T\dot x\,x\,\dif t=\tfrac12x(0)^2-\tfrac12x(T)^2\;\le\;\tfrac12x(0)^2,
+\]
+y la cota se alcanza con cualquier entrada que lleve el estado a $x(T)=0$. Luego $\Va(x)=\tfrac12x^2$: la energía extraíble es \emph{toda} la almacenada. El integrador es el prototipo de sistema \emph{sin pérdidas}.
+\end{ejemplo}
+
+\begin{pausa}
+Calcule el almacenamiento disponible del filtro $\dot x=-x+u$, $y=x$, con $s=u\,y$. ¿Se alcanza el supremo?
+\respuesta{$-\int_0^Tu\,y\,\dif t=-\int_0^Tx(\dot x+x)\,\dif t=\tfrac12x(0)^2-\tfrac12x(T)^2-\int_0^Tx^2\,\dif t\le\tfrac12x(0)^2$. Llevando $x$ a cero cada vez más rápido, el término $\int x^2$ se hace tan pequeño como se quiera: $\Va(x)=\tfrac12x^2$, pero el supremo \emph{no se alcanza} con ninguna entrada (haría falta un impulso). El filtro pierde energía mientras se le extrae.}
+\end{pausa}
+
+\begin{profundiza}[El almacenamiento requerido]
+Si el sistema es alcanzable desde un estado $x^\star$ con $V(x^\star)=0$, también existe un almacenamiento \emph{máximo}: el \emph{requerido}, $V_r(x)=\inf\int_{-T}^0s\,\dif t$ sobre todas las entradas que llevan el estado de $x^\star$ en $t=-T$ a $x$ en $t=0$ (la mínima energía que hay que suministrar para llegar a $x$). Todo almacenamiento con $V(x^\star)=0$ cumple $\Va\le V\le V_r$, y el conjunto de almacenamientos es convexo~\citep{Wil72a,vdS17}. En el integrador, $\Va=V_r=\tfrac12x^2$: el almacenamiento es único.
+\end{profundiza}

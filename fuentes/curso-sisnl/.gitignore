@@ -1,0 +1,30 @@
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.listing
+notas/NotasSisNL.pdf
+# Quarto
+sitio/_site/
+sitio/.quarto/
+# MATLAB
+*.asv
+*.slx
+*.slxc
+slprj/
+*.png
+!sitio/**/*.png
+!notas/figuras/**/*.png
+# Videos grandes: publíquelos aparte o con Git LFS
+*.mp4
+*.avi
+# Copias locales
+sitio/pdf/*.pdf
+octave-workspace
+codigo/**/videos/

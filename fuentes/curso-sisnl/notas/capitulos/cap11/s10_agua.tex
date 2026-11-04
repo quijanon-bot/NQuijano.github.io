@@ -1,0 +1,201 @@
+%% ---------------------------------------------------------------------
+\section{Aplicación: distribución de agua con la dinámica del replicador}
+\label{sec:pa-agua}
+%% ---------------------------------------------------------------------
+
+Esta sección es un ejercicio completo: cada herramienta del capítulo hace una parte de la prueba de estabilidad de un problema real~\citep{RaQu10}. Una planta entrega un caudal total $Q$ a $N$ tanques de distribución, y una válvula por tanque decide qué fracción del caudal recibe (\cref{fig:pa-tanques}). El objetivo es llevar los volúmenes a un nivel común \emph{sin} un controlador central que conozca todo el modelo. La idea es tratar los caudales como una \emph{población} que se reparte entre estrategias (los tanques) según su \emph{pago}: qué tan lejos está cada tanque de llenarse.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.82\linewidth]{cap11/t_tanques}
+\caption{Distribución de agua con $N=3$ tanques. La planta entrega el caudal $Q=\sum_iq_i$; cada tanque descarga según Torricelli.}
+\label{fig:pa-tanques}
+\end{figure}
+
+\paragraph{El subsistema de los tanques}
+Con el balance de masa y la ley de Torricelli ($v_i=A_{T_i}h_i$),
+\begin{equation}
+  \dot v_i=q_i-c_i\sqrt{v_i},\qquad c_i=A_{p_i}C_{v_i}\sqrt{2g/A_{T_i}},
+  \label{eq:pa-tanque}
+\end{equation}
+donde $q_i$ es el caudal asignado al tanque $i$ (la entrada) y $c_i$ su coeficiente de descarga (la demanda).
+
+\paragraph{El subsistema de las válvulas: el replicador}
+Los caudales viven en el simplex escalado $\simplex_Q=\{q\in\R^N:q_i\ge0,\ \sum_iq_i=Q\}$. Cada tanque tiene un pago logístico, máximo ($r$) con el tanque vacío y nulo con el tanque a su capacidad $v_m$:
+\begin{equation}
+  F_i(v_i)=r\Bigl(1-\frac{v_i}{v_m}\Bigr),\qquad \bar F=\frac1Q\sum_jq_jF_j,
+  \qquad
+  \dot q_i=q_i\bigl(F_i-\bar F\bigr) .
+  \label{eq:pa-replicador}
+\end{equation}
+Es la dinámica del replicador~\citep{TaJo78}, la misma del juego halcón--paloma del capítulo~2, ahora usada para repartir un recurso escaso: las estrategias con pago \emph{por encima} del promedio ganan caudal.
+
+\begin{cuidado}[Notación del artículo y del curso]
+\begin{tabular}{@{}lll@{}}
+\textbf{Artículo (2010)} & \textbf{Estas notas} & \textbf{Significado}\\
+$x_i$ & $q_i$ & caudal al tanque $i$\\
+$f_i$, $\bar f$ & $F_i$, $\bar F$ & pago y pago promedio\\
+$e_{v_i}$, $e_{x_i}$ & $\tilde v_i$, $\tilde q_i$ & errores\\
+$\Sigma_1$, $\Sigma_2$ & $H_1$, $H_2$ & subsistemas del lazo
+\end{tabular}
+
+\smallskip
+La razón: en el curso $x$ es el estado y $f$ el campo vectorial; $F_i$ es la notación usual de pagos en juegos poblacionales~\citep{San10}.
+\end{cuidado}
+
+\begin{ideaclave}
+Dos invariancias que se usarán en la prueba. (i) $\sum_i\dot q_i=\sum_iq_iF_i-Q\bar F=0$: el simplex $\simplex_Q$ es invariante (el replicador solo redistribuye). (ii) Si $q_i=0$, entonces $\dot q_i=0$: las caras del simplex también son invariantes.
+\end{ideaclave}
+
+\paragraph{El equilibrio}
+En un equilibrio interior ($q_i>0$), $\dot q_i=0$ exige $F_i=\bar F$ para todo $i$: \emph{todos los volúmenes iguales}, $v_i=v^*$. Y $\dot v_i=0$ da $q_i^*=c_i\sqrt{v^*}$; sumando, $Q=\sqrt{v^*}\sum_jc_j$:
+\begin{equation}
+  v^*=\frac{Q^2}{\bigl(\sum_jc_j\bigr)^2},\qquad q_i^*=\frac{c_i\,Q}{\sum_jc_j} .
+  \label{eq:pa-equilibrioagua}
+\end{equation}
+Cada tanque recibe en proporción a su demanda, y el nivel común lo fijan el suministro y la demanda total (se requiere $v^*<v_m$). Con $Q=2$ y $c=(0.6,\,1.0,\,1.4)$: $v^*=4/9\approx0.444$ y $q^*=(0.400,\,0.667,\,0.933)$.
+
+%% ---------------------------------------------------------------------
+\subsection{El lazo y sus dos piezas}
+
+Con los errores $\tilde v_i=v_i-v^*$ y $\tilde q_i=q_i-q_i^*$ (note que $\sum_i\tilde q_i=0$), y usando $\sum_jq_j=Q$, el pago relativo depende solo de los errores:
+\begin{equation}
+  F_i-\bar F=-\frac{r}{v_m}\Bigl(\tilde v_i-\frac1Q\sum_jq_j\tilde v_j\Bigr).
+  \label{eq:pa-pagorelativo}
+\end{equation}
+Definimos los puertos
+\begin{equation}
+  H_1:\ u_1=\tilde q,\quad y_1=\frac{r}{Q\,v_m}\,\tilde v;\qquad
+  H_2:\ u_2=y_1,\quad y_2=-\tilde q;\qquad
+  u_1=-y_2,\ \ u_2=y_1 ,
+  \label{eq:pa-puertosagua}
+\end{equation}
+que es exactamente la conexión estándar \eqref{eq:pa-conexion} con entradas externas nulas (\cref{fig:pa-lazoagua}). En términos de su entrada, el replicador es $\dot q_i=-q_i\bigl(Q\,u_{2,i}-q\T u_2\bigr)$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{cap11/t_lazo_agua}
+\caption{El problema de distribución como una conexión en retroalimentación: los tanques ($H_1$) y el replicador ($H_2$).}
+\label{fig:pa-lazoagua}
+\end{figure}
+
+\begin{proposicion}[label=prop:pa-tanquesOSP]{Los tanques son OSP}
+Con $V_1=\dfrac{r}{2Q\,v_m}\sum_i\tilde v_i^{\,2}$, el subsistema $H_1$ cumple
+\[
+  \Vdot_1=u_1\T y_1+\frac{r}{Q\,v_m}\sum_i\psi_i(\tilde v_i),
+  \qquad
+  \psi_i(\tilde v_i)=c_i\,\tilde v_i\bigl(\sqrt{v^*}-\sqrt{\tilde v_i+v^*}\bigr)\le0,
+\]
+con igualdad solo si $\tilde v_i=0$. Como $\tilde v$ es proporcional a $y_1$, $H_1$ es estrictamente pasivo en la salida.
+\end{proposicion}
+
+\begin{proof}
+$\Vdot_1=\frac{r}{Q\,v_m}\sum_i\tilde v_i\bigl(\tilde q_i+q_i^*-c_i\sqrt{\tilde v_i+v^*}\bigr)$, y $q_i^*=c_i\sqrt{v^*}$. Como la raíz es creciente, $\tilde v_i$ y $\sqrt{v^*}-\sqrt{\tilde v_i+v^*}$ tienen signos opuestos (\cref{fig:pa-psi}). El dominio físico es $\tilde v_i\ge-v^*$.
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.48\linewidth]{cap11/f_psi}
+\caption{La disipación de cada tanque, $\psi_i(\tilde v_i)\le0$: la descarga de Torricelli es el ``resistor'' del sistema.}
+\label{fig:pa-psi}
+\end{figure}
+
+\begin{proposicion}[label=prop:pa-replicadorlossless]{El replicador es sin pérdidas}
+Con la \emph{entropía relativa} (divergencia de Kullback--Leibler de $q^*/Q$ respecto a $q/Q$),
+\[
+  V_2=\frac1Q\sum_iq_i^*\ln\frac{q_i^*}{q_i},
+  \qquad\text{se tiene}\qquad \Vdot_2=u_2\T y_2 .
+\]
+\end{proposicion}
+
+\begin{proof}
+$\Vdot_2=-\frac1Q\sum_iq_i^*\frac{\dot q_i}{q_i}=-\frac1Q\sum_iq_i^*\bigl(F_i-\bar F\bigr)$. Con \eqref{eq:pa-pagorelativo} y $\sum_iq_i^*=Q$,
+\[
+  \Vdot_2=\frac{r}{Q\,v_m}\Bigl(\sum_iq_i^*\tilde v_i-\sum_jq_j\tilde v_j\Bigr)=-\frac{r}{Q\,v_m}\sum_i\tilde q_i\tilde v_i=y_1\T(-\tilde q)=u_2\T y_2 .
+\]
+Ni disipa ni crea: el replicador solo \emph{redistribuye}. La entropía relativa es la función de Lyapunov clásica de las estrategias evolutivamente estables~\citep{HoSi98}.
+\end{proof}
+
+\begin{trampa}[label=tr:pa-V2]{``$V_2$ es un almacenamiento: es no negativa''}
+\plausible{$V_2=\frac1Q\sum_iq_i^*\ln(q_i^*/q_i)$ es una función de almacenamiento, luego $V_2\ge0$.}
+Fuera del simplex, no: con $q=2q^*$, $V_2=\frac1Q\sum_iq_i^*\ln\frac12=-\ln2<0$.
+\correcto{En el simplex sí, por la desigualdad de Jensen ($-\ln$ es convexa y los pesos $q_i^*/Q$ suman uno):
+\[
+  V_2=-\sum_i\frac{q_i^*}{Q}\ln\frac{q_i}{q_i^*}\;\ge\;-\ln\Bigl(\sum_i\frac{q_i^*}{Q}\,\frac{q_i}{q_i^*}\Bigr)=-\ln\frac{\sum_iq_i}{Q}=0,
+\]
+con igualdad solo si $q=q^*$. La positividad de $V_2$ \emph{depende de la invariancia} $\sum_iq_i=Q$: un almacenamiento puede ser definido positivo solo relativo a un conjunto invariante. Además, si algún $q_i\to0$, $V_2\to+\infty$: los conjuntos de nivel de $V_2$ son compactos \emph{dentro} del interior del simplex.}
+\end{trampa}
+
+%% ---------------------------------------------------------------------
+\subsection{Cierre del lazo}
+
+Con $V=V_1+V_2$ y la cancelación del \cref{thm:pa-pasivopasivo} ($u_1=-y_2$, $u_2=y_1$, luego $u_1\T y_1+u_2\T y_2=0$),
+\begin{equation}
+  \Vdot=\frac{r}{Q\,v_m}\sum_i\psi_i(\tilde v_i)\;\le\;0 ,
+  \label{eq:pa-Vdotagua}
+\end{equation}
+y el equilibrio $(v^*,q^*)$ es estable.
+
+\begin{trampa}[label=tr:pa-teo63]{``Es el \cref{thm:pa-lazoAS}''}
+\plausible{$H_1$ es OSP y $H_2$ es pasivo; por el teorema de estabilidad del lazo, el equilibrio es asintóticamente estable.}
+Ninguna de las tres combinaciones del \cref{thm:pa-lazoAS} aplica: $H_2$ es solo \emph{sin pérdidas}, no OSP ni estrictamente pasivo. Y $\Vdot$ se anula en todo $\{\tilde v=0\}$, cualquiera que sea $\tilde q$. Es la brecha de LaSalle de la \cref{tr:pa-lasalle}.
+\correcto{Hace falta un argumento de invarianza sobre el lazo completo.}
+\end{trampa}
+
+\begin{teorema}[label=thm:pa-agua]{Estabilidad del reparto \citep{RaQu10}}
+El equilibrio $(v^*,q^*)$ de \eqref{eq:pa-tanque}--\eqref{eq:pa-replicador} es asintóticamente estable, con región de atracción $\D=\{v_i\ge0,\ q_i>0,\ \sum_iq_i=Q\}$.
+\end{teorema}
+
+\begin{proof}
+En $\D$, los conjuntos $\{V\le c\}\cap\D$ son compactos ($V_1$ crece con $\norm{\tilde v}$; $V_2\to\infty$ en las caras) y positivamente invariantes ($\Vdot\le0$; $\sum_iq_i=Q$ se conserva; si $v_i=0$, $\dot v_i=q_i>0$). Por LaSalle, las soluciones convergen al mayor conjunto invariante en $E=\{\Vdot=0\}=\{\tilde v=0\}$. Si $\tilde v\equiv0$, también $\dot{\tilde v}\equiv0$, y \eqref{eq:pa-tanque} da $0=\tilde q_i+q_i^*-c_i\sqrt{v^*}=\tilde q_i$. Luego $\tilde q\equiv0$ y el conjunto invariante es el equilibrio.
+\end{proof}
+
+\begin{ideaclave}
+\begin{tabular}{@{}p{4.2cm}p{8cm}@{}}
+\textbf{Herramienta} & \textbf{Papel en la prueba}\\
+almacenamiento (\S\ref{sec:pa-disipatividad}) & $V_1$: energía de los errores de volumen; $V_2$: entropía relativa\\
+OSP (\S\ref{sec:pa-modelos}) & los tanques: la descarga de Torricelli disipa\\
+sin pérdidas (\S\ref{sec:pa-modelos}) & el replicador solo redistribuye\\
+cancelación (\cref{thm:pa-pasivopasivo}) & $u_1\T y_1+u_2\T y_2=0$ en el lazo\\
+invariancia del simplex & positividad de $V_2$ (Jensen)\\
+barrera en las caras & compacidad de los conjuntos de nivel\\
+LaSalle + ``ZSO'' (\S\ref{sec:pa-estabilidad}) & de estable a AS: los tanques hacen de observador de $\tilde q$
+\end{tabular}
+\end{ideaclave}
+
+\notamargen{En $v_i=0$, $\sqrt{v_i}$ no es Lipschitz. Pero en $\D$, $q_i>0$ empuja $v_i$ hacia arriba y la solución hacia adelante es única (capítulo~2).}
+\paragraph{Simulación}
+Con $Q=2$, $r=2$, $v_m=2$ y $c=(0.6,\,1.0,\,1.4)$, en $t=40$\,s aumenta la demanda del tanque 3, $c_3=1.4\to2.0$. El nuevo equilibrio es $v^*=4/12.96\approx0.309$, $q^*=(0.333,\,0.556,\,1.111)$. En la \cref{fig:pa-agua}, $V$ se calcula respecto al equilibrio \emph{vigente}: salta en $t=40$\,s y vuelve a decrecer de forma monótona. Y no hubo cálculo central: cada válvula solo compara su pago con el promedio.
+
+\video{V11_5_agua}{Tres tanques, un caudal y un replicador}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_agua}
+\caption{Tanques y replicador. En $t=40$\,s (línea ámbar) sube la demanda del tanque 3. Izquierda: los volúmenes convergen al nivel común (punteado). Centro: los caudales se redistribuyen, con $\sum_iq_i=Q$. Derecha: $V=V_1+V_2$ en escala logarítmica.}
+\label{fig:pa-agua}
+\end{figure}
+
+\codigorepo{cap11_pasividad/C11_Ej13_Agua.m}{simulacion}{El reparto de agua con cambio de demanda}
+
+\begin{modelo}[AguaReplicador.slx]
+\cmd{crearModelo\_Agua.m} arma el lazo con un integrador vectorial de seis estados y un bloque \texttt{Interpreted MATLAB Function} que llama a \cmd{modeloAgua.m}, la misma función que usan los scripts. Un escalón sube $c_3$ en $t=40$\,s, un bloque \texttt{Display} muestra $\sum_iq_i$ (debe quedarse en $Q$) y otro bloque calcula $V$ en línea con \cmd{energiaAguaSL.m}. Al final compara con el equilibrio exacto.
+\end{modelo}
+
+\begin{trampa}[label=tr:pa-caras]{``Asintóticamente estable, luego converge desde cualquier condición razonable''}
+\plausible{El equilibrio es asintóticamente estable y el sistema es físico; arranque como arranque, los tanques se igualan.}
+Si $q_3(0)=0$, entonces $q_3(t)\equiv0$ (las caras son invariantes): el tanque 3 se vacía en tiempo finito, $t=2\sqrt{v_3(0)}/c_3=0.90$\,s con $v_3(0)=0.4$, y el sistema converge a \emph{otro} equilibrio, en la frontera. Si $q_3(0)>0$ es pequeño, converge, pero con un retardo que crece como $\ln\bigl(1/q_3(0)\bigr)$: $q_3$ llega a $0.5$ en $4.52$, $7.70$, $10.74$ y $13.72$\,s para $q_3(0)=10^{-2},10^{-4},10^{-6},10^{-8}$ (\cref{fig:pa-caras}).
+\correcto{Es coherente con el \cref{thm:pa-agua}: la región de atracción $\D$ exige $q_i>0$, y $V_2=+\infty$ en las caras. Estabilidad asintótica es una afirmación sobre una región, y la región hay que decirla.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_agua_caras}
+\caption{Izquierda: con $q_3(0)=0$ el tanque 3 se vacía y los otros dos se reparten todo el caudal. Derecha: con $q_3(0)>0$ pequeño la convergencia llega, tarde.}
+\label{fig:pa-caras}
+\end{figure}
+
+\codigorepo{cap11_pasividad/C11_Ej14_AguaCaras.m}{caras}{La trampa de las caras del simplex}
+
+\begin{profundiza}[La otra dinámica del artículo: la oferta]
+Si el caudal total también se adapta (dinámica de oferta), $\dot q_i=q_i\,F_i$ y $Q=\sum_iq_i$ varía: $\dot Q=Q\,\bar F$ y las proporciones $p_i=q_i/Q$ siguen el replicador $\dot p_i=p_i(F_i-\bar F)$. El equilibrio es $F_i=0$: todos los tanques llenos, $v_i=v_m$, con $q_i^*=c_i\sqrt{v_m}$ y $Q^*=\sqrt{v_m}\sum_jc_j$. \citet{RaQu10} prueban estabilidad (no asintótica) para este caso.
+\end{profundiza}

@@ -1,0 +1,154 @@
+%% ---------------------------------------------------------------------
+\section{Sistemas lineales: funciones reales positivas y el lema KYP}
+\label{sec:pa-lineales}
+%% ---------------------------------------------------------------------
+
+Para un sistema lineal invariante en el tiempo
+\begin{equation}
+  \dot x=Ax+Bu,\qquad y=Cx+Du,\qquad G(s)=C(sI-A)^{-1}B+D,
+  \label{eq:pa-lti}
+\end{equation}
+el candidato natural a almacenamiento es cuadrático, $V=\tfrac12x\T Px$ con $P=P\T>0$. Entonces
+\[
+  \Vdot=\tfrac12x\T\bigl(PA+A\T P\bigr)x+x\T PB\,u,
+  \qquad
+  u\T y=x\T C\T u+\tfrac12u\T\bigl(D+D\T\bigr)u ,
+\]
+y para que $u\T y-\Vdot\ge0$ hay que \emph{emparejar} el término cruzado ($PB$ frente a $C\T$) y controlar los cuadráticos ($PA+A\T P$ y $D+D\T$). Hay dos lenguajes para decir cuándo se puede: el del estado (existe una $P$ que cumple ciertas igualdades: el lema KYP) y el de la frecuencia (la gráfica de Nyquist no sale del semiplano derecho: función real positiva). \notamargen{\textbf{Ojo con la letra.} En esta sección $s$ es la variable de Laplace, no la tasa de suministro.}
+
+%% ---------------------------------------------------------------------
+\subsection{Funciones reales positivas}
+
+\begin{definicion}[label=def:pa-pr]{Función real positiva \citep[Def.~6.4]{Kha02}}
+Una función de transferencia escalar $G(s)$, racional y propia, es \clave{real positiva} (PR) si sus polos están en $\Re s\le0$ y
+\begin{equation}
+  \Re G(s)\;\ge\;0\qquad\text{para todo }\Re s>0 .
+  \label{eq:pa-pr}
+\end{equation}
+Es \clave{estrictamente real positiva} (SPR) si $G(s-\epsilon)$ es PR para algún $\epsilon>0$.
+\end{definicion}
+
+Geométricamente, una función PR lleva el semiplano derecho cerrado al semiplano derecho cerrado. Sobre el eje imaginario, $\abs{\angle G(j\omega)}\le90\grados$: es la fase de una impedancia pasiva, y por eso Brune pudo probar que las funciones racionales PR son exactamente las impedancias de las redes de R, L, C y transformadores~\citep{Bru31}. Algunas consecuencias inmediatas: $G$ es PR (SPR) si y solo si $1/G$ lo es; una función PR tiene grado relativo $-1$, $0$ o $1$ y ceros en $\Re s\le0$; una SPR tiene grado relativo $0$ o $1$ y ceros en $\Re s<0$. La definición pide revisar todo un semiplano; en la práctica se usa una prueba sobre el eje.
+
+\begin{lema}[label=lem:pa-prueba]{Prueba en frecuencia \citep[Lema~6.1]{Kha02}}
+Sea $G(s)$ escalar, racional y propia, sin factores comunes.
+\begin{itemize}
+  \item $G$ es PR si y solo si sus polos están en $\Re s\le0$, los del eje imaginario son simples con residuo real positivo, y $\Re G(j\omega)\ge0$ para todo $\omega$ que no sea un polo.
+  \item $G$ es SPR si y solo si es Hurwitz, $\Re G(j\omega)>0$ para todo $\omega\in\R$, y además o bien $G(\infty)>0$, o bien $G(\infty)=0$ y $\displaystyle\lim_{\omega\to\infty}\omega^2\,\Re G(j\omega)>0$.
+\end{itemize}
+\end{lema}
+
+\begin{ejemplo}[label=ej:pa-anclas]{Las dos anclas}
+Clasifique $1/(s+\lambda)$, $\lambda>0$, y $1/s$.
+\solucion Para $1/(s+\lambda)$: $\Re G(j\omega)=\lambda/(\lambda^2+\omega^2)>0$, $G(\infty)=0$ y $\omega^2\Re G(j\omega)\to\lambda>0$: es SPR (el filtro del \cref{ej:pa-intfiltro}). Para $1/s$: el polo en el origen es simple con residuo $1>0$ y $\Re G(j\omega)=0$ para $\omega\neq0$: es PR, pero no SPR, porque no es Hurwitz (el integrador sin pérdidas).
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:pa-familia]{Una familia que lo explica todo}
+Clasifique, según $z>0$, $G_z(s)=\dfrac{s+z}{s^2+as+b}$ con $a=3$, $b=2$ (polos en $-1$ y $-2$).
+\solucion Con $s=j\omega$,
+\begin{equation}
+  \Re G_z(j\omega)=\frac{z\,b+(a-z)\,\omega^2}{(b-\omega^2)^2+a^2\omega^2},
+  \qquad
+  \omega^2\,\Re G_z(j\omega)\xrightarrow[\omega\to\infty]{}a-z .
+  \label{eq:pa-familia}
+\end{equation}
+Las tres posibilidades están en la \cref{fig:pa-familia}:
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+$z<a$ (aquí $z=1.5$) & $\Re G_z>0$ y $a-z>0$ & & \textbf{SPR}\\
+$z=a$ ($z=3$) & $\Re G_z>0$, pero $\omega^2\Re G_z\to0$ & & \textbf{PR, no SPR}\\
+$z>a$ ($z=5$) & $\Re G_z<0$ para $\omega^2>zb/(z-a)=5$ & & \textbf{no PR}\\
+\bottomrule
+\end{tabular}
+\end{center}
+Hay que mirar \emph{por dónde llega} la curva de Nyquist al origen: con $z<a$ llega por el cuarto cuadrante, tangente al eje imaginario desde la derecha; con $z>a$ cruza al semiplano izquierdo antes de llegar. (Se excluyen $z=1$ y $z=2$, que cancelan un polo: la prueba supone una realización mínima.)
+\end{ejemplo}
+
+\video{V11_3_nyquist}{De SPR a no PR moviendo un cero}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_nyquist_familia}
+\caption{La familia $G_z$ con $a=3$, $b=2$. Izquierda: Nyquist cerca del origen ($\omega\to\infty$). Derecha: $\omega^2\Re G_z(j\omega)$ tiende a $a-z$ (líneas punteadas); el signo de ese límite separa SPR de PR.}
+\label{fig:pa-familia}
+\end{figure}
+
+\begin{trampa}[label=tr:pa-reg]{$\Re G(j\omega)>0$ y Hurwitz no basta}
+\plausible{$G(s)=\dfrac{s+3}{(s+1)(s+2)}$ es Hurwitz y $\Re G(j\omega)=\dfrac{6}{(2-\omega^2)^2+9\omega^2}>0$ para todo $\omega$; luego es SPR.}
+Es el caso $z=a$ de la familia: $G(\infty)=0$ y $\omega^2\Re G(j\omega)\to0$. Es PR, pero no SPR. Basta correr el eje un poco, $s\to s-\epsilon$, para que la curva cruce al semiplano izquierdo cerca del origen: con $\epsilon=0.1$, $\min_\omega\Re G(j\omega-0.1)\approx-5\times10^{-4}<0$.
+\correcto{Cuando $G(\infty)=0$, la condición en $\omega\to\infty$ es parte de la definición de SPR y no un detalle técnico: dice que la parte real se anula, a lo sumo, como $1/\omega^2$.}
+\end{trampa}
+
+\begin{pausa}
+¿Es SPR $G(s)=\dfrac{s+2}{s+1}$? ¿Y $\dfrac{s+1}{s+2}$?
+\respuesta{Las dos: son Hurwitz, $\Re G(j\omega)=\dfrac{2+\omega^2}{1+\omega^2}>0$ y $\Re\dfrac{j\omega+1}{j\omega+2}=\dfrac{2+\omega^2}{4+\omega^2}>0$, y $G(\infty)=1>0$ en ambos casos, así que no hace falta mirar $\omega^2\Re G$. Es coherente con ``$G$ SPR $\Leftrightarrow$ $1/G$ SPR''.}
+\end{pausa}
+
+Los otros ejemplos de siempre: $\dfrac{s-1}{s^2+as+b}$ no es PR (cero en el semiplano derecho); $\dfrac{s+1}{s^2-s+1}$ no es PR (inestable); $\dfrac{1}{s^2+as+b}$ no es PR (grado relativo $2$: la fase llega a $-180\grados$); $\dfrac{s+1}{s^2+s+1}$ es PR y no SPR ($z=a$).
+
+\script{comun/esPR.m}
+La función \cmd{esPR} del curso aplica el \cref{lem:pa-prueba} en una malla de frecuencias. Sirve para explorar y para verificar, no para demostrar.
+
+\codigorepo{cap11_pasividad/C11_Ej8_PR_SPR.m}{familia}{La familia $G_z$ y la prueba \cmd{esPR}}
+
+%% ---------------------------------------------------------------------
+\subsection{El lema de Kalman--Yakubovich--Popov}
+
+\begin{lema}[label=lem:pa-kyp]{Kalman--Yakubovich--Popov \citep[Lema~6.3]{Kha02}}
+Sea $G(s)=C(sI-A)^{-1}B+D$ una función de transferencia $m\times m$, con $(A,B)$ controlable y $(A,C)$ observable. $G$ es SPR si y solo si existen $P=P\T>0$, matrices $L$ y $W$ y una constante $\epsilon>0$ tales que
+\begin{equation}
+  \begin{aligned}
+  PA+A\T P&=-L\T L-\epsilon P,\\
+  PB&=C\T-L\T W,\\
+  W\T W&=D+D\T .
+  \end{aligned}
+  \label{eq:pa-kyp}
+\end{equation}
+Las mismas ecuaciones con $\epsilon=0$ caracterizan a $G$ PR (\emph{lema real positivo}, \citealp[Lema~6.2]{Kha02}).
+\end{lema}
+
+Es un teorema \emph{converso} con fórmula: la pasividad en frecuencia garantiza una función de almacenamiento cuadrática. La constante $\epsilon$ es el margen: el término $-\epsilon P$ es disipación en \emph{todo} el estado. Si la realización no es mínima (hay cancelaciones polo--cero), se usa la variante de Meyer--Kalman--Yakubovich~\citep{Mey65}.
+
+\begin{lema}[label=lem:pa-sprpasivo]{SPR implica estrictamente pasivo \citep[Lema~6.4]{Kha02}}
+Si $G$ es SPR, el sistema \eqref{eq:pa-lti} es estrictamente pasivo con $V=\tfrac12x\T Px$ y $\psi(x)=\tfrac\epsilon2x\T Px$. Si $G$ es PR, es pasivo.
+\end{lema}
+
+\begin{proof}
+Con las ecuaciones \eqref{eq:pa-kyp},
+\[
+  \Vdot=-\tfrac12x\T L\T Lx-\tfrac\epsilon2x\T Px+x\T\bigl(C\T-L\T W\bigr)u,
+  \qquad
+  u\T y=x\T C\T u+\tfrac12u\T W\T Wu .
+\]
+Restando y completando el cuadrado (el término $x\T L\T Wu$ es el doble producto),
+\begin{equation}
+  u\T y-\Vdot=\tfrac12\,(Lx+Wu)\T(Lx+Wu)+\tfrac\epsilon2\,x\T Px\;\ge\;\tfrac\epsilon2\,x\T Px .
+  \label{eq:pa-kypidentidad}
+\end{equation}
+Con $\epsilon=0$ queda $u\T y\ge\Vdot$.
+\end{proof}
+
+\begin{ejemplo}[label=ej:pa-kyprlc]{El RLC serie con KYP}
+Para el RLC de la \cref{tr:pa-osp}, $A=\begin{bmatrix}0&1\\-1&-1\end{bmatrix}$, $B=\begin{bmatrix}0\\1\end{bmatrix}$, $C=[0\;\;1]$, $D=0$, $G(s)=\dfrac{s}{s^2+s+1}$. Resuelva las ecuaciones KYP.
+\solucion $D=0$ obliga $W=0$, y $PB=C\T$ fija la segunda columna: $P=\begin{bmatrix}p&0\\0&1\end{bmatrix}$. Entonces
+\[
+  PA+A\T P=-\begin{bmatrix}0&1-p\\1-p&2\end{bmatrix},
+\]
+que es semidefinida negativa si y solo si su determinante, $-(1-p)^2$, es no negativo: $p=1$. Con $P=I$ queda $PA+A\T P=-L\T L$ con $L=[0\;\;\sqrt2]$ y $\epsilon=0$ forzoso (la entrada $(1,1)$ es cero y no admite $-\epsilon P_{11}<0$). Conclusiones: (i) $G$ es PR y no SPR; en frecuencia, $\Re G(j\omega)=\omega^2/\abs{1-\omega^2+j\omega}^2$ se anula en $\omega=0$, donde $G$ tiene un cero. (ii) $P=I$: el lema KYP \emph{recupera la energía física} $\tfrac12(x_1^2+x_2^2)$. (iii) Es lo mismo que vimos en el tiempo: OSP, no estrictamente pasivo.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:pa-kyps3]{La trampa vista con KYP}
+Para $G(s)=\dfrac{s+3}{(s+1)(s+2)}$ use $A=\begin{bmatrix}0&1\\-2&-3\end{bmatrix}$, $B=\begin{bmatrix}0\\1\end{bmatrix}$, $C=[3\;\;1]$, $D=0$.
+\solucion $PB=C\T$ da $P=\begin{bmatrix}p_1&3\\3&1\end{bmatrix}$, con $P>0$ si y solo si $p_1>9$. Entonces
+\[
+  PA+A\T P=\begin{bmatrix}-12&p_1-11\\p_1-11&0\end{bmatrix}.
+\]
+La entrada $(2,2)$ es \emph{siempre} cero: nunca puede ser $\le-\epsilon P_{22}=-\epsilon<0$, así que no hay $\epsilon>0$ y $G$ no es SPR. Con $p_1=11$, $PA+A\T P=-L\T L$ con $L=[2\sqrt3\;\;0]$ y $\epsilon=0$: es PR. El mismo veredicto de la \cref{tr:pa-reg}, por otro camino: allá, $z=a$ en la familia; aquí, un cero estructural en $PA+A\T P$.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:pa-kypspr]{Un caso SPR: el margen $\epsilon$}
+Para $G(s)=\dfrac{s+1.5}{(s+1)(s+2)}$ (el caso $z=1.5$ de la familia), con $C=[1.5\;\;1]$ y los mismos $A$, $B$, $D$, encuentre $P$, $L$ y el mayor $\epsilon$.
+\solucion $PB=C\T$ da $P=\begin{bmatrix}p_1&1.5\\1.5&1\end{bmatrix}$, y $PA+A\T P=\begin{bmatrix}-6&p_1-6.5\\p_1-6.5&-3\end{bmatrix}$. Con $p_1=6.5$ queda $\diag(-6,-3)$, negativa definida, y hay espacio para $\epsilon>0$: la condición $PA+A\T P+\epsilon P\le0$ se cumple para $0<\epsilon\le0.8172$. Con $\epsilon=0.5$, $L$ es el factor de Cholesky de $-(PA+A\T P+0.5P)$, $L=\begin{bmatrix}1.658&-0.452\\0&1.515\end{bmatrix}$. El script \cmd{C11\_Ej9\_KYP.m} verifica las tres ecuaciones y la identidad \eqref{eq:pa-kypidentidad} en puntos al azar.
+\end{ejemplo}
+
+\codigorepo{cap11_pasividad/C11_Ej9_KYP.m}{kyp}{Las ecuaciones KYP en los tres ejemplos}

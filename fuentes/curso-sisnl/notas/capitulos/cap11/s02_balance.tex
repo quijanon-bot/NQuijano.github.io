@@ -1,0 +1,102 @@
+%% ---------------------------------------------------------------------
+\section{El balance de energía}
+\label{sec:pa-balance}
+%% ---------------------------------------------------------------------
+
+\begin{ejemplo}[label=ej:pa-masa]{Una masa con un resorte no lineal}
+Una masa unitaria se mueve sobre una superficie con fricción viscosa $\delta>0$, unida a un resorte con fuerza de restitución $F(x_1)$ y empujada por una fuerza externa $u$:
+\begin{equation}
+  \dot x_1=x_2,\qquad \dot x_2=-F(x_1)-\delta x_2+u,\qquad y=x_2 .
+  \label{eq:pa-masa}
+\end{equation}
+$x_1$ es la posición y $x_2$ la velocidad. El resorte cumple $F(0)=0$ y $F(x_1)\,x_1>0$ para $x_1\neq0$. Calcule la derivada de la energía almacenada a lo largo de las trayectorias e interprete cada término.
+\solucion La energía almacenada es la potencial del resorte más la cinética de la masa,
+\begin{equation}
+  V(x)=\int_0^{x_1}F(\zeta)\,\dif\zeta+\tfrac12x_2^2 .
+  \label{eq:pa-Vmasa}
+\end{equation}
+Derivando a lo largo de las soluciones de \eqref{eq:pa-masa},
+\begin{equation}
+  \Vdot=F(x_1)\,x_2+x_2\bigl(-F(x_1)-\delta x_2+u\bigr)=-\delta\,y^2+u\,y .
+  \label{eq:pa-balance}
+\end{equation}
+Los términos del resorte se cancelan exactamente. Lo que queda tiene una lectura física directa: $u\,y$ es fuerza por velocidad, la \emph{potencia} que el entorno entrega a la masa; $\delta y^2$ es la potencia que se pierde por fricción. No se usó la solución de la ecuación: solo se derivó $V$, como con Lyapunov.
+\end{ejemplo}
+
+\notamargen{La salida no se escoge al azar: $y$ es la variable \emph{conjugada} de $u$, la que multiplicada por $u$ da una potencia (fuerza y velocidad, voltaje y corriente, torque y velocidad angular).}
+Integrando \eqref{eq:pa-balance} entre $0$ y $t$:
+\begin{equation}
+  \underbrace{V(x(t))-V(x(0))}_{\text{almacenada}}
+  =\underbrace{\int_0^t u\,y\,\dif\tau}_{\text{suministrada}}
+  -\underbrace{\int_0^t\delta\,y^2\,\dif\tau}_{\text{disipada}\ \ge 0}
+  \quad\Longrightarrow\quad
+  V(x(t))\le V(x(0))+\int_0^t u\,y\,\dif\tau .
+  \label{eq:pa-balanceint}
+\end{equation}
+
+\begin{ideaclave}
+Un sistema que cumple \eqref{eq:pa-balanceint} \alerta{no puede crear energía}: lo que guarda en el instante $t$ nunca supera lo que tenía al comienzo más lo que ha recibido por el puerto.
+\end{ideaclave}
+
+La \cref{fig:pa-masa} lo comprueba numéricamente con $F(x_1)=x_1+x_1^3$ (un resorte duro), $\delta=0.3$ y $u=0.8\sin(1.2t)$ durante los primeros $12$\,s. Hasta $t=12$\,s entran $4.977$ unidades de energía y la masa guarda $V(12)=1.374$; después la entrada se apaga y la energía almacenada solo puede disiparse: $V(30)=0.006$. La diferencia entre $V(t)-V(0)$ y la suministrada menos la disipada es del orden de $10^{-6}$: el error numérico.
+\video{V11_1_balance}{La energía que entra, la que se guarda y la que se pierde}
+\script{cap11_pasividad/C11_Ej1_MasaResorte.m}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_masa_resorte}
+\caption{Masa con resorte duro. Izquierda: estado y entrada (la franja marca $0\le t\le12$\,s, cuando hay fuerza externa). Derecha: la energía almacenada $V$ coincide con la suministrada menos la disipada (puntos), sin resolver nada.}
+\label{fig:pa-masa}
+\end{figure}
+
+\codigorepo{cap11_pasividad/C11_Ej1_MasaResorte.m}{balance}{Balance de energía a lo largo de una simulación}
+
+%% ---------------------------------------------------------------------
+\subsection{Señales de energía finita}
+\label{sec:pa-L2}
+
+Con ISS medimos las señales por su \emph{amplitud}. Para hablar de energía hay que medirlas por su \emph{energía}. Las dos normas que usaremos son
+\begin{equation}
+  \norm{w}_{\Linf}=\sup_{t\ge0}\norm{w(t)},
+  \qquad
+  \norm{u}_{\Ldos}=\Bigl(\int_0^\infty\norm{u(t)}^2\,\dif t\Bigr)^{1/2},
+  \label{eq:pa-normas}
+\end{equation}
+la segunda es la norma euclidiana de vectores ``con una componente por cada instante''. Como casi nunca sabemos de antemano si una señal tiene energía finita, se usa la versión truncada \citep[cap.~5]{Kha02}:
+\begin{equation}
+  \norm{u}_{\Ldos[0,t]}=\Bigl(\int_0^t\norm{u(\tau)}^2\,\dif\tau\Bigr)^{1/2};
+  \qquad u\in\Ldos\iff\sup_{t\ge0}\norm{u}_{\Ldos[0,t]}<\infty .
+\end{equation}
+La herramienta que conecta potencia y energía es la desigualdad de Cauchy--Schwarz para señales:
+\begin{equation}
+  \Bigl|\int_0^t u\T y\,\dif\tau\Bigr|\;\le\;\norm{u}_{\Ldos[0,t]}\,\norm{y}_{\Ldos[0,t]} .
+  \label{eq:pa-cs}
+\end{equation}
+
+\begin{center}\small
+\begin{tabular}{@{}lccl@{}}
+\toprule
+\textbf{Señal} & $\Linf$ & $\Ldos$ & \textbf{por qué}\\
+\midrule
+$1$ & sí & no & energía en $[0,t]$ igual a $t$\\
+$\ee^{-t/4}$ & sí & sí & energía total $2$\\
+$1/\sqrt{1+t}$ & sí & no & se apaga, pero su energía en $[0,t]$ es $\ln(1+t)$\\
+pulsos de altura $k$ y base $1/k^4$ & no & sí & energía $\sum_k\frac{1}{3k^2}=\frac{\pi^2}{18}\approx0.548$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_senales}
+\caption{Ninguna de las dos normas implica a la otra. Izquierda: $1/\sqrt{1+t}\to0$ y aun así su energía crece como $\ln(1+t)$. Derecha: un tren de pulsos cada vez más altos y angostos, con energía total $\pi^2/18$.}
+\label{fig:pa-senales}
+\end{figure}
+
+\begin{trampa}[label=tr:pa-potencia]{Potencia acotada no es energía finita}
+\plausible{Si $u$ y $y$ son acotadas, la desigualdad $V(x(t))\le V(x(0))+\int_0^tu\,y\,\dif\tau$ acota $V$, y por tanto el estado.}
+Con $u(t)=y(t)=1$ la integral vale $t$: la cota crece sin límite y no dice nada. Que las señales se apaguen tampoco basta, como muestra $1/\sqrt{1+t}$.
+\correcto{Si $u,y\in\Ldos$, Cauchy--Schwarz \eqref{eq:pa-cs} da $V(x(t))\le V(x(0))+\norm{u}_{\Ldos}\norm{y}_{\Ldos}$ para todo $t$, una cota uniforme. Y para pasar de ``$V$ acotada'' a ``$x$ acotado'' hace falta además que $V$ sea \emph{radialmente no acotada}; en el \cref{ej:pa-masa}, que la energía potencial del resorte crezca sin límite, $\int_0^{x_1}F\to\infty$ cuando $\abs{x_1}\to\infty$.}
+\end{trampa}
+
+\codigorepo{cap11_pasividad/C11_Ej2_SenalesL2.m}{energia}{Normas $\Linf$ y $\Ldos$ de tres señales}

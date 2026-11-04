@@ -1,0 +1,359 @@
+[
+  {
+    "objectID": "notacion.html",
+    "href": "notacion.html",
+    "title": "Notación del curso",
+    "section": "",
+    "text": "La notación se define en un solo archivo, notas/notacion.sty; las ecuaciones de esta página usan las mismas macros (en recursos/macros.html). Se sigue a Khalil (2002) salvo aviso. La tabla completa está en el capítulo Cómo leer estas notas del PDF.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Notación del curso"
+    ]
+  },
+  {
+    "objectID": "notacion.html#sistemas-y-estabilidad",
+    "href": "notacion.html#sistemas-y-estabilidad",
+    "title": "Notación del curso",
+    "section": "Sistemas y estabilidad",
+    "text": "Sistemas y estabilidad\n\n\n\n\n\n\n\n\nSímbolo\nSignificado\nMATLAB\n\n\n\n\n\\(\\dot x=f(t,x,u)\\), \\(y=h(t,x,u)\\)\nsistema; el tiempo es el primer argumento\nf = @(t,x) ...\n\n\n\\(\\eq\\)\npunto de equilibrio (Khalil escribe \\(\\bar x\\))\nxe\n\n\ninvariante / variante en el tiempo\nen lugar de autónomo / no autónomo\n—\n\n\n\\(V\\), \\(\\Vdot=\\jac{V}{x}f\\)\nfunción de Lyapunov y su derivada (una función del estado)\nV, dV\n\n\n\\(\\K,\\ \\Kinf,\\ \\KL\\)\nfunciones de comparación\n—\n\n\n\\(u\\), \\(w\\)\nentrada que se diseña; entrada exógena (ISS)\nu, w",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Notación del curso"
+    ]
+  },
+  {
+    "objectID": "notacion.html#pasividad-parte-11",
+    "href": "notacion.html#pasividad-parte-11",
+    "title": "Notación del curso",
+    "section": "Pasividad (parte 11)",
+    "text": "Pasividad (parte 11)\n\n\n\n\n\n\n\n\nSímbolo\nSignificado\nMATLAB\n\n\n\n\n\\(u,\\ y\\)\nvariables de puerto: \\(u\\T y\\) es una potencia\nu, y\n\n\n\\(s(u,y)\\)\ntasa de suministro (supply rate)\ns\n\n\n\\(V\\ge0\\)\nalmacenamiento (storage; Willems escribe \\(S\\))\nV\n\n\n\\(d(x,u)\\ge0\\)\ntasa de disipación\nd\n\n\n\\(\\Va\\)\nalmacenamiento disponible\n—\n\n\n\\(\\varphi(u),\\ \\rho(y),\\ \\psi(x)\\)\nexceso de pasividad en entrada (ISP), salida (OSP) y estado\nphi, rho, psi\n\n\nZSO\nobservable en estado cero\n—\n\n\nPR, SPR\nreal positiva, estrictamente real positiva\nesPR\n\n\n\\(H_1,\\ H_2\\), \\(e_i\\)\nsubsistemas de la conexión estándar y sus entradas\nmodeloOsciladores\n\n\n\\(q_i,\\ F_i,\\ \\bar F\\)\ncaudal, pago y pago promedio en el replicador\nmodeloAgua",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Notación del curso"
+    ]
+  },
+  {
+    "objectID": "videos.html",
+    "href": "videos.html",
+    "title": "Videos",
+    "section": "",
+    "text": "Cada video se genera con un script de MATLAB; si quiere cambiar algo, cambie el script y vuelva a grabarlo. Los .mp4 se copian a sitio/videos/.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Videos"
+    ]
+  },
+  {
+    "objectID": "videos.html#parte-11-pasividad",
+    "href": "videos.html#parte-11-pasividad",
+    "title": "Videos",
+    "section": "Parte 11 · Pasividad",
+    "text": "Parte 11 · Pasividad\n\n\n\nVideo\nQué muestra\nScript\n\n\n\n\nV11.1 · Balance de energía\nLa masa con resorte duro y las tres energías.\nC11_Video_Balance.m\n\n\nV11.2 · LaSalle\nEl RLC toca \\(\\{\\Vdot=0\\}\\) y no se queda.\nC11_Video_LaSalle.m\n\n\nV11.3 · De SPR a no PR\nUn cero que barre la familia \\(G_z\\).\nC11_Video_Nyquist.m\n\n\nV11.4 · Interconexión\nLa energía pasa de \\(H_1\\) a \\(H_2\\).\nC11_Video_Interconexion.m\n\n\nV11.5 · Agua\nTanques, caudales y cambio de demanda.\nC11_Video_Agua.m\n\n\n\n\nPara publicar los videos\nEjecute los scripts C11_Video_*.m (quedan en codigo/cap11_pasividad/videos/) y copie los .mp4 a sitio/videos/. Si pesan mucho, súbalos a YouTube y cambie los enlaces.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Videos"
+    ]
+  },
+  {
+    "objectID": "partes/10-estabilidad-avanzada.html",
+    "href": "partes/10-estabilidad-avanzada.html",
+    "title": "10. Estabilidad avanzada: UUB, CLF e ISS",
+    "section": "",
+    "text": "Parte 10 · Semanas 11–12Estabilidad avanzada: UUB, CLF e ISS\n\nPor migrar\nEsta parte todavía está en el formato anterior (AdvancedStab_Notas2026.tex). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap10_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "10. Estabilidad avanzada: UUB, CLF e ISS"
+    ]
+  },
+  {
+    "objectID": "partes/06-bifurcaciones.html",
+    "href": "partes/06-bifurcaciones.html",
+    "title": "6. Bifurcaciones",
+    "section": "",
+    "text": "Parte 6 · Semana 7Bifurcaciones\n\nPor migrar\nEsta parte todavía está en el formato anterior (Handout5.tex). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap06_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "6. Bifurcaciones"
+    ]
+  },
+  {
+    "objectID": "partes/05-orbitas-ciclos.html",
+    "href": "partes/05-orbitas-ciclos.html",
+    "title": "5. Órbitas, flujos circulares y ciclos límite",
+    "section": "",
+    "text": "Parte 5 · Semanas 5–7Órbitas, flujos circulares y ciclos límite\n\nPor migrar\nEsta parte todavía está en el formato anterior (Handout4.tex, Handout4a.tex). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap05_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "5. Órbitas, flujos circulares y ciclos límite"
+    ]
+  },
+  {
+    "objectID": "partes/12-linealizacion.html",
+    "href": "partes/12-linealizacion.html",
+    "title": "12. Linealización por retroalimentación",
+    "section": "",
+    "text": "Parte 12 · Semanas 14–15Linealización por retroalimentación\n\nPor migrar\nEsta parte todavía está en el formato anterior (Handout9_2.tex). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap12_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "12. Linealización por retroalimentación"
+    ]
+  },
+  {
+    "objectID": "partes/03-preliminares.html",
+    "href": "partes/03-preliminares.html",
+    "title": "3. Preliminares matemáticos",
+    "section": "",
+    "text": "Parte 3 · Semanas 3–4Preliminares matemáticos\n\nPor migrar\nEsta parte todavía está en el formato anterior (PrelimMath.tex). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap03_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "3. Preliminares matemáticos"
+    ]
+  },
+  {
+    "objectID": "partes/09-variantes.html",
+    "href": "partes/09-variantes.html",
+    "title": "9. Sistemas variantes en el tiempo",
+    "section": "",
+    "text": "Parte 9 · Semana 10Sistemas variantes en el tiempo\n\nPor migrar\nEsta parte todavía está en el formato anterior (Handout6a.tex). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap09_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "9. Sistemas variantes en el tiempo"
+    ]
+  },
+  {
+    "objectID": "partes/02-unidimensionales.html",
+    "href": "partes/02-unidimensionales.html",
+    "title": "2. Sistemas unidimensionales: el flujo sobre la recta",
+    "section": "",
+    "text": "Parte 2 · Semanas 1–2Sistemas unidimensionales: el flujo sobre la recta\n\nPor migrar\nEsta parte todavía está en el formato anterior (borrador revisado en LibroSisNL2026 (cap. 2)). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap02_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "2. Sistemas unidimensionales: el flujo sobre la recta"
+    ]
+  },
+  {
+    "objectID": "partes/11-pasividad.html",
+    "href": "partes/11-pasividad.html",
+    "title": "11. Pasividad y disipatividad",
+    "section": "",
+    "text": "Parte 11 · Semana 13Pasividad y disipatividadLa vida es un embrollo, Benítez. […] Pero, en cambio, cuando jugás al fútbol todo es clarísimo. — Eduardo Sacheri\nUn sistema pasivo no puede crear energía: lo que almacena nunca supera lo que tenía más lo que ha recibido por su puerto. De ese balance, sin resolver la ecuación diferencial, salen la estabilidad (con observabilidad en estado cero y LaSalle), la lectura en frecuencia (funciones reales positivas y el lema KYP), la estabilidad de interconexiones y una manera de diseñar controladores: agregar amortiguamiento. La parte termina con una prueba completa: la distribución de agua con la dinámica del replicador.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "11. Pasividad y disipatividad"
+    ]
+  },
+  {
+    "objectID": "partes/11-pasividad.html#ruta-de-las-clases",
+    "href": "partes/11-pasividad.html#ruta-de-las-clases",
+    "title": "11. Pasividad y disipatividad",
+    "section": "Ruta de las clases",
+    "text": "Ruta de las clases\n\nLea la sección del handout antes de cada clase.\n\n\n\n\n\n\n\n\nClase\nQué se ve\nHandout\nScripts\n\n\n\n\n1\nBalance de energía, señales \\(\\Ldos\\), disipatividad, almacenamiento disponible, pasividad sin memoria y de modelos de estado, OSP + ZSO + LaSalle\n§11.1–11.6\nC11_Ej1–C11_Ej7\n\n\n2\nFunciones reales positivas y KYP, interconexión, aplicación al reparto de agua\n§11.7, 11.8, 11.10\nC11_Ej8–C11_Ej10, C11_Ej13, C11_Ej14, crearModelo_LazoPasivo, crearModelo_Agua\n\n\nlectura\nControl basado en pasividad: amortiguamiento, compensación de gravedad, cascadas\n§11.9\nC11_Ej11, C11_Ej12, crearModelo_Pendulo",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "11. Pasividad y disipatividad"
+    ]
+  },
+  {
+    "objectID": "partes/11-pasividad.html#lo-esencial-en-una-página",
+    "href": "partes/11-pasividad.html#lo-esencial-en-una-página",
+    "title": "11. Pasividad y disipatividad",
+    "section": "Lo esencial, en una página",
+    "text": "Lo esencial, en una página\n\n\n\nUn sistema con un puerto: entra \\(s(u,y)\\), se guarda \\(V\\ge0\\), se disipa \\(d\\ge0\\).\n\n\n\nDisipatividad y pasividad (Willems, 1972; Khalil, Def. 6.3)\nEl sistema \\(\\dot x=f(x,u)\\), \\(y=h(x,u)\\) es disipativo respecto a la tasa de suministro \\(s(u,y)\\) si existe \\(V\\ge0\\) con \\[\nV\\bigl(x(t_1)\\bigr)\\le V\\bigl(x(t_0)\\bigr)+\\int_{t_0}^{t_1}s\\,\\dif t\n\\qquad\\text{o, si }V\\in\\Cont1,\\qquad \\Vdot\\le s(u,y)\\ \\ \\forall (x,u).\n\\] Es pasivo si eso vale con \\(s=u\\T y\\). Es OSP si \\(u\\T y\\ge\\Vdot+y\\T\\rho(y)\\) con \\(y\\T\\rho(y)&gt;0\\), y estrictamente pasivo si \\(u\\T y\\ge\\Vdot+\\psi(x)\\) con \\(\\psi\\) definida positiva.\n\n\n\n\nBalance de energía de una masa con resorte duro: lo almacenado es lo suministrado menos lo disipado.\n\n\n\nTrampa: OSP no basta sin observabilidad en estado cero\n“\\(\\Vdot\\le0\\) y \\(\\Vdot=0\\) solo donde \\(y=0\\); luego \\(x\\to0\\).” Falso: \\(\\dot x_1=0\\), \\(\\dot x_2=-x_2+u\\), \\(y=x_2\\) es OSP con \\(V\\) definida positiva, y \\(x_1\\) no se mueve. Lo correcto: OSP + ZSO ⇒ AS, por el principio de invarianza.\n\n\n\n\nIzquierda: el RLC cruza \\(\\{\\Vdot=0\\}\\) sin quedarse (ZSO). Derecha: sin ZSO las soluciones se quedan.\n\n\n\nFunciones reales positivas y lema KYP\n\\(G(s)\\) es SPR si es Hurwitz, \\(\\Re G(\\jw)&gt;0\\) para todo \\(\\omega\\) y, si \\(G(\\infty)=0\\), \\(\\lim_{\\omega\\to\\infty}\\omega^2\\Re G(\\jw)&gt;0\\). El lema KYP: \\(G\\) es SPR si y solo si existen \\(P&gt;0\\), \\(L\\), \\(W\\), \\(\\epsilon&gt;0\\) con \\[\nPA+A\\T P=-L\\T L-\\epsilon P,\\qquad PB=C\\T-L\\T W,\\qquad W\\T W=D+D\\T ,\n\\] y entonces el sistema es estrictamente pasivo con \\(V=\\tfrac12x\\T Px\\).\n\n\n\n\nLa familia \\((s+z)/(s^2+3s+2)\\): SPR, PR y no PR según el signo de \\(a-z\\).\n\n\n\nInterconexión\nEn la conexión estándar (\\(e_1=u_1-y_2\\), \\(e_2=u_2+y_1\\)) las potencias se cancelan: \\(e_1\\T y_1+e_2\\T y_2=u_1\\T y_1+u_2\\T y_2\\). Pasivo con pasivo es pasivo, y \\(V_1+V_2\\) es función de Lyapunov del lazo. Cada almacenamiento puede subir; solo la suma baja.\n\n\n\n\nDos osciladores en lazo: \\(V_1\\) y \\(V_2\\) suben y bajan; \\(V_1+V_2\\) no.\n\n\n\nAplicación: reparto de agua con el replicador (Ramírez-Llanos y Quijano, 2010)\nLos tanques son OSP (la descarga de Torricelli disipa) y el replicador es sin pérdidas con la entropía relativa \\(V_2=\\frac1Q\\sum_iq_i^*\\ln(q_i^*/q_i)\\). La cancelación da \\(\\Vdot\\le0\\); LaSalle, con los tanques como “observador” de los caudales, da estabilidad asintótica en \\(\\{q_i&gt;0\\}\\).\n\n\n\n\nCambio de demanda en \\(t=40\\) s: el sistema se reacomoda sin cálculo central.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "11. Pasividad y disipatividad"
+    ]
+  },
+  {
+    "objectID": "partes/11-pasividad.html#explorador",
+    "href": "partes/11-pasividad.html#explorador",
+    "title": "11. Pasividad y disipatividad",
+    "section": "Explorador interactivo",
+    "text": "Explorador interactivo\nCuatro pestañas con los modelos del handout. Los cálculos se hacen en su navegador con Runge–Kutta de paso fijo (los mismos modelos de los scripts C11_Ej1, C11_Ej8, C11_Ej10 y C11_Ej13).\n\n\n\nRetos con el explorador\n\nBalance: ponga \\(\\delta&lt;0\\). ¿Qué término del balance cambia de signo? ¿Sigue siendo pasivo el sistema?\nPR/SPR: con \\(a=3\\), \\(b=2\\), mueva \\(z\\) de \\(1.5\\) a \\(5\\). ¿En qué valor exacto deja de ser SPR? ¿Y de ser PR? Pruebe \\(z=1\\): ¿qué avisa el explorador y por qué?\nInterconexión: cambie la retroalimentación a positiva con \\(x_1(0)=0.3\\). ¿Qué le pasa a \\(V\\)?\nAgua: ponga \\(q_3(0)=0\\) y luego \\(q_3(0)=0.0001\\). Compare el tiempo que tarda en llegar al equilibrio.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "11. Pasividad y disipatividad"
+    ]
+  },
+  {
+    "objectID": "partes/11-pasividad.html#códigos-de-esta-parte",
+    "href": "partes/11-pasividad.html#códigos-de-esta-parte",
+    "title": "11. Pasividad y disipatividad",
+    "section": "Códigos de esta parte",
+    "text": "Códigos de esta parte\nLos bloques salen directamente de los archivos del repositorio. Ejecute antes iniciarCurso. verificarCap11 comprueba los números del handout (39/39).\n\nClase 1: balance y estabilidadClase 2: frecuencia e interconexiónAguaDiseñoSimulink\n\n\nBalance de energía a lo largo de una simulación (§11.2).\ndelta = 0.3;\nF  = @(x1) x1 + x1.^3;                        % resorte duro: F(x1) x1 &gt; 0\nu  = @(t) 0.8*sin(1.2*t).*(t &lt; 12);           % fuerza externa hasta t = 12 s\nf  = @(t, x) [x(2); -F(x(1)) - delta*x(2) + u(t)];\nopc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'MaxStep', 0.01);\n[t1, X1] = ode45(f, [0 12], [0; 0], opc);     % por tramos: u es discontinua en t = 12\n[t2, X2] = ode45(f, [12 30], X1(end,:).', opc);\nt = [t1; t2(2:end)];  X = [X1; X2(2:end,:)];\ny  = X(:,2);                                  % salida conjugada de u: la velocidad\nV  = X(:,1).^2/2 + X(:,1).^4/4 + X(:,2).^2/2; % energía potencial + cinética\nuu = [u(t1); zeros(numel(t2) - 1, 1)];\n[S, D, res] = balanceEnergia(t, V, uu.*y, delta*y.^2);\nfprintf('residuo máximo del balance: %.1e\\n', max(abs(res)));\nfprintf('V(12) = %.4f   V(30) = %.4f   suministrada hasta 12 s = %.4f\\n', ...\n        V(numel(t1)), V(end), S(numel(t1)));\nPasivo con pendiente negativa (§11.4).\nh  = @(v) 17.76*v - 103.79*v.^2 + 229.62*v.^3 - 226.31*v.^4 + 83.72*v.^5;   % mA\ndh = @(v) 17.76 - 207.58*v + 688.86*v.^2 - 905.24*v.^3 + 418.6*v.^4;\nv  = linspace(-1.5, 1.5, 300001);\nfprintf('min de u h(u) en [-1.5, 1.5]: %.3g  (&gt;= 0: pasivo)\\n', min(v.*h(v)));\nv1 = fzero(dh, [0.1 0.4]);  v2 = fzero(dh, [0.4 0.9]);\nfprintf('pendiente negativa entre v1 = %.4f y v2 = %.4f;  h(v2) = %.4f &gt; 0\\n', v1, v2, ...\n        h(v2));\nLa prueba de que un sistema no es pasivo (§11.5).\nk  = 1;   xb = 1.5;\nub = -(xb^3 - k*xb);                      % entrada que mantiene x(t) = xb\n[t, x] = ode45(@(t, x) x^3 - k*x + ub, [0 4], xb, odeset('RelTol', 1e-12, 'AbsTol', 1e-12));\nfprintf('x(4) - xb = %.1e   (el estado no se mueve)\\n', x(end) - xb);\nfprintf('potencia u y = %.4f (negativa: entrega energía)\\n', ub*xb);\nfprintf('int_0^4 u y dt = %.4f,   V(4) - V(0) = %.4f\\n', 4*ub*xb, x(end)^2/2 - xb^2/2);\nOSP + ZSO + LaSalle (§11.6).\nopc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12);\n[t, X] = ode45(@(t, x) [x(2); -x(1) - x(2)], linspace(0, 20, 4001), [1.5; 0], opc);\nV  = (X(:,1).^2 + X(:,2).^2)/2;\ncruces = t(find(diff(sign(X(:,2))) ~= 0));\nfprintf('V(20) = %.1e;  la trayectoria cruza x2 = 0 en t = %s\\n', V(end), ...\n        mat2str(cruces(1:4).', 3));\n\n\nLa familia \\(G_z\\) y la prueba esPR (§11.7).\na = 3;  b = 2;\nw = logspace(-3, 3.5, 4000);\nfig = estiloFigura(1100, 420);\nfor z = [1.5 3 5]\n    G = respFrec([1 z], [1 a b], w);\n    v = esPR([1 z], [1 a b]);\n    fprintf('z = %3.1f:  min Re G = %+.4f   w^2 Re G(w = 3000) = %+.4f  (a - z = %+.1f)  -&gt; %s\\n', ...\n            z, min(real(G)), 3000^2*real(respFrec([1 z], [1 a b], 3000)), a - z, v);\n    subplot(1,2,1); plot(real(G), imag(G)); hold on;\n    subplot(1,2,2); semilogx(w, w.^2.*real(G)); hold on;\nend\nLas ecuaciones KYP (§11.7).\nejemplos = { 'RLC s/(s^2+s+1)',      [0 1; -1 -1], [0; 1], [0 1],   eye(2),         0;\n             '(s+3)/((s+1)(s+2))',   [0 1; -2 -3], [0; 1], [3 1],   [11 3; 3 1],    0;\n             '(s+1.5)/((s+1)(s+2))', [0 1; -2 -3], [0; 1], [1.5 1], [6.5 1.5; 1.5 1], 0.5 };\nfor k = 1:size(ejemplos, 1)\n    [nombre, A, B, C, P, ep] = ejemplos{k, :};\n    M = P*A + A.'*P + ep*P;                     % debe ser -L'L &lt;= 0\n    L = sqrt(max(0, -diag(M))).' + 0;           % aquí M resulta diagonal\n    if norm(M - diag(diag(M))) &gt; 1e-12, L = chol(-M); end\n    fprintf('%-22s eig(P) = %s  |PB - C''| = %.1e  |M + L''L| = %.1e  L = %s\\n', nombre, ...\n            mat2str(eig(P).', 4), norm(P*B - C.'), norm(M + L.'*L), mat2str(L, 4));\nend\n% el mayor eps del ejemplo SPR: PA + A'P + eps P &lt;= 0\nA = [0 1; -2 -3];  P = [6.5 1.5; 1.5 1];  M0 = P*A + A.'*P;\nepsmax = fzero(@(e) max(eig(M0 + e*P)), [0.01 3]);\nfprintf('ejemplo SPR: eps máximo = %.4f\\n', epsmax);\nDos osciladores en lazo (§11.8).\na = 1;  k = 0.5;  b = 2;\nopc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12);\n[t, X] = ode45(@(t, x) modeloOsciladores(t, x, a, k, b), linspace(0, 40, 8001), ...\n        [1.5; 0; 0; 0], opc);\nV1 = a*X(:,1).^4/4 + X(:,2).^2/2;            % H1: resorte duro + masa\nV2 = b*X(:,3).^2/2 + X(:,4).^2/2;            % H2: resorte lineal + masa\nV  = V1 + V2;\nfprintf('V(0) = %.4f   max V2 = %.4f   V(40) = %.1e\\n', V(1), max(V2), V(end));\nfprintf('¿V no creciente? %d    ¿V1 sube en algún momento? %d\\n', all(diff(V) &lt;= 1e-10), ...\n        any(diff(V1) &gt; 1e-6));\ndVteo = -k*X(:,2).^2 - X(:,4).^4;            % V' = -k y1^2 - y2^4\ndVnum = gradient(V, t);\nfprintf('max |V''(numérica) - (-k y1^2 - y2^4)| = %.1e\\n', ...\n        max(abs(dVnum(3:end-2) - dVteo(3:end-2))));\n\n\nEl modelo, una sola función para scripts y Simulink.\nfunction dx = modeloAgua(x, c, Q, r, vm)\n% MODELOAGUA  Tanques + dinámica del replicador (sección 11.10; Ramírez-Llanos y Quijano, 2010).\n%   x = [v; q]  (N volúmenes y N caudales),  c: coeficientes de descarga (N x 1)\n%   v_i' = q_i - c_i sqrt(v_i)                      (Torricelli)\n%   q_i' = q_i (F_i - Fbar),  F_i = r (1 - v_i/vm),  Fbar = (1/Q) sum_j q_j F_j\n%   Notación del artículo -&gt; curso: x_i -&gt; q_i, f_i -&gt; F_i, Sigma_1,2 -&gt; H_1,2.\nN = numel(x)/2;\nv = max(x(1:N), 0);            % sqrt no está definida para v &lt; 0 (error numérico)\nq = x(N+1:end);\nF = r*(1 - v/vm);\nFbar = (q.'*F)/Q;\ndx = [q - c(:).*sqrt(v); q.*(F - Fbar)];\nend\nCambio de demanda (§11.10).\nx0  = [0.1; 0.8; 0.3; 0.9; 0.6; 0.5];           % [v; q], con sum q = Q\nopc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12);\n[t1, X1] = ode45(@(t, x) modeloAgua(x, c1, Q, r, vm), linspace(0, 40, 4001), x0, opc);\n[t2, X2] = ode45(@(t, x) modeloAgua(x, c2, Q, r, vm), linspace(40, 80, 4001), ...\n        X1(end,:).', opc);\n[V1a, V2a] = energiaAgua(X1, c1, Q, r, vm);\n[V1b, V2b] = energiaAgua(X2, c2, Q, r, vm);\nt = [t1; t2];   X = [X1; X2];   V = [V1a + V2a; V1b + V2b];\nfprintf('max |sum q - Q| = %.1e\\n', max(abs(sum(X(:,4:6), 2) - Q)));\nfprintf('¿V no creciente en cada tramo? %d %d\\n', all(diff(V1a + V2a) &lt;= 1e-9), ...\n        all(diff(V1b + V2b) &lt;= 1e-9));\nfprintf('v(80) = %s   q(80) = %s\\n', mat2str(X(end,1:3), 4), mat2str(X(end,4:6), 4));\nLa trampa de las caras (§11.10).\nQ = 2;  r = 2;  vm = 2;  c = [0.6; 1.0; 1.4];\nfprintf('tanque 3 sin caudal: se vacía en t = 2 sqrt(v3(0))/c3 = %.4f s\\n', ...\n        2*sqrt(0.4)/1.4);\nfor q30 = 10.^(-2:-2:-8)\n    x0  = [0.4; 0.4; 0.4; 1 - q30/2; 1 - q30/2; q30];\n    ev  = @(t, x) deal(x(6) - 0.5, 1, 1);           % q3 cruza 0.5 subiendo\n    opc = odeset('RelTol', 1e-8, 'AbsTol', [1e-10*ones(5,1); 1e-3*q30], 'Events', ...\n            ev);   % tolerancia a la escala de q3\n    [~, ~, te] = ode45(@(t, x) modeloAgua(x, c, Q, r, vm), [0 40], x0, opc);\n    fprintf('q3(0) = %.0e:  q3 llega a 0.5 en t = %.2f s\\n', q30, te);\nend\n\n\nPD con y sin compensación de gravedad (§11.9).\nm = 1;  l = 1;  g = 9.81;  bf = 0.5;  Kp = 20;  Kd = 5;  qr = pi/3;\nfor compensa = [true false]\n    ley = @(q, dq) compensa*m*g*l*sin(q) - Kp*(q - qr) - Kd*dq;\n    f = @(t, x) [x(2); (ley(x(1), x(2)) - bf*x(2) - m*g*l*sin(x(1)))/(m*l^2)];\n    [t, X] = ode45(f, [0 10], [0; 0], opc);\n    fprintf('compensación = %d:  q(10) = %.4f rad = %.2f°\\n', compensa, X(end,1), ...\n            rad2deg(X(end,1)));\nend\nqss = fzero(@(q) Kp*(qr - q) - m*g*l*sin(q), [0 qr]);    % equilibrio del PD solo\nfprintf('PD solo: equilibrio q = %.4f rad; error = %.2f°\\n', qss, rad2deg(qr - qss));\nEscape en tiempo finito de una cascada (§11.9).\nk = 1;  x0 = 1;  z0 = 3;                   % x0 z0 = 3 &gt; 1 + k = 2\nevento = @(t, x) deal(abs(x(1)) - 1e6, 1, 0);\nopc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12, 'Events', evento);\n[t, X, te] = ode45(@(t, x) [-x(1) + x(1)^2*x(2); -k*x(2)], [0 5], [x0; z0], opc);\n% fórmula exacta: con w = 1/x, w' = w - z0 e^{-k t}  -&gt;  w = 0 en\ntex = log((z0/(1 + k))/(z0/(1 + k) - 1/x0))/(1 + k);\nfprintf('u = -k z: |x| llega a 1e6 en t = %.4f;  escape exacto en t = %.4f\\n', te, tex);\n\n\nLos modelos se construyen por código: ejecute el script y se crea, se simula y se compara con ode45.\nLazoPasivo.slx: dos osciladores en la conexión estándar, con \\(V_1\\), \\(V_2\\) y \\(V\\) en línea.\n%% crearModelo_LazoPasivo -- Construye \"LazoPasivo.slx\" (sección 11.8)\n% Dos osciladores no lineales en la conexión estándar de Khalil (Fig. 6.11):\n%   H1: x1' = x2,  x2' = -a x1^3 - k x2 + e1,  y1 = x2      (OSP y ZSO)\n%   H2: x3' = x4,  x4' = -b x3 - x4^3 + e2,    y2 = x4      (OSP y ZSO)\n%   e1 = u1 - y2,  e2 = u2 + y1.\n% Calcula en línea V1, V2 y V = V1 + V2, los muestra en un Scope y los guarda\n% en el workspace; al final compara con ode45 (modeloOsciladores.m).\n% USO   1) ejecute el script (crea, simula y compara);\n%       2) abra el Scope \"energias\": V1 y V2 suben y bajan, V solo baja;\n%       3) cambie el signo del sumador e1 a '++' y vuelva a simular (trampa del signo).\nclear; clc;\na = 1;  k = 0.5;  b = 2;  x0 = [1.5 0 0 0];\nvars = {'a', 'k', 'b', 'x0'};\nfor i = 1:numel(vars), assignin('base', vars{i}, eval(vars{i})); end\n\nmdl = 'LazoPasivo';\nif bdIsLoaded(mdl), close_system(mdl, 0); end\nnew_system(mdl);  open_system(mdl);\nblk = @(tipo, nombre, varargin) add_block(tipo, [mdl '/' nombre], varargin{:});\nlin = @(desde, hasta) add_line(mdl, desde, hasta, 'autorouting', 'on');\n\n% --- entradas externas (cero: el lazo evoluciona solo) y conexión estándar\nblk('simulink/Sources/Constant', 'u1', 'Value', '0', 'Position', [20 40 50 60]);\nblk('simulink/Sources/Constant', 'u2', 'Value', '0', 'Position', [520 260 550 280]);\nblk('simulink/Math Operations/Sum', 'e1 = u1 - y2', 'Inputs', '+-', 'Position', [90 40 110 60]);\nblk('simulink/Math Operations/Sum', 'e2 = u2 + y1', 'Inputs', '++', 'Position', [460 250 480 270]);\n% --- H1\nblk('simulink/Signal Routing/Mux', 'mux H1', 'Inputs', '3', 'Position', [150 20 155 90]);\nblk('simulink/User-Defined Functions/Fcn', 'x2'' (H1)', 'Expr', '-a*u(1)^3 - k*u(2) + u(3)', 'Position', [180 40 300 70]);\nblk('simulink/Continuous/Integrator', 'x2', 'InitialCondition', 'x0(2)', 'Position', [330 40 360 70]);\nblk('simulink/Continuous/Integrator', 'x1', 'InitialCondition', 'x0(1)', 'Position', [400 100 430 130]);\n% --- H2\nblk('simulink/Signal Routing/Mux', 'mux H2', 'Inputs', '3', 'Position', [420 200 425 270], 'Orientation', 'left');\nblk('simulink/User-Defined Functions/Fcn', 'x4'' (H2)', 'Expr', '-b*u(1) - u(2)^3 + u(3)', 'Position', [270 220 390 250], 'Orientation', 'left');\nblk('simulink/Continuous/Integrator', 'x4', 'InitialCondition', 'x0(4)', 'Position', [200 220 230 250], 'Orientation', 'left');\nblk('simulink/Continuous/Integrator', 'x3', 'InitialCondition', 'x0(3)', 'Position', [130 290 160 320], 'Orientation', 'left');\n% --- energías\nblk('simulink/Signal Routing/Mux', 'mux x', 'Inputs', '4', 'Position', [560 330 565 410]);\nblk('simulink/User-Defined Functions/Fcn', 'V1', 'Expr', 'a*u(1)^4/4 + u(2)^2/2', 'Position', [600 330 700 355]);\nblk('simulink/User-Defined Functions/Fcn', 'V2', 'Expr', 'b*u(3)^2/2 + u(4)^2/2', 'Position', [600 385 700 410]);\nblk('simulink/Math Operations/Sum', 'V', 'Inputs', '++', 'Position', [740 360 760 380]);\nblk('simulink/Signal Routing/Mux', 'mux V', 'Inputs', '3', 'Position', [790 330 795 410]);\nblk('simulink/Sinks/Scope', 'energias', 'Position', [830 355 860 385]);\nblk('simulink/Sinks/To Workspace', 'a workspace', 'VariableName', 'Vsim', 'SaveFormat', 'Array', 'Position', [830 420 900 440]);\n\nlin('u1/1', 'e1 = u1 - y2/1');   lin('e1 = u1 - y2/1', 'mux H1/3');\nlin('x1/1', 'mux H1/1');         lin('x2/1', 'mux H1/2');\nlin('mux H1/1', 'x2'' (H1)/1');  lin('x2'' (H1)/1', 'x2/1');   lin('x2/1', 'x1/1');\nlin('x2/1', 'e2 = u2 + y1/2');   lin('u2/1', 'e2 = u2 + y1/1');  lin('e2 = u2 + y1/1', 'mux H2/3');\nlin('x3/1', 'mux H2/1');         lin('x4/1', 'mux H2/2');\nlin('mux H2/1', 'x4'' (H2)/1');  lin('x4'' (H2)/1', 'x4/1');   lin('x4/1', 'x3/1');\nlin('x4/1', 'e1 = u1 - y2/2');\nlin('x1/1', 'mux x/1');  lin('x2/1', 'mux x/2');  lin('x3/1', 'mux x/3');  lin('x4/1', 'mux x/4');\nlin('mux x/1', 'V1/1');  lin('mux x/1', 'V2/1');  lin('V1/1', 'V/1');  lin('V2/1', 'V/2');\nlin('V1/1', 'mux V/1');  lin('V2/1', 'mux V/2');  lin('V/1', 'mux V/3');\nlin('mux V/1', 'energias/1');  lin('mux V/1', 'a workspace/1');\ntry, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end   % (R2018b o posterior)\nset_param(mdl, 'StopTime', '40', 'Solver', 'ode45', 'RelTol', '1e-8', 'AbsTol', '1e-10', 'MaxStep', '0.01');\nsave_system(mdl);\nfprintf('Modelo %s.slx creado. Simulando...\\n', mdl);\n\n% --- simular y comparar con ode45\nsalida = sim(mdl);\ntS = salida.tout;   VS = salida.get('Vsim');\n[tO, XO] = ode45(@(t, x) modeloOsciladores(t, x, a, k, b), tS, x0(:), odeset('RelTol', 1e-10, 'AbsTol', 1e-12));\nVO = a*XO(:,1).^4/4 + XO(:,2).^2/2 + b*XO(:,3).^2/2 + XO(:,4).^2/2;\nfprintf('max |V(Simulink) - V(ode45)| = %.1e   (esperado &lt; 1e-5)\\n', max(abs(VS(:,3) - VO)));\nfprintf('¿V no creciente en Simulink? %d\\n', all(diff(VS(:,3)) &lt;= 1e-8));",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "11. Pasividad y disipatividad"
+    ]
+  },
+  {
+    "objectID": "partes/11-pasividad.html#videos",
+    "href": "partes/11-pasividad.html#videos",
+    "title": "11. Pasividad y disipatividad",
+    "section": "Videos",
+    "text": "Videos\n\n\n\nVideo\nQué muestra\nScript\n\n\n\n\nV11.1 · Balance de energía\nEnergía suministrada, disipada y almacenada de la masa con resorte.\nC11_Video_Balance.m\n\n\nV11.2 · LaSalle en el RLC\nLa trayectoria toca \\(\\{\\Vdot=0\\}\\) y no se queda.\nC11_Video_LaSalle.m\n\n\nV11.3 · De SPR a no PR\nEl cero \\(z\\) barre la familia \\(G_z\\).\nC11_Video_Nyquist.m\n\n\nV11.4 · Interconexión\nLa energía pasa de \\(H_1\\) a \\(H_2\\); la suma solo baja.\nC11_Video_Interconexion.m\n\n\nV11.5 · Agua\nTanques, caudales y \\(V\\) con cambio de demanda.\nC11_Video_Agua.m",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "11. Pasividad y disipatividad"
+    ]
+  },
+  {
+    "objectID": "partes/11-pasividad.html#problemas",
+    "href": "partes/11-pasividad.html#problemas",
+    "title": "11. Pasividad y disipatividad",
+    "section": "Problemas",
+    "text": "Problemas\nLos problemas del handout (§11.12) tienen cada uno una trampa; las soluciones seleccionadas están en §11.13.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "11. Pasividad y disipatividad"
+    ]
+  },
+  {
+    "objectID": "partes/08-invarianza.html",
+    "href": "partes/08-invarianza.html",
+    "title": "8. Principio de invarianza y construcción de funciones de Lyapunov",
+    "section": "",
+    "text": "Parte 8 · Semana 9Principio de invarianza y construcción de funciones de Lyapunov\n\nPor migrar\nEsta parte todavía está en el formato anterior (LaSalle/, Construccion/). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap08_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "8. Principio de invarianza y construcción de funciones de Lyapunov"
+    ]
+  },
+  {
+    "objectID": "partes/04-bidimensionales.html",
+    "href": "partes/04-bidimensionales.html",
+    "title": "4. Sistemas bidimensionales",
+    "section": "",
+    "text": "Parte 4 · Semanas 2 y 5Sistemas bidimensionales\n\nPor migrar\nEsta parte todavía está en el formato anterior (Handout3.tex). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap04_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "4. Sistemas bidimensionales"
+    ]
+  },
+  {
+    "objectID": "partes/07-lyapunov.html",
+    "href": "partes/07-lyapunov.html",
+    "title": "7. Estabilidad de Lyapunov",
+    "section": "",
+    "text": "Parte 7 · Semanas 8–9Estabilidad de Lyapunov\n\nPor migrar\nEsta parte todavía está en el formato anterior (Handout7.tex). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap07_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "7. Estabilidad de Lyapunov"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html",
+    "href": "partes/01-introduccion.html",
+    "title": "1. Introducción y motivación",
+    "section": "",
+    "text": "Parte 1 · Semana 1Introducción y motivación\n\nPor migrar\nEsta parte todavía está en el formato anterior (Handout1_2026.tex). Se migrará siguiendo la guía notas/MIGRACION.md, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en codigo/cap01_*/, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.\n\n\n\n\n Volver arriba",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción y motivación"
+    ]
+  },
+  {
+    "objectID": "codigos.html",
+    "href": "codigos.html",
+    "title": "Códigos de MATLAB y Simulink",
+    "section": "",
+    "text": "Todos los códigos viven en la carpeta codigo/ del repositorio. Son la misma fuente que se ve en las notas en PDF y en estas páginas: los bloques de código se extraen de los archivos al compilar, de modo que nunca se desincronizan.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Códigos de MATLAB y Simulink"
+    ]
+  },
+  {
+    "objectID": "codigos.html#primeros-pasos",
+    "href": "codigos.html#primeros-pasos",
+    "title": "Códigos de MATLAB y Simulink",
+    "section": "Primeros pasos",
+    "text": "Primeros pasos\n&gt;&gt; cd ruta/al/repositorio/codigo\n&gt;&gt; iniciarCurso              % agrega comun/ y todos los capítulos al path\n&gt;&gt; C11_Ej1_MasaResorte\n&gt;&gt; verificarCap11            % comprueba los números del handout\nLos scripts C*_Ej* no requieren toolboxes (y corren en GNU Octave); los crearModelo_*.m requieren Simulink y los videos, VideoWriter.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Códigos de MATLAB y Simulink"
+    ]
+  },
+  {
+    "objectID": "codigos.html#organización",
+    "href": "codigos.html#organización",
+    "title": "Códigos de MATLAB y Simulink",
+    "section": "Organización",
+    "text": "Organización\ncodigo/\n├── iniciarCurso.m\n├── comun/                    funciones de todos los capítulos\n│   ├── estiloFigura.m        figuras con la paleta del curso\n│   ├── abrirVideo.m          grabar videos en cualquier sistema operativo\n│   ├── respFrec.m            G(jw) sin toolboxes\n│   ├── esPR.m                prueba numérica PR / SPR (Khalil, Lema 6.1)\n│   └── balanceEnergia.m      V - V(0) = int s - int d sobre una simulación\n└── cap11_pasividad/\n    ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout\n    ├── C11_Video_*           los cinco videos de la parte\n    ├── crearModelo_*         LazoPasivo.slx, AguaReplicador.slx, PenduloPD.slx\n    ├── modeloOsciladores.m, modeloAgua.m, energiaAgua.m, energiaAguaSL.m\n    └── verificarCap11.m      39 pruebas de los números del handout",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Códigos de MATLAB y Simulink"
+    ]
+  },
+  {
+    "objectID": "codigos.html#convenciones",
+    "href": "codigos.html#convenciones",
+    "title": "Códigos de MATLAB y Simulink",
+    "section": "Convenciones",
+    "text": "Convenciones\nCada script empieza con un encabezado QUÉ HACE / OBSERVE / ESPERADO / EXPLORE. Los fragmentos que aparecen en las notas van entre % [ini:nombre] y % [fin:nombre]. Los números del encabezado son los del texto, y verificarCapNN (MATLAB) y herramientas/capNN_numeros.py (Python, independiente) los comprueban.",
+    "crumbs": [
+      "Inicio",
+      "Recursos",
+      "Códigos de MATLAB y Simulink"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sistemas No Lineales",
+    "section": "",
+    "text": "Notas, códigos y videos del cursoAnalizar, entender y diseñar sistemas no linealesTengo por cierto que la hipocresía no deja de ser un homenaje que el vicio rinde a la virtud. — Alfredo Relaño\nEste sitio acompaña el curso Sistemas No Lineales. Cada parte del curso tiene una página con:",
+    "crumbs": [
+      "Inicio",
+      "Sistemas No Lineales"
+    ]
+  },
+  {
+    "objectID": "index.html#partes-del-curso",
+    "href": "index.html#partes-del-curso",
+    "title": "Sistemas No Lineales",
+    "section": "Partes del curso",
+    "text": "Partes del curso\n\n1Introducción y motivaciónSemana 1por migrar\n2Sistemas unidimensionales: el flujo sobre la rectaSemanas 1–2por migrar\n3Preliminares matemáticosSemanas 3–4por migrar\n4Sistemas bidimensionalesSemanas 2 y 5por migrar\n5Órbitas, flujos circulares y ciclos límiteSemanas 5–7por migrar\n6BifurcacionesSemana 7por migrar\n7Estabilidad de LyapunovSemanas 8–9por migrar\n8Principio de invarianza y construcción de funciones de LyapunovSemana 9por migrar\n9Sistemas variantes en el tiempoSemana 10por migrar\n10Estabilidad avanzada: UUB, CLF e ISSSemanas 11–12por migrar\n11Pasividad y disipatividadSemana 13piloto · completo\n12Linealización por retroalimentaciónSemanas 14–15por migrar",
+    "crumbs": [
+      "Inicio",
+      "Sistemas No Lineales"
+    ]
+  },
+  {
+    "objectID": "index.html#cómo-usar-este-material",
+    "href": "index.html#cómo-usar-este-material",
+    "title": "Sistemas No Lineales",
+    "section": "Cómo usar este material",
+    "text": "Cómo usar este material\n\nAntes de la clase: lea el handout de la parte. Las cajas azules son definiciones y resultados; las rojas, trampas.\nEn clase: traiga MATLAB listo. Ejecute una vez iniciarCurso (carpeta codigo/ del repositorio) y podrá correr cualquier script desde cualquier carpeta.\nDespués: resuelva los problemas. Los marcados [M] se hacen en MATLAB/Simulink; los marcados (*) son de profundización.\n\n\nSimular no es demostrar\nMATLAB/Simulink es una herramienta de verificación, no de descubrimiento: primero se analiza (equilibrios, linealización, función de Lyapunov o almacenamiento) y después se simula para confirmar. Cien condiciones iniciales que convergen no prueban estabilidad global; una que no converge la refuta.",
+    "crumbs": [
+      "Inicio",
+      "Sistemas No Lineales"
+    ]
+  }
+]

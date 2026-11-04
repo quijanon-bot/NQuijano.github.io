@@ -1,0 +1,12 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}
+ \node[bloque=snlazul,minimum width=34mm,minimum height=16mm] (H) {$\dot x=f(x,u)$\\$y=h(x,u)$\\[1pt]{\footnotesize almacena $V(x)\ge0$}};
+ \draw[flecha] ($(H.west)+(-20mm,3mm)$) -- node[above,etq]{$u$} ($(H.west)+(0,3mm)$);
+ \draw[flecha] ($(H.east)+(0,3mm)$) -- node[above,etq]{$y$} ($(H.east)+(20mm,3mm)$);
+ \draw[snlverde,very thick,->] ($(H.west)+(-17mm,-5mm)$) -- node[below,nota,text=snlverde]{suministro\\$s(u,y)$, p.\,ej. $u^\top y$} ($(H.west)+(-1mm,-5mm)$);
+ \draw[snlcoral,very thick,->,decorate,decoration={snake,amplitude=.6mm,segment length=3mm,post length=1.5mm}] (H.south) -- node[right,nota,text=snlcoral]{\ disipación $d(x,u)\ge0$} ++(0,-11mm);
+ \node[nota,above=2mm of H]{$\dot V = s(u,y)-d(x,u)\ \le\ s(u,y)$};
+\end{tikzpicture}
+\end{document}

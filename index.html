@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nicanor Quijano · Cursos</title>
+<meta name="description" content="Notas, códigos MATLAB/Simulink, videos y exploradores interactivos de los cursos de Nicanor Quijano, Universidad de los Andes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #1E5AA8; --noche: #14213D; --violeta: #6C4AB6; --coral: #D1495B;
+    --ambar: #E09F3E; --verde: #2A9D8F; --teal: #0F7173; --gris: #5C677D;
+    --fondo: #F4F6FA; --papel: #ffffff; --texto: #1d2333; --borde: #DDE2EA;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --fondo: #141a26; --papel: #1d2333; --texto: #e8ecf4; --borde: #33405c; --gris: #a7b0c2; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Lato, system-ui, sans-serif; background: var(--fondo); color: var(--texto); line-height: 1.6; }
+  a { color: var(--azul); }
+  @media (prefers-color-scheme: dark) { a { color: #7fb0ef; } }
+
+  header { background: var(--noche); color: #fff; position: relative; overflow: hidden; border-bottom: 6px solid var(--azul); }
+  header .dentro { max-width: 1040px; margin: 0 auto; padding: 3.2rem 1rem 2.8rem; position: relative; z-index: 1; }
+  header .rotulo { color: var(--ambar); font-weight: 700; text-transform: uppercase; letter-spacing: .07em; font-size: .85rem; }
+  header h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.1; margin: .4rem 0 .6rem; }
+  header p { margin: .2rem 0; opacity: .88; max-width: 38rem; }
+  header svg { position: absolute; right: -40px; top: -10px; width: min(620px, 80vw); height: 120%; opacity: .6; pointer-events: none; }
+
+  main { max-width: 1040px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+  h2 { font-weight: 900; font-size: 1.5rem; border-bottom: 3px solid var(--azul); padding-bottom: .25rem; margin: 2.2rem 0 1rem; }
+  .intro { font-size: 1.08rem; max-width: 46rem; }
+
+  .cursos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+  .curso { display: flex; flex-direction: column; background: var(--papel); border: 1px solid var(--borde); border-radius: 12px;
+           padding: 1.3rem 1.4rem; text-decoration: none; color: var(--texto); transition: transform .15s, box-shadow .15s; }
+  a.curso:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(20,33,61,.14); }
+  .curso .codigo { font-size: .8rem; font-weight: 700; color: var(--gris); letter-spacing: .04em; }
+  .curso h3 { margin: .2rem 0 .5rem; font-size: 1.3rem; font-weight: 900; color: var(--texto); }
+  .curso p { margin: 0 0 .9rem; font-size: .95rem; }
+  .curso .pie { margin-top: auto; display: flex; flex-wrap: wrap; gap: .4rem; }
+  .etq { font-size: .74rem; font-weight: 700; border-radius: 999px; padding: .12rem .6rem; }
+  .etq.listo { background: rgba(42,157,143,.16); color: var(--teal); }
+  .etq.pronto { background: rgba(92,103,125,.15); color: var(--gris); }
+  .etq.tema { background: rgba(30,90,168,.12); color: var(--azul); }
+  .curso.activo { border: 2px solid var(--azul); }
+  .curso.inactivo { opacity: .78; }
+
+  .contenido { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .9rem; }
+  .item { background: var(--papel); border-left: 4px solid var(--c); border-radius: 8px; padding: .8rem 1rem; }
+  .item b { color: var(--c); display: block; margin-bottom: .2rem; }
+  .item span { font-size: .92rem; }
+
+  footer { border-top: 1px solid var(--borde); padding: 1.4rem 1rem; text-align: center; font-size: .88rem; color: var(--gris); }
+  footer a { margin: 0 .5rem; }
+</style>
+</head>
+<body>
+<header>
+  <svg viewBox="0 0 600 320" preserveAspectRatio="xMaxYMid meet" aria-hidden="true">
+    <g transform="rotate(-18 400 160)" fill="none" stroke="#ffffff" stroke-opacity=".09">
+      <ellipse cx="400" cy="160" rx="40" ry="22"/><ellipse cx="400" cy="160" rx="80" ry="44"/>
+      <ellipse cx="400" cy="160" rx="120" ry="66"/><ellipse cx="400" cy="160" rx="160" ry="88"/>
+      <ellipse cx="400" cy="160" rx="200" ry="110"/><ellipse cx="400" cy="160" rx="240" ry="132"/>
+      <ellipse cx="400" cy="160" rx="280" ry="154"/>
+    </g>
+    <path id="espiral" fill="none" stroke="#E09F3E" stroke-width="2.5" transform="rotate(-18 400 160)"/>
+    <circle cx="400" cy="160" r="5" fill="#E09F3E"/>
+  </svg>
+  <div class="dentro">
+    <div class="rotulo">Universidad de los Andes · Ingeniería Eléctrica y Electrónica</div>
+    <h1>Nicanor Quijano</h1>
+    <p>Profesor titular del Departamento de Ingeniería Eléctrica y Electrónica y director del Grupo de Investigación en Sistemas de Control y Automatización (GIAP).</p>
+    <p>Juegos poblacionales, dinámicas evolutivas y control de sistemas multiagente, con aplicaciones en sistemas de energía y sistemas socio-técnicos.</p>
+  </div>
+</header>
+
+<main>
+  <p class="intro">Este sitio reúne el material de mis cursos: notas de clase en PDF, códigos de MATLAB y Simulink, videos y exploradores interactivos para jugar con los ejemplos. Cada curso tiene su propio sitio, con una página por cada parte del curso.</p>
+
+  <h2>Cursos</h2>
+  <div class="cursos">
+    <a class="curso activo" href="curso-sisnl/">
+      <div class="codigo">IELE 4311 · Posgrado</div>
+      <h3>Sistemas No Lineales</h3>
+      <p>Geometría en el plano, bifurcaciones, estabilidad de Lyapunov, pasividad y linealización por retroalimentación, con trampas: conclusiones plausibles pero falsas.</p>
+      <div class="pie"><span class="etq listo">Piloto: Parte 11, pasividad</span><span class="etq tema">MATLAB/Simulink</span></div>
+    </a>
+    <div class="curso inactivo">
+      <div class="codigo">IELE 2300 · Pregrado</div>
+      <h3>Análisis de Sistemas de Control</h3>
+      <p>Modelado, respuesta transitoria, error, PID, retroalimentación de estado y respuesta frecuencial.</p>
+      <div class="pie"><span class="etq pronto">Próximamente</span></div>
+    </div>
+  </div>
+
+  <h2>Qué encuentra en cada curso</h2>
+  <div class="contenido">
+    <div class="item" style="--c: var(--azul)"><b>Notas en PDF</b><span>Un capítulo por parte del curso, para leer antes de la clase.</span></div>
+    <div class="item" style="--c: var(--teal)"><b>Códigos</b><span>Scripts de MATLAB y modelos de Simulink construidos por código, los mismos de las notas.</span></div>
+    <div class="item" style="--c: var(--violeta)"><b>Exploradores</b><span>Simulaciones en el navegador para mover parámetros y ver qué pasa.</span></div>
+    <div class="item" style="--c: var(--coral)"><b>Trampas y problemas</b><span>Conclusiones que suenan bien y son falsas, y problemas con soluciones seleccionadas.</span></div>
+  </div>
+</main>
+
+<footer>
+  Nicanor Quijano · Universidad de los Andes, Bogotá
+  <br>
+  <a href="https://orcid.org/0000-0002-8688-3195">ORCID</a>
+  <a href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0000849669">CvLAC</a>
+  <a href="https://github.com/quijanon-bot/NQuijano.github.io">Repositorio</a>
+</footer>
+
+<script>
+  // Espiral de un foco estable: la firma visual de las notas
+  (function () {
+    var p = [], i, t, r;
+    for (i = 0; i <= 420; i++) {
+      t = i * 0.06; r = Math.exp(-0.11 * t);
+      p.push((i ? 'L' : 'M') + (400 + 270 * r * Math.cos(t)).toFixed(1) + ',' + (160 + 150 * r * Math.sin(t)).toFixed(1));
+    }
+    document.getElementById('espiral').setAttribute('d', p.join(''));
+  })();
+</script>
+</body>
+</html>

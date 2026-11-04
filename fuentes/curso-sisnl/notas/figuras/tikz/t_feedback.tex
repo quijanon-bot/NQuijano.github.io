@@ -1,0 +1,22 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}[node distance=12mm]
+ \node[suma] (s1) {};
+ \node[bloque=snlazul,right=12mm of s1] (H1) {$H_1$};
+ \node[bloque=snlcoral,below=9mm of H1] (H2) {$H_2$};
+ \node[suma,right=12mm of H2] (s2) {};
+ \draw[flecha] ($(s1.west)+(-12mm,0)$) node[left,etq]{$u_1$} -- (s1);
+ \draw[flecha] (s1) -- node[above,etq]{$e_1$} (H1);
+ \draw[flecha] (H1.east) -- ++(26mm,0) node[right,etq]{$y_1$};
+ \draw[flecha] ($(H1.east)+(14mm,0)$) |- (s2.north) ;
+ \draw[flecha] ($(s2.east)+(10mm,0)$) node[right,etq]{$u_2$} -- (s2);
+ \draw[flecha] (s2) -- node[above,etq]{$e_2$} (H2);
+ \draw[flecha] (H2.west) -| node[pos=0.25,below,etq]{$y_2$} (s1.south);
+ \node[font=\scriptsize,text=snlnoche] at ($(s1.south)+(-2.2mm,-2.2mm)$) {$-$};
+ \node[font=\scriptsize,text=snlnoche] at ($(s1.west)+(-1.6mm,2.2mm)$) {$+$};
+ \node[font=\scriptsize,text=snlnoche] at ($(s2.north)+(2.4mm,2.0mm)$) {$+$};
+ \node[font=\scriptsize,text=snlnoche] at ($(s2.east)+(1.6mm,2.2mm)$) {$+$};
+ \fill[snlnoche] ($(H1.east)+(14mm,0)$) circle (0.8pt);
+\end{tikzpicture}
+\end{document}

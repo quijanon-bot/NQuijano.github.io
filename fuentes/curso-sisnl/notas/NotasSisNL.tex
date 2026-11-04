@@ -1,0 +1,43 @@
+%% =====================================================================
+%%  Notas de Sistemas No Lineales (IELE 4311) -- archivo principal
+%%  Compilar desde esta carpeta (notas/):
+%%      latexmk -pdf NotasSisNL.tex
+%%  o   pdflatex NotasSisNL; bibtex NotasSisNL; pdflatex x2
+%%  Mismo esquema que las notas de Control (curso-control): clase propia,
+%%  notación en un solo archivo, códigos leídos de ../codigo y sitio web.
+%% =====================================================================
+\documentclass{apuntessisnl}   % opciones: borrador, sinqr
+\usepackage{notacion}
+%% Dirección de la página web y del repositorio (cambiar al publicar):
+\definirsitio{https://quijanon-bot.github.io/NQuijano.github.io/curso-sisnl}{https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl}[https://github.com/quijanon-bot/NQuijano.github.io/blob/main/fuentes/curso-sisnl/codigo]
+
+\begin{document}
+\pagenumbering{arabic}  % (sin \frontmatter: babel-spanish + números romanos rompen \label)
+\portada{Notas de Sistemas No Lineales}{Nicanor Quijano\\[2pt]
+  {\large Departamento de Ingeniería Eléctrica y Electrónica}}{Versión piloto \textperiodcentered{} noviembre de 2026}
+\tableofcontents
+\input{capitulos/00_convenciones}
+
+%% ---------------------------------------------------------------------
+%% Capítulos. El orden es el del curso (Syllabus 2026). Los que dicen
+%% "por migrar" están en ../../Chapters (Handout*.tex) o, el capítulo 2,
+%% en el borrador Tufte ../../LibroSisNL2026; se migran uno a uno con la
+%% guía MIGRACION.md, tomando como modelo el piloto (capítulo 11).
+%% ---------------------------------------------------------------------
+% \input{capitulos/01_introduccion}          % por migrar (Handout1_2026.tex)
+% \input{capitulos/02_unidimensionales}      % por migrar (LibroSisNL2026/cap02, ya revisado)
+% \input{capitulos/03_preliminares}          % por migrar (PrelimMath.tex)
+% \input{capitulos/04_bidimensionales}       % por migrar (Handout3.tex)
+% \input{capitulos/05_orbitas_ciclos}        % por migrar (Handout4.tex, Handout4a.tex)
+% \input{capitulos/06_bifurcaciones}         % por migrar (Handout5.tex)
+% \input{capitulos/07_lyapunov}              % por migrar (Handout7.tex)
+% \input{capitulos/08_invarianza}            % por migrar (LaSalle/, Construccion/)
+% \input{capitulos/09_variantes}             % por migrar (Handout6a.tex)
+% \input{capitulos/10_avanzada}              % por migrar (AdvancedStab_Notas2026.tex)
+\setcounter{chapter}{10}
+\input{capitulos/11_pasividad}               % PILOTO (formato nuevo)
+% \input{capitulos/12_linealizacion}         % por migrar (Handout9_2.tex)
+
+\bibliographystyle{plainnat}
+\bibliography{referencias}
+\end{document}

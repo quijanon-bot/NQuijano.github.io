@@ -1,0 +1,122 @@
+%% ---------------------------------------------------------------------
+\section{Pasividad de modelos de estado}
+\label{sec:pa-modelos}
+%% ---------------------------------------------------------------------
+
+Para sistemas con estado, la pasividad es la disipatividad con $s=u\T y$, en su forma diferencial. Consideremos
+\begin{equation}
+  \dot x=f(x,u),\qquad y=h(x,u),
+  \label{eq:pa-estado}
+\end{equation}
+con $f$ localmente Lipschitz, $h$ continua, $f(0,0)=0$ y $h(0,0)=0$.
+
+\begin{definicion}[label=def:pa-pasivo]{Pasividad de un modelo de estado \citep[Def.~6.3]{Kha02}}
+El sistema \eqref{eq:pa-estado} es \clave{pasivo} si existe una función $V\in\Cont1$ \emph{semidefinida} positiva (el almacenamiento) tal que
+\begin{equation}
+  u\T y\;\ge\;\Vdot=\jac{V}{x}(x)\,f(x,u)\qquad\text{para todo }(x,u)\in\R^n\times\R^m .
+  \label{eq:pa-pasivo}
+\end{equation}
+Además, es
+\begin{center}\small
+\begin{tabular}{@{}p{4.9cm}p{7.3cm}@{}}
+\clave{sin pérdidas} (\emph{lossless}) & si $u\T y=\Vdot$;\\
+\clave{pasivo con prealimentación} & si $u\T y\ge\Vdot+u\T\varphi(u)$ para alguna $\varphi$;\\
+\clave{estrictamente pasivo en la entrada} (ISP) & si lo anterior vale con $u\T\varphi(u)>0$ para todo $u\neq0$;\\
+\clave{pasivo con retroalimentación de la salida} & si $u\T y\ge\Vdot+y\T\rho(y)$ para alguna $\rho$;\\
+\clave{estrictamente pasivo en la salida} (OSP) & si lo anterior vale con $y\T\rho(y)>0$ para todo $y\neq0$;\\
+\clave{estrictamente pasivo} & si $u\T y\ge\Vdot+\psi(x)$ con $\psi$ definida positiva.
+\end{tabular}
+\end{center}
+\end{definicion}
+
+En todos los casos, la desigualdad debe valer \alerta{para todo} $(x,u)$; la palabra \emph{pasivo} sin calificativos es global. La lectura física es siempre la del \cref{ej:pa-masa}: la energía se puede disipar en la entrada (ISP), en la salida (OSP) o en todo el estado (estrictamente pasivo).
+
+\begin{ejemplo}[label=ej:pa-intfiltro]{Integrador frente a filtro}
+Con el mismo almacenamiento $V=\tfrac12x^2$, clasifique $1/s$ ($\dot x=u$, $y=x$) y $1/(s+1)$ ($\dot x=-x+u$, $y=x$).
+\solucion Para el integrador, $\Vdot=x\,u=u\,y$: es \emph{sin pérdidas}. Para el filtro, $\Vdot=-x^2+x\,u=-y^2+u\,y$: es OSP con $\rho(y)=y$ y, como aquí $y=x$, también estrictamente pasivo con $\psi(x)=x^2$. En frecuencia (\cref{fig:pa-intfiltro}), el integrador tiene fase $-90\grados$ exacta y su gráfica de Nyquist recorre el eje imaginario; el filtro tiene menos desfase y su gráfica queda estrictamente en el semiplano derecho. El ``exceso'' de pasividad del filtro es el margen de fase que al integrador le falta. Esa conexión se hace precisa en la \cref{sec:pa-lineales}.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_integrador_filtro}
+\caption{Integrador y filtro. Izquierda: Nyquist; el integrador vive en la frontera del semiplano derecho. Derecha: la fase del filtro nunca llega a $-90\grados$.}
+\label{fig:pa-intfiltro}
+\end{figure}
+
+\codigorepo{cap11_pasividad/C11_Ej4_IntegradorFiltro.m}{energia}{El mismo almacenamiento, dos balances}
+
+\begin{ejemplo}[label=ej:pa-rlc]{El mismo circuito, cuatro tipos de pasividad \citep[\S6.2]{Kha02}}
+En el circuito de la \cref{fig:pa-rlc}, $x_1$ es la corriente del inductor, $x_2$ el voltaje del capacitor, $u$ el voltaje de entrada y $y$ la corriente de entrada. Los tres resistores son no lineales, $i=h_k(v)$, con $h_k(0)=0$:
+\begin{equation}
+  L\dot x_1=u-h_2(x_1)-x_2,\qquad C\dot x_2=x_1-h_3(x_2),\qquad y=x_1+h_1(u) .
+  \label{eq:pa-rlc}
+\end{equation}
+Escriba el balance de potencia y clasifique el sistema según los resistores.
+\solucion La energía almacenada en el inductor y el capacitor es $V=\tfrac12Lx_1^2+\tfrac12Cx_2^2$, y
+\[
+  \Vdot=x_1\bigl(u-h_2(x_1)-x_2\bigr)+x_2\bigl(x_1-h_3(x_2)\bigr)
+  =x_1u-x_1h_2(x_1)-x_2h_3(x_2) .
+\]
+Como $u\,y=u\,x_1+u\,h_1(u)$,
+\begin{equation}
+  u\,y=\Vdot+u\,h_1(u)+x_1h_2(x_1)+x_2h_3(x_2):
+  \label{eq:pa-rlcbalance}
+\end{equation}
+la potencia de entrada es el cambio de energía más la potencia que consume cada resistor. De aquí sale la clasificación:
+\begin{center}\small
+\begin{tabular}{@{}p{6.2cm}p{3.6cm}p{2.4cm}@{}}
+\toprule
+\textbf{Resistores} & \textbf{Desigualdad} & \textbf{Tipo}\\
+\midrule
+$h_1=h_2=h_3=0$ & $u\,y=\Vdot$ & sin pérdidas\\
+$h_2,h_3\in[0,\infty]$; $u\,h_1(u)>0$ si $u\neq0$ & $u\,y\ge\Vdot+u\,h_1(u)$ & ISP\\
+$h_1=0$ (luego $y=x_1$), $h_3\in[0,\infty]$; $y\,h_2(y)>0$ si $y\neq0$ & $u\,y\ge\Vdot+y\,h_2(y)$ & OSP\\
+$h_1\in[0,\infty]$; $x_1h_2(x_1)>0$, $x_2h_3(x_2)>0$ si $\neq0$ & $u\,y\ge\Vdot+\psi(x)$ & estrictamente pasivo\\
+\bottomrule
+\end{tabular}
+\end{center}
+El mismo circuito pasa por todas las categorías según \emph{dónde} se disipa la energía.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.72\linewidth]{cap11/t_rlc}
+\caption{Circuito RLC con tres resistores no lineales \citep[\S6.2]{Kha02}.}
+\label{fig:pa-rlc}
+\end{figure}
+
+\script{cap11_pasividad/C11_Ej5_RLCKhalil.m}
+El script \cmd{C11\_Ej5\_RLCKhalil.m} simula los cuatro casos y verifica \eqref{eq:pa-rlcbalance} sobre la solución con un residuo del orden de $10^{-6}$.
+
+\begin{ejemplo}[label=ej:pa-local]{Pasivo solo cerca del origen}
+¿Es pasivo $\dot x=x^3-kx+u$, $y=x$, con $k>0$?
+\solucion Con $V=\tfrac12x^2$, $\Vdot=x^4-kx^2+x\,u=x^2(x^2-k)+u\,y$, y $\Vdot\le u\,y$ si y solo si $\abs x\le\sqrt k$. Esto no prueba que no sea pasivo (quizás otro almacenamiento funcione). Para probarlo hay que mostrar que el sistema puede \emph{entregar} energía sin gastar la que tiene. Tome $\bar x$ constante y la entrada constante $u=-(\bar x^3-k\bar x)$, que mantiene $x(t)\equiv\bar x$. Si existiera un almacenamiento $V\ge0$, la desigualdad de disipación daría
+\[
+  0=V(\bar x)-V(\bar x)\;\le\;\int_0^Tu\,y\,\dif t=-\bar x^2(\bar x^2-k)\,T ,
+\]
+que es falso para $\abs{\bar x}>\sqrt k$ y $T>0$. Con $k=1$ y $\bar x=1.5$ el sistema entrega $2.8125$ unidades de energía por segundo, para siempre, sin cambiar de estado (\cref{fig:pa-local}). Es pasivo solo en el conjunto $\abs x\le\sqrt k$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_pasividad_local}
+\caption{Izquierda: $\Vdot-u\,y$ es negativo (disipa) solo para $\abs x<\sqrt k$. Derecha: con $x(t)\equiv1.5$ el sistema entrega energía a ritmo constante sin que $V$ cambie.}
+\label{fig:pa-local}
+\end{figure}
+
+\codigorepo{cap11_pasividad/C11_Ej6_PasividadLocal.m}{local}{La prueba de que no es pasivo}
+
+\begin{cuidado}[``Pasivo'' es global]
+Si la desigualdad \eqref{eq:pa-pasivo} solo vale en un conjunto de estados o de entradas, hay que decirlo: ``pasivo en $\{\abs x\le\sqrt k\}$''. Usar la palabra sin calificativos cuando la propiedad es local es el error que más se repite en los expedientes.
+\end{cuidado}
+
+\begin{trampa}[label=tr:pa-osp]{OSP no es estrictamente pasivo}
+\plausible{Si un sistema disipa energía (por ejemplo, es OSP), entonces es estrictamente pasivo.}
+Tome el RLC serie lineal con $R=L=C=1$, $x_1$ el voltaje del capacitor, $x_2=i$ la corriente, $u$ el voltaje de entrada y $y=i$:
+\[
+  \dot x=\begin{bmatrix}0&1\\-1&-1\end{bmatrix}x+\begin{bmatrix}0\\1\end{bmatrix}u,\qquad y=\begin{bmatrix}0&1\end{bmatrix}x,
+  \qquad V=\tfrac12(x_1^2+x_2^2),\qquad \Vdot=-y^2+u\,y .
+\]
+Es OSP con $\rho(y)=y$. Pero con este almacenamiento \emph{no} es estrictamente pasivo: $\psi(x)=x_2^2$ se anula en todo el eje $x_2=0$ y no es definida positiva. La energía se disipa solo en el resistor, que ``ve'' la corriente y no la carga del capacitor. Y ningún otro almacenamiento lo arregla: con una entrada constante $u\equiv c\neq0$, el estado $\bar x=(c,0)$ es un equilibrio (el capacitor cargado bloquea la corriente), así que en él $\Vdot=0$ y $u\,y=0$; la desigualdad $u\,y\ge\Vdot+\psi(\bar x)$ exigiría $\psi(\bar x)\le0$ con $\bar x\neq0$.
+\correcto{OSP y estrictamente pasivo son propiedades distintas. Para concluir estabilidad asintótica de un sistema OSP hace falta algo más: observabilidad en estado cero (\cref{sec:pa-estabilidad}). En frecuencia, la misma información aparecerá como ``real positiva, pero no estrictamente'' (\cref{ej:pa-kyprlc}).}
+\end{trampa}

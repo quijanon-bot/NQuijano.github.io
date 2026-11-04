@@ -1,0 +1,122 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:pa-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{Disipatividad:} almacenado al final $\le$ almacenado al comienzo $+$ suministrado. En forma diferencial, $\Vdot\le s(u,y)$: una desigualdad entre funciones de $(x,u)$ que se verifica sin resolver la ecuación.
+  \item \textbf{Pasividad:} tasa de suministro $u\T y$, una potencia; $u$ y $y$ son variables conjugadas de un puerto. El almacenamiento disponible es la energía extraíble y es el menor almacenamiento posible.
+  \item \textbf{Exceso de pasividad:} en la entrada (ISP), en la salida (OSP) o en todo el estado (estrictamente pasivo). Pasividad mira el signo de la potencia, no la pendiente; y sin calificativos es global.
+  \item \textbf{Estabilidad:} pasivo con $V>0$ $\Rightarrow$ estable; estrictamente pasivo $\Rightarrow$ AS; OSP necesita ZSO y LaSalle. GAS si el almacenamiento es radialmente no acotado.
+  \item \textbf{Lineales:} PR y SPR son la pasividad en frecuencia; la condición en $\omega\to\infty$ separa SPR de PR. El lema KYP: SPR $\Leftrightarrow$ existe $V=\tfrac12x\T Px$ con exceso en el estado.
+  \item \textbf{Interconexión:} con la convención de signos correcta las potencias se cancelan; la suma de almacenamientos es una función de Lyapunov del lazo, y el exceso de un subsistema puede compensar la escasez del otro.
+  \item \textbf{Diseño:} un sistema pasivo y ZSO se estabiliza con $u=-\phi(y)$; si no es pasivo, se pasiva (compensación de gravedad, cascadas).
+  \item \textbf{Aplicación:} tanques OSP + replicador sin pérdidas + LaSalle $=$ estabilidad asintótica del reparto de agua, con una región de atracción que excluye las caras del simplex.
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item Señales acotadas no acotan el almacenamiento; hace falta energía finita (\cref{tr:pa-potencia}).
+  \item La pendiente negativa no impide la pasividad (\cref{tr:pa-pendiente}).
+  \item OSP no es estrictamente pasivo (\cref{tr:pa-osp}).
+  \item $\Vdot\le0$ con $\Vdot=0$ en $\{y=0\}$ no da AS sin ZSO (\cref{tr:pa-lasalle}).
+  \item $\Re G(j\omega)>0$ y Hurwitz no implica SPR (\cref{tr:pa-reg}).
+  \item La retroalimentación positiva rompe la cancelación (\cref{tr:pa-signo}); el teorema del lazo no pide $\Vdot_i\le0$ por separado (\cref{tr:pa-cadauno}).
+  \item Un PD sin compensar la gravedad estabiliza otro equilibrio (\cref{tr:pa-pd}); una cascada de piezas GAS puede escapar en tiempo finito (\cref{tr:pa-cascada}).
+  \item $V_2\ge0$ solo en el simplex (\cref{tr:pa-V2}); el lazo de agua no es el \cref{thm:pa-lazoAS} (\cref{tr:pa-teo63}); AS no es convergencia desde las caras (\cref{tr:pa-caras}).
+\end{itemize}
+\end{trampa}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo (Handout8)]
+(i) El criterio de Popov es de 1961 (el handout decía 1962) y el lema KYP se atribuye a Yakubovich (1962) y Kalman (1963), con referencias exactas. (ii) La prueba de estabilidad del lazo \emph{no} usa $\Vdot_1\le0$ y $\Vdot_2\le0$ por separado (\cref{tr:pa-cadauno}). (iii) Se distingue OSP de estrictamente pasivo, con la prueba de que el RLC serie no es estrictamente pasivo con ningún almacenamiento. (iv) Se agregó la observabilidad en estado cero como hipótesis explícita y la prueba de que, con ella, el almacenamiento resulta definido positivo. (v) La notación se unificó con \texttt{notacion.sty}: sin negrillas, $s(u,y)$ para el suministro, $V$ para el almacenamiento, retroalimentación en lugar de realimentación; los términos en inglés (\emph{storage}, \emph{radially unbounded}, \emph{zero-state observable}) se tradujeron. (vi) La figura pendiente de la cascada (``AÑADIR FIGURA'') es la \cref{fig:pa-cascada}, y se agregó la trampa del escape en tiempo finito. (vii) La aplicación de distribución de agua se escribió con la notación del curso ($q_i$, $F_i$, $H_1$, $H_2$) y se agregaron la prueba de $V_2\ge0$ por Jensen y la trampa de las caras. Todos los números se verificaron con \texttt{herramientas/cap11\_numeros.py} (72 de 72) y \cmd{verificarCap11.m} (39 de 39).
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:pa-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\subsection*{Balance de energía y disipatividad}
+
+\begin{problema}[péndulo con fricción]\label{prob:pa-pendulo}
+Para $\ddot\theta+b\dot\theta+\sin\theta=u$, $y=\dot\theta$, $b>0$: (a) escriba el modelo de estado y muestre que, con $V=1-\cos\theta+\tfrac12\dot\theta^2$, el sistema es OSP. (b) ¿Es $V$ definida positiva? ¿Radialmente no acotada? (c) Verifique que es ZSO \emph{localmente} y concluya qué se puede afirmar del origen con $u=0$: ¿AS?, ¿GAS? (d) \etiquetaM{} Simule desde $\theta(0)=3$, $\dot\theta(0)=1$ y explique el resultado con (b).
+\end{problema}
+
+\begin{problema}[almacenamiento disponible]\label{prob:pa-disponible}
+Calcule el almacenamiento disponible del oscilador sin fricción $\dot x_1=x_2$, $\dot x_2=-x_1+u$, $y=x_2$, con $s=u\,y$. ¿Es el único almacenamiento? (Pista: halle también el requerido desde el origen.)
+\end{problema}
+
+\begin{problema}[sectores]\label{prob:pa-sectores}
+Clasifique (pasivo, ISP, OSP, ninguno) y dé el sector, si existe: (a) $h(u)=u^3$; (b) $h(u)=u-u^3$; (c) la zona muerta $h(u)=0$ si $\abs u\le1$, $h(u)=u-\sgn(u)$ si $\abs u>1$; (d) $h(u)=u+\sin u$. Para (b), ¿en qué intervalo de $u$ es pasivo?
+\end{problema}
+
+\subsection*{Estabilidad y sistemas lineales}
+
+\begin{problema}[PR, SPR y KYP]\label{prob:pa-kyp}
+Para $G_1(s)=\dfrac{s+1}{s^2+2s+2}$ y $G_2(s)=\dfrac{s+2}{s^2+2s+2}$: (a) aplique el \cref{lem:pa-prueba} y clasifique. (b) Con la realización $A=\begin{bmatrix}0&1\\-2&-2\end{bmatrix}$, $B=\begin{bmatrix}0\\1\end{bmatrix}$, $C=[z\;\;1]$, $D=0$, resuelva las ecuaciones KYP: halle $P$, $L$ y el mayor $\epsilon$. (c) Relacione el resultado de (b) con el parámetro $z-a$ de la familia del \cref{ej:pa-familia}.
+\end{problema}
+
+\begin{problema}[la brecha de LaSalle]\label{prob:pa-zso}
+Considere $\dot x_1=x_2$, $\dot x_2=-x_2+u$, $y=x_2$. (a) Muestre que es OSP con $V=\tfrac12x_2^2$. (b) ¿Es ZSO? (c) ¿Es asintóticamente estable el origen con $u=0$? ¿Qué le pasa a $x_1$? (d) Proponga una salida con la que el sistema sea pasivo y ZSO, y una ley $u=-\phi(y)$ que lo estabilice.
+\end{problema}
+
+\subsection*{Interconexión y diseño}
+
+\begin{problema}[escasez compensada]\label{prob:pa-escasez}
+Sea $H_1$: $\dot x=0.5x+e_1$, $y_1=x$, y $H_2$ la ganancia estática $y_2=k\,e_2$, conectados como en la \cref{fig:pa-feedback} con $u=0$. (a) Muestre que $H_1$ cumple \eqref{eq:pa-excesoescasez} con $\delta_1=-0.5$ (escasez) y $H_2$ con $\epsilon_2=k$. (b) Use \eqref{eq:pa-compensa} para concluir estabilidad si $k>0.5$. (c) La condición $\epsilon_1+\delta_2>0$ no se cumple; ¿por qué no hace falta aquí? (d) Compare con el análisis directo del lazo.
+\end{problema}
+
+\begin{problema}[el péndulo sin fricción y su energía]\label{prob:pa-penduloPBC}
+Para $\ddot\theta+\sin\theta=u$: (a) muestre que con $y=\dot\theta$ es sin pérdidas y ZSO localmente. (b) ¿Hace $u=-k\dot\theta$ GAS el origen? Explique con el equilibrio $\theta=\pi$ y con la forma de $V$. (c) \etiquetaM{} Simule desde $(\theta,\dot\theta)=(\pi-0.01,0)$ y desde $(0,\,2.2)$ con $k=0.2$ y describa a dónde llega cada uno. (d) ¿Qué conclusión correcta permite el \cref{thm:pa-amortiguamiento} en este caso?
+\end{problema}
+
+\begin{problema}[otra cascada]\label{prob:pa-cascada2}
+Para $\dot z=u$, $\dot x=-x^3+x\,z$: (a) diseñe la ley de pasivación del \cref{thm:pa-cascada} con $W=\tfrac12x^2$. (b) \etiquetaM{} Simule también $u=-kz$ desde $x(0)=1$, $z(0)=10$, $k=1$. ¿Escapa? (c) Explique la diferencia con el \cref{ej:pa-cascada} mirando cómo crece el acoplamiento con $x$.
+\end{problema}
+
+\subsection*{La aplicación}
+
+\begin{problema}[dos tanques]\label{prob:pa-dostanques}
+Con $N=2$, $Q=1$, $r=1$, $v_m=1$, $c=(0.5,\,1)$: (a) calcule $v^*$ y $q^*$. (b) Use $q_1+q_2=Q$ para escribir el replicador como una sola ecuación para $q_1$ y muestre que es un replicador de dos estrategias como el del capítulo~2. (c) Escriba $V_1$ y $V_2$ y verifique \eqref{eq:pa-Vdotagua}. (d) \etiquetaM{} Adapte \cmd{crearModelo\_Agua.m} a dos tanques y verifique la conservación de $Q$.
+\end{problema}
+
+\begin{problema}[el signo, en Simulink]\label{prob:pa-signoSL}
+\etiquetaM{} Con \cmd{crearModelo\_LazoPasivo.m}: (a) verifique que $V$ no crece y que la diferencia con \cmd{ode45} es menor que $10^{-5}$. (b) Cambie el sumador \texttt{e1} a \texttt{++} y simule desde $x_1(0)=0.1$. ¿Qué pasa con $V$? Explíquelo con la \cref{tr:pa-signo}. (c) \etiquetaEstrella{} Encuentre una condición inicial con la que, aun con el signo cambiado, $V$ decrezca durante un tiempo. ¿Contradice eso la trampa?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:pa-pendulo}}
+(a) $\Vdot=\sin\theta\,\dot\theta+\dot\theta(-b\dot\theta-\sin\theta+u)=-b\,y^2+u\,y$. (b) $V$ es definida positiva solo localmente: se anula en $(2\pi k,0)$; no es radialmente no acotada en $\theta$. (c) Con $u=0$ y $y\equiv0$, $\sin\theta\equiv0$: $\theta\equiv k\pi$; cerca del origen solo queda $\theta=0$. El origen es AS, no GAS: hay otros equilibrios. (d) La solución da vueltas completas antes de detenerse en un múltiplo de $2\pi$ distinto de cero: el ángulo físico es el mismo, pero en $\R^2$ es otro equilibrio.
+
+\paragraph{Problema~\ref{prob:pa-disponible}}
+$-\int_0^Tu\,y\,\dif t=V(x(0))-V(x(T))$ con $V=\tfrac12(x_1^2+x_2^2)$, máximo cuando $x(T)=0$: $\Va=\tfrac12(x_1^2+x_2^2)$. El requerido desde el origen es el mismo: el almacenamiento es único, como en el integrador.
+
+\paragraph{Problema~\ref{prob:pa-sectores}}
+(a) Pasivo, sector $[0,\infty]$; no es ISP ni OSP con funciones \emph{lineales}, pero sí ISP con $\varphi(u)=u^3$ y OSP con $\rho(y)=y^{1/3}$ (la definición no pide linealidad). (b) $u\,h(u)=u^2(1-u^2)$: pasivo solo para $\abs u\le1$. (c) Sector $[0,1]$: pasivo y OSP. (d) Sector $[0,2]$ (la razón $h/u=1+\sin u/u$ va de $\approx0.78$ a $2$): pasivo, ISP con $\varphi(u)=0.78u$ aproximadamente, y OSP.
+
+\paragraph{Problema~\ref{prob:pa-kyp}}
+(a) $G_1$: $z=1<a=2$, SPR. $G_2$: $z=a=2$, PR y no SPR. (b) $G_1$: $P=\begin{bmatrix}4&1\\1&1\end{bmatrix}$, $PA+A\T P=\diag(-4,-2)$, $\epsilon_{\max}=0.8453$. $G_2$: $P=\begin{bmatrix}6&2\\2&1\end{bmatrix}$, $PA+A\T P=\diag(-8,0)$: la entrada $(2,2)$ es cero, $\epsilon=0$, $L=[2\sqrt2\;\;0]$. (c) El cero estructural aparece exactamente cuando $z=a$.
+
+\paragraph{Problema~\ref{prob:pa-zso}}
+(b) No: con $u=0$, $x_2\equiv0$ deja $x_1$ constante arbitrario. (c) Estable, no AS: $x_1(t)\to x_1(0)+x_2(0)$. (d) Tome $y=x_1+x_2$ (grado relativo uno: $\dot y=u$; dinámica cero $\dot x_1=-x_1$, de fase mínima) y $V=\tfrac12x_1^2+\tfrac12y^2$. Entonces $\Vdot=x_1x_2+y\,u=-x_1^2+y\,(u+x_1)$. Con la retroalimentación preliminar $u=-x_1+v$, el sistema de $v$ a $y$ es pasivo (de hecho, $\Vdot=-x_1^2+y\,v$), y con $v=-ky$, $k>0$, $\Vdot=-x_1^2-ky^2$ es negativa definida: GAS. Es un caso del resultado de \citet{BIW91}.
+
+\paragraph{Problema~\ref{prob:pa-escasez}}
+(a) $V_1=\tfrac12x^2$: $\Vdot_1=0.5\,y_1^2+e_1y_1$, es decir $e_1y_1=\Vdot_1-0.5\,y_1^2$. $e_2y_2=k\,e_2^2$. (b) $\Vdot_1\le-(k-0.5)\,y_1^2$. (c) $y_2=ky_1$ no es un estado: no hay energía en $H_2$ que disipar. (d) $\dot x=(0.5-k)x$.
+
+\paragraph{Problema~\ref{prob:pa-penduloPBC}}
+(b) No: $\theta=\pi$, $\dot\theta=0$ es otro equilibrio del lazo, y $V=1-\cos\theta+\tfrac12\dot\theta^2$ no es radialmente no acotada ni definida positiva en todo $\R^2$. (d) AS local del origen, con una estimación de la región de atracción dada por $\{V<2\}$ (la energía del equilibrio invertido).
+
+\paragraph{Problema~\ref{prob:pa-cascada2}}
+(a) $\jac WxF=x\cdot x=x^2$, luego $u=-x^2-kz$. (b) No escapa: $x$ sube hasta $2.76$ y luego decae lentamente ($x(30)\approx0.138$). (c) El acoplamiento $x\,z$ crece linealmente en $x$: $\dot x\le x\,z$ acota $x$ por $x_0\ee^{\int z}$, finito. En el \cref{ej:pa-cascada} crecía como $x^2$.
+
+\paragraph{Problema~\ref{prob:pa-dostanques}}
+(a) $v^*=1/2.25=0.444$, $q^*=(1/3,\,2/3)$.
+
+\respuestaspausas

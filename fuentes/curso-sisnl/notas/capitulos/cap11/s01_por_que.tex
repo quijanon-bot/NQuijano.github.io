@@ -1,0 +1,61 @@
+%% ---------------------------------------------------------------------
+\section{¿Por qué pasividad?}
+\label{sec:pa-porque}
+%% ---------------------------------------------------------------------
+
+En el capítulo anterior escribimos la estabilidad entrada--estado en \emph{forma disipativa}: si existe una función ISS-Lyapunov $V$, entonces
+\begin{equation}
+  \Vdot\;\le\;\underbrace{-\alpha_3(\norm{x})}_{\text{disipación}}\;+\;\underbrace{\sigma(\norm{w})}_{\text{inyección}} ,
+  \label{eq:pa-iss}
+\end{equation}
+con $\alpha_3,\sigma\in\K$ \citep{SoWa95}. Sin decirlo, ya estábamos leyendo $V$ como una \emph{energía almacenada}: la entrada exógena le inyecta a lo sumo $\sigma(\norm{w})$ por unidad de tiempo y el sistema disipa al menos $\alpha_3(\norm{x})$. En este capítulo cambiamos la inyección por la \emph{potencia} que entra por un puerto,
+\begin{center}
+\sffamily\large\color{snlazul}$\Vdot\;\le\;u\T y$
+\end{center}
+y nos preguntamos qué se puede concluir de un \clave{balance de energía} sin resolver la ecuación diferencial. La \cref{fig:pa-puerto} es la imagen que hay que tener en la cabeza durante todo el capítulo.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\linewidth]{cap11/t_puerto}
+\caption{Un sistema con un puerto $(u,y)$. Por el puerto entra la tasa de suministro $s(u,y)$; el sistema guarda $V(x)\ge0$ y disipa $d(x,u)\ge0$. Toda la teoría de este capítulo es la contabilidad de esta figura.}
+\label{fig:pa-puerto}
+\end{figure}
+
+\notamargen{\textbf{Notación.} Aquí $u$ no es un control que se diseña ni una perturbación que se sufre: es la variable del \emph{puerto} por donde entra energía. En la \cref{sec:pa-interconexion} será la salida de \emph{otro} sistema. Por eso, en este capítulo, $u$ y $y$ tienen la misma dimensión $m$.}
+¿Por qué vale la pena? Por cuatro razones que el capítulo va a ir mostrando:
+\begin{itemize}
+  \item \textbf{Estabilidad por construcción física.} En los sistemas que vienen de la física, la energía es una función de Lyapunov que no hay que adivinar (\cref{sec:pa-estabilidad}).
+  \item \textbf{Modularidad.} La pasividad se conserva al interconectar en retroalimentación: se prueban las piezas por separado y el lazo sale gratis (\cref{sec:pa-interconexion}).
+  \item \textbf{Robustez.} Lo que importa es el \emph{signo} de la potencia, no los valores exactos de los parámetros: un mismo argumento sirve para toda una familia de resistores, resortes o demandas.
+  \item \textbf{Un puente.} En los sistemas lineales, la pasividad se lee en frecuencia (funciones reales positivas) y en el espacio de estado (una $V$ cuadrática); el lema KYP es el puente (\cref{sec:pa-lineales}).
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/t_mapa}
+\caption{Mapa del capítulo. Todo sale del mismo balance de energía.}
+\label{fig:pa-mapa}
+\end{figure}
+
+\notamargen{\textbf{Ruta de las clases.} Clase~1: \S\ref{sec:pa-balance}--\ref{sec:pa-estabilidad}. Clase~2: \S\ref{sec:pa-lineales}, \S\ref{sec:pa-interconexion} y \S\ref{sec:pa-agua}. La \cref{sec:pa-control} se lee por cuenta propia y se usa en el proyecto.}
+
+%% ---------------------------------------------------------------------
+\subsection{Un poco de historia: de los circuitos a cualquier sistema}
+
+Antes de 1960, \emph{pasivo} era un adjetivo de los circuitos: una red de resistencias, inductancias y capacitancias no puede entregar más energía de la que recibe. Otto Brune mostró en 1931 que una función racional es la impedancia de una red pasiva de R, L, C (y transformadores) si y solo si es \emph{real positiva}~\citep{Bru31}. La línea que lleva de ahí a la teoría moderna pasa por la estabilidad de los sistemas de control con una no linealidad (\cref{fig:pa-linea}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap11/f_linea_tiempo}
+\caption{De Brune a Byrnes, Isidori y Willems. En ámbar, los dos trabajos que convierten la pasividad en una propiedad de cualquier sistema dinámico.}
+\label{fig:pa-linea}
+\end{figure}
+
+\begin{historia}[De Lur'e a Willems]
+En 1944, Lur'e y Postnikov plantearon el problema de la \emph{estabilidad absoluta}: estabilidad de un lazo con una parte lineal y una no linealidad de la que solo se sabe que está en un sector~\citep{LuPo44}. Popov dio en 1961 un criterio \emph{frecuencial}~\citep{Pop61}; Yakubovich (1962) y Kalman (1963) mostraron que esa condición en frecuencia equivale a la existencia de una función de Lyapunov cuadrática: es el lema de Kalman--Yakubovich--Popov~\citep{Yak62,Kal63}. En 1966, Zames formuló los teoremas de pasividad y de pequeña ganancia en términos de entradas y salidas, sin estado~\citep{Zam66a,Zam66b}. Jan C.\ Willems, en 1972, unió las dos miradas con los \emph{sistemas disipativos}: un almacenamiento, una tasa de suministro y una desigualdad~\citep{Wil72a,Wil72b}. Hill y Moylan conectaron la disipatividad con la estabilidad de Lyapunov~\citep{HiMo76,HiMo80}, y Byrnes, Isidori y Willems caracterizaron en 1991 qué sistemas se pueden volver pasivos por retroalimentación~\citep{BIW91}. La historia completa, desde la mirada del diseño, está en \citet{KoAr01}.
+\end{historia}
+
+\begin{pausa}
+Antes de seguir, apueste: un sistema que \emph{no puede crear energía} ---lo que almacena nunca supera lo que tenía más lo que recibió---, ¿tiene necesariamente un equilibrio estable cuando se le quita la entrada?
+\respuesta{No necesariamente. Pasividad pide un almacenamiento $V\ge0$, no definido positivo; si $V$ ``no ve'' una parte del estado, esa parte puede ser inestable. Ejemplo: $\dot x_1=x_1$, $\dot x_2=u$, $y=x_2$, $V=\tfrac12x_2^2$, que es sin pérdidas y tiene el origen inestable (\cref{sec:pa-estabilidad}). Con $V$ definida positiva sí se obtiene estabilidad (\cref{lem:pa-estable}).}
+\end{pausa}

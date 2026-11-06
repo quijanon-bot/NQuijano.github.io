@@ -1,0 +1,112 @@
+%% ---------------------------------------------------------------------
+\section{Cómo se plantea un problema de control}
+\label{sec:in-problema}
+%% ---------------------------------------------------------------------
+
+\subsection{Entradas, salidas y mediciones}
+
+Un sistema se separa de su entorno con una frontera imaginaria; lo que cruza la frontera hacia adentro son \emph{entradas}, lo que sale e influye sobre el entorno son \emph{salidas}~\citep{Bol15}. En los diagramas de bloques la frontera es la caja y las señales son las flechas. Pero para controlar hace falta distinguir más: no todas las entradas se pueden mover ni todas las salidas se pueden medir (\cref{fig:in-entradas}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap01/proceso_entradas}
+\caption{Un proceso con sus entradas y salidas clasificadas (adaptado de~\citep{Beq03}).}
+\label{fig:in-entradas}
+\end{figure}
+
+\begin{definicion}[label=def:in-variables]{Variable manipulada y perturbación}
+Una \clave{variable manipulada} es una entrada que el sistema de control (o un operador) puede ajustar. Una \clave{perturbación} es una entrada que afecta la salida pero que el sistema de control no puede ajustar; a veces se puede medir y a veces no. La salida que se quiere llevar a un valor deseado es la \clave{variable controlada}.
+\end{definicion}
+
+Lo que el controlador ``ve'' de la salida llega a través de un sistema de instrumentación con tres partes: el \emph{sensor}, en contacto con la variable física; el \emph{procesamiento de señal}, que convierte la salida del sensor en algo que se pueda transmitir (en la industria, típicamente una corriente de $4$ a $20$\,mA); y la \emph{presentación} o almacenamiento del dato. Al conjunto sensor--acondicionador se le llama a menudo \clave{transductor}: convierte una variable física en otra que se puede usar, casi siempre eléctrica. La medición nunca es exactamente la variable: hay errores de calibración, ruido y dinámica del propio sensor. Por eso en la \cref{fig:in-lazos} distinguimos $y$ de $y_m$.
+
+\subsection{Los elementos de una estrategia de control}
+
+\begin{receta}[Cómo plantear un problema de control~\citep{Beq03}]
+\begin{enumerate}
+  \item \textbf{Objetivos.} ¿Qué se quiere lograr? Mantener una variable en un valor, seguir una trayectoria, minimizar un costo.
+  \item \textbf{Entradas.} Clasificarlas en manipuladas y perturbaciones. Pueden variar de forma continua o cambiar solo en ciertos instantes.
+  \item \textbf{Salidas.} Clasificarlas en medidas y no medidas.
+  \item \textbf{Restricciones.} \emph{Duras}, que no se pueden violar (un caudal entre un mínimo y un máximo, una válvula entre $0$ y $100\%$), y \emph{blandas}, que conviene respetar pero cuya violación no es peligrosa (la composición de un producto).
+  \item \textbf{Operación.} \emph{Continua}, con periodos largos en condiciones parecidas, o \emph{por lotes} (\emph{batch}), con periodos cortos en los que las condiciones cambian mucho, como la fermentación de la cerveza.
+  \item \textbf{Seguridad, ambiente y economía.} Qué no puede pasar nunca, qué se puede emitir, cuánto cuesta cada unidad de energía o de producto.
+  \item \textbf{Estructura del controlador.} \emph{Retroalimentación}: se mide la variable controlada, se compara con la referencia y se ajusta la manipulada. \emph{Prealimentación}: se mide la perturbación y se ajusta la manipulada \emph{antes} de que la salida se afecte.
+\end{enumerate}
+\end{receta}
+
+Escoger qué mover y qué medir no es trivial. Una buena \textbf{entrada de control} está \emph{disponible} (influye directa e inmediatamente sobre la salida), \emph{responde rápido}, permite ajustes \emph{finos} y tiene un efecto de \emph{signo conocido} y constante: si en un punto de operación abrir la válvula sube el nivel y en otro lo baja, el controlador no sabe para dónde ir. Una buena \textbf{salida de control} se puede medir de forma precisa, rápida y confiable, es \emph{relevante} (una buena medida de lo que realmente nos importa), responde rápido a lo que pasa en el proceso y es \emph{suave}, es decir, no necesita filtros fuertes.
+
+\begin{definicion}[label=def:in-ganancia]{Ganancia del proceso}
+La \clave{ganancia del proceso} mide la sensibilidad de la salida a la entrada: cuánto cambia la salida en estado estacionario por unidad de cambio en la entrada. Si un aumento de $0.5$\,kW en la potencia de un calentador sube la temperatura de un fluido $10$\,°C, la ganancia es $10/0.5=20$\,°C/kW.
+\end{definicion}
+
+La ganancia tiene unidades y signo, y ambos importan: en el ejemplo~\ref{ej:in-tanque} era $K=2$\,m por m$^3$/min. Una vez escogida la estructura, falta el \emph{algoritmo} del controlador y sus parámetros. En este curso los escogeremos \emph{a partir de un modelo} del proceso: por eso los capítulos~2 a~4 están dedicados a construir modelos.
+
+\subsection{Ejemplo: darse una ducha}
+
+Darse una ducha es un problema de control multivariable que resolvemos a diario (\cref{fig:in-ducha}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/ducha}
+\caption{La ducha como problema de control: dos válvulas, dos variables que importan (temperatura y caudal) y un sensor muy bueno, la piel.}
+\label{fig:in-ducha}
+\end{figure}
+
+\begin{itemize}
+  \item \textbf{Objetivos:} estar limpio, refrescarse y sentirse bien; tomamos el último: una temperatura y un caudal agradables.
+  \item \textbf{Manipuladas:} la apertura de las válvulas de agua caliente y fría (y, si se quiere, la posición del cuerpo).
+  \item \textbf{Perturbaciones:} caídas de presión, cambios en la temperatura del calentador.
+  \item \textbf{Salidas medidas:} temperatura y caudal del agua cuando toca la piel.
+  \item \textbf{Restricciones:} las válvulas abren entre un mínimo y un máximo; por lo tanto hay temperaturas mínima y máxima alcanzables.
+  \item \textbf{Estructura:} es \emph{multivariable}: cada válvula mueve la temperatura \emph{y} el caudal, así que hay que coordinarlas. Retroalimentamos cuando la piel siente frío y abrimos la caliente; prealimentamos cuando oímos que alguien descarga el sanitario y, antes de quemarnos, cerramos un poco la caliente.
+\end{itemize}
+
+\subsection{Ejemplo: un tanque de almacenamiento}
+\label{sec:in-surge}
+
+En una planta, los tanques de almacenamiento (\emph{surge tanks}) amortiguan las diferencias entre lo que produce una unidad y lo que consume la siguiente~\citep{Beq03}. Entra un caudal $F_1$ desde el proceso~1 y sale un caudal $F_2$ hacia el proceso~2. El \textbf{objetivo} es mantener el nivel $h$ dentro de unos límites alrededor de un valor deseado $h_{sp}$ (\emph{set point}); las \textbf{entradas} son $F_1$ y $F_2$; la \textbf{salida} es el nivel, que suponemos medible; la \textbf{operación} es continua; y la \textbf{seguridad} pide no rebosar ni vaciar el tanque y que el fluido no dañe tuberías ni paredes. Cuál entrada es manipulada y cuál perturbación \emph{depende de quién manda} (\cref{fig:in-escenarios}).
+
+\begin{figure}[ht]
+\begin{anchocompleto}
+\centering
+\includegraphics[width=\linewidth]{cap01/tanque_escenarios}
+\end{anchocompleto}
+\caption{Tres estructuras para el mismo tanque, en símbolos de la norma ISA-5.1: LT transmisor de nivel, LC controlador de nivel, FT transmisor de flujo, FY cálculo o relé; en línea discontinua, las señales.}
+\label{fig:in-escenarios}
+\end{figure}
+
+\paragraph{Escenario 1: el proceso 2 fija $F_2$}
+Si el proceso~2 es, por ejemplo, una caldera que toma el agua que necesita según la demanda de vapor, $F_2$ es una perturbación para el tanque y la variable manipulada es $F_1$. El transmisor LT envía el nivel al controlador LC, que lo compara con $h_{sp}$ y manda una señal de presión $P_v$ a la válvula de entrada. La \cref{fig:in-esquemas}(a) muestra el mismo lazo como diagrama de bloques. Note la diferencia: el diagrama de instrumentación dibuja \emph{equipos}; el diagrama de bloques dibuja \emph{flujo de información}, y cada bloque es un sistema dinámico.
+
+\paragraph{Escenario 2: el proceso 1 fija $F_1$}
+Si el proceso~1 produce un compuesto que el proceso~2 consume, $F_1$ es la perturbación y se manipula $F_2$ con la válvula de salida. El diagrama de bloques es el mismo intercambiando $F_1$ y $F_2$ (y el signo con el que entran al tanque).
+
+\paragraph{Escenario 3: prealimentación}
+Si se puede medir $F_1$, se puede mover $F_2$ en la misma cantidad \emph{antes} de que el nivel cambie (\cref{fig:in-esquemas}(b)). Es la ventaja de la prealimentación: corrige antes del daño. Su debilidad es que no mira el nivel: cualquier error en la medición de $F_1$ o en el modelo se acumula sin que nadie lo corrija. Por eso en la práctica \emph{se combinan} las dos estructuras.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\linewidth]{cap01/esquema_escenarios}
+\caption{Los escenarios 1 y 3 de la \cref{fig:in-escenarios} como diagramas de bloques.}
+\label{fig:in-esquemas}
+\end{figure}
+
+\begin{ejemplo}[label=ej:in-prealimentacion]{Prealimentación con un sensor imperfecto}
+Un tanque de área $A=2$\,m$^2$ cumple $A\,\dot h=F_1-F_2$ (la salida la impone una bomba). En $t=2$\,min, $F_1$ sube $0.5$\,m$^3$/min. Compare, en desviación $\dev{h}$ respecto al nivel inicial: (i) prealimentación con un transmisor de flujo que lee un $10\%$ menos, $\dev{F}_2=0.9\,\dev{F}_1$; (ii) retroalimentación proporcional, $\dev{F}_2=K_c\dev{h}$ con $K_c=1$\,m$^2$/min; (iii) las dos juntas.
+\solucion (i) $A\dot{\dev{h}}=0.5-0.45=0.05$: el nivel sube $0.025$\,m/min \emph{para siempre}; en $18$\,min ya subió $0.45$\,m. (ii) $A\dot{\dev{h}}=0.5-K_c\dev{h}$: el nivel se estabiliza en $0.5/K_c=0.5$\,m con constante de tiempo $A/K_c=2$\,min. (iii) $A\dot{\dev{h}}=0.05-K_c\dev{h}$: se estabiliza en $0.05$\,m, diez veces menos que con retroalimentación sola. La \cref{fig:in-prealimentacion} lo muestra: la prealimentación hace casi todo el trabajo y la retroalimentación corrige lo que aquella no sabía.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap01/f_prealimentacion}
+\caption{Ejemplo~\ref{ej:in-prealimentacion}: la prealimentación sola deriva, la retroalimentación sola deja una desviación grande, juntas funcionan.}
+\label{fig:in-prealimentacion}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej3_Prealimentacion.m}{combinada}{ejemplo \ref{ej:in-prealimentacion}}
+
+\begin{pausa}
+En el escenario~1, si $F_2$ es una perturbación que \emph{se puede medir}, ¿cómo combinaría prealimentación y retroalimentación?
+\respuesta{El controlador LC sigue corrigiendo con el nivel, y a su salida se le suma un término que mueve $F_1$ en la misma cantidad que cambie el $F_2$ medido. Así un cambio de $F_2$ se compensa de inmediato y LC solo corrige lo que la compensación no logró.}
+\end{pausa}

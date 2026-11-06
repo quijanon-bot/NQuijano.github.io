@@ -1,0 +1,15 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node[bloque,fill=ctrlverde!10,minimum width=30mm,minimum height=24mm,font=\normalsize] (p) {Proceso};
+  \foreach \y/\t in {0.55/{$u_1$},0/{$u_2$}}{\draw[senal,draw=ctrlazul] ($(p.west)+(-1.9,\y+0.25)$)--($(p.west)+(0,\y+0.25)$) node[pos=0,left]{\t};}
+  \foreach \y/\t in {-0.55/{$d_1$},-1.0/{$d_2$}}{\draw[senal,draw=ctrlcoral] ($(p.west)+(-1.9,\y+0.25)$)--($(p.west)+(0,\y+0.25)$) node[pos=0,left]{\t};}
+  \foreach \y/\t in {0.6/{$y_1$},0.15/{$y_2$}}{\draw[senal,draw=ctrlazul] ($(p.east)+(0,\y)$)--($(p.east)+(1.9,\y)$) node[right]{\t};}
+  \foreach \y/\t in {-0.5/{$z_1$},-0.9/{$z_2$}}{\draw[senal,draw=ctrlgris,dashed] ($(p.east)+(0,\y)$)--($(p.east)+(1.9,\y)$) node[right]{\t};}
+  \node[align=right,font=\footnotesize,text=ctrlazul,anchor=east] at ($(p.west)+(-2.35,0.55)$) {entradas\\manipuladas};
+  \node[align=right,font=\footnotesize,text=ctrlcoral,anchor=east] at ($(p.west)+(-2.35,-0.5)$) {perturbaciones};
+  \node[align=left,font=\footnotesize,text=ctrlazul,anchor=west] at ($(p.east)+(2.4,0.38)$) {salidas\\medidas};
+  \node[align=left,font=\footnotesize,text=ctrlgris,anchor=west] at ($(p.east)+(2.4,-0.7)$) {salidas\\no medidas};
+\end{tikzpicture}
+\end{document}

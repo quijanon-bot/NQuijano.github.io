@@ -1,0 +1,23 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node (r) {$R(s)$};
+  \node[suma,right=8mm of r] (S) {};
+  \node[bloque,right=9mm of S] (C) {$\dfrac{K(s+2)}{s+3}$};
+  \node[bloque,right=10mm of C] (P) {$\dfrac{1}{(s-1)(s^2+2s+2)}$};
+  \coordinate[right=9mm of P] (y0);
+  \node[right=6mm of y0] (y) {$Y(s)$};
+  \coordinate[below=12mm of y0] (abajo);
+  \node[rot,above=1mm of C] {compensador};
+  \node[rot,above=1mm of P] {planta inestable};
+  \draw[senal] (r) -- (S);
+  \draw[senal] (S) -- (C);
+  \draw[senal] (C) -- (P);
+  \draw[senal] (P) -- (y);
+  \draw[thick,draw=ctrlnoche] (y0) -- (abajo);
+  \draw[senal] (abajo) -| node[pos=0.95,left,rot]{$-$} (S);
+  \node[rot] at ($(S)+(-3mm,3.5mm)$) {$+$};
+  \fill (y0) circle (1.3pt);
+\end{tikzpicture}
+\end{document}

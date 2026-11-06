@@ -1,0 +1,25 @@
+%% ---------------------------------------------------------------------
+\section{Un poco de historia: de los anillos de Saturno a las turbinas de Davos}
+\label{sec:es-historia}
+%% ---------------------------------------------------------------------
+
+En el capítulo~1 vimos el recorrido general; aquí nos detenemos en la historia de la pregunta que resuelve este capítulo.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap05/personajes}
+\caption{De izquierda a derecha: James Clerk Maxwell (1831--1879), Edward John Routh (1831--1907), Aurel Stodola (1859--1942) y Adolf Hurwitz (1859--1919).}
+\label{fig:es-personajes}
+\end{figure}
+
+\paragraph{Maxwell deja la pregunta abierta.} El primer análisis matemático de la estabilidad de un regulador fue el de George Biddell Airy, astrónomo real, que en 1840 estudió por qué el regulador de fricción de un telescopio oscilaba~\citep{Air40}. Pero la pregunta general la planteó James Clerk Maxwell en \emph{On governors} (1868)~\citep{Max68,Kan16}. Maxwell ya había usado la estabilidad como criterio de verdad: en su ensayo sobre los anillos de Saturno, premiado en 1857, descartó los modelos que no eran estables, porque unos anillos que existen desde hace tanto tiempo tienen que serlo~\citep{Bit15}. En \emph{On governors} linealizó las ecuaciones del regulador y de la máquina y mostró que el equilibrio es estable si todas las raíces de la ecuación característica tienen parte real negativa. Obtuvo las condiciones para segundo y tercer orden ---la de tercer orden es la que veremos en el ejemplo~\ref{ej:es-tercer}--- y confesó que no había podido hacerlo para grados mayores, con la esperanza de que el problema ``atrajera la atención de los matemáticos''.
+
+\paragraph{Routh y el premio Adams.} La Universidad de Cambridge entregaba cada dos años el premio Adams, creado en honor de John Couch Adams, quien había predicho la existencia de Neptuno a partir de las irregularidades de la órbita de Urano. Para el periodo 1875--1877 los examinadores ---entre ellos Maxwell y George Stokes--- escogieron como tema \emph{El criterio de estabilidad dinámica}. Lo ganó en 1877 Edward John Routh, con el tratado que contiene el arreglo que hoy lleva su nombre~\citep{Rou77}. Routh y Maxwell habían nacido el mismo año, entraron juntos a Cambridge y presentaron juntos los exámenes de matemáticas de 1854, en los que Routh quedó primero y Maxwell segundo. Routh fue además el tutor más famoso de Cambridge: preparó a más de seiscientos estudiantes, entre ellos Rayleigh y J.~J.\ Thomson. Estaba casado con una hija de Airy.
+
+\paragraph{Stodola, Hurwitz y las turbinas.} El trabajo de Routh tardó en salir de Inglaterra. En el continente el texto de referencia sobre reguladores era el de Ivan Vyshnegradskii (1876), que había resuelto el caso de tercer orden con un método gráfico~\citep{Vys76}. Sobre esa base trabajaba Aurel Stodola, ingeniero eslovaco que llegó en 1892 como profesor al Politécnico de Zúrich (hoy ETH). En 1893 le encargaron el regulador de las turbinas hidráulicas de una planta en Davos; su modelo era de orden mayor que tres, el criterio de Vyshnegradskii no alcanzaba, y Stodola le preguntó a su colega matemático Adolf Hurwitz cuándo un polinomio tiene todas sus raíces con parte real negativa~\citep{Bis89}. Hurwitz respondió con un criterio en términos de determinantes, publicado en 1895~\citep{Hur95}, sin conocer el de Routh. Stodola publicó su análisis de las turbinas en la revista suiza de ingeniería (1893--94) y presentó los resultados en variables relativas, sin dimensiones, lo que los hizo útiles para otros ingenieros.
+
+\paragraph{Dos criterios, uno solo.} En 1911 el italiano Enrico Bompiani demostró que los criterios de Routh y de Hurwitz son equivalentes~\citep{Bom11}; ese mismo año Luciano Orlando publicó otra demostración y una fórmula que relaciona los determinantes de Hurwitz~\citep{Orl11}. Por eso hoy se habla del criterio de \clave{Routh-Hurwitz}: el arreglo de Routh es la forma cómoda de calcular, y los determinantes de Hurwitz son la forma cómoda de demostrar.
+
+\begin{historia}[Lyapunov y Kharitonov]
+En 1892 Aleksandr Lyapunov, entonces profesor en Járkov, presentó su tesis \emph{El problema general de la estabilidad del movimiento}~\citep{Lya92}. Definió con precisión qué es un equilibrio estable y dio dos métodos: el \emph{indirecto}, que decide la estabilidad local linealizando (\cref{sec:es-espacio}), y el \emph{directo}, que usa funciones parecidas a la energía y sirve para sistemas no lineales. Su obra se conoció en Occidente a mediados del siglo~XX. Casi un siglo después, en 1978, Vladimir Kharitonov publicó en una revista soviética de ecuaciones diferenciales un teorema sorprendente: para saber si \emph{toda} una familia de polinomios con coeficientes inciertos es estable, basta revisar cuatro polinomios~\citep{Kha78}. El resultado pasó inadvertido fuera de la Unión Soviética hasta 1983--84, cuando Ross Barmish y otros lo dieron a conocer en las revistas de control occidentales~\citep{Bar84} (\cref{sec:es-kharitonov}).
+\end{historia}

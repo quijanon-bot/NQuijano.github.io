@@ -1,0 +1,110 @@
+%% ---------------------------------------------------------------------
+\section{El criterio de Routh-Hurwitz}
+\label{sec:es-routh}
+%% ---------------------------------------------------------------------
+
+Para el lazo de la \cref{fig:es-lazo}, la función de transferencia en lazo cerrado es
+\[
+  \frac{Y(s)}{R(s)}=\frac{\Gc(s)\Gp(s)}{1+\Gc(s)\Gp(s)\Hs(s)}
+  =\frac{b_0s^m+b_1s^{m-1}+\cdots+b_m}{a_0s^n+a_1s^{n-1}+\cdots+a_{n-1}s+a_n},\qquad m\le n .
+\]
+El denominador igualado a cero es la \clave{ecuación característica},
+\begin{equation}
+  1+\Gma(s)=0\quad\Longleftrightarrow\quad a_0s^n+a_1s^{n-1}+\cdots+a_{n-1}s+a_n=0,
+  \label{eq:es-caracteristica}
+\end{equation}
+con $\Gma=\Gc\Gp\Hs$ la malla abierta. Sus raíces son los polos del lazo cerrado: \alerta{la estabilidad del lazo se decide en el denominador de $1+\Gma$}, que es numerador más denominador de $\Gma$ cuando esta es una fracción sin cancelaciones.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.62\linewidth]{cap10/lazo_basico}
+\caption{Lazo básico del curso.}
+\label{fig:es-lazo}
+\end{figure}
+
+\subsection*{Una condición necesaria: los signos}
+
+Si todas las raíces tienen parte real negativa, el polinomio es un producto de factores $(s+p)$ y $(s^2+2\zeta\wn s+\wn^2)$ con coeficientes positivos, y al multiplicarlos no aparece ningún signo menos ni ningún término faltante. Entonces:
+
+\begin{ideaclave}
+\textbf{Condición necesaria.}\enspace Si a la ecuación característica le \alerta{falta un término} o tiene \alerta{coeficientes de signos distintos}, hay raíces con parte real positiva o nula: el equilibrio no es asintóticamente estable. Para $n=1$ y $n=2$ la condición también es suficiente; para $n\ge3$ \emph{no}: $s^3+s^2+2s+8$ tiene todos sus coeficientes positivos y raíces en $0.5\pm j1.94$.
+\end{ideaclave}
+
+\subsection*{La tabla de Routh}
+
+Con todos los coeficientes del mismo signo (tomamos $a_0>0$), se arma la tabla. Las dos primeras filas se llenan alternando los coeficientes; cada fila siguiente se calcula con las dos de arriba:
+\[
+\begin{array}{c|cccc}
+  s^n     & a_0 & a_2 & a_4 & \cdots\\
+  s^{n-1} & a_1 & a_3 & a_5 & \cdots\\
+  s^{n-2} & b_1 & b_2 & b_3 & \cdots\\
+  s^{n-3} & c_1 & c_2 & \cdots\\
+  \vdots  & \vdots\\
+  s^0     & \ast
+\end{array}
+\qquad
+\begin{aligned}
+  b_1&=\frac{a_1a_2-a_0a_3}{a_1}, & b_2&=\frac{a_1a_4-a_0a_5}{a_1}, & \dots\\[3pt]
+  c_1&=\frac{b_1a_3-a_1b_2}{b_1}, & c_2&=\frac{b_1a_5-a_1b_3}{b_1}, & \dots
+\end{aligned}
+\]
+Todas las entradas siguen el mismo patrón: ``el de abajo a la izquierda por el de arriba a la derecha, menos el de arriba a la izquierda por el de abajo a la derecha, dividido por el de abajo a la izquierda''. Donde falte un elemento se pone cero. La tabla tiene $n+1$ filas, de $s^n$ a $s^0$, y la última fila es siempre $a_n$.
+
+\begin{definicion}[label=def:es-routh]{Criterio de Routh-Hurwitz}
+El número de raíces de la ecuación característica con \alerta{parte real positiva} es igual al número de \clave{cambios de signo} en la primera columna de la tabla de Routh. El equilibrio es asintóticamente estable si y solo si todos los elementos de la primera columna tienen el mismo signo~\citep{Rou77,Hur95}.
+\end{definicion}
+
+\begin{cuidado}[Multiplicar una fila]
+Una fila completa se puede multiplicar o dividir por un número \emph{positivo} sin cambiar los signos de la primera columna; sirve para evitar fracciones. Nunca por un número negativo, ni por una expresión cuyo signo no conoce (como $K$).
+\end{cuidado}
+
+\begin{ejemplo}[label=ej:es-tercer]{Tercer orden: la condición de Maxwell}
+Encuentre la condición de estabilidad de $a_0s^3+a_1s^2+a_2s+a_3=0$, con $a_0>0$.
+\solucion
+\[
+\begin{array}{c|cc}
+  s^3 & a_0 & a_2\\
+  s^2 & a_1 & a_3\\
+  s^1 & \dfrac{a_1a_2-a_0a_3}{a_1} & 0\\
+  s^0 & a_3
+\end{array}
+\]
+Sin cambios de signo: $a_1>0$, $a_3>0$ y
+\begin{equation}
+  a_1a_2>a_0a_3 .
+  \label{eq:es-tercer}
+\end{equation}
+Es la condición que encontró Maxwell en 1868. Vale la pena memorizarla: \alerta{``el producto de los del medio mayor que el producto de los extremos''}.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:es-cuarto]{Cuarto orden}
+¿Cuántas raíces inestables tiene $s^4+2s^3+3s^2+4s+5=0$?
+\solucion Todos los coeficientes son positivos, así que hay que hacer la tabla:
+\[
+\begin{array}{c|ccc}
+  s^4 & 1 & 3 & 5\\
+  s^3 & 2 & 4 & 0\\
+  s^2 & \frac{2\cdot3-1\cdot4}{2}=1 & \frac{2\cdot5-1\cdot0}{2}=5\\
+  s^1 & \frac{1\cdot4-2\cdot5}{1}=-6 & 0\\
+  s^0 & 5
+\end{array}
+\]
+La primera columna es $1,\,2,\,1,\,-6,\,5$: dos cambios de signo ($1\to-6$ y $-6\to5$), luego \alerta{dos raíces con parte real positiva}. En efecto, \cmd{roots([1 2 3 4 5])} da $-1.288\pm j0.858$ y $0.288\pm j1.416$.
+\end{ejemplo}
+
+\codigorepo{cap05_estabilidad/C5_Ej2_Routh.m}{routh}{ejemplo~\ref{ej:es-cuarto} y el contraejemplo de los signos con la función \cmd{tablaRouth}}
+
+\begin{receta}[Criterio de Routh-Hurwitz]
+\begin{enumerate}
+  \item Escribir la ecuación característica $1+\Gma(s)=0$ como polinomio, ordenado en potencias decrecientes.
+  \item Revisar los signos: si falta un término o hay signos distintos, ya se sabe que no es asintóticamente estable (la tabla dirá cuántas raíces son inestables).
+  \item Armar la tabla. Si aparece un cero en la primera columna o una fila de ceros, ir a la \cref{sec:es-casos}.
+  \item Contar los cambios de signo de la primera columna.
+  \item Verificar con \cmd{roots}, \cmd{pole} o \cmd{tablaRouth}.
+\end{enumerate}
+\end{receta}
+
+\begin{pausa}
+Use \eqref{eq:es-tercer} para decidir, sin tabla, si $s^3+2s^2+3s+4$ y $2s^3+s^2+3s+4$ son estables.
+\respuesta{El primero sí: $2\cdot3=6>1\cdot4$. El segundo no: $1\cdot3=3<2\cdot4=8$; la tabla tiene dos cambios de signo y dos raíces inestables.}
+\end{pausa}

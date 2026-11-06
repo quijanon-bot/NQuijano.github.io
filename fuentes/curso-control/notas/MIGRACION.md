@@ -1,6 +1,6 @@
 # Guía para migrar un capítulo al formato nuevo
 
-El capítulo 10 (respuesta frecuencial) fue el piloto; los capítulos 2, 3 (Modelado I y II) y 9 (retroalimentación de estado) ya están migrados con el mismo esquema. Para migrar cualquier otro:
+El capítulo 10 (respuesta frecuencial) fue el piloto; los capítulos 1 (introducción), 2, 3 (Modelado I y II), 5 (estabilidad) y 9 (retroalimentación de estado) ya están migrados con el mismo esquema. Para migrar cualquier otro:
 
 1. **Copiar** el `HandoutN_Ctrl.tex` a `notas/capitulos/NN_nombre.tex` (o partirlo en `capitulos/capNN/sXX_*.tex` como el piloto).
 2. **Abrir el capítulo** con `\capitulo[cap:etiqueta]{Título}{cita}{autor}` (se conserva la cita literaria de cada capítulo) y un bloque `objetivos` con la ruta de su página web.
@@ -17,11 +17,11 @@ El capítulo 10 (respuesta frecuencial) fue el piloto; los capítulos 2, 3 (Mode
 
 | Capítulo (archivo anterior) | Qué hay que cambiar |
 |:--|:--|
-| Introducción | 38 `\textcolor{red/blue}` |
+| Introducción | **migrado** (capítulo 1) |
 | Modelado I (`Handout2_CtrlParte1`) | **migrado** (capítulo 2) |
 | Modelado II (`Handout2_CtrlParte2`) | **migrado** (capítulo 3) |
 | Espacio de estado (`Handout3`) | `\bar{x}` (14) → `\eq{x}`; "tiempo de asentamiento" (1) |
-| Estabilidad (`Handout4`) | `C(s)/R(s)` (2) → `Y(s)/R(s)`; menciones de tiempo muerto (8): revisar contra el programa |
+| Estabilidad (`Handout4`) | **migrado** (capítulo 5) |
 | Error (`Handout5`) | 15 `\textcolor`; ya usa $\kappa_p$, $\kappa_v$ ✓ |
 | PID nociones (`Handout6a`) | "realimentación" (2); "overshoot"/`MP` (22) → `\OS`; "incremental" se queda (algoritmo digital) ✓ |
 | PID sintonización (`Handout6b`) | $K_p$ = ganancia del proceso ✓ (coincide con la notación); unificar `P_{cr}` |
@@ -82,3 +82,44 @@ Todos los números de los capítulos 2 y 3 se recalcularon con `herramientas/cap
 - Se agregaron la prueba PBH, la noción cuantitativa de controlabilidad (número de condición) y la advertencia sobre la robustez del principio de separación.
 
 Verificado con `herramientas/cap09_numeros.py` y `verificarCap09.m` (30/30 en Octave 8.4).
+
+## Correcciones hechas en el capítulo 1 (Introducción e historia)
+
+- **Estructura nueva:** análisis, sistema y control (§1.1); lazo abierto y lazo cerrado con el tanque (§1.2); desempeño y diseño (§1.3); cómo plantear un problema de control, con la ducha y el tanque de almacenamiento (§1.4); historia por épocas (§1.5); mapa del curso, uso de las notas y lecciones de Bernstein (§1.6).
+- **Tanque.** El ejercicio de Simulink en lazo abierto ahora compara con el lazo cerrado: $A=0.5$, $R=2$, $K_c=5$. Lluvia: 1.40 m (abierto) contra 1.036 m (cerrado); válvula obstruida: 1.20 contra 1.015; factor $1+KK_c=11$. Modelo `crearModelo_TanqueLazos.m`.
+- **Terminología:** se separan *control en lazo abierto* (estrategia), *malla abierta* $G'=GH$ y *lazo abierto* $G_{OL}$; la versión anterior llamaba a $GH$ "función de transferencia en lazo abierto".
+- **Historia, verificada contra fuentes** (Mayr, Bennett, Bissell 2009, IFAC, Berkeley) y con la referencia original de cada idea (Maxwell 1868, Vyshnegradskii 1876, Routh 1877, Lyapunov 1892, Hurwitz 1895, Airy 1840, Minorsky 1922, Hazen 1934, Ziegler y Nichols 1942, Ragazzini y Zadeh 1952, Kalman 1960–61, Pontryagin 1962, Bellman 1957):
+  - Watt no patentó el regulador centrífugo; Thomas Mead lo patentó para molinos en 1787. Edmund Lee (1745) patentó la cola de abanico, no el regulador.
+  - Se retiró "los hermanos Périer introducen en 1790 la acción integral" (no se encontró en las fuentes); la acción integral se atribuye al regulador cronométrico de los Siemens.
+  - Lawrence Sperry voló en París el 18 de junio de 1914 (decía 1912).
+  - Minorsky analizó la estabilidad con un modelo lineal; no usó ubicación de polos.
+  - Bode: 1940–45 (decía 1934 para los márgenes). Hazen (decía "Hanzen") publicó en 1934 la teoría de servomecanismos. Se retiró que Hazen dictó el "primer curso de control en 1938" y que Brown inventó los diagramas de bloques (no verificado).
+  - Foxboro *Stabilog* (decía "Stabilorg"), 1931; Taylor *pre-act*, 1935; 75 000 controladores vendidos en EE. UU. entre 1925 y 1935 y unas 600 empresas a mediados de los treinta (Bennett 1993).
+  - Dantzig (decía "Danzig"), símplex en 1947. RIAS: fundado en 1955 (decía "finales de los cuarenta"). IFAC: 12 de septiembre de 1957, 18 países (decía 19). Se retiraron las cifras sin fuente sobre los pilotos automáticos alemanes.
+  - Nota de Laserna: se reemplazó la "junta consultiva" (no verificada) por la reunión de Princeton (foto del archivo del IAS con Einstein, von Neumann, Morgenstern y Lefschetz) y la visita de von Neumann y Lefschetz a Bogotá en 1950.
+  - Pie de la figura del analizador diferencial: es la máquina de Mánchester (1935) construida con el diseño de Bush. "Vaneevar" → Vannevar.
+  - PATH: demostración del 7 de agosto de 1997, ocho autos a unos 6 m.
+- Se omitió la lección de Bernstein sobre tiempo muerto (fuera del alcance del curso) y se reescribió la lista en trece puntos.
+- Ascensor: $\zeta=0.6$, $\omega_n=0.8$: %OS 9.48 %, $t_p$ = 4.91 s, $t_s$ = 7.43 s.
+
+Verificado con `herramientas/cap01_numeros.py` y `verificarCap01.m` (17/17 en Octave 8.4).
+
+## Correcciones hechas en el capítulo 5 (Estabilidad)
+
+- **Tiempo muerto retirado.** La sección de Padé (con el ejemplo $s+1+Ke^{-Ts}$) y los dos ejercicios de retardo salieron: el curso no cubre retardos. Se reemplazaron por un problema de ganancias negativas y Bode (Actividad 1, sección B) y uno de estabilidad local de un sistema no lineal.
+- "Un sistema es estable si todos los polos **y ceros** están en el semiplano izquierdo" → solo los polos.
+- Se agregó la distinción asintótica / marginal (Lyapunov) / BIBO, con el contraejemplo del polo doble en el eje y de $1/(s^2+1)$ ante $\sin t$.
+- $s^3+2s^2+s+2$ estaba como ejemplo del caso 1 ($\epsilon$): la fila $s^1$ es una **fila completa** de ceros (caso 2); auxiliar $2(s^2+1)$, raíces $\pm j$.
+- $s^5+7s^4+6s^3+42s^2+8s+56$ no tenía solución: auxiliar $7(s^2+2)(s^2+4)$, marginalmente estable (raíz $-7$).
+- Rango de $K_c$ del lazo de tres primer orden: $-1.25<K_c<23.83$ (correcto); se agregaron $\omega_{cr}=0.2186$ rad/s, $P_{cr}=28.7$ s y la comparación con `margin` y con Ziegler-Nichols, más un ejemplo de estabilidad relativa ($s=z-0.05$: $0.266<K_c<3.33$).
+- Planta inestable con compensador: $3<K<3.4891$ (correcto; el texto mostraba "$3<K<14$" como resultado intermedio sin explicar).
+- PI sobre $2/(s^3+4s^2+5s+2)$: la región era correcta; se simplificó a $K_i<(1+K_c)(9-K_c)/8$ y se agregó la frecuencia sobre la frontera.
+- Primer ejemplo de Kharitonov: faltaba $a_4\in[35,61]$; se terminó: tres de los cuatro polinomios son inestables y existe un caso real inestable ($r_0=1$, $r_1=4$, $r_2=6$, $r_3=20$, $q_0=5$). Se explica que los coeficientes no son independientes.
+- Ejemplo de diseño robusto (figura con sensor $1/(r_3s+1)$, sin solución): Kharitonov da $-100<K<251$; con la dependencia de los coeficientes, $K<642$; con el modelo nominal, $K<1119$.
+- El ejercicio de planta incierta usa otra planta ($1/(s^3+r_1s^2+r_2s+r_3)$) que la figura del ejemplo; se mantuvieron los dos y se contrastan (en el ejercicio los coeficientes sí son independientes: $-1<K<598$).
+- Se agregó el resultado de Anderson, Jury y Mansour (1987): con $n=3$, 4 y 5 bastan 1, 2 y 3 polinomios.
+- "Kharitanov" → Kharitonov; $C(s)/R(s)$ → $Y(s)/R(s)$; "tabla de Hurwitz" → tabla de Routh.
+- **Historia**, verificada: Hurwitz publicó en 1895 en *Mathematische Annalen* (no en una revista de ingeniería en 1894; Stodola publicó en la *Schweizerische Bauzeitung* en 1893–94); el tema del premio Adams 1875–77 lo propusieron Challis, Maxwell y Stokes, y Routh lo ganó en 1877; se retiró que Stodola introdujo $\zeta$, $\omega_n$ y que citó a Routh en lugar de Hurwitz en 1899 (no se encontró en las fuentes); la anécdota del sirviente ("¡usted, señor!") se cuenta de lord Kelvin en 1845, no de Maxwell (corregida también en el capítulo 1).
+- Funciones nuevas en `codigo/comun/`: `tablaRouth.m` (tabla numérica con los dos casos especiales) y `kharitonov.m`.
+
+Verificado con `herramientas/cap05_numeros.py` y `verificarCap05.m` (39/39 en Octave 8.4).

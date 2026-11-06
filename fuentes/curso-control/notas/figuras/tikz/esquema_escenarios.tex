@@ -1,0 +1,38 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=8mm, b/.style={bloque,minimum width=14mm,font=\footnotesize,align=center}]
+  \node[font=\footnotesize\bfseries,anchor=west] at (-0.3,1.3) {(a) Escenario 1: retroalimentación};
+  \node (r) at (0,0) {$h_{sp}$};
+  \node[suma,right=5mm of r] (S) {};
+  \node[b,right=6mm of S,fill=ctrlcoral!10] (c) {LC};
+  \node[b,right=of c,fill=ctrlambar!12] (v) {válvula};
+  \node[suma,right=7mm of v] (s1) {};
+  \node[b,right=6mm of s1,fill=ctrlverde!10] (p) {tanque};
+  \coordinate[right=5mm of p] (o); \node[right=3mm of o] (y) {$h$};
+  \node[above=6mm of s1,rot] (d) {$F_2$ (perturbación)};
+  \node[b,below=7mm of v,fill=ctrlvioleta!8] (lt) {LT};
+  \draw[senal] (r)--(S); \draw[senal] (S)--(c);
+  \draw[senal] (c)--node[above,rot]{$P_v$}(v);
+  \draw[senal] (v)--node[above,rot]{$F_1$}(s1); \draw[senal] (s1)--(p);
+  \draw[thick,draw=ctrlnoche] (p)--(o); \draw[senal] (o)--(y);
+  \draw[senal,draw=ctrlgris] (d)--node[pos=0.8,right,rot]{$-$}(s1);
+  \draw[senal] (o)|-(lt); \draw[senal] (lt)-|node[pos=0.93,left,rot]{$-$}(S);
+  \begin{scope}[yshift=-3.9cm]
+  \node[font=\footnotesize\bfseries,anchor=west] at (-0.3,1.3) {(b) Escenario 3: prealimentación};
+  \node (F1) at (0,0) {$F_1$};
+  \coordinate[right=6mm of F1] (k);
+  \node[b,below=4mm of k,fill=ctrlvioleta!8,anchor=north] (ft) {FT};
+  \node[b,right=5mm of ft,fill=ctrlcoral!10] (ff) {FY};
+  \node[b,right=of ff,fill=ctrlambar!12] (v) {válvula};
+  \node[suma] (s1) at ($(v.east)+(9mm,0.85)$) {};
+  \node[b,right=6mm of s1,fill=ctrlverde!10] (p) {tanque};
+  \node[right=6mm of p] (y) {$h$};
+  \draw[thick,draw=ctrlnoche] (F1)--(k); \draw[senal] (k)--(ft); \draw[senal] (k)--node[pos=0.5,above,rot]{entra al tanque}(s1);
+  \draw[senal] (ft)--(ff); \draw[senal] (ff)--(v);
+  \draw[senal] (v)-|node[pos=0.25,below,rot]{$F_2$}node[pos=0.9,right,rot]{$-$}(s1);
+  \draw[senal] (s1)--(p); \draw[senal] (p)--(y);
+  \node[rot,align=left,anchor=west] at ($(p.south west)+(0,-0.7)$) {no se mide $h$: si FT o el modelo\\tienen error, nadie lo corrige};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,187 @@
+%% ---------------------------------------------------------------------
+\section{Routh-Hurwitz para diseñar}
+\label{sec:es-diseno}
+%% ---------------------------------------------------------------------
+
+La gran ventaja de Routh-Hurwitz sobre \cmd{roots} es que trabaja con los coeficientes, y los coeficientes pueden contener parámetros del controlador. La tabla responde entonces la pregunta de diseño más básica: \emph{¿para qué valores de la ganancia el lazo es estable?}
+
+\subsection{Rango de ganancia, ganancia crítica y frecuencia de oscilación}
+
+\begin{ejemplo}[label=ej:es-rangokc]{Rango de $\Kc$ de un lazo de proceso}
+En el lazo de la \cref{fig:es-tres}, un controlador proporcional $\Kc$ actúa sobre una válvula, un proceso y un sensor de primer orden. Halle el rango de $\Kc$ para el cual el lazo es estable, la ganancia crítica y la frecuencia a la que oscila.
+\solucion \textbf{1. Ecuación característica.}
+\[
+  1+\Kc\,\frac{0.016}{3s+1}\cdot\frac{50}{30s+1}\cdot\frac{1}{10s+1}=0
+  \;\Longrightarrow\;
+  900s^3+420s^2+43s+(1+0.8\Kc)=0 .
+\]
+\textbf{2. Tabla.}
+\[
+\begin{array}{c|cc}
+  s^3 & 900 & 43\\
+  s^2 & 420 & 1+0.8\Kc\\
+  s^1 & \dfrac{17\,160-720\Kc}{420} & \\[6pt]
+  s^0 & 1+0.8\Kc
+\end{array}
+\]
+\textbf{3. Condiciones.} Fila $s^0$: $1+0.8\Kc>0$, o sea $\Kc>-1.25$. Fila $s^1$: $17\,160-720\Kc>0$, o sea $\Kc<23.83$. Entonces
+\[
+  \alerta{-1.25<\Kc<23.83}.
+\]
+\textbf{4. Ganancia y frecuencia críticas.} En $\Kc=\Kcr=23.83$ la fila $s^1$ se anula: es una fila de ceros, y el auxiliar es la fila $s^2$,
+\[
+  420s^2+(1+0.8\cdot23.83)=420s^2+20.07=0\;\Longrightarrow\;s=\pm j\,0.2186 .
+\]
+El lazo oscila sin amortiguarse con $\wcr=0.2186$\,rad/s, es decir, con periodo $\Pcr=2\pi/\wcr=28.7$\,s (\cref{fig:es-rangokc}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\linewidth]{cap05/lazo_tres}
+\caption{Lazo de proceso del ejemplo~\ref{ej:es-rangokc}.}
+\label{fig:es-tres}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap05/f_rango_kc}
+\caption{Ejemplo~\ref{ej:es-rangokc}: por debajo de $\Kcr$ la oscilación se amortigua, en $\Kcr$ se sostiene con periodo $\Pcr=28.7$\,s y por encima crece.}
+\label{fig:es-rangokc}
+\end{figure}
+
+\begin{ideaclave}
+\textbf{Ganancia crítica: tres caras del mismo número.}\enspace $\Kcr$ y $\wcr$ salen de la fila que se anula y del polinomio auxiliar. Son los mismos números que (i) el método de oscilación sostenida de Ziegler y Nichols busca experimentalmente en la planta (capítulo~8)~\citep{ZiNi42}, y (ii) el margen de ganancia y la frecuencia de cruce de fase que se leen en el diagrama de Bode (capítulo~10): para este lazo, \cmd{margin} da $\GM=23.83$ y $\wgm=0.2186$\,rad/s.
+\end{ideaclave}
+
+\codigorepo{cap05_estabilidad/C5_Ej4_RangoK.m}{rangokc}{ejemplo~\ref{ej:es-rangokc}: rango de $\Kc$, $\Kcr$, $\wcr$ y la comparación con \cmd{margin}}
+
+\begin{cuidado}[Las ganancias negativas]
+El rango incluye $-1.25<\Kc<0$. Con $\Kc$ negativo el controlador empuja en la dirección equivocada; el lazo resulta estable mientras el término independiente siga positivo, pero el error en estado estacionario es peor que en lazo abierto. Que un valor sea estable no lo hace útil: en la práctica se usa $0<\Kc<\Kcr$, y bastante por debajo de $\Kcr$.
+\end{cuidado}
+
+\subsection{Estabilizar una planta inestable}
+
+Cuando la planta es inestable, la ganancia ya no tiene una cota superior sola: también aparece una cota \emph{inferior}, porque con poca ganancia el controlador no alcanza a contener el polo inestable.
+
+\begin{ejemplo}[label=ej:es-inestable]{Una ventana estrecha}
+La planta $\Gp(s)=\dfrac{1}{(s-1)(s^2+2s+2)}$ se controla con el compensador $\Gc(s)=\dfrac{K(s+2)}{s+3}$, con retroalimentación unitaria (\cref{fig:es-inestable-lazo}). Halle el rango de $K$ que estabiliza el lazo.
+\solucion La ecuación característica es $(s+3)(s-1)(s^2+2s+2)+K(s+2)=0$:
+\[
+  s^4+4s^3+3s^2+(K-2)\,s+(2K-6)=0 .
+\]
+\[
+\begin{array}{c|ccc}
+  s^4 & 1 & 3 & 2K-6\\
+  s^3 & 4 & K-2 & \\
+  s^2 & \dfrac{14-K}{4} & 2K-6\\[6pt]
+  s^1 & \dfrac{68-16K-K^2}{14-K} & \\[6pt]
+  s^0 & 2K-6
+\end{array}
+\]
+Las condiciones son $K<14$ (fila $s^2$), $2K-6>0$ (fila $s^0$) y $68-16K-K^2>0$ (fila $s^1$, con $14-K>0$). Las raíces de $K^2+16K-68$ son $-8\pm2\sqrt{33}$, es decir $3.489$ y $-19.49$. Juntando:
+\[
+  \alerta{3<K<3.489}.
+\]
+Es un rango muy estrecho (\cref{fig:es-inestable}): un error de pocos puntos porcentuales en la ganancia, o en el modelo, desestabiliza el lazo. Este compensador estabiliza, pero no es robusto; dentro del rango, la mejor ganancia es $K\approx3.07$, con los polos más lentos en $-0.28$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{cap05/lazo_inestable}
+\caption{Ejemplo~\ref{ej:es-inestable}: compensador para una planta con un polo en $+1$.}
+\label{fig:es-inestable-lazo}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap05/f_inestable}
+\caption{Ejemplo~\ref{ej:es-inestable}: parte real del polo más a la derecha en función de $K$. Por debajo de $3$ queda un polo real inestable; por encima de $3.489$ cruzan el eje dos polos complejos.}
+\label{fig:es-inestable}
+\end{figure}
+
+\subsection{Dos parámetros: la región de estabilidad de un PI}
+
+Con dos parámetros, las condiciones de la tabla dibujan una \emph{región} en el plano de los parámetros.
+
+\begin{ejemplo}[label=ej:es-pi]{Región de estabilidad de un PI}
+En el lazo de la \cref{fig:es-pi-lazo}, $\Gc(s)=\Kc+K_i/s$ y $\Gp(s)=\dfrac{2}{s^3+4s^2+5s+2}=\dfrac{2}{(s+1)^2(s+2)}$. Halle la región del plano $(\Kc,K_i)$ en la que el lazo es estable.
+\solucion La ecuación característica es $s(s^3+4s^2+5s+2)+2(\Kc s+K_i)=0$:
+\[
+  s^4+4s^3+5s^2+(2+2\Kc)\,s+2K_i=0 .
+\]
+\[
+\begin{array}{c|ccc}
+  s^4 & 1 & 5 & 2K_i\\
+  s^3 & 4 & 2+2\Kc & \\
+  s^2 & \dfrac{9-\Kc}{2} & 2K_i\\[6pt]
+  s^1 & c_1 & \\
+  s^0 & 2K_i
+\end{array}
+\qquad
+c_1=(2+2\Kc)-\frac{16K_i}{9-\Kc}.
+\]
+Las condiciones son $K_i>0$, $\Kc<9$ y $c_1>0$:
+\[
+  \alerta{0<K_i<\frac{(1+\Kc)(9-\Kc)}{8},\qquad -1<\Kc<9}.
+\]
+La frontera es una parábola con máximo $K_i=25/8$ en $\Kc=4$ (\cref{fig:es-region}). Sobre ella, la fila $s^1$ se anula y el auxiliar $\frac{9-\Kc}{2}s^2+2K_i$ da la frecuencia de la oscilación: con $\Kc=5$ y $K_i=3$, $\omega=\sqrt{2\cdot3/2}=1.732$\,rad/s (periodo $3.63$\,s).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap05/lazo_pi_estab}
+\caption{Lazo del ejemplo~\ref{ej:es-pi}, con el PI en forma paralela.}
+\label{fig:es-pi-lazo}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_region_pi}
+\caption{Ejemplo~\ref{ej:es-pi}. Izquierda: región de estabilidad. Derecha: con $\Kc=5$, $K_i=1$ (adentro) es estable, aunque con $\OS=51\%$; $K_i=3$ (frontera) oscila sin amortiguarse; $K_i=4$ (afuera) es inestable.}
+\label{fig:es-region}
+\end{figure}
+
+\codigorepo{cap05_estabilidad/C5_Ej5_RegionPI.m}{region}{ejemplo~\ref{ej:es-pi}: la región de estabilidad en el plano $(\Kc,K_i)$}
+
+\begin{modelo}[LazoPI.slx]
+El script \cmd{crearModelo\_LazoPI.m} arma el lazo de la \cref{fig:es-pi-lazo} con $\Kc$ y $K_i$ como variables del espacio de trabajo. Recorra la región: un punto adentro, uno sobre la frontera y uno afuera, y mida el periodo de la oscilación sostenida.
+\end{modelo}
+
+\begin{cuidado}[Estable no quiere decir aceptable]
+El punto $(\Kc,K_i)=(5,1)$ está dentro de la región y, sin embargo, la respuesta tiene un sobrepico del $51\%$ y tarda $22$\,s en establecerse. La tabla de Routh dice \emph{si} es estable; para saber \emph{qué tan} estable hace falta algo más.
+\end{cuidado}
+
+\subsection{Estabilidad relativa}
+
+La tabla se puede usar también para exigir un margen: que todos los polos tengan parte real menor que $-\sigma$, no solo menor que cero. Basta con desplazar el eje: se reemplaza $s=z-\sigma$ en la ecuación característica y se aplica el criterio al polinomio en $z$. Las raíces con $\Re z>0$ son las que tienen $\Re s>-\sigma$.
+
+\begin{ejemplo}[label=ej:es-relativa]{Polos a la izquierda de $-0.05$}
+En el ejemplo~\ref{ej:es-rangokc}, ¿para qué valores de $\Kc$ todos los polos tienen parte real menor que $-0.05$ (constante de tiempo de la envolvente menor que $20$\,s)?
+\solucion Con $s=z-0.05$, $900s^3+420s^2+43s+(1+0.8\Kc)$ se convierte en
+\[
+  900z^3+285z^2+7.75z+(0.8\Kc-0.2125)=0 .
+\]
+\[
+\begin{array}{c|cc}
+  z^3 & 900 & 7.75\\
+  z^2 & 285 & 0.8\Kc-0.2125\\
+  z^1 & \frac{160-48\Kc}{19} & \\
+  z^0 & 0.8\Kc-0.2125
+\end{array}
+\qquad\Longrightarrow\qquad
+\alerta{0.266<\Kc<3.33}.
+\]
+El margen exigido reduce mucho el rango: de $(-1.25,\,23.83)$ a $(0.266,\,3.33)$. En los dos extremos hay un polo exactamente en $-0.05$ (\cref{fig:es-relativa}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\linewidth]{cap05/f_relativa}
+\caption{Ejemplo~\ref{ej:es-relativa}: polos del lazo para $\Kc=0.266$ y $\Kc=3.33$ (extremos del rango con margen) y para $\Kc=\Kcr$, con polos sobre el eje imaginario.}
+\label{fig:es-relativa}
+\end{figure}
+
+\begin{pausa}
+Para $\Gma(s)=\dfrac{K}{s(s+1)(s+2)}$ con retroalimentación unitaria, halle el rango de $K$, $\Kcr$ y $\wcr$.
+\respuesta{$s^3+3s^2+2s+K=0$. Por \eqref{eq:es-tercer}: $3\cdot2>K$, y $K>0$: $0<K<6$. En $\Kcr=6$ el auxiliar es $3s^2+6=0$: $\wcr=\sqrt2=1.414$\,rad/s.}
+\end{pausa}

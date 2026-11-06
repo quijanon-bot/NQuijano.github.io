@@ -1,0 +1,34 @@
+%% ---------------------------------------------------------------------
+\section{Desempeño, análisis y diseño}
+\label{sec:in-desempeno}
+%% ---------------------------------------------------------------------
+
+¿Cómo se juzga si un sistema de control es bueno? Tomemos un ascensor~\citep{Nis11}. Oprimir el botón del cuarto piso es la \emph{entrada}; la posición de la cabina es la \emph{salida}. El ascensor arranca, acelera, frena y se detiene. Nos importan tres cosas (\cref{fig:in-ascensor}):
+
+\begin{itemize}
+  \item La \clave{respuesta transitoria}: cómo llega. Si es muy rápida, el pasajero sufre aceleraciones incómodas o un sobrepaso (la cabina se pasa del piso y regresa); si es muy lenta, se agota su paciencia.
+  \item El \clave{error en estado estacionario}: dónde se queda. Si la cabina se detiene unos centímetros por debajo del piso, alguien se va a tropezar.
+  \item La \clave{estabilidad}: que se quede. Un ascensor que oscila alrededor del piso sin detenerse no sirve, por bueno que sea lo demás.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap01/f_ascensor}
+\caption{Respuesta de un ascensor (modelo de segundo orden con valores exagerados para que se vean): sobrepaso de $9.5\%$, tiempo de establecimiento de $7.4$\,s y un error final de $0.1$ piso.}
+\label{fig:in-ascensor}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej2_Ascensor.m}{ascensor}{respuesta del ascensor de la \cref{fig:in-ascensor}}
+
+Estas tres cosas tienen nombre y número, y aprender a calcularlos es buena parte del curso: la estabilidad en el capítulo~5, el transitorio de primer y segundo orden en los capítulos~2 y~3 y el error en el capítulo~6.\nota{El ejemplo del ascensor tiene un video en el MOOC \emph{Introducción al análisis de sistemas de control con MATLAB}, en Coursera: \url{https://www.coursera.org/learn/introduccion-al-analisis-de-sistemas-de-control-con-matlab}.}
+
+\begin{definicion}[label=def:in-diseno]{Análisis y diseño}
+El \clave{análisis} determina el desempeño de un sistema dado: su estabilidad, su respuesta transitoria y su error. El \clave{diseño} es el medio por el cual ese desempeño se logra o se modifica: cambiando parámetros del sistema o agregando un subsistema nuevo (un controlador, un compensador) hasta cumplir las \clave{especificaciones}.
+\end{definicion}
+
+Análisis y diseño son dos direcciones del mismo camino: el análisis va del sistema al desempeño; el diseño, del desempeño deseado al sistema. Por eso el curso se llama \emph{análisis} pero termina diseñando controladores: no se puede diseñar lo que no se sabe analizar.
+
+\begin{pausa}
+El fabricante quiere eliminar el sobrepaso del ascensor de la \cref{fig:in-ascensor} sin cambiar nada más. ¿Qué cree que le pasará al tiempo de llegada?
+\respuesta{Aumentará. Para no pasarse, el ascensor debe frenar antes y llegar ``despacio'' al piso; con la misma fuerza disponible tarda más. Transitorio rápido y sin sobrepaso es un compromiso, que en el capítulo~3 se cuantifica con el factor de amortiguamiento $\zeta$.}
+\end{pausa}

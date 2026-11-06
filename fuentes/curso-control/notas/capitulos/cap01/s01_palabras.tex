@@ -1,0 +1,41 @@
+%% ---------------------------------------------------------------------
+\section{Análisis, sistema y control}
+\label{sec:in-palabras}
+%% ---------------------------------------------------------------------
+
+El nombre del curso tiene tres palabras y cada una carga con un significado preciso. Vale la pena detenerse en ellas antes de escribir la primera ecuación.
+
+\paragraph{Análisis}
+El diccionario de la Real Academia da varias acepciones de \emph{análisis}: la distinción y separación de las partes de algo para conocer su composición, el estudio detallado de algo y, la que nos interesa, la \emph{parte de las matemáticas basada en los conceptos de límite, convergencia y continuidad}, que da origen al cálculo diferencial e integral y a la teoría de funciones. En el curso las dos ideas van juntas: \emph{separamos} un sistema en sus partes (planta, actuador, sensor, controlador) y \emph{estudiamos} cada una con herramientas del análisis matemático: ecuaciones diferenciales, transformada de Laplace, variable compleja.
+
+\paragraph{Sistema}
+Un sistema es un conjunto de cosas (personas, células, moléculas, tuberías, transistores) interconectadas de tal forma que producen un patrón de comportamiento a medida que pasa el tiempo; puede ser activado, restringido o impulsado por fuerzas externas, pero su respuesta depende de sus propias características~\citep{MeWr08}. Más corto: una combinación de componentes que se percibe como un todo~\citep{HaCh08}. Lo que hace interesantes a los sistemas que estudiaremos es que son \emph{dinámicos}: lo que hacen ahora depende de lo que les pasó antes. En el capítulo~\ref{cap:po} precisaremos estas ideas con las nociones de señal y de sistema dinámico.
+
+\paragraph{Control}
+La Real Academia también da varias acepciones de \emph{control} (del francés \emph{contrôle}): comprobación, dominio, el examen parcial con el que se comprueba la marcha de los alumnos\ldots{} y la que nos interesa: \emph{regulación, manual o automática, sobre un sistema}.
+
+\begin{definicion}[label=def:in-sistemacontrol]{Sistema de control}
+Un \clave{sistema de control} es un conjunto de dispositivos que administra, ordena, dirige o regula el comportamiento de otro sistema para obtener un resultado deseado~\citep{WikiControl}. Está formado por subsistemas (el proceso o planta, los actuadores, los sensores, el controlador) ensamblados para que una salida siga una referencia o rechace perturbaciones, con un desempeño especificado.
+\end{definicion}
+
+El \emph{análisis de sistemas de control}, entonces, estudia cómo evolucionan en el tiempo esos elementos interconectados y qué tan bien cumplen su propósito: si el lazo es estable, qué tan rápido y con cuánto sobrepaso responde, cuánto error deja, qué tanto le afectan las perturbaciones y los errores del modelo.
+
+\subsection{La idea central: retroalimentar}
+
+\begin{definicion}[label=def:in-retro]{Retroalimentación}
+\clave{Retroalimentar} es medir la variable que se quiere controlar, compararla con el valor deseado y usar la diferencia (el \emph{error}) para decidir la acción. Un sistema así se llama \clave{retroalimentado} o \emph{de lazo cerrado}.
+\end{definicion}
+
+La retroalimentación es el concepto fundamental del curso y su gran virtud es la \clave{robustez}: como la acción depende de lo que realmente pasa, el sistema puede cumplir sus requisitos aunque el modelo sea imperfecto, aparezcan perturbaciones o las mediciones lleguen con ruido. Su peligro es la \alerta{sobrecorrección}: si se reacciona demasiado fuerte o demasiado tarde, el lazo oscila y puede volverse inestable. Casi todo el curso trata de cómo aprovechar la virtud sin caer en el peligro.
+
+Richard Murray resumió el área en su conferencia Bode de 2016 con una ecuación de cuatro términos, \emph{control = dynamics, uncertainty, feedforward, feedback}~\citep{Mur16}, cuyas iniciales (DUFF) recuerdan la cerveza de \emph{Los Simpson}. Leída en orden: (i) hay unas \clave{dinámicas} que queremos modificar; (ii) las conocemos con \clave{incertidumbre}; (iii) con la \clave{prealimentación} (\emph{feedforward}) actuamos con lo que sabemos de antemano: la referencia, o una perturbación que podemos medir; y (iv) con la \clave{retroalimentación} (\emph{feedback}) corregimos lo que no sabíamos.
+
+\begin{ideaclave}
+\textbf{Señales y sistemas.}
+La retroalimentación se entiende con dos conceptos entrelazados~\citep{AlMa10}: las \emph{señales}, porque es midiéndolas como se decide qué hacer, y los \emph{sistemas}, porque la retroalimentación existe para cambiar su comportamiento. Cuando hablamos de un sistema hablamos de algo que produce o modifica una señal; cuando hablamos de una señal, de algo que algún sistema produjo.
+\end{ideaclave}
+
+\begin{pausa}
+Cuando usted conduce un carro por una carretera con curvas, ¿quién hace de sensor, de controlador y de actuador? ¿Qué es la referencia y qué la perturbación?
+\respuesta{Los ojos (y el oído interno) son el sensor; el cerebro compara la posición del carro con el centro del carril (la referencia) y decide: es el controlador; los brazos y el timón son el actuador. El viento lateral, los baches y la inclinación de la vía son perturbaciones. Si usted cierra los ojos, el lazo se abre.}
+\end{pausa}

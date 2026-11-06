@@ -1,0 +1,37 @@
+%% =====================================================================
+%%  Capítulo 5 -- Estabilidad
+%%  Migrado al formato nuevo (noviembre de 2026) desde Handout4_Ctrl.tex,
+%%  con material de las Actividades 1 (Routh y Kharitonov) y de la clase 2
+%%  de Bode (rango de Kc por Routh y por Bode).
+%%  Cambios de fondo respecto a la versión anterior (ver MIGRACION.md):
+%%    se retiró el tiempo muerto (aproximación de Padé y dos ejercicios):
+%%    el curso no cubre retardos; "estable si todos los polos Y CEROS están
+%%    en el semiplano izquierdo" -> solo los polos; el ejemplo
+%%    s^3+2s^2+s+2 es un caso de FILA de ceros (no de epsilon); se
+%%    resolvieron los ejemplos que no tenían solución; en el primer ejemplo
+%%    de Kharitonov faltaba el intervalo de a4 y la familia NO es
+%%    robustamente estable; el ejemplo de diseño robusto se resolvió y se
+%%    muestra el conservadurismo; C(s)/R(s) -> Y(s)/R(s); Kharitanov ->
+%%    Kharitonov; anécdota del sirviente (es de Kelvin, no de Maxwell).
+%% =====================================================================
+
+\capitulo[cap:es]{Estabilidad}
+  {En la cocina, la educación y el amor la rapidez va en contra del placer y la calidad. Necesitamos cocinar, amar y leer a fuego lento.}
+  {Julián de Zubiría Samper}
+
+\begin{objetivos}[partes/05-estabilidad.html]
+  \item Distinguir estabilidad asintótica, marginal (en el sentido de Lyapunov) y BIBO, y decidirla a partir de los polos o de los valores propios.
+  \item Aplicar el criterio de Routh-Hurwitz, incluidos sus dos casos especiales, para contar las raíces con parte real positiva sin calcularlas.
+  \item Usar la tabla de Routh para diseñar: rango de ganancia, ganancia y frecuencia críticas, regiones de estabilidad de un PI y estabilidad relativa.
+  \item Decidir la estabilidad de un equilibrio en el espacio de estado, también cuando el modelo viene de linealizar, y reconocer los modos que la función de transferencia esconde.
+  \item Verificar la estabilidad robusta de una familia de polinomios de intervalo con el teorema de Kharitonov, y reconocer cuándo el resultado es conservador.
+\end{objetivos}
+
+\input{capitulos/cap05/s01_concepto}
+\input{capitulos/cap05/s02_historia}
+\input{capitulos/cap05/s03_routh}
+\input{capitulos/cap05/s04_casos}
+\input{capitulos/cap05/s05_diseno}
+\input{capitulos/cap05/s06_espacio_estado}
+\input{capitulos/cap05/s07_kharitonov}
+\input{capitulos/cap05/s08_cierre}

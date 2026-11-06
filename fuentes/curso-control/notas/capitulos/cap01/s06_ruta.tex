@@ -1,0 +1,66 @@
+%% ---------------------------------------------------------------------
+\section{El mapa del curso}
+\label{sec:in-ruta}
+%% ---------------------------------------------------------------------
+
+Estas notas reúnen en un solo lugar lo que está disperso en muchos libros, con una visión propia, en castellano, que pone el énfasis en el análisis y en la simulación. No pretenden reemplazar a los textos clásicos: en cada capítulo se citan los libros y artículos de donde salen las ideas, para que usted pueda ir más lejos.
+
+\subsection{La ruta}
+
+El curso sigue el orden natural de un proyecto de control: \emph{modelar}, \emph{analizar}, \emph{diseñar} (\cref{fig:in-mapa}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/mapa_curso}
+\caption{Los capítulos del curso y cómo dependen unos de otros. En azul, \emph{modelar}: la planta como ecuación diferencial y función de transferencia; en verde, \emph{analizar}: estabilidad, transitorio y error; en coral y violeta, \emph{diseñar}: el controlador.}
+\label{fig:in-mapa}
+\end{figure}
+
+\begin{itemize}
+  \item \textbf{Modelar} (capítulos~2 a~4). Para controlar un proceso hay que entenderlo, y lo entendemos con un modelo físico. Trabajaremos con sistemas \emph{lineales e invariantes en el tiempo} (LTI), descritos por ecuaciones diferenciales ordinarias. Los sistemas reales tienen parámetros que cambian, no linealidades y mediciones tomadas en instantes discretos; pero alrededor de un punto de operación, casi siempre un equilibrio, un modelo lineal describe bien su comportamiento. La transformada de Laplace convierte esas ecuaciones en funciones de transferencia, que se manipulan con álgebra, y la representación de estado las organiza para trabajar en el tiempo.
+  \item \textbf{Analizar} (capítulos~5, 6 y~10). Con el modelo preguntamos si el lazo es estable (polinomio característico, valores propios, criterio de Routh--Hurwitz), cuánto error deja en estado estacionario y cómo responde a señales de distintas frecuencias (diagramas de Bode, márgenes de estabilidad, robustez).
+  \item \textbf{Diseñar} (capítulos~7 a~10). El controlador PID, el más usado en la industria: qué hace cada término, sus configuraciones, sus problemas típicos (como la saturación del integrador) y cómo se sintonizan sus parámetros. La retroalimentación de estado, que ubica todos los polos y abre la puerta al control moderno, con los conceptos de controlabilidad y observabilidad. Y el diseño de compensadores en frecuencia con los diagramas de Bode.
+\end{itemize}
+
+\begin{receta}[Lo que usted sabrá hacer al final del curso]
+\begin{enumerate}
+  \item \textbf{Respuesta transitoria:} modelar, simular y analizar señales y sistemas en el tiempo (espacio de estado) y en la frecuencia (transformada de Laplace, función de transferencia).
+  \item \textbf{Error en estado estacionario:} calcularlo según el tipo de entrada y el tipo del sistema, con las constantes de error $\kp$ y $\kv$.
+  \item \textbf{Estabilidad:} decidirla con el polinomio característico o los valores propios, y estudiar cómo cambia con los parámetros (robustez).
+  \item \textbf{Controladores:} diseñar PID y retroalimentaciones de estado, simularlos y mejorarlos (\emph{anti-windup}, acción integral, control por modelo interno, compensadores en frecuencia).
+\end{enumerate}
+\end{receta}
+
+\subsection{Cómo usar estas notas}
+
+Cada capítulo empieza con sus objetivos y un código QR que lleva a su página web, donde están el PDF, los códigos, los videos y un explorador interactivo. A lo largo del texto encontrará cajas de colores:
+
+\begin{itemize}
+  \item \textbf{Definición} y \textbf{Ejemplo} (numeradas): lo que hay que saber y cómo se usa. Los ejemplos tienen solución.
+  \item \textbf{Idea clave}: el resumen de una sección en pocas líneas. \textbf{Cuidado}: un error frecuente.
+  \item \textbf{Pausa activa}: una pregunta corta para comprobar que entendió; las respuestas están al final del capítulo.
+  \item \textbf{Nota histórica}, \textbf{Para profundizar} y \textbf{Procedimiento}: contexto, material opcional y recetas paso a paso.
+  \item \textbf{Código} y \textbf{Simulink}: fragmentos de los programas del repositorio, con un enlace al archivo completo. Antes de usarlos, ejecute \cmd{iniciarCurso} en \matlab. Cada carpeta tiene un \cmd{verificarCapNN} que comprueba los números del capítulo.
+\end{itemize}
+
+Los problemas del final de cada capítulo están marcados con \etiquetaM{} si requieren \matlab/\simulink y con \etiquetaEstrella{} si son de profundización. La notación es la misma en todo el curso y está resumida en la sección de convenciones al comienzo de las notas.
+
+\subsection{Unas lecciones para volver a leer}
+
+Dennis Bernstein escribió una guía de lecciones que todo estudiante de control debería ir afianzando~\citep{Ber97}. Muchas de sus palabras no tendrán sentido todavía; la idea es que vuelva a esta lista al terminar cada capítulo y vea cuántas ya entiende. Esta es una selección, adaptada al curso:
+
+\begin{enumerate}
+  \item \textbf{La retroalimentación está en todas partes}: en los procesos industriales, en la biología, en la economía.
+  \item \textbf{Un diagrama de bloques no es un circuito.} Sus flechas son flujo de información, no conexiones físicas.
+  \item \textbf{Encuentre los equilibrios y linealice.} Los sistemas reales son no lineales, pero el modelo lineal describe bien lo que pasa cerca del punto de operación.
+  \item \textbf{Verifique primero la estabilidad}, con el polinomio característico o con los valores propios del modelo linealizado.
+  \item \textbf{Los sistemas estables tienen respuesta en frecuencia}: una senoide de entrada produce, en régimen permanente, una senoide de la misma frecuencia con otra amplitud y otra fase.
+  \item \textbf{No olvide la malla abierta} $\Gma(s)$: todo lo que hay en el lazo (controlador, actuador, planta, sensor, transmisor), su estabilidad y el signo de la retroalimentación.
+  \item \textbf{Después de la estabilidad, el desempeño lo es todo.} Si la planta ya es estable, el desempeño es la única razón para retroalimentar.
+  \item \textbf{La ganancia alta tiene beneficios}: rechaza perturbaciones y reduce la sensibilidad a los errores del modelo, como vimos en el tanque.
+  \item \textbf{Pero tiene precios}: amplifica el ruido del sensor, satura los actuadores y puede desestabilizar el lazo.
+  \item \textbf{Cuidado con los polos poco amortiguados}, que producen resonancias y oscilaciones largas.
+  \item \textbf{Asegure la estabilidad nominal y luego la robusta}: que el lazo siga estable cuando la planta real no es la del modelo.
+  \item \textbf{Respete lo inestable}~\citep{Ste03}: estabilizar una planta inestable impone límites a lo que se puede lograr.
+  \item \textbf{Las no linealidades siempre están ahí}, el control multivariable no es trivial y, sobre todo, \textbf{la seguridad de las personas siempre está en juego}.
+\end{enumerate}

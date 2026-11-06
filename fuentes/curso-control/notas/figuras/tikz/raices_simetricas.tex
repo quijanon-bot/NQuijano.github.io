@@ -1,0 +1,14 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[scale=1.0]
+  \fill[ctrlcoral!8] (0,-2) rectangle (2.3,2);
+  \draw[->,thick,ctrlgris] (-2.3,0) -- (2.4,0) node[right,text=ctrlnoche] {$\sigma$};
+  \draw[->,thick,ctrlgris] (0,-2.1) -- (0,2.2) node[above,text=ctrlnoche] {$j\omega$};
+  \draw[dashed,ctrlgris] (-1.3,-1.3) -- (1.3,1.3);
+  \draw[dashed,ctrlgris] (-1.3,1.3) -- (1.3,-1.3);
+  \foreach \x in {-1.5,1.5} {\node[text=ctrlazul,font=\large] at (\x,0) {$\boldsymbol\times$}; \node[text=ctrlazul,font=\small] at (\x,0.35) {A};}
+  \foreach \y in {-1.5,1.5} {\node[text=ctrlverde,font=\large] at (0,\y) {$\boldsymbol\times$}; \node[text=ctrlverde,font=\small] at (0.35,\y) {B};}
+  \foreach \x/\y in {-1/1,1/1,-1/-1,1/-1} {\node[text=ctrlvioleta,font=\large] at (\x,\y) {$\boldsymbol\times$}; \node[text=ctrlvioleta,font=\small] at (\x,\y+0.35) {C};}
+\end{tikzpicture}
+\end{document}

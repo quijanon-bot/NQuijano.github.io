@@ -25,12 +25,14 @@
 %% ---------------------------------------------------------------------
 % Mientras se migran los demás, se fija el número de cada capítulo migrado
 % para que coincida con el del curso (y con las rutas de la página web).
-% \input{capitulos/01_introduccion}                 % por migrar (Introduccion.tex)
+\setcounter{chapter}{0}
+\input{capitulos/01_introduccion}                   % migrado (Introduccion.tex)
 \setcounter{chapter}{1}
 \input{capitulos/02_modelado_primer_orden}          % migrado (Handout2_CtrlParte1.tex)
 \input{capitulos/03_modelado_segundo_orden}         % migrado (Handout2_CtrlParte2.tex)
 % \input{capitulos/04_espacio_estado}               % por migrar (Handout3_Ctrl.tex)
-% \input{capitulos/05_estabilidad}                  % por migrar (Handout4_Ctrl.tex)
+\setcounter{chapter}{4}
+\input{capitulos/05_estabilidad}                    % migrado (Handout4_Ctrl.tex)
 % \input{capitulos/06_error}                        % por migrar (Handout5_Ctrl.tex)
 % \input{capitulos/07_pid_nociones}                 % por migrar (Handout6a_Ctrl.tex)
 % \input{capitulos/08_pid_sintonizacion}            % por migrar (Handout6b_Ctrl.tex)

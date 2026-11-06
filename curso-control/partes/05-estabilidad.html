@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,21 +66,17 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <link href="../partes/06-error.html" rel="next">
 <link href="../partes/04-espacio-estado.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64fae8b6b810ab41c64c8dc374c4eb1f.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8bd68d78e5d16d7ee9b038e0636db237.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64fae8b6b810ab41c64c8dc374c4eb1f.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6ca0c397212994b6a3f632fc19759a7d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-499924d2a8a233c470f762b3979b075e.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2109129f78744553a96f0f8291275614.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-a4c10de92682e411e8ac659856b915e8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-2109129f78744553a96f0f8291275614.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2617eac7f0059178eec3ce531305bdab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d2976eeb248af5a7ccd6d3dd0a9ef837.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -96,180 +126,45 @@ window.MathJax = { tex: { macros: {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Análisis de Sistemas de Control</span>
     </a>
@@ -291,7 +186,7 @@ window.MathJax = { tex: { macros: {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-partes-del-curso">    
         <li>
     <a class="dropdown-item" href="../partes/01-introduccion.html">
- <span class="dropdown-text">1. Introducción</span></a>
+ <span class="dropdown-text">1. Introducción: el análisis de sistemas de control</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/02-modelado-primer-orden.html">
@@ -372,10 +267,6 @@ window.MathJax = { tex: { macros: {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      </a>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -396,7 +287,7 @@ window.MathJax = { tex: { macros: {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../partes/01-introduccion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1. Introducción</span></a>
+ <span class="menu-text">1. Introducción: el análisis de sistemas de control</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -489,15 +380,28 @@ window.MathJax = { tex: { macros: {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#ruta-de-las-clases" id="toc-ruta-de-las-clases" class="nav-link active" data-scroll-target="#ruta-de-las-clases">Ruta de las clases</a></li>
+  <li><a href="#lo-esencial-en-una-página" id="toc-lo-esencial-en-una-página" class="nav-link" data-scroll-target="#lo-esencial-en-una-página">Lo esencial, en una página</a></li>
+  <li><a href="#explorador" id="toc-explorador" class="nav-link" data-scroll-target="#explorador">Explorador de Routh-Hurwitz</a></li>
+  <li><a href="#códigos-de-esta-parte" id="toc-códigos-de-esta-parte" class="nav-link" data-scroll-target="#códigos-de-esta-parte">Códigos de esta parte</a></li>
+  <li><a href="#modelo-de-simulink" id="toc-modelo-de-simulink" class="nav-link" data-scroll-target="#modelo-de-simulink">Modelo de Simulink</a></li>
+  <li><a href="#pausas-activas" id="toc-pausas-activas" class="nav-link" data-scroll-target="#pausas-activas">Pausas activas</a></li>
+  <li><a href="#problemas" id="toc-problemas" class="nav-link" data-scroll-target="#problemas">Problemas</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/05-estabilidad.html">5. Estabilidad</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">5. Estabilidad</h1>
-<p class="subtitle lead">Semana 6 · por migrar al formato nuevo</p>
+<p class="subtitle lead">Semana 6 · dos clases</p>
 </div>
 
 
@@ -515,283 +419,874 @@ window.MathJax = { tex: { macros: {
 
 
 <div class="franja"><div class="rotulo">Parte 5 · Semana 6</div><div class="titulo">Estabilidad</div><div class="cita">En la cocina, la educación y el amor la rapidez va en contra del placer y la calidad. — Julián de Zubiría Samper</div><svg class="bode" viewbox="0 0 600 160" preserveaspectratio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"></path><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"></path></svg></div>
-<div class="profundiza">
-<p><span class="caja-titulo">Página en construcción</span></p>
-<p>Esta parte todavía está en el formato anterior de las notas (<code>Handout4_Ctrl.tex</code>). Se migrará siguiendo el piloto de la <a href="../partes/10-respuesta-frecuencial.html">parte 10</a>: notación unificada, cajas pedagógicas, códigos tomados del repositorio y una página como esta con todo el material.</p>
+<p>Antes de preguntar <em>cómo</em> llega la salida a la referencia hay que preguntar <em>si</em> llega. En esta parte definimos con cuidado qué es un <strong>equilibrio estable</strong>, vemos por qué todo lo decide la ubicación de los <strong>polos</strong>, y aprendemos el <strong>criterio de Routh-Hurwitz</strong>, que cuenta las raíces inestables sin calcularlas. Como trabaja con los coeficientes, Routh-Hurwitz sirve para <strong>diseñar</strong>: rangos de ganancia, ganancia y frecuencia críticas, regiones de un PI. Terminamos con la estabilidad en el <strong>espacio de estado</strong> y con la <strong>robustez</strong>: el teorema de <strong>Kharitonov</strong> reduce infinitas verificaciones a cuatro.</p>
+<div class="botones">
+  <a class="boton" href="../pdf/cap05_estabilidad.pdf">⬇ Handout en PDF</a>
+  <a class="boton sec" href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap05_estabilidad">Códigos en GitHub</a>
+  <a class="boton sec" href="#explorador">Explorador de Routh-Hurwitz</a>
 </div>
-<section id="temas" class="level2">
-<h2 class="anchored" data-anchor-id="temas">Temas</h2>
-<ul>
-<li>Historia</li>
-<li>Criterio de Routh-Hurwitz</li>
-<li>Estabilidad en el espacio de estado</li>
-<li>Robustez y estabilidad: Kharitonov</li>
-</ul>
+<div class="receta">
+<p><span class="caja-titulo">Al terminar esta parte usted podrá</span></p>
+<ol type="1">
+<li>Distinguir estabilidad asintótica, marginal y BIBO, y decidirla a partir de los polos o de los valores propios.</li>
+<li>Aplicar el criterio de Routh-Hurwitz, incluidos sus dos casos especiales.</li>
+<li>Usar la tabla para diseñar: rango de ganancia, <span class="math inline">\(\Kcr\)</span> y <span class="math inline">\(\wcr\)</span>, regiones de estabilidad de un PI y estabilidad relativa.</li>
+<li>Decidir la estabilidad de un equilibrio en el espacio de estado, también linealizando, y reconocer los modos que la función de transferencia esconde.</li>
+<li>Verificar la estabilidad robusta con el teorema de Kharitonov y reconocer cuándo el resultado es conservador.</li>
+</ol>
+</div>
+<section id="ruta-de-las-clases" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-las-clases">Ruta de las clases</h2>
+<table class="table-striped caption-top table">
+<caption>Lea la sección del handout <strong>antes</strong> de cada clase.</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Qué se ve</th>
+<th style="text-align: left;">Handout</th>
+<th style="text-align: left;">Scripts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Qué es estabilidad; modos y polos; historia; condición necesaria; tabla de Routh; casos especiales</td>
+<td style="text-align: left;">§5.1–5.4</td>
+<td style="text-align: left;"><code>C5_Ej1</code>–<code>C5_Ej3</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Rango de ganancia, <span class="math inline">\(\Kcr\)</span> y <span class="math inline">\(\wcr\)</span>; planta inestable; región de un PI; estabilidad relativa; espacio de estado y linealización; Kharitonov</td>
+<td style="text-align: left;">§5.5–5.7</td>
+<td style="text-align: left;"><code>C5_Ej4</code>–<code>C5_Ej7</code>, <code>crearModelo_LazoPI</code></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="lo-que-tendrá-esta-página" class="level2">
-<h2 class="anchored" data-anchor-id="lo-que-tendrá-esta-página">Lo que tendrá esta página</h2>
+<section id="lo-esencial-en-una-página" class="level2">
+<h2 class="anchored" data-anchor-id="lo-esencial-en-una-página">Lo esencial, en una página</h2>
+<div class="definicion">
+<p><span class="caja-titulo">Estabilidad y polos</span></p>
+<p>La estabilidad es una propiedad del <strong>equilibrio</strong>. Con <span class="math inline">\(\Tlc(s)=N(s)/D(s)\)</span> sin cancelaciones:</p>
 <ul>
-<li>El <strong>handout en PDF</strong> de la parte, con el formato nuevo.</li>
-<li>Los <strong>códigos de MATLAB y Simulink</strong>, con instrucciones y resultados esperados.</li>
-<li>Los <strong>videos</strong> de la parte y las <strong>pausas activas</strong> con respuesta.</li>
-<li>Los <strong>problemas</strong> con soluciones seleccionadas.</li>
+<li><strong>asintóticamente estable</strong> (y BIBO) si y solo si todos los polos tienen parte real negativa;</li>
+<li><strong>marginalmente estable</strong> si no hay polos en el semiplano derecho y los del eje imaginario son simples;</li>
+<li><strong>inestable</strong> si hay polos con parte real positiva o polos repetidos sobre el eje imaginario.</li>
 </ul>
+<p>Los ceros no intervienen.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_modos.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Ubicación de los polos y respuesta natural. Solo la primera tiende a cero.</figcaption>
+</figure>
+</div>
+<div class="cuidado">
+<p><span class="caja-titulo">Marginal no es BIBO</span></p>
+<p><span class="math inline">\(1/(s^2+1)\)</span> ante <span class="math inline">\(\sin t\)</span> da <span class="math inline">\(\tfrac12(\sin t-t\cos t)\)</span>, que crece sin límite. En diseño, “estable” quiere decir siempre <strong>asintóticamente</strong> estable.</p>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Criterio de Routh-Hurwitz</span></p>
+<p>Para <span class="math inline">\(a_0s^n+a_1s^{n-1}+\cdots+a_n=0\)</span> se arma la tabla</p>
+<p><span class="math display">\[
+\begin{array}{c|cccc}
+  s^n     &amp; a_0 &amp; a_2 &amp; a_4 &amp; \cdots\\
+  s^{n-1} &amp; a_1 &amp; a_3 &amp; a_5 &amp; \cdots\\
+  s^{n-2} &amp; b_1 &amp; b_2 &amp; \cdots\\
+  \vdots
+\end{array}
+\qquad b_1=\frac{a_1a_2-a_0a_3}{a_1},\quad b_2=\frac{a_1a_4-a_0a_5}{a_1},\ \dots
+\]</span></p>
+<p>El número de raíces con <strong>parte real positiva</strong> es el número de <strong>cambios de signo</strong> en la primera columna. Condición necesaria: todos los coeficientes presentes y del mismo signo (suficiente solo para <span class="math inline">\(n\le2\)</span>). Para <span class="math inline">\(n=3\)</span>: <span class="math inline">\(a_1a_2&gt;a_0a_3\)</span>.</p>
+</div>
+<div class="ideaclave">
+<p><span class="caja-titulo">Los dos casos especiales</span></p>
+<ul>
+<li><strong>Cero solo en la primera columna:</strong> se reemplaza por <span class="math inline">\(\epsilon&gt;0\)</span> pequeño y se sigue.</li>
+<li><strong>Fila completa de ceros:</strong> la fila de arriba es el <strong>polinomio auxiliar</strong> <span class="math inline">\(P(s)\)</span> (raíces simétricas respecto al origen, que se pueden calcular); se reemplaza la fila de ceros por <span class="math inline">\(\mathrm{d}P/\mathrm{d}s\)</span>.</li>
+</ul>
+</div>
+<div class="ideaclave">
+<p><span class="caja-titulo">Routh-Hurwitz para diseñar</span></p>
+<p>Con un parámetro en la ecuación característica, las condiciones de la tabla dan un <strong>rango</strong>. La fila que se anula da la <strong>ganancia crítica</strong> <span class="math inline">\(\Kcr\)</span> y el polinomio auxiliar, la <strong>frecuencia</strong> <span class="math inline">\(\wcr\)</span> de la oscilación sostenida: los mismos números de Ziegler-Nichols (parte 8) y del margen de ganancia (parte 10). Con el cambio <span class="math inline">\(s=z-\sigma\)</span> se exige que todos los polos estén a la izquierda de <span class="math inline">\(-\sigma\)</span>.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_rango_kc.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Por debajo de <span class="math inline">\(\Kcr\)</span> la oscilación se amortigua, en <span class="math inline">\(\Kcr\)</span> se sostiene y por encima crece.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_region_pi.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Región de estabilidad de un PI en el plano <span class="math inline">\((\Kc,K_i)\)</span> y tres puntos simulados: adentro, en la frontera y afuera.</figcaption>
+</figure>
+</div>
+<div class="cuidado">
+<p><span class="caja-titulo">Routh sobre <span class="math inline">\(\det(s\Id-\Am)\)</span></span></p>
+<p>La función de transferencia solo muestra los modos controlables y observables. <span class="math inline">\(\Am=\begin{bmatrix}0&amp;1&amp;0\\0&amp;0&amp;1\\2&amp;1&amp;-2\end{bmatrix}\)</span> tiene un valor propio en <span class="math inline">\(+1\)</span>, y sin embargo con <span class="math inline">\(\Cm=[-1\;\;0\;\;1]\)</span> la función de transferencia es <span class="math inline">\(1/(s+2)\)</span>. La estabilidad del equilibrio se decide con el polinomio característico de <span class="math inline">\(\Am\)</span>. Linealizando un sistema no lineal, si <span class="math inline">\(\Am\)</span> es Hurwitz el equilibrio es <strong>localmente</strong> estable (método indirecto de Lyapunov).</p>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Teorema de Kharitonov</span></p>
+<p>Una familia de polinomios cuyos coeficientes varían <strong>independientemente</strong> en intervalos <span class="math inline">\([a_k^-,a_k^+]\)</span> es robustamente estable si y solo si son Hurwitz cuatro polinomios, construidos desde el término independiente con los patrones de extremos <span class="math inline">\((-,-,+,+)\)</span>, <span class="math inline">\((+,+,-,-)\)</span>, <span class="math inline">\((-,+,+,-)\)</span> y <span class="math inline">\((+,-,-,+)\)</span>. Si los coeficientes dependen de los mismos parámetros, el resultado es <strong>conservador</strong>.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_kharitonov.svg" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption>Para cada <span class="math inline">\(\omega\)</span>, los valores <span class="math inline">\(\chi(j\omega)\)</span> de la familia llenan un rectángulo cuyos vértices son los cuatro polinomios de Kharitonov.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_khar_diseno.svg" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption>Rango robusto de <span class="math inline">\(K\)</span>: Kharitonov garantiza <span class="math inline">\(K&lt;251\)</span>, el límite real es <span class="math inline">\(642\)</span> y el modelo nominal haría creer que es <span class="math inline">\(1119\)</span>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="explorador" class="level2">
+<h2 class="anchored" data-anchor-id="explorador">Explorador de Routh-Hurwitz</h2>
+<p>Lazo con retroalimentación unitaria y malla abierta <span class="math inline">\(\Gma(s)=K\,N(s)/D(s)\)</span>. Escoja un lazo del handout (o escriba el suyo), mueva <span class="math inline">\(K\)</span> y observe la tabla de Routh, los cambios de signo y los polos del lazo cerrado. El rango estable se calcula con un barrido numérico de <span class="math inline">\(K\)</span>.</p>
+<div class="explorador" id="explorador-routh"></div>
+<script src="../recursos/explorador-routh.js"></script>
+<div class="pausa">
+<p><span class="caja-titulo">Retos con el explorador</span></p>
+<ol type="1">
+<li>Con el ejemplo 5.6, lleve <span class="math inline">\(K\)</span> a <span class="math inline">\(23.83\)</span>: ¿qué fila de la tabla se anula? ¿Dónde quedan los polos?</li>
+<li>Con el ejemplo 5.7, busque el <span class="math inline">\(K\)</span> que deja el polo más lento lo más a la izquierda posible. ¿Coincide con <span class="math inline">\(K\approx3.07\)</span>?</li>
+<li>Con el problema 5.3, ponga <span class="math inline">\(K=-20\)</span>: ¿cuántos cambios de signo hay y dónde está el polo inestable?</li>
+<li>En “Propio”, escriba <span class="math inline">\(N=1\)</span> y <span class="math inline">\(D=1\;\,7\;\,6\;\,42\;\,8\;\,56\)</span> con <span class="math inline">\(K=0\)</span>: aparece la fila de ceros del ejemplo 5.4.</li>
+</ol>
+</div>
+</section>
+<section id="códigos-de-esta-parte" class="level2">
+<h2 class="anchored" data-anchor-id="códigos-de-esta-parte">Códigos de esta parte</h2>
+<p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap05_estabilidad">repositorio</a>. Ejecute antes <code>iniciarCurso</code>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Modos</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Routh-Hurwitz</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Diseño</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Espacio de estado</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Kharitonov</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false">Pruebas</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>La respuesta natural según los polos (§5.1).</strong></p>
+<div class="sourceCode" id="cb1" data-filename="cap05_estabilidad/C5_Ej1_Modos.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">s</span> <span class="op">=</span> <span class="va">tf</span>(<span class="ss">'s'</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">sistemas</span> <span class="op">=</span> {<span class="fl">1</span><span class="op">/</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">,</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">,</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span> <span class="op">-</span> <span class="fl">1</span>)<span class="op">,</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">^</span><span class="fl">2</span>}<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">titulos</span>  <span class="op">=</span> {<span class="ss">'polo en -1'</span><span class="op">,</span> <span class="ss">'polos en \pm j'</span><span class="op">,</span> <span class="ss">'polo en +1'</span><span class="op">,</span> <span class="ss">'polos dobles en \pm j'</span>}<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">15</span><span class="op">,</span> <span class="fl">1501</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">disp</span>(<span class="va">titulos</span>{<span class="va">k</span>})<span class="op">;</span>  <span class="va">disp</span>(<span class="va">pole</span>(<span class="va">sistemas</span>{<span class="va">k</span>})<span class="op">.'</span>)       <span class="co">% ubicación de los polos</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">y</span>{<span class="va">k</span>} <span class="op">=</span> <span class="va">impulse</span>(<span class="va">sistemas</span>{<span class="va">k</span>}<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>                     <span class="co">% respuesta natural (impulso)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Marginal no es BIBO.</strong></p>
+<div class="sourceCode" id="cb2" data-filename="cap05_estabilidad/C5_Ej1_Modos.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">u</span> <span class="op">=</span> <span class="va">sin</span>(<span class="va">t</span>)<span class="op">;</span>                                  <span class="co">% entrada acotada a la frecuencia del polo</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">yr</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="fl">1</span><span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">,</span> <span class="va">u</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>                <span class="co">% marginal: la salida crece sin límite</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">max</span>(<span class="va">abs</span>(<span class="va">yr</span>))                                 <span class="co">% crece como t/2: no es BIBO estable</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>La tabla y el conteo de cambios de signo (§5.3).</strong></p>
+<div class="sourceCode" id="cb3" data-filename="cap05_estabilidad/C5_Ej2_Routh.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">p</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span> <span class="fl">4</span> <span class="fl">5</span>]<span class="op">;</span>             <span class="co">% s^4 + 2s^3 + 3s^2 + 4s + 5</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">tablaRouth</span>(<span class="va">p</span>)                <span class="co">% imprime la tabla y cuenta los cambios de signo</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">roots</span>(<span class="va">p</span>)                     <span class="co">% dos raíces con parte real positiva</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">q</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">1</span> <span class="fl">2</span> <span class="fl">8</span>]<span class="op">;</span>               <span class="co">% todos los coeficientes positivos...</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">cambios</span>] <span class="op">=</span> <span class="va">tablaRouth</span>(<span class="va">q</span>) <span class="co">% ... y aun así dos raíces inestables</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="va">roots</span>(<span class="va">q</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Casos especiales (§5.4).</strong></p>
+<div class="sourceCode" id="cb4" data-filename="cap05_estabilidad/C5_Ej3_CasosEspeciales.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">p1</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">2</span> <span class="fl">4</span> <span class="fl">8</span> <span class="fl">10</span> <span class="fl">6</span>]<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">tablaRouth</span>(<span class="va">p1</span>)               <span class="co">% el 0 de la fila s^3 se reemplaza por epsilon</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">roots</span>(<span class="va">p1</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5" data-filename="cap05_estabilidad/C5_Ej3_CasosEspeciales.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">p2</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">7</span> <span class="fl">6</span> <span class="fl">42</span> <span class="fl">8</span> <span class="fl">56</span>]<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">tablaRouth</span>(<span class="va">p2</span>)               <span class="co">% la fila s^3 se anula: derivada del auxiliar</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">aux</span> <span class="op">=</span> [<span class="fl">7</span> <span class="fl">0</span> <span class="fl">42</span> <span class="fl">0</span> <span class="fl">56</span>]<span class="op">;</span>         <span class="co">% fila s^4: 7s^4 + 42s^2 + 56</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="va">roots</span>(<span class="va">aux</span>)                   <span class="co">% +-j1.414 y +-j2: también son raíces de p2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="va">roots</span>(<span class="va">p2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>La función del curso <code>tablaRouth</code>.</strong></p>
+<div class="sourceCode" id="cb6" data-filename="comun/tablaRouth.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [<span class="va">T</span><span class="op">,</span> <span class="va">cambios</span><span class="op">,</span> <span class="va">notas</span>] <span class="op">=</span> <span class="va">tablaRouth</span>(<span class="va">p</span><span class="op">,</span> <span class="va">epsilon</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">% TABLAROUTH  Tabla de Routh-Hurwitz de un polinomio (coeficientes en orden</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">% descendente, como en roots/poly) y número de cambios de signo en la</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">% primera columna (= número de raíces con parte real positiva).</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   [T, cambios, notas] = tablaRouth([1 2 3 4 5])</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   Casos especiales (sección 5.4 de las notas):</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">%     - cero en la primera columna: se reemplaza por epsilon (por defecto 1e-6);</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">%     - fila completa de ceros: se reemplaza por la derivada del polinomio</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">%       auxiliar (la fila anterior), que contiene las raíces simétricas.</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">%   Sin salidas, imprime la tabla.  Es numérica: para tablas con parámetros</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">%   (K, Kc, Ki) haga la tabla a mano o con syms.</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">nargin</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">,</span> <span class="va">epsilon</span> <span class="op">=</span> <span class="fl">1e-6</span><span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="va">p</span> <span class="op">=</span> <span class="va">p</span>(<span class="op">:</span>)<span class="op">.';</span>  <span class="va">n</span> <span class="op">=</span> <span class="va">numel</span>(<span class="va">p</span>) <span class="op">-</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">ancho</span> <span class="op">=</span> <span class="va">ceil</span>((<span class="va">n</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">/</span><span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="va">T</span> <span class="op">=</span> <span class="va">zeros</span>(<span class="va">n</span> <span class="op">+</span> <span class="fl">1</span><span class="op">,</span> <span class="va">ancho</span>)<span class="op">;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="va">f0</span> <span class="op">=</span> <span class="va">p</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">:</span><span class="kw">end</span>)<span class="op">;</span>  <span class="va">f1</span> <span class="op">=</span> <span class="va">p</span>(<span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">:</span><span class="kw">end</span>)<span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="va">T</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">1</span><span class="op">:</span><span class="va">numel</span>(<span class="va">f0</span>)) <span class="op">=</span> <span class="va">f0</span><span class="op">;</span>  <span class="va">T</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">1</span><span class="op">:</span><span class="va">numel</span>(<span class="va">f1</span>)) <span class="op">=</span> <span class="va">f1</span><span class="op">;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="va">notas</span> <span class="op">=</span> {}<span class="op">;</span>  <span class="va">tol</span> <span class="op">=</span> <span class="fl">1e-12</span><span class="op">*</span><span class="va">max</span>(<span class="fl">1</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">p</span>)))<span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="va">n</span><span class="op">+</span><span class="fl">1</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">i</span> <span class="op">&gt;</span> <span class="fl">2</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">a</span> <span class="op">=</span> <span class="va">T</span>(<span class="va">i</span><span class="op">-</span><span class="fl">2</span><span class="op">,</span> <span class="op">:</span>)<span class="op">;</span>  <span class="va">b</span> <span class="op">=</span> <span class="va">T</span>(<span class="va">i</span><span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="op">:</span>)<span class="op">;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">ancho</span><span class="op">-</span><span class="fl">1</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            <span class="va">T</span>(<span class="va">i</span><span class="op">,</span> <span class="va">k</span>) <span class="op">=</span> (<span class="va">b</span>(<span class="fl">1</span>)<span class="op">*</span><span class="va">a</span>(<span class="va">k</span><span class="op">+</span><span class="fl">1</span>) <span class="op">-</span> <span class="va">a</span>(<span class="fl">1</span>)<span class="op">*</span><span class="va">b</span>(<span class="va">k</span><span class="op">+</span><span class="fl">1</span>))<span class="op">/</span><span class="va">b</span>(<span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">all</span>(<span class="va">abs</span>(<span class="va">T</span>(<span class="va">i</span><span class="op">,</span> <span class="op">:</span>)) <span class="op">&lt;</span> <span class="va">tol</span>) <span class="op">&amp;&amp;</span> <span class="va">i</span> <span class="op">&lt;=</span> <span class="va">n</span>      <span class="co">% fila de ceros: polinomio auxiliar</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="va">orden</span> <span class="op">=</span> <span class="va">n</span> <span class="op">-</span> <span class="va">i</span> <span class="op">+</span> <span class="fl">2</span><span class="op">;</span>                        <span class="co">% grado del auxiliar (fila i-1)</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">T</span>(<span class="va">i</span><span class="op">,</span> <span class="op">:</span>) <span class="op">=</span> <span class="va">T</span>(<span class="va">i</span><span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="op">:</span>)<span class="op">.*</span>(<span class="va">orden</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span>(<span class="fl">0</span><span class="op">:</span><span class="va">ancho</span><span class="op">-</span><span class="fl">1</span>))<span class="op">;</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        <span class="va">notas</span>{<span class="kw">end</span><span class="op">+</span><span class="fl">1</span>} <span class="op">=</span> <span class="va">sprintf</span>(<span class="ss">'fila s^%d de ceros: derivada del auxiliar de grado %d'</span><span class="op">,</span> <span class="va">n</span><span class="op">-</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span><span class="op">,</span> <span class="va">orden</span>)<span class="op">;</span> <span class="co">%#ok&lt;AGROW&gt;</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">abs</span>(<span class="va">T</span>(<span class="va">i</span><span class="op">,</span> <span class="fl">1</span>)) <span class="op">&lt;</span> <span class="va">tol</span> <span class="op">&amp;&amp;</span> <span class="va">i</span> <span class="op">&lt;=</span> <span class="va">n</span>           <span class="co">% cero solo en la primera columna</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">T</span>(<span class="va">i</span><span class="op">,</span> <span class="fl">1</span>) <span class="op">=</span> <span class="va">epsilon</span><span class="op">;</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="va">notas</span>{<span class="kw">end</span><span class="op">+</span><span class="fl">1</span>} <span class="op">=</span> <span class="va">sprintf</span>(<span class="ss">'cero en la primera columna de s^%d: se usa epsilon'</span><span class="op">,</span> <span class="va">n</span><span class="op">-</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span>)<span class="op">;</span> <span class="co">%#ok&lt;AGROW&gt;</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="va">col</span> <span class="op">=</span> <span class="va">T</span>(<span class="op">:,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="va">cambios</span> <span class="op">=</span> <span class="va">sum</span>(<span class="va">sign</span>(<span class="va">col</span>(<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span>)) <span class="op">.*</span> <span class="va">sign</span>(<span class="va">col</span>(<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>)) <span class="op">&lt;</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">nargout</span> <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">+</span><span class="fl">1</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        <span class="va">fprintf</span>(<span class="ss">'  s^%-2d |'</span><span class="op">,</span> <span class="va">n</span><span class="op">-</span><span class="va">i</span><span class="op">+</span><span class="fl">1</span>)<span class="op">;</span>  <span class="va">fprintf</span>(<span class="ss">' %10.4g'</span><span class="op">,</span> <span class="va">T</span>(<span class="va">i</span><span class="op">,</span> <span class="op">:</span>))<span class="op">;</span>  <span class="va">fprintf</span>(<span class="ss">'\n'</span>)<span class="op">;</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">numel</span>(<span class="va">notas</span>)<span class="op">,</span> <span class="va">fprintf</span>(<span class="ss">'  (%s)\n'</span><span class="op">,</span> <span class="va">notas</span>{<span class="va">k</span>})<span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'  cambios de signo en la primera columna: %d\n'</span><span class="op">,</span> <span class="va">cambios</span>)<span class="op">;</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="va">clear</span> <span class="va">T</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>Rango de <span class="math inline">\(\Kc\)</span>, <span class="math inline">\(\Kcr\)</span> y <span class="math inline">\(\wcr\)</span> (§5.5).</strong></p>
+<div class="sourceCode" id="cb7" data-filename="cap05_estabilidad/C5_Ej4_RangoK.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">s</span> <span class="op">=</span> <span class="va">tf</span>(<span class="ss">'s'</span>)<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="fl">0.016</span><span class="op">/</span>(<span class="fl">3</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">1</span>) <span class="op">*</span> <span class="fl">50</span><span class="op">/</span>(<span class="fl">30</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">;</span>       <span class="co">% camino directo (sin Kc)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">H</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="fl">10</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">;</span>                          <span class="co">% sensor</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">den</span> <span class="op">=</span> <span class="va">conv</span>(<span class="va">conv</span>([<span class="fl">3</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="fl">30</span> <span class="fl">1</span>])<span class="op">,</span> [<span class="fl">10</span> <span class="fl">1</span>])<span class="op">;</span>   <span class="co">% 900s^3 + 420s^2 + 43s + 1</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">% ecuación característica: 900s^3 + 420s^2 + 43s + (1 + 0.8 Kc) = 0</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="va">Kcr</span> <span class="op">=</span> (<span class="fl">420</span><span class="op">*</span><span class="fl">43</span><span class="op">/</span><span class="fl">900</span> <span class="op">-</span> <span class="fl">1</span>)<span class="op">/</span><span class="fl">0.8</span>                 <span class="co">% fila s^1 = 0  -&gt;  23.83</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">wcr</span> <span class="op">=</span> <span class="va">sqrt</span>((<span class="fl">1</span> <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span><span class="va">Kcr</span>)<span class="op">/</span><span class="fl">420</span>)              <span class="co">% auxiliar 420s^2 + (1+0.8Kcr) = 0</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="va">Pcr</span> <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="va">wcr</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>[<span class="va">GM</span><span class="op">,</span> <span class="va">PM</span><span class="op">,</span> <span class="va">wgm</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="va">G</span><span class="op">*</span><span class="va">H</span>)                <span class="co">% GM = Kcr, wgm = wcr</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Estabilizar una planta inestable.</strong></p>
+<div class="sourceCode" id="cb8" data-filename="cap05_estabilidad/C5_Ej4_RangoK.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">P</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>((<span class="va">s</span> <span class="op">-</span> <span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">2</span>))<span class="op">;</span>           <span class="co">% planta inestable</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">K</span> <span class="op">=</span> [<span class="fl">2.9</span> <span class="fl">3.2</span> <span class="fl">3.48</span> <span class="fl">3.6</span>]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">T</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">K</span><span class="op">*</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">2</span>)<span class="op">/</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">3</span>)<span class="op">*</span><span class="va">P</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'K = %4.2f   max Re(polos) = %+.4f\n'</span><span class="op">,</span> <span class="va">K</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">pole</span>(<span class="va">T</span>))))<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">% Routh: K &gt; 3 (fila s^0) y K^2 + 16K - 68 &lt; 0 (fila s^1) -&gt; 3 &lt; K &lt; 3.4891</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="va">Kmax</span> <span class="op">=</span> <span class="op">-</span><span class="fl">8</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">sqrt</span>(<span class="fl">33</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Región de estabilidad de un PI.</strong></p>
+<div class="sourceCode" id="cb9" data-filename="cap05_estabilidad/C5_Ej5_RegionPI.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">Kc</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="fl">9</span><span class="op">,</span> <span class="fl">201</span>)<span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">Kimax</span> <span class="op">=</span> (<span class="fl">1</span> <span class="op">+</span> <span class="va">Kc</span>)<span class="op">.*</span>(<span class="fl">9</span> <span class="op">-</span> <span class="va">Kc</span>)<span class="op">/</span><span class="fl">8</span><span class="op">;</span>               <span class="co">% frontera de la fila s^1</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="va">fig</span> <span class="op">=</span> <span class="va">estiloFigura</span>(<span class="fl">1000</span><span class="op">,</span> <span class="fl">440</span>)<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="va">subplot</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="va">fill</span>([<span class="va">Kc</span> <span class="va">fliplr</span>(<span class="va">Kc</span>)]<span class="op">,</span> [<span class="va">Kimax</span> <span class="va">zeros</span>(<span class="va">size</span>(<span class="va">Kc</span>))]<span class="op">,</span> [<span class="fl">0.85</span> <span class="fl">0.9</span> <span class="fl">1</span>])<span class="op">;</span>  <span class="va">hold</span> <span class="va">on</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>([<span class="fl">5</span> <span class="fl">5</span> <span class="fl">5</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">3</span> <span class="fl">4</span>]<span class="op">,</span> <span class="ss">'o'</span><span class="op">,</span> <span class="ss">'MarkerFaceColor'</span><span class="op">,</span> <span class="ss">'auto'</span>)<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'K_c'</span>)<span class="op">;</span>  <span class="va">ylabel</span>(<span class="ss">'K_i'</span>)<span class="op">;</span>  <span class="va">title</span>(<span class="ss">'región estable'</span>)<span class="op">;</span>  <span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><strong>Valores propios y polinomio característico (§5.6).</strong></p>
+<div class="sourceCode" id="cb10" data-filename="cap05_estabilidad/C5_Ej6_EspacioEstado.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">6</span> <span class="op">-</span><span class="fl">11</span> <span class="op">-</span><span class="fl">6</span>]<span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">eig</span>(<span class="va">A</span>)                       <span class="co">% -1, -2, -3: A es Hurwitz</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">poly</span>(<span class="va">A</span>)                      <span class="co">% s^3 + 6s^2 + 11s + 6</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="va">tablaRouth</span>(<span class="va">poly</span>(<span class="va">A</span>))          <span class="co">% lo mismo, sin calcular las raíces</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>El modo inestable escondido.</strong></p>
+<div class="sourceCode" id="cb11" data-filename="cap05_estabilidad/C5_Ej6_EspacioEstado.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">Au</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">2</span> <span class="fl">1</span> <span class="op">-</span><span class="fl">2</span>]<span class="op">;</span>  <span class="va">B</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">;</span>  <span class="va">C</span> <span class="op">=</span> [<span class="op">-</span><span class="fl">1</span> <span class="fl">0</span> <span class="fl">1</span>]<span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">eig</span>(<span class="va">Au</span>)                      <span class="co">% 1, -1, -2: el equilibrio es INESTABLE</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">minreal</span>(<span class="va">tf</span>(<span class="va">ss</span>(<span class="va">Au</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="fl">0</span>)))   <span class="co">% 1/(s+2): ¡parece estable!</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Los dos equilibrios del péndulo.</strong></p>
+<div class="sourceCode" id="cb12" data-filename="cap05_estabilidad/C5_Ej6_EspacioEstado.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">gl</span> <span class="op">=</span> <span class="fl">9.81</span><span class="op">;</span>  <span class="va">b</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>         <span class="co">% theta'' = -(g/l) sin(theta) - b theta'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">th</span> <span class="op">=</span> [<span class="fl">0</span> <span class="va">pi</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">J</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="va">gl</span><span class="op">*</span><span class="va">cos</span>(<span class="va">th</span>) <span class="op">-</span><span class="va">b</span>]<span class="op">;</span>          <span class="co">% jacobiano evaluado en el equilibrio</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'theta* = %4.2f  -&gt;  valores propios:'</span><span class="op">,</span> <span class="va">th</span>)<span class="op">;</span>  <span class="va">disp</span>(<span class="va">eig</span>(<span class="va">J</span>)<span class="op">.'</span>)<span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p><strong>Los cuatro polinomios y un muestreo aleatorio (§5.7).</strong></p>
+<div class="sourceCode" id="cb13" data-filename="cap05_estabilidad/C5_Ej7_Kharitonov.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">bajo</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">4</span> <span class="fl">3</span> <span class="fl">1</span>]<span class="op">;</span>  <span class="va">alto</span> <span class="op">=</span> [<span class="fl">2</span> <span class="fl">5</span> <span class="fl">4</span> <span class="fl">2</span>]<span class="op">;</span>       <span class="co">% a3 s^3 + a2 s^2 + a1 s + a0</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="va">P</span> <span class="op">=</span> <span class="va">kharitonov</span>(<span class="va">bajo</span><span class="op">,</span> <span class="va">alto</span>)                 <span class="co">% cuatro filas = cuatro polinomios</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="va">esHurwitz</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">p</span>) <span class="va">all</span>(<span class="va">real</span>(<span class="va">roots</span>(<span class="va">p</span>)) <span class="op">&lt;</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="va">robusto</span> <span class="op">=</span> <span class="va">all</span>(<span class="va">arrayfun</span>(<span class="op">@</span>(<span class="va">k</span>) <span class="va">esHurwitz</span>(<span class="va">P</span>(<span class="va">k</span><span class="op">,</span> <span class="op">:</span>))<span class="op">,</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">% Muestreo aleatorio: 2000 polinomios de la familia</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="va">N</span> <span class="op">=</span> <span class="fl">2000</span><span class="op">;</span>  <span class="va">peor</span> <span class="op">=</span> <span class="op">-</span><span class="va">inf</span><span class="op">;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">N</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">p</span> <span class="op">=</span> <span class="va">bajo</span> <span class="op">+</span> <span class="va">rand</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">4</span>)<span class="op">.*</span>(<span class="va">alto</span> <span class="op">-</span> <span class="va">bajo</span>)<span class="op">;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">peor</span> <span class="op">=</span> <span class="va">max</span>(<span class="va">peor</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">roots</span>(<span class="va">p</span>))))<span class="op">;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="va">peor</span>                                       <span class="co">% &lt; 0, pero no es una PRUEBA</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Rango robusto de ganancia y conservadurismo.</strong></p>
+<div class="sourceCode" id="cb14" data-filename="cap05_estabilidad/C5_Ej7_Kharitonov.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">% (s^2 + r1 s + r2)(r3 s + 1) + K = r3 s^3 + (r1 r3 + 1)s^2 + (r2 r3 + r1)s + (r2 + K)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">K</span> <span class="op">=</span> [<span class="fl">200</span> <span class="fl">250</span> <span class="fl">300</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">bajo</span> <span class="op">=</span> [<span class="fl">1</span>  <span class="fl">7</span> <span class="fl">106</span> <span class="fl">100</span> <span class="op">+</span> <span class="va">K</span>]<span class="op">;</span>  <span class="va">alto</span> <span class="op">=</span> [<span class="fl">2</span> <span class="fl">15</span> <span class="fl">247</span> <span class="fl">120</span> <span class="op">+</span> <span class="va">K</span>]<span class="op">;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">P</span> <span class="op">=</span> <span class="va">kharitonov</span>(<span class="va">bajo</span><span class="op">,</span> <span class="va">alto</span>)<span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'K = %3d: Kharitonov -&gt;'</span><span class="op">,</span> <span class="va">K</span>)<span class="op">;</span>  <span class="va">fprintf</span>(<span class="ss">' %d'</span><span class="op">,</span> <span class="va">arrayfun</span>(<span class="op">@</span>(<span class="va">k</span>) <span class="va">esHurwitz</span>(<span class="va">P</span>(<span class="va">k</span><span class="op">,</span> <span class="op">:</span>))<span class="op">,</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>))<span class="op">;</span>  <span class="va">fprintf</span>(<span class="ss">'\n'</span>)<span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">% La familia real (r1, r2, r3 entran en varios coeficientes a la vez):</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>[<span class="va">r1</span><span class="op">,</span> <span class="va">r2</span><span class="op">,</span> <span class="va">r3</span>] <span class="op">=</span> <span class="va">ndgrid</span>(<span class="va">linspace</span>(<span class="fl">6</span><span class="op">,</span> <span class="fl">7</span><span class="op">,</span> <span class="fl">6</span>)<span class="op">,</span> <span class="va">linspace</span>(<span class="fl">100</span><span class="op">,</span> <span class="fl">120</span><span class="op">,</span> <span class="fl">6</span>)<span class="op">,</span> <span class="va">linspace</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">11</span>))<span class="op">;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="va">Kreal</span> <span class="op">=</span> <span class="va">min</span>(<span class="va">r1</span>(<span class="op">:</span>)<span class="op">.*</span><span class="va">r2</span>(<span class="op">:</span>)<span class="op">.*</span><span class="va">r3</span>(<span class="op">:</span>) <span class="op">+</span> <span class="va">r1</span>(<span class="op">:</span>)<span class="op">.^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">r1</span>(<span class="op">:</span>)<span class="op">./</span><span class="va">r3</span>(<span class="op">:</span>))   <span class="co">% 642</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>La función del curso <code>kharitonov</code>.</strong></p>
+<div class="sourceCode" id="cb15" data-filename="comun/kharitonov.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">P</span> <span class="op">=</span> <span class="va">kharitonov</span>(<span class="va">bajo</span><span class="op">,</span> <span class="va">alto</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">% KHARITONOV  Los cuatro polinomios de Kharitonov de una familia de intervalo.</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   P = kharitonov(bajo, alto)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   bajo, alto: coeficientes mínimos y máximos en orden DESCENDENTE</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   (como en roots/poly): [a0 a1 ... an] para a0 s^n + ... + an.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   P: matriz 4 x (n+1); cada fila es un polinomio en orden descendente.</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">%   Se construyen desde el término independiente hacia arriba con los</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">%   patrones (-,-,+,+), (+,+,-,-), (-,+,+,-), (+,-,-,+) que se repiten.</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">%   La familia es robustamente estable si y solo si las cuatro filas son Hurwitz:</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">%       all(arrayfun(@(k) all(real(roots(P(k,:))) &lt; 0), 1:4))</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="va">patrones</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">0</span> <span class="fl">1</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">1</span> <span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">1</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">1</span>]<span class="op">;</span>   <span class="co">% 0 = mínimo, 1 = máximo</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="va">lo</span> <span class="op">=</span> <span class="va">fliplr</span>(<span class="va">bajo</span>(<span class="op">:</span>)<span class="op">.'</span>)<span class="op">;</span>  <span class="va">hi</span> <span class="op">=</span> <span class="va">fliplr</span>(<span class="va">alto</span>(<span class="op">:</span>)<span class="op">.'</span>)<span class="op">;</span>   <span class="co">% ascendente: an, a(n-1), ...</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="va">m</span> <span class="op">=</span> <span class="va">numel</span>(<span class="va">lo</span>)<span class="op">;</span>  <span class="va">P</span> <span class="op">=</span> <span class="va">zeros</span>(<span class="fl">4</span><span class="op">,</span> <span class="va">m</span>)<span class="op">;</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="va">usarAlto</span> <span class="op">=</span> <span class="va">logical</span>(<span class="va">patrones</span>(<span class="va">k</span><span class="op">,</span> <span class="va">mod</span>(<span class="fl">0</span><span class="op">:</span><span class="va">m</span><span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="fl">4</span>) <span class="op">+</span> <span class="fl">1</span>))<span class="op">;</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="va">asc</span> <span class="op">=</span> <span class="va">lo</span><span class="op">;</span>  <span class="va">asc</span>(<span class="va">usarAlto</span>) <span class="op">=</span> <span class="va">hi</span>(<span class="va">usarAlto</span>)<span class="op">;</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="va">P</span>(<span class="va">k</span><span class="op">,</span> <span class="op">:</span>) <span class="op">=</span> <span class="va">fliplr</span>(<span class="va">asc</span>)<span class="op">;</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p><code>verificarCap05</code> comprueba los números clave del capítulo.</p>
+<div class="sourceCode" id="cb16" data-filename="cap05_estabilidad/verificarCap05.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">verificarCap05</span>()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">% VERIFICARCAP05  Pruebas automáticas de los números del capítulo 5.</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   &gt;&gt; verificarCap05</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">% (Los mismos números se verificaron con sympy y python-control en</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">%  herramientas/cap05_numeros.py.)</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="va">raiz</span> <span class="op">=</span> <span class="va">fileparts</span>(<span class="va">mfilename</span>(<span class="ss">'fullpath'</span>))<span class="op">;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="va">addpath</span>(<span class="va">fullfile</span>(<span class="va">raiz</span><span class="op">,</span> <span class="ss">'..'</span><span class="op">,</span> <span class="ss">'comun'</span>))<span class="op">;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="va">fallas</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span>  <span class="va">n</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="va">revisar</span>(<span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">n</span> <span class="op">=</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="va">abs</span>(<span class="va">valor</span> <span class="op">-</span> <span class="va">esperado</span>) <span class="op">&lt;=</span> <span class="va">tol</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="ss">'  ok   %-42s %12.4f\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span>)<span class="op">;</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="fl">2</span><span class="op">,</span> <span class="ss">'  FALLA %-41s %12.4f  (esperado %g +- %g)\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)<span class="op">;</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>            <span class="va">fallas</span> <span class="op">=</span> <span class="va">fallas</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="va">nInestables</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">p</span>) <span class="va">sum</span>(<span class="va">real</span>(<span class="va">roots</span>(<span class="va">p</span>)) <span class="op">&gt;</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="va">esHurwitz</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">p</span>) <span class="va">all</span>(<span class="va">real</span>(<span class="va">roots</span>(<span class="va">p</span>)) <span class="op">&lt;</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'5.3  Routh\n'</span>)<span class="op">;</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">c</span>] <span class="op">=</span> <span class="va">tablaRouth</span>([<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span> <span class="fl">4</span> <span class="fl">5</span>])<span class="op">;</span>   <span class="va">revisar</span>(<span class="ss">'s^4+2s^3+3s^2+4s+5: cambios'</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   raíces inestables'</span><span class="op">,</span> <span class="va">nInestables</span>([<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span> <span class="fl">4</span> <span class="fl">5</span>])<span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   parte real'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">roots</span>([<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span> <span class="fl">4</span> <span class="fl">5</span>])))<span class="op">,</span> <span class="fl">0.2878</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">c</span>] <span class="op">=</span> <span class="va">tablaRouth</span>([<span class="fl">1</span> <span class="fl">1</span> <span class="fl">2</span> <span class="fl">8</span>])<span class="op">;</span>     <span class="va">revisar</span>(<span class="ss">'s^3+s^2+2s+8: cambios'</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">c</span>] <span class="op">=</span> <span class="va">tablaRouth</span>([<span class="fl">1</span> <span class="fl">2</span> <span class="fl">3</span> <span class="fl">4</span>])<span class="op">;</span>     <span class="va">revisar</span>(<span class="ss">'s^3+2s^2+3s+4: cambios'</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'5.4  Casos especiales\n'</span>)<span class="op">;</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">c</span>] <span class="op">=</span> <span class="va">tablaRouth</span>([<span class="fl">1</span> <span class="fl">2</span> <span class="fl">4</span> <span class="fl">8</span> <span class="fl">10</span> <span class="fl">6</span>])<span class="op">;</span>   <span class="va">revisar</span>(<span class="ss">'caso 1: cambios'</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   raíces inestables'</span><span class="op">,</span> <span class="va">nInestables</span>([<span class="fl">1</span> <span class="fl">2</span> <span class="fl">4</span> <span class="fl">8</span> <span class="fl">10</span> <span class="fl">6</span>])<span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>[<span class="va">T</span><span class="op">,</span> <span class="va">c</span>] <span class="op">=</span> <span class="va">tablaRouth</span>([<span class="fl">1</span> <span class="fl">7</span> <span class="fl">6</span> <span class="fl">42</span> <span class="fl">8</span> <span class="fl">56</span>])<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'caso 2: cambios'</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   fila s^3 = [28 84]'</span><span class="op">,</span> <span class="va">T</span>(<span class="fl">3</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">,</span> <span class="fl">84</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   fila s^1'</span><span class="op">,</span> <span class="va">T</span>(<span class="fl">5</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">,</span> <span class="fl">28</span><span class="op">/</span><span class="fl">3</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   |raíz| mayor en el eje'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">imag</span>(<span class="va">roots</span>([<span class="fl">1</span> <span class="fl">7</span> <span class="fl">6</span> <span class="fl">42</span> <span class="fl">8</span> <span class="fl">56</span>]))))<span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">1e-6</span>)<span class="op">;</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">c</span>] <span class="op">=</span> <span class="va">tablaRouth</span>([<span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">4</span>])<span class="op">;</span>      <span class="va">revisar</span>(<span class="ss">'s^4+4: cambios'</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">c</span>] <span class="op">=</span> <span class="va">tablaRouth</span>([<span class="fl">1</span> <span class="fl">2</span> <span class="fl">1</span> <span class="fl">2</span>])<span class="op">;</span>        <span class="va">revisar</span>(<span class="ss">'s^3+2s^2+s+2: cambios'</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'5.5  Diseño\n'</span>)<span class="op">;</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="va">Kcr</span> <span class="op">=</span> (<span class="fl">420</span><span class="op">*</span><span class="fl">43</span><span class="op">/</span><span class="fl">900</span> <span class="op">-</span> <span class="fl">1</span>)<span class="op">/</span><span class="fl">0.8</span><span class="op">;</span>            <span class="va">revisar</span>(<span class="ss">'Kcr (tres primer orden)'</span><span class="op">,</span> <span class="va">Kcr</span><span class="op">,</span> <span class="fl">23.8333</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'wcr'</span><span class="op">,</span> <span class="va">sqrt</span>((<span class="fl">1</span> <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span><span class="va">Kcr</span>)<span class="op">/</span><span class="fl">420</span>)<span class="op">,</span> <span class="fl">0.21858</span><span class="op">,</span> <span class="fl">1e-5</span>)<span class="op">;</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'margin GM = Kcr'</span><span class="op">,</span> <span class="va">margin</span>(<span class="va">tf</span>(<span class="fl">0.8</span><span class="op">,</span> [<span class="fl">900</span> <span class="fl">420</span> <span class="fl">43</span> <span class="fl">1</span>]))<span class="op">,</span> <span class="va">Kcr</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Kmax planta inestable'</span><span class="op">,</span> <span class="op">-</span><span class="fl">8</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">sqrt</span>(<span class="fl">33</span>)<span class="op">,</span> <span class="fl">3.4891</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'K = 3.2 estable'</span><span class="op">,</span> <span class="va">esHurwitz</span>([<span class="fl">1</span> <span class="fl">4</span> <span class="fl">3</span> <span class="fl">3.2</span><span class="op">-</span><span class="fl">2</span> <span class="fl">2</span><span class="op">*</span><span class="fl">3.2</span><span class="op">-</span><span class="fl">6</span>])<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'K = 3.6 inestable'</span><span class="op">,</span> <span class="va">esHurwitz</span>([<span class="fl">1</span> <span class="fl">4</span> <span class="fl">3</span> <span class="fl">3.6</span><span class="op">-</span><span class="fl">2</span> <span class="fl">2</span><span class="op">*</span><span class="fl">3.6</span><span class="op">-</span><span class="fl">6</span>])<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PI frontera Kc=5'</span><span class="op">,</span> (<span class="fl">1</span> <span class="op">+</span> <span class="fl">5</span>)<span class="op">*</span>(<span class="fl">9</span> <span class="op">-</span> <span class="fl">5</span>)<span class="op">/</span><span class="fl">8</span><span class="op">,</span> <span class="fl">3</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PI (5,1) estable'</span><span class="op">,</span> <span class="va">esHurwitz</span>([<span class="fl">1</span> <span class="fl">4</span> <span class="fl">5</span> <span class="fl">12</span> <span class="fl">2</span>])<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PI (5,4) inestable'</span><span class="op">,</span> <span class="va">esHurwitz</span>([<span class="fl">1</span> <span class="fl">4</span> <span class="fl">5</span> <span class="fl">12</span> <span class="fl">8</span>])<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PI w frontera'</span><span class="op">,</span> <span class="va">sqrt</span>(<span class="fl">2</span><span class="op">*</span><span class="fl">3</span><span class="op">/</span>((<span class="fl">9</span> <span class="op">-</span> <span class="fl">5</span>)<span class="op">/</span><span class="fl">2</span>))<span class="op">,</span> <span class="fl">1.7321</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   Kc = 10/3: polo en -0.05'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">roots</span>([<span class="fl">900</span> <span class="fl">420</span> <span class="fl">43</span> <span class="fl">1</span><span class="op">+</span><span class="fl">0.8</span><span class="op">*</span><span class="fl">10</span><span class="op">/</span><span class="fl">3</span>])))<span class="op">,</span> <span class="op">-</span><span class="fl">0.05</span><span class="op">,</span> <span class="fl">1e-6</span>)<span class="op">;</span></span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   Kc = 17/64: polo en -0.05'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">roots</span>([<span class="fl">900</span> <span class="fl">420</span> <span class="fl">43</span> <span class="fl">1</span><span class="op">+</span><span class="fl">0.8</span><span class="op">*</span><span class="fl">17</span><span class="op">/</span><span class="fl">64</span>])))<span class="op">,</span> <span class="op">-</span><span class="fl">0.05</span><span class="op">,</span> <span class="fl">1e-6</span>)<span class="op">;</span></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'5.6  Espacio de estado\n'</span>)<span class="op">;</span></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'eig A (máx)'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">eig</span>([<span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">6</span> <span class="op">-</span><span class="fl">11</span> <span class="op">-</span><span class="fl">6</span>])))<span class="op">,</span> <span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a><span class="va">Au</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">2</span> <span class="fl">1</span> <span class="op">-</span><span class="fl">2</span>]<span class="op">;</span></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'modo escondido: max eig'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">eig</span>(<span class="va">Au</span>)))<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">minreal</span>(<span class="va">tf</span>(<span class="va">ss</span>(<span class="va">Au</span><span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="op">-</span><span class="fl">1</span> <span class="fl">0</span> <span class="fl">1</span>]<span class="op">,</span> <span class="fl">0</span>)))<span class="op">;</span></span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   orden de la FT'</span><span class="op">,</span> <span class="va">numel</span>(<span class="va">pole</span>(<span class="va">G</span>))<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   polo de la FT'</span><span class="op">,</span> <span class="va">pole</span>(<span class="va">G</span>)<span class="op">,</span> <span class="op">-</span><span class="fl">2</span><span class="op">,</span> <span class="fl">1e-6</span>)<span class="op">;</span></span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'péndulo arriba'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">eig</span>([<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">9.81</span> <span class="op">-</span><span class="fl">0.5</span>]))<span class="op">,</span> <span class="fl">2.8921</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'5.7  Kharitonov\n'</span>)<span class="op">;</span></span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a><span class="va">P</span> <span class="op">=</span> <span class="va">kharitonov</span>([<span class="fl">1</span> <span class="fl">4</span> <span class="fl">3</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="fl">2</span> <span class="fl">5</span> <span class="fl">4</span> <span class="fl">2</span>])<span class="op">;</span></span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'pausa: 4 polinomios Hurwitz'</span><span class="op">,</span> <span class="va">sum</span>(<span class="va">arrayfun</span>(<span class="op">@</span>(<span class="va">k</span>) <span class="va">esHurwitz</span>(<span class="va">P</span>(<span class="va">k</span><span class="op">,</span> <span class="op">:</span>))<span class="op">,</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>))<span class="op">,</span> <span class="fl">4</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'K1 = a0- + a1- s + a2+ s^2 + a3+ s^3'</span><span class="op">,</span> <span class="va">P</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">*</span><span class="fl">1000</span> <span class="op">+</span> <span class="va">P</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">*</span><span class="fl">100</span> <span class="op">+</span> <span class="va">P</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">3</span>)<span class="op">*</span><span class="fl">10</span> <span class="op">+</span> <span class="va">P</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">4</span>)<span class="op">,</span> <span class="fl">2531</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a><span class="va">P</span> <span class="op">=</span> <span class="va">kharitonov</span>([<span class="fl">1</span> <span class="fl">6</span> <span class="fl">16</span> <span class="fl">30</span> <span class="fl">35</span> <span class="fl">26</span>]<span class="op">,</span> [<span class="fl">1.1</span> <span class="fl">6.4</span> <span class="fl">18.6</span> <span class="fl">44.4</span> <span class="fl">61</span> <span class="fl">50</span>])<span class="op">;</span></span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'ejemplo 1: polinomios Hurwitz'</span><span class="op">,</span> <span class="va">sum</span>(<span class="va">arrayfun</span>(<span class="op">@</span>(<span class="va">k</span>) <span class="va">esHurwitz</span>(<span class="va">P</span>(<span class="va">k</span><span class="op">,</span> <span class="op">:</span>))<span class="op">,</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>))<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a><span class="va">c</span> <span class="op">=</span> <span class="va">conv</span>([<span class="fl">1</span> <span class="fl">2</span> <span class="fl">2</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">4</span> <span class="fl">6</span> <span class="fl">20</span>]) <span class="op">+</span> [<span class="fl">0</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">5</span> <span class="fl">10</span>]<span class="op">;</span></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   vértice (1,4,6,20,5) inestable'</span><span class="op">,</span> <span class="va">esHurwitz</span>(<span class="va">c</span>)<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a><span class="va">P</span> <span class="op">=</span> <span class="va">kharitonov</span>([<span class="fl">1</span> <span class="fl">7</span> <span class="fl">106</span> <span class="fl">100</span><span class="op">+</span><span class="fl">251</span>]<span class="op">,</span> [<span class="fl">2</span> <span class="fl">15</span> <span class="fl">247</span> <span class="fl">120</span><span class="op">+</span><span class="fl">251</span>])<span class="op">;</span>   <span class="co">% = Kharitonov(caja)</span></span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'diseño K=251: el cuarto, en el borde'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">roots</span>(<span class="va">P</span>(<span class="fl">4</span><span class="op">,</span> <span class="op">:</span>))))<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-6</span>)<span class="op">;</span></span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a><span class="va">P</span> <span class="op">=</span> <span class="va">kharitonov</span>([<span class="fl">1</span> <span class="fl">7</span> <span class="fl">106</span> <span class="fl">100</span><span class="op">+</span><span class="fl">300</span>]<span class="op">,</span> [<span class="fl">2</span> <span class="fl">15</span> <span class="fl">247</span> <span class="fl">120</span><span class="op">+</span><span class="fl">300</span>])<span class="op">;</span></span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'diseño K=300: alguno falla'</span><span class="op">,</span> <span class="va">sum</span>(<span class="va">arrayfun</span>(<span class="op">@</span>(<span class="va">k</span>) <span class="va">esHurwitz</span>(<span class="va">P</span>(<span class="va">k</span><span class="op">,</span> <span class="op">:</span>))<span class="op">,</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>))<span class="op">,</span> <span class="fl">3</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a>[<span class="va">r1</span><span class="op">,</span> <span class="va">r2</span><span class="op">,</span> <span class="va">r3</span>] <span class="op">=</span> <span class="va">ndgrid</span>(<span class="va">linspace</span>(<span class="fl">6</span><span class="op">,</span> <span class="fl">7</span><span class="op">,</span> <span class="fl">6</span>)<span class="op">,</span> <span class="va">linspace</span>(<span class="fl">100</span><span class="op">,</span> <span class="fl">120</span><span class="op">,</span> <span class="fl">6</span>)<span class="op">,</span> <span class="va">linspace</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">11</span>))<span class="op">;</span></span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'diseño: K real máximo'</span><span class="op">,</span> <span class="va">min</span>(<span class="va">r1</span>(<span class="op">:</span>)<span class="op">.*</span><span class="va">r2</span>(<span class="op">:</span>)<span class="op">.*</span><span class="va">r3</span>(<span class="op">:</span>) <span class="op">+</span> <span class="va">r1</span>(<span class="op">:</span>)<span class="op">.^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">r1</span>(<span class="op">:</span>)<span class="op">./</span><span class="va">r3</span>(<span class="op">:</span>))<span class="op">,</span> <span class="fl">642</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   K=641 en el peor vértice'</span><span class="op">,</span> <span class="va">esHurwitz</span>([<span class="fl">1</span> <span class="fl">7</span> <span class="fl">106</span> <span class="fl">100</span><span class="op">+</span><span class="fl">641</span>])<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'   K=643 en el peor vértice'</span><span class="op">,</span> <span class="va">esHurwitz</span>([<span class="fl">1</span> <span class="fl">7</span> <span class="fl">106</span> <span class="fl">100</span><span class="op">+</span><span class="fl">643</span>])<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'\n%d de %d pruebas correctas.\n'</span><span class="op">,</span> <span class="va">n</span> <span class="op">-</span> <span class="va">fallas</span><span class="op">,</span> <span class="va">n</span>)<span class="op">;</span></span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modelo-de-simulink" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-de-simulink">Modelo de Simulink</h2>
+<div class="modelo">
+<p><span class="caja-titulo">El modelo se construye por código</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Script</th>
+<th style="text-align: left;">Modelo</th>
+<th style="text-align: left;">Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>crearModelo_LazoPI.m</code></td>
+<td style="text-align: left;">PI en forma paralela, <span class="math inline">\(\Gc=\Kc+K_i/s\)</span>, con la planta <span class="math inline">\(2/(s^3+4s^2+5s+2)\)</span></td>
+<td style="text-align: left;">recorrer la región de estabilidad: un punto adentro, uno en la frontera y uno afuera; medir el periodo de la oscilación sostenida</td>
+</tr>
+</tbody>
+</table>
+<p>Corra el script y se crea el <code>.slx</code>.</p>
+</div>
+</section>
+<section id="pausas-activas" class="level2">
+<h2 class="anchored" data-anchor-id="pausas-activas">Pausas activas</h2>
+<div class="pausa">
+<p><span class="caja-titulo">1. Clasifique</span></p>
+<ol type="a">
+<li><span class="math inline">\(\dfrac{s-3}{(s+1)(s+4)}\)</span>; (b) <span class="math inline">\(\dfrac{1}{s(s+2)}\)</span>; (c) <span class="math inline">\(\dfrac{s+1}{(s^2+4)^2}\)</span>.</li>
+</ol>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+<ol type="a">
+<li>Asintóticamente estable: el cero en <span class="math inline">\(+3\)</span> no importa. (b) Marginal: polo simple en el origen (un escalón da una rampa). (c) Inestable: polos dobles en <span class="math inline">\(\pm2j\)</span>.</li>
+</ol>
+</details>
+</div>
+<div class="pausa">
+<p><span class="caja-titulo">2. Sin tabla</span></p>
+<p>¿Son estables <span class="math inline">\(s^3+2s^2+3s+4\)</span> y <span class="math inline">\(2s^3+s^2+3s+4\)</span>?</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+El primero sí: <span class="math inline">\(2\cdot3=6&gt;1\cdot4\)</span>. El segundo no: <span class="math inline">\(1\cdot3=3&lt;2\cdot4=8\)</span>.
+</details>
+</div>
+<div class="pausa">
+<p><span class="caja-titulo">3. Ganancia crítica</span></p>
+<p>Para <span class="math inline">\(\Gma(s)=\dfrac{K}{s(s+1)(s+2)}\)</span> con retroalimentación unitaria, halle el rango de <span class="math inline">\(K\)</span>, <span class="math inline">\(\Kcr\)</span> y <span class="math inline">\(\wcr\)</span>.</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+<span class="math inline">\(s^3+3s^2+2s+K=0\)</span>: <span class="math inline">\(0&lt;K&lt;6\)</span>. En <span class="math inline">\(\Kcr=6\)</span> el auxiliar <span class="math inline">\(3s^2+6=0\)</span> da <span class="math inline">\(\wcr=\sqrt2=1.414\)</span> rad/s.
+</details>
+</div>
+<div class="pausa">
+<p><span class="caja-titulo">4. Kharitonov en tercer orden</span></p>
+<p><span class="math inline">\(a_3\in[1,2]\)</span>, <span class="math inline">\(a_2\in[4,5]\)</span>, <span class="math inline">\(a_1\in[3,4]\)</span>, <span class="math inline">\(a_0\in[1,2]\)</span> en <span class="math inline">\(a_3s^3+a_2s^2+a_1s+a_0\)</span>. ¿Es robustamente estable?</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+Sí. En tercer orden basta el peor caso de <span class="math inline">\(a_2a_1&gt;a_3a_0\)</span>: <span class="math inline">\(4\cdot3=12&gt;2\cdot2=4\)</span>.
+</details>
+</div>
+</section>
+<section id="problemas" class="level2">
+<h2 class="anchored" data-anchor-id="problemas">Problemas</h2>
+<p>El handout trae 8 problemas (tablas y casos especiales, ganancia crítica, ganancias negativas y Bode, región de un PI con estabilidad relativa, estabilidad local de un sistema no lineal, matrices Hurwitz y modos escondidos, una familia de cuarto orden y una planta incierta), con soluciones seleccionadas.</p>
+<div class="botones"><a class="boton" href="../pdf/cap05_estabilidad.pdf">Ir a los problemas (PDF, §5.9)</a></div>
+<div class="profundiza">
+<p><span class="caja-titulo">Correcciones respecto a la versión anterior</span></p>
+<p>Se retiró el tiempo muerto (aproximación de Padé), que el curso no cubre. La estabilidad depende solo de los polos, no de los ceros. <span class="math inline">\(s^3+2s^2+s+2\)</span> es un caso de fila de ceros, no de <span class="math inline">\(\epsilon\)</span>. Se resolvieron los ejemplos que no tenían solución; en el primer ejemplo de Kharitonov faltaba un intervalo y la familia <strong>no</strong> es robustamente estable; el diseño robusto da <span class="math inline">\(-100&lt;K&lt;251\)</span> con Kharitonov y <span class="math inline">\(K&lt;642\)</span> con la dependencia entre coeficientes. Hurwitz publicó su criterio en 1895; la anécdota del sirviente es de lord Kelvin, no de Maxwell.</p>
+</div>
 
 
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    setColorSchemeToggle(hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
         }
       }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
       return false;
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiado");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiado");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-control");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-control");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -799,161 +1294,185 @@ window.MathJax = { tex: { macros: {
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../partes/04-espacio-estado.html" class="pagination-link" aria-label="4. Espacio de estado">
@@ -974,7 +1493,7 @@ window.MathJax = { tex: { macros: {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Hecho con <a href="https://quarto.org">Quarto</a></p>
 </div>

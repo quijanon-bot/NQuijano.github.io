@@ -1,0 +1,83 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:in-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item Un sistema de control administra el comportamiento de otro sistema para que una salida siga una referencia o rechace perturbaciones. Analizar es determinar su desempeño; diseñar es lograrlo.
+  \item Retroalimentar es medir, comparar con lo deseado y actuar sobre el error. Con una ganancia de lazo $KK_c$, las perturbaciones y los errores del modelo se reducen aproximadamente por $1+KK_c$. El precio: esfuerzo de control, ruido de medición y riesgo de inestabilidad.
+  \item El control en lazo abierto es exacto solo si el modelo es exacto y no hay perturbaciones. La prealimentación corrige antes del daño; la retroalimentación corrige lo que no se sabía. En la práctica se combinan.
+  \item ``Control en lazo abierto'' es una estrategia; la \emph{malla abierta} $\Gma=G\Hs$ y el \emph{lazo abierto} $\Gla$ son funciones de transferencia de un lazo cerrado.
+  \item El desempeño se mide con la estabilidad, la respuesta transitoria y el error en estado estacionario.
+  \item Un problema de control se plantea con objetivos, variables manipuladas y perturbaciones, salidas medidas y no medidas, restricciones, tipo de operación, consideraciones de seguridad y estructura del controlador.
+  \item La teoría del control nació casi siempre de un problema de estabilidad: el regulador de Watt llevó a Maxwell, Routh y Hurwitz; los barcos, a Minorsky; los amplificadores, a Nyquist y Bode; la carrera espacial, a Kalman.
+\end{enumerate}
+\end{parallevar}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
+(i) Watt no patentó el regulador centrífugo; Mead lo había patentado para los molinos en 1787. (ii) El vuelo de Lawrence Sperry en París fue en 1914, no en 1912. (iii) Minorsky propuso el PID y analizó su estabilidad con un modelo lineal; no usó ubicación de polos. (iv) Bode publicó sus resultados entre 1940 y 1945, no en 1934; ese año fue el de la teoría de servomecanismos de Hazen (antes ``Hanzen''). (v) IFAC se fundó en 1957 con 18 países; RIAS en 1955. (vi) ``Stabilorg'' $\to$ Stabilog; ``Danzig'' $\to$ Dantzig; ``Vaneevar'' $\to$ Vannevar. (vii) Se retiró la atribución de la acción integral a los hermanos Périer, que no se encontró en las fuentes; se cita en su lugar el regulador cronométrico de los Siemens. (viii) El ejemplo del tanque ahora compara el lazo abierto con el cerrado y tiene números verificados con \texttt{herramientas/cap01\_numeros.py} y \cmd{verificarCap01.m}. (ix) La función $G(s)H(s)$ se llama \emph{malla abierta}, no ``función de transferencia en lazo abierto''.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:in-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización.
+
+\begin{problema}[lazo abierto o cerrado]\label{prob:in-clasificar}
+Clasifique como control en lazo abierto o en lazo cerrado y, en los cerrados, identifique la variable controlada, el sensor, el actuador y una perturbación: (a) una tostadora con temporizador; (b) la nevera de su casa; (c) un semáforo de tiempos fijos; (d) un semáforo que cuenta los carros con una cámara; (e) la regulación de la temperatura del cuerpo humano; (f) una persona que se ducha (\cref{fig:in-ducha}); (g) el control de crucero de un carro. ¿Alguno usa prealimentación?
+\end{problema}
+
+\begin{problema}[el tanque, en detalle]\label{prob:in-tanque}
+\etiquetaM{} Para el tanque del ejemplo~\ref{ej:in-tanque}: (a) reemplace la ley de lazo cerrado en \eqref{eq:in-tanque} y obtenga la ecuación diferencial del lazo cerrado y su constante de tiempo. (b) Calcule el nivel final con lluvia y con la válvula obstruida para $K_c=1$ y $K_c=10$, y compare con el factor $1+KK_c$. (c) Verifique (b) con \cmd{C1\_Ej1\_TanqueLazos}. (d) Limite el caudal a $0\le u\le2$\,m$^3$/min y repita la simulación con $K_c=10$: ¿qué cambia en el transitorio? ¿Y en el valor final? (e) Quite el término de calibración, $u=K_c(h_r-h)$: ¿cuánto vale el nivel final sin perturbación con $K_c=5$? ¿Por qué?
+\end{problema}
+
+\begin{problema}[plantear un problema]\label{prob:in-plantear}
+Escoja uno: (a) un invernadero en la sabana de Bogotá; (b) un calentador de agua a gas; (c) la dosificación de insulina en una persona con diabetes. Plantee el problema de control con la receta de la \cref{sec:in-problema}: objetivos, manipuladas, perturbaciones, salidas medidas y no medidas, restricciones duras y blandas, tipo de operación, seguridad y una estructura de control con un diagrama de bloques.
+\end{problema}
+
+\begin{problema}[ganancia del proceso]\label{prob:in-ganancia}
+(a) Un calentador eléctrico pasa de $2.0$ a $2.5$\,kW y la temperatura de un fluido pasa de $40$ a $50$\,°C: halle la ganancia con unidades. (b) En un enfriador, abrir la válvula de agua fría del $30$ al $40\%$ baja la temperatura de $25$ a $21$\,°C: halle la ganancia. ¿Qué significa su signo para el controlador? (c) Si la ganancia de (a) cambia a la mitad con la temperatura ambiente, ¿por qué eso complica el control en lazo abierto?
+\end{problema}
+
+\begin{problema}[prealimentación]\label{prob:in-prealimentacion}
+\etiquetaM{} Para el ejemplo~\ref{ej:in-prealimentacion}: (a) resuelva analíticamente las tres ecuaciones diferenciales y verifique los valores de la \cref{fig:in-prealimentacion}. (b) ¿Qué error del transmisor de flujo se puede tolerar con prealimentación sola si la deriva debe ser menor que $1$\,cm/min? (c) Con las dos estructuras combinadas, ¿qué $K_c$ deja una desviación final menor que $1$\,cm? (d) Verifique con \cmd{C1\_Ej3\_Prealimentacion}.
+\end{problema}
+
+\begin{problema}[moderadores y reguladores]\label{prob:in-maxwell}
+\etiquetaEstrella{} Maxwell distinguía los \emph{moderadores}, que dejan un error que depende de la carga, de los \emph{reguladores}, que no lo dejan. Para el tanque del ejemplo~\ref{ej:in-tanque} considere $u=h_r/K+K_ce+K_i\int_0^te\,\dif\tau$, con $e=h_r-h$. (a) Suponiendo que el lazo llega a un equilibrio, muestre que en él $h=h_r$ para cualquier lluvia constante y cualquier $R$. (b) ¿Cuál de las dos clases de Maxwell es el controlador del ejemplo~\ref{ej:in-tanque}? (c) \etiquetaM{} Simule con $K_c=5$ y $K_i=10$ y compare con la \cref{fig:in-tanque}.
+\end{problema}
+
+\begin{problema}[el ascensor]\label{prob:in-ascensor}
+\etiquetaM{} Con \cmd{C1\_Ej2\_Ascensor}, cambie el factor de amortiguamiento a $\zeta=1$ y a $\zeta=0.3$ manteniendo $\wn=0.8$\,rad/s. Reporte el sobrepaso y el tiempo de establecimiento ($2\%$) y discuta cuál ascensor preferiría usted como pasajero y cuál como persona apurada.
+\end{problema}
+
+\begin{problema}[un invento, una fecha, una referencia]\label{prob:in-historia}
+\etiquetaEstrella{} Escoja un dispositivo o una idea de la \cref{sec:in-historia}, busque la publicación o patente original y escriba una página que responda: ¿qué problema resolvía?, ¿dónde estaban el sensor, el comparador y el actuador?, ¿qué problema de estabilidad o de desempeño apareció?, ¿quién lo resolvió y cómo? Cite la fuente original y al menos una reseña histórica de las de esta sección.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:in-clasificar}}
+Lazo abierto: (a) y (c). Lazo cerrado: (b) temperatura, termostato, compresor, abrir la puerta; (d) longitud de las colas, cámara, tiempos del semáforo, llegada de carros; (e) temperatura corporal, termorreceptores, sudor y escalofríos, el clima; (f) y (g) velocidad, sensor de velocidad, acelerador, pendientes y viento. La ducha usa además prealimentación cuando uno oye el sanitario.
+
+\paragraph{Problema~\ref{prob:in-tanque}}
+(a) $\tau\dot h+(1+KK_c)h=K\bigl(h_r/K+K_ch_r+d\bigr)$; constante de tiempo $\tau/(1+KK_c)$. (b) Con $K_c=1$: lluvia $h=1.133$, obstrucción $h=1.059$; con $K_c=10$: $1.019$ y $1.008$. La desviación por lluvia es $0.4/(1+2K_c)$. (d) El caudal se queda en $2$ al comienzo y el nivel sube más despacio; el valor final no cambia, porque en equilibrio el caudal pedido es menor que $2$. (e) $h=RK_c/(1+RK_c)=10/11=0.909$: sin calibración el controlador proporcional necesita un error para producir caudal.
+
+\paragraph{Problema~\ref{prob:in-ganancia}}
+(a) $10/0.5=20$\,°C/kW. (b) $-4/10=-0.4$\,°C por punto porcentual: la ganancia es negativa, y el controlador debe abrir la válvula cuando la temperatura está \emph{por encima} de la referencia (acción inversa). (c) La calibración $u=r/K$ queda mal y el error es del $100\%$ del cambio.
+
+\paragraph{Problema~\ref{prob:in-prealimentacion}}
+(a) $\dev{h}=0.025(t-2)$; $\dev{h}=0.5\bigl(1-e^{-(t-2)/2}\bigr)$; $\dev{h}=0.05\bigl(1-e^{-(t-2)/2}\bigr)$, para $t\ge2$. (b) $0.5\,\varepsilon/2<0.01$: error menor que el $4\%$. (c) $0.05/K_c<0.01$: $K_c>5$\,m$^2$/min.
+
+\paragraph{Problema~\ref{prob:in-maxwell}}
+(a) En equilibrio todas las señales son constantes; si $\int e$ es constante, su derivada $e$ es cero, luego $h=h_r$, sin importar $d$ ni $R$ (siempre que el lazo sea estable). (b) Un moderador: deja un error que depende de la perturbación.
+
+\paragraph{Problema~\ref{prob:in-ascensor}}
+$\zeta=1$: sin sobrepaso, $\ts=7.29$\,s. $\zeta=0.6$: $9.48\%$ y $7.43$\,s. $\zeta=0.3$: $37.2\%$ y $14.0$\,s. Menos amortiguamiento no siempre es más rápido: con $\zeta=0.3$ llega antes al piso ($\tp=4.12$\,s, contra $4.91$\,s) pero tarda el doble en quedarse quieto.
+
+\respuestaspausas

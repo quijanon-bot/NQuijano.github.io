@@ -1,0 +1,27 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node (r) {$R(s)$};
+  \node[suma,right=8mm of r] (S) {};
+  \node[bloque,right=9mm of S] (K) {$\Kc$};
+  \node[bloque,right=9mm of K] (V) {$\dfrac{0.016}{3s+1}$};
+  \node[bloque,right=9mm of V] (P) {$\dfrac{50}{30s+1}$};
+  \coordinate[right=9mm of P] (y0);
+  \node[right=6mm of y0] (y) {$Y(s)$};
+  \node[bloque,below=9mm of V] (H) {$\dfrac{1}{10s+1}$};
+  \node[rot,above=1mm of K] {controlador};
+  \node[rot,above=1mm of V] {válvula};
+  \node[rot,above=1mm of P] {proceso};
+  \node[rot,below=1mm of H] {sensor};
+  \draw[senal] (r) -- (S);
+  \draw[senal] (S) -- (K);
+  \draw[senal] (K) -- (V);
+  \draw[senal] (V) -- (P);
+  \draw[senal] (P) -- (y);
+  \draw[senal] (y0) |- (H);
+  \draw[senal] (H) -| node[pos=0.95,left,rot]{$-$} (S);
+  \node[rot] at ($(S)+(-3mm,3.5mm)$) {$+$};
+  \fill (y0) circle (1.3pt);
+\end{tikzpicture}
+\end{document}

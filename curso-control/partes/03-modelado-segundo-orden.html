@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,9 +21,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -67,21 +66,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <link href="../partes/04-espacio-estado.html" rel="next">
 <link href="../partes/02-modelado-primer-orden.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64fae8b6b810ab41c64c8dc374c4eb1f.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8bd68d78e5d16d7ee9b038e0636db237.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64fae8b6b810ab41c64c8dc374c4eb1f.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6ca0c397212994b6a3f632fc19759a7d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-499924d2a8a233c470f762b3979b075e.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2109129f78744553a96f0f8291275614.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-a4c10de92682e411e8ac659856b915e8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-2109129f78744553a96f0f8291275614.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2617eac7f0059178eec3ce531305bdab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d2976eeb248af5a7ccd6d3dd0a9ef837.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -96,7 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -145,7 +140,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -163,177 +158,13 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Análisis de Sistemas de Control</span>
     </a>
@@ -355,7 +186,7 @@ window.Quarto = {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-partes-del-curso">    
         <li>
     <a class="dropdown-item" href="../partes/01-introduccion.html">
- <span class="dropdown-text">1. Introducción</span></a>
+ <span class="dropdown-text">1. Introducción: el análisis de sistemas de control</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/02-modelado-primer-orden.html">
@@ -436,10 +267,6 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      </a>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -460,7 +287,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../partes/01-introduccion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1. Introducción</span></a>
+ <span class="menu-text">1. Introducción: el análisis de sistemas de control</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -566,11 +393,10 @@ window.Quarto = {
   <li><a href="#pausas-activas" id="toc-pausas-activas" class="nav-link" data-scroll-target="#pausas-activas">Pausas activas</a></li>
   <li><a href="#problemas" id="toc-problemas" class="nav-link" data-scroll-target="#problemas">Problemas</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar sobre problema</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/03-modelado-segundo-orden.html">3. Modelado II: linealización, segundo orden y diagramas de bloques</a></li></ol></nav>
 <div class="quarto-title">
@@ -769,27 +595,27 @@ T=\frac{1}{\Delta}\sum_k P_k\Delta_k,\qquad \Delta=1-\sum L_a+\sum L_bL_c-\cdots
 <h2 class="anchored" data-anchor-id="códigos-de-esta-parte">Códigos de esta parte</h2>
 <p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap03_modelado_segundo_orden">repositorio</a>. Ejecute antes <code>iniciarCurso</code>.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Linealización</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Segundo orden</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Bloques y Mason</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Orden superior</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Pruebas</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Linealización</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Segundo orden</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Bloques y Mason</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Orden superior</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Pruebas</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p><strong>Derivada simbólica (§3.2).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="cap03_modelado_segundo_orden/C3_Ej1_Linealizacion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">syms</span> <span class="va">x</span> <span class="va">real</span></span>
+<div class="sourceCode" id="cb1" data-filename="cap03_modelado_segundo_orden/C3_Ej1_Linealizacion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">syms</span> <span class="va">x</span> <span class="va">real</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">f</span>  <span class="op">=</span> <span class="va">x</span><span class="op">*</span><span class="va">sqrt</span>(<span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">5</span><span class="op">*</span><span class="va">x</span>)<span class="op">;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">df</span> <span class="op">=</span> <span class="va">diff</span>(<span class="va">f</span><span class="op">,</span> <span class="va">x</span>)                        <span class="co">% derivada simbólica</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">x0</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">a0</span> <span class="op">=</span> <span class="va">double</span>(<span class="va">subs</span>(<span class="va">f</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">x0</span>))            <span class="co">% f(x0)  = 35.36 (no es cero: x0 no es equilibrio)</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="va">a1</span> <span class="op">=</span> <span class="va">double</span>(<span class="va">subs</span>(<span class="va">df</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">x0</span>))           <span class="co">% f'(x0) = 12.37</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="va">flin</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">xx</span>) <span class="va">a0</span> <span class="op">+</span> <span class="va">a1</span><span class="op">*</span>(<span class="va">xx</span> <span class="op">-</span> <span class="va">x0</span>)<span class="op">;</span>        <span class="co">% aproximación de primer orden</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="va">solve</span>(<span class="va">f</span> <span class="op">==</span> <span class="fl">0</span><span class="op">,</span> <span class="va">x</span>)                       <span class="co">% los equilibrios son x* = 0 y x* = -5</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="va">solve</span>(<span class="va">f</span> <span class="op">==</span> <span class="fl">0</span><span class="op">,</span> <span class="va">x</span>)                       <span class="co">% los equilibrios son x* = 0 y x* = -5</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>El reactor con <code>jacobian</code>.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="cap03_modelado_segundo_orden/C3_Ej1_Linealizacion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">syms</span> <span class="va">xs</span> <span class="va">us</span> <span class="va">real</span></span>
+<div class="sourceCode" id="cb2" data-filename="cap03_modelado_segundo_orden/C3_Ej1_Linealizacion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">syms</span> <span class="va">xs</span> <span class="va">us</span> <span class="va">real</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">V</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">c</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>                 <span class="co">% L/(mol min), L, mol/L</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">F</span>  <span class="op">=</span> <span class="op">-</span><span class="va">k</span><span class="op">*</span><span class="va">xs</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">us</span><span class="op">*</span>(<span class="va">c</span> <span class="op">-</span> <span class="va">xs</span>)<span class="op">/</span><span class="va">V</span><span class="op">;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="va">J</span>  <span class="op">=</span> <span class="va">jacobian</span>(<span class="va">F</span><span class="op">,</span> [<span class="va">xs</span> <span class="va">us</span>])<span class="op">;</span>             <span class="co">% [df/dx, df/du]</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">ab</span> <span class="op">=</span> <span class="va">double</span>(<span class="va">subs</span>(<span class="va">J</span><span class="op">,</span> [<span class="va">xs</span> <span class="va">us</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">1</span>]))   <span class="co">% -&gt; [-3  1]:  xhat' = -3 xhat + uhat</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">G</span>  <span class="op">=</span> <span class="va">tf</span>(<span class="va">ab</span>(<span class="fl">2</span>)<span class="op">,</span> [<span class="fl">1</span> <span class="op">-</span><span class="va">ab</span>(<span class="fl">1</span>)])             <span class="co">% Xhat(s)/Uhat(s) = 1/(s+3)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">G</span>  <span class="op">=</span> <span class="va">tf</span>(<span class="va">ab</span>(<span class="fl">2</span>)<span class="op">,</span> [<span class="fl">1</span> <span class="op">-</span><span class="va">ab</span>(<span class="fl">1</span>)])             <span class="co">% Xhat(s)/Uhat(s) = 1/(s+3)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Los dos tanques: equilibrio, coeficientes y función de transferencia (§3.3).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="cap03_modelado_segundo_orden/C3_Ej2_Tanques.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">A1</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">A2</span> <span class="op">=</span> <span class="fl">3</span><span class="op">;</span>  <span class="va">Cv1</span> <span class="op">=</span> <span class="fl">0.1</span><span class="op">;</span>  <span class="va">Cv2</span> <span class="op">=</span> <span class="fl">0.05</span><span class="op">;</span>     <span class="co">% m^2, m^2, m^{5/2}/s</span></span>
+<div class="sourceCode" id="cb3" data-filename="cap03_modelado_segundo_orden/C3_Ej2_Tanques.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">A1</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">A2</span> <span class="op">=</span> <span class="fl">3</span><span class="op">;</span>  <span class="va">Cv1</span> <span class="op">=</span> <span class="fl">0.1</span><span class="op">;</span>  <span class="va">Cv2</span> <span class="op">=</span> <span class="fl">0.05</span><span class="op">;</span>     <span class="co">% m^2, m^2, m^{5/2}/s</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">h2e</span> <span class="op">=</span> <span class="fl">4</span><span class="op">;</span>                                      <span class="co">% altura de operación del tanque 2 (m)</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">fe</span>  <span class="op">=</span> <span class="va">Cv2</span><span class="op">*</span><span class="va">sqrt</span>(<span class="va">h2e</span>)<span class="op">;</span>                          <span class="co">% equilibrio: f_i* = f_1* = f_2*</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">h1e</span> <span class="op">=</span> <span class="va">h2e</span> <span class="op">+</span> (<span class="va">fe</span><span class="op">/</span><span class="va">Cv1</span>)<span class="op">^</span><span class="fl">2</span><span class="op">;</span></span>
@@ -800,9 +626,9 @@ T=\frac{1}{\Delta}\sum_k P_k\Delta_k,\qquad \Delta=1-\sum L_a+\sum L_bL_c-\cdots
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">G</span>  <span class="op">=</span> <span class="va">K1</span><span class="op">*</span><span class="va">K2</span><span class="op">/</span>((<span class="va">tau1</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">*</span>(<span class="va">tau2</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">1</span>) <span class="op">+</span> <span class="va">K1</span><span class="op">*</span><span class="va">K2</span><span class="op">*</span><span class="va">C2</span>)    <span class="co">% Hhat2/Fhat_i</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="va">wn</span>   <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">C1</span><span class="op">*</span><span class="va">C3</span><span class="op">/</span>(<span class="va">A1</span><span class="op">*</span><span class="va">A2</span>))<span class="op">;</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="va">zeta</span> <span class="op">=</span> ((<span class="va">C1</span> <span class="op">+</span> <span class="va">C3</span>)<span class="op">/</span><span class="va">A2</span> <span class="op">+</span> <span class="va">C1</span><span class="op">/</span><span class="va">A1</span>)<span class="op">/</span>(<span class="fl">2</span><span class="op">*</span><span class="va">wn</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="va">dcgain</span>(<span class="va">G</span>)                                     <span class="co">% = 1/C3 = 80</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="va">dcgain</span>(<span class="va">G</span>)                                     <span class="co">% = 1/C3 = 80</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Lineal contra no lineal.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="cap03_modelado_segundo_orden/C3_Ej2_Tanques.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">fig</span> <span class="op">=</span> <span class="va">estiloFigura</span>(<span class="fl">1100</span><span class="op">,</span> <span class="fl">420</span>)<span class="op">;</span></span>
+<div class="sourceCode" id="cb4" data-filename="cap03_modelado_segundo_orden/C3_Ej2_Tanques.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">fig</span> <span class="op">=</span> <span class="va">estiloFigura</span>(<span class="fl">1100</span><span class="op">,</span> <span class="fl">420</span>)<span class="op">;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">pasos</span> <span class="op">=</span> [<span class="fl">0.01</span> <span class="fl">0.05</span>]<span class="op">;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">df</span>  <span class="op">=</span> <span class="va">pasos</span>(<span class="va">k</span>)<span class="op">;</span></span>
@@ -814,19 +640,19 @@ T=\frac{1}{\Delta}\sum_k P_k\Delta_k,\qquad \Delta=1-\sum L_a+\sum L_bL_c-\cdots
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">title</span>(<span class="va">sprintf</span>(<span class="ss">'escal\\''on de %.2f m$^3$/s'</span><span class="op">,</span> <span class="va">df</span>))<span class="op">;</span></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'df = %.2f: h2 final no lineal %.2f m, lineal %.2f m\n'</span><span class="op">,</span> <span class="va">df</span><span class="op">,</span> <span class="va">h</span>(<span class="kw">end</span><span class="op">,</span><span class="fl">2</span>)<span class="op">,</span> <span class="va">yl</span>(<span class="kw">end</span>))<span class="op">;</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="va">legend</span>(<span class="ss">'no lineal'</span><span class="op">,</span> <span class="ss">'linealizado'</span><span class="op">,</span> <span class="ss">'Location'</span><span class="op">,</span> <span class="ss">'southeast'</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="va">legend</span>(<span class="ss">'no lineal'</span><span class="op">,</span> <span class="ss">'linealizado'</span><span class="op">,</span> <span class="ss">'Location'</span><span class="op">,</span> <span class="ss">'southeast'</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p><strong>Fórmulas contra <code>stepinfo</code> (§3.5).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="cap03_modelado_segundo_orden/C3_Ej3_SegundoOrden.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">zeta</span> <span class="op">=</span> <span class="fl">0.4</span><span class="op">;</span>  <span class="va">wn</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span></span>
+<div class="sourceCode" id="cb5" data-filename="cap03_modelado_segundo_orden/C3_Ej3_SegundoOrden.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">zeta</span> <span class="op">=</span> <span class="fl">0.4</span><span class="op">;</span>  <span class="va">wn</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">F</span> <span class="op">=</span> <span class="va">segundoOrden</span>(<span class="va">zeta</span><span class="op">,</span> <span class="va">wn</span>)                    <span class="co">% fórmulas de las notas</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">S</span> <span class="op">=</span> <span class="va">stepinfo</span>(<span class="va">wn</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">zeta</span><span class="op">*</span><span class="va">wn</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="va">wn</span><span class="op">^</span><span class="fl">2</span>)) <span class="co">% medido sobre la simulación</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'%%OS:  fórmula %.2f   stepinfo %.2f\n'</span><span class="op">,</span> <span class="va">F</span>.<span class="va">OS</span><span class="op">,</span> <span class="va">S</span>.<span class="va">Overshoot</span>)<span class="op">;</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'tp:   fórmula %.3f  stepinfo %.3f\n'</span><span class="op">,</span> <span class="va">F</span>.<span class="va">tp</span><span class="op">,</span> <span class="va">S</span>.<span class="va">PeakTime</span>)<span class="op">;</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'ts:   fórmula %.3f  stepinfo %.3f\n'</span><span class="op">,</span> <span class="va">F</span>.<span class="va">ts</span><span class="op">,</span> <span class="va">S</span>.<span class="va">SettlingTime</span>)<span class="op">;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'tr:   0-100 %.3f, aprox. 10-90 %.3f, stepinfo (10-90) %.3f\n'</span><span class="op">,</span> <span class="va">F</span>.<span class="va">tr0100</span><span class="op">,</span> <span class="va">F</span>.<span class="va">tr1090</span><span class="op">,</span> <span class="va">S</span>.<span class="va">RiseTime</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'tr:   0-100 %.3f, aprox. 10-90 %.3f, stepinfo (10-90) %.3f\n'</span><span class="op">,</span> <span class="va">F</span>.<span class="va">tr0100</span><span class="op">,</span> <span class="va">F</span>.<span class="va">tr1090</span><span class="op">,</span> <span class="va">S</span>.<span class="va">RiseTime</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>La función del curso <code>segundoOrden</code>.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="comun/segundoOrden.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">F</span> <span class="op">=</span> <span class="va">segundoOrden</span>(<span class="va">zeta</span><span class="op">,</span> <span class="va">wn</span>)</span>
+<div class="sourceCode" id="cb6" data-filename="comun/segundoOrden.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">F</span> <span class="op">=</span> <span class="va">segundoOrden</span>(<span class="va">zeta</span><span class="op">,</span> <span class="va">wn</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">% SEGUNDOORDEN  Características del escalón de wn^2/(s^2 + 2 zeta wn s + wn^2)</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">% según las fórmulas de las notas (sección 3.5). Para 0 &lt; zeta &lt; 1:</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   F.wd      frecuencia amortiguada  wn sqrt(1 - zeta^2)</span></span>
@@ -847,9 +673,9 @@ T=\frac{1}{\Delta}\sum_k P_k\Delta_k,\qquad \Delta=1-\sum L_a+\sum L_bL_c-\cdots
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="va">F</span>.<span class="va">tr0100</span> <span class="op">=</span> (<span class="va">pi</span> <span class="op">-</span> <span class="va">F</span>.<span class="va">beta</span>)<span class="op">/</span><span class="va">F</span>.<span class="va">wd</span><span class="op">;</span></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="va">F</span>.<span class="va">tr1090</span> <span class="op">=</span> (<span class="fl">2.3</span><span class="op">*</span><span class="va">zeta</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">0.078</span><span class="op">*</span><span class="va">zeta</span> <span class="op">+</span> <span class="fl">1.12</span>)<span class="op">/</span><span class="va">wn</span><span class="op">;</span></span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="va">F</span>.<span class="va">polos</span> <span class="op">=</span> <span class="op">-</span><span class="va">zeta</span><span class="op">*</span><span class="va">wn</span> <span class="op">+</span> [<span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">1</span>]<span class="op">*</span><span class="fl">1j</span><span class="op">*</span><span class="va">F</span>.<span class="va">wd</span><span class="op">;</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Diseño de <span class="math inline">\(K\)</span> y <span class="math inline">\(K_h\)</span> (§3.7).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="cap03_modelado_segundo_orden/C3_Ej4_DisenoKKh.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">OS</span> <span class="op">=</span> <span class="fl">0.20</span><span class="op">;</span>  <span class="va">tp</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>                       <span class="co">% especificaciones</span></span>
+<div class="sourceCode" id="cb7" data-filename="cap03_modelado_segundo_orden/C3_Ej4_DisenoKKh.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">OS</span> <span class="op">=</span> <span class="fl">0.20</span><span class="op">;</span>  <span class="va">tp</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>                       <span class="co">% especificaciones</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">zeta</span> <span class="op">=</span> <span class="va">zetaDeOS</span>(<span class="va">OS</span>)                       <span class="co">% = -ln(OS)/sqrt(pi^2 + ln(OS)^2)</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">wn</span>   <span class="op">=</span> <span class="va">pi</span><span class="op">/</span>(<span class="va">tp</span><span class="op">*</span><span class="va">sqrt</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">zeta</span><span class="op">^</span><span class="fl">2</span>))</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">K</span>    <span class="op">=</span> <span class="va">wn</span><span class="op">^</span><span class="fl">2</span>                               <span class="co">% término independiente</span></span>
@@ -858,19 +684,19 @@ T=\frac{1}{\Delta}\sum_k P_k\Delta_k,\qquad \Delta=1-\sum L_a+\sum L_bL_c-\cdots
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">series</span>(<span class="va">K</span><span class="op">/</span><span class="va">s</span><span class="op">,</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">1</span>))<span class="op">;</span>               <span class="co">% camino directo</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="va">H</span> <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">Kh</span><span class="op">*</span><span class="va">s</span><span class="op">;</span>                             <span class="co">% sensor de posición + tacómetro</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="va">T</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">G</span><span class="op">,</span> <span class="va">H</span>)                        <span class="co">% lazo cerrado</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="va">S</span> <span class="op">=</span> <span class="va">stepinfo</span>(<span class="va">T</span>)                           <span class="co">% Overshoot ~ 20, PeakTime ~ 1</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="va">S</span> <span class="op">=</span> <span class="va">stepinfo</span>(<span class="va">T</span>)                           <span class="co">% Overshoot ~ 20, PeakTime ~ 1</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p><strong>Álgebra de bloques (§3.6).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="cap03_modelado_segundo_orden/C3_Ej5_Bloques.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">s</span>  <span class="op">=</span> <span class="va">tf</span>(<span class="ss">'s'</span>)<span class="op">;</span></span>
+<div class="sourceCode" id="cb8" data-filename="cap03_modelado_segundo_orden/C3_Ej5_Bloques.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">s</span>  <span class="op">=</span> <span class="va">tf</span>(<span class="ss">'s'</span>)<span class="op">;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="va">G1</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">;</span>  <span class="va">G2</span> <span class="op">=</span> <span class="fl">2</span><span class="op">/</span><span class="va">s</span><span class="op">;</span>  <span class="va">G3</span> <span class="op">=</span> <span class="fl">5</span><span class="op">/</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">3</span>)<span class="op">;</span>  <span class="va">H1</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">H2</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="va">interno</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">G2</span><span class="op">,</span> <span class="va">H1</span>)<span class="op">;</span>               <span class="co">% lazo interno: 2/(s+2)</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="va">directo</span> <span class="op">=</span> <span class="va">series</span>(<span class="va">series</span>(<span class="va">G1</span><span class="op">,</span> <span class="va">interno</span>)<span class="op">,</span> <span class="va">G3</span>)<span class="op">;</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="va">T</span> <span class="op">=</span> <span class="va">minreal</span>(<span class="va">feedback</span>(<span class="va">directo</span><span class="op">,</span> <span class="va">H2</span>))        <span class="co">% -&gt; 10/(s^3+6s^2+11s+11)</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="va">pole</span>(<span class="va">T</span>)                                   <span class="co">% raíces de la ecuación característica</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="va">parallel</span>(<span class="va">G1</span><span class="op">,</span> <span class="va">G3</span>)                          <span class="co">% G1 + G3 (bloques en paralelo)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="va">parallel</span>(<span class="va">G1</span><span class="op">,</span> <span class="va">G3</span>)                          <span class="co">% G1 + G3 (bloques en paralelo)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Mason contra resolver las ecuaciones de los nodos (§3.8).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-filename="cap03_modelado_segundo_orden/C3_Ej6_Mason.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">syms</span> <span class="va">G1</span> <span class="va">G2</span> <span class="va">G3</span> <span class="va">G4</span> <span class="va">G5</span> <span class="va">G6</span> <span class="va">G7</span> <span class="va">G8</span> <span class="va">G9</span> <span class="va">H1</span> <span class="va">H2</span> <span class="va">H3</span> <span class="va">H4</span> <span class="va">R</span></span>
+<div class="sourceCode" id="cb9" data-filename="cap03_modelado_segundo_orden/C3_Ej6_Mason.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">syms</span> <span class="va">G1</span> <span class="va">G2</span> <span class="va">G3</span> <span class="va">G4</span> <span class="va">G5</span> <span class="va">G6</span> <span class="va">G7</span> <span class="va">G8</span> <span class="va">G9</span> <span class="va">H1</span> <span class="va">H2</span> <span class="va">H3</span> <span class="va">H4</span> <span class="va">R</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">x</span> <span class="op">=</span> <span class="va">sym</span>(<span class="ss">'x'</span><span class="op">,</span> [<span class="fl">1</span> <span class="fl">9</span>])<span class="op">;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="va">ecs</span> <span class="op">=</span> [<span class="va">x</span>(<span class="fl">1</span>) <span class="op">==</span> <span class="va">R</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>       <span class="va">x</span>(<span class="fl">2</span>) <span class="op">==</span> <span class="va">G1</span><span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">-</span> <span class="va">H1</span><span class="op">*</span><span class="va">x</span>(<span class="fl">3</span>) <span class="op">-</span> <span class="va">H4</span><span class="op">*</span><span class="va">x</span>(<span class="fl">5</span>)</span>
@@ -889,26 +715,26 @@ T=\frac{1}{\Delta}\sum_k P_k\Delta_k,\qquad \Delta=1-\sum L_a+\sum L_bL_c-\cdots
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="va">P1</span> <span class="op">=</span> <span class="va">G1</span><span class="op">*</span><span class="va">G2</span><span class="op">*</span><span class="va">G3</span><span class="op">*</span><span class="va">G4</span><span class="op">*</span><span class="va">G5</span><span class="op">*</span><span class="va">G6</span><span class="op">;</span>  <span class="va">D1</span> <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">L4</span><span class="op">;</span></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="va">P2</span> <span class="op">=</span> <span class="va">G1</span><span class="op">*</span><span class="va">G2</span><span class="op">*</span><span class="va">G7</span><span class="op">*</span><span class="va">G8</span><span class="op">*</span><span class="va">G9</span><span class="op">;</span>     <span class="va">D2</span> <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">L3</span><span class="op">;</span></span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="va">Tmason</span> <span class="op">=</span> (<span class="va">P1</span><span class="op">*</span><span class="va">D1</span> <span class="op">+</span> <span class="va">P2</span><span class="op">*</span><span class="va">D2</span>)<span class="op">/</span><span class="va">D</span><span class="op">;</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="va">simplify</span>(<span class="va">Tdirecta</span> <span class="op">-</span> <span class="va">Tmason</span>)              <span class="co">% -&gt; 0</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="va">simplify</span>(<span class="va">Tdirecta</span> <span class="op">-</span> <span class="va">Tmason</span>)              <span class="co">% -&gt; 0</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <p><strong>Un cero y un polo que no se pueden ignorar (§3.9).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="cap03_modelado_segundo_orden/C3_Ej7_Dominantes.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">Tc</span> <span class="op">=</span> <span class="fl">62.5</span><span class="op">*</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">2.5</span>)<span class="op">/</span>((<span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">6</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">25</span>)<span class="op">*</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">6.25</span>))<span class="op">;</span></span>
+<div class="sourceCode" id="cb10" data-filename="cap03_modelado_segundo_orden/C3_Ej7_Dominantes.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">Tc</span> <span class="op">=</span> <span class="fl">62.5</span><span class="op">*</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">2.5</span>)<span class="op">/</span>((<span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">6</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">25</span>)<span class="op">*</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">6.25</span>))<span class="op">;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">Ta</span> <span class="op">=</span> <span class="fl">10</span><span class="op">*</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">2.5</span>)<span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">6</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">25</span>)<span class="op">;</span>         <span class="co">% sin el polo en -6.25</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">Tb</span> <span class="op">=</span> <span class="fl">25</span><span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">6</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">25</span>)<span class="op">;</span>                   <span class="co">% solo los polos dominantes</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">T</span> <span class="op">=</span> {<span class="va">Tc</span><span class="op">,</span> <span class="va">Ta</span><span class="op">,</span> <span class="va">Tb</span>}</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">S</span> <span class="op">=</span> <span class="va">stepinfo</span>(<span class="va">T</span>{<span class="fl">1</span>})<span class="op">;</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'%%OS = %5.1f   ts = %.2f s\n'</span><span class="op">,</span> <span class="va">S</span>.<span class="va">Overshoot</span><span class="op">,</span> <span class="va">S</span>.<span class="va">SettlingTime</span>)<span class="op">;</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Igualación de momentos (§3.10).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-filename="cap03_modelado_segundo_orden/C3_Ej8_Reduccion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">GH</span> <span class="op">=</span> <span class="fl">6</span><span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">3</span> <span class="op">+</span> <span class="fl">6</span><span class="op">*</span><span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">11</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">6</span>)<span class="op">;</span></span>
+<div class="sourceCode" id="cb11" data-filename="cap03_modelado_segundo_orden/C3_Ej8_Reduccion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">GH</span> <span class="op">=</span> <span class="fl">6</span><span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">3</span> <span class="op">+</span> <span class="fl">6</span><span class="op">*</span><span class="va">s</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">11</span><span class="op">*</span><span class="va">s</span> <span class="op">+</span> <span class="fl">6</span>)<span class="op">;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>[<span class="va">GL</span><span class="op">,</span> <span class="va">d</span>] <span class="op">=</span> <span class="va">reduccionMomentos</span>(<span class="va">GH</span>)            <span class="co">% d = [d1 d2]</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">pole</span>(<span class="va">GL</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span><span class="op">;</span> <span class="va">step</span>(<span class="va">GH</span><span class="op">,</span> <span class="va">GL</span><span class="op">,</span> <span class="ss">'--'</span><span class="op">,</span> <span class="fl">8</span>)<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span> <span class="va">legend</span>(<span class="ss">'$G_H$'</span><span class="op">,</span> <span class="ss">'$G_L$'</span><span class="op">,</span> <span class="ss">'Location'</span><span class="op">,</span> <span class="ss">'southeast'</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span><span class="op">;</span> <span class="va">step</span>(<span class="va">GH</span><span class="op">,</span> <span class="va">GL</span><span class="op">,</span> <span class="ss">'--'</span><span class="op">,</span> <span class="fl">8</span>)<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span> <span class="va">legend</span>(<span class="ss">'$G_H$'</span><span class="op">,</span> <span class="ss">'$G_L$'</span><span class="op">,</span> <span class="ss">'Location'</span><span class="op">,</span> <span class="ss">'southeast'</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
 <p><code>verificarCap03</code> comprueba los números clave del capítulo.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-filename="cap03_modelado_segundo_orden/verificarCap03.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">verificarCap03</span>()</span>
+<div class="sourceCode" id="cb12" data-filename="cap03_modelado_segundo_orden/verificarCap03.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">verificarCap03</span>()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">% VERIFICARCAP03  Pruebas automáticas de los números del capítulo 3.</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   &gt;&gt; verificarCap03</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">% (Los mismos números se verificaron con python-control en</span></span>
@@ -982,7 +808,7 @@ T=\frac{1}{\Delta}\sum_k P_k\Delta_k,\qquad \Delta=1-\sum L_a+\sum L_bL_c-\cdots
 <span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'\n%d de %d verificaciones correctas.\n'</span><span class="op">,</span> <span class="va">n</span> <span class="op">-</span> <span class="va">fallas</span><span class="op">,</span> <span class="va">n</span>)<span class="op">;</span></span>
 <span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">fallas</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">,</span> <span class="va">error</span>(<span class="ss">'verificarCap03:falla'</span><span class="op">,</span> <span class="ss">'%d verificaciones fallaron.'</span><span class="op">,</span> <span class="va">fallas</span>)<span class="op">;</span> <span class="kw">end</span></span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -1067,256 +893,380 @@ Respuesta
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    setColorSchemeToggle(hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
         }
       }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
       return false;
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiado");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiado");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-control");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-control");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1324,161 +1274,185 @@ Respuesta
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../partes/02-modelado-primer-orden.html" class="pagination-link" aria-label="2. Modelado I: Laplace, función de transferencia y primer orden">
@@ -1499,7 +1473,7 @@ Respuesta
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Hecho con <a href="https://quarto.org">Quarto</a></p>
 </div>

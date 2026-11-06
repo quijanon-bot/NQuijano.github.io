@@ -1,0 +1,109 @@
+%% ---------------------------------------------------------------------
+\section{Una breve historia del control}
+\label{sec:in-historia}
+%% ---------------------------------------------------------------------
+
+La historia del control automático ha sido contada con cuidado por Otto Mayr, para los orígenes~\citep{May71a,May12}; por Stuart Bennett, para el periodo industrial~\citep{Ben86,Ben93}; y por David Mindell, para los años de la guerra~\citep{Min02}. Hay números especiales de revistas dedicados al tema~\citep{Bus96,BeBu02}, una reseña breve y muy completa de Chris Bissell~\citep{Bis09} y una mirada de conjunto de Karl J.\ Åström y P.\,R.\ Kumar, \emph{Control: a perspective}~\citep{AsKu14}. Lo que sigue es un resumen de esas fuentes, con la referencia del trabajo original donde apareció cada idea cuando la hay. La \cref{fig:in-linea} resume la cronología.
+
+\begin{figure}[ht]
+\begin{anchocompleto}
+\centering
+\includegraphics[width=0.92\linewidth]{cap01/f_linea_tiempo}
+\end{anchocompleto}
+\caption{Algunos hitos de la historia del control. Arriba, de los reguladores de flotador a la teoría de reguladores y los pilotos automáticos; abajo, del amplificador de Black al control digital.}
+\label{fig:in-linea}
+\end{figure}
+
+\notamargen{\textbf{Un patrón que se repite.} Primero llega el invento; luego aparece un problema de estabilidad que nadie entiende; y solo entonces llega la teoría. Watt $\to$ Maxwell, los barcos $\to$ Minorsky, el amplificador de Black $\to$ Nyquist.}
+
+%% ---------------------------------------------------------------------
+\subsection{De los relojes de agua a la máquina de vapor}
+
+Como tecnología, el control tiene más de dos mil años. El primer mecanismo retroalimentado del que hay registro es el regulador de flotador de la \emph{clepsidra} (``ladrona de agua'') de Ktesibios de Alejandría, en el siglo~III a.C.~\citep{May71a}. Las sociedades que crecían necesitaban horarios, y los relojes de sol no sirven de noche ni con nubes. Un reloj de agua mide el tiempo por el volumen que cae a un recipiente, y para que sea preciso el caudal debe ser constante, lo que exige un nivel constante en el recipiente que gotea. Ktesibios lo logró con un flotador cónico que tapa la entrada cuando el nivel sube y la destapa cuando baja (\cref{fig:in-clepsidra}): sensor, comparador y actuador en una sola pieza.\nota{Ktesibios era hijo de un barbero y, según la tradición, empezó inventando un espejo ajustable para la barbería de su padre. Algunas fuentes lo hacen primer director del Museo de Alejandría.} Filón de Bizancio usó la misma idea, hacia el 250~a.C., para mantener constante el nivel de aceite de una lámpara.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.6\linewidth]{cap01/regulador_flotador}
+\caption{El principio de la clepsidra de Ktesibios: el flotador mantiene constante el nivel del recipiente regulador, el caudal de salida es constante y el nivel del recipiente receptor sube de manera uniforme con el tiempo.}
+\label{fig:in-clepsidra}
+\end{figure}
+
+En el siglo~I, Herón de Alejandría describió en su \emph{Pneumatica} varios reguladores de nivel y válvulas de flotador. Los ingenieros del mundo islámico los perfeccionaron: los hermanos Banū Mūsā en el siglo~IX y al-Jazarī en su \emph{Libro del conocimiento de los ingeniosos mecanismos} (1206) describen relojes y fuentes con reguladores de flotador~\citep{May71a}. En Europa, en cambio, estas ideas casi desaparecen entre la Edad Media y el Barroco: la \emph{Pneumatica} de Herón no se imprimió en latín sino hasta 1575~\citep{May12}.
+
+El primer sistema retroalimentado de la Europa moderna que no copia los antiguos es el regulador de temperatura de Cornelis Drebbel (1572--1633), hacia 1620, para un horno que incubaba huevos: la dilatación del líquido de un termómetro empujaba una varilla que cerraba la entrada de aire al fuego~\citep{Bis09}. En 1681 Denis Papin agregó a su olla a presión una válvula de seguridad, antecedente de los reguladores de presión~\citep{May71a}.
+
+\paragraph{Los molinos y el regulador centrífugo}
+El siglo~XVIII trajo dos problemas de regulación en los molinos de viento: orientar las aspas hacia el viento y mantener la velocidad de las piedras. Para lo primero, Edmund Lee patentó en 1745 la \emph{cola de abanico}, un rotor auxiliar que gira el molino hasta enfrentarlo al viento. Para lo segundo se usaron péndulos centrífugos; Thomas Mead los patentó en 1787 para separar las piedras del molino según la velocidad~\citep{Bis09}. Hacia 1788 James Watt, a sugerencia de su socio Matthew Boulton, adaptó el regulador centrífugo a la máquina de vapor (\cref{fig:in-watt}): dos bolas que giran con el eje se abren cuando la máquina se acelera y, mediante un juego de palancas, cierran la válvula del vapor. El regulador combina sensado, actuación y control en un mismo mecanismo, y se convirtió en el símbolo de la Revolución Industrial. Watt no lo patentó: el principio ya se usaba en los molinos~\citep{May71a,Bis09}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/foto_watt}
+\caption{Arriba a la izquierda, un modelo de la máquina de vapor de Watt; a la derecha, las bolas del regulador centrífugo; abajo, el autor junto a la máquina de vapor que conserva el Science Museum de Londres. Fotos del autor.}
+\label{fig:in-watt}
+\end{figure}
+
+Los reguladores de Watt tenían un defecto: la velocidad de equilibrio cambiaba con la carga, porque la corrección era proporcional al exceso de velocidad. En el siglo~XIX se buscaron reguladores que llevaran la velocidad al mismo valor con cualquier carga. El \emph{regulador cronométrico} de los hermanos Werner y William Siemens lo logró con un engranaje diferencial que integraba la diferencia entre la velocidad de la máquina y la de un reloj: es la \clave{acción integral}~\citep{Bis09}. Además, a medida que las máquinas se volvieron más rápidas y los reguladores más sensibles, apareció un fenómeno inesperado, la \emph{caza} (\emph{hunting}): la máquina oscilaba alrededor de la velocidad deseada sin detenerse. George Biddell Airy, astrónomo real, publicó en 1840 el primer análisis matemático de un sistema retroalimentado al estudiar las oscilaciones del mecanismo que movía un telescopio~\citep{Air40}.
+
+%% ---------------------------------------------------------------------
+\subsection{La teoría de los reguladores (1868--1895)}
+
+La teoría empieza con el artículo de James Clerk Maxwell \emph{On governors}, recibido por la Royal Society el 20 de febrero de 1868~\citep{Max68}. Maxwell escribió las ecuaciones diferenciales del regulador y de la máquina, las \emph{linealizó} alrededor del punto de operación y mostró que la estabilidad depende de que las raíces de la ecuación característica tengan parte real negativa. Dedujo las condiciones para sistemas de segundo y tercer orden, mostró las ventajas de la acción integral y distinguió entre los \emph{moderadores}, como el de Watt, que dejan un error que depende de la carga, y los verdaderos \emph{reguladores}, que no lo dejan~\citep{Kan16}. Es, en esencia, la diferencia entre la acción proporcional y la integral que veremos en los capítulos~6 y~7.
+
+\begin{historia}[Maxwell, los anillos de Saturno y la estabilidad]
+Antes de los reguladores, Maxwell había pensado en estabilidad por otra razón. En 1857 ganó el premio Adams de la Universidad de Cambridge con un ensayo sobre los anillos de Saturno, en el que descartó los modelos de anillos sólidos o fluidos porque sus movimientos no eran estables: si los anillos existen desde hace tanto tiempo, el modelo correcto tiene que ser estable. Usar la estabilidad como criterio para aceptar o rechazar un modelo es una idea que hoy usamos en identificación de sistemas~\citep{Bit15}. Norbert Wiener lo consideró el precursor de la teoría de la retroalimentación~\citep{May71b}.
+\end{historia}
+
+El artículo de Maxwell era difícil y tuvo poco efecto sobre los ingenieros de su tiempo; pero planteó una pregunta matemática: ¿cómo saber si todas las raíces de un polinomio de grado $n$ tienen parte real negativa sin calcularlas? Edward J.\ Routh la respondió y ganó con ello el premio Adams de 1877~\citep{Rou77}.\nota{Routh y Maxwell nacieron el mismo año, 1831, y presentaron juntos el examen de matemáticas de Cambridge (los \emph{tripos}) en 1854. Routh quedó primero (\emph{Senior Wrangler}) y Maxwell segundo. Ambos compartieron ese año el premio Smith, la primera vez que se dividió entre dos candidatos. (La anécdota del sirviente que, enviado a ver quién había quedado segundo, responde ``¡usted, señor!'' se cuenta de William Thomson ---lord Kelvin--- en 1845, no de Maxwell.)} En Rusia, Ivan Vyshnegradskii analizó en 1876 el regulador de la máquina de vapor sin conocer el trabajo de Maxwell, despreciando la fricción, linealizando y resolviendo el caso de tercer orden con un método gráfico~\citep{Vys76}; terminaría su carrera como ministro de finanzas del Imperio ruso. En Suiza, Aurel Stodola necesitaba en 1893 diseñar el regulador de una turbina hidráulica de alta presión para Davos; sus modelos eran de orden alto y le pidió ayuda a su colega del Politécnico de Zúrich, Adolf Hurwitz, quien publicó en 1895 un criterio equivalente al de Routh, escrito con determinantes~\citep{Bis89,Hur95}.\nota{Charles Hermite había resuelto en 1856 un problema matemático equivalente, sin relacionarlo con los reguladores.} En 1892 Aleksandr Lyapunov publicó su teoría de la estabilidad del movimiento, válida también para sistemas no lineales~\citep{Lya92}. Volveremos a todos ellos en el capítulo~5.
+
+%% ---------------------------------------------------------------------
+\subsection{Barcos, aviones, fábricas y teléfonos (1900--1940)}
+
+El término \emph{servomoteur} lo acuñó en 1873 el ingeniero francés Joseph Farcot, que construía mecanismos hidráulicos para mover el timón de los barcos~\citep{Bis09}. A comienzos del siglo~XX el giroscopio cambió la navegación: Elmer Sperry fundó en 1910 la Sperry Gyroscope Company, que fabricó girocompases y luego pilotos automáticos para barcos que combinaban el giroscopio con un motor eléctrico conectado al timón. Su hijo Lawrence llevó la idea a los aviones: el 18 de junio de 1914, en el \emph{Concours de la Sécurité en Aéroplane} de París, voló con las manos en alto mientras su mecánico caminaba sobre el ala y el estabilizador giroscópico mantenía el avión nivelado~\citep{Bis09}.
+
+Para gobernar barcos, Nicolas Minorsky observó a los timoneles de la Marina de Estados Unidos y en 1922 propuso una ley de control con tres términos: uno proporcional al error de rumbo, uno a su integral y uno a su derivada; estudió además la estabilidad del lazo con un modelo lineal~\citep{Min22,Ben84}. Es la primera formulación teórica del controlador \clave{PID}.
+
+En la industria de procesos, los controladores neumáticos se volvieron comunes en los años veinte. La Foxboro anunció en 1931 el \emph{Stabilog}, cuya salida era proporcional al error y a su integral, y la Taylor Instrument incorporó en 1935 la acción derivativa (\emph{pre-act}) a su controlador Fulscope. Una encuesta del gobierno de Estados Unidos estimó que entre 1925 y 1935 se vendieron allí más de $75\,000$ controladores automáticos, y a mediados de los treinta había unas $600$ empresas fabricantes de instrumentos~\citep{BenPID93}. Faltaba saber cómo ajustar los parámetros: en 1942 John Ziegler y Nathaniel Nichols, de la Taylor, publicaron las reglas de sintonización que estudiaremos en el capítulo~8~\citep{ZiNi42}.
+
+En los teléfonos estaba pasando algo parecido. Las líneas transcontinentales necesitaban cientos de amplificadores en cascada, cuya distorsión se acumulaba. Harold S.\ Black resolvió el problema en 1927 con el amplificador con retroalimentación negativa~\citep{black34}; la patente, presentada en 1928, tardó nueve años en concederse porque la idea parecía contraria a la intuición~\citep{blackpat,Bri11}. Con mucha ganancia de lazo los amplificadores oscilaban, y Harry Nyquist dio en 1932 el criterio para predecir la estabilidad del lazo cerrado a partir de la respuesta en frecuencia de la malla abierta~\citep{Nyq32,Bri10}. Hendrik Bode convirtió esas ideas, entre 1940 y 1945, en un método de diseño con márgenes de ganancia y de fase~\citep{Bod40,bode45}. El capítulo~\ref{cap:rf} cuenta esta parte en detalle.
+
+En el MIT, mientras tanto, el grupo de Vannevar Bush construyó entre 1928 y 1931 el \emph{analizador diferencial}, un computador analógico mecánico para resolver ecuaciones diferenciales (\cref{fig:in-bush}). Harold Hazen, discípulo y colaborador de Bush durante más de veinte años, publicó en 1934 la \emph{Theory of servo-mechanisms}, la primera presentación sistemática de cómo funcionan y cómo se diseñan los servomecanismos~\citep{Haz34}. Su estudiante Gordon Brown dirigió desde los primeros años de la guerra el Laboratorio de Servomecanismos del MIT. La \cref{fig:in-personajes} reúne a varios de los protagonistas de esta sección.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap01/foto_bush}
+\caption{Analizador diferencial del Science Museum de Londres, construido en Mánchester en 1935 siguiendo el diseño de Vannevar Bush en el MIT. Foto del autor.}
+\label{fig:in-bush}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap01/personajes}
+\caption{Arriba, de izquierda a derecha: Edward J.\ Routh, Vannevar Bush, James C.\ Maxwell y Elmer A.\ Sperry. Abajo: Aurel Stodola, Nicolas Minorsky, Hendrik W.\ Bode y Adolf Hurwitz. Imágenes de Wikimedia Commons.}
+\label{fig:in-personajes}
+\end{figure}
+
+%% ---------------------------------------------------------------------
+\subsection{La guerra y la posguerra (1940--1960)}
+
+La Segunda Guerra Mundial juntó a las tres comunidades: los ingenieros de procesos, los de servomecanismos y los de comunicaciones. Dirigir un cañón antiaéreo con un radar es un problema de servomecanismos con ruido, y en el Laboratorio de Radiación del MIT y en Bell Labs se unificaron los métodos de frecuencia. El resultado se publicó al terminar la guerra en el volumen \emph{Theory of Servomechanisms}~\citep{JaNiPh47}, el primer libro de texto moderno del área. En 1948 Norbert Wiener publicó \emph{Cybernetics}, que extendió la idea de retroalimentación a los seres vivos y a la sociedad~\citep{Wie48}, y Walter Evans presentó el lugar de las raíces~\citep{Eva50}.
+
+Los computadores digitales traían otra pregunta: qué pasa cuando el controlador solo mide en ciertos instantes. En la Universidad de Columbia, John Ragazzini y Lotfi Zadeh introdujeron en 1952 la transformada $z$ para los sistemas muestreados~\citep{RaZa52}; por ese grupo pasaron también Eliahu Jury, Gene Franklin y Rudolf Kalman. La optimización avanzaba en paralelo: George Dantzig creó en 1947 el método símplex de programación lineal, y en la RAND Corporation Richard Bellman desarrolló en los años cincuenta la programación dinámica~\citep{Bel57}. En 1955 la Glenn L.\ Martin Company fundó en Baltimore el Research Institute for Advanced Studies (RIAS), donde Solomon Lefschetz reunió un grupo de matemáticos dedicados a la teoría de sistemas dinámicos y de control, entre ellos Kalman.\nota{Lefschetz tiene un lazo con la Universidad de los Andes. Mario Laserna, su fundador, organizó a finales de los años cuarenta en Princeton una reunión en honor de la nueva universidad, a la que asistieron Albert Einstein, John von Neumann, Oskar Morgenstern y Lefschetz, entre otros~\citep{IASLaserna}; en el verano de 1950 invitó a von Neumann y a Lefschetz a dictar conferencias en Bogotá~\citep{Les19}.}
+
+El área se organizó institucionalmente. En 1945 se fundó en Estados Unidos la Instrument Society of America (ISA). En 1954 el Institute of Radio Engineers creó su grupo profesional de control automático, origen de la actual IEEE Control Systems Society. Y el 12 de septiembre de 1957, delegados de 18 países fundaron en París la International Federation of Automatic Control (IFAC); su primer presidente fue Harold Chestnut, y su primer congreso mundial se reunió en Moscú en 1960, en plena Guerra Fría. Desde entonces se reúne cada tres años~\citep{IFAChist,Bis09}.
+
+%% ---------------------------------------------------------------------
+\subsection{La edad de oro (1960--2000)}
+
+La carrera espacial necesitaba guiar cohetes y satélites con muchas variables, restricciones de combustible y mediciones ruidosas, y los computadores empezaban a permitir cálculos que antes eran impensables. En el congreso de Moscú, Kalman presentó la teoría de sistemas en espacio de estado, con los conceptos de controlabilidad y observabilidad~\citep{Kal60}; el mismo año publicó el filtro que lleva su nombre~\citep{Kal60b}, extendido en 1961 con Richard Bucy~\citep{KaBu61}. El grupo de Lev Pontryagin publicó en 1962 el principio del máximo~\citep{Pon62}, que junto con la programación dinámica de Bellman fundó el \emph{control óptimo}. A esta manera de trabajar, con ecuaciones de estado en el dominio del tiempo, se le llamó \emph{control moderno}, para distinguirla del \emph{clásico} de Nyquist, Bode y Evans. El capítulo~\ref{cap:re} es nuestra puerta de entrada.
+
+Del tronco común salieron muchas ramas: identificación de sistemas, control adaptativo, control no lineal, control robusto, sistemas de eventos discretos, control predictivo. En la industria el cambio fue el paso a lo digital. En 1968--1969 Modicon diseñó para la división Hydramatic de General Motors el primer controlador lógico programable (PLC), que reemplazó gabinetes enteros de relés; en 1975 Honeywell (TDC~2000) y Yokogawa (CENTUM) lanzaron los primeros sistemas de control distribuido (DCS); y la señal de $4$ a $20$\,mA reemplazó a la presión de $3$ a $15$\,psi de la instrumentación neumática. En los automóviles llegaron los frenos antibloqueo (ABS) y luego el control de estabilidad. El proyecto PATH de California, creado en 1986, demostró el 7 de agosto de 1997, en la autopista I-15 de San Diego, un pelotón de ocho automóviles que viajaban automáticamente a velocidad de autopista separados por unos $6$\,m~\citep{PATH97}.
+
+%% ---------------------------------------------------------------------
+\subsection{El control hoy}
+
+Hoy el control está en casi todo, la mayoría de las veces escondido: en los discos duros y los teléfonos, en las redes eléctricas con fuentes renovables, en los procesos biológicos, en la logística y en los vehículos autónomos~\citep{AsKu14}. Los problemas nuevos tienen que ver con sistemas en red, con muchos agentes que deciden por su cuenta y con datos abundantes; pero las preguntas de fondo son las de Maxwell: ¿es estable?, ¿qué tan bien sigue lo que se le pide?, ¿qué tan robusto es ante lo que no sabemos? Quijano y Cotrino recogen la historia del control y la automatización en Colombia y el estado actual del área en el país~\citep{QuCo23}.
+
+\begin{pausa}
+¿Qué tienen en común la clepsidra de Ktesibios, el regulador de Watt y el amplificador de Black? Identifique en cada uno el sensor, el comparador y el actuador.
+\respuesta{Los tres son lazos cerrados con retroalimentación negativa. Clepsidra: el flotador mide el nivel, su posición respecto al orificio hace de comparador y él mismo abre o cierra la entrada (actuador). Watt: las bolas miden la velocidad, el punto de equilibrio de las palancas fija la referencia y la válvula de vapor es el actuador. Black: la red resistiva $\beta$ mide la salida, la resta a la entrada se hace en el propio amplificador, y los tubos de vacío son el actuador.}
+\end{pausa}

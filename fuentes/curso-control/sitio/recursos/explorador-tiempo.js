@@ -1,4 +1,4 @@
-// Exploradores de respuesta temporal del curso (partes 2 y 3). Sin dependencias.
+// Exploradores de respuesta temporal del curso (partes 1, 2, 3 y 9). Sin dependencias.
 // Uso:  <div class="explorador" id="explorador-primer-orden"></div>
 //       <div class="explorador" id="explorador-segundo-orden"></div>
 //       <script src="../recursos/explorador-tiempo.js"></script>
@@ -202,5 +202,45 @@
     }
     const f2 = v => (+v.toFixed(2)).toString();
     conectar(r3, e, dib); dib();
+  }
+  // ======================= lazo abierto vs lazo cerrado (parte 1) =======================
+  const r4 = document.getElementById('explorador-tanque');
+  if (r4) {
+    const e = {};
+    r4.innerHTML = deslizadores(r4, [['Kc', 'Ganancia del controlador K_c', 0, 30, 5, 0.5],
+        ['d', 'Lluvia d desde t = 5 min (m³/min)', 0, 0.5, 0.2, 0.01],
+        ['R', 'Resistencia real de salida R (nominal 2)', 1, 4, 2, 0.1],
+        ['umax', 'Caudal máximo de la válvula (m³/min)', 0.6, 40, 40, 0.1]], e) +
+      `<div class="exp-resumen"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem"><svg viewBox="0 0 380 260"></svg><svg viewBox="0 0 380 260"></svg></div>
+       <div class="exp-leyenda"><span style="color:${C.gris}">┅ nivel deseado h_r</span><span style="color:${C.coral}">━ lazo abierto (calibrado)</span>
+       <span style="color:${C.azul}">━ lazo cerrado</span></div>`;
+    const [sh, su] = r4.querySelectorAll('svg'), res = r4.querySelector('.exp-resumen');
+    function dib() {
+      const {Kc, d, R, umax} = e, Area = 0.5, Kn = 2, T = 10, n = 4000, dt = T / n;
+      const t = [], ha = [0], hc = [0], ua = [], uc = [];
+      for (let k = 0; k <= n; k++) {
+        const tk = k * dt, hr = tk >= 1 ? 1 : 0, dk = tk >= 5 ? d : 0;
+        t.push(tk);
+        const a = Math.min(Math.max(hr / Kn, 0), umax);
+        const c = Math.min(Math.max(hr / Kn + Kc * (hr - hc[k]), 0), umax);
+        ua.push(a); uc.push(c);
+        if (k < n) { ha.push(ha[k] + dt * (a + dk - ha[k] / R) / Area); hc.push(hc[k] + dt * (c + dk - hc[k] / R) / Area); }
+      }
+      const ymax = Math.max(1.5, ...ha, ...hc) * 1.05;
+      const H = ejes(sh, 380, 260, {l: 46, r: 10, t: 10, b: 32}, [0, T], [0, ymax], 't (min)', 'h (m)');
+      linea(sh, t.map(v => [H.X(v), H.Y(v >= 1 ? 1 : 0)]), C.gris, 1.4, '5 4');
+      linea(sh, t.map((v, i) => [H.X(v), H.Y(ha[i])]), C.coral, 2.4);
+      linea(sh, t.map((v, i) => [H.X(v), H.Y(hc[i])]), C.azul, 2.4);
+      const um = Math.max(...uc, ...ua) * 1.08 + 0.1;
+      const U = ejes(su, 380, 260, {l: 46, r: 10, t: 10, b: 32}, [0, T], [0, um], 't (min)', 'u (m³/min)');
+      linea(su, t.map((v, i) => [U.X(v), U.Y(ua[i])]), C.coral, 2.2);
+      linea(su, t.map((v, i) => [U.X(v), U.Y(uc[i])]), C.azul, 2.2);
+      const sat = uc.some(v => v >= umax - 1e-9);
+      res.innerHTML = `Tanque 0.5 ḣ = u + d − h/R, calibrado con K = 2 · lazo cerrado u = h_r/2 + K_c(h_r − h) · ` +
+        `ganancia de lazo K·K_c = <b>${f(R * Kc)}</b><br>Nivel final: lazo abierto <b>${f(ha[n], 3)} m</b>, lazo cerrado <b>${f(hc[n], 3)} m</b>` +
+        ` · τ del lazo cerrado ≈ ${f(60 * Area * R / (1 + R * Kc), 1)} s (abierto ${f(60 * Area * R, 0)} s) · pico de u: ${f(Math.max(...uc))} m³/min` +
+        (sat ? ` · <b style="color:${C.coral}">¡la válvula se satura!</b>` : '');
+    }
+    conectar(r4, e, dib); dib();
   }
 })();

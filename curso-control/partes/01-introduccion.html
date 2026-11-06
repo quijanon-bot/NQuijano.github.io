@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1. Introducción – Análisis de Sistemas de Control</title>
+<title>1. Introducción: el análisis de sistemas de control – Análisis de Sistemas de Control</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -32,21 +66,17 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <link href="../partes/02-modelado-primer-orden.html" rel="next">
 <link href="../index.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64fae8b6b810ab41c64c8dc374c4eb1f.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8bd68d78e5d16d7ee9b038e0636db237.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64fae8b6b810ab41c64c8dc374c4eb1f.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6ca0c397212994b6a3f632fc19759a7d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-499924d2a8a233c470f762b3979b075e.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-2109129f78744553a96f0f8291275614.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-a4c10de92682e411e8ac659856b915e8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-2109129f78744553a96f0f8291275614.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2617eac7f0059178eec3ce531305bdab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d2976eeb248af5a7ccd6d3dd0a9ef837.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -96,180 +126,45 @@ window.MathJax = { tex: { macros: {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Análisis de Sistemas de Control</span>
     </a>
@@ -291,7 +186,7 @@ window.MathJax = { tex: { macros: {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-partes-del-curso">    
         <li>
     <a class="dropdown-item" href="../partes/01-introduccion.html">
- <span class="dropdown-text">1. Introducción</span></a>
+ <span class="dropdown-text">1. Introducción: el análisis de sistemas de control</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/02-modelado-primer-orden.html">
@@ -362,7 +257,7 @@ window.MathJax = { tex: { macros: {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">1. Introducción</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">1. Introducción: el análisis de sistemas de control</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -372,10 +267,6 @@ window.MathJax = { tex: { macros: {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      </a>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -396,7 +287,7 @@ window.MathJax = { tex: { macros: {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../partes/01-introduccion.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">1. Introducción</span></a>
+ <span class="menu-text">1. Introducción: el análisis de sistemas de control</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -489,15 +380,30 @@ window.MathJax = { tex: { macros: {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#ruta-de-la-clase" id="toc-ruta-de-la-clase" class="nav-link active" data-scroll-target="#ruta-de-la-clase">Ruta de la clase</a></li>
+  <li><a href="#lo-esencial-en-una-página" id="toc-lo-esencial-en-una-página" class="nav-link" data-scroll-target="#lo-esencial-en-una-página">Lo esencial, en una página</a></li>
+  <li><a href="#explorador" id="toc-explorador" class="nav-link" data-scroll-target="#explorador">Explorador: lazo abierto vs lazo cerrado</a></li>
+  <li><a href="#historia-del-control" id="toc-historia-del-control" class="nav-link" data-scroll-target="#historia-del-control">Historia del control</a></li>
+  <li><a href="#códigos-de-esta-parte" id="toc-códigos-de-esta-parte" class="nav-link" data-scroll-target="#códigos-de-esta-parte">Códigos de esta parte</a></li>
+  <li><a href="#modelo-de-simulink" id="toc-modelo-de-simulink" class="nav-link" data-scroll-target="#modelo-de-simulink">Modelo de Simulink</a></li>
+  <li><a href="#pausas-activas" id="toc-pausas-activas" class="nav-link" data-scroll-target="#pausas-activas">Pausas activas</a></li>
+  <li><a href="#problemas" id="toc-problemas" class="nav-link" data-scroll-target="#problemas">Problemas</a></li>
+  <li><a href="#para-leer-más" id="toc-para-leer-más" class="nav-link" data-scroll-target="#para-leer-más">Para leer más</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">1. Introducción</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">1. Introducción: el análisis de sistemas de control</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">1. Introducción</h1>
-<p class="subtitle lead">Semana 1 · por migrar al formato nuevo</p>
+<h1 class="title">1. Introducción: el análisis de sistemas de control</h1>
+<p class="subtitle lead">Semana 1 · una clase</p>
 </div>
 
 
@@ -514,285 +420,742 @@ window.MathJax = { tex: { macros: {
 </header>
 
 
-<div class="franja"><div class="rotulo">Parte 1 · Semana 1</div><div class="titulo">Introducción</div><div class="cita">Es que con los ojos del presente ningún pasado es tolerable… — Juan Esteban Constain</div><svg class="bode" viewbox="0 0 600 160" preserveaspectratio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"></path><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"></path></svg></div>
-<div class="profundiza">
-<p><span class="caja-titulo">Página en construcción</span></p>
-<p>Esta parte todavía está en el formato anterior de las notas (<code>Introduccion.tex</code>). Se migrará siguiendo el piloto de la <a href="../partes/10-respuesta-frecuencial.html">parte 10</a>: notación unificada, cajas pedagógicas, códigos tomados del repositorio y una página como esta con todo el material.</p>
+<div class="franja"><div class="rotulo">Parte 1 · Semana 1</div><div class="titulo">Introducción: el análisis de sistemas de control</div><div class="cita">Es que con los ojos del presente ningún pasado es tolerable… — Juan Esteban Constaín</div><svg class="bode" viewbox="0 0 600 160" preserveaspectratio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"></path><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"></path></svg></div>
+<p>¿Qué quiere decir <strong>analizar</strong> un <strong>sistema de control</strong>? En esta parte fijamos el vocabulario del curso, vemos con un tanque qué gana y qué cuesta la <strong>retroalimentación</strong>, aprendemos a plantear un problema de control y recorremos dos mil años de historia: de la clepsidra de Ktesibios al regulador de Watt, de Maxwell a Kalman. Terminamos con el mapa del curso.</p>
+<div class="botones">
+  <a class="boton" href="../pdf/cap01_introduccion.pdf">⬇ Handout en PDF</a>
+  <a class="boton sec" href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap01_introduccion">Códigos en GitHub</a>
+  <a class="boton sec" href="#explorador">Explorador: lazo abierto vs cerrado</a>
 </div>
-<section id="temas" class="level2">
-<h2 class="anchored" data-anchor-id="temas">Temas</h2>
-<ul>
-<li>Mapa de ruta</li>
-<li>Palabras clave: análisis, sistemas y control</li>
-<li>Motivación</li>
-<li>Ejemplos</li>
-<li>Historia</li>
-</ul>
+<div class="receta">
+<p><span class="caja-titulo">Al terminar esta parte usted podrá</span></p>
+<ol type="1">
+<li>Explicar qué se entiende por análisis, sistema y control, y qué hace la retroalimentación.</li>
+<li>Distinguir el control en lazo abierto del control en lazo cerrado y medir, con un ejemplo, qué gana y qué cuesta retroalimentar.</li>
+<li>Plantear un problema de control: objetivos, variables manipuladas y perturbaciones, mediciones, restricciones y estructura del controlador.</li>
+<li>Ubicar en el tiempo las ideas del curso y saber dónde leer más.</li>
+<li>Saber cómo están organizados el curso, las notas, los códigos y esta página.</li>
+</ol>
+</div>
+<section id="ruta-de-la-clase" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-la-clase">Ruta de la clase</h2>
+<table class="table-striped caption-top table">
+<caption>Lea la sección del handout <strong>antes</strong> de la clase. La historia (§1.5) es de lectura.</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bloque</th>
+<th style="text-align: left;">Qué se ve</th>
+<th style="text-align: left;">Handout</th>
+<th style="text-align: left;">Scripts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Análisis, sistema, control; retroalimentación; DUFF</td>
+<td style="text-align: left;">§1.1</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Lazo abierto y lazo cerrado: el tanque con lluvia; malla abierta y lazo abierto</td>
+<td style="text-align: left;">§1.2</td>
+<td style="text-align: left;"><code>C1_Ej1</code>, <code>crearModelo_TanqueLazos</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Desempeño y diseño: el ascensor</td>
+<td style="text-align: left;">§1.3</td>
+<td style="text-align: left;"><code>C1_Ej2</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Plantear un problema de control: la ducha y el tanque de almacenamiento</td>
+<td style="text-align: left;">§1.4</td>
+<td style="text-align: left;"><code>C1_Ej3</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Historia del control (lectura) y mapa del curso</td>
+<td style="text-align: left;">§1.5–1.6</td>
+<td style="text-align: left;">—</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="lo-que-tendrá-esta-página" class="level2">
-<h2 class="anchored" data-anchor-id="lo-que-tendrá-esta-página">Lo que tendrá esta página</h2>
+<section id="lo-esencial-en-una-página" class="level2">
+<h2 class="anchored" data-anchor-id="lo-esencial-en-una-página">Lo esencial, en una página</h2>
+<div class="definicion">
+<p><span class="caja-titulo">Sistema de control y retroalimentación</span></p>
+<p>Un <strong>sistema de control</strong> administra el comportamiento de otro sistema para que una salida siga una referencia o rechace perturbaciones. <strong>Retroalimentar</strong> es medir la variable controlada, compararla con lo deseado y actuar sobre el error. Richard Murray lo resumió así: <em>control = dynamics, uncertainty, feedforward, feedback</em> (DUFF).</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/lazos_ab.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>(a) Control en lazo abierto: nadie mira la salida. (b) Lazo cerrado: el sensor cierra el lazo.</figcaption>
+</figure>
+</div>
+<div class="ideaclave">
+<p><span class="caja-titulo">Lo que compra la retroalimentación</span></p>
+<p>En el tanque <span class="math inline">\(0.5\,\dot h=u+d-h/R\)</span>, calibrado para llegar a <span class="math inline">\(1\)</span> m, la lluvia sube el nivel a <span class="math inline">\(1.40\)</span> m en lazo abierto y a <span class="math inline">\(1.036\)</span> m en lazo cerrado con <span class="math inline">\(K_c=5\)</span>: <strong>once veces menos</strong>, porque <span class="math inline">\(1+KK_c=11\)</span>. El lazo cerrado además responde once veces más rápido. El precio: un caudal inicial de <span class="math inline">\(5.5\)</span> m³/min en lugar de <span class="math inline">\(0.5\)</span>.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/f_tanque_lazos.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Lazo abierto (coral) y cerrado (azul) ante lluvia y ante una válvula obstruida.</figcaption>
+</figure>
+</div>
+<div class="cuidado">
+<p><span class="caja-titulo">Tres nombres parecidos</span></p>
+<p><strong>Control en lazo abierto</strong> es una estrategia sin retroalimentación. <strong>Malla abierta</strong> <span class="math inline">\(G'(s)=G(s)H(s)\)</span> es lo que recorre una señal al dar la vuelta a un lazo cerrado (estabilidad, Bode). <strong>Lazo abierto</strong> <span class="math inline">\(G_{OL}(s)\)</span> es la función del lazo reescrito con retroalimentación unitaria (tipo y error). En inglés, las tres se llaman <em>open loop</em>.</p>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Desempeño, análisis y diseño</span></p>
+<p>El desempeño se mide con la <strong>estabilidad</strong>, la <strong>respuesta transitoria</strong> y el <strong>error en estado estacionario</strong>. El <strong>análisis</strong> determina el desempeño de un sistema dado; el <strong>diseño</strong> lo logra o lo modifica.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/f_ascensor.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>El ascensor: transitorio (sobrepaso, tiempo de establecimiento) y error en estado estacionario.</figcaption>
+</figure>
+</div>
+<div class="receta">
+<p><span class="caja-titulo">Cómo plantear un problema de control</span></p>
+<p>Objetivos · entradas (manipuladas y perturbaciones) · salidas (medidas y no medidas) · restricciones (duras y blandas) · operación (continua o por lotes) · seguridad, ambiente y economía · estructura del controlador (retroalimentación, prealimentación o ambas).</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/tanque_escenarios.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>El mismo tanque de almacenamiento con tres estructuras de control (símbolos ISA-5.1).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/f_prealimentacion.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Prealimentación con un sensor imperfecto: sola deriva; con retroalimentación, funciona.</figcaption>
+</figure>
+</div>
+</section>
+<section id="explorador" class="level2">
+<h2 class="anchored" data-anchor-id="explorador">Explorador: lazo abierto vs lazo cerrado</h2>
+<p>El tanque del ejemplo 1.1. Mueva la ganancia del controlador, la lluvia, la resistencia real de la válvula de salida y el caudal máximo que puede dar la válvula de entrada.</p>
+<div class="explorador" id="explorador-tanque"></div>
+<script src="../recursos/explorador-tiempo.js"></script>
+<div class="pausa">
+<p><span class="caja-titulo">Retos con el explorador</span></p>
+<ol type="1">
+<li>Con los valores iniciales, compruebe los números del handout: <span class="math inline">\(1.40\)</span> y <span class="math inline">\(1.036\)</span> m.</li>
+<li>¿Qué <span class="math inline">\(K_c\)</span> hace que la lluvia mueva el nivel menos de 1 cm? ¿Cuánto vale el pico de <span class="math inline">\(u\)</span>?</li>
+<li>Ponga <span class="math inline">\(K_c=20\)</span> y limite el caudal a <span class="math inline">\(2\)</span> m³/min: ¿qué pasa con la rapidez? ¿Y con el valor final?</li>
+<li>Ponga <span class="math inline">\(K_c=0\)</span>: ¿qué estrategia tiene? Cambie <span class="math inline">\(R\)</span> y observe.</li>
+</ol>
+</div>
+</section>
+<section id="historia-del-control" class="level2">
+<h2 class="anchored" data-anchor-id="historia-del-control">Historia del control</h2>
+<img src="../figuras/cap01/f_linea_tiempo.svg" alt="Línea de tiempo de la historia del control" style="width:100%">
+<p>El control como tecnología tiene más de dos mil años: el regulador de flotador de la <strong>clepsidra de Ktesibios</strong> (siglo III a.C.) ya juntaba sensor, comparador y actuador. El <strong>regulador centrífugo</strong> que Watt adaptó a la máquina de vapor hacia 1788 llevó a <strong>Maxwell</strong> (1868) a la primera teoría de estabilidad, completada por <strong>Routh</strong> (1877), <strong>Vyshnegradskii</strong> (1876) y <strong>Hurwitz</strong> (1895). En el siglo XX llegaron los pilotos automáticos de <strong>Sperry</strong>, el PID de <strong>Minorsky</strong> (1922), los controladores neumáticos industriales, el amplificador retroalimentado de <strong>Black</strong> (1927), el criterio de <strong>Nyquist</strong> (1932) y los diagramas de <strong>Bode</strong> (1940–45). Después de la guerra, <strong>Wiener</strong>, <strong>Evans</strong>, la transformada <span class="math inline">\(z\)</span>, la fundación de <strong>IFAC</strong> (1957) y, con la carrera espacial, el espacio de estado de <strong>Kalman</strong> y el control óptimo de <strong>Pontryagin</strong> y <strong>Bellman</strong>. El handout (§1.5) cuenta la historia completa, con la referencia original de cada idea.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/foto_watt.jpg" class="img-fluid figure-img"></p>
+<figcaption>La máquina de vapor de Watt y su regulador centrífugo, Science Museum de Londres. Fotos del autor.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/foto_bush.jpg" class="img-fluid figure-img"></p>
+<figcaption>Analizador diferencial construido en Mánchester (1935) con el diseño de Vannevar Bush. Foto del autor.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="códigos-de-esta-parte" class="level2">
+<h2 class="anchored" data-anchor-id="códigos-de-esta-parte">Códigos de esta parte</h2>
+<p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap01_introduccion">repositorio</a>. Ejecute antes <code>iniciarCurso</code>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Lazo abierto y cerrado</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Ascensor</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Prealimentación</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Pruebas</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>Lazo abierto calibrado (§1.2).</strong></p>
+<div class="sourceCode" id="cb1" data-filename="cap01_introduccion/C1_Ej1_TanqueLazos.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">Area</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">R</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>         <span class="co">% m^2 y min/m^2  -&gt;  K = R = 2, tau = Area*R = 1 min</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">Kn</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>                     <span class="co">% ganancia NOMINAL con la que se calibró</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">t</span>  <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">10</span><span class="op">,</span> <span class="fl">2001</span>)<span class="op">';</span>           <span class="co">% minutos</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">hr</span> <span class="op">=</span> <span class="fl">1.0</span><span class="op">*</span>(<span class="va">t</span> <span class="op">&gt;=</span> <span class="fl">1</span>)<span class="op">;</span>                     <span class="co">% nivel deseado: 1 m desde t = 1 min</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">d</span>  <span class="op">=</span> <span class="fl">0.2</span><span class="op">*</span>(<span class="va">t</span> <span class="op">&gt;=</span> <span class="fl">5</span>)<span class="op">;</span>                     <span class="co">% lluvia desde t = 5 min</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">% Lazo abierto: u = hr/Kn (nadie mira el nivel)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="va">ola</span> <span class="op">=</span> <span class="va">ss</span>(<span class="op">-</span><span class="fl">1</span><span class="op">/</span>(<span class="va">Area</span><span class="op">*</span><span class="va">R</span>)<span class="op">,</span> [<span class="fl">1</span><span class="op">/</span>(<span class="va">Area</span><span class="op">*</span><span class="va">Kn</span>) <span class="fl">1</span><span class="op">/</span><span class="va">Area</span>]<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span>     <span class="co">% entradas [hr d]</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="va">h_ab</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ola</span><span class="op">,</span> [<span class="va">hr</span> <span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Lazo abierto, lluvia:  h(10) = %.3f m\n'</span><span class="op">,</span> <span class="va">h_ab</span>(<span class="kw">end</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Lazo cerrado y el factor <span class="math inline">\(1+KK_c\)</span>.</strong></p>
+<div class="sourceCode" id="cb2" data-filename="cap01_introduccion/C1_Ej1_TanqueLazos.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">Kc</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span>                     <span class="co">% ganancia del controlador proporcional, m^2/min</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Lazo cerrado: u = hr/Kn + Kc (hr - h)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   Area dh/dt = -(1/R + Kc) h + (1/Kn + Kc) hr + d</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="va">lc</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">Rr</span>) <span class="va">ss</span>(<span class="op">-</span>(<span class="fl">1</span><span class="op">/</span><span class="va">Rr</span> <span class="op">+</span> <span class="va">Kc</span>)<span class="op">/</span><span class="va">Area</span><span class="op">,</span> [(<span class="fl">1</span><span class="op">/</span><span class="va">Kn</span> <span class="op">+</span> <span class="va">Kc</span>)<span class="op">/</span><span class="va">Area</span> <span class="fl">1</span><span class="op">/</span><span class="va">Area</span>]<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">h_ce</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">lc</span>(<span class="va">R</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">u_ce</span> <span class="op">=</span> <span class="va">hr</span><span class="op">/</span><span class="va">Kn</span> <span class="op">+</span> <span class="va">Kc</span><span class="op">*</span>(<span class="va">hr</span> <span class="op">-</span> <span class="va">h_ce</span>)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Lazo cerrado, lluvia:  h(10) = %.4f m   (factor 1+K*Kc = %g)\n'</span><span class="op">,</span> <span class="va">h_ce</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">R</span><span class="op">*</span><span class="va">Kc</span>)<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">% Válvula obstruida: R real = 2.4, sin lluvia (la calibración sigue con Kn = 2)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="va">Rr</span> <span class="op">=</span> <span class="fl">2.4</span><span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="va">h_ab2</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="op">-</span><span class="fl">1</span><span class="op">/</span>(<span class="va">Area</span><span class="op">*</span><span class="va">Rr</span>)<span class="op">,</span> [<span class="fl">1</span><span class="op">/</span>(<span class="va">Area</span><span class="op">*</span><span class="va">Kn</span>) <span class="fl">1</span><span class="op">/</span><span class="va">Area</span>]<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="fl">0</span><span class="op">*</span><span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="va">h_ce2</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">lc</span>(<span class="va">Rr</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="fl">0</span><span class="op">*</span><span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Obstrucción: abierto %.3f m, cerrado %.4f m\n'</span><span class="op">,</span> <span class="va">h_ab2</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="va">h_ce2</span>(<span class="kw">end</span>))<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'tau lazo cerrado = %.2f s;  u(1+) = %.2f m^3/min\n'</span><span class="op">,</span> <span class="fl">60</span><span class="op">*</span><span class="va">Area</span><span class="op">*</span><span class="va">R</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">R</span><span class="op">*</span><span class="va">Kc</span>)<span class="op">,</span> <span class="fl">1</span><span class="op">/</span><span class="va">Kn</span> <span class="op">+</span> <span class="va">Kc</span>)<span class="op">;</span>   <span class="co">% en el instante del escalón</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>Transitorio y error en estado estacionario (§1.3).</strong></p>
+<div class="sourceCode" id="cb3" data-filename="cap01_introduccion/C1_Ej2_Ascensor.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">zeta</span> <span class="op">=</span> <span class="fl">0.6</span><span class="op">;</span>  <span class="va">wn</span> <span class="op">=</span> <span class="fl">0.8</span><span class="op">;</span>  <span class="va">kg</span> <span class="op">=</span> <span class="fl">0.975</span><span class="op">;</span>    <span class="co">% kg &lt; 1 produce el error final</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">piso</span> <span class="op">=</span> <span class="fl">4</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">T</span> <span class="op">=</span> <span class="va">piso</span><span class="op">*</span><span class="va">kg</span><span class="op">*</span><span class="va">tf</span>(<span class="va">wn</span><span class="op">^</span><span class="fl">2</span><span class="op">,</span> [<span class="fl">1</span> <span class="fl">2</span><span class="op">*</span><span class="va">zeta</span><span class="op">*</span><span class="va">wn</span> <span class="va">wn</span><span class="op">^</span><span class="fl">2</span>])<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">S</span> <span class="op">=</span> <span class="va">stepinfo</span>(<span class="va">T</span>)<span class="op">;</span>   <span class="co">% criterio por defecto: 2 %</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Sobrepaso %.2f %%, tp = %.2f s, ts = %.2f s\n'</span><span class="op">,</span> <span class="va">S</span>.<span class="va">Overshoot</span><span class="op">,</span> <span class="va">S</span>.<span class="va">PeakTime</span><span class="op">,</span> <span class="va">S</span>.<span class="va">SettlingTime</span>)<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Valor final %.2f pisos -&gt; error %.2f piso\n'</span><span class="op">,</span> <span class="va">dcgain</span>(<span class="va">T</span>)<span class="op">,</span> <span class="va">piso</span> <span class="op">-</span> <span class="va">dcgain</span>(<span class="va">T</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>Prealimentación, retroalimentación y las dos juntas (§1.4).</strong></p>
+<div class="sourceCode" id="cb4" data-filename="cap01_introduccion/C1_Ej3_Prealimentacion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">A2</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">dF1</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">eps</span> <span class="op">=</span> <span class="fl">0.10</span><span class="op">;</span>  <span class="va">Kc</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">t</span>   <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">20</span><span class="op">,</span> <span class="fl">2001</span>)<span class="op">';</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">F1</span>  <span class="op">=</span> <span class="va">dF1</span><span class="op">*</span>(<span class="va">t</span> <span class="op">&gt;=</span> <span class="fl">2</span>)<span class="op">;</span>                       <span class="co">% desviación del caudal de entrada</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">% dh/dt = (F1 - F2)/A2, con F2 = ff*(1-eps)*F1 + fb*Kc*h</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="va">modelo</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">ff</span><span class="op">,</span> <span class="va">fb</span>) <span class="va">ss</span>(<span class="op">-</span><span class="va">fb</span><span class="op">*</span><span class="va">Kc</span><span class="op">/</span><span class="va">A2</span><span class="op">,</span> (<span class="fl">1</span> <span class="op">-</span> <span class="va">ff</span><span class="op">*</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">eps</span>))<span class="op">/</span><span class="va">A2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="va">h_ff</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">modelo</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="va">F1</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="va">h_fb</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">modelo</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">,</span> <span class="va">F1</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="va">h_am</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">modelo</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">,</span> <span class="va">F1</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Solo prealimentación: h(20) = %.3f m (deriva %.4f m/min)\n'</span><span class="op">,</span> <span class="va">h_ff</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="va">dF1</span><span class="op">*</span><span class="va">eps</span><span class="op">/</span><span class="va">A2</span>)<span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Solo retroalimentación: h(20) = %.3f m\n'</span><span class="op">,</span> <span class="va">h_fb</span>(<span class="kw">end</span>))<span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Combinadas: h(20) = %.4f m\n'</span><span class="op">,</span> <span class="va">h_am</span>(<span class="kw">end</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><code>verificarCap01</code> comprueba los números clave del capítulo.</p>
+<div class="sourceCode" id="cb5" data-filename="cap01_introduccion/verificarCap01.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">verificarCap01</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">% VERIFICARCAP01  Pruebas automáticas de los números del capítulo 1.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   &gt;&gt; verificarCap01</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">% (Los mismos números se verificaron con python-control en</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">%  herramientas/cap01_numeros.py.)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="va">fallas</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span>  <span class="va">n</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="va">revisar</span>(<span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">n</span> <span class="op">=</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="va">abs</span>(<span class="va">valor</span> <span class="op">-</span> <span class="va">esperado</span>) <span class="op">&lt;=</span> <span class="va">tol</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="ss">'  ok   %-40s %12.4f\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span>)<span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="fl">2</span><span class="op">,</span> <span class="ss">'  FALLA %-39s %12.4f  (esperado %g +- %g)\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)<span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            <span class="va">fallas</span> <span class="op">=</span> <span class="va">fallas</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'1.2  Tanque en lazo abierto y cerrado\n'</span>)<span class="op">;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="va">Area</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">R</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">Kn</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">Kc</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">30</span><span class="op">,</span> <span class="fl">6001</span>)<span class="op">';</span>  <span class="va">hr</span> <span class="op">=</span> <span class="va">ones</span>(<span class="va">size</span>(<span class="va">t</span>))<span class="op">;</span>  <span class="va">d</span> <span class="op">=</span> <span class="fl">0.2</span><span class="op">*</span><span class="va">ones</span>(<span class="va">size</span>(<span class="va">t</span>))<span class="op">;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="va">ola</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">Rr</span>) <span class="va">ss</span>(<span class="op">-</span><span class="fl">1</span><span class="op">/</span>(<span class="va">Area</span><span class="op">*</span><span class="va">Rr</span>)<span class="op">,</span> [<span class="fl">1</span><span class="op">/</span>(<span class="va">Area</span><span class="op">*</span><span class="va">Kn</span>) <span class="fl">1</span><span class="op">/</span><span class="va">Area</span>]<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="va">lc</span>  <span class="op">=</span> <span class="op">@</span>(<span class="va">Rr</span><span class="op">,</span> <span class="va">kc</span>) <span class="va">ss</span>(<span class="op">-</span>(<span class="fl">1</span><span class="op">/</span><span class="va">Rr</span> <span class="op">+</span> <span class="va">kc</span>)<span class="op">/</span><span class="va">Area</span><span class="op">,</span> [(<span class="fl">1</span><span class="op">/</span><span class="va">Kn</span> <span class="op">+</span> <span class="va">kc</span>)<span class="op">/</span><span class="va">Area</span> <span class="fl">1</span><span class="op">/</span><span class="va">Area</span>]<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ola</span>(<span class="va">R</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>          <span class="va">revisar</span>(<span class="ss">'abierto con lluvia'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">1.4</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">lc</span>(<span class="va">R</span><span class="op">,</span> <span class="va">Kc</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>       <span class="va">revisar</span>(<span class="ss">'cerrado con lluvia (Kc = 5)'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">11.4</span><span class="op">/</span><span class="fl">11</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ola</span>(<span class="fl">2.4</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="fl">0</span><span class="op">*</span><span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>      <span class="va">revisar</span>(<span class="ss">'abierto con R = 2.4'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">1.2</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">lc</span>(<span class="fl">2.4</span><span class="op">,</span> <span class="va">Kc</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="fl">0</span><span class="op">*</span><span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>   <span class="va">revisar</span>(<span class="ss">'cerrado con R = 2.4'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">2.4</span><span class="op">*</span><span class="fl">5.5</span><span class="op">/</span><span class="fl">13</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">lc</span>(<span class="va">R</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>        <span class="va">revisar</span>(<span class="ss">'cerrado, lluvia, Kc = 1'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">3.4</span><span class="op">/</span><span class="fl">3</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">lc</span>(<span class="va">R</span><span class="op">,</span> <span class="fl">10</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>       <span class="va">revisar</span>(<span class="ss">'cerrado, lluvia, Kc = 10'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">21.4</span><span class="op">/</span><span class="fl">21</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'tau lazo cerrado (s)'</span><span class="op">,</span> <span class="fl">60</span><span class="op">*-</span><span class="fl">1</span><span class="op">/</span><span class="va">pole</span>(<span class="va">lc</span>(<span class="va">R</span><span class="op">,</span> <span class="va">Kc</span>))<span class="op">,</span> <span class="fl">60</span><span class="op">/</span><span class="fl">11</span><span class="op">,</span> <span class="fl">1e-6</span>)<span class="op">;</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Kc mínimo para &lt; 1 cm'</span><span class="op">,</span> (<span class="fl">0.4</span><span class="op">/</span><span class="fl">0.01</span> <span class="op">-</span> <span class="fl">1</span>)<span class="op">/</span><span class="fl">2</span><span class="op">,</span> <span class="fl">19.5</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="op">-</span>(<span class="fl">1</span><span class="op">/</span><span class="va">R</span> <span class="op">+</span> <span class="va">Kc</span>)<span class="op">/</span><span class="va">Area</span><span class="op">,</span> [<span class="va">Kc</span><span class="op">/</span><span class="va">Area</span> <span class="fl">1</span><span class="op">/</span><span class="va">Area</span>]<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> [<span class="va">hr</span> <span class="fl">0</span><span class="op">*</span><span class="va">d</span>]<span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'sin calibración: RKc/(1+RKc)'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">10</span><span class="op">/</span><span class="fl">11</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'1.3  Ascensor\n'</span>)<span class="op">;</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="va">T</span> <span class="op">=</span> <span class="fl">4</span><span class="op">*</span><span class="fl">0.975</span><span class="op">*</span><span class="va">tf</span>(<span class="fl">0.64</span><span class="op">,</span> [<span class="fl">1</span> <span class="fl">0.96</span> <span class="fl">0.64</span>])<span class="op">;</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="va">S</span> <span class="op">=</span> <span class="va">stepinfo</span>(<span class="va">T</span>)<span class="op">;</span>   <span class="co">% criterio por defecto: 2 %</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'sobrepaso (%)'</span><span class="op">,</span> <span class="va">S</span>.<span class="va">Overshoot</span><span class="op">,</span> <span class="fl">9.48</span><span class="op">,</span> <span class="fl">0.02</span>)<span class="op">;</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'tiempo pico (s)'</span><span class="op">,</span> <span class="va">S</span>.<span class="va">PeakTime</span><span class="op">,</span> <span class="va">pi</span><span class="op">/</span>(<span class="fl">0.8</span><span class="op">*</span><span class="fl">0.8</span>)<span class="op">,</span> <span class="fl">0.02</span>)<span class="op">;</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'tiempo de establecimiento (s)'</span><span class="op">,</span> <span class="va">S</span>.<span class="va">SettlingTime</span><span class="op">,</span> <span class="fl">7.43</span><span class="op">,</span> <span class="fl">0.05</span>)<span class="op">;</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'valor final'</span><span class="op">,</span> <span class="va">dcgain</span>(<span class="va">T</span>)<span class="op">,</span> <span class="fl">3.9</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'1.4  Prealimentación y ganancia de proceso\n'</span>)<span class="op">;</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="va">A2</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">eps</span> <span class="op">=</span> <span class="fl">0.1</span><span class="op">;</span>  <span class="va">t</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">18</span><span class="op">,</span> <span class="fl">3601</span>)<span class="op">';</span>  <span class="va">F1</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">ones</span>(<span class="va">size</span>(<span class="va">t</span>))<span class="op">;</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="fl">0</span><span class="op">,</span> <span class="va">eps</span><span class="op">/</span><span class="va">A2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="va">F1</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>        <span class="va">revisar</span>(<span class="ss">'deriva en 18 min'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">0.45</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">60</span><span class="op">,</span> <span class="fl">6001</span>)<span class="op">';</span>  <span class="va">F1</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">ones</span>(<span class="va">size</span>(<span class="va">t</span>))<span class="op">;</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="op">-</span><span class="fl">1</span><span class="op">/</span><span class="va">A2</span><span class="op">,</span> <span class="fl">1</span><span class="op">/</span><span class="va">A2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="va">F1</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>      <span class="va">revisar</span>(<span class="ss">'solo retroalimentación'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="op">-</span><span class="fl">1</span><span class="op">/</span><span class="va">A2</span><span class="op">,</span> <span class="va">eps</span><span class="op">/</span><span class="va">A2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="va">F1</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>    <span class="va">revisar</span>(<span class="ss">'combinadas'</span><span class="op">,</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">0.05</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'ganancia 10 C / 0.5 kW'</span><span class="op">,</span> <span class="fl">10</span><span class="op">/</span><span class="fl">0.5</span><span class="op">,</span> <span class="fl">20</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'\n%d de %d pruebas pasaron.\n'</span><span class="op">,</span> <span class="va">n</span> <span class="op">-</span> <span class="va">fallas</span><span class="op">,</span> <span class="va">n</span>)<span class="op">;</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modelo-de-simulink" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-de-simulink">Modelo de Simulink</h2>
+<div class="modelo">
+<p><span class="caja-titulo">El modelo se construye por código</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Script</th>
+<th style="text-align: left;">Modelo</th>
+<th style="text-align: left;">Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>crearModelo_TanqueLazos.m</code></td>
+<td style="text-align: left;">el mismo tanque en lazo abierto (ganancia <code>Calibracion</code>) y en lazo cerrado (<code>Kc</code>), con lluvia activable (<code>Lluvia</code>)</td>
+<td style="text-align: left;">ajustar a mano la calibración, encender la lluvia, intentar compensarla a mano y comparar con la retroalimentación</td>
+</tr>
+</tbody>
+</table>
+<p>Corra el script y se crea el <code>.slx</code>.</p>
+</div>
+</section>
+<section id="pausas-activas" class="level2">
+<h2 class="anchored" data-anchor-id="pausas-activas">Pausas activas</h2>
+<div class="pausa">
+<p><span class="caja-titulo">1. Manejar un carro</span></p>
+<p>Cuando usted conduce por una carretera con curvas, ¿quién hace de sensor, de controlador y de actuador?</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+Los ojos son el sensor; el cerebro compara la posición con el centro del carril (la referencia) y decide; los brazos y el timón son el actuador. El viento y los baches son perturbaciones. Si cierra los ojos, el lazo se abre.
+</details>
+</div>
+<div class="pausa">
+<p><span class="caja-titulo">2. Precisión a la fuerza</span></p>
+<p>¿Qué <span class="math inline">\(K_c\)</span> hace falta para que la lluvia mueva el nivel del tanque menos de 1 cm?</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+<span class="math inline">\(0.4/(1+2K_c)&lt;0.01\)</span>, es decir <span class="math inline">\(K_c&gt;19.5\)</span>. Con <span class="math inline">\(K_c=20\)</span>, el caudal inicial es <span class="math inline">\(20.5\)</span> m³/min: cuarenta veces el de lazo abierto.
+</details>
+</div>
+<div class="pausa">
+<p><span class="caja-titulo">3. Ktesibios, Watt y Black</span></p>
+<p>¿Qué tienen en común la clepsidra, el regulador de Watt y el amplificador de Black?</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+Los tres son lazos cerrados con retroalimentación negativa: el flotador, las bolas y la red <span class="math inline">\(\beta\)</span> miden la salida; y la válvula de entrada, la válvula de vapor y los tubos de vacío actúan.
+</details>
+</div>
+</section>
+<section id="problemas" class="level2">
+<h2 class="anchored" data-anchor-id="problemas">Problemas</h2>
+<p>El handout trae 8 problemas (clasificar lazos, el tanque en detalle con saturación, plantear un problema de control, ganancia del proceso, prealimentación, moderadores y reguladores de Maxwell, el ascensor y un ensayo histórico), con soluciones seleccionadas.</p>
+<div class="botones"><a class="boton" href="../pdf/cap01_introduccion.pdf">Ir a los problemas (PDF, §1.8)</a></div>
+</section>
+<section id="para-leer-más" class="level2">
+<h2 class="anchored" data-anchor-id="para-leer-más">Para leer más</h2>
 <ul>
-<li>El <strong>handout en PDF</strong> de la parte, con el formato nuevo.</li>
-<li>Los <strong>códigos de MATLAB y Simulink</strong>, con instrucciones y resultados esperados.</li>
-<li>Los <strong>videos</strong> de la parte y las <strong>pausas activas</strong> con respuesta.</li>
-<li>Los <strong>problemas</strong> con soluciones seleccionadas.</li>
+<li>K. J. Åström y P. R. Kumar, “Control: a perspective”, <em>Automatica</em> 50(1), 2014.</li>
+<li>O. Mayr, <em>The Origins of Feedback Control</em>, MIT Press, 1971.</li>
+<li>S. Bennett, <em>A History of Control Engineering</em> (1800–1930 y 1930–1955), IET.</li>
+<li>C. C. Bissell, “A history of automatic control”, <em>Springer Handbook of Automation</em>, 2009.</li>
+<li>D. S. Bernstein, “A student’s guide to classical control”, <em>IEEE Control Systems Magazine</em> 17(4), 1997.</li>
+<li>N. Quijano y C. Cotrino, “Control and automation evolution in Colombia”, CCAC 2023.</li>
 </ul>
+<div class="profundiza">
+<p><span class="caja-titulo">Correcciones respecto a la versión anterior</span></p>
+<p>Watt no patentó el regulador centrífugo (Mead lo patentó para molinos en 1787). Sperry voló en París en 1914, no en 1912. Minorsky propuso el PID y analizó su estabilidad, sin ubicación de polos. Bode publicó en 1940–45 (1934 es la teoría de servomecanismos de Hazen). IFAC se fundó en 1957 con 18 países; RIAS en 1955. Stabilog, Dantzig y Vannevar, bien escritos. <span class="math inline">\(G(s)H(s)\)</span> es la <strong>malla abierta</strong>. El ejemplo del tanque ahora compara lazo abierto y cerrado con números verificados.</p>
+</div>
 
 
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    setColorSchemeToggle(hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
         }
       }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
       return false;
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiado");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiado");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-control");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-control");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -800,161 +1163,185 @@ window.MathJax = { tex: { macros: {
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../index.html" class="pagination-link" aria-label="Análisis de Sistemas de Control">
@@ -975,7 +1362,7 @@ window.MathJax = { tex: { macros: {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar sobre problema</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Hecho con <a href="https://quarto.org">Quarto</a></p>
 </div>

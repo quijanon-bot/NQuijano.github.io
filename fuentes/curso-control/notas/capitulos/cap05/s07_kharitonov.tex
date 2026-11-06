@@ -1,0 +1,112 @@
+%% ---------------------------------------------------------------------
+\section{Robustez: el teorema de Kharitonov}
+\label{sec:es-kharitonov}
+%% ---------------------------------------------------------------------
+
+Routh-Hurwitz decide la estabilidad de \emph{un} polinomio. Pero los parámetros de una planta real nunca se conocen exactamente: una ganancia está entre $0.8$ y $1.3$, un amortiguamiento entre $0.2$ y $0.3$, una frecuencia natural entre $10$ y $12$\,rad/s. El modelo es en realidad una \emph{familia} de modelos, y lo que queremos es que el lazo sea estable para \emph{todos} ellos: que sea \clave{robustamente estable}.
+
+Con la planta de segundo orden de ese ejemplo, $\Gp(s)=\dfrac{\Kproc}{s^2+2\zeta\wn s+\wn^2}=\dfrac{q_0}{r_0s^2+r_1s+r_2}$, los intervalos son $q_0\in[0.8,\,1.3]$, $r_0=1$, $r_1=2\zeta\wn\in[4,\,7.2]$ y $r_2=\wn^2\in[100,\,144]$. Una planta cuyos coeficientes varían en intervalos se llama \clave{planta de intervalo}. Con un controlador $\Gc=N_c/D_c$, la ecuación característica $D_cD_p+N_cN_p=0$ tiene coeficientes que también varían en intervalos, y hay infinitos polinomios que revisar.
+
+\begin{definicion}[label=def:es-intervalo]{Familia de polinomios de intervalo}
+Es el conjunto de polinomios
+\[
+  \chi(s)=a_0s^n+a_1s^{n-1}+\cdots+a_{n-1}s+a_n,\qquad a_k\in[a_k^-,\,a_k^+],
+\]
+en el que cada coeficiente varía \emph{independientemente} de los demás en su intervalo (con $0\notin[a_0^-,a_0^+]$). La familia es \clave{robustamente estable} si todos sus polinomios son Hurwitz.
+\end{definicion}
+
+\begin{definicion}[label=def:es-kharitonov]{Teorema de Kharitonov}
+Una familia de polinomios de intervalo es robustamente estable \alerta{si y solo si} son Hurwitz los cuatro polinomios
+\[
+\begin{aligned}
+  K_1(s)&=a_n^-+a_{n-1}^-\,s+a_{n-2}^+\,s^2+a_{n-3}^+\,s^3+a_{n-4}^-\,s^4+a_{n-5}^-\,s^5+\cdots\\
+  K_2(s)&=a_n^++a_{n-1}^+\,s+a_{n-2}^-\,s^2+a_{n-3}^-\,s^3+a_{n-4}^+\,s^4+a_{n-5}^+\,s^5+\cdots\\
+  K_3(s)&=a_n^-+a_{n-1}^+\,s+a_{n-2}^+\,s^2+a_{n-3}^-\,s^3+a_{n-4}^-\,s^4+a_{n-5}^+\,s^5+\cdots\\
+  K_4(s)&=a_n^++a_{n-1}^-\,s+a_{n-2}^-\,s^2+a_{n-3}^+\,s^3+a_{n-4}^+\,s^4+a_{n-5}^-\,s^5+\cdots
+\end{aligned}
+\]
+escritos desde el término independiente hacia arriba, con los patrones de extremos $(-,-,+,+)$, $(+,+,-,-)$, $(-,+,+,-)$ y $(+,-,-,+)$ que se repiten cada cuatro términos~\citep{Kha78}.
+\end{definicion}
+
+Infinitas verificaciones se reducen a cuatro, y a cada una se le aplica Routh-Hurwitz. ¿Por qué esos cuatro y no, simplemente, ``todos los coeficientes en el mínimo'' y ``todos en el máximo''? Porque en $s=j\omega$ el polinomio vale
+\[
+  \chi(j\omega)=\underbrace{(a_n-a_{n-2}\omega^2+a_{n-4}\omega^4-\cdots)}_{\text{parte real: coeficientes pares}}
+  +j\,\omega\underbrace{(a_{n-1}-a_{n-3}\omega^2+a_{n-5}\omega^4-\cdots)}_{\text{parte imaginaria: coeficientes impares}} ,
+\]
+con signos que se alternan de dos en dos. La parte real es mínima con $(a_n^-,a_{n-2}^+,a_{n-4}^-,\dots)$ y máxima con los extremos opuestos, y lo mismo pasa con la parte imaginaria. Para cada $\omega$, los valores de toda la familia llenan un \emph{rectángulo} del plano complejo cuyos vértices son exactamente $K_1,\dots,K_4$ (\cref{fig:es-rectangulos}). La familia pierde la estabilidad cuando algún polinomio tiene una raíz en el eje imaginario, es decir, cuando algún rectángulo toca el origen; y eso no puede pasar sin que uno de los vértices lo cruce antes.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap05/f_kharitonov}
+\caption{Valores de $\chi(j\omega)$ para la familia $[1,2]s^3+[4,5]s^2+[3,4]s+[1,2]$: para cada $\omega$ forman un rectángulo cuyos vértices (puntos de colores) son los cuatro polinomios de Kharitonov. Ningún rectángulo toca el origen: la familia es robustamente estable.}
+\label{fig:es-rectangulos}
+\end{figure}
+
+\begin{ejemplo}[label=ej:es-khar1]{Un compensador sobre una planta de intervalo}
+Sean $\Gc(s)=\dfrac{s+2}{s^2+2s+2}$ y $\Gp(s)=\dfrac{q_0}{r_0s^3+r_1s^2+r_2s+r_3}$, con $r_0\in[1,\,1.1]$, $r_1\in[4,\,4.2]$, $r_2\in[6,\,8]$, $r_3\in[10,\,20]$ y $q_0\in[3,\,5]$. ¿Es robustamente estable el lazo?
+\solucion La ecuación característica $(s^2+2s+2)(r_0s^3+r_1s^2+r_2s+r_3)+q_0(s+2)=0$ es
+\[
+  a_0s^5+a_1s^4+a_2s^3+a_3s^2+a_4s+a_5=0,
+\]
+con
+\[
+\begin{aligned}
+  a_0&=r_0\in[1,\,1.1], & a_1&=2r_0+r_1\in[6,\,6.4], & a_2&=2r_0+2r_1+r_2\in[16,\,18.6],\\
+  a_3&=2r_1+2r_2+r_3\in[30,\,44.4], & a_4&=2r_2+2r_3+q_0\in[35,\,61], & a_5&=2r_3+2q_0\in[26,\,50].
+\end{aligned}
+\]
+Los cuatro polinomios de Kharitonov son (de $s^0$ a $s^5$)
+\[
+\begin{aligned}
+  K_1&: (26,\,35,\,44.4,\,18.6,\,6,\,1) &&\text{Hurwitz}\\
+  K_2&: (50,\,61,\,30,\,16,\,6.4,\,1.1) &&\text{dos raíces en }0.364\pm j2.01\\
+  K_3&: (26,\,61,\,44.4,\,16,\,6,\,1.1) &&\text{dos raíces en }0.041\pm j2.60\\
+  K_4&: (50,\,35,\,30,\,18.6,\,6.4,\,1) &&\text{dos raíces en }0.194\pm j1.50
+\end{aligned}
+\]
+Tres de los cuatro son inestables: la familia de intervalo \alerta{no es robustamente estable}. Pero hay que tener cuidado con la conclusión: los seis coeficientes dependen de solo cinco parámetros, así que no varían independientemente, y la ``caja'' de coeficientes contiene polinomios que la planta real no puede producir. ¿Hay algún caso \emph{real} inestable? Sí: con $r_0=1$, $r_1=4$, $r_2=6$, $r_3=20$ y $q_0=5$, el lazo tiene polos en $0.033\pm j2.26$. El lazo con la planta nominal (valores centrales) sí es estable, pero el diseño no es robusto.
+\end{ejemplo}
+
+\begin{cuidado}[Cuando los coeficientes no son independientes]
+El teorema supone que cada coeficiente varía por su cuenta. Si varios coeficientes dependen de los mismos parámetros físicos, Kharitonov se aplica a una familia \emph{más grande} que la real: si dice ``robustamente estable'', la conclusión vale (la familia real está adentro); si dice ``no'', el resultado es \alerta{conservador} y hay que buscar un caso real inestable para confirmarlo.
+\end{cuidado}
+
+\begin{ejemplo}[label=ej:es-khar-diseno]{Rango robusto de ganancia}
+En el lazo de la \cref{fig:es-khar}, $r_1\in[6,\,7]$, $r_2\in[100,\,120]$ y $r_3\in[1,\,2]$. Halle el rango de $K$ para el cual el lazo es robustamente estable.
+\solucion La ecuación característica es $(s^2+r_1s+r_2)(r_3s+1)+K=0$:
+\[
+  r_3s^3+(r_1r_3+1)\,s^2+(r_2r_3+r_1)\,s+(r_2+K)=0,
+\]
+con $a_0\in[1,\,2]$, $a_1\in[7,\,15]$, $a_2\in[106,\,247]$ y $a_3\in[100+K,\,120+K]$. Para tercer orden, la condición \eqref{eq:es-tercer} es $a_1a_2>a_0a_3$, y el caso más desfavorable es el que hace el lado izquierdo mínimo y el derecho máximo: $a_1^-a_2^-$ contra $a_0^+a_3^+$. Ese es precisamente $K_4$ (los otros tres polinomios son más holgados), y da
+\[
+  7\cdot106=742>2\,(120+K)\;\Longrightarrow\;K<251 .
+\]
+Con $a_3>0$ para todos los casos, $K>-100$: Kharitonov garantiza $\alerta{-100<K<251}$.
+
+¿Qué tan conservador es? Aquí $r_3$ aparece en tres coeficientes y $r_1$, $r_2$ en dos. Haciendo la cuenta con los parámetros, la condición es $r_1r_2r_3+r_1^2+r_1/r_3>K$, cuyo mínimo (en $r_1=6$, $r_2=100$, $r_3=1$) es $642$. La familia real tolera $K<642$: Kharitonov da menos de la mitad del rango (\cref{fig:es-khar-diseno}). Con la planta nominal ($r_1=6.5$, $r_2=110$, $r_3=1.5$), Routh daría $K<1119$: diseñar con el modelo nominal sería peligroso.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.72\linewidth]{cap05/lazo_khar}
+\caption{Lazo con planta y sensor inciertos del ejemplo~\ref{ej:es-khar-diseno}.}
+\label{fig:es-khar}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap05/f_khar_diseno}
+\caption{Ejemplo~\ref{ej:es-khar-diseno}: parte real del polo más a la derecha en el peor caso de la familia real. Kharitonov garantiza $K<251$; el límite real es $642$; con el modelo nominal se creería que es $1119$.}
+\label{fig:es-khar-diseno}
+\end{figure}
+
+\codigorepo{cap05_estabilidad/C5_Ej7_Kharitonov.m}{kharitonov}{los cuatro polinomios con la función \cmd{kharitonov} y la comparación con un muestreo aleatorio}
+
+\begin{profundiza}[Menos de cuatro polinomios]
+Para órdenes bajos no hacen falta los cuatro: con $n=3$ basta revisar uno ($K_4$, el que usamos arriba), con $n=4$ dos y con $n=5$ tres; desde $n=6$ hacen falta los cuatro~\citep{AJM87}. El teorema también tiene límites: exige coeficientes independientes, y no dice nada sobre el desempeño, solo sobre la estabilidad.
+\end{profundiza}
+
+\begin{pausa}
+La familia $a_3s^3+a_2s^2+a_1s+a_0$ tiene $a_3\in[1,2]$, $a_2\in[4,5]$, $a_1\in[3,4]$ y $a_0\in[1,2]$. ¿Cuántos polinomios hay que verificar? ¿Es robustamente estable?
+\respuesta{Cuatro (y en tercer orden basta el peor, $K_4$). Peor caso de \eqref{eq:es-tercer}: $a_2^-a_1^-=4\cdot3=12>a_3^+a_0^+=2\cdot2=4$. Sí es robustamente estable.}
+\end{pausa}

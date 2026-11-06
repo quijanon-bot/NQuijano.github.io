@@ -1,0 +1,41 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[node distance=9mm, b/.style={bloque,minimum width=17mm,font=\footnotesize,align=center}]
+  % ---------------- (a) lazo abierto
+  \node[font=\footnotesize\bfseries,anchor=west] at (-0.4,1.7) {(a) Control en lazo abierto};
+  \node (r0) at (0,0) {$r(t)$};
+  \node[b,right=8mm of r0,fill=ctrlcoral!10] (c0) {controlador\\[-1pt]{\scriptsize (calibrado)}};
+  \node[b,right=of c0,fill=ctrlambar!12] (a0) {actuador};
+  \node[suma,right=8mm of a0] (s0) {};
+  \node[b,right=8mm of s0,fill=ctrlverde!10] (p0) {proceso};
+  \node[right=9mm of p0] (y0) {$y(t)$};
+  \node[above=6mm of s0,rot] (d0) {perturbación $d(t)$};
+  \draw[senal] (r0)--(c0); \draw[senal] (c0)--node[above,rot]{$u(t)$}(a0);
+  \draw[senal] (a0)--(s0); \draw[senal] (s0)--(p0); \draw[senal] (p0)--(y0);
+  \draw[senal,draw=ctrlgris] (d0)--(s0);
+  % ---------------- (b) lazo cerrado
+  \begin{scope}[yshift=-3.5cm]
+  \node[font=\footnotesize\bfseries,anchor=west] at (-0.4,1.7) {(b) Control en lazo cerrado (retroalimentación)};
+  \node (r) at (0,0) {$r(t)$};
+  \node[suma,right=6mm of r] (S) {};
+  \node[b,right=7mm of S,fill=ctrlcoral!10] (c) {controlador};
+  \node[b,right=of c,fill=ctrlambar!12] (a) {actuador};
+  \node[suma,right=8mm of a] (s1) {};
+  \node[b,right=8mm of s1,fill=ctrlverde!10] (p) {proceso};
+  \coordinate[right=6mm of p] (o); \node[right=3mm of o] (y) {$y(t)$};
+  \node[above=6mm of s1,rot] (d) {perturbación $d(t)$};
+  \node[b,below=9mm of a,fill=ctrlvioleta!8] (se) {sensor y\\[-1pt]transmisor};
+  \node[below=7mm of se,rot] (n) {ruido de medición $n(t)$};
+  \draw[senal] (r)--node[pos=0.85,above,rot]{$+$}(S);
+  \draw[senal] (S)--node[above,rot]{$e(t)$}(c);
+  \draw[senal] (c)--node[above,rot]{$u(t)$}(a);
+  \draw[senal] (a)--(s1); \draw[senal] (s1)--(p);
+  \draw[thick,draw=ctrlnoche] (p)--(o); \draw[senal] (o)--(y);
+  \draw[senal,draw=ctrlgris] (d)--(s1);
+  \draw[senal] (o)|-(se);
+  \draw[senal,draw=ctrlgris] (n)--(se);
+  \draw[senal] (se)-|node[pos=0.25,below,rot]{$y_m(t)$}node[pos=0.93,left,rot]{$-$}(S);
+  \end{scope}
+\end{tikzpicture}
+\end{document}

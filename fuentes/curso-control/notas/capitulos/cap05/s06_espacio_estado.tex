@@ -1,0 +1,62 @@
+%% ---------------------------------------------------------------------
+\section{Estabilidad en el espacio de estado}
+\label{sec:es-espacio}
+%% ---------------------------------------------------------------------
+
+Con el modelo de estado $\dot x=\Am x+\Bm u$, $y=\Cm x+\Dm u$ (capítulo~4), la respuesta natural es $x(t)=e^{\Am t}x(0)$, y sus modos son $e^{\lambda_it}$, con $\lambda_i$ los \clave{valores propios} de $\Am$: las raíces de
+\[
+  \det(s\Id-\Am)=0 .
+\]
+Como $\dfrac{Y(s)}{U(s)}=\Cm(s\Id-\Am)^{-1}\Bm+\Dm=\dfrac{\Cm\operatorname{adj}(s\Id-\Am)\Bm}{\det(s\Id-\Am)}+\Dm$, los polos de la función de transferencia están entre los valores propios de $\Am$.
+
+\begin{definicion}[label=def:es-hurwitz]{Matriz Hurwitz}
+Una matriz $\Am$ es \clave{Hurwitz} si todos sus valores propios tienen parte real negativa. El equilibrio $x=0$ de $\dot x=\Am x$ es asintóticamente estable si y solo si $\Am$ es Hurwitz. Para decidirlo sin calcular los valores propios, se aplica Routh-Hurwitz al polinomio característico $\det(s\Id-\Am)$.
+\end{definicion}
+
+\begin{ejemplo}[label=ej:es-matriz]{Routh sobre el polinomio característico}
+¿Es Hurwitz $\Am=\begin{bmatrix}0&1&0\\0&0&1\\-6&-11&-6\end{bmatrix}$?
+\solucion Está en variables de fase, así que el polinomio característico se lee en la última fila: $s^3+6s^2+11s+6$. Por \eqref{eq:es-tercer}, $6\cdot11=66>1\cdot6$: es Hurwitz. (Sus valores propios son $-1$, $-2$ y $-3$.)
+\end{ejemplo}
+
+\subsection*{Lo que la función de transferencia esconde}
+
+``Los polos están entre los valores propios'' quiere decir que pueden ser \emph{menos}: si hay cancelaciones, la función de transferencia no muestra todos los modos (\cref{sec:re-kalman}). Y un modo que no se ve puede ser inestable.
+
+\begin{ejemplo}[label=ej:es-escondido]{Un modo inestable escondido}
+Sea $\Am=\begin{bmatrix}0&1&0\\0&0&1\\2&1&-2\end{bmatrix}$, $\Bm=\begin{bmatrix}0\\0\\1\end{bmatrix}$, $\Cm=[-1\;\;0\;\;1]$.
+\solucion El polinomio característico es $s^3+2s^2-s-2=(s-1)(s+1)(s+2)$: hay un signo menos, y el valor propio $+1$ hace que el equilibrio sea \alerta{inestable}. Sin embargo, la función de transferencia es
+\[
+  \frac{Y(s)}{U(s)}=\frac{s^2-1}{(s-1)(s+1)(s+2)}=\frac{1}{s+2},
+\]
+que parece perfectamente estable. El modo $e^{t}$ está ahí: cualquier condición inicial que lo excite hace crecer los estados, aunque no se vea en la salida.
+\end{ejemplo}
+
+\begin{cuidado}[Routh sobre $\det(s\Id-\Am)$, no sobre la función de transferencia]
+Para decidir la estabilidad del \emph{equilibrio} se analiza el polinomio característico completo de $\Am$. Analizar el denominador de una función de transferencia ya simplificada solo dice si el sistema es BIBO estable \emph{entre esa entrada y esa salida}. Por la misma razón, nunca se cancela un polo inestable con un cero del controlador.
+\end{cuidado}
+
+\codigorepo{cap05_estabilidad/C5_Ej6_EspacioEstado.m}{escondido}{ejemplo~\ref{ej:es-escondido}: el modo inestable que la función de transferencia no muestra}
+
+\subsection*{Equilibrios de sistemas no lineales: el método indirecto de Lyapunov}
+
+Un sistema no lineal $\dot x=f(x,u)$ puede tener varios equilibrios. Para cada uno, la linealización de la \cref{sec:so-linealizacion} da $\dot{\dev x}=\Am\,\dev x+\Bm\,\dev u$, con $\Am=\partial f/\partial x$ evaluada en el equilibrio. El \clave{método indirecto de Lyapunov} dice:
+\begin{itemize}
+  \item si $\Am$ es Hurwitz, el equilibrio del sistema no lineal es \emph{localmente} asintóticamente estable;
+  \item si $\Am$ tiene algún valor propio con parte real positiva, el equilibrio es inestable;
+  \item si los valores propios con parte real máxima están sobre el eje imaginario, la linealización \alerta{no decide}: hay que mirar los términos no lineales.
+\end{itemize}
+
+\begin{ejemplo}[label=ej:es-pendulo]{Los dos equilibrios del péndulo}
+El péndulo con fricción $\ddot\theta=-\frac{g}{l}\sin\theta-b\,\dot\theta$, con $g/l=9.81$\,s$^{-2}$ y $b=0.5$\,s$^{-1}$, tiene equilibrios en $\theta^*=0$ (abajo) y $\theta^*=\pi$ (arriba). Decida su estabilidad.
+\solucion Con $x_1=\theta$, $x_2=\dot\theta$, el jacobiano es $\Am=\begin{bmatrix}0&1\\-\frac{g}{l}\cos\theta^*&-b\end{bmatrix}$.
+\begin{itemize}
+  \item Abajo, $\cos0=1$: $s^2+0.5s+9.81$, coeficientes positivos y segundo orden: estable. Valores propios $-0.25\pm j3.12$.
+  \item Arriba, $\cos\pi=-1$: $s^2+0.5s-9.81$, un signo menos: inestable. Valores propios $2.89$ y $-3.39$.
+\end{itemize}
+Sin fricción ($b=0$), abajo quedaría $s^2+9.81$, con valores propios sobre el eje: la linealización no decidiría (aunque, por conservación de la energía, el péndulo sin fricción es marginalmente estable).
+\end{ejemplo}
+
+\begin{pausa}
+¿Para qué valores de $a$ es Hurwitz $\Am(a)=\begin{bmatrix}0&1&0\\0&0&1\\-a&-3&-2\end{bmatrix}$? ¿A qué frecuencia oscila en el límite?
+\respuesta{$\det(s\Id-\Am)=s^3+2s^2+3s+a$. Por \eqref{eq:es-tercer}: $0<a<6$. En $a=6$ el auxiliar es $2s^2+6$: $\omega=\sqrt3=1.732$\,rad/s.}
+\end{pausa}

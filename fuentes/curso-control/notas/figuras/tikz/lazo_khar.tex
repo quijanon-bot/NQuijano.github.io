@@ -1,0 +1,22 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node (r) {$R(s)$};
+  \node[suma,right=8mm of r] (S) {};
+  \node[bloque,right=9mm of S] (K) {$K$};
+  \node[bloque,right=10mm of K] (P) {$\dfrac{1}{s^2+r_1s+r_2}$};
+  \coordinate[right=9mm of P] (y0);
+  \node[right=6mm of y0] (y) {$Y(s)$};
+  \node[bloque,below=8mm of P] (H) {$\dfrac{1}{r_3s+1}$};
+  \draw[senal] (r) -- (S);
+  \draw[senal] (S) -- (K);
+  \draw[senal] (K) -- (P);
+  \draw[senal] (P) -- (y);
+  \draw[senal] (y0) |- (H);
+  \draw[senal] (H) -| node[pos=0.95,left,rot]{$-$} (S);
+  \node[rot] at ($(S)+(-3mm,3.5mm)$) {$+$};
+  \fill (y0) circle (1.3pt);
+  \node[rot,align=center,right=4mm of H] {$r_1\in[6,7]$, $r_2\in[100,120]$\\$r_3\in[1,2]$};
+\end{tikzpicture}
+\end{document}

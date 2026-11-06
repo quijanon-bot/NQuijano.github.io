@@ -1,0 +1,63 @@
+%% ---------------------------------------------------------------------
+\section{¿Qué es estabilidad?}
+\label{sec:es-concepto}
+%% ---------------------------------------------------------------------
+
+Hasta aquí hemos analizado la respuesta transitoria: qué tan rápido responde un sistema y cuánto se pasa. Antes de preguntar \emph{cómo} llega, hay que preguntar \emph{si} llega. Esa es la pregunta de la estabilidad, y es la primera exigencia de cualquier diseño: un controlador que desestabiliza el lazo no sirve, por buenos que sean los demás números.
+
+El diccionario de la Real Academia da varias acepciones de \emph{estable}; la que nos sirve es ``que mantiene o recupera el equilibrio''. La palabra clave es \clave{equilibrio}: la estabilidad no es una propiedad del sistema sino de un \alerta{punto de equilibrio} del sistema. Un péndulo tiene dos: colgado hacia abajo, donde una perturbación pequeña se amortigua, y parado hacia arriba, donde la menor perturbación lo tumba. Usted mismo, de pie, está en un equilibrio inestable que su sistema nervioso estabiliza todo el tiempo.
+
+En un sistema lineal e invariante no forzado hay un solo equilibrio, el origen ($x=0$); con entrada constante, el equilibrio se desplaza, pero en variables desviación sigue siendo el origen. Como hay uno solo, se abusa del lenguaje y se dice ``el sistema es estable''. Lo haremos también, pero recuerde que siempre se habla del equilibrio.\nota{En sistemas no lineales el abuso no se puede cometer: un mismo sistema tiene equilibrios estables e inestables, como el péndulo (\cref{sec:es-espacio}).}
+
+\begin{definicion}[label=def:es-estabilidad]{Tres nociones de estabilidad}
+Para un sistema lineal e invariante, con su equilibrio en el origen:
+\begin{itemize}
+  \item El equilibrio es \clave{asintóticamente estable} si la respuesta natural (sin entrada, desde cualquier condición inicial) tiende a cero.
+  \item Es \clave{marginalmente estable} (estable en el sentido de Lyapunov) si la respuesta natural se mantiene acotada, pero no necesariamente tiende a cero.
+  \item Es \clave{inestable} si alguna condición inicial produce una respuesta natural que crece sin límite.
+\end{itemize}
+El sistema es \clave{BIBO estable} (\emph{bounded input, bounded output}) si toda entrada acotada produce una salida acotada.
+\end{definicion}
+
+\subsection*{Los polos lo deciden todo}
+
+La respuesta natural es una suma de \clave{modos} $e^{p_it}$, uno por cada polo $p_i$ (capítulo~2). Un polo real negativo da un modo que decae; un par $\sigma\pm j\omega$ da $e^{\sigma t}\sin(\omega t+\phi)$, que decae si $\sigma<0$, oscila con amplitud constante si $\sigma=0$ y crece si $\sigma>0$. Los polos repetidos agregan factores $t,t^2,\dots$: sobre el eje imaginario, un polo doble da $t\sin(\omega t)$, que crece aunque no haya polos en el semiplano derecho (\cref{fig:es-modos}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_modos}
+\caption{Ubicación de los polos y respuesta natural (al impulso). Solo la primera tiende a cero. La última muestra que los polos repetidos sobre el eje imaginario también desestabilizan.}
+\label{fig:es-modos}
+\end{figure}
+
+\begin{ideaclave}
+\textbf{Estabilidad y ubicación de los polos.}\enspace Sea $\Tlc(s)=N(s)/D(s)$ sin cancelaciones. El equilibrio es
+\begin{itemize}
+  \item \textbf{asintóticamente estable} si y solo si todos los polos tienen parte real negativa (semiplano izquierdo abierto). Solo en este caso el sistema es además BIBO estable;
+  \item \textbf{marginalmente estable} si no hay polos en el semiplano derecho y los que están sobre el eje imaginario son simples;
+  \item \textbf{inestable} si hay algún polo con parte real positiva o algún polo repetido sobre el eje imaginario.
+\end{itemize}
+Los \alerta{ceros no intervienen}: modifican la forma de la respuesta, no su estabilidad.
+\end{ideaclave}
+
+\begin{cuidado}[Marginal no es BIBO]
+Un sistema marginalmente estable \emph{no} es BIBO estable. El integrador $1/s$ ante un escalón da una rampa, y $1/(s^2+1)$ ante $\sin t$ da $\tfrac12(\sin t-t\cos t)$, que crece como $t/2$: la entrada excita justo el modo que no se amortigua. En diseño, ``estable'' quiere decir siempre \emph{asintóticamente} estable.
+\end{cuidado}
+
+\codigorepo{cap05_estabilidad/C5_Ej1_Modos.m}{modos}{\cref{fig:es-modos}: la respuesta natural según la ubicación de los polos}
+
+\subsection*{¿Cómo se decide?}
+
+Para saber si un equilibrio es estable hay varios caminos, y el curso los recorre casi todos:
+\begin{itemize}
+  \item \textbf{Calcular los polos} o los valores propios (\cmd{roots}, \cmd{pole}, \cmd{eig}). Con computador es lo más directo, pero no dice \emph{para qué valores de un parámetro} el lazo es estable.
+  \item \textbf{El criterio de Routh-Hurwitz} (\cref{sec:es-routh}): cuenta las raíces inestables a partir de los coeficientes, sin calcularlas. Como trabaja con los coeficientes, admite parámetros libres: es una herramienta de diseño.
+  \item \textbf{El lugar de las raíces} de Evans~\citep{Eva50}, que dibuja cómo se mueven los polos del lazo cerrado cuando cambia una ganancia.
+  \item \textbf{Los márgenes de fase y de ganancia} sobre el diagrama de Bode y el criterio de Nyquist~\citep{Nyq32,Bod40}, en el capítulo~10.
+  \item \textbf{El método de Lyapunov}~\citep{Lya92}, el más general, que sirve también para sistemas no lineales y variantes en el tiempo; en este curso usaremos su método indirecto, la linealización (\cref{sec:es-espacio}).
+\end{itemize}
+
+\begin{pausa}
+Clasifique: (a) $\dfrac{s-3}{(s+1)(s+4)}$; (b) $\dfrac{1}{s(s+2)}$; (c) $\dfrac{s+1}{(s^2+4)^2}$; (d) $\dfrac{1}{s^2-s+1}$.
+\respuesta{(a) Asintóticamente estable: el cero en $+3$ no importa. (b) Marginalmente estable: polo simple en el origen (un escalón da una rampa: no es BIBO). (c) Inestable: polos dobles en $\pm 2j$. (d) Inestable: polos en $0.5\pm j0.866$.}
+\end{pausa}

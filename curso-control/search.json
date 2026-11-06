@@ -290,37 +290,121 @@
   {
     "objectID": "partes/01-introduccion.html",
     "href": "partes/01-introduccion.html",
-    "title": "1. Introducción",
+    "title": "1. Introducción: el análisis de sistemas de control",
     "section": "",
-    "text": "Parte 1 · Semana 1IntroducciónEs que con los ojos del presente ningún pasado es tolerable… — Juan Esteban Constain",
+    "text": "Parte 1 · Semana 1Introducción: el análisis de sistemas de controlEs que con los ojos del presente ningún pasado es tolerable… — Juan Esteban Constaín\n¿Qué quiere decir analizar un sistema de control? En esta parte fijamos el vocabulario del curso, vemos con un tanque qué gana y qué cuesta la retroalimentación, aprendemos a plantear un problema de control y recorremos dos mil años de historia: de la clepsidra de Ktesibios al regulador de Watt, de Maxwell a Kalman. Terminamos con el mapa del curso.",
     "crumbs": [
       "Inicio",
       "Partes del curso",
-      "1. Introducción"
+      "1. Introducción: el análisis de sistemas de control"
     ]
   },
   {
-    "objectID": "partes/01-introduccion.html#temas",
-    "href": "partes/01-introduccion.html#temas",
-    "title": "1. Introducción",
-    "section": "Temas",
-    "text": "Temas\n\nMapa de ruta\nPalabras clave: análisis, sistemas y control\nMotivación\nEjemplos\nHistoria",
+    "objectID": "partes/01-introduccion.html#ruta-de-la-clase",
+    "href": "partes/01-introduccion.html#ruta-de-la-clase",
+    "title": "1. Introducción: el análisis de sistemas de control",
+    "section": "Ruta de la clase",
+    "text": "Ruta de la clase\n\nLea la sección del handout antes de la clase. La historia (§1.5) es de lectura.\n\n\n\n\n\n\n\n\nBloque\nQué se ve\nHandout\nScripts\n\n\n\n\n1\nAnálisis, sistema, control; retroalimentación; DUFF\n§1.1\n—\n\n\n2\nLazo abierto y lazo cerrado: el tanque con lluvia; malla abierta y lazo abierto\n§1.2\nC1_Ej1, crearModelo_TanqueLazos\n\n\n3\nDesempeño y diseño: el ascensor\n§1.3\nC1_Ej2\n\n\n4\nPlantear un problema de control: la ducha y el tanque de almacenamiento\n§1.4\nC1_Ej3\n\n\n5\nHistoria del control (lectura) y mapa del curso\n§1.5–1.6\n—",
     "crumbs": [
       "Inicio",
       "Partes del curso",
-      "1. Introducción"
+      "1. Introducción: el análisis de sistemas de control"
     ]
   },
   {
-    "objectID": "partes/01-introduccion.html#lo-que-tendrá-esta-página",
-    "href": "partes/01-introduccion.html#lo-que-tendrá-esta-página",
-    "title": "1. Introducción",
-    "section": "Lo que tendrá esta página",
-    "text": "Lo que tendrá esta página\n\nEl handout en PDF de la parte, con el formato nuevo.\nLos códigos de MATLAB y Simulink, con instrucciones y resultados esperados.\nLos videos de la parte y las pausas activas con respuesta.\nLos problemas con soluciones seleccionadas.",
+    "objectID": "partes/01-introduccion.html#lo-esencial-en-una-página",
+    "href": "partes/01-introduccion.html#lo-esencial-en-una-página",
+    "title": "1. Introducción: el análisis de sistemas de control",
+    "section": "Lo esencial, en una página",
+    "text": "Lo esencial, en una página\n\nSistema de control y retroalimentación\nUn sistema de control administra el comportamiento de otro sistema para que una salida siga una referencia o rechace perturbaciones. Retroalimentar es medir la variable controlada, compararla con lo deseado y actuar sobre el error. Richard Murray lo resumió así: control = dynamics, uncertainty, feedforward, feedback (DUFF).\n\n\n\n\n(a) Control en lazo abierto: nadie mira la salida. (b) Lazo cerrado: el sensor cierra el lazo.\n\n\n\nLo que compra la retroalimentación\nEn el tanque \\(0.5\\,\\dot h=u+d-h/R\\), calibrado para llegar a \\(1\\) m, la lluvia sube el nivel a \\(1.40\\) m en lazo abierto y a \\(1.036\\) m en lazo cerrado con \\(K_c=5\\): once veces menos, porque \\(1+KK_c=11\\). El lazo cerrado además responde once veces más rápido. El precio: un caudal inicial de \\(5.5\\) m³/min en lugar de \\(0.5\\).\n\n\n\n\nLazo abierto (coral) y cerrado (azul) ante lluvia y ante una válvula obstruida.\n\n\n\nTres nombres parecidos\nControl en lazo abierto es una estrategia sin retroalimentación. Malla abierta \\(G'(s)=G(s)H(s)\\) es lo que recorre una señal al dar la vuelta a un lazo cerrado (estabilidad, Bode). Lazo abierto \\(G_{OL}(s)\\) es la función del lazo reescrito con retroalimentación unitaria (tipo y error). En inglés, las tres se llaman open loop.\n\n\nDesempeño, análisis y diseño\nEl desempeño se mide con la estabilidad, la respuesta transitoria y el error en estado estacionario. El análisis determina el desempeño de un sistema dado; el diseño lo logra o lo modifica.\n\n\n\n\nEl ascensor: transitorio (sobrepaso, tiempo de establecimiento) y error en estado estacionario.\n\n\n\nCómo plantear un problema de control\nObjetivos · entradas (manipuladas y perturbaciones) · salidas (medidas y no medidas) · restricciones (duras y blandas) · operación (continua o por lotes) · seguridad, ambiente y economía · estructura del controlador (retroalimentación, prealimentación o ambas).\n\n\n\n\nEl mismo tanque de almacenamiento con tres estructuras de control (símbolos ISA-5.1).\n\n\n\n\n\nPrealimentación con un sensor imperfecto: sola deriva; con retroalimentación, funciona.",
     "crumbs": [
       "Inicio",
       "Partes del curso",
-      "1. Introducción"
+      "1. Introducción: el análisis de sistemas de control"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html#explorador",
+    "href": "partes/01-introduccion.html#explorador",
+    "title": "1. Introducción: el análisis de sistemas de control",
+    "section": "Explorador: lazo abierto vs lazo cerrado",
+    "text": "Explorador: lazo abierto vs lazo cerrado\nEl tanque del ejemplo 1.1. Mueva la ganancia del controlador, la lluvia, la resistencia real de la válvula de salida y el caudal máximo que puede dar la válvula de entrada.\n\n\n\nRetos con el explorador\n\nCon los valores iniciales, compruebe los números del handout: \\(1.40\\) y \\(1.036\\) m.\n¿Qué \\(K_c\\) hace que la lluvia mueva el nivel menos de 1 cm? ¿Cuánto vale el pico de \\(u\\)?\nPonga \\(K_c=20\\) y limite el caudal a \\(2\\) m³/min: ¿qué pasa con la rapidez? ¿Y con el valor final?\nPonga \\(K_c=0\\): ¿qué estrategia tiene? Cambie \\(R\\) y observe.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción: el análisis de sistemas de control"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html#historia-del-control",
+    "href": "partes/01-introduccion.html#historia-del-control",
+    "title": "1. Introducción: el análisis de sistemas de control",
+    "section": "Historia del control",
+    "text": "Historia del control\n\nEl control como tecnología tiene más de dos mil años: el regulador de flotador de la clepsidra de Ktesibios (siglo III a.C.) ya juntaba sensor, comparador y actuador. El regulador centrífugo que Watt adaptó a la máquina de vapor hacia 1788 llevó a Maxwell (1868) a la primera teoría de estabilidad, completada por Routh (1877), Vyshnegradskii (1876) y Hurwitz (1895). En el siglo XX llegaron los pilotos automáticos de Sperry, el PID de Minorsky (1922), los controladores neumáticos industriales, el amplificador retroalimentado de Black (1927), el criterio de Nyquist (1932) y los diagramas de Bode (1940–45). Después de la guerra, Wiener, Evans, la transformada \\(z\\), la fundación de IFAC (1957) y, con la carrera espacial, el espacio de estado de Kalman y el control óptimo de Pontryagin y Bellman. El handout (§1.5) cuenta la historia completa, con la referencia original de cada idea.\n\n\n\n\n\n\n\n\n\nLa máquina de vapor de Watt y su regulador centrífugo, Science Museum de Londres. Fotos del autor.\n\n\n\n\n\n\n\nAnalizador diferencial construido en Mánchester (1935) con el diseño de Vannevar Bush. Foto del autor.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción: el análisis de sistemas de control"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html#códigos-de-esta-parte",
+    "href": "partes/01-introduccion.html#códigos-de-esta-parte",
+    "title": "1. Introducción: el análisis de sistemas de control",
+    "section": "Códigos de esta parte",
+    "text": "Códigos de esta parte\nLos bloques salen directamente de los archivos del repositorio. Ejecute antes iniciarCurso.\n\nLazo abierto y cerradoAscensorPrealimentaciónPruebas\n\n\nLazo abierto calibrado (§1.2).\nArea = 0.5;  R = 2;         % m^2 y min/m^2  -&gt;  K = R = 2, tau = Area*R = 1 min\nKn = 2;                     % ganancia NOMINAL con la que se calibró\nt  = linspace(0, 10, 2001)';           % minutos\nhr = 1.0*(t &gt;= 1);                     % nivel deseado: 1 m desde t = 1 min\nd  = 0.2*(t &gt;= 5);                     % lluvia desde t = 5 min\n% Lazo abierto: u = hr/Kn (nadie mira el nivel)\nola = ss(-1/(Area*R), [1/(Area*Kn) 1/Area], 1, 0);     % entradas [hr d]\nh_ab = lsim(ola, [hr d], t);\nfprintf('Lazo abierto, lluvia:  h(10) = %.3f m\\n', h_ab(end));\nLazo cerrado y el factor \\(1+KK_c\\).\nKc = 5;                     % ganancia del controlador proporcional, m^2/min\n% Lazo cerrado: u = hr/Kn + Kc (hr - h)\n%   Area dh/dt = -(1/R + Kc) h + (1/Kn + Kc) hr + d\nlc = @(Rr) ss(-(1/Rr + Kc)/Area, [(1/Kn + Kc)/Area 1/Area], 1, 0);\nh_ce = lsim(lc(R), [hr d], t);\nu_ce = hr/Kn + Kc*(hr - h_ce);\nfprintf('Lazo cerrado, lluvia:  h(10) = %.4f m   (factor 1+K*Kc = %g)\\n', h_ce(end), 1 + R*Kc);\n% Válvula obstruida: R real = 2.4, sin lluvia (la calibración sigue con Kn = 2)\nRr = 2.4;\nh_ab2 = lsim(ss(-1/(Area*Rr), [1/(Area*Kn) 1/Area], 1, 0), [hr 0*d], t);\nh_ce2 = lsim(lc(Rr), [hr 0*d], t);\nfprintf('Obstrucción: abierto %.3f m, cerrado %.4f m\\n', h_ab2(end), h_ce2(end));\nfprintf('tau lazo cerrado = %.2f s;  u(1+) = %.2f m^3/min\\n', 60*Area*R/(1 + R*Kc), 1/Kn + Kc);   % en el instante del escalón\n\n\nTransitorio y error en estado estacionario (§1.3).\nzeta = 0.6;  wn = 0.8;  kg = 0.975;    % kg &lt; 1 produce el error final\npiso = 4;\nT = piso*kg*tf(wn^2, [1 2*zeta*wn wn^2]);\nS = stepinfo(T);   % criterio por defecto: 2 %\nfprintf('Sobrepaso %.2f %%, tp = %.2f s, ts = %.2f s\\n', S.Overshoot, S.PeakTime, S.SettlingTime);\nfprintf('Valor final %.2f pisos -&gt; error %.2f piso\\n', dcgain(T), piso - dcgain(T));\n\n\nPrealimentación, retroalimentación y las dos juntas (§1.4).\nA2 = 2;  dF1 = 0.5;  eps = 0.10;  Kc = 1;\nt   = linspace(0, 20, 2001)';\nF1  = dF1*(t &gt;= 2);                       % desviación del caudal de entrada\n% dh/dt = (F1 - F2)/A2, con F2 = ff*(1-eps)*F1 + fb*Kc*h\nmodelo = @(ff, fb) ss(-fb*Kc/A2, (1 - ff*(1 - eps))/A2, 1, 0);\nh_ff = lsim(modelo(1, 0), F1, t);\nh_fb = lsim(modelo(0, 1), F1, t);\nh_am = lsim(modelo(1, 1), F1, t);\nfprintf('Solo prealimentación: h(20) = %.3f m (deriva %.4f m/min)\\n', h_ff(end), dF1*eps/A2);\nfprintf('Solo retroalimentación: h(20) = %.3f m\\n', h_fb(end));\nfprintf('Combinadas: h(20) = %.4f m\\n', h_am(end));\n\n\nverificarCap01 comprueba los números clave del capítulo.\nfunction verificarCap01()\n% VERIFICARCAP01  Pruebas automáticas de los números del capítulo 1.\n%   &gt;&gt; verificarCap01\n% (Los mismos números se verificaron con python-control en\n%  herramientas/cap01_numeros.py.)\nfallas = 0;  n = 0;\n    function revisar(nombre, valor, esperado, tol)\n        n = n + 1;\n        if abs(valor - esperado) &lt;= tol\n            fprintf('  ok   %-40s %12.4f\\n', nombre, valor);\n        else\n            fprintf(2, '  FALLA %-39s %12.4f  (esperado %g +- %g)\\n', nombre, valor, esperado, tol);\n            fallas = fallas + 1;\n        end\n    end\n\nfprintf('1.2  Tanque en lazo abierto y cerrado\\n');\nArea = 0.5;  R = 2;  Kn = 2;  Kc = 5;\nt = linspace(0, 30, 6001)';  hr = ones(size(t));  d = 0.2*ones(size(t));\nola = @(Rr) ss(-1/(Area*Rr), [1/(Area*Kn) 1/Area], 1, 0);\nlc  = @(Rr, kc) ss(-(1/Rr + kc)/Area, [(1/Kn + kc)/Area 1/Area], 1, 0);\ny = lsim(ola(R), [hr d], t);          revisar('abierto con lluvia', y(end), 1.4, 1e-3);\ny = lsim(lc(R, Kc), [hr d], t);       revisar('cerrado con lluvia (Kc = 5)', y(end), 11.4/11, 1e-4);\ny = lsim(ola(2.4), [hr 0*d], t);      revisar('abierto con R = 2.4', y(end), 1.2, 1e-3);\ny = lsim(lc(2.4, Kc), [hr 0*d], t);   revisar('cerrado con R = 2.4', y(end), 2.4*5.5/13, 1e-4);\ny = lsim(lc(R, 1), [hr d], t);        revisar('cerrado, lluvia, Kc = 1', y(end), 3.4/3, 1e-4);\ny = lsim(lc(R, 10), [hr d], t);       revisar('cerrado, lluvia, Kc = 10', y(end), 21.4/21, 1e-4);\nrevisar('tau lazo cerrado (s)', 60*-1/pole(lc(R, Kc)), 60/11, 1e-6);\nrevisar('Kc mínimo para &lt; 1 cm', (0.4/0.01 - 1)/2, 19.5, 1e-9);\ny = lsim(ss(-(1/R + Kc)/Area, [Kc/Area 1/Area], 1, 0), [hr 0*d], t);\nrevisar('sin calibración: RKc/(1+RKc)', y(end), 10/11, 1e-4);\n\nfprintf('1.3  Ascensor\\n');\nT = 4*0.975*tf(0.64, [1 0.96 0.64]);\nS = stepinfo(T);   % criterio por defecto: 2 %\nrevisar('sobrepaso (%)', S.Overshoot, 9.48, 0.02);\nrevisar('tiempo pico (s)', S.PeakTime, pi/(0.8*0.8), 0.02);\nrevisar('tiempo de establecimiento (s)', S.SettlingTime, 7.43, 0.05);\nrevisar('valor final', dcgain(T), 3.9, 1e-9);\n\nfprintf('1.4  Prealimentación y ganancia de proceso\\n');\nA2 = 2;  eps = 0.1;  t = linspace(0, 18, 3601)';  F1 = 0.5*ones(size(t));\ny = lsim(ss(0, eps/A2, 1, 0), F1, t);        revisar('deriva en 18 min', y(end), 0.45, 1e-3);\nt = linspace(0, 60, 6001)';  F1 = 0.5*ones(size(t));\ny = lsim(ss(-1/A2, 1/A2, 1, 0), F1, t);      revisar('solo retroalimentación', y(end), 0.5, 1e-4);\ny = lsim(ss(-1/A2, eps/A2, 1, 0), F1, t);    revisar('combinadas', y(end), 0.05, 1e-4);\nrevisar('ganancia 10 C / 0.5 kW', 10/0.5, 20, 0);\n\nfprintf('\\n%d de %d pruebas pasaron.\\n', n - fallas, n);\nend",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción: el análisis de sistemas de control"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html#modelo-de-simulink",
+    "href": "partes/01-introduccion.html#modelo-de-simulink",
+    "title": "1. Introducción: el análisis de sistemas de control",
+    "section": "Modelo de Simulink",
+    "text": "Modelo de Simulink\n\nEl modelo se construye por código\n\n\n\n\n\n\n\n\nScript\nModelo\nPara qué\n\n\n\n\ncrearModelo_TanqueLazos.m\nel mismo tanque en lazo abierto (ganancia Calibracion) y en lazo cerrado (Kc), con lluvia activable (Lluvia)\najustar a mano la calibración, encender la lluvia, intentar compensarla a mano y comparar con la retroalimentación\n\n\n\nCorra el script y se crea el .slx.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción: el análisis de sistemas de control"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html#pausas-activas",
+    "href": "partes/01-introduccion.html#pausas-activas",
+    "title": "1. Introducción: el análisis de sistemas de control",
+    "section": "Pausas activas",
+    "text": "Pausas activas\n\n1. Manejar un carro\nCuando usted conduce por una carretera con curvas, ¿quién hace de sensor, de controlador y de actuador?\n\n\nRespuesta\n\nLos ojos son el sensor; el cerebro compara la posición con el centro del carril (la referencia) y decide; los brazos y el timón son el actuador. El viento y los baches son perturbaciones. Si cierra los ojos, el lazo se abre.\n\n\n\n2. Precisión a la fuerza\n¿Qué \\(K_c\\) hace falta para que la lluvia mueva el nivel del tanque menos de 1 cm?\n\n\nRespuesta\n\n\\(0.4/(1+2K_c)&lt;0.01\\), es decir \\(K_c&gt;19.5\\). Con \\(K_c=20\\), el caudal inicial es \\(20.5\\) m³/min: cuarenta veces el de lazo abierto.\n\n\n\n3. Ktesibios, Watt y Black\n¿Qué tienen en común la clepsidra, el regulador de Watt y el amplificador de Black?\n\n\nRespuesta\n\nLos tres son lazos cerrados con retroalimentación negativa: el flotador, las bolas y la red \\(\\beta\\) miden la salida; y la válvula de entrada, la válvula de vapor y los tubos de vacío actúan.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción: el análisis de sistemas de control"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html#problemas",
+    "href": "partes/01-introduccion.html#problemas",
+    "title": "1. Introducción: el análisis de sistemas de control",
+    "section": "Problemas",
+    "text": "Problemas\nEl handout trae 8 problemas (clasificar lazos, el tanque en detalle con saturación, plantear un problema de control, ganancia del proceso, prealimentación, moderadores y reguladores de Maxwell, el ascensor y un ensayo histórico), con soluciones seleccionadas.\nIr a los problemas (PDF, §1.8)",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción: el análisis de sistemas de control"
+    ]
+  },
+  {
+    "objectID": "partes/01-introduccion.html#para-leer-más",
+    "href": "partes/01-introduccion.html#para-leer-más",
+    "title": "1. Introducción: el análisis de sistemas de control",
+    "section": "Para leer más",
+    "text": "Para leer más\n\nK. J. Åström y P. R. Kumar, “Control: a perspective”, Automatica 50(1), 2014.\nO. Mayr, The Origins of Feedback Control, MIT Press, 1971.\nS. Bennett, A History of Control Engineering (1800–1930 y 1930–1955), IET.\nC. C. Bissell, “A history of automatic control”, Springer Handbook of Automation, 2009.\nD. S. Bernstein, “A student’s guide to classical control”, IEEE Control Systems Magazine 17(4), 1997.\nN. Quijano y C. Cotrino, “Control and automation evolution in Colombia”, CCAC 2023.\n\n\nCorrecciones respecto a la versión anterior\nWatt no patentó el regulador centrífugo (Mead lo patentó para molinos en 1787). Sperry voló en París en 1914, no en 1912. Minorsky propuso el PID y analizó su estabilidad, sin ubicación de polos. Bode publicó en 1940–45 (1934 es la teoría de servomecanismos de Hazen). IFAC se fundó en 1957 con 18 países; RIAS en 1955. Stabilog, Dantzig y Vannevar, bien escritos. \\(G(s)H(s)\\) es la malla abierta. El ejemplo del tanque ahora compara lazo abierto y cerrado con números verificados.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "1. Introducción: el análisis de sistemas de control"
     ]
   },
   {
@@ -460,7 +544,7 @@
     "href": "partes/05-estabilidad.html",
     "title": "5. Estabilidad",
     "section": "",
-    "text": "Parte 5 · Semana 6EstabilidadEn la cocina, la educación y el amor la rapidez va en contra del placer y la calidad. — Julián de Zubiría Samper",
+    "text": "Parte 5 · Semana 6EstabilidadEn la cocina, la educación y el amor la rapidez va en contra del placer y la calidad. — Julián de Zubiría Samper\nAntes de preguntar cómo llega la salida a la referencia hay que preguntar si llega. En esta parte definimos con cuidado qué es un equilibrio estable, vemos por qué todo lo decide la ubicación de los polos, y aprendemos el criterio de Routh-Hurwitz, que cuenta las raíces inestables sin calcularlas. Como trabaja con los coeficientes, Routh-Hurwitz sirve para diseñar: rangos de ganancia, ganancia y frecuencia críticas, regiones de un PI. Terminamos con la estabilidad en el espacio de estado y con la robustez: el teorema de Kharitonov reduce infinitas verificaciones a cuatro.",
     "crumbs": [
       "Inicio",
       "Partes del curso",
@@ -468,11 +552,11 @@
     ]
   },
   {
-    "objectID": "partes/05-estabilidad.html#temas",
-    "href": "partes/05-estabilidad.html#temas",
+    "objectID": "partes/05-estabilidad.html#ruta-de-las-clases",
+    "href": "partes/05-estabilidad.html#ruta-de-las-clases",
     "title": "5. Estabilidad",
-    "section": "Temas",
-    "text": "Temas\n\nHistoria\nCriterio de Routh-Hurwitz\nEstabilidad en el espacio de estado\nRobustez y estabilidad: Kharitonov",
+    "section": "Ruta de las clases",
+    "text": "Ruta de las clases\n\nLea la sección del handout antes de cada clase.\n\n\n\n\n\n\n\n\nClase\nQué se ve\nHandout\nScripts\n\n\n\n\n1\nQué es estabilidad; modos y polos; historia; condición necesaria; tabla de Routh; casos especiales\n§5.1–5.4\nC5_Ej1–C5_Ej3\n\n\n2\nRango de ganancia, \\(\\Kcr\\) y \\(\\wcr\\); planta inestable; región de un PI; estabilidad relativa; espacio de estado y linealización; Kharitonov\n§5.5–5.7\nC5_Ej4–C5_Ej7, crearModelo_LazoPI",
     "crumbs": [
       "Inicio",
       "Partes del curso",
@@ -480,11 +564,71 @@
     ]
   },
   {
-    "objectID": "partes/05-estabilidad.html#lo-que-tendrá-esta-página",
-    "href": "partes/05-estabilidad.html#lo-que-tendrá-esta-página",
+    "objectID": "partes/05-estabilidad.html#lo-esencial-en-una-página",
+    "href": "partes/05-estabilidad.html#lo-esencial-en-una-página",
     "title": "5. Estabilidad",
-    "section": "Lo que tendrá esta página",
-    "text": "Lo que tendrá esta página\n\nEl handout en PDF de la parte, con el formato nuevo.\nLos códigos de MATLAB y Simulink, con instrucciones y resultados esperados.\nLos videos de la parte y las pausas activas con respuesta.\nLos problemas con soluciones seleccionadas.",
+    "section": "Lo esencial, en una página",
+    "text": "Lo esencial, en una página\n\nEstabilidad y polos\nLa estabilidad es una propiedad del equilibrio. Con \\(\\Tlc(s)=N(s)/D(s)\\) sin cancelaciones:\n\nasintóticamente estable (y BIBO) si y solo si todos los polos tienen parte real negativa;\nmarginalmente estable si no hay polos en el semiplano derecho y los del eje imaginario son simples;\ninestable si hay polos con parte real positiva o polos repetidos sobre el eje imaginario.\n\nLos ceros no intervienen.\n\n\n\n\nUbicación de los polos y respuesta natural. Solo la primera tiende a cero.\n\n\n\nMarginal no es BIBO\n\\(1/(s^2+1)\\) ante \\(\\sin t\\) da \\(\\tfrac12(\\sin t-t\\cos t)\\), que crece sin límite. En diseño, “estable” quiere decir siempre asintóticamente estable.\n\n\nCriterio de Routh-Hurwitz\nPara \\(a_0s^n+a_1s^{n-1}+\\cdots+a_n=0\\) se arma la tabla\n\\[\n\\begin{array}{c|cccc}\n  s^n     & a_0 & a_2 & a_4 & \\cdots\\\\\n  s^{n-1} & a_1 & a_3 & a_5 & \\cdots\\\\\n  s^{n-2} & b_1 & b_2 & \\cdots\\\\\n  \\vdots\n\\end{array}\n\\qquad b_1=\\frac{a_1a_2-a_0a_3}{a_1},\\quad b_2=\\frac{a_1a_4-a_0a_5}{a_1},\\ \\dots\n\\]\nEl número de raíces con parte real positiva es el número de cambios de signo en la primera columna. Condición necesaria: todos los coeficientes presentes y del mismo signo (suficiente solo para \\(n\\le2\\)). Para \\(n=3\\): \\(a_1a_2&gt;a_0a_3\\).\n\n\nLos dos casos especiales\n\nCero solo en la primera columna: se reemplaza por \\(\\epsilon&gt;0\\) pequeño y se sigue.\nFila completa de ceros: la fila de arriba es el polinomio auxiliar \\(P(s)\\) (raíces simétricas respecto al origen, que se pueden calcular); se reemplaza la fila de ceros por \\(\\mathrm{d}P/\\mathrm{d}s\\).\n\n\n\nRouth-Hurwitz para diseñar\nCon un parámetro en la ecuación característica, las condiciones de la tabla dan un rango. La fila que se anula da la ganancia crítica \\(\\Kcr\\) y el polinomio auxiliar, la frecuencia \\(\\wcr\\) de la oscilación sostenida: los mismos números de Ziegler-Nichols (parte 8) y del margen de ganancia (parte 10). Con el cambio \\(s=z-\\sigma\\) se exige que todos los polos estén a la izquierda de \\(-\\sigma\\).\n\n\n\n\nPor debajo de \\(\\Kcr\\) la oscilación se amortigua, en \\(\\Kcr\\) se sostiene y por encima crece.\n\n\n\n\n\nRegión de estabilidad de un PI en el plano \\((\\Kc,K_i)\\) y tres puntos simulados: adentro, en la frontera y afuera.\n\n\n\nRouth sobre \\(\\det(s\\Id-\\Am)\\)\nLa función de transferencia solo muestra los modos controlables y observables. \\(\\Am=\\begin{bmatrix}0&1&0\\\\0&0&1\\\\2&1&-2\\end{bmatrix}\\) tiene un valor propio en \\(+1\\), y sin embargo con \\(\\Cm=[-1\\;\\;0\\;\\;1]\\) la función de transferencia es \\(1/(s+2)\\). La estabilidad del equilibrio se decide con el polinomio característico de \\(\\Am\\). Linealizando un sistema no lineal, si \\(\\Am\\) es Hurwitz el equilibrio es localmente estable (método indirecto de Lyapunov).\n\n\nTeorema de Kharitonov\nUna familia de polinomios cuyos coeficientes varían independientemente en intervalos \\([a_k^-,a_k^+]\\) es robustamente estable si y solo si son Hurwitz cuatro polinomios, construidos desde el término independiente con los patrones de extremos \\((-,-,+,+)\\), \\((+,+,-,-)\\), \\((-,+,+,-)\\) y \\((+,-,-,+)\\). Si los coeficientes dependen de los mismos parámetros, el resultado es conservador.\n\n\n\n\nPara cada \\(\\omega\\), los valores \\(\\chi(j\\omega)\\) de la familia llenan un rectángulo cuyos vértices son los cuatro polinomios de Kharitonov.\n\n\n\n\n\nRango robusto de \\(K\\): Kharitonov garantiza \\(K&lt;251\\), el límite real es \\(642\\) y el modelo nominal haría creer que es \\(1119\\).",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "5. Estabilidad"
+    ]
+  },
+  {
+    "objectID": "partes/05-estabilidad.html#explorador",
+    "href": "partes/05-estabilidad.html#explorador",
+    "title": "5. Estabilidad",
+    "section": "Explorador de Routh-Hurwitz",
+    "text": "Explorador de Routh-Hurwitz\nLazo con retroalimentación unitaria y malla abierta \\(\\Gma(s)=K\\,N(s)/D(s)\\). Escoja un lazo del handout (o escriba el suyo), mueva \\(K\\) y observe la tabla de Routh, los cambios de signo y los polos del lazo cerrado. El rango estable se calcula con un barrido numérico de \\(K\\).\n\n\n\nRetos con el explorador\n\nCon el ejemplo 5.6, lleve \\(K\\) a \\(23.83\\): ¿qué fila de la tabla se anula? ¿Dónde quedan los polos?\nCon el ejemplo 5.7, busque el \\(K\\) que deja el polo más lento lo más a la izquierda posible. ¿Coincide con \\(K\\approx3.07\\)?\nCon el problema 5.3, ponga \\(K=-20\\): ¿cuántos cambios de signo hay y dónde está el polo inestable?\nEn “Propio”, escriba \\(N=1\\) y \\(D=1\\;\\,7\\;\\,6\\;\\,42\\;\\,8\\;\\,56\\) con \\(K=0\\): aparece la fila de ceros del ejemplo 5.4.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "5. Estabilidad"
+    ]
+  },
+  {
+    "objectID": "partes/05-estabilidad.html#códigos-de-esta-parte",
+    "href": "partes/05-estabilidad.html#códigos-de-esta-parte",
+    "title": "5. Estabilidad",
+    "section": "Códigos de esta parte",
+    "text": "Códigos de esta parte\nLos bloques salen directamente de los archivos del repositorio. Ejecute antes iniciarCurso.\n\nModosRouth-HurwitzDiseñoEspacio de estadoKharitonovPruebas\n\n\nLa respuesta natural según los polos (§5.1).\ns = tf('s');\nsistemas = {1/(s + 1), 1/(s^2 + 1), 1/(s - 1), 1/(s^2 + 1)^2};\ntitulos  = {'polo en -1', 'polos en \\pm j', 'polo en +1', 'polos dobles en \\pm j'};\nt = linspace(0, 15, 1501);\nfor k = 1:4\n    disp(titulos{k});  disp(pole(sistemas{k}).')       % ubicación de los polos\n    y{k} = impulse(sistemas{k}, t);                     % respuesta natural (impulso)\nend\nMarginal no es BIBO.\nu = sin(t);                                  % entrada acotada a la frecuencia del polo\nyr = lsim(1/(s^2 + 1), u, t);                % marginal: la salida crece sin límite\nmax(abs(yr))                                 % crece como t/2: no es BIBO estable\n\n\nLa tabla y el conteo de cambios de signo (§5.3).\np = [1 2 3 4 5];             % s^4 + 2s^3 + 3s^2 + 4s + 5\ntablaRouth(p)                % imprime la tabla y cuenta los cambios de signo\nroots(p)                     % dos raíces con parte real positiva\n\nq = [1 1 2 8];               % todos los coeficientes positivos...\n[~, cambios] = tablaRouth(q) % ... y aun así dos raíces inestables\nroots(q)\nCasos especiales (§5.4).\np1 = [1 2 4 8 10 6];\ntablaRouth(p1)               % el 0 de la fila s^3 se reemplaza por epsilon\nroots(p1)\np2 = [1 7 6 42 8 56];\ntablaRouth(p2)               % la fila s^3 se anula: derivada del auxiliar\naux = [7 0 42 0 56];         % fila s^4: 7s^4 + 42s^2 + 56\nroots(aux)                   % +-j1.414 y +-j2: también son raíces de p2\nroots(p2)\nLa función del curso tablaRouth.\nfunction [T, cambios, notas] = tablaRouth(p, epsilon)\n% TABLAROUTH  Tabla de Routh-Hurwitz de un polinomio (coeficientes en orden\n% descendente, como en roots/poly) y número de cambios de signo en la\n% primera columna (= número de raíces con parte real positiva).\n%   [T, cambios, notas] = tablaRouth([1 2 3 4 5])\n%   Casos especiales (sección 5.4 de las notas):\n%     - cero en la primera columna: se reemplaza por epsilon (por defecto 1e-6);\n%     - fila completa de ceros: se reemplaza por la derivada del polinomio\n%       auxiliar (la fila anterior), que contiene las raíces simétricas.\n%   Sin salidas, imprime la tabla.  Es numérica: para tablas con parámetros\n%   (K, Kc, Ki) haga la tabla a mano o con syms.\nif nargin &lt; 2, epsilon = 1e-6; end\np = p(:).';  n = numel(p) - 1;  ancho = ceil((n + 1)/2);\nT = zeros(n + 1, ancho);\nf0 = p(1:2:end);  f1 = p(2:2:end);\nT(1, 1:numel(f0)) = f0;  T(2, 1:numel(f1)) = f1;\nnotas = {};  tol = 1e-12*max(1, max(abs(p)));\nfor i = 2:n+1\n    if i &gt; 2\n        a = T(i-2, :);  b = T(i-1, :);\n        for k = 1:ancho-1\n            T(i, k) = (b(1)*a(k+1) - a(1)*b(k+1))/b(1);\n        end\n    end\n    if all(abs(T(i, :)) &lt; tol) && i &lt;= n      % fila de ceros: polinomio auxiliar\n        orden = n - i + 2;                        % grado del auxiliar (fila i-1)\n        T(i, :) = T(i-1, :).*(orden - 2*(0:ancho-1));\n        notas{end+1} = sprintf('fila s^%d de ceros: derivada del auxiliar de grado %d', n-i+1, orden); %#ok&lt;AGROW&gt;\n    end\n    if abs(T(i, 1)) &lt; tol && i &lt;= n           % cero solo en la primera columna\n        T(i, 1) = epsilon;\n        notas{end+1} = sprintf('cero en la primera columna de s^%d: se usa epsilon', n-i+1); %#ok&lt;AGROW&gt;\n    end\nend\ncol = T(:, 1);\ncambios = sum(sign(col(1:end-1)) .* sign(col(2:end)) &lt; 0);\nif nargout == 0\n    for i = 1:n+1\n        fprintf('  s^%-2d |', n-i+1);  fprintf(' %10.4g', T(i, :));  fprintf('\\n');\n    end\n    for k = 1:numel(notas), fprintf('  (%s)\\n', notas{k}); end\n    fprintf('  cambios de signo en la primera columna: %d\\n', cambios);\n    clear T\nend\nend\n\n\nRango de \\(\\Kc\\), \\(\\Kcr\\) y \\(\\wcr\\) (§5.5).\ns = tf('s');\nG = 0.016/(3*s + 1) * 50/(30*s + 1);       % camino directo (sin Kc)\nH = 1/(10*s + 1);                          % sensor\nden = conv(conv([3 1], [30 1]), [10 1]);   % 900s^3 + 420s^2 + 43s + 1\n% ecuación característica: 900s^3 + 420s^2 + 43s + (1 + 0.8 Kc) = 0\nKcr = (420*43/900 - 1)/0.8                 % fila s^1 = 0  -&gt;  23.83\nwcr = sqrt((1 + 0.8*Kcr)/420)              % auxiliar 420s^2 + (1+0.8Kcr) = 0\nPcr = 2*pi/wcr\n[GM, PM, wgm] = margin(G*H)                % GM = Kcr, wgm = wcr\nEstabilizar una planta inestable.\nP = 1/((s - 1)*(s^2 + 2*s + 2));           % planta inestable\nfor K = [2.9 3.2 3.48 3.6]\n    T = feedback(K*(s + 2)/(s + 3)*P, 1);\n    fprintf('K = %4.2f   max Re(polos) = %+.4f\\n', K, max(real(pole(T))));\nend\n% Routh: K &gt; 3 (fila s^0) y K^2 + 16K - 68 &lt; 0 (fila s^1) -&gt; 3 &lt; K &lt; 3.4891\nKmax = -8 + 2*sqrt(33)\nRegión de estabilidad de un PI.\nKc = linspace(-1, 9, 201);\nKimax = (1 + Kc).*(9 - Kc)/8;               % frontera de la fila s^1\nfig = estiloFigura(1000, 440);\nsubplot(1, 2, 1);\nfill([Kc fliplr(Kc)], [Kimax zeros(size(Kc))], [0.85 0.9 1]);  hold on;\nplot([5 5 5], [1 3 4], 'o', 'MarkerFaceColor', 'auto');\nxlabel('K_c');  ylabel('K_i');  title('región estable');  grid on;\n\n\nValores propios y polinomio característico (§5.6).\nA = [0 1 0; 0 0 1; -6 -11 -6];\neig(A)                       % -1, -2, -3: A es Hurwitz\npoly(A)                      % s^3 + 6s^2 + 11s + 6\ntablaRouth(poly(A))          % lo mismo, sin calcular las raíces\nEl modo inestable escondido.\nAu = [0 1 0; 0 0 1; 2 1 -2];  B = [0; 0; 1];  C = [-1 0 1];\neig(Au)                      % 1, -1, -2: el equilibrio es INESTABLE\nG = minreal(tf(ss(Au, B, C, 0)))   % 1/(s+2): ¡parece estable!\nLos dos equilibrios del péndulo.\ngl = 9.81;  b = 0.5;         % theta'' = -(g/l) sin(theta) - b theta'\nfor th = [0 pi]\n    J = [0 1; -gl*cos(th) -b];          % jacobiano evaluado en el equilibrio\n    fprintf('theta* = %4.2f  -&gt;  valores propios:', th);  disp(eig(J).');\nend\n\n\nLos cuatro polinomios y un muestreo aleatorio (§5.7).\nbajo = [1 4 3 1];  alto = [2 5 4 2];       % a3 s^3 + a2 s^2 + a1 s + a0\nP = kharitonov(bajo, alto)                 % cuatro filas = cuatro polinomios\nesHurwitz = @(p) all(real(roots(p)) &lt; 0);\nrobusto = all(arrayfun(@(k) esHurwitz(P(k, :)), 1:4))\n% Muestreo aleatorio: 2000 polinomios de la familia\nN = 2000;  peor = -inf;\nfor k = 1:N\n    p = bajo + rand(1, 4).*(alto - bajo);\n    peor = max(peor, max(real(roots(p))));\nend\npeor                                       % &lt; 0, pero no es una PRUEBA\nRango robusto de ganancia y conservadurismo.\n% (s^2 + r1 s + r2)(r3 s + 1) + K = r3 s^3 + (r1 r3 + 1)s^2 + (r2 r3 + r1)s + (r2 + K)\nfor K = [200 250 300]\n    bajo = [1  7 106 100 + K];  alto = [2 15 247 120 + K];\n    P = kharitonov(bajo, alto);\n    fprintf('K = %3d: Kharitonov -&gt;', K);  fprintf(' %d', arrayfun(@(k) esHurwitz(P(k, :)), 1:4));  fprintf('\\n');\nend\n% La familia real (r1, r2, r3 entran en varios coeficientes a la vez):\n[r1, r2, r3] = ndgrid(linspace(6, 7, 6), linspace(100, 120, 6), linspace(1, 2, 11));\nKreal = min(r1(:).*r2(:).*r3(:) + r1(:).^2 + r1(:)./r3(:))   % 642\nLa función del curso kharitonov.\nfunction P = kharitonov(bajo, alto)\n% KHARITONOV  Los cuatro polinomios de Kharitonov de una familia de intervalo.\n%   P = kharitonov(bajo, alto)\n%   bajo, alto: coeficientes mínimos y máximos en orden DESCENDENTE\n%   (como en roots/poly): [a0 a1 ... an] para a0 s^n + ... + an.\n%   P: matriz 4 x (n+1); cada fila es un polinomio en orden descendente.\n%   Se construyen desde el término independiente hacia arriba con los\n%   patrones (-,-,+,+), (+,+,-,-), (-,+,+,-), (+,-,-,+) que se repiten.\n%   La familia es robustamente estable si y solo si las cuatro filas son Hurwitz:\n%       all(arrayfun(@(k) all(real(roots(P(k,:))) &lt; 0), 1:4))\npatrones = [0 0 1 1; 1 1 0 0; 0 1 1 0; 1 0 0 1];   % 0 = mínimo, 1 = máximo\nlo = fliplr(bajo(:).');  hi = fliplr(alto(:).');   % ascendente: an, a(n-1), ...\nm = numel(lo);  P = zeros(4, m);\nfor k = 1:4\n    usarAlto = logical(patrones(k, mod(0:m-1, 4) + 1));\n    asc = lo;  asc(usarAlto) = hi(usarAlto);\n    P(k, :) = fliplr(asc);\nend\nend\n\n\nverificarCap05 comprueba los números clave del capítulo.\nfunction verificarCap05()\n% VERIFICARCAP05  Pruebas automáticas de los números del capítulo 5.\n%   &gt;&gt; verificarCap05\n% (Los mismos números se verificaron con sympy y python-control en\n%  herramientas/cap05_numeros.py.)\nraiz = fileparts(mfilename('fullpath'));\naddpath(fullfile(raiz, '..', 'comun'));\nfallas = 0;  n = 0;\n    function revisar(nombre, valor, esperado, tol)\n        n = n + 1;\n        if abs(valor - esperado) &lt;= tol\n            fprintf('  ok   %-42s %12.4f\\n', nombre, valor);\n        else\n            fprintf(2, '  FALLA %-41s %12.4f  (esperado %g +- %g)\\n', nombre, valor, esperado, tol);\n            fallas = fallas + 1;\n        end\n    end\nnInestables = @(p) sum(real(roots(p)) &gt; 1e-9);\nesHurwitz = @(p) all(real(roots(p)) &lt; 0);\n\nfprintf('5.3  Routh\\n');\n[~, c] = tablaRouth([1 2 3 4 5]);   revisar('s^4+2s^3+3s^2+4s+5: cambios', c, 2, 0);\nrevisar('   raíces inestables', nInestables([1 2 3 4 5]), 2, 0);\nrevisar('   parte real', max(real(roots([1 2 3 4 5]))), 0.2878, 1e-4);\n[~, c] = tablaRouth([1 1 2 8]);     revisar('s^3+s^2+2s+8: cambios', c, 2, 0);\n[~, c] = tablaRouth([1 2 3 4]);     revisar('s^3+2s^2+3s+4: cambios', c, 0, 0);\n\nfprintf('5.4  Casos especiales\\n');\n[~, c] = tablaRouth([1 2 4 8 10 6]);   revisar('caso 1: cambios', c, 2, 0);\nrevisar('   raíces inestables', nInestables([1 2 4 8 10 6]), 2, 0);\n[T, c] = tablaRouth([1 7 6 42 8 56]);  revisar('caso 2: cambios', c, 0, 0);\nrevisar('   fila s^3 = [28 84]', T(3, 2), 84, 1e-9);\nrevisar('   fila s^1', T(5, 1), 28/3, 1e-9);\nrevisar('   |raíz| mayor en el eje', max(abs(imag(roots([1 7 6 42 8 56])))), 2, 1e-6);\n[~, c] = tablaRouth([1 0 0 0 4]);      revisar('s^4+4: cambios', c, 2, 0);\n[~, c] = tablaRouth([1 2 1 2]);        revisar('s^3+2s^2+s+2: cambios', c, 0, 0);\n\nfprintf('5.5  Diseño\\n');\nKcr = (420*43/900 - 1)/0.8;            revisar('Kcr (tres primer orden)', Kcr, 23.8333, 1e-4);\nrevisar('wcr', sqrt((1 + 0.8*Kcr)/420), 0.21858, 1e-5);\nrevisar('margin GM = Kcr', margin(tf(0.8, [900 420 43 1])), Kcr, 1e-3);\nrevisar('Kmax planta inestable', -8 + 2*sqrt(33), 3.4891, 1e-4);\nrevisar('K = 3.2 estable', esHurwitz([1 4 3 3.2-2 2*3.2-6]), 1, 0);\nrevisar('K = 3.6 inestable', esHurwitz([1 4 3 3.6-2 2*3.6-6]), 0, 0);\nrevisar('PI frontera Kc=5', (1 + 5)*(9 - 5)/8, 3, 1e-12);\nrevisar('PI (5,1) estable', esHurwitz([1 4 5 12 2]), 1, 0);\nrevisar('PI (5,4) inestable', esHurwitz([1 4 5 12 8]), 0, 0);\nrevisar('PI w frontera', sqrt(2*3/((9 - 5)/2)), 1.7321, 1e-4);\nrevisar('   Kc = 10/3: polo en -0.05', max(real(roots([900 420 43 1+0.8*10/3]))), -0.05, 1e-6);\nrevisar('   Kc = 17/64: polo en -0.05', max(real(roots([900 420 43 1+0.8*17/64]))), -0.05, 1e-6);\n\nfprintf('5.6  Espacio de estado\\n');\nrevisar('eig A (máx)', max(real(eig([0 1 0; 0 0 1; -6 -11 -6]))), -1, 1e-9);\nAu = [0 1 0; 0 0 1; 2 1 -2];\nrevisar('modo escondido: max eig', max(real(eig(Au))), 1, 1e-9);\nG = minreal(tf(ss(Au, [0; 0; 1], [-1 0 1], 0)));\nrevisar('   orden de la FT', numel(pole(G)), 1, 0);\nrevisar('   polo de la FT', pole(G), -2, 1e-6);\nrevisar('péndulo arriba', max(eig([0 1; 9.81 -0.5])), 2.8921, 1e-4);\n\nfprintf('5.7  Kharitonov\\n');\nP = kharitonov([1 4 3 1], [2 5 4 2]);\nrevisar('pausa: 4 polinomios Hurwitz', sum(arrayfun(@(k) esHurwitz(P(k, :)), 1:4)), 4, 0);\nrevisar('K1 = a0- + a1- s + a2+ s^2 + a3+ s^3', P(1, 1)*1000 + P(1, 2)*100 + P(1, 3)*10 + P(1, 4), 2531, 0);\nP = kharitonov([1 6 16 30 35 26], [1.1 6.4 18.6 44.4 61 50]);\nrevisar('ejemplo 1: polinomios Hurwitz', sum(arrayfun(@(k) esHurwitz(P(k, :)), 1:4)), 1, 0);\nc = conv([1 2 2], [1 4 6 20]) + [0 0 0 0 5 10];\nrevisar('   vértice (1,4,6,20,5) inestable', esHurwitz(c), 0, 0);\nP = kharitonov([1 7 106 100+251], [2 15 247 120+251]);   % = Kharitonov(caja)\nrevisar('diseño K=251: el cuarto, en el borde', max(real(roots(P(4, :)))), 0, 1e-6);\nP = kharitonov([1 7 106 100+300], [2 15 247 120+300]);\nrevisar('diseño K=300: alguno falla', sum(arrayfun(@(k) esHurwitz(P(k, :)), 1:4)), 3, 0);\n[r1, r2, r3] = ndgrid(linspace(6, 7, 6), linspace(100, 120, 6), linspace(1, 2, 11));\nrevisar('diseño: K real máximo', min(r1(:).*r2(:).*r3(:) + r1(:).^2 + r1(:)./r3(:)), 642, 1e-9);\nrevisar('   K=641 en el peor vértice', esHurwitz([1 7 106 100+641]), 1, 0);\nrevisar('   K=643 en el peor vértice', esHurwitz([1 7 106 100+643]), 0, 0);\n\nfprintf('\\n%d de %d pruebas correctas.\\n', n - fallas, n);\nend",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "5. Estabilidad"
+    ]
+  },
+  {
+    "objectID": "partes/05-estabilidad.html#modelo-de-simulink",
+    "href": "partes/05-estabilidad.html#modelo-de-simulink",
+    "title": "5. Estabilidad",
+    "section": "Modelo de Simulink",
+    "text": "Modelo de Simulink\n\nEl modelo se construye por código\n\n\n\n\n\n\n\n\nScript\nModelo\nPara qué\n\n\n\n\ncrearModelo_LazoPI.m\nPI en forma paralela, \\(\\Gc=\\Kc+K_i/s\\), con la planta \\(2/(s^3+4s^2+5s+2)\\)\nrecorrer la región de estabilidad: un punto adentro, uno en la frontera y uno afuera; medir el periodo de la oscilación sostenida\n\n\n\nCorra el script y se crea el .slx.",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "5. Estabilidad"
+    ]
+  },
+  {
+    "objectID": "partes/05-estabilidad.html#pausas-activas",
+    "href": "partes/05-estabilidad.html#pausas-activas",
+    "title": "5. Estabilidad",
+    "section": "Pausas activas",
+    "text": "Pausas activas\n\n1. Clasifique\n\n\\(\\dfrac{s-3}{(s+1)(s+4)}\\); (b) \\(\\dfrac{1}{s(s+2)}\\); (c) \\(\\dfrac{s+1}{(s^2+4)^2}\\).\n\n\n\nRespuesta\n\n\nAsintóticamente estable: el cero en \\(+3\\) no importa. (b) Marginal: polo simple en el origen (un escalón da una rampa). (c) Inestable: polos dobles en \\(\\pm2j\\).\n\n\n\n\n2. Sin tabla\n¿Son estables \\(s^3+2s^2+3s+4\\) y \\(2s^3+s^2+3s+4\\)?\n\n\nRespuesta\n\nEl primero sí: \\(2\\cdot3=6&gt;1\\cdot4\\). El segundo no: \\(1\\cdot3=3&lt;2\\cdot4=8\\).\n\n\n\n3. Ganancia crítica\nPara \\(\\Gma(s)=\\dfrac{K}{s(s+1)(s+2)}\\) con retroalimentación unitaria, halle el rango de \\(K\\), \\(\\Kcr\\) y \\(\\wcr\\).\n\n\nRespuesta\n\n\\(s^3+3s^2+2s+K=0\\): \\(0&lt;K&lt;6\\). En \\(\\Kcr=6\\) el auxiliar \\(3s^2+6=0\\) da \\(\\wcr=\\sqrt2=1.414\\) rad/s.\n\n\n\n4. Kharitonov en tercer orden\n\\(a_3\\in[1,2]\\), \\(a_2\\in[4,5]\\), \\(a_1\\in[3,4]\\), \\(a_0\\in[1,2]\\) en \\(a_3s^3+a_2s^2+a_1s+a_0\\). ¿Es robustamente estable?\n\n\nRespuesta\n\nSí. En tercer orden basta el peor caso de \\(a_2a_1&gt;a_3a_0\\): \\(4\\cdot3=12&gt;2\\cdot2=4\\).",
+    "crumbs": [
+      "Inicio",
+      "Partes del curso",
+      "5. Estabilidad"
+    ]
+  },
+  {
+    "objectID": "partes/05-estabilidad.html#problemas",
+    "href": "partes/05-estabilidad.html#problemas",
+    "title": "5. Estabilidad",
+    "section": "Problemas",
+    "text": "Problemas\nEl handout trae 8 problemas (tablas y casos especiales, ganancia crítica, ganancias negativas y Bode, región de un PI con estabilidad relativa, estabilidad local de un sistema no lineal, matrices Hurwitz y modos escondidos, una familia de cuarto orden y una planta incierta), con soluciones seleccionadas.\nIr a los problemas (PDF, §5.9)\n\nCorrecciones respecto a la versión anterior\nSe retiró el tiempo muerto (aproximación de Padé), que el curso no cubre. La estabilidad depende solo de los polos, no de los ceros. \\(s^3+2s^2+s+2\\) es un caso de fila de ceros, no de \\(\\epsilon\\). Se resolvieron los ejemplos que no tenían solución; en el primer ejemplo de Kharitonov faltaba un intervalo y la familia no es robustamente estable; el diseño robusto da \\(-100&lt;K&lt;251\\) con Kharitonov y \\(K&lt;642\\) con la dependencia entre coeficientes. Hurwitz publicó su criterio en 1895; la anécdota del sirviente es de lord Kelvin, no de Maxwell.",
     "crumbs": [
       "Inicio",
       "Partes del curso",
@@ -724,7 +868,7 @@
     "href": "codigos.html#organización",
     "title": "Códigos de MATLAB y Simulink",
     "section": "Organización",
-    "text": "Organización\ncodigo/\n├── iniciarCurso.m\n├── comun/                       funciones que usan todos los capítulos\n│   ├── bodeAsintotico.m         Bode asintótico (ganancia, origen, polos y ceros reales)\n│   ├── margenesTabla.m          GM (dB), PM y frecuencias, con los nombres del curso\n│   ├── faseEn.m                 fase continua, para buscar frecuencias con fzero\n│   ├── pmDeZeta.m, zetaDePM.m   la relación PM &lt;-&gt; zeta\n│   ├── zetaDeOS.m               zeta a partir del sobrepico\n│   ├── segundoOrden.m           tr, tp, %OS y ts de un segundo orden (fórmulas de las notas)\n│   ├── polosDeseados.m          polos a partir de %OS y tp o ts (y un polo adicional)\n│   ├── variablesFase.m          representación de estado en variables de fase (la del curso)\n│   ├── estiloFigura.m           figuras con la paleta del curso\n│   └── abrirVideo.m             grabar videos en cualquier sistema operativo\n├── cap02_modelado_primer_orden/      C2_Ej1..Ej8 (señales, Laplace, ODE, valor final, primer orden),\n│                                     crearModelo_Termico.m, verificarCap02.m\n├── cap03_modelado_segundo_orden/     C3_Ej1..Ej8 (linealización, tanques, segundo orden, bloques, Mason,\n│                                     dominantes, reducción), reduccionMomentos.m,\n│                                     crearModelo_Tanques.m, crearModelo_Servo.m, verificarCap03.m\n├── cap09_retroalimentacion_estado/   C9_Ej1..Ej9 (Kalman, controlabilidad, Ackermann, especificaciones,\n│                                     observador, separación, acción integral), crearModelo_RetroEstado.m,\n│                                     crearModelo_Observador.m, verificarCap09.m\n└── cap10_respuesta_frecuencial/\n    ├── Clase1_RespuestaFrecuencial/   C1_Ej*.m, C1_Video_*.m, crearModelo_RespuestaSenoidal.m\n    ├── Clase2_Margenes/               C2_Ej*.m, C2_Video_*.m, crearModelo_LazoKc.m\n    ├── Clase3_LazoCerrado/            C3_Ej*.m, C3_Video_*.m\n    ├── Clase4_Compensadores/          C4_Ej*.m, disenoAdelanto.m, disenoAtraso.m, crearModelo_Compensadores.m\n    └── verificarCap10.m               pruebas automáticas de los números del capítulo",
+    "text": "Organización\ncodigo/\n├── iniciarCurso.m\n├── comun/                       funciones que usan todos los capítulos\n│   ├── bodeAsintotico.m         Bode asintótico (ganancia, origen, polos y ceros reales)\n│   ├── margenesTabla.m          GM (dB), PM y frecuencias, con los nombres del curso\n│   ├── faseEn.m                 fase continua, para buscar frecuencias con fzero\n│   ├── pmDeZeta.m, zetaDePM.m   la relación PM &lt;-&gt; zeta\n│   ├── zetaDeOS.m               zeta a partir del sobrepico\n│   ├── segundoOrden.m           tr, tp, %OS y ts de un segundo orden (fórmulas de las notas)\n│   ├── polosDeseados.m          polos a partir de %OS y tp o ts (y un polo adicional)\n│   ├── variablesFase.m          representación de estado en variables de fase (la del curso)\n│   ├── tablaRouth.m             tabla de Routh-Hurwitz y cambios de signo (con los dos casos especiales)\n│   ├── kharitonov.m             los cuatro polinomios de Kharitonov de una familia de intervalo\n│   ├── estiloFigura.m           figuras con la paleta del curso\n│   └── abrirVideo.m             grabar videos en cualquier sistema operativo\n├── cap01_introduccion/              C1_Ej1..Ej3 (tanque en lazo abierto y cerrado, ascensor, prealimentación),\n│                                     crearModelo_TanqueLazos.m, verificarCap01.m\n├── cap02_modelado_primer_orden/      C2_Ej1..Ej8 (señales, Laplace, ODE, valor final, primer orden),\n│                                     crearModelo_Termico.m, verificarCap02.m\n├── cap03_modelado_segundo_orden/     C3_Ej1..Ej8 (linealización, tanques, segundo orden, bloques, Mason,\n│                                     dominantes, reducción), reduccionMomentos.m,\n│                                     crearModelo_Tanques.m, crearModelo_Servo.m, verificarCap03.m\n├── cap05_estabilidad/              C5_Ej1..Ej7 (modos, Routh, casos especiales, rango de K, región de un PI,\n│                                     espacio de estado, Kharitonov), crearModelo_LazoPI.m, verificarCap05.m\n├── cap09_retroalimentacion_estado/   C9_Ej1..Ej9 (Kalman, controlabilidad, Ackermann, especificaciones,\n│                                     observador, separación, acción integral), crearModelo_RetroEstado.m,\n│                                     crearModelo_Observador.m, verificarCap09.m\n└── cap10_respuesta_frecuencial/\n    ├── Clase1_RespuestaFrecuencial/   C1_Ej*.m, C1_Video_*.m, crearModelo_RespuestaSenoidal.m\n    ├── Clase2_Margenes/               C2_Ej*.m, C2_Video_*.m, crearModelo_LazoKc.m\n    ├── Clase3_LazoCerrado/            C3_Ej*.m, C3_Video_*.m\n    ├── Clase4_Compensadores/          C4_Ej*.m, disenoAdelanto.m, disenoAtraso.m, crearModelo_Compensadores.m\n    └── verificarCap10.m               pruebas automáticas de los números del capítulo",
     "crumbs": [
       "Inicio",
       "Recursos",
@@ -771,7 +915,7 @@
     "href": "index.html#partes-del-curso",
     "title": "Análisis de Sistemas de Control",
     "section": "Partes del curso",
-    "text": "Partes del curso\n\n1IntroducciónSemana 1por migrar\n2Modelado I: Laplace y primer ordenSemanas 1–2completo\n3Modelado II: linealización, segundo orden, bloquesSemanas 3–4completo\n4Espacio de estadoSemanas 4–5por migrar\n5EstabilidadSemana 6por migrar\n6Error en estado estacionarioSemana 7por migrar\n7PID: nociones básicasSemana 7por migrar\n8PID: sintonización e IMCSemana 9por migrar\n9Retroalimentación de estado y observadoresSemanas 10–11completo\n10Respuesta frecuencial y diagramas de BodeSemanas 13–16piloto · completo",
+    "text": "Partes del curso\n\n1Introducción e historia del controlSemana 1completo\n2Modelado I: Laplace y primer ordenSemanas 1–2completo\n3Modelado II: linealización, segundo orden, bloquesSemanas 3–4completo\n4Espacio de estadoSemanas 4–5por migrar\n5Estabilidad: Routh-Hurwitz y KharitonovSemana 6completo\n6Error en estado estacionarioSemana 7por migrar\n7PID: nociones básicasSemana 7por migrar\n8PID: sintonización e IMCSemana 9por migrar\n9Retroalimentación de estado y observadoresSemanas 10–11completo\n10Respuesta frecuencial y diagramas de BodeSemanas 13–16piloto · completo",
     "crumbs": [
       "Inicio",
       "Análisis de Sistemas de Control"

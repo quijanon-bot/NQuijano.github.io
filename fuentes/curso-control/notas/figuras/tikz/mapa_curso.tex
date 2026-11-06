@@ -1,0 +1,18 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[c/.style={bloque,minimum width=31mm,minimum height=11mm,font=\footnotesize,align=center},
+  e/.style={font=\scriptsize,text=ctrlgris,align=center}]
+  \node[c,fill=ctrlambar!15] (c1) at (0,0) {\textbf{1} Introducción};
+  \node[c] (c2) at (0,-1.6) {\textbf{2--3} Modelado:\\Laplace, primer y segundo orden};
+  \node[c] (c4) at (8.6,-1.6) {\textbf{4} Espacio de estado};
+  \node[c,fill=ctrlverde!12] (c5) at (0,-3.2) {\textbf{5} Estabilidad};
+  \node[c,fill=ctrlverde!12] (c6) at (4.3,-3.2) {\textbf{6} Error en estado\\estacionario};
+  \node[c,fill=ctrlcoral!10] (c9) at (8.6,-3.2) {\textbf{9} Retroalimentación\\de estado y observadores};
+  \node[c,fill=ctrlcoral!10] (c7) at (0,-4.8) {\textbf{7--8} PID: nociones\\y sintonización};
+  \node[c,fill=ctrlvioleta!10] (c10) at (4.3,-4.8) {\textbf{10} Respuesta\\frecuencial y Bode};
+  \draw[senal] (c1)--(c2); \draw[senal] (c2)--node[above,e]{otra representación}(c4); \draw[senal] (c2)--(c5);
+  \draw[senal] (c5)--(c6); \draw[senal] (c5)--(c7); \draw[senal] (c6)--(c7);
+  \draw[senal] (c4)--(c9); \draw[senal] (c6)--(c10); \draw[senal] (c7)--(c10);
+\end{tikzpicture}
+\end{document}

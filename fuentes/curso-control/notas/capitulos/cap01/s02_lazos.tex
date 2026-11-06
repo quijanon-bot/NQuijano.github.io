@@ -1,0 +1,83 @@
+%% ---------------------------------------------------------------------
+\section{Lazo abierto y lazo cerrado}
+\label{sec:in-lazos}
+%% ---------------------------------------------------------------------
+
+Hay dos maneras de mandar sobre un sistema (\cref{fig:in-lazos}). En el \clave{control en lazo abierto} el controlador decide la acción sin mirar la salida: un actuador mueve el proceso según una calibración hecha de antemano. En el \clave{control en lazo cerrado} un sensor mide la salida, el comparador calcula el error $e=r-y_m$ y el controlador actúa sobre ese error.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/lazos_ab}
+\caption{(a) Control en lazo abierto: nadie mira la salida. (b) Control en lazo cerrado: el sensor cierra el lazo. Notación del curso: $r$ referencia (\emph{set point}), $e$ error, $u$ señal de control, $d$ perturbación, $y$ variable controlada, $y_m$ medición, $n$ ruido de medición.}
+\label{fig:in-lazos}
+\end{figure}
+
+Una tostadora, un semáforo de tiempos fijos o una lavadora que sigue su programa trabajan en lazo abierto: son baratos y no necesitan sensor, pero dependen de que el mundo se comporte como se supuso al calibrarlos. Un termostato, el control de crucero de un carro o el regulador de una máquina de vapor trabajan en lazo cerrado. El ejemplo siguiente pone números a la diferencia.
+
+\begin{ejemplo}[label=ej:in-tanque]{Llenar un tanque sin mirarlo y mirándolo}
+Un tanque de área $A=0.5$\,m$^2$ recibe un caudal $u(t)$ (m$^3$/min) que fijamos con una válvula, puede recibir lluvia $d(t)$ y descarga por una válvula de resistencia $R=2$\,min/m$^2$. Alrededor del punto de operación, el nivel $h$ (m) cumple
+\begin{equation}
+  A\,\frac{\dif h}{\dif t}=u+d-\frac{h}{R}
+  \quad\Longrightarrow\quad
+  \tau\frac{\dif h}{\dif t}+h=K\,(u+d),\qquad K=R=2,\quad \tau=AR=1\text{ min}.
+  \label{eq:in-tanque}
+\end{equation}
+Queremos $h=h_r=1$\,m. Compare dos estrategias: (i) lazo abierto calibrado, $u=h_r/K$; (ii) lazo cerrado, $u=h_r/K+K_c\,(h_r-h)$ con $K_c=5$. Evalúe el nivel final en tres casos: sin perturbación, con lluvia $d=0.2$\,m$^3$/min y con la válvula de salida parcialmente obstruida ($R$ sube un $20\%$, a $2.4$).
+\solucion En estado estacionario $\dif h/\dif t=0$ y \eqref{eq:in-tanque} da $h=R\,(u+d)$.
+
+\emph{Lazo abierto.} Con $u=h_r/2=0.5$: sin perturbación $h=2(0.5)=1$, perfecto; con lluvia $h=2(0.5+0.2)=1.4$\,m; con la válvula obstruida $h=2.4(0.5)=1.2$\,m. El lazo abierto es exacto \emph{solo} si el modelo es exacto y no hay perturbaciones.
+
+\emph{Lazo cerrado.} Ahora $u$ depende de $h$: $h=R\bigl(0.5+K_c(1-h)+d\bigr)$, de donde
+\begin{equation}
+  h=\frac{R\,(0.5+K_c+d)}{1+RK_c}.
+  \label{eq:in-tanquecerrado}
+\end{equation}
+Sin perturbación $h=1$; con lluvia $h=11.4/11=1.036$\,m; con la válvula obstruida $h=2.4(5.5)/13=1.015$\,m. La lluvia movía el nivel $0.4$\,m en lazo abierto y ahora lo mueve $0.4/11=0.036$\,m: \emph{once veces menos}. El $11$ es $1+KK_c$, y al producto $KK_c=10$ lo llamaremos \clave{ganancia de lazo}. La \cref{fig:in-tanque} muestra las respuestas completas.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_tanque_lazos}
+\caption{Ejemplo~\ref{ej:in-tanque}. El lazo abierto (coral) llega exacto mientras el mundo coincide con la calibración; la retroalimentación (azul) reduce el efecto de la lluvia y de la obstrucción por un factor $1+KK_c$ y, de paso, responde más rápido.}
+\label{fig:in-tanque}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej1_TanqueLazos.m}{cerrado}{ejemplo \ref{ej:in-tanque}}
+
+Hay un segundo regalo, menos evidente: el lazo cerrado es más \emph{rápido}. Si se reemplaza la ley de control en \eqref{eq:in-tanque} se obtiene $\tau\dot h+(1+KK_c)\,h=\ldots$, una constante de tiempo de $\tau/(1+KK_c)=1/11$\,min$\approx5.5$\,s en lugar de $1$\,min. Nada es gratis, sin embargo: en el instante del escalón la válvula pasa de $0.5$ a $0.5+K_c=5.5$\,m$^3$/min (\cref{fig:in-esfuerzo}). Si la válvula no da más de, digamos, $2$\,m$^3$/min, se \emph{satura} y la respuesta real será más lenta que la calculada.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\linewidth]{cap01/f_tanque_esfuerzo}
+\caption{El precio de la retroalimentación del ejemplo~\ref{ej:in-tanque} con lluvia: el caudal pedido salta a $5.5$\,m$^3$/min y luego se reduce para compensar la lluvia.}
+\label{fig:in-esfuerzo}
+\end{figure}
+
+\begin{ideaclave}
+\textbf{Lo que compra la retroalimentación.}
+Con una ganancia de lazo $KK_c$: las perturbaciones y los errores del modelo se reducen aproximadamente por $1+KK_c$, y la respuesta se acelera en la misma proporción. El precio: más esfuerzo de control, un sensor (con su ruido) y el riesgo de inestabilidad cuando la planta tiene más dinámica que la de este tanque. Con un controlador proporcional queda un error pequeño pero no nulo; anularlo es trabajo de la acción integral (capítulos~6 a~8).
+\end{ideaclave}
+
+\begin{modelo}[TanqueLazos.slx]
+\texttt{crearModelo\_TanqueLazos.m} construye el modelo de la versión anterior de estas notas, ahora con las dos ramas: el mismo tanque en lazo abierto (bloque \texttt{Calibracion}, que usted ajusta a mano) y en lazo cerrado (bloque \texttt{Kc}). La lluvia se activa con \texttt{Lluvia} $=1$ y la obstrucción cambiando \texttt{R} en el espacio de trabajo. Primero ajuste \texttt{Calibracion} para que el nivel llegue a $1$ sin lluvia; luego active la lluvia e intente, \emph{a mano}, mantener el nivel. ¿Pudo? Compare con la rama retroalimentada.
+\end{modelo}
+
+\begin{pausa}
+En el ejemplo~\ref{ej:in-tanque}, ¿qué $K_c$ hace falta para que la lluvia mueva el nivel menos de $1$\,cm? ¿Cuánto vale entonces el caudal en el instante del escalón?
+\respuesta{La desviación es $Kd/(1+KK_c)=0.4/(1+2K_c)<0.01$, es decir $K_c>19.5$. Con $K_c=20$ la desviación es $0.0098$\,m y el caudal inicial es $0.5+20=20.5$\,m$^3$/min: cuarenta veces el de lazo abierto. Pedir mucha precisión con un controlador proporcional sale caro.}
+\end{pausa}
+
+\subsection{Tres nombres parecidos}
+\label{sec:in-nombres}
+
+En español usamos ``lazo'' y ``malla'' para cosas distintas, y conviene fijarlas desde el principio porque los libros en inglés usan \emph{open loop} para las tres.
+
+\begin{definicion}[label=def:in-nombres]{Control en lazo abierto, malla abierta y lazo abierto}
+\begin{itemize}[leftmargin=1.2em]
+  \item \clave{Control en lazo abierto} (\emph{open-loop control}): una \emph{estrategia} sin retroalimentación, como la de la \cref{fig:in-lazos}(a).
+  \item \clave{Malla abierta} $\Gma(s)$: en un lazo cerrado, el producto de todo lo que recorre una señal al dar la vuelta completa, sin el signo del comparador. Si el camino directo es $G(s)$ y la retroalimentación $\Hs(s)$, $\Gma(s)=G(s)\Hs(s)$. Es la que se usa para estudiar estabilidad y la que se dibuja en el diagrama de Bode (en inglés, \emph{loop transfer function}, $L$).
+  \item \clave{Lazo abierto} $\Gla(s)$: la función que relaciona el error con la salida cuando el lazo se reescribe con retroalimentación unitaria. Se usa para el tipo del sistema y los errores en estado estacionario.
+\end{itemize}
+\end{definicion}
+
+Con $\Hs(s)=1$ la malla abierta y el lazo abierto coinciden, y por eso muchos textos los confunden; en el capítulo~\ref{cap:rf} (\cref{sec:rf-lenguaje}) se ve por qué no son lo mismo cuando el sensor tiene dinámica. La palabra ``abierto'' en los dos últimos nombres no quiere decir que el sistema funcione sin retroalimentación: describe qué parte del lazo cerrado se está mirando.

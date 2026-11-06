@@ -1,0 +1,97 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:es-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item La estabilidad es una propiedad del \emph{equilibrio}. Asintóticamente estable: la respuesta natural tiende a cero (todos los polos con parte real negativa). Marginal: se mantiene acotada (polos simples sobre el eje imaginario). Solo la asintótica garantiza BIBO. Los ceros no intervienen.
+  \item La estabilidad del lazo se decide en la ecuación característica $1+\Gma(s)=0$.
+  \item Condición necesaria: todos los coeficientes presentes y del mismo signo. Suficiente solo para $n\le2$; para $n=3$, además, $a_1a_2>a_0a_3$.
+  \item Routh-Hurwitz: el número de raíces con parte real positiva es el número de cambios de signo en la primera columna. Cero aislado en la primera columna: $\epsilon$. Fila de ceros: polinomio auxiliar (raíces simétricas, que se pueden calcular).
+  \item Con parámetros en los coeficientes, la tabla da rangos y regiones de diseño. La fila que se anula da $\Kcr$ y el auxiliar, $\wcr$: los mismos números de Ziegler-Nichols y del margen de ganancia. Con $s=z-\sigma$ se exige un margen de estabilidad.
+  \item En el espacio de estado se analiza $\det(s\Id-\Am)$, no una función de transferencia simplificada: puede esconder modos inestables. Linealizando, $\Am$ Hurwitz implica estabilidad local del equilibrio no lineal.
+  \item Kharitonov: una familia de intervalo es robustamente estable si y solo si cuatro polinomios lo son. Si los coeficientes dependen de los mismos parámetros, el resultado es conservador.
+\end{enumerate}
+\end{parallevar}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
+(i) Se retiró la sección de tiempo muerto (aproximación de Padé) y sus dos ejercicios: el curso no cubre retardos. (ii) ``Estable si todos los polos y ceros están en el semiplano izquierdo'' $\to$ solo los polos. (iii) $s^3+2s^2+s+2$ es un caso de fila de ceros, no de $\epsilon$; el auxiliar da las raíces $\pm j$. (iv) Se resolvieron los ejemplos que no tenían solución ($s^5+7s^4+6s^3+42s^2+8s+56$, el primer ejemplo de Kharitonov y el diseño robusto). (v) En el primer ejemplo de Kharitonov faltaba el intervalo de $a_4\in[35,61]$, y la familia \emph{no} es robustamente estable. (vi) El rango robusto del diseño es $-100<K<251$ por Kharitonov y $K<642$ con la dependencia entre coeficientes. (vii) $C(s)/R(s)\to Y(s)/R(s)$; Kharitanov $\to$ Kharitonov. (viii) Historia: Hurwitz publicó en 1895 en \emph{Mathematische Annalen}; el premio Adams de Routh fue en 1877; la anécdota del sirviente es de lord Kelvin. Todos los números se verificaron con \texttt{herramientas/cap05\_numeros.py} y \cmd{verificarCap05.m}.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:es-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización.
+
+\subsection*{El criterio}
+
+\begin{problema}[tablas]\label{prob:es-tablas}
+Construya la tabla de Routh, cuente las raíces con parte real positiva y clasifique el equilibrio (asintóticamente estable, marginal o inestable): (a) $s^4+3s^3+3s^2+2s+1$; (b) $s^5+2s^4+3s^3+6s^2+2s+1$; (c) $s^5+3s^4+5s^3+15s^2+4s+12$; (d) $s^4+2s^3-3s^2+4s+5$. En (d) justifique \emph{sin} construir la tabla completa. En (c) identifique el polinomio auxiliar y calcule las raíces que están sobre el eje imaginario. \etiquetaM{} Verifique con \cmd{tablaRouth} y \cmd{roots}.
+\end{problema}
+
+\begin{problema}[ganancia crítica]\label{prob:es-critica}
+Con retroalimentación unitaria negativa: (i) $\Gma(s)=\dfrac{K}{s(s+2)(s+5)}$; (ii) $\Gma(s)=\dfrac{K(s+1)}{s(s-1)(s+6)}$. (a) Escriba las ecuaciones características. (b) Halle el rango de $K$ para estabilidad asintótica. (c) Para (i), halle $\Kcr$ y la frecuencia de la oscilación sostenida. (d) \etiquetaM{} Simule (i) ante un escalón con $K=0.5\Kcr$, $\Kcr$ y $1.5\Kcr$ y mida el periodo en el caso crítico. (e) Explique por qué en (ii) aparece una cota \emph{inferior} para $K$ y verifíquelo ubicando los polos para tres valores de $K$.
+\end{problema}
+
+\begin{problema}[ganancias negativas y Bode]\label{prob:es-bode}
+Para $\Gma(s)=\dfrac{K}{(s+1)(s+3)(s+5)}$, con $K\in\mathbb{R}$: (a) halle el rango de $K$ (incluidos los negativos); (b) $\Kcr>0$ y la frecuencia de oscilación; (c) ¿cuántos polos en el semiplano derecho hay con $K=-20$? (d) \etiquetaM{} Con $K=1$, compare $\Kcr$ y $\wcr$ con lo que da \cmd{margin}. ¿Por qué el margen de ganancia no le dice nada sobre la cota negativa?
+\end{problema}
+
+\subsection*{Diseño}
+
+\begin{problema}[región de un PI]\label{prob:es-pi}
+La planta $\Gp(s)=\dfrac{1}{(s+1)(s+2)}$ se controla con $\Gc(s)=\Kc+K_i/s$ y retroalimentación unitaria. (a) Halle las condiciones sobre $\Kc$ y $K_i$ para estabilidad asintótica. (b) Dibuje la región en el plano $(\Kc,K_i)$. (c) \etiquetaM{} Escoja un punto adentro, uno sobre la frontera y uno afuera, y simule. (d) Sobre la frontera, calcule la frecuencia de la oscilación con el auxiliar y compárela con la simulación. (e) Exija que todos los polos tengan parte real menor o igual a $-0.5$ con $s=z-0.5$, y superponga la nueva región. (f) \etiquetaM{} Tome un punto de la región de (b) que no esté en la de (e), simule y explique qué hace inaceptable el diseño.
+\end{problema}
+
+\begin{problema}[estabilidad local]\label{prob:es-local}
+El sistema $\dot x_1=x_2$, $\dot x_2=-2x_1+x_1^2-c\,x_2$ tiene equilibrios en $x^*=(0,0)$ y $x^*=(2,0)$. (a) Linealice alrededor de cada uno. (b) Con $c=1$, decida la estabilidad de cada equilibrio con Routh-Hurwitz y con los valores propios. (c) ¿Qué dice la linealización si $c=0$? (d) \etiquetaM{} Simule el sistema no lineal con $c=1$ desde $(0.5,0)$ y desde $(2.1,0)$ y relacione lo que ve con (b).
+\end{problema}
+
+\subsection*{Espacio de estado}
+
+\begin{problema}[matrices Hurwitz]\label{prob:es-matrices}
+(a) Decida si $\Am_1=\begin{bmatrix}0&1&0\\0&0&1\\-6&-11&-6\end{bmatrix}$ y $\Am_2=\begin{bmatrix}-1&2\\3&-4\end{bmatrix}$ son Hurwitz, con Routh sobre $\det(s\Id-\Am)$ y con los valores propios. (b) Halle el rango de $a$ para el que $\Am_3(a)=\begin{bmatrix}0&1&0\\0&0&1\\-a&-3&-2\end{bmatrix}$ es Hurwitz. (c) \etiquetaM{} En el límite superior, calcule la frecuencia de oscilación con el auxiliar y verifíquela simulando desde $x(0)=[1\;\;0\;\;0]^\top$. (d) Con $\Am_1$, $\Bm=[0\;\;0\;\;1]^\top$ y $\Dm=0$, encuentre un $\Cm$ para el que la función de transferencia tenga \emph{menos} polos que valores propios tiene $\Am_1$. ¿Por qué Routh sobre esa función de transferencia no basta para hablar del equilibrio?
+\end{problema}
+
+\subsection*{Robustez}
+
+\begin{problema}[familia de cuarto orden]\label{prob:es-familia}
+Sea $\chi(s)=a_0s^4+a_1s^3+a_2s^2+a_3s+a_4$ con $a_0\in[1,1.2]$, $a_1\in[4,5]$, $a_2\in[6,8]$, $a_3\in[3,4]$, $a_4\in[1,2]$. (a) Escriba los cuatro polinomios de Kharitonov. (b) Aplique Routh a cada uno y concluya. (c) \etiquetaM{} Genere 2000 polinomios aleatorios de la familia y verifique que ninguno es inestable; compare el costo con (b). (d) Repita (a)--(b) con $a_3\in[0.2,4]$. (e) Si la respuesta a (d) es negativa, muestre un polinomio inestable de la familia y sus raíces.
+\end{problema}
+
+\begin{problema}[planta incierta]\label{prob:es-incierta}
+\etiquetaEstrella{} Con $\Gc=K$ y $\Gp(s)=\dfrac{1}{s^3+r_1s^2+r_2s+r_3}$, $r_1\in[6,7]$, $r_2\in[100,120]$, $r_3\in[1,2]$: (a) escriba el polinomio característico y los intervalos de sus coeficientes; (b) con Kharitonov, halle el rango robusto de $K$ y diga qué polinomio impone la restricción; (c) compare con el rango de la planta nominal ($6.5$, $110$, $1.5$); (d) escoja un $K$ admisible para la nominal pero no para la familia y muestre un caso inestable; (e) \etiquetaM{} recorra los ocho vértices $(r_1,r_2,r_3)$ y verifique el peor caso. (f) ¿Es conservador aquí el resultado de Kharitonov? Compare con el ejemplo~\ref{ej:es-khar-diseno}.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:es-tablas}}
+(a) Sin cambios: asintóticamente estable. (b) Un cero en la fila $s^3$ ($\epsilon$) y dos cambios: inestable, raíces $0.096\pm j1.62$. (c) Fila $s^3$ de ceros; auxiliar $3s^4+15s^2+12=3(s^2+1)(s^2+4)$: raíces $\pm j$ y $\pm2j$, sin cambios: marginalmente estable ($s^5+\dots=(s+3)(s^2+1)(s^2+4)$). (d) Hay un coeficiente negativo: no es estable (la tabla da dos cambios: $0.956\pm j1.115$).
+
+\paragraph{Problema~\ref{prob:es-critica}}
+(i) $s^3+7s^2+10s+K$: $0<K<70$; $\Kcr=70$, auxiliar $7s^2+70$, $\wcr=\sqrt{10}=3.16$\,rad/s ($\Pcr=1.99$\,s). (ii) $s^3+5s^2+(K-6)s+K$: $K>0$ y $\frac{5(K-6)-K}{5}>0$, o sea $K>7.5$. Con poca ganancia el polo en $+1$ no alcanza a moverse al semiplano izquierdo.
+
+\paragraph{Problema~\ref{prob:es-bode}}
+(a) $s^3+9s^2+23s+15+K$: $-15<K<192$. (b) $\Kcr=192$, $\wcr=\sqrt{23}=4.80$\,rad/s. (c) Con $K=-20$ el término independiente es $-5$: un cambio de signo, un polo en $+0.20$. (d) \cmd{margin} da $\GM=192$ en $4.80$\,rad/s; la cota negativa corresponde a un polo que cruza por el origen ($\omega=0$), que el margen de ganancia (definido en el cruce de $-180^\circ$) no mira.
+
+\paragraph{Problema~\ref{prob:es-pi}}
+(a) $s^3+3s^2+(2+\Kc)s+K_i$: $K_i>0$ y $K_i<3(2+\Kc)$. (d) Sobre la frontera, el auxiliar $3s^2+K_i$ da $\omega=\sqrt{2+\Kc}$. (e) $z^3+1.5z^2+(\Kc-0.25)z+(K_i-\Kc/2-0.375)$: $\frac{\Kc}{2}+0.375<K_i<2\Kc$. (f) Por ejemplo $(\Kc,K_i)=(2,5)$: estable, pero con polos en $-0.39\pm j1.45$, poco amortiguados.
+
+\paragraph{Problema~\ref{prob:es-local}}
+(a) $\Am=\begin{bmatrix}0&1\\-2+2x_1^*&-c\end{bmatrix}$. (b) En $(0,0)$: $s^2+s+2$, estable ($-0.5\pm j1.32$). En $(2,0)$: $s^2+s-2$, inestable ($1$ y $-2$). (c) Con $c=0$, en el origen los valores propios son $\pm j\sqrt2$: la linealización no decide.
+
+\paragraph{Problema~\ref{prob:es-matrices}}
+(a) $\Am_1$: $s^3+6s^2+11s+6$, Hurwitz. $\Am_2$: $s^2+5s-2$, no ($0.372$ y $-5.372$). (b) $0<a<6$. (c) $\omega=\sqrt3$. (d) Por ejemplo $\Cm=[2\;\;3\;\;1]$: el numerador $s^2+3s+2=(s+1)(s+2)$ cancela dos polos y queda $1/(s+3)$.
+
+\paragraph{Problema~\ref{prob:es-familia}}
+(b) Los cuatro son Hurwitz: robustamente estable. (d) Con $a_3\in[0.2,4]$, $K_1$ y $K_4$ son inestables. (e) $K_1$: $s^4+5s^3+8s^2+0.2s+1$, con raíces $0.026\pm j0.350$.
+
+\paragraph{Problema~\ref{prob:es-incierta}}
+(a) $s^3+r_1s^2+r_2s+(r_3+K)$, con coeficientes independientes. (b) Peor caso de \eqref{eq:es-tercer}: $6\cdot100>2+K$: $-1<K<598$. (c) Nominal: $-1.5<K<713.5$. (f) No es conservador: cada coeficiente depende de un solo parámetro, y el peor vértice es una planta real.
+
+\respuestaspausas

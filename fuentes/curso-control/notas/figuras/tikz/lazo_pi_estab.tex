@@ -1,0 +1,29 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node (r) {$R(s)$};
+  \node[suma,right=8mm of r] (S) {};
+  \coordinate[right=7mm of S] (b);
+  \node[bloque,above right=3mm and 8mm of b,minimum width=11mm] (I) {$\dfrac{K_i}{s}$};
+  \node[bloque,below right=3mm and 8mm of b,minimum width=11mm] (P) {$\Kc$};
+  \node[suma,right=28mm of S] (U) {};
+  \node[bloque,right=9mm of U] (G) {$\dfrac{2}{s^3+4s^2+5s+2}$};
+  \coordinate[right=8mm of G] (y0);
+  \node[right=6mm of y0] (y) {$Y(s)$};
+  \coordinate[below=19mm of y0] (abajo);
+  \draw[senal] (r) -- (S);
+  \draw[thick,draw=ctrlnoche] (S) -- (b);
+  \draw[senal] (b) |- (I);
+  \draw[senal] (b) |- (P);
+  \draw[senal] (I) -| node[pos=0.9,right,rot]{$+$} (U);
+  \draw[senal] (P) -| node[pos=0.9,right,rot]{$+$} (U);
+  \draw[senal] (U) -- node[above,rot]{$U$} (G);
+  \draw[senal] (G) -- (y);
+  \draw[thick,draw=ctrlnoche] (y0) -- (abajo);
+  \draw[senal] (abajo) -| node[pos=0.95,left,rot]{$-$} (S);
+  \node[rot] at ($(S)+(-3mm,3.5mm)$) {$+$};
+  \fill (y0) circle (1.3pt);
+  \node[rot] at ($(b)!0.5!(U)+(0,15mm)$) {$\Gc(s)=\Kc+K_i/s$};
+\end{tikzpicture}
+\end{document}

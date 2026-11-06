@@ -1,0 +1,82 @@
+%% ---------------------------------------------------------------------
+\section{Los dos casos especiales}
+\label{sec:es-casos}
+%% ---------------------------------------------------------------------
+
+La regla para construir la tabla divide por el primer elemento de la fila anterior. Si ese elemento es cero, hay que hacer algo. Hay dos situaciones distintas, y conviene no confundirlas.
+
+\subsection*{Caso 1: un cero en la primera columna, con el resto de la fila distinto de cero}
+
+Se reemplaza el cero por un número pequeño y positivo $\epsilon$, se sigue construyendo la tabla y se cuentan los cambios de signo haciendo $\epsilon\to0^+$.
+
+\begin{ejemplo}[label=ej:es-caso1]{Un cero que se vuelve $\epsilon$}
+Analice $s^5+2s^4+4s^3+8s^2+10s+6=0$.
+\solucion
+\[
+\begin{array}{c|ccc}
+  s^5 & 1 & 4 & 10\\
+  s^4 & 2 & 8 & 6\\
+  s^3 & 0\;\to\;\epsilon & 7 & 0\\
+  s^2 & 8-\dfrac{14}{\epsilon} & 6\\[6pt]
+  s^1 & \approx 7 & \\
+  s^0 & 6
+\end{array}
+\]
+La fila $s^3$ vale $\bigl[\frac{2\cdot4-1\cdot8}{2},\,\frac{2\cdot10-1\cdot6}{2}\bigr]=[0,\,7]$: solo el primer elemento es cero. Con $\epsilon\to0^+$, el elemento de $s^2$ es muy negativo y el de $s^1$, $\dfrac{(8-14/\epsilon)\,7-6\epsilon}{8-14/\epsilon}$, tiende a $7$. La primera columna queda $+,+,+,-,+,+$: \alerta{dos cambios de signo}, dos raíces inestables ($0.484\pm j1.738$).
+\end{ejemplo}
+
+\subsection*{Caso 2: una fila completa de ceros}
+
+Una fila entera se anula cuando el polinomio tiene un factor \clave{par} (solo potencias pares de $s$), cuyas raíces son simétricas respecto al origen (\cref{fig:es-simetricas}): reales y opuestas (A), imaginarias puras (B) o en cuadrante, $\pm\sigma\pm j\omega$ (C). Ese factor es el \clave{polinomio auxiliar} $P(s)$, que se lee en la fila \emph{anterior} a la de ceros. Se reemplaza la fila de ceros por los coeficientes de $\dif P/\dif s$ y se sigue.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.36\linewidth]{cap05/raices_simetricas}
+\caption{Raíces simétricas respecto al origen que producen una fila de ceros: reales (A), imaginarias (B) o en cuadrante (C).}
+\label{fig:es-simetricas}
+\end{figure}
+
+\begin{ideaclave}
+\textbf{Cómo leer el caso 2.}\enspace \begin{itemize}
+  \item Las raíces del polinomio auxiliar son raíces del polinomio original, y se pueden calcular: $P(s)$ tiene grado par y solo potencias pares.
+  \item Los cambios de signo \emph{desde la fila del auxiliar hacia abajo} cuentan las raíces del auxiliar con parte real positiva; como son simétricas, hay el mismo número con parte real negativa, y las que faltan están sobre el eje imaginario.
+  \item Si no hay cambios de signo y el auxiliar tiene raíces imaginarias simples, el equilibrio es \alerta{marginalmente estable}.
+\end{itemize}
+\end{ideaclave}
+
+\begin{ejemplo}[label=ej:es-caso2]{Raíces sobre el eje imaginario}
+Analice $s^5+7s^4+6s^3+42s^2+8s+56=0$.
+\solucion
+\[
+\begin{array}{c|ccc}
+  s^5 & 1 & 6 & 8\\
+  s^4 & 7 & 42 & 56\\
+  s^3 & 0\;\to\;28 & 0\;\to\;84 & \\
+  s^2 & 21 & 56\\
+  s^1 & 28/3\\
+  s^0 & 56
+\end{array}
+\]
+La fila $s^3$ es toda cero: $\frac{7\cdot6-1\cdot42}{7}=0$ y $\frac{7\cdot8-1\cdot56}{7}=0$. El auxiliar es la fila $s^4$: $P(s)=7s^4+42s^2+56=7(s^2+2)(s^2+4)$, y su derivada $28s^3+84s$ da la nueva fila. No hay cambios de signo, así que no hay raíces en el semiplano derecho; las cuatro raíces del auxiliar están sobre el eje: $\pm j\sqrt2$ y $\pm 2j$. La quinta es $-7$. El equilibrio es \alerta{marginalmente estable}: la respuesta natural oscila con dos frecuencias sin amortiguarse.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:es-caso2b]{Un caso 2 que parece caso 1}
+Analice $s^3+2s^2+s+2=0$.
+\solucion La fila $s^1$ vale $\frac{2\cdot1-1\cdot2}{2}=0$, y como es su único elemento, es una \emph{fila completa} de ceros: caso 2, no caso 1. El auxiliar es $2s^2+2$, con derivada $4s$:
+\[
+\begin{array}{c|cc}
+  s^3 & 1 & 1\\
+  s^2 & 2 & 2\\
+  s^1 & 0\;\to\;4\\
+  s^0 & 2
+\end{array}
+\]
+Sin cambios de signo y auxiliar $2(s^2+1)$: raíces $\pm j$ y $-2$. Marginalmente estable. (Reemplazar el cero por $\epsilon$ da los mismos signos, pero esconde la información importante: dónde están las raíces del eje y a qué frecuencia oscilará el sistema.)
+\end{ejemplo}
+
+\codigorepo{cap05_estabilidad/C5_Ej3_CasosEspeciales.m}{caso2}{ejemplo~\ref{ej:es-caso2}: el polinomio auxiliar y sus raíces}
+
+\begin{pausa}
+Analice $s^4+4=0$. Antes de hacer la tabla, ¿qué puede decir solo con mirar los coeficientes?
+\respuesta{Faltan los términos en $s^3$, $s^2$ y $s$: no es asintóticamente estable. Toda la fila $s^3$ es cero; el auxiliar es $s^4+4$, con derivada $4s^3$. La fila $s^2$ queda $[0,\,4]$ (caso 1: $\epsilon$) y la fila $s^1$, $-16/\epsilon$. Dos cambios de signo: dos raíces en el semiplano derecho. Son $\pm1\pm j$, en cuadrante (tipo C).}
+\end{pausa}

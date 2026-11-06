@@ -23,25 +23,17 @@
 %% las cajas de compatibilidad, pero conviene migrarlos uno a uno siguiendo
 %% el piloto (capítulo 10) y la guía notas/MIGRACION.md.
 %% ---------------------------------------------------------------------
-% Mientras se migran los demás, se fija el número de cada capítulo migrado
-% para que coincida con el del curso (y con las rutas de la página web).
-\setcounter{chapter}{0}
+% Primera versión completa (noviembre de 2026): los diez capítulos en el formato nuevo.
 \input{capitulos/01_introduccion}                   % migrado (Introduccion.tex)
-\setcounter{chapter}{1}
 \input{capitulos/02_modelado_primer_orden}          % migrado (Handout2_CtrlParte1.tex)
 \input{capitulos/03_modelado_segundo_orden}         % migrado (Handout2_CtrlParte2.tex)
-% \input{capitulos/04_espacio_estado}               % por migrar (Handout3_Ctrl.tex)
-\setcounter{chapter}{4}
+\input{capitulos/04_espacio_estado}                 % migrado (Handout3_Ctrl.tex)
 \input{capitulos/05_estabilidad}                    % migrado (Handout4_Ctrl.tex)
-% \input{capitulos/06_error}                        % por migrar (Handout5_Ctrl.tex)
-\setcounter{chapter}{6}
+\input{capitulos/06_error}                          % migrado (Handout5_Ctrl.tex)
 \input{capitulos/07_pid_nociones}                   % migrado (Handout6a_Ctrl.tex)
-\setcounter{chapter}{7}
 \input{capitulos/08_pid_sintonizacion}              % migrado (Handout6b_Ctrl.tex)
-\setcounter{chapter}{8}
 \input{capitulos/09_retroalimentacion_estado}       % migrado (Handout7_Ctrl.tex)
-\setcounter{chapter}{9}
-\input{capitulos/10_respuesta_frecuencial}          % PILOTO (formato nuevo)
+\input{capitulos/10_respuesta_frecuencial}          % piloto del formato nuevo (Handout8_Ctrl.tex)
 
 
 \bibliographystyle{plainnat}

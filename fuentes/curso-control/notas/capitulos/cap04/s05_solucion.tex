@@ -1,0 +1,50 @@
+%% ---------------------------------------------------------------------
+\section{Solución de la ecuación de estado}
+\label{sec:ee-solucion}
+%% ---------------------------------------------------------------------
+
+\paragraph{Respuesta libre.} Empecemos sin entrada: $\dot x=\Am x$, con $x(0)$ conocido. Integrando a ambos lados, $x(t)=x(0)+\int_0^t\Am x(\tau)\,\dif\tau$; reemplazando $x(\tau)$ por esa misma expresión una y otra vez,
+\[
+  x(t)=\Bigl(\Id+\Am t+\frac{\Am^2t^2}{2!}+\frac{\Am^3t^3}{3!}+\cdots\Bigr)x(0).
+\]
+La serie es la de la exponencial, ahora con una matriz:
+\begin{equation}
+  x(t)=e^{\Am t}x(0)=\Phi(t)\,x(0) .
+  \label{eq:ee-libre}
+\end{equation}
+
+\begin{definicion}[label=def:ee-transicion]{Matriz de transición de estado}
+$\Phi(t)=e^{\Am t}=\displaystyle\sum_{k=0}^{\infty}\frac{\Am^kt^k}{k!}$ es la \textbf{matriz de transición de estado}: lleva el estado del instante $0$ al instante $t$. Cumple
+\[
+  \Phi(0)=\Id,\qquad \Phi^{-1}(t)=\Phi(-t),\qquad \Phi(t_1+t_2)=\Phi(t_1)\Phi(t_2),\qquad \Phi^k(t)=\Phi(kt).
+\]
+\end{definicion}
+
+Calcular $e^{\Am t}$ no es trivial: Moler y Van Loan reunieron diecinueve maneras de hacerlo, todas con algún defecto numérico~\citep{MoLo78}. A mano, la más útil es la de Laplace (\cref{sec:ee-estado-ft}); en \matlab, \cmd{expm}.
+
+\paragraph{Respuesta forzada.} Con entrada, $\dot x-\Am x=\Bm u$. Multiplicando por $e^{-\Am t}$, el lado izquierdo es $\deriv{}{t}\bigl(e^{-\Am t}x\bigr)$, y al integrar de $0$ a $t$:
+\begin{equation}
+  x(t)=\underbrace{e^{\Am t}x(0)}_{\text{respuesta libre}}+\underbrace{\int_0^te^{\Am(t-\tau)}\Bm\,u(\tau)\,\dif\tau}_{\text{respuesta forzada}},
+  \qquad y(t)=\Cm x(t)+\Dm u(t).
+  \label{eq:ee-forzada}
+\end{equation}
+Es la versión matricial de lo visto en el \cref{cap:po}: la respuesta total es la suma de la respuesta a las condiciones iniciales y la convolución de la entrada con la respuesta al impulso.
+
+\begin{ejemplo}[label=ej:ee-transicion]{Matriz de transición de un segundo orden}
+Con $\Am=\begin{bmatrix}0&1\\-2&-3\end{bmatrix}$ y $\Bm=[0\;\,1]^\top$: halle $\Phi(t)$, la respuesta al escalón unitario con $x(0)=0$ y la respuesta libre con $x(0)=[1\;\,{-1}]^\top$.
+\solucion Con el procedimiento de la \cref{sec:ee-estado-ft},
+\[
+  \Phi(t)=\begin{bmatrix}2e^{-t}-e^{-2t} & e^{-t}-e^{-2t}\\-2e^{-t}+2e^{-2t} & -e^{-t}+2e^{-2t}\end{bmatrix},
+  \qquad \Phi(0.5)=\begin{bmatrix}0.8452&0.2387\\-0.4773&0.1292\end{bmatrix}.
+\]
+Con \eqref{eq:ee-forzada} y $u=1$: $x_1(t)=\int_0^t\bigl(e^{-(t-\tau)}-e^{-2(t-\tau)}\bigr)\dif\tau=\frac12-e^{-t}+\frac12e^{-2t}$, y $x_2=\dot x_1=e^{-t}-e^{-2t}$. Con $x(0)=[1\;\,{-1}]^\top$ y sin entrada, $x(t)=e^{-t}[1\;\,{-1}]^\top$: un solo modo, porque esa condición inicial es un vector propio de $\Am$ (con valor propio $-1$).
+\end{ejemplo}
+
+\codigorepo{cap04_espacio_estado/C4_Ej3_Transicion.m}{simbolico}{$\Phi(t)$ con la resolvente y \cmd{ilaplace}}
+\codigorepo{cap04_espacio_estado/C4_Ej3_Transicion.m}{numerico}{\cmd{expm} y las propiedades de $\Phi$}
+\codigorepo{cap04_espacio_estado/C4_Ej3_Transicion.m}{forzada}{la respuesta forzada contra \cmd{lsim}}
+
+\begin{pausa}
+Si $x(0)=[1\;\,{-2}]^\top$ en el ejemplo~\ref{ej:ee-transicion}, ¿qué modo aparece?
+\respuesta{Solo $e^{-2t}$: $[1\;\,{-2}]^\top$ es vector propio de $\Am$ con valor propio $-2$ ($\Am[1\;\,{-2}]^\top=[-2\;\,4]^\top$). Entonces $x(t)=e^{-2t}[1\;\,{-2}]^\top$.}
+\end{pausa}

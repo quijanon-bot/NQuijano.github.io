@@ -2,7 +2,7 @@
 
 Curso IELE 2300, Departamento de Ingeniería Eléctrica y Electrónica, Universidad de los Andes. Nicanor Quijano.
 
-Versión **piloto** (noviembre de 2026): están completos en el formato nuevo los capítulos 1 (*Introducción e historia del control*), 2 (*Modelado I: Laplace, función de transferencia y primer orden*), 3 (*Modelado II: linealización, segundo orden y diagramas de bloques*), 5 (*Estabilidad*), 7 (*Controladores PID: nociones básicas*), 8 (*Controladores PID: sintonización*), 9 (*Retroalimentación de estado y observadores*) y 10 (*Respuesta frecuencial y diagramas de Bode*); los demás están listados en el sitio y se migran siguiendo `notas/MIGRACION.md`.
+**Primera versión completa** (noviembre de 2026): los diez capítulos están en el formato nuevo — 1 (*Introducción e historia del control*), 2 (*Modelado I: Laplace, función de transferencia y primer orden*), 3 (*Modelado II: linealización, segundo orden y diagramas de bloques*), 4 (*Representación en espacio de estado*), 5 (*Estabilidad*), 6 (*Error en estado estacionario*), 7 (*Controladores PID: nociones básicas*), 8 (*Controladores PID: sintonización*), 9 (*Retroalimentación de estado y observadores*) y 10 (*Respuesta frecuencial y diagramas de Bode*). Las correcciones hechas a los handouts anteriores están en `notas/MIGRACION.md`.
 
 ## Qué hay aquí
 
@@ -26,12 +26,12 @@ cd notas && latexmk -pdf NotasControl.tex
 quarto preview sitio
 
 # Figuras y verificación de números (Python 3 + numpy, scipy, sympy, matplotlib, control)
-python3 herramientas/cap02_figuras.py   # y cap01_, cap03_, cap05_, cap07_, cap08_, cap09_, cap10_
-python3 herramientas/cap02_numeros.py   # y cap01_, cap03_, cap05_, cap07_, cap08_, cap09_, cap10_
+python3 herramientas/cap02_figuras.py   # y cap01_ … cap10_
+python3 herramientas/cap02_numeros.py   # y cap01_ … cap10_
 herramientas/tikz.sh cap03 mason_grafo  # recompilar un diagrama TikZ
 ```
 
-En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01`, `verificarCap02`, `verificarCap03`, `verificarCap05`, `verificarCap07`, `verificarCap08`, `verificarCap09` y `verificarCap10`.
+En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01` … `verificarCap10`.
 
 ## Publicar
 

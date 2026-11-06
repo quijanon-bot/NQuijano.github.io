@@ -1,0 +1,22 @@
+%% ---------------------------------------------------------------------
+\section{Señales de prueba}
+\label{sec:er-senales}
+%% ---------------------------------------------------------------------
+
+El \clave{error en estado estacionario} es el límite del error de seguimiento cuando $t\to\infty$, ante una señal de prueba. Las tres tradicionales son (\cref{fig:er-senales}):
+\begin{itemize}
+  \item \textbf{Escalón}, $r(t)=\escalon(t)$, $R(s)=1/s$: mantener una posición o un valor constante (un satélite geoestacionario, una temperatura).
+  \item \textbf{Rampa}, $r(t)=t\,\escalon(t)$, $R(s)=1/s^2$: seguir un blanco que se mueve a velocidad constante (una antena que sigue un satélite).
+  \item \textbf{Parábola}, $r(t)=\frac{t^2}{2}\escalon(t)$, $R(s)=1/s^3$: seguir un blanco con aceleración constante.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_senales}
+\caption{Las tres señales de prueba.}
+\label{fig:er-senales}
+\end{figure}
+
+\begin{cuidado}[Primero la estabilidad]
+El teorema del valor final solo vale si $sE(s)$ tiene todos sus polos en el semiplano izquierdo, es decir, si el lazo cerrado es estable. Calcular un ``error en estado estacionario'' de un lazo inestable da un número que no significa nada. \alerta{Verifique la estabilidad primero} (\cref{cap:es}).
+\end{cuidado}

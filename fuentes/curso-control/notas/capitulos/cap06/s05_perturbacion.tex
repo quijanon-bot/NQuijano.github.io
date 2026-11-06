@@ -1,0 +1,32 @@
+%% ---------------------------------------------------------------------
+\section{Error debido a perturbaciones}
+\label{sec:er-perturbacion}
+%% ---------------------------------------------------------------------
+
+Con $R=0$ y $N=0$, \eqref{eq:er-sensitividad} da el error que deja una perturbación a la entrada del proceso:
+\begin{equation}
+  E(s)=-\frac{\Gp(s)}{1+\Gc(s)\Gp(s)}\,D(s).
+  \label{eq:er-perturbacion}
+\end{equation}
+Si la perturbación entra a la salida del proceso, $E=-\dfrac{1}{1+\Gc\Gp}D$. En los dos casos, el error ante una perturbación escalón se anula si $\Gc$ tiene un integrador: \alerta{importa dónde está el integrador}. Uno en el controlador, \emph{antes} del punto donde entra la perturbación, la rechaza; uno en la planta, después de ese punto, no.
+
+\begin{ejemplo}[label=ej:er-perturbacion]{Proporcional contra PI}
+Con $\Gp=\dfrac{1}{(s+1)(s+2)}$ y una perturbación escalón de $0.5$, halle el error con $\Gc=K$ y con $\Gc=K+K_i/s$.
+\solucion \emph{Proporcional, perturbación a la entrada}: $\ess=-0.5\,\dfrac{\Gp(0)}{1+K\Gp(0)}=-\dfrac{0.5}{2+K}$: $-0.167$, $-0.042$ y $-0.0049$ para $K=1$, $10$ y $100$. Baja con $K$ pero no se anula. \emph{A la salida}: $\ess=-\dfrac{0.5}{1+K/2}=-\dfrac{1}{2+K}$, el doble, porque la perturbación no pasa por $\Gp(0)=1/2$.
+
+\emph{PI}: $\ess=-0.5\lim_{s\to0}\dfrac{\Gp}{1+(K+K_i/s)\Gp}=-0.5\lim_{s\to0}\dfrac{s\Gp}{s+(Ks+K_i)\Gp}=0$ para cualquier $K_i\neq0$ que deje el lazo estable. Con $K=10$, la ecuación característica es $s^3+3s^2+12s+K_i=0$ y Routh exige $0<K_i<36$ (\cref{fig:er-perturbacion}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_perturbacion}
+\caption{Ejemplo~\ref{ej:er-perturbacion}: error por una perturbación escalón de $0.5$.}
+\label{fig:er-perturbacion}
+\end{figure}
+
+\codigorepo{cap06_error/C6_Ej3_Perturbacion.m}{proporcional}{el controlador proporcional, perturbación a la entrada y a la salida}
+\codigorepo{cap06_error/C6_Ej3_Perturbacion.m}{pi}{el controlador PI}
+
+\begin{modelo}[Modelo de Simulink: \texttt{crearModelo\_Perturbacion}]
+\texttt{codigo/cap06\_error/crearModelo\_Perturbacion.m} arma el lazo con un PI y una perturbación escalón de $0.5$ en $t=5$\,s. La variable \texttt{alEntrada} decide si entra a la entrada o a la salida del proceso; con \texttt{Ki = 0} el controlador es proporcional.
+\end{modelo}

@@ -1,0 +1,15 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node (r) {$R(s)$};
+  \node[suma,right=8mm of r] (S) {};
+  \node[bloque,right=10mm of S] (G) {$\dfrac{100}{s+1}$};
+  \coordinate[right=9mm of G] (y0);
+  \node[right=6mm of y0] (y) {$Y(s)$};
+  \node[bloque,below=8mm of G] (H) {$\dfrac{1}{s+5}$};
+  \draw[senal] (r)--(S); \draw[senal] (S)--node[above]{$E_a$}(G); \draw[senal] (G)--(y);
+  \draw[senal] (y0)|-(H); \draw[senal] (H)-|node[pos=0.95,left,rot]{$-$}(S);
+  \fill (y0) circle (1.3pt);
+\end{tikzpicture}
+\end{document}

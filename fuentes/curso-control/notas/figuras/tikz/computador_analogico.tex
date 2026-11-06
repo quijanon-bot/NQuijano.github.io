@@ -1,0 +1,24 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[int/.style={draw=ctrlnoche,thick,fill=ctrlazul!7,isosceles triangle,isosceles triangle apex angle=60,minimum size=10mm,inner sep=1pt},
+                    gan/.style={bloque,minimum width=9mm,minimum height=7mm}]
+  \node (u) {$u$};
+  \node[gan,right=6mm of u] (m) {$\frac1M$};
+  \node[suma,right=7mm of m] (S) {};
+  \node[int,right=9mm of S] (i1) {$\int$};
+  \node[int,right=14mm of i1] (i2) {$\int$};
+  \coordinate[right=7mm of i2] (o); \node[right=6mm of o] (y) {$y=x_1$};
+  \node[gan,below=8mm of i1] (b) {$\frac bM$};
+  \node[gan,below=8mm of b] (k) {$\frac kM$};
+  \draw[senal] (u)--(m); \draw[senal] (m)--node[above,rot]{$+$}(S);
+  \draw[senal] (S)--node[above,rot]{$\dot x_2$}(i1);
+  \draw[senal] (i1)--node[above,rot]{$x_2=\dot x_1$}(i2);
+  \draw[thick,draw=ctrlnoche] (i2)--(o); \draw[senal] (o)--(y); \fill (o) circle (1.3pt);
+  \coordinate (v) at ($(i1.east)!0.5!(i2.west)$); \fill (v) circle (1.3pt);
+  \draw[senal] (v)|-(b); \draw[senal] (o)|-(k);
+  \draw[senal] (b)-|node[pos=0.9,left,rot]{$-$}(S);
+  \draw[senal] (k)-|node[pos=0.95,right,rot]{$-$}(S);
+  \node[rot,align=left,anchor=north west] at ($(k.south west)+(-2.5,-0.2)$) {condiciones iniciales $x_1(0)$, $x_2(0)$: en los integradores};
+\end{tikzpicture}
+\end{document}

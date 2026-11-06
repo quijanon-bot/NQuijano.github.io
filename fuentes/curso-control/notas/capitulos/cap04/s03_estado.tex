@@ -1,0 +1,116 @@
+%% ---------------------------------------------------------------------
+\section{El estado de un sistema}
+\label{sec:ee-estado}
+%% ---------------------------------------------------------------------
+
+La premisa de la mecánica de Newton es que la evolución futura de un sistema queda determinada por su condición presente y por las fuerzas que actúen sobre él. Esa condición presente es el estado.
+
+\begin{definicion}[label=def:ee-estado]{Estado}
+El \textbf{estado} de un sistema dinámico es el conjunto más pequeño de variables cuyo valor en un instante $t_0$, junto con las entradas para $t\ge t_0$, determina por completo el comportamiento del sistema para todo $t\ge t_0$~\citep{Fri86}. Esas variables son las \textbf{variables de estado}; agrupadas forman el \textbf{vector de estado} $x(t)$, y el espacio $n$-dimensional cuyos ejes son las variables de estado es el \textbf{espacio de estado}.
+\end{definicion}
+
+El número de variables de estado (el \textbf{orden} del sistema) es el número de condiciones iniciales que hacen falta para resolver sus ecuaciones; es único. Las variables, en cambio, no lo son: el mismo sistema admite muchas elecciones distintas. Una regla práctica: en un sistema físico, cada elemento que almacena energía de manera independiente aporta una variable de estado (la posición de un resorte, la velocidad de una masa, la carga de un condensador, la corriente de una bobina, el nivel de un tanque).
+
+\paragraph{La forma general.} El modelo se escribe como $n$ ecuaciones de primer orden, las \textbf{ecuaciones de estado}, y una \textbf{ecuación de salida} algebraica:
+\begin{equation}
+  \dot x=f(x,u,t),\qquad y=h(x,u,t),
+  \label{eq:ee-no-lineal}
+\end{equation}
+con $x\in\mathbb R^n$, $u\in\mathbb R^m$ y $y\in\mathbb R^p$. Si el sistema es lineal e invariante en el tiempo,
+\begin{equation}
+  \boxed{\;\dot x=\Am x+\Bm u,\qquad y=\Cm x+\Dm u\;}
+  \label{eq:ee-lineal}
+\end{equation}
+donde $\Am$ ($n\times n$) es la matriz del sistema, $\Bm$ ($n\times m$) la de entrada, $\Cm$ ($p\times n$) la de salida y $\Dm$ ($p\times m$) la de transmisión directa. Este capítulo trabaja con \eqref{eq:ee-lineal}, salvo en la \cref{sec:ee-linealizacion}, donde se llega a ella desde \eqref{eq:ee-no-lineal}.
+
+\subsection{Variables de fase}
+
+Si la ecuación diferencial no tiene derivadas de la entrada,
+\begin{equation}
+  y^{(n)}+a_{n-1}y^{(n-1)}+\dots+a_1\dot y+a_0y=b_0u,
+  \label{eq:ee-edo}
+\end{equation}
+la elección más directa es tomar la salida y sus $n-1$ derivadas: las \textbf{variables de fase},
+\[
+  x_1=y,\quad x_2=\dot y,\quad\dots,\quad x_n=y^{(n-1)} .
+\]
+Cada variable es la derivada de la anterior, y la última ecuación sale de \eqref{eq:ee-edo}:
+\begin{equation}
+  \dot x=\underbrace{\begin{bmatrix}0&1&0&\cdots&0\\0&0&1&\cdots&0\\\vdots&&&\ddots&\vdots\\0&0&0&\cdots&1\\-a_0&-a_1&-a_2&\cdots&-a_{n-1}\end{bmatrix}}_{\Am}x
+  +\underbrace{\begin{bmatrix}0\\0\\\vdots\\0\\b_0\end{bmatrix}}_{\Bm}u,
+  \qquad y=\underbrace{\begin{bmatrix}1&0&\cdots&0\end{bmatrix}}_{\Cm}x .
+  \label{eq:ee-fase}
+\end{equation}
+Los coeficientes del polinomio característico aparecen, cambiados de signo, en la última fila de $\Am$.
+
+\begin{ejemplo}[label=ej:ee-masa]{Masa, resorte y amortiguador}
+Para el sistema de la \cref{fig:ee-masa}, con fricción viscosa $b\dot y$ y resorte lineal $ky$, la segunda ley de Newton da $M\ddot y+b\dot y+ky=u$. Escriba su modelo de estado.
+\solucion Es de segundo orden: dos variables de estado. Con $x_1=y$ (posición) y $x_2=\dot y$ (velocidad),
+\[
+  \dot x_1=x_2,\qquad \dot x_2=-\frac kMx_1-\frac bMx_2+\frac1Mu,\qquad y=x_1,
+\]
+es decir,
+\[
+  \Am=\begin{bmatrix}0&1\\-\dfrac kM&-\dfrac bM\end{bmatrix},\quad
+  \Bm=\begin{bmatrix}0\\\dfrac1M\end{bmatrix},\quad
+  \Cm=\begin{bmatrix}1&0\end{bmatrix},\quad \Dm=0 .
+\]
+Con $M=2$, $k=16$ y un pulso de $5$\,N durante $20$\,s, la \cref{fig:ee-masa-sim} muestra el efecto de $b$: con $b=2$ los valores propios de $\Am$ son $-0.5\pm2.78j$ y la masa oscila; con $b=16$ son reales ($-1.17$ y $-6.83$) y no hay oscilación. En los cuatro casos, la posición se asienta en $5/16=0.3125$\,m mientras dura el pulso.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.55\linewidth]{cap04/masa_resorte_u}
+\caption{Masa, resorte y amortiguador: entrada $u$ (fuerza), salida $y$ (posición).}
+\label{fig:ee-masa}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap04/f_masa_resorte}
+\caption{Ejemplo~\ref{ej:ee-masa}: posición y velocidad para cuatro valores de $b$, con $M=2$ y $k=16$.}
+\label{fig:ee-masa-sim}
+\end{figure}
+
+\codigorepo{cap04_espacio_estado/C4_Ej1_MasaResorte.m}{fase}{el modelo de estado de la masa-resorte}
+\codigorepo{cap04_espacio_estado/C4_Ej1_MasaResorte.m}{simulacion}{la simulación con \cmd{lsim} para cuatro valores de $b$}
+
+\paragraph{El computador analógico.} Una ventaja práctica del modelo de estado es que se arma con tres tipos de bloques: \textbf{integradores}, \textbf{sumadores} y \textbf{ganancias}. Así se simulaban los sistemas en los computadores analógicos, antes de los digitales: cada variable de estado es la salida de un integrador, y su condición inicial se fijaba con un potenciómetro. La \cref{fig:ee-analogico} muestra la masa-resorte armada de esa manera. Simulink conserva la misma lógica.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap04/computador_analogico}
+\caption{La masa-resorte como en un computador analógico: dos integradores en cascada, cuyas salidas son las variables de estado.}
+\label{fig:ee-analogico}
+\end{figure}
+
+\begin{modelo}[Modelo de Simulink: \texttt{crearModelo\_MasaResorte}]
+\texttt{codigo/cap04\_espacio\_estado/crearModelo\_MasaResorte.m} arma la \cref{fig:ee-analogico} con bloques \emph{Integrator}, \emph{Sum} y \emph{Gain}, y un pulso de $5$\,N durante $20$\,s. Cambie \texttt{b} en el espacio de trabajo y vuelva a simular para reproducir la \cref{fig:ee-masa-sim}.
+\end{modelo}
+
+\begin{ejemplo}[label=ej:ee-dos-masas]{Dos masas}
+En la \cref{fig:ee-dos-masas}, $M_1$ está unida a la pared por un amortiguador $b$ y a $M_2$ por un resorte $k$; la fuerza $u$ actúa sobre $M_2$. Las ecuaciones de Newton son
+\[
+  M_1\ddot y_1+b\dot y_1+k(y_1-y_2)=0,\qquad M_2\ddot y_2+k(y_2-y_1)=u .
+\]
+¿Cuántas variables de estado hacen falta? Escriba el modelo si se miden las dos posiciones.
+\solucion Las posiciones $y_1$ y $y_2$ no bastan: hay dos ecuaciones de segundo orden y hacen falta cuatro condiciones iniciales. Con $x_1=y_1$, $x_2=y_2$, $x_3=\dot y_1$ y $x_4=\dot y_2$,
+\[
+  \Am=\begin{bmatrix}0&0&1&0\\0&0&0&1\\-\dfrac k{M_1}&\dfrac k{M_1}&-\dfrac b{M_1}&0\\\dfrac k{M_2}&-\dfrac k{M_2}&0&0\end{bmatrix},\quad
+  \Bm=\begin{bmatrix}0\\0\\0\\\dfrac1{M_2}\end{bmatrix},\quad
+  \Cm=\begin{bmatrix}1&0&0&0\\0&1&0&0\end{bmatrix},\quad\Dm=0 .
+\]
+Aquí $p=2$: dos salidas.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\linewidth]{cap04/dos_masas}
+\caption{Ejemplo~\ref{ej:ee-dos-masas}: dos masas unidas por un resorte.}
+\label{fig:ee-dos-masas}
+\end{figure}
+
+\begin{pausa}
+Un circuito RLC en serie, alimentado por una fuente de voltaje, ¿cuántas variables de estado tiene? Proponga dos elecciones distintas.
+\respuesta{Dos, porque hay dos elementos que almacenan energía de forma independiente. Por ejemplo, el voltaje del condensador y la corriente de la bobina; o la carga del condensador y su derivada (que es la corriente), que son variables de fase.}
+\end{pausa}

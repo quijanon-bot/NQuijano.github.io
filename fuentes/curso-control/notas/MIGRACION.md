@@ -1,6 +1,6 @@
 # Guía para migrar un capítulo al formato nuevo
 
-El capítulo 10 (respuesta frecuencial) fue el piloto; los capítulos 1 (introducción), 2, 3 (Modelado I y II), 5 (estabilidad) y 9 (retroalimentación de estado) ya están migrados con el mismo esquema, igual que los capítulos 7 y 8 (PID). Para migrar cualquier otro:
+El capítulo 10 (respuesta frecuencial) fue el piloto. Desde noviembre de 2026 los diez capítulos están migrados con el mismo esquema (primera versión completa del libro). Esta guía queda como referencia para capítulos nuevos o para rehacer uno:
 
 1. **Copiar** el `HandoutN_Ctrl.tex` a `notas/capitulos/NN_nombre.tex` (o partirlo en `capitulos/capNN/sXX_*.tex` como el piloto).
 2. **Abrir el capítulo** con `\capitulo[cap:etiqueta]{Título}{cita}{autor}` (se conserva la cita literaria de cada capítulo) y un bloque `objetivos` con la ruta de su página web.
@@ -11,7 +11,7 @@ El capítulo 10 (respuesta frecuencial) fue el piloto; los capítulos 1 (introdu
 7. **Figuras.** Si la figura sale de un cálculo, generarla con un script (Python en `herramientas/capNN_figuras.py` o MATLAB en `codigo/`) para que sea reproducible. Diagramas de bloques: TikZ en `notas/figuras/tikz/`, compilados con `herramientas/tikz.sh capNN nombre…` (deja el PDF para las notas y el SVG para la web).
 8. **Verificar.** Recalcular todos los números con `herramientas/capNN_numeros.py` y escribir `verificarCapNN.m` con los clave; compilar; revisar.
 9. **Página web.** Copiar `sitio/partes/10-respuesta-frecuencial.qmd` (o la 02/03) como plantilla y agregar el capítulo a `NOMBRES` en `herramientas/pdf_por_capitulo.py` para que tenga su propio PDF.
-10. **Numeración.** En `NotasControl.tex`, `\setcounter{chapter}{N-1}` antes del `\input` del capítulo N mientras los anteriores no estén migrados.
+10. **Numeración.** Con los diez capítulos en orden ya no hace falta `\setcounter{chapter}`; si se inserta un capítulo nuevo, revise las rutas de la página web y de los PDF por capítulo.
 
 ## Inventario de inconsistencias encontradas (noviembre de 2026)
 
@@ -20,9 +20,9 @@ El capítulo 10 (respuesta frecuencial) fue el piloto; los capítulos 1 (introdu
 | Introducción | **migrado** (capítulo 1) |
 | Modelado I (`Handout2_CtrlParte1`) | **migrado** (capítulo 2) |
 | Modelado II (`Handout2_CtrlParte2`) | **migrado** (capítulo 3) |
-| Espacio de estado (`Handout3`) | `\bar{x}` (14) → `\eq{x}`; "tiempo de asentamiento" (1) |
+| Espacio de estado (`Handout3`) | **migrado** (capítulo 4) |
 | Estabilidad (`Handout4`) | **migrado** (capítulo 5) |
-| Error (`Handout5`) | 15 `\textcolor`; ya usa $\kappa_p$, $\kappa_v$ ✓ |
+| Error (`Handout5`) | **migrado** (capítulo 6) |
 | PID nociones (`Handout6a`) | **migrado** (capítulo 7) |
 | PID sintonización (`Handout6b`) | **migrado** (capítulo 8) |
 | Retroalimentación de estado (`Handout7`) | **migrado** (capítulo 9) |
@@ -150,3 +150,28 @@ Verificado con `herramientas/cap07_numeros.py` y `verificarCap07.m` (39/39 en Oc
 - Notación: $\tau_i,\tau_d\to T_i,T_d$; $\theta\to L$; la constante de tiempo del FOPDT es $\tau$ (no $T$, para no confundirla con $T(s)$).
 
 Verificado con `herramientas/cap08_numeros.py` y `verificarCap08.m` (67/67 en Octave 8.4).
+
+## Correcciones hechas en el capítulo 4 (espacio de estado)
+
+- **Levitador magnético**: la ecuación de estado había perdido la constante de fuerza $C$. Es $\dot x_2=g-\frac{C}{M}\frac{x_3^2}{x_1}$; el equilibrio es $x_3^*=\sqrt{Mgy^*/C}$ (no $\sqrt{Mgy^*}$) y $a_{21}=\frac{C}{M}\frac{(x_3^*)^2}{(x_1^*)^2}=g/y^*$ (en la matriz faltaba además el cuadrado de $x_3^*$); $a_{23}=-\frac{2Cx_3^*}{Mx_1^*}$. Con los datos del ejercicio: $i^*=2.215$ A, $u^*=22.15$ V, valores propios $\pm31.3$ y $-20$.
+- **Determinante por cofactores**: el segundo cofactor es $C_{22}=4$ (estaba rotulado $C_{12}$).
+- **Bioreactor**: la cuarta función de transferencia del código repetía la tercera (`numU2(1,:)` en lugar de `numU2(2,:)`); los valores del `trim` correspondían a $k_1=0.454$ y no a $0.4545$. Se recalculó todo con el jacobiano analítico: en $(0.9951,1.5122)$, $\mathbb A=[0\;-0.0679;\,-0.75\;-0.1302]$, valores propios $0.170$ y $-0.3$; en $(1.5302,0.1746)$, $-0.3$ y $-2.26$. El equilibrio $(0,4)$ (lavado) es estable.
+- **`tf2ss`**: el truco con `canon(…,'companion')` y trasposiciones dependía de la versión de MATLAB; se reemplazó por invertir el orden de los estados (`fliplr(eye(n))`).
+- **Historia**: Lefschetz dirigió el centro de matemáticas del RIAS (de la Glenn L. Martin Company), no lo creó; Pontryagin aportó el principio del máximo; lo que Kalman mostró en 1963 es la relación precisa entre función de transferencia y estado (qué parte del sistema ve cada una), no que el espacio de estado cubra "todo sistema no lineal variante". Se agregó la referencia a su trabajo del congreso de Moscú (1960).
+- **Erratas**: $k_{04}\to k_{O4}$; $x_1=y\to x_1=y_1$ (dos masas); la nota de Wikipedia sobre la adjunta se reemplazó por la definición.
+- Se retiró el resumen de los capítulos 2 y 3 que cerraba el handout. Notación: $\bar x\to x^*$ (equilibrio), $\hat x$ (desviación).
+- Nuevos: valores numéricos y figura del ciclo del carbono (conservación de la masa y valor propio nulo), figura de la masa-resorte, retrato de fase de Duffing, comparación lineal/no lineal del levitador, figura del bioreactor; funciones de reemplazo `tf2ss`/`ss2tf` para Octave.
+
+Verificado con `herramientas/cap04_numeros.py` y `verificarCap04.m` (38/38 en Octave 8.4).
+
+## Correcciones hechas en el capítulo 6 (error en estado estacionario)
+
+- **Constantes**: en las secciones de $\kappa_v$ y $\kappa_a$ se escribía $\kappa_v=\lim_{s\to0}G(s)$ y $\kappa_a=\lim_{s\to0}G(s)$ antes del desarrollo; son $\lim sG$ y $\lim s^2G$.
+- **Sensitividad complementaria**: se llamaba $C(s)$; ahora $T(s)$, que con retroalimentación unitaria es la función de lazo cerrado.
+- **Retroalimentación no unitaria**: se trata con el lazo abierto $G_{OL}=G/(1+GH-G)$ del capítulo 3 y la distinción entre error de actuación (malla abierta $GH$) y de seguimiento. El ejemplo $G=100/(s+1)$, $H=1/(s+5)$, que estaba solo enunciado, quedó resuelto: error de actuación $1/21$, error de seguimiento $-3.76$; con el sensor recalibrado ($k=4.95$) se anula.
+- **Tabla resumen**: tenía una columna vacía; se completó con $\kappa_p$, $\kappa_v$, $\kappa_a$ y con la condición de estabilidad.
+- Se retiraron los ejemplos físicos imprecisos de las constantes ("la temperatura de salida") y el código de Mathematica de las señales de prueba (ahora es una figura generada).
+- Nuevos: error por perturbaciones (P contra PI, entrada contra salida), error en espacio de estado con estado integrador, conflicto entre especificaciones y compensador de atraso, ejemplo numérico de sensitividad. Función nueva `comun/constantesError.m`.
+- Las referencias "(capítulo de error)" de los capítulos 7, 9 y 10 se cambiaron por referencias cruzadas.
+
+Verificado con `herramientas/cap06_numeros.py` y `verificarCap06.m` (45/45 en Octave 8.4).

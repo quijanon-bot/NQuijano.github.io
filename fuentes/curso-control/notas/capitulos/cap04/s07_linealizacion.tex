@@ -1,0 +1,115 @@
+%% ---------------------------------------------------------------------
+\section{Linealización en espacio de estado}
+\label{sec:ee-linealizacion}
+%% ---------------------------------------------------------------------
+
+En la \cref{sec:so-linealizacion} linealizamos ecuaciones de una variable. La representación de estado permite hacerlo con todas a la vez. Sea $\dot x=f(x,u)$, $y=h(x,u)$, y sea $(\eq x,\eq u)$ un equilibrio: $f(\eq x,\eq u)=0$. Con las variables desviación $\dev x=x-\eq x$, $\dev u=u-\eq u$ y $\dev y=y-h(\eq x,\eq u)$, la serie de Taylor de primer orden de cada componente da
+\begin{equation}
+  \dot{\dev x}=\Am\dev x+\Bm\dev u,\qquad \dev y=\Cm\dev x+\Dm\dev u,
+  \label{eq:ee-lineal-desv}
+\end{equation}
+donde cada matriz es un \textbf{jacobiano} evaluado en el equilibrio:
+\begin{equation}
+  a_{ij}=\left.\frac{\partial f_i}{\partial x_j}\right|_{\eq x,\eq u},\quad
+  b_{ij}=\left.\frac{\partial f_i}{\partial u_j}\right|_{\eq x,\eq u},\quad
+  c_{ij}=\left.\frac{\partial h_i}{\partial x_j}\right|_{\eq x,\eq u},\quad
+  d_{ij}=\left.\frac{\partial h_i}{\partial u_j}\right|_{\eq x,\eq u}.
+  \label{eq:ee-jacobianos}
+\end{equation}
+Cada equilibrio tiene su propio modelo lineal, y en general dinámicas distintas.
+
+\begin{ejemplo}[label=ej:ee-duffing]{La ecuación de Duffing}
+Para $\ddot x+\delta\dot x+x^3-x=0$ con $\delta>0$: escriba el modelo de estado, halle los equilibrios y linealice alrededor de cada uno.
+\solucion Con $x_1=x$, $x_2=\dot x$: $\dot x_1=x_2$, $\dot x_2=x_1-x_1^3-\delta x_2$. Los equilibrios cumplen $x_2=0$ y $x_1(1-x_1^2)=0$: son $(0,0)$ y $(\pm1,0)$. El jacobiano es
+\[
+  J(x_1,x_2)=\begin{bmatrix}0&1\\1-3x_1^2&-\delta\end{bmatrix} .
+\]
+En el origen, $\lambda^2+\delta\lambda-1=0$ y $\lambda=\frac{-\delta\pm\sqrt{\delta^2+4}}{2}$: un valor propio positivo y uno negativo para \emph{todo} $\delta>0$ (su producto es $-1$). Es un \textbf{punto de silla}, inestable. En $(\pm1,0)$, $\lambda^2+\delta\lambda+2=0$: $\omega_n=\sqrt2$ y $\zeta=\delta/(2\sqrt2)$, estables, subamortiguados si $\delta<\sqrt8=2.83$. Con $\delta=0.3$: $0.861$ y $-1.161$ en el origen, y $-0.15\pm1.41j$ en $(\pm1,0)$. La \cref{fig:ee-duffing} muestra el retrato de fase: cada condición inicial termina en uno de los dos pozos, y la frontera entre ellos (en negro) pasa por el origen en la dirección del vector propio estable de la silla. Ningún modelo lineal único reproduce eso.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.6\linewidth]{cap04/f_duffing}
+\caption{Ejemplo~\ref{ej:ee-duffing} con $\delta=0.3$: retrato de fase, la frontera entre los dos dominios de atracción (negro) y tres trayectorias.}
+\label{fig:ee-duffing}
+\end{figure}
+
+\begin{ejemplo}[label=ej:ee-levitador]{Levitador magnético}
+Un electroimán sostiene una esfera de acero de masa $M$ (\cref{fig:ee-levitador}). La fuerza magnética es $Ci^2/y$, con $y$ la distancia de la esfera al imán~\citep{barie1996maglev}, y la bobina tiene resistencia $R$ e inductancia $L$:
+\[
+  M\ddot y=Mg-C\frac{i^2}{y},\qquad e=Ri+L\frac{\dif i}{\dif t}.
+\]
+Linealice alrededor de la posición $y=y_d$ con $M=0.05$\,kg, $R=10\,\Omega$, $L=0.5$\,H, $C=10^{-3}$\,N\,m/A$^2$, $g=9.81$\,m/s$^2$ y $y_d=0.01$\,m.
+\solucion Con $x_1=y$, $x_2=\dot y$, $x_3=i$ y $u=e$:
+\[
+  \dot x_1=x_2,\qquad \dot x_2=g-\frac CM\frac{x_3^2}{x_1},\qquad \dot x_3=-\frac RLx_3+\frac1Lu .
+\]
+En el equilibrio, $\eq x_1=y_d$, $\eq x_2=0$, $\eq x_3=\sqrt{Mgy_d/C}=2.215$\,A y $\eq u=R\eq x_3=22.15$\,V. Los jacobianos son
+\[
+  \Am=\begin{bmatrix}0&1&0\\\dfrac CM\dfrac{(\eq x_3)^2}{(\eq x_1)^2}&0&-\dfrac{2C\eq x_3}{M\eq x_1}\\0&0&-\dfrac RL\end{bmatrix}
+  =\begin{bmatrix}0&1&0\\981&0&-8.86\\0&0&-20\end{bmatrix},\qquad
+  \Bm=\begin{bmatrix}0\\0\\2\end{bmatrix}.
+\]
+Note que $a_{21}=g/y_d$: en el equilibrio la fuerza magnética iguala al peso, y si la esfera se acerca, la fuerza crece más rápido que el peso. Los valores propios son $\pm31.3$ y $-20$: \alerta{el equilibrio es inestable}, y la función de transferencia $\dfrac{\dev Y(s)}{\dev E(s)}=\dfrac{-17.72}{(s-31.3)(s+31.3)(s+20)}$ lo confirma. La \cref{fig:ee-levitador-sim} compara el modelo lineal con el no lineal tras un desplazamiento inicial de $0.1$\,mm: coinciden durante unos $0.1$\,s (error del $4$\,\%) y luego se separan, cuando la esfera ya se alejó varios milímetros.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.6\linewidth]{cap04/levitador}
+\caption{Levitador magnético: circuito de la bobina y fuerzas sobre la esfera.}
+\label{fig:ee-levitador}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.75\linewidth]{cap04/f_levitador}
+\caption{Ejemplo~\ref{ej:ee-levitador}: la esfera parte $0.1$\,mm por debajo del equilibrio, con $u=\eq u$.}
+\label{fig:ee-levitador-sim}
+\end{figure}
+
+\codigorepo{cap04_espacio_estado/C4_Ej6_Linealizacion.m}{duffing}{ejemplo~\ref{ej:ee-duffing}}
+\codigorepo{cap04_espacio_estado/C4_Ej6_Linealizacion.m}{levitador}{ejemplo~\ref{ej:ee-levitador}}
+
+\begin{ejemplo}[label=ej:ee-bioreactor]{Un bioreactor}
+En un bioreactor, la biomasa $x_1$ (células) consume el sustrato $x_2$ (azúcar, desechos) y se multiplica. Un modelo simplificado es~\citep{Beq03}
+\[
+  \dot x_1=(\mu-u_1)x_1,\qquad \dot x_2=u_1(u_2-x_2)-\frac{\mu x_1}{Y},\qquad
+  \mu(x_2)=\frac{\mu_{\max}x_2}{k_m+x_2+k_1x_2^2},
+\]
+donde $u_1$ es la tasa de dilución (caudal/volumen, la variable manipulada), $u_2$ la concentración de sustrato en la alimentación (una perturbación), $Y$ el rendimiento y $\mu$ la tasa de crecimiento con \emph{inhibición por sustrato} (con $k_1=0$ sería el modelo de Monod). Con $\mu_{\max}=0.53$\,h$^{-1}$, $k_m=0.12$\,g/L, $k_1=0.4545$\,L/g, $Y=0.4$, $\eq u_1=0.3$\,h$^{-1}$ y $\eq u_2=4$\,g/L, halle los equilibrios y linealice.
+\solucion De $\dot x_1=0$: o $x_1=0$, o $\mu(x_2)=u_1$. El primer caso da el \emph{lavado}, $(0,\,4)$: las células se fueron del reactor. El segundo da $0.1362x_2^2-0.23x_2+0.036=0$, con $x_2=0.1746$ y $x_2=1.5122$, y de $\dot x_2=0$, $x_1=Y(u_2-x_2)$: los equilibrios $(1.5302,\,0.1746)$ y $(0.9951,\,1.5122)$. Con $\mu=u_1$ en el equilibrio, los jacobianos son
+\[
+  \Am=\begin{bmatrix}0&\eq x_1\mu'\\-\dfrac{u_1}{Y}&-u_1-\dfrac{\eq x_1\mu'}{Y}\end{bmatrix},\qquad
+  \Bm=\begin{bmatrix}-\eq x_1&0\\u_2-\eq x_2&u_1\end{bmatrix},
+\]
+con $\mu'=\dif\mu/\dif x_2$. En $(0.9951,\,1.5122)$, $\mu'=-0.068$ y
+\[
+  \Am=\begin{bmatrix}0&-0.0679\\-0.75&-0.1302\end{bmatrix},\qquad
+  \Bm=\begin{bmatrix}-0.9951&0\\2.4878&0.3\end{bmatrix},
+\]
+con valores propios $0.170$ y $-0.3$: \alerta{inestable}. En $(1.5302,\,0.1746)$, $\mu'=+0.591$ y los valores propios son $-0.3$ y $-2.26$: estable. La diferencia está en el signo de $\mu'$, que se anula en $x_2=\sqrt{k_m/k_1}=0.514$: a la derecha de ese máximo, más sustrato \emph{frena} el crecimiento (\cref{fig:ee-bioreactor}). Con las dos salidas $y=x$, las funciones de transferencia en el punto de operación son
+\begin{align*}
+  \frac{\dev X_1}{\dev U_1}&=\frac{-0.9951s-0.2985}{s^2+0.1302s-0.0510}, &
+  \frac{\dev X_1}{\dev U_2}&=\frac{-0.0204}{s^2+0.1302s-0.0510},\\
+  \frac{\dev X_2}{\dev U_1}&=\frac{2.488s+0.7463}{s^2+0.1302s-0.0510}, &
+  \frac{\dev X_2}{\dev U_2}&=\frac{0.3\,s}{s^2+0.1302s-0.0510}.
+\end{align*}
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_bioreactor}
+\caption{Ejemplo~\ref{ej:ee-bioreactor}. Izquierda: la tasa de crecimiento corta a $u_1=0.3$ en dos puntos. Derecha: desde $(1,1)$ y desde cerca del equilibrio inestable, las trayectorias van al equilibrio estable o al lavado $(0,4)$.}
+\label{fig:ee-bioreactor}
+\end{figure}
+
+\codigorepo{cap04_espacio_estado/C4_Ej7_Bioreactor.m}{equilibrios}{los tres equilibrios}
+\codigorepo{cap04_espacio_estado/C4_Ej7_Bioreactor.m}{jacobiano}{jacobianos, valores propios y funciones de transferencia}
+
+\begin{modelo}[Modelo de Simulink: \texttt{crearModelo\_Bioreactor}]
+\texttt{codigo/cap04\_espacio\_estado/crearModelo\_Bioreactor.m} arma el modelo no lineal con dos entradas y los dos estados como salidas. Con él, \cmd{trim} busca el equilibrio para las entradas fijas y \cmd{linmod} entrega $\Am$, $\Bm$, $\Cm$ y $\Dm$ del modelo linealizado (las instrucciones están en el script \texttt{C4\_Ej7\_Bioreactor}).
+\end{modelo}
+
+\begin{cuidado}[El modelo lineal vale cerca del equilibrio]
+Un modelo linealizado describe las desviaciones \emph{pequeñas}. Qué tan pequeñas, depende del sistema: en el levitador, unas décimas de milímetro; en el bioreactor, la linealización alrededor de un equilibrio no dice nada sobre el lavado. Y un equilibrio inestable en lazo abierto, como el del levitador o el del bioreactor, es justamente el que pide control.
+\end{cuidado}

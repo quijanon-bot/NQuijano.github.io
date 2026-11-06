@@ -1,0 +1,25 @@
+%% ---------------------------------------------------------------------
+\section{Error en espacio de estado}
+\label{sec:er-estado}
+%% ---------------------------------------------------------------------
+
+Si el proceso está en espacio de estado (\cref{cap:ee}), el error en estado estacionario se obtiene sin pasar por la función de transferencia: con el lazo cerrado y una referencia constante, el estado estacionario cumple $\dot x=0$.
+
+\begin{ejemplo}[label=ej:er-estado]{Estado estacionario directo}
+Un proceso con $\Am=\begin{bmatrix}0&1\\-2&-3\end{bmatrix}$, $\Bm=[0\;\,1]^\top$, $\Cm=[2\;\,0]$ se controla con $u=r-y$. Halle $\ess$ ante un escalón unitario. Después agregue un estado integrador $\dot x_3=r-y$ con $u=r-y+K_ix_3$.
+\solucion Con la función de transferencia: $G=\dfrac{2}{s^2+3s+2}$, tipo 0, $\kp=1$, $\ess=0.5$. En espacio de estado: $\dot x=(\Am-\Bm\Cm)x+\Bm r$ y, con $\dot x=0$,
+\[
+  x_{ss}=-(\Am-\Bm\Cm)^{-1}\Bm\,r=\begin{bmatrix}0.25\\0\end{bmatrix},\qquad y_{ss}=\Cm x_{ss}=0.5,\qquad \ess=0.5 .
+\]
+Con el estado integrador, el sistema aumentado es
+\[
+  \begin{bmatrix}\dot x\\\dot x_3\end{bmatrix}=
+  \begin{bmatrix}\Am-\Bm\Cm&K_i\Bm\\-\Cm&0\end{bmatrix}\begin{bmatrix}x\\x_3\end{bmatrix}+\begin{bmatrix}\Bm\\1\end{bmatrix}r,
+\]
+con polinomio característico $s^3+3s^2+4s+2K_i$: estable para $0<K_i<6$. En estado estacionario $\dot x_3=r-y=0$: el error se anula para todo $K_i$ que deje el lazo estable. Con $K_i=3$, los polos son $-2.38$ y $-0.31\pm1.56j$.
+\end{ejemplo}
+
+\codigorepo{cap06_error/C6_Ej4_Estado.m}{estacionario}{el estado estacionario con $\dot x=0$}
+\codigorepo{cap06_error/C6_Ej4_Estado.m}{integral}{el estado integrador}
+
+El estado integrador convierte el lazo en uno de tipo 1. Es la misma idea de la acción integral de un PI, y la que se usa con la retroalimentación de estado en la \cref{sec:re-integral}.

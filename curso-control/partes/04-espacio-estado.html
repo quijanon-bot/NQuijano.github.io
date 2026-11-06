@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4. Espacio de estado – Análisis de Sistemas de Control</title>
+<title>4. Representación en espacio de estado – Análisis de Sistemas de Control</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -92,10 +126,39 @@ window.MathJax = { tex: { macros: {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -135,7 +198,7 @@ window.MathJax = { tex: { macros: {
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/04-espacio-estado.html">
- <span class="dropdown-text">4. Espacio de estado</span></a>
+ <span class="dropdown-text">4. Representación en espacio de estado</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/05-estabilidad.html">
@@ -194,7 +257,7 @@ window.MathJax = { tex: { macros: {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/04-espacio-estado.html">4. Espacio de estado</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/04-espacio-estado.html">4. Representación en espacio de estado</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -242,7 +305,7 @@ window.MathJax = { tex: { macros: {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../partes/04-espacio-estado.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">4. Espacio de estado</span></a>
+ <span class="menu-text">4. Representación en espacio de estado</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -317,14 +380,27 @@ window.MathJax = { tex: { macros: {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#ruta-de-las-clases" id="toc-ruta-de-las-clases" class="nav-link active" data-scroll-target="#ruta-de-las-clases">Ruta de las clases</a></li>
+  <li><a href="#lo-esencial-en-una-página" id="toc-lo-esencial-en-una-página" class="nav-link" data-scroll-target="#lo-esencial-en-una-página">Lo esencial, en una página</a></li>
+  <li><a href="#códigos-de-esta-parte" id="toc-códigos-de-esta-parte" class="nav-link" data-scroll-target="#códigos-de-esta-parte">Códigos de esta parte</a></li>
+  <li><a href="#modelos-de-simulink" id="toc-modelos-de-simulink" class="nav-link" data-scroll-target="#modelos-de-simulink">Modelos de Simulink</a></li>
+  <li><a href="#pausas-activas" id="toc-pausas-activas" class="nav-link" data-scroll-target="#pausas-activas">Pausas activas</a></li>
+  <li><a href="#problemas" id="toc-problemas" class="nav-link" data-scroll-target="#problemas">Problemas</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/04-espacio-estado.html">4. Espacio de estado</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/04-espacio-estado.html">4. Representación en espacio de estado</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">4. Espacio de estado</h1>
-<p class="subtitle lead">Semanas 4–5 · por migrar al formato nuevo</p>
+<h1 class="title">4. Representación en espacio de estado</h1>
+<p class="subtitle lead">Semanas 4–5 · dos clases</p>
 </div>
 
 
@@ -341,29 +417,437 @@ window.MathJax = { tex: { macros: {
 </header>
 
 
-<div class="franja"><div class="rotulo">Parte 4 · Semanas 4–5</div><div class="titulo">Espacio de estado</div><div class="cita">Otra consecuencia es que se está impulsando que la educación sea vista como una capacitación… — Junot Díaz</div><svg class="bode" viewbox="0 0 600 160" preserveaspectratio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"></path><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"></path></svg></div>
-<div class="profundiza">
-<p><span class="caja-titulo">Página en construcción</span></p>
-<p>Esta parte todavía está en el formato anterior de las notas (<code>Handout3_Ctrl.tex</code>). Se migrará siguiendo el piloto de la <a href="../partes/10-respuesta-frecuencial.html">parte 10</a>: notación unificada, cajas pedagógicas, códigos tomados del repositorio y una página como esta con todo el material.</p>
+<div class="franja"><div class="rotulo">Parte 4 · Semanas 4–5</div><div class="titulo">Representación en espacio de estado</div><div class="cita">Otra consecuencia es que se está impulsando que la educación sea vista como una capacitación que solo conduce al trabajo, y no como un medio que conduce al pensamiento crítico y a la transformación. — Junot Díaz</div><svg class="bode" viewbox="0 0 600 160" preserveaspectratio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"></path><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"></path></svg></div>
+<p>Hasta ahora describimos los sistemas con funciones de transferencia: una relación entre una entrada y una salida. La <strong>representación en espacio de estado</strong> los describe con ecuaciones diferenciales de <strong>primer orden</strong>, una por cada variable que hace falta para conocer su futuro: el <strong>estado</strong>. Es más general (sistemas no lineales, de varias entradas y salidas) y muestra lo que pasa por dentro. En esta parte escribimos modelos de estado —en particular en <strong>variables de fase</strong>—, pasamos de función de transferencia a estado y de vuelta, resolvemos la ecuación de estado con la <strong>matriz de transición</strong> <span class="math inline">\(e^{\mathbb A t}\)</span> y linealizamos modelos de varias variables: un levitador magnético, un bioreactor y la ecuación de Duffing.</p>
+<div class="botones">
+  <a class="boton" href="../pdf/cap04_espacio_estado.pdf">⬇ Handout en PDF</a>
+  <a class="boton sec" href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap04_espacio_estado">Códigos en GitHub</a>
 </div>
-<section id="temas" class="level2">
-<h2 class="anchored" data-anchor-id="temas">Temas</h2>
-<ul>
-<li>¿Qué significa el estado de un sistema?</li>
-<li>De función de transferencia a espacio de estado</li>
-<li>Solución: matriz de transición</li>
-<li>De espacio de estado a función de transferencia</li>
-<li>Linealización en representación de estado</li>
-</ul>
+<div class="receta">
+<p><span class="caja-titulo">Al terminar esta parte usted podrá</span></p>
+<ol type="1">
+<li>Definir el estado de un sistema y escribir su representación en espacio de estado, en particular en variables de fase.</li>
+<li>Pasar de una función de transferencia a una representación de estado, y de vuelta, y relacionar los valores propios de <span class="math inline">\(\mathbb A\)</span> con los polos.</li>
+<li>Resolver la ecuación de estado con la matriz de transición <span class="math inline">\(\Phi(t)=e^{\mathbb A t}\)</span>.</li>
+<li>Linealizar un modelo no lineal de varias variables alrededor de un equilibrio y escribirlo en espacio de estado.</li>
+</ol>
+</div>
+<section id="ruta-de-las-clases" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-las-clases">Ruta de las clases</h2>
+<table class="table-striped caption-top table">
+<caption>Lea la sección del handout <strong>antes</strong> de cada clase.</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Qué se ve</th>
+<th style="text-align: left;">Handout</th>
+<th style="text-align: left;">Scripts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Historia; el ciclo del carbono; el estado; variables de fase; masa-resorte y computador analógico; de la función de transferencia al estado</td>
+<td style="text-align: left;">§4.1–4.4</td>
+<td style="text-align: left;"><code>C4_Ej1</code>, <code>C4_Ej2</code>, <code>C4_Ej5</code>, <code>crearModelo_MasaResorte</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Matriz de transición; del estado a la función de transferencia; valores propios y polos; linealización: Duffing, levitador, bioreactor</td>
+<td style="text-align: left;">§4.5–4.7</td>
+<td style="text-align: left;"><code>C4_Ej3</code>, <code>C4_Ej4</code>, <code>C4_Ej6</code>, <code>C4_Ej7</code>, <code>crearModelo_Bioreactor</code></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="lo-que-tendrá-esta-página" class="level2">
-<h2 class="anchored" data-anchor-id="lo-que-tendrá-esta-página">Lo que tendrá esta página</h2>
-<ul>
-<li>El <strong>handout en PDF</strong> de la parte, con el formato nuevo.</li>
-<li>Los <strong>códigos de MATLAB y Simulink</strong>, con instrucciones y resultados esperados.</li>
-<li>Los <strong>videos</strong> de la parte y las <strong>pausas activas</strong> con respuesta.</li>
-<li>Los <strong>problemas</strong> con soluciones seleccionadas.</li>
-</ul>
+<section id="lo-esencial-en-una-página" class="level2">
+<h2 class="anchored" data-anchor-id="lo-esencial-en-una-página">Lo esencial, en una página</h2>
+<div class="definicion">
+<p><span class="caja-titulo">Estado y modelo lineal</span></p>
+<p>El <strong>estado</strong> es el conjunto más pequeño de variables cuyo valor en <span class="math inline">\(t_0\)</span>, junto con las entradas para <span class="math inline">\(t\ge t_0\)</span>, determina todo el comportamiento futuro. Su número (el orden) es único; las variables no. Para un sistema lineal e invariante,</p>
+<p><span class="math display">\[
+\dot x=\mathbb A x+\mathbb B u,\qquad y=\mathbb C x+\mathbb D u .
+\]</span></p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap04/carbono.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Ciclo global del carbono con cinco reservorios: un modelo de estado de orden 5 que conserva la masa.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap04/f_carbono.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>500 años de emisiones constantes: el valor propio nulo de <span class="math inline">\(\mathbb A\)</span> hace que el carbono total crezca sin estado estacionario.</figcaption>
+</figure>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Variables de fase</span></p>
+<p>Para <span class="math inline">\(y^{(n)}+a_{n-1}y^{(n-1)}+\dots+a_0y=b_0u\)</span>, con <span class="math inline">\(x_1=y\)</span>, <span class="math inline">\(x_2=\dot y\)</span>, …, <span class="math inline">\(x_n=y^{(n-1)}\)</span>:</p>
+<p><span class="math display">\[
+\mathbb A=\begin{bmatrix}0&amp;1&amp;\cdots&amp;0\\\vdots&amp;&amp;\ddots&amp;\vdots\\0&amp;0&amp;\cdots&amp;1\\-a_0&amp;-a_1&amp;\cdots&amp;-a_{n-1}\end{bmatrix},\qquad
+\mathbb B=\begin{bmatrix}0\\\vdots\\0\\b_0\end{bmatrix},\qquad
+\mathbb C=\begin{bmatrix}1&amp;0&amp;\cdots&amp;0\end{bmatrix}.
+\]</span></p>
+<p>Si hay ceros, se usa una variable intermedia <span class="math inline">\(Z(s)=U(s)/\text{den}(s)\)</span> y los coeficientes del numerador van en <span class="math inline">\(\mathbb C\)</span>. <code>tf2ss</code> de MATLAB numera los estados al revés.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap04/computador_analogico.svg" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption>La masa-resorte como en un computador analógico: dos integradores, una suma, dos ganancias.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap04/f_masa_resorte.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Posición y velocidad de la masa-resorte (<span class="math inline">\(M=2\)</span>, <span class="math inline">\(k=16\)</span>) para cuatro valores de <span class="math inline">\(b\)</span>.</figcaption>
+</figure>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Solución y función de transferencia</span></p>
+<p><span class="math display">\[
+x(t)=e^{\mathbb A t}x(0)+\int_0^t e^{\mathbb A(t-\tau)}\mathbb B\,u(\tau)\,\mathrm d\tau,\qquad
+\Phi(t)=e^{\mathbb A t}=\mathcal L^{-1}\{(s\mathbb I-\mathbb A)^{-1}\},
+\]</span></p>
+<p><span class="math display">\[
+G(s)=\mathbb C(s\mathbb I-\mathbb A)^{-1}\mathbb B+\mathbb D .
+\]</span></p>
+<p>Los polos de <span class="math inline">\(G\)</span> son valores propios de <span class="math inline">\(\mathbb A\)</span>, pero una cancelación puede esconder valores propios. Un cambio de variables <span class="math inline">\(x=\mathbb T\bar x\)</span> cambia las matrices y no cambia <span class="math inline">\(G\)</span> ni los valores propios.</p>
+</div>
+<div class="cuidado">
+<p><span class="caja-titulo">Una función de transferencia que esconde modos</span></p>
+<p>Con <span class="math inline">\(\mathbb A\)</span> de valores propios <span class="math inline">\(-1\)</span>, <span class="math inline">\(-2\)</span>, <span class="math inline">\(-3\)</span> y <span class="math inline">\(\mathbb C=[2\;\,3\;\,1]\)</span>, <span class="math inline">\(G(s)=\dfrac{(s+1)(s+2)}{(s+1)(s+2)(s+3)}=\dfrac{1}{s+3}\)</span>. Los modos <span class="math inline">\(e^{-t}\)</span> y <span class="math inline">\(e^{-2t}\)</span> siguen en el estado, pero no llegan a la salida.</p>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Linealización</span></p>
+<p>Alrededor de un equilibrio <span class="math inline">\(f(x^*,u^*)=0\)</span>: <span class="math inline">\(\dot{\hat x}=\mathbb A\hat x+\mathbb B\hat u\)</span> con <span class="math inline">\(a_{ij}=\partial f_i/\partial x_j\)</span> y <span class="math inline">\(b_{ij}=\partial f_i/\partial u_j\)</span> evaluadas en <span class="math inline">\((x^*,u^*)\)</span>. Cada equilibrio tiene su propio modelo.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap04/f_duffing.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+<figcaption>Duffing con <span class="math inline">\(\delta=0.3\)</span>: una silla en el origen, dos equilibrios estables, y la frontera entre sus dominios de atracción.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap04/f_levitador.svg" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>Levitador magnético: <span class="math inline">\(a_{21}=g/y^*\)</span> y valores propios <span class="math inline">\(\pm31.3\)</span>, <span class="math inline">\(-20\)</span>. El modelo lineal acompaña al no lineal unos 0.1 s.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap04/f_bioreactor.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Bioreactor: la tasa de crecimiento corta la dilución en dos puntos; el de la derecha es inestable porque allí más sustrato frena el crecimiento.</figcaption>
+</figure>
+</div>
+</section>
+<section id="códigos-de-esta-parte" class="level2">
+<h2 class="anchored" data-anchor-id="códigos-de-esta-parte">Códigos de esta parte</h2>
+<p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap04_espacio_estado">repositorio</a>. Ejecute antes <code>iniciarCurso</code>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Masa-resorte</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">FT → estado</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Transición</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Estado → FT</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Carbono</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false">Linealización</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false">Pruebas</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>Modelo en variables de fase (§4.3).</strong></p>
+<div class="sourceCode" id="cb1" data-filename="cap04_espacio_estado/C4_Ej1_MasaResorte.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">M</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">k</span> <span class="op">=</span> <span class="fl">16</span><span class="op">;</span>  <span class="va">b</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="va">k</span><span class="op">/</span><span class="va">M</span> <span class="op">-</span><span class="va">b</span><span class="op">/</span><span class="va">M</span>]<span class="op">;</span>  <span class="va">B</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">1</span><span class="op">/</span><span class="va">M</span>]<span class="op">;</span>  <span class="va">C</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">0</span>]<span class="op">;</span>  <span class="va">D</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span>    <span class="co">% x1 = y, x2 = y'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">sistema</span> <span class="op">=</span> <span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">D</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">eig</span>(<span class="va">A</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Cuatro amortiguamientos.</strong></p>
+<div class="sourceCode" id="cb2" data-filename="cap04_espacio_estado/C4_Ej1_MasaResorte.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">40</span><span class="op">;</span>  <span class="va">u</span> <span class="op">=</span> <span class="fl">5</span><span class="op">*</span>(<span class="va">t</span> <span class="op">&lt;</span> <span class="fl">20</span>)<span class="op">;</span>                              <span class="co">% pulso de 5 N durante 20 s</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">b</span> <span class="op">=</span> [<span class="fl">2</span> <span class="fl">4</span> <span class="fl">8</span> <span class="fl">16</span>]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="va">k</span><span class="op">/</span><span class="va">M</span> <span class="op">-</span><span class="va">b</span><span class="op">/</span><span class="va">M</span>]<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    [<span class="op">~,</span> <span class="op">~,</span> <span class="va">x</span>] <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">D</span>)<span class="op">,</span> <span class="va">u</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">subplot</span>(<span class="fl">2</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="va">find</span>(<span class="va">b</span> <span class="op">==</span> [<span class="fl">2</span> <span class="fl">4</span> <span class="fl">8</span> <span class="fl">16</span>]))<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">,</span> <span class="va">t</span><span class="op">,</span> <span class="va">x</span>(<span class="op">:,</span><span class="fl">2</span>)<span class="op">,</span> <span class="ss">'--'</span>)<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span> <span class="va">title</span>(<span class="va">sprintf</span>(<span class="ss">'b = %d'</span><span class="op">,</span> <span class="va">b</span>))<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'b = %2d: valores propios %s\n'</span><span class="op">,</span> <span class="va">b</span><span class="op">,</span> <span class="va">mat2str</span>(<span class="va">eig</span>(<span class="va">A</span>)<span class="op">.',</span> <span class="fl">3</span>))<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="va">legend</span>(<span class="ss">'posición x_1'</span><span class="op">,</span> <span class="ss">'velocidad x_2'</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>Variables de fase (§4.4).</strong></p>
+<div class="sourceCode" id="cb3" data-filename="cap04_espacio_estado/C4_Ej2_FTaEstado.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">den</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">9</span> <span class="fl">26</span> <span class="fl">24</span>]<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="va">fliplr</span>(<span class="va">den</span>(<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>))]     <span class="co">% última fila: -a0 -a1 -a2</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">B</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">24</span>]<span class="op">;</span>  <span class="va">C</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span>]<span class="op">;</span>  <span class="va">D</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span>       <span class="co">% x1 = y, x2 = y', x3 = y''</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">tf</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">D</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Con ceros: la función <code>variablesFase</code>.</strong></p>
+<div class="sourceCode" id="cb4" data-filename="cap04_espacio_estado/C4_Ej2_FTaEstado.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">num</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">7</span> <span class="fl">2</span>]<span class="op">;</span>                              <span class="co">% Y = (s^2 + 7s + 2) Z,  Z = U/den</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>[<span class="va">Af</span><span class="op">,</span> <span class="va">Bf</span><span class="op">,</span> <span class="va">Cf</span><span class="op">,</span> <span class="va">Df</span>] <span class="op">=</span> <span class="va">variablesFase</span>(<span class="va">num</span><span class="op">,</span> <span class="va">den</span>)  <span class="co">% C = [2 7 1]: coeficientes del numerador</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">tf</span>(<span class="va">ss</span>(<span class="va">Af</span><span class="op">,</span> <span class="va">Bf</span><span class="op">,</span> <span class="va">Cf</span><span class="op">,</span> <span class="va">Df</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong><code>tf2ss</code> y el orden de los estados.</strong></p>
+<div class="sourceCode" id="cb5" data-filename="cap04_espacio_estado/C4_Ej2_FTaEstado.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>[<span class="va">A1</span><span class="op">,</span> <span class="va">B1</span><span class="op">,</span> <span class="va">C1</span><span class="op">,</span> <span class="va">D1</span>] <span class="op">=</span> <span class="va">tf2ss</span>(<span class="va">num</span><span class="op">,</span> <span class="va">den</span>)          <span class="co">% primera fila -9 -26 -24</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">P</span> <span class="op">=</span> <span class="va">fliplr</span>(<span class="va">eye</span>(<span class="fl">3</span>))<span class="op">;</span>                         <span class="co">% invertir el orden de los estados</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">A2</span> <span class="op">=</span> <span class="va">P</span><span class="op">*</span><span class="va">A1</span><span class="op">*</span><span class="va">P</span><span class="op">,</span>  <span class="va">B2</span> <span class="op">=</span> <span class="va">P</span><span class="op">*</span><span class="va">B1</span><span class="op">,</span>  <span class="va">C2</span> <span class="op">=</span> <span class="va">C1</span><span class="op">*</span><span class="va">P</span>         <span class="co">% = variables de fase</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="va">tf</span>(<span class="va">ss</span>(<span class="va">A1</span><span class="op">,</span> <span class="va">B1</span><span class="op">,</span> <span class="va">C1</span><span class="op">,</span> <span class="va">D1</span>)) <span class="op">-</span> <span class="va">tf</span>(<span class="va">ss</span>(<span class="va">A2</span><span class="op">,</span> <span class="va">B2</span><span class="op">,</span> <span class="va">C2</span><span class="op">,</span> <span class="va">D1</span>))   <span class="co">% diferencia nula</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>Resolvente y antitransformada (§4.5).</strong></p>
+<div class="sourceCode" id="cb6" data-filename="cap04_espacio_estado/C4_Ej3_Transicion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">syms</span> <span class="va">s</span> <span class="va">t</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">Phi_s</span> <span class="op">=</span> <span class="va">inv</span>(<span class="va">s</span><span class="op">*</span><span class="va">eye</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="va">A</span>)                   <span class="co">% resolvente (sI - A)^-1</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="va">Phi_t</span> <span class="op">=</span> <span class="va">simplify</span>(<span class="va">ilaplace</span>(<span class="va">Phi_s</span><span class="op">,</span> <span class="va">s</span><span class="op">,</span> <span class="va">t</span>))     <span class="co">% matriz de transición</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong><code>expm</code> y sus propiedades.</strong></p>
+<div class="sourceCode" id="cb7" data-filename="cap04_espacio_estado/C4_Ej3_Transicion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">t1</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">t2</span> <span class="op">=</span> <span class="fl">1.2</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">P1</span> <span class="op">=</span> <span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="va">t1</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">norm</span>(<span class="va">expm</span>(<span class="va">A</span><span class="op">*</span>(<span class="va">t1</span> <span class="op">+</span> <span class="va">t2</span>)) <span class="op">-</span> <span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="va">t1</span>)<span class="op">*</span><span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="va">t2</span>))   <span class="co">% ~ 0</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">norm</span>(<span class="va">inv</span>(<span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="va">t1</span>)) <span class="op">-</span> <span class="va">expm</span>(<span class="op">-</span><span class="va">A</span><span class="op">*</span><span class="va">t1</span>))                <span class="co">% ~ 0</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Respuesta forzada.</strong></p>
+<div class="sourceCode" id="cb8" data-filename="cap04_espacio_estado/C4_Ej3_Transicion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">tt</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">6</span><span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="op">~,</span> <span class="va">x</span>] <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">eye</span>(<span class="fl">2</span>)<span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="va">ones</span>(<span class="va">size</span>(<span class="va">tt</span>))<span class="op">,</span> <span class="va">tt</span>)<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="va">x1</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">2</span> <span class="op">-</span> <span class="va">exp</span>(<span class="op">-</span><span class="va">tt</span>) <span class="op">+</span> <span class="va">exp</span>(<span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="va">tt</span>)<span class="op">/</span><span class="fl">2</span><span class="op">;</span>         <span class="co">% de x(t) = int_0^t e^{A(t-tau)} B dtau</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="va">max</span>(<span class="va">abs</span>(<span class="va">x</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">'</span> <span class="op">-</span> <span class="va">x1</span>))                      <span class="co">% ~ 0</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="va">xl</span> <span class="op">=</span> <span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="fl">2</span>)<span class="op">*</span>[<span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">1</span>]                      <span class="co">% respuesta libre: = e^-2 [1; -1]</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><strong><code>ss2tf</code>, <code>eig</code>, <code>dcgain</code> (§4.6).</strong></p>
+<div class="sourceCode" id="cb9" data-filename="cap04_espacio_estado/C4_Ej4_EstadoaFT.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">6</span> <span class="op">-</span><span class="fl">5</span>]<span class="op">;</span>  <span class="va">B</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">;</span>  <span class="va">C</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">0</span>]<span class="op">;</span>  <span class="va">D</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>[<span class="va">num</span><span class="op">,</span> <span class="va">den</span>] <span class="op">=</span> <span class="va">ss2tf</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">D</span>)              <span class="co">% 1/(s^2 + 5s + 6)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="va">eig</span>(<span class="va">A</span>)<span class="op">,</span> <span class="va">roots</span>(<span class="va">den</span>)                          <span class="co">% los mismos: -2 y -3</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="va">dcgain</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">D</span>))                      <span class="co">% 1/6</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Cancelaciones.</strong></p>
+<div class="sourceCode" id="cb10" data-filename="cap04_espacio_estado/C4_Ej4_EstadoaFT.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">6</span> <span class="op">-</span><span class="fl">11</span> <span class="op">-</span><span class="fl">6</span>]<span class="op">;</span>  <span class="va">B</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">Ga</span> <span class="op">=</span> <span class="va">zpk</span>(<span class="va">minreal</span>(<span class="va">tf</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> [<span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span>]<span class="op">,</span> <span class="fl">0</span>))))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">Gb</span> <span class="op">=</span> <span class="va">zpk</span>(<span class="va">minreal</span>(<span class="va">tf</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> [<span class="fl">2</span> <span class="fl">3</span> <span class="fl">1</span>]<span class="op">,</span> <span class="fl">0</span>)))) <span class="co">% solo queda el polo en -3</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="va">eig</span>(<span class="va">A</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Forma diagonal.</strong></p>
+<div class="sourceCode" id="cb11" data-filename="cap04_espacio_estado/C4_Ej4_EstadoaFT.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>[<span class="va">T</span><span class="op">,</span> <span class="va">L</span>] <span class="op">=</span> <span class="va">eig</span>(<span class="va">A</span>)<span class="op">;</span>                            <span class="co">% columnas de T: vectores propios</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">Ad</span> <span class="op">=</span> <span class="va">T</span><span class="op">\</span><span class="va">A</span><span class="op">*</span><span class="va">T</span>                                  <span class="co">% diagonal</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">Bd</span> <span class="op">=</span> <span class="va">T</span><span class="op">\</span><span class="va">B</span><span class="op">;</span>  <span class="va">Cd</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span>]<span class="op">*</span><span class="va">T</span><span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="va">tf</span>(<span class="va">ss</span>(<span class="va">Ad</span><span class="op">,</span> <span class="va">Bd</span><span class="op">,</span> <span class="va">Cd</span><span class="op">,</span> <span class="fl">0</span>)) <span class="op">-</span> <span class="va">Ga</span>                  <span class="co">% la función de transferencia no cambia</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="va">norm</span>(<span class="va">T</span><span class="op">*</span><span class="va">expm</span>(<span class="va">L</span><span class="op">*</span><span class="fl">1</span>)<span class="op">/</span><span class="va">T</span> <span class="op">-</span> <span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="fl">1</span>))             <span class="co">% Phi(t) = T diag(e^{lambda t}) T^-1</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p><strong>Matrices y valores propios (§4.2).</strong></p>
+<div class="sourceCode" id="cb12" data-filename="cap04_espacio_estado/C4_Ej5_Carbono.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">kL1</span> <span class="op">=</span> <span class="fl">0.0842</span><span class="op">;</span> <span class="va">kL2</span> <span class="op">=</span> <span class="fl">0.0684</span><span class="op">;</span> <span class="va">kL3</span> <span class="op">=</span> <span class="fl">0.0159</span><span class="op">;</span> <span class="va">kL4</span> <span class="op">=</span> <span class="fl">0.0332</span><span class="op">;</span>     <span class="co">% 1/año</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="va">kO1</span> <span class="op">=</span> <span class="fl">0.0846</span><span class="op">;</span> <span class="va">kO2</span> <span class="op">=</span> <span class="fl">0.0433</span><span class="op">;</span> <span class="va">kO3</span> <span class="op">=</span> <span class="fl">0.0011</span><span class="op">;</span> <span class="va">kO4</span> <span class="op">=</span> <span class="fl">0.0001</span><span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="op">-</span>(<span class="va">kO1</span><span class="op">+</span><span class="va">kL1</span>)  <span class="va">kL2</span>         <span class="va">kL4</span>   <span class="va">kO2</span>          <span class="fl">0</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>      <span class="va">kL1</span>       <span class="op">-</span>(<span class="va">kL2</span><span class="op">+</span><span class="va">kL3</span>)   <span class="fl">0</span>     <span class="fl">0</span>            <span class="fl">0</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0</span>          <span class="va">kL3</span>        <span class="op">-</span><span class="va">kL4</span>   <span class="fl">0</span>            <span class="fl">0</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>      <span class="va">kO1</span>        <span class="fl">0</span>           <span class="fl">0</span>    <span class="op">-</span>(<span class="va">kO2</span><span class="op">+</span><span class="va">kO3</span>)    <span class="va">kO4</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0</span>          <span class="fl">0</span>           <span class="fl">0</span>     <span class="va">kO3</span>         <span class="op">-</span><span class="va">kO4</span>]<span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="va">B</span> <span class="op">=</span> [<span class="fl">1</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="va">sum</span>(<span class="va">A</span>)                                      <span class="co">% ceros: conservación de la masa</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="va">lambda</span> <span class="op">=</span> <span class="va">eig</span>(<span class="va">A</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="va">tau</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">./</span><span class="va">lambda</span>(<span class="va">abs</span>(<span class="va">lambda</span>) <span class="op">&gt;</span> <span class="fl">1e-9</span>)        <span class="co">% constantes de tiempo (años)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>500 años de emisiones.</strong></p>
+<div class="sourceCode" id="cb13" data-filename="cap04_espacio_estado/C4_Ej5_Carbono.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">x0</span> <span class="op">=</span> [<span class="fl">590</span><span class="op">;</span> <span class="fl">550</span><span class="op">;</span> <span class="fl">1500</span><span class="op">;</span> <span class="fl">900</span><span class="op">;</span> <span class="fl">37000</span>]<span class="op">;</span>          <span class="co">% GtC</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">:</span><span class="fl">500</span><span class="op">;</span>  <span class="va">uE</span> <span class="op">=</span> <span class="fl">8</span><span class="op">*</span><span class="va">ones</span>(<span class="va">size</span>(<span class="va">t</span>))<span class="op">;</span>          <span class="co">% GtC/año</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="op">~,</span> <span class="va">x</span>] <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">eye</span>(<span class="fl">5</span>)<span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="va">uE</span><span class="op">,</span> <span class="va">t</span><span class="op">,</span> <span class="va">x0</span>)<span class="op">;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>(<span class="op">:,</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>))<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span> <span class="va">xlabel</span>(<span class="ss">'años'</span>)<span class="op">;</span> <span class="va">ylabel</span>(<span class="ss">'GtC'</span>)<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="va">legend</span>(<span class="ss">'atmósfera'</span><span class="op">,</span> <span class="ss">'vegetación'</span><span class="op">,</span> <span class="ss">'suelo'</span><span class="op">,</span> <span class="ss">'océano superficial'</span>)<span class="op">;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="va">total</span> <span class="op">=</span> <span class="va">sum</span>(<span class="va">x</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">;</span>  (<span class="va">total</span>(<span class="kw">end</span>) <span class="op">-</span> <span class="va">total</span>(<span class="fl">1</span>))<span class="op">/</span><span class="fl">500</span>  <span class="co">% 8 GtC/año</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="va">x</span>(<span class="kw">end</span><span class="op">,</span> <span class="op">:</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p><strong>Duffing (§4.7).</strong></p>
+<div class="sourceCode" id="cb14" data-filename="cap04_espacio_estado/C4_Ej6_Linealizacion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="va">delta</span> <span class="op">=</span> <span class="fl">0.3</span><span class="op">;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="va">J</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x1</span>) [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">1</span> <span class="op">-</span> <span class="fl">3</span><span class="op">*</span><span class="va">x1</span><span class="op">^</span><span class="fl">2</span><span class="op">,</span> <span class="op">-</span><span class="va">delta</span>]<span class="op">;</span>       <span class="co">% jacobiano</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">x1</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span> <span class="op">-</span><span class="fl">1</span>]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'equilibrio (%2d, 0): valores propios %s\n'</span><span class="op">,</span> <span class="va">x1</span><span class="op">,</span> <span class="va">mat2str</span>(<span class="va">eig</span>(<span class="va">J</span>(<span class="va">x1</span>))<span class="op">.',</span> <span class="fl">4</span>))<span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Levitador magnético.</strong></p>
+<div class="sourceCode" id="cb15" data-filename="cap04_espacio_estado/C4_Ej6_Linealizacion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="va">M</span> <span class="op">=</span> <span class="fl">0.05</span><span class="op">;</span>  <span class="va">R</span> <span class="op">=</span> <span class="fl">10</span><span class="op">;</span>  <span class="va">L</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">Cf</span> <span class="op">=</span> <span class="fl">1e-3</span><span class="op">;</span>  <span class="va">g</span> <span class="op">=</span> <span class="fl">9.81</span><span class="op">;</span>  <span class="va">ydes</span> <span class="op">=</span> <span class="fl">0.01</span><span class="op">;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="va">f</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">u</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="va">g</span> <span class="op">-</span> <span class="va">Cf</span><span class="op">/</span><span class="va">M</span><span class="op">*</span><span class="va">x</span>(<span class="fl">3</span>)<span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="va">x</span>(<span class="fl">1</span>)<span class="op">;</span> <span class="op">-</span><span class="va">R</span><span class="op">/</span><span class="va">L</span><span class="op">*</span><span class="va">x</span>(<span class="fl">3</span>) <span class="op">+</span> <span class="va">u</span><span class="op">/</span><span class="va">L</span>]<span class="op">;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="va">x3e</span> <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">M</span><span class="op">*</span><span class="va">g</span><span class="op">*</span><span class="va">ydes</span><span class="op">/</span><span class="va">Cf</span>)<span class="op">;</span>  <span class="va">ue</span> <span class="op">=</span> <span class="va">R</span><span class="op">*</span><span class="va">x3e</span><span class="op">;</span>      <span class="co">% equilibrio</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="va">Cf</span><span class="op">*</span><span class="va">x3e</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span>(<span class="va">M</span><span class="op">*</span><span class="va">ydes</span><span class="op">^</span><span class="fl">2</span>) <span class="fl">0</span> <span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="va">Cf</span><span class="op">*</span><span class="va">x3e</span><span class="op">/</span>(<span class="va">M</span><span class="op">*</span><span class="va">ydes</span>)<span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="op">-</span><span class="va">R</span><span class="op">/</span><span class="va">L</span>]<span class="op">;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="va">B</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">1</span><span class="op">/</span><span class="va">L</span>]<span class="op">;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="va">eig</span>(<span class="va">A</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">zpk</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> [<span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span>]<span class="op">,</span> <span class="fl">0</span>))</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>[<span class="va">tn</span><span class="op">,</span> <span class="va">xn</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">f</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">ue</span>)<span class="op">,</span> [<span class="fl">0</span> <span class="fl">0.2</span>]<span class="op">,</span> [<span class="va">ydes</span> <span class="op">+</span> <span class="fl">1e-4</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="va">x3e</span>])<span class="op">;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>[<span class="va">yl</span><span class="op">,</span> <span class="va">tl</span>] <span class="op">=</span> <span class="va">initial</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> [<span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span>]<span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> [<span class="fl">1e-4</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="fl">0.2</span>)<span class="op">;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">tn</span><span class="op">,</span> <span class="fl">1e3</span><span class="op">*</span>(<span class="va">xn</span>(<span class="op">:,</span><span class="fl">1</span>) <span class="op">-</span> <span class="va">ydes</span>)<span class="op">,</span> <span class="va">tl</span><span class="op">,</span> <span class="fl">1e3</span><span class="op">*</span><span class="va">yl</span><span class="op">,</span> <span class="ss">'--'</span>)<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'t (s)'</span>)<span class="op">;</span> <span class="va">ylabel</span>(<span class="ss">'desviación de y (mm)'</span>)<span class="op">;</span> <span class="va">legend</span>(<span class="ss">'no lineal'</span><span class="op">,</span> <span class="ss">'lineal'</span>)<span class="op">;</span> <span class="va">ylim</span>([<span class="fl">0</span> <span class="fl">20</span>])<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Bioreactor: equilibrios.</strong></p>
+<div class="sourceCode" id="cb16" data-filename="cap04_espacio_estado/C4_Ej7_Bioreactor.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="va">mumax</span> <span class="op">=</span> <span class="fl">0.53</span><span class="op">;</span>  <span class="va">km</span> <span class="op">=</span> <span class="fl">0.12</span><span class="op">;</span>  <span class="va">k1</span> <span class="op">=</span> <span class="fl">0.4545</span><span class="op">;</span>  <span class="va">Y</span> <span class="op">=</span> <span class="fl">0.4</span><span class="op">;</span>  <span class="va">u1</span> <span class="op">=</span> <span class="fl">0.3</span><span class="op">;</span>  <span class="va">u2</span> <span class="op">=</span> <span class="fl">4</span><span class="op">;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="va">x2e</span> <span class="op">=</span> <span class="va">sort</span>(<span class="va">roots</span>([<span class="va">u1</span><span class="op">*</span><span class="va">k1</span><span class="op">,</span> <span class="va">u1</span> <span class="op">-</span> <span class="va">mumax</span><span class="op">,</span> <span class="va">u1</span><span class="op">*</span><span class="va">km</span>]))  <span class="co">% mu(x2) = u1: dos soluciones</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="va">x1e</span> <span class="op">=</span> <span class="va">Y</span><span class="op">*</span>(<span class="va">u2</span> <span class="op">-</span> <span class="va">x2e</span>)                          <span class="co">% y el lavado: (0, u2)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Bioreactor: jacobianos y funciones de transferencia.</strong></p>
+<div class="sourceCode" id="cb17" data-filename="cap04_espacio_estado/C4_Ej7_Bioreactor.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="va">mu</span>  <span class="op">=</span> <span class="op">@</span>(<span class="va">x2</span>) <span class="va">mumax</span><span class="op">*</span><span class="va">x2</span><span class="op">/</span>(<span class="va">km</span> <span class="op">+</span> <span class="va">x2</span> <span class="op">+</span> <span class="va">k1</span><span class="op">*</span><span class="va">x2</span><span class="op">^</span><span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="va">dmu</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x2</span>) <span class="va">mumax</span><span class="op">*</span>(<span class="va">km</span> <span class="op">-</span> <span class="va">k1</span><span class="op">*</span><span class="va">x2</span><span class="op">^</span><span class="fl">2</span>)<span class="op">/</span>(<span class="va">km</span> <span class="op">+</span> <span class="va">x2</span> <span class="op">+</span> <span class="va">k1</span><span class="op">*</span><span class="va">x2</span><span class="op">^</span><span class="fl">2</span>)<span class="op">^</span><span class="fl">2</span><span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">a</span> <span class="op">=</span> <span class="va">x1e</span>(<span class="va">i</span>)<span class="op">;</span>  <span class="va">c</span> <span class="op">=</span> <span class="va">x2e</span>(<span class="va">i</span>)<span class="op">;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">A</span> <span class="op">=</span> [<span class="va">mu</span>(<span class="va">c</span>) <span class="op">-</span> <span class="va">u1</span><span class="op">,</span> <span class="va">a</span><span class="op">*</span><span class="va">dmu</span>(<span class="va">c</span>)<span class="op">;</span> <span class="op">-</span><span class="va">mu</span>(<span class="va">c</span>)<span class="op">/</span><span class="va">Y</span><span class="op">,</span> <span class="op">-</span><span class="va">u1</span> <span class="op">-</span> <span class="va">a</span><span class="op">*</span><span class="va">dmu</span>(<span class="va">c</span>)<span class="op">/</span><span class="va">Y</span>]<span class="op">;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">B</span> <span class="op">=</span> [<span class="op">-</span><span class="va">a</span><span class="op">,</span> <span class="fl">0</span><span class="op">;</span> <span class="va">u2</span> <span class="op">-</span> <span class="va">c</span><span class="op">,</span> <span class="va">u1</span>]<span class="op">;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'\nequilibrio (%.4f, %.4f):\n'</span><span class="op">,</span> <span class="va">a</span><span class="op">,</span> <span class="va">c</span>)<span class="op">;</span>  <span class="va">disp</span>(<span class="va">A</span>)<span class="op">;</span>  <span class="va">disp</span>(<span class="va">eig</span>(<span class="va">A</span>)<span class="op">.'</span>)<span class="op">;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">tf</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">eye</span>(<span class="fl">2</span>)<span class="op">,</span> <span class="fl">0</span>))                 <span class="co">% 2 x 2, en el punto de operación (0.995, 1.512)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
+<p><code>verificarCap04</code> comprueba los números clave del capítulo.</p>
+<div class="sourceCode" id="cb18" data-filename="cap04_espacio_estado/verificarCap04.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">verificarCap04</span>()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">% VERIFICARCAP04  Pruebas automáticas de los números del capítulo 4.</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   &gt;&gt; verificarCap04</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">% (Los mismos números se verificaron en herramientas/cap04_numeros.py.)</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="va">raiz</span> <span class="op">=</span> <span class="va">fileparts</span>(<span class="va">mfilename</span>(<span class="ss">'fullpath'</span>))<span class="op">;</span>  <span class="va">addpath</span>(<span class="va">fullfile</span>(<span class="va">raiz</span><span class="op">,</span> <span class="ss">'..'</span><span class="op">,</span> <span class="ss">'comun'</span>))<span class="op">;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="va">fallas</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span>  <span class="va">n</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="va">revisar</span>(<span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">n</span> <span class="op">=</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="va">abs</span>(<span class="va">valor</span> <span class="op">-</span> <span class="va">esperado</span>) <span class="op">&lt;=</span> <span class="va">tol</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="ss">'  ok   %-46s %12.5g\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span>)<span class="op">;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="fl">2</span><span class="op">,</span> <span class="ss">'  FALLA %-45s %12.5g  (esperado %g +- %g)\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)<span class="op">;</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>            <span class="va">fallas</span> <span class="op">=</span> <span class="va">fallas</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'4.2  Ciclo del carbono\n'</span>)<span class="op">;</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="va">k</span> <span class="op">=</span> [<span class="fl">0.0842</span> <span class="fl">0.0684</span> <span class="fl">0.0159</span> <span class="fl">0.0332</span> <span class="fl">0.0846</span> <span class="fl">0.0433</span> <span class="fl">0.0011</span> <span class="fl">0.0001</span>]<span class="op">;</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="op">-</span>(<span class="va">k</span>(<span class="fl">5</span>)<span class="op">+</span><span class="va">k</span>(<span class="fl">1</span>)) <span class="va">k</span>(<span class="fl">2</span>) <span class="va">k</span>(<span class="fl">4</span>) <span class="va">k</span>(<span class="fl">6</span>) <span class="fl">0</span><span class="op">;</span> <span class="va">k</span>(<span class="fl">1</span>) <span class="op">-</span>(<span class="va">k</span>(<span class="fl">2</span>)<span class="op">+</span><span class="va">k</span>(<span class="fl">3</span>)) <span class="fl">0</span> <span class="fl">0</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="va">k</span>(<span class="fl">3</span>) <span class="op">-</span><span class="va">k</span>(<span class="fl">4</span>) <span class="fl">0</span> <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>     <span class="va">k</span>(<span class="fl">5</span>) <span class="fl">0</span> <span class="fl">0</span> <span class="op">-</span>(<span class="va">k</span>(<span class="fl">6</span>)<span class="op">+</span><span class="va">k</span>(<span class="fl">7</span>)) <span class="va">k</span>(<span class="fl">8</span>)<span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">0</span> <span class="va">k</span>(<span class="fl">7</span>) <span class="op">-</span><span class="va">k</span>(<span class="fl">8</span>)]<span class="op">;</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'suma de columnas de A'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">sum</span>(<span class="va">A</span>)))<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-15</span>)<span class="op">;</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="va">ev</span> <span class="op">=</span> <span class="va">sort</span>(<span class="va">eig</span>(<span class="va">A</span>))<span class="op">;</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'valor propio más rápido'</span><span class="op">,</span> <span class="va">ev</span>(<span class="fl">1</span>)<span class="op">,</span> <span class="op">-</span><span class="fl">0.2274</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'valor propio nulo'</span><span class="op">,</span> <span class="va">ev</span>(<span class="fl">5</span>)<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'constante de tiempo más lenta (años)'</span><span class="op">,</span> <span class="op">-</span><span class="fl">1</span><span class="op">/</span><span class="va">ev</span>(<span class="fl">4</span>)<span class="op">,</span> <span class="fl">1729.1</span><span class="op">,</span> <span class="fl">0.5</span>)<span class="op">;</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="va">x0</span> <span class="op">=</span> [<span class="fl">590</span><span class="op">;</span> <span class="fl">550</span><span class="op">;</span> <span class="fl">1500</span><span class="op">;</span> <span class="fl">900</span><span class="op">;</span> <span class="fl">37000</span>]<span class="op">;</span>  <span class="va">t</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.5</span><span class="op">:</span><span class="fl">500</span><span class="op">;</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="op">~,</span> <span class="va">x</span>] <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> [<span class="fl">1</span><span class="op">;</span><span class="fl">0</span><span class="op">;</span><span class="fl">0</span><span class="op">;</span><span class="fl">0</span><span class="op">;</span><span class="fl">0</span>]<span class="op">,</span> <span class="va">eye</span>(<span class="fl">5</span>)<span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="fl">8</span><span class="op">*</span><span class="va">ones</span>(<span class="va">size</span>(<span class="va">t</span>))<span class="op">,</span> <span class="va">t</span><span class="op">,</span> <span class="va">x0</span>)<span class="op">;</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'carbono total en t = 500'</span><span class="op">,</span> <span class="va">sum</span>(<span class="va">x</span>(<span class="kw">end</span><span class="op">,:</span>))<span class="op">,</span> <span class="fl">44540</span><span class="op">,</span> <span class="fl">0.5</span>)<span class="op">;</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'atmósfera en t = 500'</span><span class="op">,</span> <span class="va">x</span>(<span class="kw">end</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> <span class="fl">1833.0</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'4.3  Masa-resorte (M = 2, k = 16)\n'</span>)<span class="op">;</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'b = 2: parte real'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">eig</span>([<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">8</span> <span class="op">-</span><span class="fl">1</span>])))<span class="op">,</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'b = 8: polos -2 +- 2j (imag)'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">imag</span>(<span class="va">eig</span>([<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">8</span> <span class="op">-</span><span class="fl">4</span>])))<span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'b = 16: polo lento'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">eig</span>([<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">8</span> <span class="op">-</span><span class="fl">8</span>]))<span class="op">,</span> <span class="op">-</span><span class="fl">1.1716</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="op">~,</span> <span class="va">xm</span>] <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>([<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">8</span> <span class="op">-</span><span class="fl">1</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0.5</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">0</span>]<span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="fl">5</span><span class="op">*</span><span class="va">ones</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">3001</span>)<span class="op">,</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">30</span>)<span class="op">;</span></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'posición final con u = 5'</span><span class="op">,</span> <span class="va">xm</span>(<span class="kw">end</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> <span class="fl">5</span><span class="op">/</span><span class="fl">16</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'4.4  Función de transferencia -&gt; estado\n'</span>)<span class="op">;</span></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>[<span class="va">Af</span><span class="op">,</span> <span class="va">Bf</span><span class="op">,</span> <span class="va">Cf</span>] <span class="op">=</span> <span class="va">variablesFase</span>([<span class="fl">1</span> <span class="fl">7</span> <span class="fl">2</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">9</span> <span class="fl">26</span> <span class="fl">24</span>])<span class="op">;</span></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'variables de fase: A(3,:)'</span><span class="op">,</span> <span class="va">norm</span>(<span class="va">Af</span>(<span class="fl">3</span><span class="op">,:</span>) <span class="op">-</span> [<span class="op">-</span><span class="fl">24</span> <span class="op">-</span><span class="fl">26</span> <span class="op">-</span><span class="fl">9</span>])<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'variables de fase: C = [2 7 1]'</span><span class="op">,</span> <span class="va">norm</span>(<span class="va">Cf</span> <span class="op">-</span> [<span class="fl">2</span> <span class="fl">7</span> <span class="fl">1</span>])<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>[<span class="va">A1</span><span class="op">,</span> <span class="va">B1</span><span class="op">,</span> <span class="va">C1</span>] <span class="op">=</span> <span class="va">tf2ss</span>([<span class="fl">1</span> <span class="fl">7</span> <span class="fl">2</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">9</span> <span class="fl">26</span> <span class="fl">24</span>])<span class="op">;</span>  <span class="va">P</span> <span class="op">=</span> <span class="va">fliplr</span>(<span class="va">eye</span>(<span class="fl">3</span>))<span class="op">;</span></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'tf2ss con estados al revés = fase'</span><span class="op">,</span> <span class="va">norm</span>(<span class="va">P</span><span class="op">*</span><span class="va">A1</span><span class="op">*</span><span class="va">P</span> <span class="op">-</span> <span class="va">Af</span>) <span class="op">+</span> <span class="va">norm</span>(<span class="va">P</span><span class="op">*</span><span class="va">B1</span> <span class="op">-</span> <span class="va">Bf</span>) <span class="op">+</span> <span class="va">norm</span>(<span class="va">C1</span><span class="op">*</span><span class="va">P</span> <span class="op">-</span> <span class="va">Cf</span>)<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'4.5  Matriz de transición (A = [0 1; -2 -3])\n'</span>)<span class="op">;</span></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">2</span> <span class="op">-</span><span class="fl">3</span>]<span class="op">;</span>  <span class="va">P05</span> <span class="op">=</span> <span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="fl">0.5</span>)<span class="op">;</span></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Phi(0.5)(1,1)'</span><span class="op">,</span> <span class="va">P05</span>(<span class="fl">1</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">exp</span>(<span class="op">-</span><span class="fl">0.5</span>) <span class="op">-</span> <span class="va">exp</span>(<span class="op">-</span><span class="fl">1</span>)<span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Phi(0.5)(2,1)'</span><span class="op">,</span> <span class="va">P05</span>(<span class="fl">2</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> <span class="op">-</span><span class="fl">0.4773</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Phi(t1+t2) = Phi(t1) Phi(t2)'</span><span class="op">,</span> <span class="va">norm</span>(<span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="fl">1.7</span>) <span class="op">-</span> <span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="fl">0.5</span>)<span class="op">*</span><span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="fl">1.2</span>))<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Phi(-t) = Phi(t)^-1'</span><span class="op">,</span> <span class="va">norm</span>(<span class="va">expm</span>(<span class="op">-</span><span class="va">A</span><span class="op">*</span><span class="fl">0.5</span>) <span class="op">-</span> <span class="va">inv</span>(<span class="va">P05</span>))<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a><span class="va">tt</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">6</span><span class="op">;</span>  [<span class="op">~,</span> <span class="op">~,</span> <span class="va">x</span>] <span class="op">=</span> <span class="va">lsim</span>(<span class="va">ss</span>(<span class="va">A</span><span class="op">,</span> [<span class="fl">0</span><span class="op">;</span><span class="fl">1</span>]<span class="op">,</span> <span class="va">eye</span>(<span class="fl">2</span>)<span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="va">ones</span>(<span class="va">size</span>(<span class="va">tt</span>))<span class="op">,</span> <span class="va">tt</span>)<span class="op">;</span></span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'escalón: x1 = 1/2 - e^-t + e^-2t/2'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">x</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">'</span> <span class="op">-</span> (<span class="fl">0.5</span> <span class="op">-</span> <span class="va">exp</span>(<span class="op">-</span><span class="va">tt</span>) <span class="op">+</span> <span class="va">exp</span>(<span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="va">tt</span>)<span class="op">/</span><span class="fl">2</span>)))<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a><span class="va">xl</span> <span class="op">=</span> <span class="va">expm</span>(<span class="va">A</span><span class="op">*</span><span class="fl">2</span>)<span class="op">*</span>[<span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">1</span>]<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'libre con x(0) = [1;-1]: un solo modo'</span><span class="op">,</span> <span class="va">xl</span>(<span class="fl">1</span>)<span class="op">,</span> <span class="va">exp</span>(<span class="op">-</span><span class="fl">2</span>)<span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a><span class="va">al</span> <span class="op">=</span> <span class="fl">3</span><span class="op">;</span>  <span class="va">Pm</span> <span class="op">=</span> <span class="va">expm</span>([<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">0</span> <span class="op">-</span><span class="va">al</span>]<span class="op">*</span><span class="fl">0.7</span>)<span class="op">;</span></span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'motor DC: Phi12 = (1-e^-at)/a'</span><span class="op">,</span> <span class="va">Pm</span>(<span class="fl">1</span><span class="op">,</span><span class="fl">2</span>)<span class="op">,</span> (<span class="fl">1</span> <span class="op">-</span> <span class="va">exp</span>(<span class="op">-</span><span class="va">al</span><span class="op">*</span><span class="fl">0.7</span>))<span class="op">/</span><span class="va">al</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'4.6  Estado -&gt; función de transferencia\n'</span>)<span class="op">;</span></span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'determinante del ejemplo'</span><span class="op">,</span> <span class="va">det</span>([<span class="fl">2</span> <span class="fl">4</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">3</span> <span class="fl">0</span> <span class="fl">2</span><span class="op">;</span> <span class="fl">2</span> <span class="fl">0</span> <span class="fl">3</span>])<span class="op">,</span> <span class="op">-</span><span class="fl">20</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>[<span class="va">num</span><span class="op">,</span> <span class="va">den</span>] <span class="op">=</span> <span class="va">ss2tf</span>([<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">6</span> <span class="op">-</span><span class="fl">5</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">0</span>]<span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'(i): ganancia DC'</span><span class="op">,</span> <span class="va">num</span>(<span class="kw">end</span>)<span class="op">/</span><span class="va">den</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">1</span><span class="op">/</span><span class="fl">6</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>[<span class="va">num</span><span class="op">,</span> <span class="va">den</span>] <span class="op">=</span> <span class="va">ss2tf</span>([<span class="op">-</span><span class="fl">2</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="op">-</span><span class="fl">3</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="op">-</span><span class="fl">4</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span>]<span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'(ii): ganancia DC'</span><span class="op">,</span> <span class="va">num</span>(<span class="kw">end</span>)<span class="op">/</span><span class="va">den</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">1</span><span class="op">/</span><span class="fl">24</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a><span class="va">A3</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">6</span> <span class="op">-</span><span class="fl">11</span> <span class="op">-</span><span class="fl">6</span>]<span class="op">;</span></span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a>[<span class="va">num</span><span class="op">,</span> <span class="va">den</span>] <span class="op">=</span> <span class="va">ss2tf</span>(<span class="va">A3</span><span class="op">,</span> [<span class="fl">0</span><span class="op">;</span><span class="fl">0</span><span class="op">;</span><span class="fl">1</span>]<span class="op">,</span> [<span class="fl">2</span> <span class="fl">3</span> <span class="fl">1</span>]<span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span>  <span class="va">r</span> <span class="op">=</span> <span class="va">roots</span>(<span class="va">den</span>)<span class="op">;</span>  <span class="va">z</span> <span class="op">=</span> <span class="va">roots</span>(<span class="va">num</span>(<span class="va">find</span>(<span class="va">abs</span>(<span class="va">num</span>) <span class="op">&gt;</span> <span class="fl">1e-12</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">:</span><span class="kw">end</span>))<span class="op">;</span></span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Cb: ceros que cancelan polos'</span><span class="op">,</span> <span class="va">min</span>(<span class="va">abs</span>(<span class="va">z</span>(<span class="fl">1</span>) <span class="op">-</span> <span class="va">r</span>)) <span class="op">+</span> <span class="va">min</span>(<span class="va">abs</span>(<span class="va">z</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="va">r</span>))<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-8</span>)<span class="op">;</span></span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>[<span class="va">T</span><span class="op">,</span> <span class="va">L</span>] <span class="op">=</span> <span class="va">eig</span>(<span class="va">A3</span>)<span class="op">;</span></span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Phi = T e^{Lambda t} T^-1'</span><span class="op">,</span> <span class="va">norm</span>(<span class="va">T</span><span class="op">*</span><span class="va">expm</span>(<span class="va">L</span><span class="op">*</span><span class="fl">1</span>)<span class="op">/</span><span class="va">T</span> <span class="op">-</span> <span class="va">expm</span>(<span class="va">A3</span><span class="op">*</span><span class="fl">1</span>))<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-10</span>)<span class="op">;</span></span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'4.7  Linealización\n'</span>)<span class="op">;</span></span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Duffing origen, delta = 0.3: valor propio +'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">eig</span>([<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">1</span> <span class="op">-</span><span class="fl">0.3</span>]))<span class="op">,</span> <span class="fl">0.8612</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Duffing (1,0): parte real'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">eig</span>([<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">2</span> <span class="op">-</span><span class="fl">0.3</span>])))<span class="op">,</span> <span class="op">-</span><span class="fl">0.15</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Duffing: delta crítico sqrt(8)'</span><span class="op">,</span> <span class="va">sqrt</span>(<span class="fl">8</span>)<span class="op">,</span> <span class="fl">2.8284</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a><span class="va">M</span> <span class="op">=</span> <span class="fl">0.05</span><span class="op">;</span> <span class="va">R</span> <span class="op">=</span> <span class="fl">10</span><span class="op">;</span> <span class="va">Lb</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span> <span class="va">Cf</span> <span class="op">=</span> <span class="fl">1e-3</span><span class="op">;</span> <span class="va">g</span> <span class="op">=</span> <span class="fl">9.81</span><span class="op">;</span> <span class="va">yd</span> <span class="op">=</span> <span class="fl">0.01</span><span class="op">;</span></span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a><span class="va">ie</span> <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">M</span><span class="op">*</span><span class="va">g</span><span class="op">*</span><span class="va">yd</span><span class="op">/</span><span class="va">Cf</span>)<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'levitador: i*'</span><span class="op">,</span> <span class="va">ie</span><span class="op">,</span> <span class="fl">2.2147</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'levitador: u*'</span><span class="op">,</span> <span class="va">R</span><span class="op">*</span><span class="va">ie</span><span class="op">,</span> <span class="fl">22.147</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a><span class="va">Al</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="va">Cf</span><span class="op">*</span><span class="va">ie</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span>(<span class="va">M</span><span class="op">*</span><span class="va">yd</span><span class="op">^</span><span class="fl">2</span>) <span class="fl">0</span> <span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="va">Cf</span><span class="op">*</span><span class="va">ie</span><span class="op">/</span>(<span class="va">M</span><span class="op">*</span><span class="va">yd</span>)<span class="op">;</span> <span class="fl">0</span> <span class="fl">0</span> <span class="op">-</span><span class="va">R</span><span class="op">/</span><span class="va">Lb</span>]<span class="op">;</span></span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'levitador: a21 = g/y*'</span><span class="op">,</span> <span class="va">Al</span>(<span class="fl">2</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> <span class="fl">981</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'levitador: valor propio inestable'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">eig</span>(<span class="va">Al</span>)))<span class="op">,</span> <span class="fl">31.321</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a><span class="va">mumax</span> <span class="op">=</span> <span class="fl">0.53</span><span class="op">;</span> <span class="va">km</span> <span class="op">=</span> <span class="fl">0.12</span><span class="op">;</span> <span class="va">k1</span> <span class="op">=</span> <span class="fl">0.4545</span><span class="op">;</span> <span class="va">Y</span> <span class="op">=</span> <span class="fl">0.4</span><span class="op">;</span> <span class="va">u1</span> <span class="op">=</span> <span class="fl">0.3</span><span class="op">;</span> <span class="va">u2</span> <span class="op">=</span> <span class="fl">4</span><span class="op">;</span></span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a><span class="va">x2e</span> <span class="op">=</span> <span class="va">sort</span>(<span class="va">roots</span>([<span class="va">u1</span><span class="op">*</span><span class="va">k1</span><span class="op">,</span> <span class="va">u1</span> <span class="op">-</span> <span class="va">mumax</span><span class="op">,</span> <span class="va">u1</span><span class="op">*</span><span class="va">km</span>]))<span class="op">;</span></span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'bioreactor: x2* estable'</span><span class="op">,</span> <span class="va">x2e</span>(<span class="fl">1</span>)<span class="op">,</span> <span class="fl">0.17459</span><span class="op">,</span> <span class="fl">1e-5</span>)<span class="op">;</span></span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'bioreactor: x2* de operación'</span><span class="op">,</span> <span class="va">x2e</span>(<span class="fl">2</span>)<span class="op">,</span> <span class="fl">1.51224</span><span class="op">,</span> <span class="fl">1e-5</span>)<span class="op">;</span></span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'bioreactor: x1* de operación'</span><span class="op">,</span> <span class="va">Y</span><span class="op">*</span>(<span class="va">u2</span> <span class="op">-</span> <span class="va">x2e</span>(<span class="fl">2</span>))<span class="op">,</span> <span class="fl">0.99510</span><span class="op">,</span> <span class="fl">1e-5</span>)<span class="op">;</span></span>
+<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a><span class="va">dmu</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="va">mumax</span><span class="op">*</span>(<span class="va">km</span> <span class="op">-</span> <span class="va">k1</span><span class="op">*</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>)<span class="op">/</span>(<span class="va">km</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">k1</span><span class="op">*</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>)<span class="op">^</span><span class="fl">2</span><span class="op">;</span></span>
+<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a><span class="va">a</span> <span class="op">=</span> <span class="va">Y</span><span class="op">*</span>(<span class="va">u2</span> <span class="op">-</span> <span class="va">x2e</span>(<span class="fl">2</span>))<span class="op">;</span>  <span class="va">c</span> <span class="op">=</span> <span class="va">x2e</span>(<span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a><span class="va">Ab</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">,</span> <span class="va">a</span><span class="op">*</span><span class="va">dmu</span>(<span class="va">c</span>)<span class="op">;</span> <span class="op">-</span><span class="va">u1</span><span class="op">/</span><span class="va">Y</span><span class="op">,</span> <span class="op">-</span><span class="va">u1</span> <span class="op">-</span> <span class="va">a</span><span class="op">*</span><span class="va">dmu</span>(<span class="va">c</span>)<span class="op">/</span><span class="va">Y</span>]<span class="op">;</span></span>
+<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'bioreactor: a12'</span><span class="op">,</span> <span class="va">Ab</span>(<span class="fl">1</span><span class="op">,</span><span class="fl">2</span>)<span class="op">,</span> <span class="op">-</span><span class="fl">0.06794</span><span class="op">,</span> <span class="fl">1e-5</span>)<span class="op">;</span></span>
+<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'bioreactor: valor propio inestable'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">eig</span>(<span class="va">Ab</span>))<span class="op">,</span> <span class="fl">0.16976</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'bioreactor: dmu/dx2 = 0 en sqrt(km/k1)'</span><span class="op">,</span> <span class="va">sqrt</span>(<span class="va">km</span><span class="op">/</span><span class="va">k1</span>)<span class="op">,</span> <span class="fl">0.51383</span><span class="op">,</span> <span class="fl">1e-5</span>)<span class="op">;</span></span>
+<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'\n%d de %d pruebas correctas.\n'</span><span class="op">,</span> <span class="va">n</span> <span class="op">-</span> <span class="va">fallas</span><span class="op">,</span> <span class="va">n</span>)<span class="op">;</span></span>
+<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modelos-de-simulink" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-de-simulink">Modelos de Simulink</h2>
+<div class="modelo">
+<p><span class="caja-titulo">Los modelos se construyen por código</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Script</th>
+<th style="text-align: left;">Modelo</th>
+<th style="text-align: left;">Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>crearModelo_MasaResorte.m</code></td>
+<td style="text-align: left;">la masa-resorte con dos <em>Integrator</em>, una <em>Sum</em> y dos <em>Gain</em>, y un pulso de 5 N</td>
+<td style="text-align: left;">ver el computador analógico en Simulink y cambiar <span class="math inline">\(b\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>crearModelo_Bioreactor.m</code></td>
+<td style="text-align: left;">el bioreactor no lineal con dos entradas y los dos estados como salidas</td>
+<td style="text-align: left;">simular, y linealizar con <code>trim</code> y <code>linmod</code></td>
+</tr>
+</tbody>
+</table>
+<p>Corra el script y se crea el <code>.slx</code>.</p>
+</div>
+</section>
+<section id="pausas-activas" class="level2">
+<h2 class="anchored" data-anchor-id="pausas-activas">Pausas activas</h2>
+<div class="pausa">
+<p><span class="caja-titulo">1. ¿Cuántos estados?</span></p>
+<p>Un circuito RLC en serie, ¿cuántas variables de estado tiene? Proponga dos elecciones.</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+Dos: el voltaje del condensador y la corriente de la bobina; o la carga del condensador y su derivada (variables de fase).
+</details>
+</div>
+<div class="pausa">
+<p><span class="caja-titulo">2. Grado igual</span></p>
+<p>¿Qué pasa con <span class="math inline">\(\mathbb D\)</span> en <span class="math inline">\(\dfrac{2s+3}{s+1}\)</span>?</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+<span class="math inline">\(\dfrac{2s+3}{s+1}=2+\dfrac{1}{s+1}\)</span>: <span class="math inline">\(\mathbb D=2\)</span>, <span class="math inline">\(\mathbb A=-1\)</span>, <span class="math inline">\(\mathbb B=1\)</span>, <span class="math inline">\(\mathbb C=1\)</span>.
+</details>
+</div>
+<div class="pausa">
+<p><span class="caja-titulo">3. Un solo modo</span></p>
+<p>Con <span class="math inline">\(\mathbb A=\begin{bmatrix}0&amp;1\\-2&amp;-3\end{bmatrix}\)</span> y <span class="math inline">\(x(0)=[1\;\,{-2}]^\top\)</span>, sin entrada, ¿qué modo aparece?</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+Solo <span class="math inline">\(e^{-2t}\)</span>: <span class="math inline">\([1\;\,{-2}]^\top\)</span> es vector propio con valor propio <span class="math inline">\(-2\)</span>, y <span class="math inline">\(x(t)=e^{-2t}[1\;\,{-2}]^\top\)</span>.
+</details>
+</div>
+</section>
+<section id="problemas" class="level2">
+<h2 class="anchored" data-anchor-id="problemas">Problemas</h2>
+<p>El handout trae 8 problemas (variables de fase, resolvente y polos, matriz de transición, levitador, ciclo del carbono, bioreactor, valores propios contra polos, Duffing), con soluciones seleccionadas.</p>
+<div class="botones"><a class="boton" href="../pdf/cap04_espacio_estado.pdf">Ir a los problemas (PDF, §4.9)</a></div>
+<div class="profundiza">
+<p><span class="caja-titulo">Correcciones respecto a la versión anterior</span></p>
+<p>En el levitador faltaba la constante <span class="math inline">\(C\)</span> en la ecuación de estado (y un cuadrado en <span class="math inline">\(a_{21}\)</span>); ahora <span class="math inline">\(x_3^*=\sqrt{Mgy^*/C}\)</span> y <span class="math inline">\(a_{21}=g/y^*\)</span>. En el ejemplo del determinante, el segundo cofactor es <span class="math inline">\(C_{22}\)</span>. En el bioreactor, la cuarta función de transferencia repetía la tercera, y los números se recalcularon con el jacobiano analítico. El truco con <code>canon(…,'companion')</code> se reemplazó por invertir el orden de los estados. En la historia, Lefschetz dirigió el centro de matemáticas del RIAS (no lo creó) y Pontryagin aportó el principio del máximo.</p>
+</div>
 
 
 </section>
@@ -950,7 +1434,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Hecho con <a href="https://quarto.org">Quarto</a></p>
 </div>

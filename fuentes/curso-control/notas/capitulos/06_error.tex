@@ -1,0 +1,27 @@
+%% =====================================================================
+%%  Capítulo 6 -- Error en estado estacionario
+%%  Migrado al formato nuevo (noviembre de 2026) desde Handout5_Ctrl.tex.
+%%  Correcciones de fondo: ver MIGRACION.md y la caja "Correcciones" de la
+%%  sección 6.8 (fórmulas de kv y ka, retroalimentación no unitaria con el
+%%  lazo abierto G_OL, sensitividad complementaria T en lugar de C).
+%% =====================================================================
+
+\capitulo[cap:er]{Error en estado estacionario}
+  {Los lectores del tercer mundo quieren que alguien les arme una buena ficción con la pésima realidad que les ha tocado en mala suerte.}
+  {Rodrigo Fresán}
+
+\begin{objetivos}[partes/06-error.html]
+  \item Relacionar el error de seguimiento con la referencia, las perturbaciones y el ruido a través de las funciones de sensitividad.
+  \item Calcular el error en estado estacionario ante escalón, rampa y parábola con el tipo del sistema y las constantes $\kp$, $\kv$ y $\ka$, después de verificar la estabilidad.
+  \item Tratar la retroalimentación no unitaria con el lazo abierto $\Gla$ y distinguir el error de seguimiento del error de actuación.
+  \item Calcular el error que deja una perturbación, el error en espacio de estado, y reconocer cuándo una especificación de error choca con una de respuesta transitoria.
+\end{objetivos}
+
+\input{capitulos/cap06/s01_sensitividad}
+\input{capitulos/cap06/s02_senales}
+\input{capitulos/cap06/s03_tipo}
+\input{capitulos/cap06/s04_no_unitaria}
+\input{capitulos/cap06/s05_perturbacion}
+\input{capitulos/cap06/s06_estado}
+\input{capitulos/cap06/s07_diseno}
+\input{capitulos/cap06/s08_cierre}

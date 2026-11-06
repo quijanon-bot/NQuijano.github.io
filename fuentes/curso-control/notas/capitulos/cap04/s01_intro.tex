@@ -1,0 +1,14 @@
+%% ---------------------------------------------------------------------
+\section{Dos maneras de describir un sistema}
+\label{sec:ee-intro}
+%% ---------------------------------------------------------------------
+
+Hasta aquí hemos descrito los sistemas con \textbf{funciones de transferencia}: una relación algebraica entre la entrada y la salida, en el dominio de Laplace. Es el método \emph{clásico} o \emph{frecuencial}, y tiene ventajas grandes: interconectar subsistemas es multiplicar y sumar bloques (\cref{cap:so}), y la estabilidad y el transitorio se leen casi de inmediato en los polos. Su límite es igual de claro: solo sirve para sistemas lineales e invariantes en el tiempo, o para lo que se pueda aproximar así, y solo describe la relación entre una entrada y una salida, no lo que pasa por dentro.
+
+La \textbf{representación en espacio de estado} describe el sistema con un conjunto de ecuaciones diferenciales de \emph{primer orden}, una por cada variable que hace falta para conocer su evolución. Es más general (admite sistemas no lineales, variantes en el tiempo y con varias entradas y salidas) y muestra la dinámica interna. En este curso la usamos para sistemas lineales, en tres momentos: aquí, para escribir y resolver modelos; en el \cref{cap:es}, para la estabilidad; y en el \cref{cap:re}, para diseñar controladores que usan todo el estado.
+
+\begin{historia}[Del Sputnik al Apolo]
+El lanzamiento del Sputnik, en 1957, despertó en Occidente el interés por lo que hacía la ingeniería soviética. El primer congreso mundial de la IFAC se reunió en Moscú en 1960, y allí muchos ingenieros de control constataron que la escuela soviética trabajaba de otra manera: describía los procesos con ecuaciones diferenciales en lugar de funciones de transferencia, analizaba la estabilidad con los métodos de Lyapunov en lugar de los de Bode y Nyquist, y estudiaba el desempeño óptimo con el principio del máximo de Pontryagin en lugar del método de Wiener-Hopf. Así empezó lo que se llamó \textbf{control moderno}.
+
+En Estados Unidos las ideas se difundieron desde la Universidad de Columbia, en el grupo de John R. Ragazzini, donde se formó Rudolf E. Kalman, y desde el RIAS (\emph{Research Institute for Advanced Studies}) de Baltimore, cuyo centro de matemáticas dirigía Solomon Lefschetz y donde Kalman trabajó desde 1958. En el propio congreso de Moscú, Kalman presentó una teoría general de los sistemas de control en espacio de estado~\citep{Kal60}; con J.~E. Bertram aplicó el método de Lyapunov, y con Richard Bucy extendió la teoría de filtrado de Wiener a sistemas variantes en el tiempo~\citep{KaBu61}. En 1963 mostró con precisión cómo se relacionan la función de transferencia y la representación de estado: qué partes del sistema ve la primera y cuáles le quedan ocultas~\citep{Kal63}. El filtro de Kalman voló en la navegación del programa Apolo.
+\end{historia}

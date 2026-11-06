@@ -31,6 +31,7 @@ codigo/
 │   ├── variablesFase.m          representación de estado en variables de fase (la del curso)
 │   ├── tablaRouth.m             tabla de Routh-Hurwitz y cambios de signo (con los dos casos especiales)
 │   ├── kharitonov.m             los cuatro polinomios de Kharitonov de una familia de intervalo
+│   ├── constantesError.m        tipo y constantes kp, kv, ka de un lazo abierto
 │   ├── simularPID.m             lazo PID con retardo, saturación, anti-windup y ponderación
 │   ├── convertirPID.m           conversión entre las formas ideal, paralelo y serie
 │   ├── reglasPID.m              reglas de sintonización: ZN, Cohen-Coon, ajustabilidad, Tyreus-Luyben
@@ -44,9 +45,14 @@ codigo/
 ├── cap03_modelado_segundo_orden/     C3_Ej1..Ej8 (linealización, tanques, segundo orden, bloques, Mason,
 │                                     dominantes, reducción), reduccionMomentos.m,
 │                                     crearModelo_Tanques.m, crearModelo_Servo.m, verificarCap03.m
+├── cap04_espacio_estado/          C4_Ej1..Ej7 (variables de fase, FT <-> estado, matriz de transición,
+│                                     cancelaciones, carbono, Duffing, levitador, bioreactor),
+│                                     crearModelo_MasaResorte.m, crearModelo_Bioreactor.m, verificarCap04.m
 ├── cap05_estabilidad/              C5_Ej1..Ej8 (modos, Routh, casos especiales, rango de K, región de un PI,
 │                                     Padé, espacio de estado, Kharitonov), crearModelo_LazoPI.m,
 │                                     crearModelo_Retardo.m, verificarCap05.m
+├── cap06_error/                   C6_Ej1..Ej6 (tipo y constantes, no unitaria, perturbaciones, estado,
+│                                     atraso, sensitividad), crearModelo_Perturbacion.m, verificarCap06.m
 ├── cap07_pid_nociones/             C7_Ej1..Ej8 (on/off, acciones, formas, filtro derivativo, kicks,
 │                                     wind-up, ponderación, digital), crearModelo_AntiWindup.m, verificarCap07.m
 ├── cap08_pid_sintonizacion/        C8_Ej1..Ej6 (identificación, malla abierta, malla cerrada, síntesis

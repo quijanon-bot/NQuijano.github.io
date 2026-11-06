@@ -6,7 +6,7 @@ Sitio de los cursos de Nicanor Quijano (Universidad de los Andes).
 |:--|:--|
 | `index.html` | Página principal, con una tarjeta por curso |
 | `curso-sisnl/` | Sitio publicado de **Sistemas No Lineales** (IELE 4311), generado con Quarto. Piloto: Parte 11, pasividad |
-| `curso-control/` | Sitio publicado de **Análisis de Sistemas de Control** (IELE 2300), generado con Quarto. Partes 1, 2, 3, 5, 7, 8, 9 y 10 |
+| `curso-control/` | Sitio publicado de **Análisis de Sistemas de Control** (IELE 2300), generado con Quarto. Partes 1 a 10 (primera versión completa) |
 | `fuentes/curso-control/` | Fuentes del curso de Control: notas en LaTeX, códigos MATLAB/Simulink, herramientas de verificación y sitio Quarto |
 | `fuentes/curso-sisnl/` | Fuentes del curso: notas en LaTeX, códigos MATLAB/Simulink, herramientas de verificación y sitio Quarto |
 

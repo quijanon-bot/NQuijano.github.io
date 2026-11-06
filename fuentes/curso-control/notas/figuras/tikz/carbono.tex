@@ -1,0 +1,22 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[res/.style={draw=ctrlnoche,thick,rounded corners=3pt,minimum width=24mm,minimum height=10mm,align=center,font=\footnotesize},
+                    fl/.style={->,thick,draw=ctrlgris},lab/.style={font=\scriptsize,text=ctrlnoche}]
+  \node[res,fill=ctrlcoral!12] (A) at (0,0) {atmósfera\\$m_A$};
+  \node[res,fill=ctrlverde!15] (V) at (-3.4,-2) {vegetación\\$m_V$};
+  \node[res,fill=ctrlambar!18] (S) at (-3.4,-4.2) {suelo\\$m_S$};
+  \node[res,fill=ctrlazul!12] (O) at (3.4,-2) {océano superficial\\$m_{SO}$};
+  \node[res,fill=ctrlvioleta!14] (D) at (3.4,-4.2) {océano profundo\\$m_{DO}$};
+  \node[above=6mm of A,font=\footnotesize] (E) {emisiones $u_E$};
+  \draw[->,very thick,ctrlcoral] (E)--(A);
+  \draw[fl] ([xshift=-3mm]A.south west)--node[lab,above left]{$k_{L1}m_A$}([xshift=-3mm]V.north east);
+  \draw[fl] (V.north)|-node[lab,above,pos=0.75]{$k_{L2}m_V$}(A.west);
+  \draw[fl] (V)--node[lab,left]{$k_{L3}m_V$}(S);
+  \draw[fl] (S.east)-|node[lab,right,pos=0.7]{$k_{L4}m_S$}([xshift=-6mm]A.south);
+  \draw[fl] ([xshift=3mm]A.south east)--node[lab,above right]{$k_{O1}m_A$}([xshift=3mm]O.north west);
+  \draw[fl] (O.north)|-node[lab,above,pos=0.75]{$k_{O2}m_{SO}$}(A.east);
+  \draw[fl] ([xshift=-4mm]O.south)--node[lab,left]{$k_{O3}m_{SO}$}([xshift=-4mm]D.north);
+  \draw[fl] ([xshift=4mm]D.north)--node[lab,right]{$k_{O4}m_{DO}$}([xshift=4mm]O.south);
+\end{tikzpicture}
+\end{document}

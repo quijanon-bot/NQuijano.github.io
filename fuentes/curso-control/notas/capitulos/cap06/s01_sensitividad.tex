@@ -1,0 +1,50 @@
+%% ---------------------------------------------------------------------
+\section{Por qué retroalimentar: sensitividad y error}
+\label{sec:er-sensitividad}
+%% ---------------------------------------------------------------------
+
+Analizar un sistema de control es evaluar tres cosas: la estabilidad (sin ella las otras dos no tienen sentido), la respuesta transitoria y el \textbf{error en estado estacionario}. Las dos primeras ocuparon los capítulos~\ref{cap:po}, \ref{cap:so} y~\ref{cap:es}; este capítulo trata la tercera.
+
+En malla abierta nada corrige una perturbación ni un cambio en los parámetros del proceso. La retroalimentación sí: reduce la sensibilidad a variaciones de la planta, mejora el rechazo de perturbaciones, reduce el error en estado estacionario y facilita ajustar el transitorio. A cambio, hace llegar al lazo el ruido del sensor. La \cref{fig:er-rdn} muestra las tres señales exógenas: la referencia $R$, la perturbación $D$ y el ruido de medición $N$. Definimos el \clave{error de seguimiento} como
+\begin{equation}
+  E(s)=R(s)-Y(s),
+  \label{eq:er-error}
+\end{equation}
+lo que nos interesa del desempeño. Con $\Hs=1$, por superposición,
+\begin{equation}
+  E=\underbrace{\frac{1}{1+\Gc\Gp}}_{\Sens(s)}R-\frac{\Gp}{1+\Gc\Gp}D+\underbrace{\frac{\Gc\Gp}{1+\Gc\Gp}}_{\Tlc(s)}N
+  =\Sens R-\Sens\Gp D+\Tlc N .
+  \label{eq:er-sensitividad}
+\end{equation}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap06/lazo_rdn}
+\caption{Lazo con referencia $R$, perturbación $D$ a la entrada del proceso y ruido de medición $N$.}
+\label{fig:er-rdn}
+\end{figure}
+
+\begin{definicion}[label=def:er-sensitividad]{Sensitividad y sensitividad complementaria}
+Con retroalimentación unitaria, la \textbf{sensitividad} es $\Sens(s)=\dfrac{1}{1+\Gc\Gp}$ y la \textbf{sensitividad complementaria} es $\Tlc(s)=\dfrac{\Gc\Gp}{1+\Gc\Gp}$, que es la propia función de lazo cerrado $Y/R$. Para todo $s$,
+\[
+  \Sens(s)+\Tlc(s)=1 .
+\]
+\end{definicion}
+
+Todos los términos de \eqref{eq:er-sensitividad} tienen el mismo denominador: la ecuación característica $1+\Gc\Gp=0$ es la misma para cualquier entrada. Y la identidad $\Sens+\Tlc=1$ dice que no se pueden hacer pequeñas las dos a la misma frecuencia. El compromiso se resuelve separando frecuencias: $\Gc\Gp$ grande donde viven las perturbaciones y las referencias (bajas frecuencias), para que $\Sens$ sea pequeña; $\Gc\Gp$ pequeña donde vive el ruido (altas frecuencias), para que $\Tlc$ lo sea.
+
+\begin{ejemplo}[label=ej:er-sens]{Dos ganancias}
+Con $\Gp=1/((s+1)(s+10))$ y $\Gc=K$, compare $K=10$ y $K=200$ ante una perturbación $d=0.5\sin(0.2t)$ y un ruido $n=0.01\sin(50t)$, con referencia constante.
+\solucion La amplitud de cada aporte es la amplitud de la señal por la magnitud de su función a esa frecuencia. Con $K=200$: perturbación $0.5\,|\Sens\Gp|(0.2)=0.0024$ y ruido $0.01\,|\Tlc|(50)=0.00085$. Con $K=10$: $0.025$ y $0.00004$. La ganancia alta rechaza diez veces mejor la perturbación y deja pasar veinte veces más ruido (\cref{fig:er-sens}); aquí gana, porque el ruido es pequeño. Si su amplitud pasara de $0.28$ (sumando los aportes como cota), convendría $K=10$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap06/f_sensibilidad}
+\caption{Ejemplo~\ref{ej:er-sens}: $|\Sens|$ y $|\Tlc|$ para $K=10$ y $K=200$. Donde una es pequeña, la otra vale casi $1$.}
+\label{fig:er-sens}
+\end{figure}
+
+\codigorepo{cap06_error/C6_Ej6_Sensibilidad.m}{aportes}{ejemplo~\ref{ej:er-sens}}
+
+La sensitividad y la robustez se estudian a fondo en cursos posteriores. Aquí nos quedamos con su consecuencia más directa: el error que queda cuando todo se asienta. En lo que sigue (salvo en la \cref{sec:er-perturbacion}) el lazo no tiene ni perturbación ni ruido.

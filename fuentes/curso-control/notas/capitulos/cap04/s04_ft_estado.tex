@@ -1,0 +1,63 @@
+%% ---------------------------------------------------------------------
+\section{De la función de transferencia al estado}
+\label{sec:ee-ft-estado}
+%% ---------------------------------------------------------------------
+
+Una función de transferencia sin ceros,
+\[
+  \frac{Y(s)}{U(s)}=\frac{b_0}{s^n+a_{n-1}s^{n-1}+\dots+a_1s+a_0},
+\]
+es la transformada de \eqref{eq:ee-edo} con condiciones iniciales nulas, y las variables de fase \eqref{eq:ee-fase} salen de inmediato.
+
+\begin{ejemplo}[label=ej:ee-fase]{Una función de transferencia de tercer orden}
+Escriba en variables de fase $\dfrac{Y(s)}{U(s)}=\dfrac{24}{s^3+9s^2+26s+24}$.
+\solucion La ecuación diferencial es $\dddot y+9\ddot y+26\dot y+24y=24u$. Con $x_1=y$, $x_2=\dot y$ y $x_3=\ddot y$,
+\[
+  \Am=\begin{bmatrix}0&1&0\\0&0&1\\-24&-26&-9\end{bmatrix},\quad
+  \Bm=\begin{bmatrix}0\\0\\24\end{bmatrix},\quad
+  \Cm=\begin{bmatrix}1&0&0\end{bmatrix},\quad\Dm=0 .
+\]
+Los valores propios de $\Am$ son $-2$, $-3$ y $-4$: los polos de la función de transferencia.
+\end{ejemplo}
+
+\subsection{Cuando hay ceros}
+
+Si el numerador tiene grado $m\ge1$, la ecuación diferencial tiene derivadas de la entrada y la salida y sus derivadas ya no sirven como estado. El truco es partir la función de transferencia en dos (\cref{fig:ee-intermedia}): primero el denominador, que produce una variable intermedia $Z(s)$ sin derivadas de la entrada,
+\[
+  Z(s)=\frac{1}{s^n+a_{n-1}s^{n-1}+\dots+a_0}\,U(s),
+\]
+a la que sí se le aplican las variables de fase ($x_1=z$, $x_2=\dot z$, \dots); y después el numerador, que solo combina esas variables:
+\[
+  Y(s)=(b_ms^m+\dots+b_1s+b_0)Z(s)\quad\Longrightarrow\quad y=b_0x_1+b_1x_2+\dots+b_mx_{m+1}.
+\]
+Resultado: la misma $\Am$ de \eqref{eq:ee-fase}, $\Bm=[0\;\cdots\;0\;\,1]^\top$ y $\Cm=[b_0\;\,b_1\;\cdots\;b_m\;\,0\;\cdots\;0]$. Los ceros quedan todos en $\Cm$. Esta es la forma que entrega la función del curso \cmd{variablesFase}, y la que se usa en el \cref{cap:re}. (Para $m=0$ coincide con \eqref{eq:ee-fase} salvo en dónde se pone $b_0$: en $\Bm$ o en $\Cm$.)
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap04/variable_intermedia}
+\caption{(a) Función de transferencia con ceros. (b) Partición con la variable intermedia $Z(s)$: las variables de fase se definen sobre $z$, y el numerador solo forma la salida.}
+\label{fig:ee-intermedia}
+\end{figure}
+
+\begin{ejemplo}[label=ej:ee-ceros]{Con ceros}
+Escriba en variables de fase $\dfrac{Y(s)}{U(s)}=\dfrac{s^2+7s+2}{s^3+9s^2+26s+24}$.
+\solucion La misma $\Am$ del ejemplo~\ref{ej:ee-fase}, $\Bm=[0\;\,0\;\,1]^\top$ y $\Cm=[2\;\,7\;\,1]$: $y=2z+7\dot z+\ddot z$.
+\end{ejemplo}
+
+\codigorepo{cap04_espacio_estado/C4_Ej2_FTaEstado.m}{fase}{ejemplo~\ref{ej:ee-fase}}
+\codigorepo{cap04_espacio_estado/C4_Ej2_FTaEstado.m}{numerador}{ejemplo~\ref{ej:ee-ceros} con la función \cmd{variablesFase}}
+
+\paragraph{Lo que hace \matlab.} El comando \cmd{tf2ss} no devuelve las variables de fase. Para el ejemplo~\ref{ej:ee-ceros} entrega
+\[
+  \Am_1=\begin{bmatrix}-9&-26&-24\\1&0&0\\0&1&0\end{bmatrix},\quad
+  \Bm_1=\begin{bmatrix}1\\0\\0\end{bmatrix},\quad
+  \Cm_1=\begin{bmatrix}1&7&2\end{bmatrix} :
+\]
+las mismas variables, pero numeradas al revés ($x_1$ de \matlab{} es nuestro $x_3$). Invertir el orden de los estados con $\mathbb P=$\cmd{fliplr(eye(3))} recupera nuestra forma: $\mathbb P\Am_1\mathbb P$, $\mathbb P\Bm_1$, $\Cm_1\mathbb P$. Las dos representaciones dan la misma función de transferencia: \alerta{la representación de estado no es única, la función de transferencia sí}. La \cref{sec:ee-estado-ft} explica por qué.
+
+\codigorepo{cap04_espacio_estado/C4_Ej2_FTaEstado.m}{matlab}{\cmd{tf2ss} y el cambio de orden de los estados}
+
+\begin{pausa}
+¿Qué pasa con $\Dm$ si el numerador tiene el mismo grado que el denominador, por ejemplo $\dfrac{2s+3}{s+1}$?
+\respuesta{Primero se divide: $\dfrac{2s+3}{s+1}=2+\dfrac{1}{s+1}$. La parte constante va directo de la entrada a la salida: $\Dm=2$; el resto, $\Am=-1$, $\Bm=1$, $\Cm=1$.}
+\end{pausa}

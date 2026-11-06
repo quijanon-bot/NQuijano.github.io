@@ -1,0 +1,71 @@
+%% ---------------------------------------------------------------------
+\section{Del estado a la función de transferencia}
+\label{sec:ee-estado-ft}
+%% ---------------------------------------------------------------------
+
+Transformando $\dot x=\Am x+\Bm u$ con condiciones iniciales nulas, $sX(s)=\Am X(s)+\Bm U(s)$, de donde $X(s)=(s\Id-\Am)^{-1}\Bm U(s)$, y con la ecuación de salida,
+\begin{equation}
+  \boxed{\;G(s)=\frac{Y(s)}{U(s)}=\Cm(s\Id-\Am)^{-1}\Bm+\Dm\;}
+  \label{eq:ee-ss2tf}
+\end{equation}
+siempre que $s\Id-\Am$ sea invertible. Como $(s\Id-\Am)^{-1}=\operatorname{adj}(s\Id-\Am)/\det(s\Id-\Am)$, cada entrada de $G(s)$ es un cociente de polinomios con denominador $\det(s\Id-\Am)$, el \textbf{polinomio característico} de $\Am$. Por eso los polos de $G(s)$ están entre los valores propios de $\Am$.
+
+La matriz $(s\Id-\Am)^{-1}$ se llama \textbf{resolvente}, y es la transformada de la matriz de transición: transformando la serie de $e^{\Am t}$ término a término, $\Lap{e^{\Am t}}=\frac{\Id}{s}+\frac{\Am}{s^2}+\frac{\Am^2}{s^3}+\cdots$, y al multiplicar por $(s\Id-\Am)$ todo se cancela salvo $\Id$. Entonces
+\begin{equation}
+  \Phi(t)=e^{\Am t}=\iLap{(s\Id-\Am)^{-1}} .
+  \label{eq:ee-resolvente}
+\end{equation}
+
+\begin{receta}[Matriz de transición por Laplace]
+\begin{enumerate}
+  \item Forme $s\Id-\Am$ y calcule su determinante, el polinomio característico.
+  \item Inviértala: $(s\Id-\Am)^{-1}=\dfrac{\operatorname{adj}(s\Id-\Am)}{\det(s\Id-\Am)}$. Para $2\times2$, $\begin{bmatrix}a&b\\c&d\end{bmatrix}^{-1}=\dfrac{1}{ad-bc}\begin{bmatrix}d&-b\\-c&a\end{bmatrix}$.
+  \item Antitransforme cada elemento, con fracciones parciales.
+\end{enumerate}
+\end{receta}
+
+\paragraph{Adjunta y determinante.} La adjunta es la transpuesta de la matriz de cofactores: $\operatorname{adj}(\Am)=[C_{ij}]^\top$, con $C_{ij}=(-1)^{i+j}M_{ij}$ y $M_{ij}$ el determinante de la matriz que queda al quitar la fila $i$ y la columna $j$ (el \emph{menor}). El determinante se puede desarrollar por cualquier fila $i$ o columna $k$: $\det\Am=\sum_ja_{ij}C_{ij}=\sum_ia_{ik}C_{ik}$. Conviene escoger la fila o la columna con más ceros.
+
+\begin{ejemplo}[label=ej:ee-det]{Desarrollo por cofactores}
+Calcule el determinante de $\begin{bmatrix}2&4&1\\3&0&2\\2&0&3\end{bmatrix}$.
+\solucion La segunda columna tiene dos ceros. Los menores son $M_{12}=\begin{vmatrix}3&2\\2&3\end{vmatrix}=5$, $M_{22}=\begin{vmatrix}2&1\\2&3\end{vmatrix}=4$ y $M_{32}=\begin{vmatrix}2&1\\3&2\end{vmatrix}=1$, y los cofactores, $C_{12}=-5$, $C_{22}=4$ y $C_{32}=-1$. Entonces $\det=4\cdot C_{12}+0\cdot C_{22}+0\cdot C_{32}=-20$.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:ee-motor]{Motor de corriente continua}
+Un motor con inercia se modela como $\dot x_1=x_2$, $\dot x_2=-\alpha x_2+\beta u$, $y=x_1$, con $\alpha,\beta>0$~\citep{Fri86}. Halle $\Phi(t)$ y $G(s)$.
+\solucion $s\Id-\Am=\begin{bmatrix}s&-1\\0&s+\alpha\end{bmatrix}$, $\det=s(s+\alpha)$ y
+\[
+  (s\Id-\Am)^{-1}=\begin{bmatrix}\dfrac1s&\dfrac{1}{s(s+\alpha)}\\[2mm]0&\dfrac{1}{s+\alpha}\end{bmatrix},
+  \qquad
+  \Phi(t)=\begin{bmatrix}1&\dfrac{1-e^{-\alpha t}}{\alpha}\\0&e^{-\alpha t}\end{bmatrix}.
+\]
+Con \eqref{eq:ee-ss2tf}, $G(s)=\dfrac{\beta}{s(s+\alpha)}$: el valor propio en cero es el integrador que convierte velocidad en posición.
+\end{ejemplo}
+
+\subsection{¿Valores propios o polos?}
+
+Los polos de $G(s)$ son valores propios de $\Am$, pero \alerta{no siempre todos los valores propios son polos}: puede haber cancelaciones entre el numerador y $\det(s\Id-\Am)$.
+
+\begin{ejemplo}[label=ej:ee-cancelacion]{Una función de transferencia que esconde modos}
+Con $\Am=\begin{bmatrix}0&1&0\\0&0&1\\-6&-11&-6\end{bmatrix}$ y $\Bm=[0\;\,0\;\,1]^\top$, compare $\Cm_a=[1\;\,0\;\,0]$ y $\Cm_b=[2\;\,3\;\,1]$.
+\solucion Los valores propios son $-1$, $-2$ y $-3$. Con $\Cm_a$, $G_a=\dfrac{1}{(s+1)(s+2)(s+3)}$. Con $\Cm_b$, el numerador es $s^2+3s+2=(s+1)(s+2)$ y
+\[
+  G_b(s)=\frac{(s+1)(s+2)}{(s+1)(s+2)(s+3)}=\frac{1}{s+3}:
+\]
+un solo polo para tres valores propios. Los modos $e^{-t}$ y $e^{-2t}$ siguen en el estado (aparecen si $x(0)\neq0$), pero no llegan a la salida. Aquí son estables y la cancelación es inofensiva; si uno de ellos fuera inestable, la función de transferencia lo escondería. Es la pregunta que responde la \textbf{observabilidad}, en el \cref{cap:re}.
+\end{ejemplo}
+
+\codigorepo{cap04_espacio_estado/C4_Ej4_EstadoaFT.m}{ss2tf}{\cmd{ss2tf}, \cmd{eig} y \cmd{dcgain}}
+\codigorepo{cap04_espacio_estado/C4_Ej4_EstadoaFT.m}{cancelacion}{ejemplo~\ref{ej:ee-cancelacion}}
+
+\paragraph{Cambio de variables.} Si $x=\mathbb T\bar x$ con $\mathbb T$ invertible, el sistema en las nuevas variables es $\bar\Am=\mathbb T^{-1}\Am\mathbb T$, $\bar\Bm=\mathbb T^{-1}\Bm$, $\bar\Cm=\Cm\mathbb T$, $\bar\Dm=\Dm$, y
+\[
+  \bar\Cm(s\Id-\bar\Am)^{-1}\bar\Bm=\Cm\mathbb T\bigl(\mathbb T^{-1}(s\Id-\Am)\mathbb T\bigr)^{-1}\mathbb T^{-1}\Bm=\Cm(s\Id-\Am)^{-1}\Bm .
+\]
+Por eso hay infinitas representaciones de estado con la misma función de transferencia, y los valores propios no cambian. Si las columnas de $\mathbb T$ son vectores propios de $\Am$ (con valores propios distintos), $\bar\Am$ es diagonal, cada estado nuevo es un \textbf{modo} desacoplado, y $\Phi(t)=\mathbb T\,\operatorname{diag}(e^{\lambda_it})\,\mathbb T^{-1}$.
+
+\codigorepo{cap04_espacio_estado/C4_Ej4_EstadoaFT.m}{similitud}{la forma diagonal y $\Phi(t)$}
+
+\begin{ideaclave}
+\textbf{Lo que es único y lo que no.}\enspace La función de transferencia y los valores propios de $\Am$ no dependen de cómo se escojan las variables de estado; las matrices sí. Y la función de transferencia puede tener menos polos que valores propios: describe solo la parte del sistema que conecta la entrada con la salida.
+\end{ideaclave}

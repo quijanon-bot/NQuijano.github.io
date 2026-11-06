@@ -18,7 +18,7 @@ $u_0$ es la salida cuando el error es cero (el \emph{bias} o \emph{reset} manual
 \label{fig:pn-banda}
 \end{figure}
 
-\paragraph{El error en estado estacionario.} Despejando, $e(t)=\bigl(u_c(t)-u_0\bigr)/\Kc$: el error solo es cero si, en estado estacionario, la salida del controlador coincide con el \emph{bias}. Para un proceso de tipo~0 eso ocurre para una sola referencia. Con $\Gp=\Kproc/(\tau s+1)$ y $u_0=0$, el error ante escalón es $\ess=1/(1+\Kc\Kproc)$ (capítulo~6): baja al subir $\Kc$, pero no se anula, y una ganancia muy alta puede desestabilizar el lazo (capítulo~5).
+\paragraph{El error en estado estacionario.} Despejando, $e(t)=\bigl(u_c(t)-u_0\bigr)/\Kc$: el error solo es cero si, en estado estacionario, la salida del controlador coincide con el \emph{bias}. Para un proceso de tipo~0 eso ocurre para una sola referencia. Con $\Gp=\Kproc/(\tau s+1)$ y $u_0=0$, el error ante escalón es $\ess=1/(1+\Kc\Kproc)$ (\cref{cap:er}): baja al subir $\Kc$, pero no se anula, y una ganancia muy alta puede desestabilizar el lazo (\cref{cap:es}).
 
 \begin{cuidado}[Ajustar el \emph{bias} a mano no es robusto]
 Con el proceso conocido, el \emph{bias} que anula el error es $u_0=r/\Gp(0)$. Pero basta que la ganancia del proceso cambie un poco (ensuciamiento, otro punto de operación) para que el error reaparezca. Lo que hace falta es un mecanismo que ajuste $u_0$ \emph{solo}: esa es la acción integral.

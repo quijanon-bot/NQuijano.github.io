@@ -1,0 +1,51 @@
+%% ---------------------------------------------------------------------
+\section{Retroalimentación no unitaria}
+\label{sec:er-no-unitaria}
+%% ---------------------------------------------------------------------
+
+Si el sensor tiene dinámica o ganancia, $\Hs(s)\neq1$, y al comparador ya no llega el error de seguimiento, sino el \clave{error de actuación}
+\[
+  E_a(s)=R(s)-\Hs(s)Y(s),
+\]
+la señal que entra a $G$. Aplicar la \cref{tab:er-tabla} a la malla abierta $\Gma=G\Hs$ da el error de \emph{actuación} en estado estacionario, no el de seguimiento. Para el de seguimiento, el lazo se reescribe con retroalimentación unitaria (ejemplo~\ref{ej:so-equivalente}) con el \textbf{lazo abierto}
+\begin{equation}
+  \Gla(s)=\frac{G(s)}{1+G(s)\Hs(s)-G(s)},
+  \label{eq:er-gla}
+\end{equation}
+y con él se usan el tipo, las constantes y la tabla. Si $\Hs=1$, $\Gla=G$.
+
+\begin{ejemplo}[label=ej:er-gh]{Dos errores que no coinciden}
+En la \cref{fig:er-gh}, $G=\dfrac{100}{s+1}$ y $\Hs=\dfrac{1}{s+5}$. Halle el error de actuación y el de seguimiento ante un escalón unitario.
+\solucion El lazo cerrado es $\Tlc=\dfrac{G}{1+G\Hs}=\dfrac{100(s+5)}{s^2+6s+105}$, estable (polos en $-3\pm9.8j$), con $y_\infty=\Tlc(0)=500/105=4.76$.
+
+\emph{Con la malla abierta}: $G\Hs=\dfrac{100}{(s+1)(s+5)}$, tipo 0, $\kp=20$, y $e_{a,\infty}=1/21=0.048$. Es correcto, pero es el error de actuación: en estado estacionario $\Hs(0)y_\infty=4.76/5=0.952\approx r$.
+
+\emph{Con el lazo abierto}: \eqref{eq:er-gla} da
+\[
+  \Gla(s)=\frac{100(s+5)}{s^2-94s-395},\qquad \kp=\Gla(0)=-\frac{500}{395}=-1.266,
+\]
+y $\ess=\dfrac{1}{1+\kp}=\dfrac{1}{1-1.266}=-3.76=1-y_\infty$. La salida termina en $4.76$ veces la referencia (\cref{fig:er-no-unitaria}). El signo negativo dice que la salida \emph{sobrepasa} la referencia.
+
+$\Gla$ tiene un polo en $+98$: no es un sistema físico que haya que estabilizar, sino una función auxiliar que reproduce el mismo lazo cerrado; el lazo cerrado sigue siendo estable. La causa del error es la ganancia DC del sensor, $\Hs(0)=1/5$: el lazo lleva $\Hs y$ a la referencia, no $y$. Si el sensor se recalibra como $\Hs=k/(s+5)$, el error de seguimiento se anula con $\Tlc(0)=500/(5+100k)=1$, es decir, $k=4.95$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.55\linewidth]{cap06/lazo_gh}
+\caption{Ejemplo~\ref{ej:er-gh}: lazo con un sensor dinámico.}
+\label{fig:er-gh}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap06/f_no_unitaria}
+\caption{Ejemplo~\ref{ej:er-gh}: el error de actuación tiende a $1/21$ y el de seguimiento a $-3.76$.}
+\label{fig:er-no-unitaria}
+\end{figure}
+
+\codigorepo{cap06_error/C6_Ej2_NoUnitaria.m}{lazoabierto}{malla abierta, lazo abierto y los dos errores}
+\codigorepo{cap06_error/C6_Ej2_NoUnitaria.m}{simulacion}{la simulación y el sensor recalibrado}
+
+\begin{cuidado}[Malla abierta no es lazo abierto]
+La estabilidad y el diagrama de Bode se estudian con la malla abierta $G\Hs$; el error de seguimiento, con el lazo abierto $\Gla$. Coinciden solo si $\Hs=1$. Si $\Hs(0)=1$ (un sensor bien calibrado), el error ante escalón también coincide, aunque las funciones sean distintas.
+\end{cuidado}

@@ -1,0 +1,17 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node (u) {$U(s)$};
+  \node[bloque,right=7mm of u] (g) {$\dfrac{b_ms^m+\dots+b_1s+b_0}{s^n+a_{n-1}s^{n-1}+\dots+a_0}$};
+  \node[right=7mm of g] (y) {$Y(s)$};
+  \draw[senal] (u)--(g); \draw[senal] (g)--(y);
+  \node[left=2mm of u,font=\bfseries] {(a)};
+  \node[below=12mm of u] (u2) {$U(s)$};
+  \node[bloque,right=7mm of u2] (g1) {$\dfrac{1}{s^n+a_{n-1}s^{n-1}+\dots+a_0}$};
+  \node[bloque,right=11mm of g1] (g2) {$b_ms^m+\dots+b_1s+b_0$};
+  \node[right=7mm of g2] (y2) {$Y(s)$};
+  \draw[senal] (u2)--(g1); \draw[senal] (g1)--node[above]{$Z(s)$}(g2); \draw[senal] (g2)--(y2);
+  \node[left=2mm of u2,font=\bfseries] {(b)};
+\end{tikzpicture}
+\end{document}

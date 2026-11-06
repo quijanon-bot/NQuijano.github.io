@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -92,10 +126,39 @@ window.MathJax = { tex: { macros: {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -135,7 +198,7 @@ window.MathJax = { tex: { macros: {
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/04-espacio-estado.html">
- <span class="dropdown-text">4. Espacio de estado</span></a>
+ <span class="dropdown-text">4. Representación en espacio de estado</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/05-estabilidad.html">
@@ -242,7 +305,7 @@ window.MathJax = { tex: { macros: {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../partes/04-espacio-estado.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4. Espacio de estado</span></a>
+ <span class="menu-text">4. Representación en espacio de estado</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -317,14 +380,27 @@ window.MathJax = { tex: { macros: {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#ruta-de-la-clase" id="toc-ruta-de-la-clase" class="nav-link active" data-scroll-target="#ruta-de-la-clase">Ruta de la clase</a></li>
+  <li><a href="#lo-esencial-en-una-página" id="toc-lo-esencial-en-una-página" class="nav-link" data-scroll-target="#lo-esencial-en-una-página">Lo esencial, en una página</a></li>
+  <li><a href="#códigos-de-esta-parte" id="toc-códigos-de-esta-parte" class="nav-link" data-scroll-target="#códigos-de-esta-parte">Códigos de esta parte</a></li>
+  <li><a href="#modelos-de-simulink" id="toc-modelos-de-simulink" class="nav-link" data-scroll-target="#modelos-de-simulink">Modelos de Simulink</a></li>
+  <li><a href="#pausas-activas" id="toc-pausas-activas" class="nav-link" data-scroll-target="#pausas-activas">Pausas activas</a></li>
+  <li><a href="#problemas" id="toc-problemas" class="nav-link" data-scroll-target="#problemas">Problemas</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/06-error.html">6. Error en estado estacionario</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">6. Error en estado estacionario</h1>
-<p class="subtitle lead">Semana 7 · por migrar al formato nuevo</p>
+<p class="subtitle lead">Semana 7 · una clase</p>
 </div>
 
 
@@ -341,27 +417,418 @@ window.MathJax = { tex: { macros: {
 </header>
 
 
-<div class="franja"><div class="rotulo">Parte 6 · Semana 7</div><div class="titulo">Error en estado estacionario</div><div class="cita">Los lectores del tercer mundo quieren que alguien les arme una buena ficción… — Rodrigo Fresán</div><svg class="bode" viewbox="0 0 600 160" preserveaspectratio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"></path><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"></path></svg></div>
-<div class="profundiza">
-<p><span class="caja-titulo">Página en construcción</span></p>
-<p>Esta parte todavía está en el formato anterior de las notas (<code>Handout5_Ctrl.tex</code>). Se migrará siguiendo el piloto de la <a href="../partes/10-respuesta-frecuencial.html">parte 10</a>: notación unificada, cajas pedagógicas, códigos tomados del repositorio y una página como esta con todo el material.</p>
+<div class="franja"><div class="rotulo">Parte 6 · Semana 7</div><div class="titulo">Error en estado estacionario</div><div class="cita">Los lectores del tercer mundo quieren que alguien les arme una buena ficción con la pésima realidad que les ha tocado en mala suerte. — Rodrigo Fresán</div><svg class="bode" viewbox="0 0 600 160" preserveaspectratio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"></path><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"></path></svg></div>
+<p>De las tres cosas que se evalúan en un sistema de control —estabilidad, transitorio y error—, falta la tercera: <strong>cuánto se equivoca el lazo cuando todo se asienta</strong>. Empezamos con las funciones de <strong>sensitividad</strong>, que muestran cómo la referencia, las perturbaciones y el ruido llegan al error. Luego, con las señales de prueba (escalón, rampa, parábola), el <strong>tipo del sistema</strong> y las <strong>constantes de error</strong> <span class="math inline">\(\kappa_p\)</span>, <span class="math inline">\(\kappa_v\)</span>, <span class="math inline">\(\kappa_a\)</span>, calculamos el error sin simular. Vemos qué cambia con un sensor que no es unitario, cómo se rechaza una <strong>perturbación</strong>, cómo se calcula el error en <strong>espacio de estado</strong> y qué hacer cuando la especificación de error choca con la de transitorio.</p>
+<div class="botones">
+  <a class="boton" href="../pdf/cap06_error.pdf">⬇ Handout en PDF</a>
+  <a class="boton sec" href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap06_error">Códigos en GitHub</a>
 </div>
-<section id="temas" class="level2">
-<h2 class="anchored" data-anchor-id="temas">Temas</h2>
-<ul>
-<li>Sensitividad y error</li>
-<li>Señales de prueba</li>
-<li>Tipo del sistema y constantes estáticas κp, κv, κa</li>
-</ul>
+<div class="receta">
+<p><span class="caja-titulo">Al terminar esta parte usted podrá</span></p>
+<ol type="1">
+<li>Relacionar el error de seguimiento con la referencia, las perturbaciones y el ruido a través de las funciones de sensitividad.</li>
+<li>Calcular el error en estado estacionario ante escalón, rampa y parábola con el tipo y las constantes <span class="math inline">\(\kappa_p\)</span>, <span class="math inline">\(\kappa_v\)</span>, <span class="math inline">\(\kappa_a\)</span>, después de verificar la estabilidad.</li>
+<li>Tratar la retroalimentación no unitaria con el lazo abierto <span class="math inline">\(G_{OL}\)</span> y distinguir el error de seguimiento del de actuación.</li>
+<li>Calcular el error por perturbaciones y en espacio de estado, y reconocer cuándo el error choca con el transitorio.</li>
+</ol>
+</div>
+<section id="ruta-de-la-clase" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-la-clase">Ruta de la clase</h2>
+<table class="table-striped caption-top table">
+<caption>Lea la sección del handout <strong>antes</strong> de la clase.</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Qué se ve</th>
+<th style="text-align: left;">Handout</th>
+<th style="text-align: left;">Scripts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Sensitividad; señales de prueba; tipo y constantes de error; retroalimentación no unitaria; perturbaciones; error en espacio de estado; error contra transitorio</td>
+<td style="text-align: left;">§6.1–6.7</td>
+<td style="text-align: left;"><code>C6_Ej1</code>–<code>C6_Ej6</code>, <code>crearModelo_Perturbacion</code></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="lo-que-tendrá-esta-página" class="level2">
-<h2 class="anchored" data-anchor-id="lo-que-tendrá-esta-página">Lo que tendrá esta página</h2>
-<ul>
-<li>El <strong>handout en PDF</strong> de la parte, con el formato nuevo.</li>
-<li>Los <strong>códigos de MATLAB y Simulink</strong>, con instrucciones y resultados esperados.</li>
-<li>Los <strong>videos</strong> de la parte y las <strong>pausas activas</strong> con respuesta.</li>
-<li>Los <strong>problemas</strong> con soluciones seleccionadas.</li>
-</ul>
+<section id="lo-esencial-en-una-página" class="level2">
+<h2 class="anchored" data-anchor-id="lo-esencial-en-una-página">Lo esencial, en una página</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap06/lazo_rdn.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption>Lazo con referencia <span class="math inline">\(R\)</span>, perturbación <span class="math inline">\(D\)</span> y ruido de medición <span class="math inline">\(N\)</span>.</figcaption>
+</figure>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Sensitividad</span></p>
+<p>Con retroalimentación unitaria,</p>
+<p><span class="math display">\[
+E=R-Y=S\,R-S\,G_p\,D+T\,N,\qquad S=\frac{1}{1+G_cG_p},\quad T=\frac{G_cG_p}{1+G_cG_p},\quad S+T=1 .
+\]</span></p>
+<p>No se pueden hacer pequeñas las dos a la misma frecuencia: lazo abierto grande donde viven la referencia y las perturbaciones, pequeño donde vive el ruido.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap06/f_sensibilidad.svg" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption><span class="math inline">\(|S|\)</span> y <span class="math inline">\(|T|\)</span> para dos ganancias: donde una es pequeña, la otra vale casi 1.</figcaption>
+</figure>
+</div>
+<div class="cuidado">
+<p><span class="caja-titulo">Primero la estabilidad</span></p>
+<p>El teorema del valor final solo vale si el lazo cerrado es estable. Un “error en estado estacionario” de un lazo inestable no significa nada.</p>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Tipo y constantes de error</span></p>
+<p><span class="math display">\[
+e_{ss}=\lim_{s\to0}s\,\frac{R(s)}{1+G(s)},\qquad
+\kappa_p=\lim_{s\to0}G,\quad \kappa_v=\lim_{s\to0}sG,\quad \kappa_a=\lim_{s\to0}s^2G .
+\]</span></p>
+<p>El <strong>tipo</strong> es el número de integradores del lazo abierto <span class="math inline">\(G\)</span>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">escalón</th>
+<th style="text-align: center;">rampa</th>
+<th style="text-align: center;">parábola</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tipo 0</td>
+<td style="text-align: center;"><span class="math inline">\(1/(1+\kappa_p)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\infty\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\infty\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tipo 1</td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1/\kappa_v\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\infty\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tipo 2</td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1/\kappa_a\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap06/f_tipos.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Lazos de tipo 0, 1 y 2 ante escalón y rampa.</figcaption>
+</figure>
+</div>
+<div class="ideaclave">
+<p><span class="caja-titulo">Malla abierta no es lazo abierto</span></p>
+<p>Con un sensor <span class="math inline">\(H\neq1\)</span>, la malla abierta <span class="math inline">\(GH\)</span> da el error de <strong>actuación</strong> <span class="math inline">\(r-Hy\)</span>; el error de <strong>seguimiento</strong> <span class="math inline">\(r-y\)</span> sale del lazo abierto <span class="math inline">\(G_{OL}=\dfrac{G}{1+GH-G}\)</span>. Con <span class="math inline">\(G=100/(s+1)\)</span> y <span class="math inline">\(H=1/(s+5)\)</span>: error de actuación <span class="math inline">\(1/21\)</span>, pero la salida termina en <span class="math inline">\(4.76\)</span> (error de seguimiento <span class="math inline">\(-3.76\)</span>), porque <span class="math inline">\(H(0)=1/5\)</span>.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap06/f_no_unitaria.svg" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption>Error de actuación y de seguimiento con un sensor dinámico.</figcaption>
+</figure>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Perturbaciones</span></p>
+<p>Con <span class="math inline">\(R=0\)</span> y la perturbación a la entrada del proceso, <span class="math inline">\(E=-\dfrac{G_p}{1+G_cG_p}D\)</span>. Un escalón de perturbación se rechaza por completo si hay un integrador <strong>antes</strong> del punto donde entra (en el controlador).</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap06/f_perturbacion.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Perturbación escalón de 0.5: el proporcional reduce el error, el PI lo anula.</figcaption>
+</figure>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">En espacio de estado</span></p>
+<p>Con el lazo cerrado y una referencia constante, el estado estacionario sale de <span class="math inline">\(\dot x=0\)</span>: <span class="math inline">\(x_{ss}=-(\mathbb A-\mathbb B\mathbb C)^{-1}\mathbb B\,r\)</span>. Un estado integrador <span class="math inline">\(\dot x_3=r-y\)</span> vuelve el lazo de tipo 1.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap06/f_atraso.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Servo <span class="math inline">\(1/(s(s+4)(s+8))\)</span>: con solo <span class="math inline">\(K\)</span> no se cumplen a la vez <span class="math inline">\(e_{ss}\le0.05\)</span> ante rampa y %OS ≤ 20 %; un atraso multiplica <span class="math inline">\(\kappa_v\)</span> por <span class="math inline">\(a/b\)</span> con una cola lenta.</figcaption>
+</figure>
+</div>
+</section>
+<section id="códigos-de-esta-parte" class="level2">
+<h2 class="anchored" data-anchor-id="códigos-de-esta-parte">Códigos de esta parte</h2>
+<p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap06_error">repositorio</a>. Ejecute antes <code>iniciarCurso</code>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Tipo y constantes</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">No unitaria</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Perturbaciones</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Espacio de estado</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Error contra transitorio</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false">Sensitividad</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false">Pruebas</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>Estabilidad, tipo y constantes de cuatro lazos (§6.3).</strong></p>
+<div class="sourceCode" id="cb1" data-filename="cap06_error/C6_Ej1_TipoError.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> {<span class="fl">20</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">2</span>)<span class="op">/</span>((<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">5</span>))<span class="op">,</span> <span class="fl">50</span><span class="op">/</span>(<span class="va">s</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">3</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>))<span class="op">,</span> <span class="op">...</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>     <span class="fl">100</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">4</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">6</span>)<span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">5</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">8</span>))<span class="op">,</span> <span class="fl">5</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">3</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">2</span>))}<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">T</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">G</span>{<span class="va">i</span>}<span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">estable</span> <span class="op">=</span> <span class="va">all</span>(<span class="va">real</span>(<span class="va">pole</span>(<span class="va">T</span>)) <span class="op">&lt;</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    [<span class="va">tipo</span><span class="op">,</span> <span class="va">kp</span><span class="op">,</span> <span class="va">kv</span><span class="op">,</span> <span class="va">ka</span>] <span class="op">=</span> <span class="va">constantesError</span>(<span class="va">G</span>{<span class="va">i</span>})<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'(%d) estable = %d  tipo %d  kp = %g  kv = %g  ka = %g\n'</span><span class="op">,</span> <span class="va">i</span><span class="op">,</span> <span class="va">estable</span><span class="op">,</span> <span class="va">tipo</span><span class="op">,</span> <span class="va">kp</span><span class="op">,</span> <span class="va">kv</span><span class="op">,</span> <span class="va">ka</span>)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">estable</span>                                  <span class="co">% error ante r = 5, 2t y 1.5 t^2</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">fprintf</span>(<span class="ss">'     ess: %g  %g  %g\n'</span><span class="op">,</span> <span class="fl">5</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">kp</span>)<span class="op">,</span> <span class="fl">2</span><span class="op">/</span><span class="va">kv</span><span class="op">,</span> <span class="fl">3</span><span class="op">/</span><span class="va">ka</span>)<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Error de rampa simulado.</strong></p>
+<div class="sourceCode" id="cb2" data-filename="cap06_error/C6_Ej1_TipoError.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">20</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">T</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">G</span>{<span class="fl">2</span>}<span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span>                          <span class="co">% tipo 1 ante rampa r = 2t</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">T</span><span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">t</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">t</span><span class="op">,</span> <span class="ss">'--'</span><span class="op">,</span> <span class="va">t</span><span class="op">,</span> <span class="va">y</span>)<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span> <span class="va">legend</span>(<span class="ss">'r = 2t'</span><span class="op">,</span> <span class="ss">'y'</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">eFinal</span> <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">t</span>(<span class="kw">end</span>) <span class="op">-</span> <span class="va">y</span>(<span class="kw">end</span>)                       <span class="co">% 2/kv = 1.2</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>La función del curso <code>constantesError</code>.</strong></p>
+<div class="sourceCode" id="cb3" data-filename="comun/constantesError.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [<span class="va">tipo</span><span class="op">,</span> <span class="va">kp</span><span class="op">,</span> <span class="va">kv</span><span class="op">,</span> <span class="va">ka</span>] <span class="op">=</span> <span class="va">constantesError</span>(<span class="va">G</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">% CONSTANTESERROR  Tipo y constantes estáticas de error de un lazo abierto G(s).</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   [tipo, kp, kv, ka] = constantesError(G)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   tipo = número de polos en el origen de G (el lazo abierto, con</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   retroalimentación unitaria). kp = lim G, kv = lim sG, ka = lim s^2 G.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   OJO: solo tiene sentido si el lazo cerrado es estable (verifíquelo antes).</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>[<span class="va">z</span><span class="op">,</span> <span class="va">p</span><span class="op">,</span> <span class="va">k</span>] <span class="op">=</span> <span class="va">zpkdata</span>(<span class="va">minreal</span>(<span class="va">tf</span>(<span class="va">G</span>))<span class="op">,</span> <span class="ss">'v'</span>)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="va">enCero</span> <span class="op">=</span> <span class="va">abs</span>(<span class="va">p</span>) <span class="op">&lt;</span> <span class="fl">1e-9</span><span class="op">;</span>  <span class="va">tipo</span> <span class="op">=</span> <span class="va">sum</span>(<span class="va">enCero</span>)<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">p0</span> <span class="op">=</span> <span class="va">p</span>(<span class="op">~</span><span class="va">enCero</span>)<span class="op">;</span>  <span class="va">z0</span> <span class="op">=</span> <span class="va">z</span>(<span class="va">abs</span>(<span class="va">z</span>) <span class="op">&gt;</span> <span class="fl">1e-9</span>)<span class="op">;</span>  <span class="va">nz0</span> <span class="op">=</span> <span class="va">sum</span>(<span class="va">abs</span>(<span class="va">z</span>) <span class="op">&lt;=</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="va">base</span> <span class="op">=</span> <span class="va">real</span>(<span class="va">k</span><span class="op">*</span><span class="va">prod</span>(<span class="op">-</span><span class="va">z0</span>)<span class="op">/</span><span class="va">prod</span>(<span class="op">-</span><span class="va">p0</span>))<span class="op">;</span>              <span class="co">% ganancia "de Bode" sin los s^N</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="va">c</span> <span class="op">=</span> <span class="va">Inf</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">3</span>)<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">2</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="va">e</span> <span class="op">=</span> <span class="va">tipo</span> <span class="op">-</span> <span class="va">nz0</span> <span class="op">-</span> <span class="va">i</span><span class="op">;</span>                          <span class="co">% potencia de s que queda en el denominador</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">e</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">,</span> <span class="va">c</span>(<span class="va">i</span><span class="op">+</span><span class="fl">1</span>) <span class="op">=</span> <span class="va">Inf</span><span class="op">;</span> <span class="kw">elseif</span> <span class="va">e</span> <span class="op">==</span> <span class="fl">0</span><span class="op">,</span> <span class="va">c</span>(<span class="va">i</span><span class="op">+</span><span class="fl">1</span>) <span class="op">=</span> <span class="va">base</span><span class="op">;</span> <span class="kw">else</span><span class="op">,</span> <span class="va">c</span>(<span class="va">i</span><span class="op">+</span><span class="fl">1</span>) <span class="op">=</span> <span class="fl">0</span><span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="va">kp</span> <span class="op">=</span> <span class="va">c</span>(<span class="fl">1</span>)<span class="op">;</span>  <span class="va">kv</span> <span class="op">=</span> <span class="va">c</span>(<span class="fl">2</span>)<span class="op">;</span>  <span class="va">ka</span> <span class="op">=</span> <span class="va">c</span>(<span class="fl">3</span>)<span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>Malla abierta, lazo abierto y los dos errores (§6.4).</strong></p>
+<div class="sourceCode" id="cb4" data-filename="cap06_error/C6_Ej2_NoUnitaria.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="fl">100</span><span class="op">/</span>(<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">;</span>  <span class="va">H</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span><span class="op">+</span><span class="fl">5</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">T</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">G</span><span class="op">,</span> <span class="va">H</span>)<span class="op">;</span>  <span class="va">pole</span>(<span class="va">T</span>)                    <span class="co">% estable: -3 +- 9.8j</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">ea</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">dcgain</span>(<span class="va">G</span><span class="op">*</span><span class="va">H</span>))                        <span class="co">% error de actuación: 0.0476</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">Gol</span> <span class="op">=</span> <span class="va">minreal</span>(<span class="va">G</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">G</span><span class="op">*</span><span class="va">H</span> <span class="op">-</span> <span class="va">G</span>))                  <span class="co">% lazo abierto: polo en +98</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="va">e</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">dcgain</span>(<span class="va">Gol</span>))                         <span class="co">% error de seguimiento: -3.762</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span> <span class="op">-</span> <span class="va">dcgain</span>(<span class="va">T</span>)                                   <span class="co">% lo mismo, directamente</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Simulación y sensor recalibrado.</strong></p>
+<div class="sourceCode" id="cb5" data-filename="cap06_error/C6_Ej2_NoUnitaria.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.001</span><span class="op">:</span><span class="fl">3</span><span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">y</span> <span class="op">=</span> <span class="va">step</span>(<span class="va">T</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>  <span class="va">yH</span> <span class="op">=</span> <span class="va">step</span>(<span class="va">T</span><span class="op">*</span><span class="va">H</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">plot</span>(<span class="va">t</span><span class="op">,</span> <span class="va">ones</span>(<span class="va">size</span>(<span class="va">t</span>))<span class="op">,</span> <span class="ss">'--'</span><span class="op">,</span> <span class="va">t</span><span class="op">,</span> <span class="va">y</span><span class="op">,</span> <span class="va">t</span><span class="op">,</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">yH</span><span class="op">,</span> <span class="va">t</span><span class="op">,</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">y</span>)<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="va">legend</span>(<span class="ss">'r'</span><span class="op">,</span> <span class="ss">'y'</span><span class="op">,</span> <span class="ss">'e_a = r - Hy'</span><span class="op">,</span> <span class="ss">'e = r - y'</span>)<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="va">k</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="op">@</span>(<span class="va">k</span>) <span class="va">dcgain</span>(<span class="va">feedback</span>(<span class="va">G</span><span class="op">,</span> <span class="va">k</span><span class="op">/</span>(<span class="va">s</span><span class="op">+</span><span class="fl">5</span>))) <span class="op">-</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">5</span>)   <span class="co">% sensor recalibrado: 4.95</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>Proporcional (§6.5).</strong></p>
+<div class="sourceCode" id="cb6" data-filename="cap06_error/C6_Ej3_Perturbacion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">K</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">10</span> <span class="fl">100</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">Ted</span> <span class="op">=</span> <span class="op">-</span><span class="va">feedback</span>(<span class="va">Gp</span><span class="op">,</span> <span class="va">K</span>)<span class="op">;</span>                     <span class="co">% E/D con D a la entrada (R = 0)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">Tes</span> <span class="op">=</span> <span class="op">-</span><span class="va">feedback</span>(<span class="fl">1</span><span class="op">,</span> <span class="va">K</span><span class="op">*</span><span class="va">Gp</span>)<span class="op">;</span>                   <span class="co">% E/D con D a la salida</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'K = %3d: entrada %8.4f   salida %8.4f\n'</span><span class="op">,</span> <span class="va">K</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">dcgain</span>(<span class="va">Ted</span>)<span class="op">,</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">dcgain</span>(<span class="va">Tes</span>))<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>PI.</strong></p>
+<div class="sourceCode" id="cb7" data-filename="cap06_error/C6_Ej3_Perturbacion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">K</span> <span class="op">=</span> <span class="fl">10</span><span class="op">;</span>  <span class="va">Ki</span> <span class="op">=</span> <span class="fl">18</span><span class="op">;</span>                               <span class="co">% 0 &lt; Ki &lt; 36 (Routh de s^3+3s^2+12s+Ki)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">Gc</span> <span class="op">=</span> <span class="va">K</span> <span class="op">+</span> <span class="va">Ki</span><span class="op">/</span><span class="va">s</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">Ted</span> <span class="op">=</span> <span class="op">-</span><span class="va">feedback</span>(<span class="va">Gp</span><span class="op">,</span> <span class="va">Gc</span>)<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fl">0.5</span><span class="op">*</span><span class="va">dcgain</span>(<span class="va">Ted</span>)                                 <span class="co">% 0: el integrador en Gc anula el error</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="va">step</span>(<span class="fl">0.5</span><span class="op">*</span><span class="va">Ted</span><span class="op">,</span> <span class="fl">15</span>)<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><strong>Estado estacionario con <span class="math inline">\(\dot x=0\)</span> (§6.6).</strong></p>
+<div class="sourceCode" id="cb8" data-filename="cap06_error/C6_Ej4_Estado.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">Acl</span> <span class="op">=</span> <span class="va">A</span> <span class="op">-</span> <span class="va">B</span><span class="op">*</span><span class="va">C</span><span class="op">;</span>                                  <span class="co">% u = r - Cx</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="va">xss</span> <span class="op">=</span> <span class="op">-</span><span class="va">Acl</span><span class="op">\</span><span class="va">B</span>                                    <span class="co">% 0 = Acl x + B r, con r = 1</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="va">ess</span> <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">C</span><span class="op">*</span><span class="va">xss</span>                                 <span class="co">% 0.5 = 1/(1 + kp), kp = 1</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Estado integrador.</strong></p>
+<div class="sourceCode" id="cb9" data-filename="cap06_error/C6_Ej4_Estado.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">Ki</span> <span class="op">=</span> <span class="fl">3</span><span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">Aa</span> <span class="op">=</span> [<span class="va">A</span> <span class="op">-</span> <span class="va">B</span><span class="op">*</span><span class="va">C</span><span class="op">,</span> <span class="va">B</span><span class="op">*</span><span class="va">Ki</span><span class="op">;</span> <span class="op">-</span><span class="va">C</span><span class="op">,</span> <span class="fl">0</span>]<span class="op">;</span>  <span class="va">Ba</span> <span class="op">=</span> [<span class="va">B</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">;</span>  <span class="va">Ca</span> <span class="op">=</span> [<span class="va">C</span> <span class="fl">0</span>]<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="va">poly</span>(<span class="va">Aa</span>)                                        <span class="co">% [1 3 4 2Ki]</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="va">eig</span>(<span class="va">Aa</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="va">yss</span> <span class="op">=</span> <span class="va">Ca</span><span class="op">*</span>(<span class="op">-</span><span class="va">Aa</span><span class="op">\</span><span class="va">Ba</span>)                               <span class="co">% 1: error nulo</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="va">step</span>(<span class="va">ss</span>(<span class="va">Aa</span><span class="op">,</span> <span class="va">Ba</span><span class="op">,</span> <span class="va">Ca</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span> <span class="fl">15</span>)<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p><strong>El conflicto (§6.7).</strong></p>
+<div class="sourceCode" id="cb10" data-filename="cap06_error/C6_Ej5_Atraso.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">Kerr</span> <span class="op">=</span> <span class="fl">32</span><span class="op">/</span><span class="fl">0.05</span>                                  <span class="co">% kv = K/32 &gt;= 20</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">Kmax</span> <span class="op">=</span> <span class="fl">12</span><span class="op">*</span><span class="fl">32</span>                                    <span class="co">% Routh: s^3 + 12s^2 + 32s + K</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">zeta</span> <span class="op">=</span> <span class="op">-</span><span class="va">log</span>(<span class="fl">0.17</span>)<span class="op">/</span><span class="va">sqrt</span>(<span class="va">pi</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">log</span>(<span class="fl">0.17</span>)<span class="op">^</span><span class="fl">2</span>)<span class="op">;</span>     <span class="co">% sobrepico de diseño 17 %</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="va">K</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="op">@</span>(<span class="va">K</span>) <span class="va">polosDominantes</span>(<span class="va">K</span>) <span class="op">-</span> <span class="va">zeta</span><span class="op">,</span> [<span class="fl">20</span> <span class="fl">380</span>])</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>El atraso.</strong></p>
+<div class="sourceCode" id="cb11" data-filename="cap06_error/C6_Ej5_Atraso.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">b</span> <span class="op">=</span> <span class="fl">0.005</span><span class="op">;</span>  <span class="va">a</span> <span class="op">=</span> <span class="fl">1.1</span><span class="op">*</span>(<span class="va">Kerr</span><span class="op">/</span><span class="va">K</span>)<span class="op">*</span><span class="va">b</span>                  <span class="co">% a/b con 10 % de margen</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">Gc</span> <span class="op">=</span> <span class="va">K</span><span class="op">*</span>(<span class="va">s</span> <span class="op">+</span> <span class="va">a</span>)<span class="op">/</span>(<span class="va">s</span> <span class="op">+</span> <span class="va">b</span>)<span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">T0</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">K</span><span class="op">*</span><span class="va">G</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span>  <span class="va">T1</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">Gc</span><span class="op">*</span><span class="va">G</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="va">pole</span>(<span class="va">T1</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="va">S0</span> <span class="op">=</span> <span class="va">stepinfo</span>(<span class="va">T0</span>)<span class="op">,</span> <span class="va">S1</span> <span class="op">=</span> <span class="va">stepinfo</span>(<span class="va">T1</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.05</span><span class="op">:</span><span class="fl">400</span><span class="op">;</span>  <span class="va">e</span> <span class="op">=</span> <span class="va">t</span><span class="op">'</span> <span class="op">-</span> <span class="va">lsim</span>(<span class="va">T1</span><span class="op">,</span> <span class="va">t</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>  <span class="va">e</span>(<span class="kw">end</span>)   <span class="co">% 0.0455</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p><strong>Tabla de <span class="math inline">\(|S|\)</span> y <span class="math inline">\(|T|\)</span> (§6.1).</strong></p>
+<div class="sourceCode" id="cb12" data-filename="cap06_error/C6_Ej6_Sensibilidad.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">w</span> <span class="op">=</span> [<span class="fl">0.1</span> <span class="fl">1</span> <span class="fl">10</span> <span class="fl">100</span>]<span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">K</span> <span class="op">=</span> [<span class="fl">10</span> <span class="fl">200</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">L</span> <span class="op">=</span> <span class="va">K</span><span class="op">*</span><span class="va">Gp</span><span class="op">;</span>  <span class="va">S</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">L</span>)<span class="op">;</span>  <span class="va">T</span> <span class="op">=</span> <span class="va">L</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">L</span>)<span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'K = %3d  |S| = %s\n         |T| = %s\n'</span><span class="op">,</span> <span class="va">K</span><span class="op">,</span> <span class="op">...</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">mat2str</span>(<span class="va">abs</span>(<span class="va">squeeze</span>(<span class="va">freqresp</span>(<span class="va">S</span><span class="op">,</span> <span class="va">w</span>)))<span class="op">.',</span> <span class="fl">3</span>)<span class="op">,</span> <span class="va">mat2str</span>(<span class="va">abs</span>(<span class="va">squeeze</span>(<span class="va">freqresp</span>(<span class="va">T</span><span class="op">,</span> <span class="va">w</span>)))<span class="op">.',</span> <span class="fl">3</span>))<span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Aportes de la perturbación y del ruido.</strong></p>
+<div class="sourceCode" id="cb13" data-filename="cap06_error/C6_Ej6_Sensibilidad.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">K</span> <span class="op">=</span> [<span class="fl">10</span> <span class="fl">200</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">L</span> <span class="op">=</span> <span class="va">K</span><span class="op">*</span><span class="va">Gp</span><span class="op">;</span>  <span class="va">S</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">L</span>)<span class="op">;</span>  <span class="va">T</span> <span class="op">=</span> <span class="va">L</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">L</span>)<span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">ed</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">abs</span>(<span class="va">freqresp</span>(<span class="va">S</span><span class="op">*</span><span class="va">Gp</span><span class="op">,</span> <span class="fl">0.2</span>))<span class="op">;</span>          <span class="co">% d = 0.5 sin(0.2 t)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">en</span> <span class="op">=</span> <span class="fl">0.01</span><span class="op">*</span><span class="va">abs</span>(<span class="va">freqresp</span>(<span class="va">T</span><span class="op">,</span> <span class="fl">50</span>))<span class="op">;</span>             <span class="co">% n = 0.01 sin(50 t)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'K = %3d: perturbación %.5f   ruido %.5f\n'</span><span class="op">,</span> <span class="va">K</span><span class="op">,</span> <span class="va">ed</span><span class="op">,</span> <span class="va">en</span>)<span class="op">;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="va">bodemag</span>(<span class="fl">1</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="fl">10</span><span class="op">*</span><span class="va">Gp</span>)<span class="op">,</span> <span class="fl">10</span><span class="op">*</span><span class="va">Gp</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="fl">10</span><span class="op">*</span><span class="va">Gp</span>)<span class="op">,</span> <span class="fl">1</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="fl">200</span><span class="op">*</span><span class="va">Gp</span>)<span class="op">,</span> <span class="fl">200</span><span class="op">*</span><span class="va">Gp</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="fl">200</span><span class="op">*</span><span class="va">Gp</span>))<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="va">legend</span>(<span class="ss">'S, K=10'</span><span class="op">,</span> <span class="ss">'T, K=10'</span><span class="op">,</span> <span class="ss">'S, K=200'</span><span class="op">,</span> <span class="ss">'T, K=200'</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
+<p><code>verificarCap06</code> comprueba los números clave del capítulo.</p>
+<div class="sourceCode" id="cb14" data-filename="cap06_error/verificarCap06.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">verificarCap06</span>()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">% VERIFICARCAP06  Pruebas automáticas de los números del capítulo 6.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   &gt;&gt; verificarCap06</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">% (Los mismos números se verificaron en herramientas/cap06_numeros.py.)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="va">raiz</span> <span class="op">=</span> <span class="va">fileparts</span>(<span class="va">mfilename</span>(<span class="ss">'fullpath'</span>))<span class="op">;</span>  <span class="va">addpath</span>(<span class="va">fullfile</span>(<span class="va">raiz</span><span class="op">,</span> <span class="ss">'..'</span><span class="op">,</span> <span class="ss">'comun'</span>))<span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="va">fallas</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span>  <span class="va">n</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="va">revisar</span>(<span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">n</span> <span class="op">=</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="va">abs</span>(<span class="va">valor</span> <span class="op">-</span> <span class="va">esperado</span>) <span class="op">&lt;=</span> <span class="va">tol</span> <span class="op">||</span> (<span class="va">isinf</span>(<span class="va">valor</span>) <span class="op">&amp;&amp;</span> <span class="va">isinf</span>(<span class="va">esperado</span>))</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="ss">'  ok   %-46s %12.5g\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span>)<span class="op">;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="fl">2</span><span class="op">,</span> <span class="ss">'  FALLA %-45s %12.5g  (esperado %g +- %g)\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)<span class="op">;</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>            <span class="va">fallas</span> <span class="op">=</span> <span class="va">fallas</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="va">s</span> <span class="op">=</span> <span class="va">tf</span>(<span class="ss">'s'</span>)<span class="op">;</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'6.3  Tipo y constantes\n'</span>)<span class="op">;</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'motor: K para ess = 1'</span><span class="op">,</span> (<span class="fl">0.01</span> <span class="op">+</span> <span class="fl">0.05</span><span class="op">*</span><span class="fl">10</span>)<span class="op">/</span><span class="fl">10</span><span class="op">,</span> <span class="fl">0.051</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> {<span class="fl">20</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">2</span>)<span class="op">/</span>((<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">5</span>))<span class="op">,</span> <span class="fl">50</span><span class="op">/</span>(<span class="va">s</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">3</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>))<span class="op">,</span> <span class="fl">100</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">4</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">6</span>)<span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">5</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">8</span>))<span class="op">,</span> <span class="fl">5</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">/</span>(<span class="va">s</span><span class="op">^</span><span class="fl">3</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">2</span>))}<span class="op">;</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>[<span class="va">t1</span><span class="op">,</span> <span class="va">kp</span>] <span class="op">=</span> <span class="va">constantesError</span>(<span class="va">G</span>{<span class="fl">1</span>})<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'(i) tipo'</span><span class="op">,</span> <span class="va">t1</span><span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'(i) kp'</span><span class="op">,</span> <span class="va">kp</span><span class="op">,</span> <span class="fl">8</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'(i) ess con r = 5'</span><span class="op">,</span> <span class="fl">5</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">kp</span>)<span class="op">,</span> <span class="fl">5</span><span class="op">/</span><span class="fl">9</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>[<span class="va">t2</span><span class="op">,</span> <span class="op">~,</span> <span class="va">kv</span>] <span class="op">=</span> <span class="va">constantesError</span>(<span class="va">G</span>{<span class="fl">2</span>})<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'(ii) tipo'</span><span class="op">,</span> <span class="va">t2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'(ii) kv'</span><span class="op">,</span> <span class="va">kv</span><span class="op">,</span> <span class="fl">5</span><span class="op">/</span><span class="fl">3</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'(ii) ess con r = 2t'</span><span class="op">,</span> <span class="fl">2</span><span class="op">/</span><span class="va">kv</span><span class="op">,</span> <span class="fl">1.2</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>[<span class="va">t3</span><span class="op">,</span> <span class="op">~,</span> <span class="op">~,</span> <span class="va">ka</span>] <span class="op">=</span> <span class="va">constantesError</span>(<span class="va">G</span>{<span class="fl">3</span>})<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'(iii) tipo'</span><span class="op">,</span> <span class="va">t3</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'(iii) ka'</span><span class="op">,</span> <span class="va">ka</span><span class="op">,</span> <span class="fl">60</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'(iii) ess con r = 1.5t^2'</span><span class="op">,</span> <span class="fl">3</span><span class="op">/</span><span class="va">ka</span><span class="op">,</span> <span class="fl">0.05</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'(iv) inestable: max Re'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">pole</span>(<span class="va">feedback</span>(<span class="va">G</span>{<span class="fl">4</span>}<span class="op">,</span> <span class="fl">1</span>)))) <span class="op">&gt;</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'(ii) estable: max Re'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">pole</span>(<span class="va">feedback</span>(<span class="va">G</span>{<span class="fl">2</span>}<span class="op">,</span> <span class="fl">1</span>))))<span class="op">,</span> <span class="op">-</span><span class="fl">1.1909</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.01</span><span class="op">:</span><span class="fl">30</span><span class="op">;</span>  <span class="va">y</span> <span class="op">=</span> <span class="va">lsim</span>(<span class="va">feedback</span>(<span class="va">G</span>{<span class="fl">2</span>}<span class="op">,</span> <span class="fl">1</span>)<span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">t</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'(ii) error de rampa simulado'</span><span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">t</span>(<span class="kw">end</span>) <span class="op">-</span> <span class="va">y</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="fl">1.2</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'6.4  Retroalimentación no unitaria\n'</span>)<span class="op">;</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="va">Gn</span> <span class="op">=</span> <span class="fl">100</span><span class="op">/</span>(<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">;</span>  <span class="va">H</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span><span class="op">+</span><span class="fl">5</span>)<span class="op">;</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'error de actuación 1/21'</span><span class="op">,</span> <span class="fl">1</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">dcgain</span>(<span class="va">Gn</span><span class="op">*</span><span class="va">H</span>))<span class="op">,</span> <span class="fl">1</span><span class="op">/</span><span class="fl">21</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'y final 100/21'</span><span class="op">,</span> <span class="va">dcgain</span>(<span class="va">feedback</span>(<span class="va">Gn</span><span class="op">,</span> <span class="va">H</span>))<span class="op">,</span> <span class="fl">100</span><span class="op">/</span><span class="fl">21</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="va">Gol</span> <span class="op">=</span> <span class="va">minreal</span>(<span class="va">Gn</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">Gn</span><span class="op">*</span><span class="va">H</span> <span class="op">-</span> <span class="va">Gn</span>))<span class="op">;</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'kp de G_OL'</span><span class="op">,</span> <span class="va">dcgain</span>(<span class="va">Gol</span>)<span class="op">,</span> <span class="op">-</span><span class="fl">100</span><span class="op">/</span><span class="fl">79</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'error de seguimiento'</span><span class="op">,</span> <span class="fl">1</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">dcgain</span>(<span class="va">Gol</span>))<span class="op">,</span> <span class="fl">1</span> <span class="op">-</span> <span class="fl">100</span><span class="op">/</span><span class="fl">21</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'polo inestable de G_OL'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">pole</span>(<span class="va">Gol</span>)))<span class="op">,</span> <span class="fl">98.029</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'sensor recalibrado k'</span><span class="op">,</span> (<span class="fl">500</span> <span class="op">-</span> <span class="fl">5</span>)<span class="op">/</span><span class="fl">100</span><span class="op">,</span> <span class="fl">4.95</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'con k = 4.95: y final'</span><span class="op">,</span> <span class="va">dcgain</span>(<span class="va">feedback</span>(<span class="va">Gn</span><span class="op">,</span> <span class="fl">4.95</span><span class="op">/</span>(<span class="va">s</span><span class="op">+</span><span class="fl">5</span>)))<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'6.5  Perturbaciones\n'</span>)<span class="op">;</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a><span class="va">Gp</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>((<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">2</span>))<span class="op">;</span>  <span class="va">esp</span> <span class="op">=</span> [<span class="op">-</span><span class="fl">0.5</span><span class="op">/</span><span class="fl">3</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">/</span><span class="fl">12</span> <span class="op">-</span><span class="fl">0.5</span><span class="op">/</span><span class="fl">102</span>]<span class="op">;</span>  <span class="va">Ks</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">10</span> <span class="fl">100</span>]<span class="op">;</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>    <span class="va">revisar</span>(<span class="va">sprintf</span>(<span class="ss">'P K=%d, entrada'</span><span class="op">,</span> <span class="va">Ks</span>(<span class="va">i</span>))<span class="op">,</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">dcgain</span>(<span class="op">-</span><span class="va">feedback</span>(<span class="va">Gp</span><span class="op">,</span> <span class="va">Ks</span>(<span class="va">i</span>)))<span class="op">,</span> <span class="va">esp</span>(<span class="va">i</span>)<span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>    <span class="va">revisar</span>(<span class="va">sprintf</span>(<span class="ss">'P K=%d, salida'</span><span class="op">,</span> <span class="va">Ks</span>(<span class="va">i</span>))<span class="op">,</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">dcgain</span>(<span class="op">-</span><span class="va">feedback</span>(<span class="fl">1</span><span class="op">,</span> <span class="va">Ks</span>(<span class="va">i</span>)<span class="op">*</span><span class="va">Gp</span>))<span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">esp</span>(<span class="va">i</span>)<span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PI: estable con Ki = 35'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">roots</span>([<span class="fl">1</span> <span class="fl">3</span> <span class="fl">12</span> <span class="fl">35</span>]))) <span class="op">&lt;</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PI: inestable con Ki = 37'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">roots</span>([<span class="fl">1</span> <span class="fl">3</span> <span class="fl">12</span> <span class="fl">37</span>]))) <span class="op">&gt;</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PI: error nulo'</span><span class="op">,</span> <span class="va">abs</span>(<span class="va">dcgain</span>(<span class="op">-</span><span class="va">feedback</span>(<span class="va">Gp</span><span class="op">,</span> <span class="fl">10</span> <span class="op">+</span> <span class="fl">18</span><span class="op">/</span><span class="va">s</span>)))<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'6.6  Espacio de estado\n'</span>)<span class="op">;</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">2</span> <span class="op">-</span><span class="fl">3</span>]<span class="op">;</span>  <span class="va">B</span> <span class="op">=</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">;</span>  <span class="va">C</span> <span class="op">=</span> [<span class="fl">2</span> <span class="fl">0</span>]<span class="op">;</span></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a><span class="va">xss</span> <span class="op">=</span> <span class="op">-</span>(<span class="va">A</span> <span class="op">-</span> <span class="va">B</span><span class="op">*</span><span class="va">C</span>)<span class="op">\</span><span class="va">B</span><span class="op">;</span>  <span class="va">revisar</span>(<span class="ss">'x1 estacionario'</span><span class="op">,</span> <span class="va">xss</span>(<span class="fl">1</span>)<span class="op">,</span> <span class="fl">0.25</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'ess = 1 - C xss'</span><span class="op">,</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">C</span><span class="op">*</span><span class="va">xss</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="va">Aa</span> <span class="op">=</span> [<span class="va">A</span> <span class="op">-</span> <span class="va">B</span><span class="op">*</span><span class="va">C</span><span class="op">,</span> <span class="va">B</span><span class="op">*</span><span class="fl">3</span><span class="op">;</span> <span class="op">-</span><span class="va">C</span><span class="op">,</span> <span class="fl">0</span>]<span class="op">;</span>  <span class="va">Ba</span> <span class="op">=</span> [<span class="va">B</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">;</span></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'aumentado: poly = [1 3 4 6]'</span><span class="op">,</span> <span class="va">norm</span>(<span class="va">poly</span>(<span class="va">Aa</span>) <span class="op">-</span> [<span class="fl">1</span> <span class="fl">3</span> <span class="fl">4</span> <span class="fl">6</span>])<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'aumentado: y final'</span><span class="op">,</span> [<span class="va">C</span> <span class="fl">0</span>]<span class="op">*</span>(<span class="op">-</span><span class="va">Aa</span><span class="op">\</span><span class="va">Ba</span>)<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'aumentado: inestable con Ki = 6.5'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">roots</span>([<span class="fl">1</span> <span class="fl">3</span> <span class="fl">4</span> <span class="fl">13</span>]))) <span class="op">&gt;</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'6.7  Especificaciones en conflicto\n'</span>)<span class="op">;</span></span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'K para ess = 0.05'</span><span class="op">,</span> <span class="fl">32</span><span class="op">/</span><span class="fl">0.05</span><span class="op">,</span> <span class="fl">640</span><span class="op">,</span> <span class="fl">1e-9</span>)<span class="op">;</span></span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'K máximo (Routh)'</span><span class="op">,</span> <span class="fl">12</span><span class="op">*</span><span class="fl">32</span><span class="op">,</span> <span class="fl">384</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a><span class="va">K</span> <span class="op">=</span> <span class="fl">67.83</span><span class="op">;</span>  <span class="va">Gp3</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">4</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">8</span>))<span class="op">;</span></span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a><span class="va">T0</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">K</span><span class="op">*</span><span class="va">Gp3</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span>  <span class="va">tt</span> <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.001</span><span class="op">:</span><span class="fl">30</span><span class="op">;</span>  <span class="va">y0</span> <span class="op">=</span> <span class="va">step</span>(<span class="va">T0</span><span class="op">,</span> <span class="va">tt</span>)<span class="op">;</span></span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'solo K: %OS'</span><span class="op">,</span> <span class="fl">100</span><span class="op">*</span>(<span class="va">max</span>(<span class="va">y0</span>) <span class="op">-</span> <span class="fl">1</span>)<span class="op">,</span> <span class="fl">16.19</span><span class="op">,</span> <span class="fl">0.05</span>)<span class="op">;</span></span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a><span class="va">T1</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">K</span><span class="op">*</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">0.0519</span>)<span class="op">/</span>(<span class="va">s</span> <span class="op">+</span> <span class="fl">0.005</span>)<span class="op">*</span><span class="va">Gp3</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span>  <span class="va">y1</span> <span class="op">=</span> <span class="va">step</span>(<span class="va">T1</span><span class="op">,</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.001</span><span class="op">:</span><span class="fl">60</span>)<span class="op">;</span></span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'con atraso: %OS'</span><span class="op">,</span> <span class="fl">100</span><span class="op">*</span>(<span class="va">max</span>(<span class="va">y1</span>) <span class="op">-</span> <span class="fl">1</span>)<span class="op">,</span> <span class="fl">18.95</span><span class="op">,</span> <span class="fl">0.3</span>)<span class="op">;</span></span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'con atraso: kv'</span><span class="op">,</span> <span class="va">K</span><span class="op">*</span><span class="fl">0.0519</span><span class="op">/</span><span class="fl">0.005</span><span class="op">/</span><span class="fl">32</span><span class="op">,</span> <span class="fl">22.0</span><span class="op">,</span> <span class="fl">0.05</span>)<span class="op">;</span></span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'con atraso: estable'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">real</span>(<span class="va">pole</span>(<span class="va">T1</span>))) <span class="op">&lt;</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'6.1  Sensitividad\n'</span>)<span class="op">;</span></span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a><span class="va">Gs</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>((<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>))<span class="op">;</span></span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">K</span> <span class="op">=</span> [<span class="fl">10</span> <span class="fl">200</span>]</span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a>    <span class="va">L</span> <span class="op">=</span> <span class="va">K</span><span class="op">*</span><span class="va">Gs</span><span class="op">;</span>  <span class="va">S</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">L</span>)<span class="op">;</span>  <span class="va">T</span> <span class="op">=</span> <span class="va">L</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">L</span>)<span class="op">;</span></span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>    <span class="va">revisar</span>(<span class="va">sprintf</span>(<span class="ss">'K=%d: |S+T| en w = 3'</span><span class="op">,</span> <span class="va">K</span>)<span class="op">,</span> <span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">S</span> <span class="op">+</span> <span class="va">T</span><span class="op">,</span> <span class="fl">3j</span>))<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a><span class="va">L</span> <span class="op">=</span> <span class="fl">200</span><span class="op">/</span>((<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>))<span class="op">;</span></span>
+<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'K=200: aporte perturbación'</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">Gs</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="fl">200</span><span class="op">*</span><span class="va">Gs</span>)<span class="op">,</span> <span class="fl">0.2j</span>))<span class="op">,</span> <span class="fl">0.0023813</span><span class="op">,</span> <span class="fl">1e-6</span>)<span class="op">;</span></span>
+<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'K=200: aporte ruido'</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">*</span><span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">L</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">L</span>)<span class="op">,</span> <span class="fl">50j</span>))<span class="op">,</span> <span class="fl">0.00084921</span><span class="op">,</span> <span class="fl">1e-7</span>)<span class="op">;</span></span>
+<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'K=10: aporte perturbación'</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">Gs</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="fl">10</span><span class="op">*</span><span class="va">Gs</span>)<span class="op">,</span> <span class="fl">0.2j</span>))<span class="op">,</span> <span class="fl">0.024899</span><span class="op">,</span> <span class="fl">1e-6</span>)<span class="op">;</span></span>
+<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'\n%d de %d pruebas correctas.\n'</span><span class="op">,</span> <span class="va">n</span> <span class="op">-</span> <span class="va">fallas</span><span class="op">,</span> <span class="va">n</span>)<span class="op">;</span></span>
+<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modelos-de-simulink" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-de-simulink">Modelos de Simulink</h2>
+<div class="modelo">
+<p><span class="caja-titulo">Los modelos se construyen por código</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Script</th>
+<th style="text-align: left;">Modelo</th>
+<th style="text-align: left;">Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>crearModelo_Perturbacion.m</code></td>
+<td style="text-align: left;">lazo con PI sobre <span class="math inline">\(1/((s+1)(s+2))\)</span> y una perturbación escalón de 0.5 en <span class="math inline">\(t=5\)</span> s, a la entrada o a la salida del proceso</td>
+<td style="text-align: left;">ver cuándo se anula el error y cuándo no</td>
+</tr>
+</tbody>
+</table>
+<p>Corra el script y se crea el <code>.slx</code>.</p>
+</div>
+</section>
+<section id="pausas-activas" class="level2">
+<h2 class="anchored" data-anchor-id="pausas-activas">Pausas activas</h2>
+<div class="pausa">
+<p><span class="caja-titulo">1. ¿Constantes infinitas?</span></p>
+<p>Un lazo abierto <span class="math inline">\(\dfrac{5(s+1)}{s^3(s+2)}\)</span> tiene <span class="math inline">\(\kappa_p=\kappa_v=\kappa_a=\infty\)</span>. ¿Sigue sin error una parábola?</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+No se puede saber con la tabla: el polinomio característico, <span class="math inline">\(s^4+2s^3+5s+5\)</span>, no tiene término en <span class="math inline">\(s^2\)</span>; el lazo es inestable.
+</details>
+</div>
+<div class="pausa">
+<p><span class="caja-titulo">2. ¿Dónde está el integrador?</span></p>
+<p>Si el integrador está en la planta y la perturbación entra a la entrada de la planta, ¿se anula el error ante una perturbación escalón?</p>
+<details class="respuesta">
+<summary>
+Respuesta
+</summary>
+No, en general: el integrador debe estar antes del punto de entrada de la perturbación. Con <span class="math inline">\(G_p=1/(s(s+1))\)</span>, <span class="math inline">\(G_c=K\)</span> y <span class="math inline">\(D\)</span> a la entrada, <span class="math inline">\(e_{ss}=-1/K\)</span> por cada unidad de perturbación.
+</details>
+</div>
+</section>
+<section id="problemas" class="level2">
+<h2 class="anchored" data-anchor-id="problemas">Problemas</h2>
+<p>El handout trae 8 problemas (tipo y constantes de cuatro lazos, error contra estabilidad, perturbaciones, sensor dinámico, lazo abierto equivalente, espacio de estado con estado integrador, compensador de atraso y sensitividad), con soluciones seleccionadas.</p>
+<div class="botones"><a class="boton" href="../pdf/cap06_error.pdf">Ir a los problemas (PDF, §6.9)</a></div>
+<div class="profundiza">
+<p><span class="caja-titulo">Correcciones respecto a la versión anterior</span></p>
+<p>En las secciones de <span class="math inline">\(\kappa_v\)</span> y <span class="math inline">\(\kappa_a\)</span> se escribía <span class="math inline">\(\lim G\)</span> antes del desarrollo; son <span class="math inline">\(\lim sG\)</span> y <span class="math inline">\(\lim s^2G\)</span>. La sensitividad complementaria se llama ahora <span class="math inline">\(T(s)\)</span>. La retroalimentación no unitaria se trata con el lazo abierto <span class="math inline">\(G_{OL}\)</span> y la distinción entre error de actuación y de seguimiento. La tabla resumen se completó con las constantes y con la condición de estabilidad. Se resolvieron los ejemplos que estaban solo enunciados y se agregaron perturbaciones, espacio de estado y el conflicto entre especificaciones.</p>
+</div>
 
 
 </section>
@@ -948,7 +1415,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar de un problema</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Hecho con <a href="https://quarto.org">Quarto</a></p>
 </div>

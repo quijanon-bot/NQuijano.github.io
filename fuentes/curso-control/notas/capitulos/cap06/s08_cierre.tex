@@ -1,0 +1,89 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:er-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item $E=\Sens R-\Sens\Gp D+\Tlc N$ con $\Sens+\Tlc=1$: lazo abierto grande donde están la referencia y las perturbaciones, pequeño donde está el ruido.
+  \item Primero la estabilidad. Después, $\ess=\lim_{s\to0}sR(s)/(1+G(s))$.
+  \item El tipo es el número de integradores del lazo abierto. $\kp=\lim G$, $\kv=\lim sG$, $\ka=\lim s^2G$; escalón $1/(1+\kp)$, rampa $1/\kv$, parábola $1/\ka$.
+  \item Con retroalimentación no unitaria, el error de seguimiento se calcula con el lazo abierto $\Gla=G/(1+G\Hs-G)$; la malla abierta $G\Hs$ da el error de actuación.
+  \item Una perturbación escalón se rechaza por completo si hay un integrador \emph{antes} del punto donde entra.
+  \item En espacio de estado, el estado estacionario sale de $\dot x=0$; un estado integrador del error vuelve el lazo de tipo 1.
+  \item Error y transitorio pueden chocar con un solo parámetro; un atraso sube $\kv$ por el factor $a/b$ a costa de una cola lenta.
+\end{enumerate}
+\end{parallevar}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
+(i) En las secciones de $\kv$ y $\ka$ se escribía $\kv=\lim_{s\to0}G(s)$ y $\ka=\lim_{s\to0}G(s)$ antes del desarrollo; son $\lim sG$ y $\lim s^2G$. (ii) La sensitividad complementaria se llamaba $C(s)$; se usa $\Tlc(s)$, que es además la función de lazo cerrado, para no confundirla con $\Cm$. (iii) El error con retroalimentación no unitaria se trata ahora con el lazo abierto $\Gla$ del \cref{cap:so} y la distinción entre error de actuación y de seguimiento, que la versión anterior dejaba para un ejercicio. (iv) La tabla resumen tenía una columna vacía de más y no incluía las constantes; se completó, y se dejó explícito que solo vale con el lazo cerrado estable. (v) Los ejemplos físicos de las constantes (``la temperatura de salida'') se retiraron por imprecisos, y el código de Mathematica de las señales de prueba se reemplazó por una figura generada con el resto. (vi) Se resolvió el ejemplo del lazo con sensor dinámico, que estaba solo enunciado, y se agregaron el error por perturbaciones, el error en espacio de estado y el conflicto entre especificaciones.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:er-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización.
+
+\begin{problema}[tipo y constantes]\label{prob:er-tipos}
+Con retroalimentación unitaria y lazo abierto (i) $\dfrac{20(s+2)}{(s+1)(s+5)}$, (ii) $\dfrac{50}{s(s+3)(s+10)}$, (iii) $\dfrac{100(s+4)(s+6)}{s^2(s+5)(s+8)}$ y (iv) $\dfrac{5(s+1)}{s^3(s+2)}$: (a) verifique la estabilidad con Routh; (b) halle el tipo y $\kp$, $\kv$, $\ka$; (c) calcule $\ess$ ante $r=5$, $r=2t$ y $r=\frac32t^2$ y tabule; (d) uno de los cuatro no admite el análisis: ¿cuál y por qué? (e) \etiquetaM{} verifique por simulación los casos admisibles.
+\end{problema}
+
+\begin{problema}[error contra estabilidad]\label{prob:er-posicion}
+Un servo tiene lazo abierto $\dfrac{K}{s(s+4)(s+8)}$ con retroalimentación unitaria. (a) Halle el tipo y $\kv(K)$. (b) Halle el menor $K$ con $\ess\le0.1$ ante rampa unitaria. (c) Halle el rango de $K$ estable. (d) ¿Hay valores que cumplan las dos? (e) Para el $K$ de (b), halle los polos, $\zeta$ y $\omega_n$ del par dominante, y estime $\OS$ y $\ts$; \etiquetaM{} verifique con \cmd{stepinfo}. (f) ¿Por qué no es aceptable reducir el error solo con la ganancia?
+\end{problema}
+
+\begin{problema}[perturbaciones]\label{prob:er-perturbacion}
+En la \cref{fig:er-rdn}, con $\Hs=1$, $N=R=0$, $\Gp=\dfrac{1}{(s+1)(s+2)}$ y una perturbación escalón de $0.5$ a la entrada del proceso: (a) halle $\ess$ con $\Gc=K$ para $K=1$, $10$ y $100$; (b) muestre que con $\Gc=K+K_i/s$ el error es nulo para todo $K_i$ estable, y diga qué propiedad de $\Gc$ lo produce; (c) halle el rango de $K_i$ estable con $K=10$; (d) repita (a) con la perturbación a la salida y explique la diferencia; (e) \etiquetaM{} verifique con \texttt{crearModelo\_Perturbacion}.
+\end{problema}
+
+\begin{problema}[sensor dinámico]\label{prob:er-gh}
+Con $G=\dfrac{100}{s+1}$ y $\Hs=\dfrac{1}{s+5}$: (a) verifique la estabilidad; (b) halle $\kp$ de la malla abierta y el error de actuación ante escalón; (c) halle $y_\infty$ y el error de seguimiento; (d) explique por qué difieren y cuándo coinciden; (e) \etiquetaM{} simule $r$, $y$, $e_a$ y $e$; ¿cuál error da la \cref{tab:er-tabla} con la malla abierta?
+\end{problema}
+
+\begin{problema}[lazo abierto equivalente]\label{prob:er-gla}
+Con los datos del problema~\ref{prob:er-gh}: (a) muestre que el lazo con $G$ y $\Hs$ tiene el mismo $\Tlc$ que uno unitario con $\Gla$ de \eqref{eq:er-gla}; (b) calcule $\Gla$ y sus polos; (c) explique cómo puede tener un polo en el semiplano derecho si el lazo cerrado es estable; (d) calcule $\kp$ de $\Gla$ y $\ess=1/(1+\kp)$, y compárelo con (c) del problema anterior; (e) interprete el signo; (f) con $\Hs=k/(s+5)$, halle el $k$ que anula el error y discuta la importancia de calibrar el sensor.
+\end{problema}
+
+\begin{problema}[espacio de estado]\label{prob:er-estado}
+Con $\Am$, $\Bm$, $\Cm$ del ejemplo~\ref{ej:er-estado} y $u=r-y$: (a) halle $G$, el tipo, $\kp$ y $\ess$; (b) obtenga lo mismo con $\dot x=0$; (c) escriba el sistema aumentado con $\dot x_3=r-y$ y $u=r-y+K_ix_3$; (d) halle el rango de $K_i$ estable; (e) muestre que el error es nulo y relaciónelo con el tipo; (f) \etiquetaM{} simule con $K_i$ en la mitad del rango.
+\end{problema}
+
+\begin{problema}[atraso]\label{prob:er-atraso}
+Con $G_p=\dfrac{1}{s(s+4)(s+8)}$ se pide $\ess\le0.05$ ante rampa unitaria y $\OS\le20$\,\%. (a) Muestre que ningún $\Gc=K$ cumple las dos y cuantifique el conflicto. (b) Muestre que $\Gc=K\frac{s+a}{s+b}$ multiplica $\kv$ por $a/b$ y casi no mueve los polos dominantes si $a$ y $b$ están cerca del origen. (c) Escoja $K$ por el transitorio y $(a,b)$ por el error. (d) Verifique la estabilidad con Routh sobre el polinomio de cuarto orden. (e) \etiquetaM{} Simule escalón y rampa, verifique las especificaciones y cuantifique la cola lenta. (f) ¿Qué precio se paga y cuándo sería inaceptable?
+\end{problema}
+
+\begin{problema}[sensitividad]\label{prob:er-sens}
+Con $\Gp=\dfrac{1}{(s+1)(s+10)}$ y $\Gc=K$: (a) muestre que $\Sens+\Tlc=1$; (b) \etiquetaM{} tabule $|\Sens|$ y $|\Tlc|$ en $\omega=0.1$, $1$, $10$ y $100$\,rad/s para $K=10$ y $K=200$; (c) halle la frecuencia donde $|\Sens|=|\Tlc|$ y relaciónela con el cruce de ganancia; (d) con $d=0.5\sin(0.2t)$ a la entrada y $n=0.01\sin(50t)$, halle la amplitud de cada aporte al error; (e) ¿cuál $K$ da menor error y por qué? (f) \etiquetaEstrella{} ¿Desde qué amplitud de ruido conviene $K=10$?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:er-tipos}}
+(a) Polinomios $s^2+26s+45$, $s^3+13s^2+30s+50$, $s^4+13s^3+140s^2+1000s+2400$ (estables) y $s^4+2s^3+5s+5$ (inestable: falta $s^2$). (b) (i) tipo 0, $\kp=8$; (ii) tipo 1, $\kv=5/3$; (iii) tipo 2, $\ka=60$. (c) (i) $5/9$, $\infty$, $\infty$; (ii) $0$, $1.2$, $\infty$; (iii) $0$, $0$, $0.05$. (d) El (iv): la tabla daría error nulo para todo, pero la salida diverge.
+
+\paragraph{Problema~\ref{prob:er-posicion}}
+(a) Tipo 1, $\kv=K/32$. (b) $K=320$. (c) $0<K<384$. (d) $320\le K<384$. (e) Polos $-11.6$ y $-0.19\pm5.25j$: $\zeta=0.037$, $\omega_n=5.25$, $\OS\approx89$\,\% estimado ($81$\,\% simulado) y $\ts\approx21$\,s. (f) El lazo queda casi en el límite de estabilidad.
+
+\paragraph{Problema~\ref{prob:er-perturbacion}}
+(a) $-0.167$, $-0.042$, $-0.0049$. (b) El integrador de $\Gc$, que está antes de la perturbación. (c) $0<K_i<36$. (d) $-0.333$, $-0.083$, $-0.0098$: a la salida, la perturbación no se atenúa por $\Gp(0)=1/2$.
+
+\paragraph{Problema~\ref{prob:er-gh}}
+(a) Polos $-3\pm9.8j$. (b) $\kp=20$, $e_a=1/21$. (c) $y_\infty=100/21=4.76$, $\ess=-3.76$. (d) Coinciden si $\Hs(0)=1$.
+
+\paragraph{Problema~\ref{prob:er-gla}}
+(b) $\Gla=\dfrac{100(s+5)}{s^2-94s-395}$, polos $98.0$ y $-4.03$. (d) $\kp=-1.266$ y $\ess=-3.76$. (f) $k=4.95$.
+
+\paragraph{Problema~\ref{prob:er-estado}}
+(a) $G=\frac{2}{s^2+3s+2}$, tipo 0, $\kp=1$, $\ess=0.5$. (d) $s^3+3s^2+4s+2K_i$: $0<K_i<6$. (e) $\dot x_3=r-y=0$ en estado estacionario; el lazo es de tipo 1.
+
+\paragraph{Problema~\ref{prob:er-atraso}}
+(a) $\ess\le0.05$ pide $K\ge640$; la estabilidad, $K<384$; $\OS\le20$\,\%, $K\lesssim74$. (c) Con $K=67.8$, $b=0.005$ y $a=0.0519$: $\kv=22$. (e) $\OS=19$\,\%, $\ess=0.045$; $\ts$ pasa de $3.1$ a $4.8$\,s y el error de rampa tarda unos $116$\,s en asentarse.
+
+\paragraph{Problema~\ref{prob:er-sens}}
+(b) $K=10$: $|\Sens|=0.50$, $0.65$, $1.04$, $1.00$ y $|\Tlc|=0.50$, $0.46$, $0.07$, $0.001$; $K=200$: $|\Sens|=0.048$, $0.068$, $0.91$, $1.02$ y $|\Tlc|=0.95$, $0.96$, $1.29$, $0.020$. (c) Con $K=200$, en $12.5$\,rad/s, el cruce de $|\Gc\Gp|=1$; con $K=10$, $|\Gc\Gp|\le1$ en todas las frecuencias y las dos solo se igualan en $\omega\to0$. (d) $K=10$: $0.025$ y $0.00004$; $K=200$: $0.0024$ y $0.00085$. (f) Ruido de amplitud mayor que $0.28$.
+
+\respuestaspausas

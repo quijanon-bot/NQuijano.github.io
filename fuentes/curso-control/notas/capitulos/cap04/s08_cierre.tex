@@ -1,0 +1,88 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:ee-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item El estado es el conjunto mínimo de variables que, con las entradas futuras, determina todo el comportamiento futuro. Su número (el orden) es único; las variables no.
+  \item Modelo lineal: $\dot x=\Am x+\Bm u$, $y=\Cm x+\Dm u$. En variables de fase, la última fila de $\Am$ lleva los coeficientes del polinomio característico con signo cambiado; si hay ceros, van en $\Cm$ (variable intermedia $Z$). \cmd{tf2ss} numera los estados al revés.
+  \item Solución: respuesta libre más respuesta forzada, $x(t)=e^{\Am t}x(0)+\int_0^te^{\Am(t-\tau)}\Bm u(\tau)\,\dif\tau$. La matriz de transición es $\Phi(t)=e^{\Am t}=\iLap{(s\Id-\Am)^{-1}}$.
+  \item Función de transferencia: $G(s)=\Cm(s\Id-\Am)^{-1}\Bm+\Dm$. Sus polos son valores propios de $\Am$, pero una cancelación puede esconder valores propios.
+  \item Un cambio de variables $x=\mathbb T\bar x$ cambia las matrices pero no la función de transferencia ni los valores propios.
+  \item Linealizar es evaluar jacobianos en un equilibrio. Cada equilibrio tiene su modelo, y el modelo solo vale cerca de él.
+\end{enumerate}
+\end{parallevar}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
+(i) En el levitador, la ecuación de estado había perdido la constante $C$: es $\dot x_2=g-\frac CM\frac{x_3^2}{x_1}$, el equilibrio es $\eq x_3=\sqrt{Mgy_d/C}$ y $a_{21}=\frac CM\frac{(\eq x_3)^2}{(\eq x_1)^2}=g/y_d$ (en la matriz faltaba además el cuadrado de $\eq x_3$). (ii) En el ejemplo del determinante, el segundo cofactor es $C_{22}=4$ (estaba rotulado $C_{12}$). (iii) En el bioreactor, la cuarta función de transferencia repetía la tercera (\texttt{numU2(1,:)} en lugar de \texttt{numU2(2,:)}); los números del \texttt{trim} correspondían a $k_1=0.454$ y no a $0.4545$, y se recalcularon todos con el jacobiano analítico. (iv) El truco con \cmd{canon(\ldots,'companion')} y trasposiciones para recuperar las variables de fase dependía de la versión de \matlab; se reemplazó por la inversión del orden de los estados. (v) Historia: Lefschetz no creó el RIAS, sino que dirigió su centro de matemáticas; Pontryagin aportó el principio del máximo (no el ``cálculo de variaciones''); la conexión entre función de transferencia y estado que mostró Kalman (1963) es la de qué partes del sistema ve cada descripción, no que el espacio de estado cubra todo sistema no lineal. (vi) Erratas: $k_{04}\to k_{O4}$, $x_1=y\to x_1=y_1$ en el ejemplo de las dos masas, y una nota tomada de Wikipedia se reemplazó por la definición. (vii) Se agregaron los valores numéricos de todos los ejemplos, las figuras y el retrato de fase de Duffing; el resumen del capítulo anterior que cerraba el handout se retiró (está en el \cref{cap:so}). (viii) Notación: $\bar x\to\eq x$ para el equilibrio y $\dev x$ para la desviación, como en el \cref{cap:so}.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:ee-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización.
+
+\begin{problema}[variables de fase]\label{prob:ee-fase}
+Escriba en variables de fase, con $\Am$, $\Bm$, $\Cm$ y $\Dm$: (a) $\dfrac{10}{s^3+6s^2+11s+6}$; (b) $2\ddot y+6\dot y+8y=4u$; (c) $\dfrac{2s^2+7s+3}{s^3+5s^2+8s+4}$, con la variable intermedia $Z(s)$. (d) \etiquetaM{} Compare con \cmd{tf2ss} y recupere su forma invirtiendo el orden de los estados. (e) \etiquetaM{} Aplique \cmd{ss2tf} a las dos representaciones de (c). ¿Qué propiedad ilustra el resultado?
+\end{problema}
+
+\begin{problema}[resolvente y polos]\label{prob:ee-resolvente}
+Para (i) $\Am=\begin{bmatrix}0&1\\-6&-5\end{bmatrix}$ y (ii) $\Am=\begin{bmatrix}-2&1&0\\0&-3&1\\0&0&-4\end{bmatrix}$, con $\Bm=[0\;\cdots\;0\;\,1]^\top$, $\Cm=[1\;\,0\;\cdots]$ y $\Dm=0$: (a) calcule $(s\Id-\Am)^{-1}$ con la adjunta; (b) halle $G(s)$, sus polos y ceros; (c) compare con los valores propios de $\Am$; (d) halle la ganancia DC de (i) y el valor final ante escalón unitario; (e) \etiquetaM{} verifique con \cmd{ss2tf}, \cmd{eig} y \cmd{dcgain}.
+\end{problema}
+
+\begin{problema}[matriz de transición]\label{prob:ee-transicion}
+(a) Calcule $\Phi(t)$ para $\Am=\begin{bmatrix}0&1\\-2&-3\end{bmatrix}$ con los tres pasos de la receta. (b) \etiquetaM{} Verifique numéricamente, con $t_1=0.5$\,s y $t_2=1.2$\,s, que $\Phi(0)=\Id$, $\Phi^{-1}(t_1)=\Phi(-t_1)$ y $\Phi(t_1+t_2)=\Phi(t_1)\Phi(t_2)$. (c) Deduzca la $\Phi(t)$ del motor del ejemplo~\ref{ej:ee-motor}. (d) Con $\Bm=[0\;\,1]^\top$ y $x(0)=0$, halle $x(t)$ ante escalón unitario con \eqref{eq:ee-forzada} y verifique en Laplace. (e) \etiquetaM{} Con $x(0)=[1\;\,{-1}]^\top$ y entrada nula, compare con \cmd{expm} en varios instantes. ¿Por qué aparece un solo modo?
+\end{problema}
+
+\begin{problema}[levitador]\label{prob:ee-levitador}
+Con el modelo y los datos del ejemplo~\ref{ej:ee-levitador}: (a) escriba el modelo de estado no lineal conservando $C$; (b) halle $(\eq x,\eq u)$; (c) obtenga $\Am$ y $\Bm$ y muestre que $a_{21}=g/y_d$; explique por qué; (d) halle los valores propios; ¿qué concluye? (e) obtenga $\dev Y(s)/\dev E(s)$ y compare sus polos con (d); (f) \etiquetaM{} simule el modelo no lineal desde el equilibrio desplazado $0.1$\,mm y compare con el lineal; ¿hasta cuándo es aceptable la predicción?
+\end{problema}
+
+\begin{problema}[ciclo del carbono]\label{prob:ee-carbono}
+Con el modelo y los coeficientes del ejemplo~\ref{ej:ee-carbono}: (a) construya $\Am$ y $\Bm$; (b) demuestre que $\mathbf 1^\top\Am=0$ y que $\frac{\dif}{\dif t}(\mathbf 1^\top x)=u_E$; interprete; (c) deduzca, sin calcular, que $\lambda=0$ es valor propio, y \etiquetaM{} halle los cinco y las constantes de tiempo; (d) \etiquetaM{} simule 500 años con $u_E=8$ GtC/año desde $x(0)=[590\;\,550\;\,1500\;\,900\;\,37000]^\top$; ¿hay estado estacionario? (e) halle $M_A(s)/U_E(s)$ con $\Cm=[1\;\,0\;\,0\;\,0\;\,0]$ e identifique el polo responsable del crecimiento.
+\end{problema}
+
+\begin{problema}[bioreactor]\label{prob:ee-bioreactor}
+Con el modelo del ejemplo~\ref{ej:ee-bioreactor}: (a) derive $\mu'(x_2)$, muestre que se anula en $x_2=\sqrt{k_m/k_1}$ y ubique ese valor respecto a los equilibrios; (b) calcule a mano las ocho derivadas de $\Am$ y $\Bm$ en $(0.9951,\,1.5122)$; (c) halle los valores propios; ¿cuál modo es inestable? (d) \etiquetaM{} obtenga las cuatro funciones de transferencia; (e) repita (b) y (c) en $(1.5302,\,0.1746)$ y explique la diferencia con el signo de $\mu'$; (f) \etiquetaM{} simule desde $x(0)=(1,1)$; ¿a qué equilibrio llega?
+\end{problema}
+
+\begin{problema}[valores propios y polos]\label{prob:ee-cancelacion}
+Con $\Am$, $\Bm$, $\Cm_a$ y $\Cm_b$ del ejemplo~\ref{ej:ee-cancelacion}: (a) halle los valores propios y las dos funciones de transferencia; (b) explique el resultado con $\Cm_b$ y reformule con precisión la frase ``los valores propios de $\Am$ son los polos''; (c) \etiquetaM{} simule los dos sistemas con $x(0)=[1\;\,0\;\,0]^\top$ y entrada nula, y muestre que hay modos en el estado que no llegan a la salida; (d) con $\mathbb T$ formada por los vectores propios, obtenga la forma diagonal y verifique que $G$ no cambia; (e) demuestre que todo cambio de variables preserva $G$; (f) \etiquetaM{} verifique $\Phi(t)=\mathbb T\operatorname{diag}(e^{\lambda_it})\mathbb T^{-1}$ contra \cmd{expm}.
+\end{problema}
+
+\begin{problema}[Duffing]\label{prob:ee-duffing}
+Con $\ddot x+\delta\dot x+x^3-x=0$, $\delta>0$: (a) muestre que el origen es una silla para todo $\delta>0$; (b) halle el $\delta$ a partir del cual $(\pm1,0)$ deja de ser subamortiguado, y clasifique esos equilibrios para $\delta=0.3$ y $\delta=3$; (c) para $\delta=0.3$, halle $\Phi(t)$ del modelo lineal en $(1,0)$ y su tiempo de establecimiento; (d) \etiquetaM{} simule desde $(0.9,0)$, $(0.5,0)$ y $(-0.1,\,0.05)$ y compare con el modelo lineal del equilibrio correspondiente; (e) \etiquetaEstrella{} construya el retrato de fase en $[-2,2]^2$ y trace la frontera entre los dominios de atracción; relaciónela con los vectores propios del origen; (f) ¿por qué ningún modelo lineal reproduce lo de (e)?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:ee-fase}}
+(a) $\Am=\begin{bmatrix}0&1&0\\0&0&1\\-6&-11&-6\end{bmatrix}$, $\Bm=[0\;\,0\;\,10]^\top$, $\Cm=[1\;\,0\;\,0]$. (b) Dividiendo por $2$: $\ddot y+3\dot y+4y=2u$, $\Am=\begin{bmatrix}0&1\\-4&-3\end{bmatrix}$, $\Bm=[0\;\,2]^\top$. (c) $\Am=\begin{bmatrix}0&1&0\\0&0&1\\-4&-8&-5\end{bmatrix}$, $\Bm=[0\;\,0\;\,1]^\top$, $\Cm=[3\;\,7\;\,2]$. (e) La misma $G(s)$: la representación no es única, la función de transferencia sí.
+
+\paragraph{Problema~\ref{prob:ee-resolvente}}
+(i) $(s\Id-\Am)^{-1}=\dfrac{1}{s^2+5s+6}\begin{bmatrix}s+5&1\\-6&s\end{bmatrix}$, $G=\dfrac{1}{(s+2)(s+3)}$, sin ceros, ganancia DC $1/6$ y $y_\infty=1/6$. (ii) $G=\dfrac{1}{(s+2)(s+3)(s+4)}$ (los valores propios de una triangular son su diagonal), ganancia DC $1/24$.
+
+\paragraph{Problema~\ref{prob:ee-transicion}}
+(a) La del ejemplo~\ref{ej:ee-transicion}. (c) La del ejemplo~\ref{ej:ee-motor}. (d) $x_1=\frac12-e^{-t}+\frac12e^{-2t}$, $x_2=e^{-t}-e^{-2t}$; en Laplace, $X_1=\frac{1}{s(s+1)(s+2)}$. (e) $x(t)=e^{-t}[1\;\,{-1}]^\top$: la condición inicial es un vector propio.
+
+\paragraph{Problema~\ref{prob:ee-levitador}}
+(b) $\eq x=[0.01\;\,0\;\,2.215]^\top$, $\eq u=22.15$\,V. (c) $a_{21}=981$\,s$^{-2}$, $a_{23}=-8.86$, $a_{33}=-20$, $\Bm=[0\;\,0\;\,2]^\top$. (d) $\pm31.3$ y $-20$: inestable en lazo abierto. (e) $\dfrac{-17.72}{s^3+20s^2-981s-19620}$. (f) A $0.1$\,s el error del modelo lineal es de $4$\,\%; a $0.15$\,s, de $16$\,\%.
+
+\paragraph{Problema~\ref{prob:ee-carbono}}
+(c) $\lambda=0$, $-0.0006$, $-0.0355$, $-0.0673$ y $-0.2274$ por año; constantes de tiempo de $1729$, $28$, $15$ y $4.4$ años. (d) El total crece $8$ GtC/año; no hay estado estacionario. La atmósfera llega a $1833$ GtC en 500 años. (e) El polo en $s=0$.
+
+\paragraph{Problema~\ref{prob:ee-bioreactor}}
+(a) $\mu'=\mu_{\max}\dfrac{k_m-k_1x_2^2}{(k_m+x_2+k_1x_2^2)^2}$, nulo en $x_2=0.514$, entre los dos equilibrios. (c) $0.170$ y $-0.3$. (e) $\Am=\begin{bmatrix}0&0.905\\-0.75&-2.562\end{bmatrix}$, valores propios $-0.3$ y $-2.26$. (f) Llega a $(1.5302,\,0.1746)$.
+
+\paragraph{Problema~\ref{prob:ee-cancelacion}}
+(a) $-1$, $-2$, $-3$; $G_a=\frac{1}{(s+1)(s+2)(s+3)}$ y $G_b=\frac{1}{s+3}$. (b) Los polos de $G$ son valores propios de $\Am$; los valores propios que se cancelan no aparecen como polos.
+
+\paragraph{Problema~\ref{prob:ee-duffing}}
+(a) El producto de los valores propios es $\det J(0,0)=-1<0$. (b) $\delta=\sqrt8$; con $\delta=0.3$: $\zeta=0.106$, $\omega_n=1.41$, focos estables; con $\delta=3$: $\zeta=1.06$, valores propios $-1$ y $-2$, nodos estables. (c) $\ts\approx4/(\zeta\omega_n)=26.7$\,s. (d) $(0.9,0)$ y $(0.5,0)$ van a $(1,0)$; $(-0.1,\,0.05)$ va a $(-1,0)$: su componente sobre el vector propio inestable del origen es negativa.
+
+\respuestaspausas

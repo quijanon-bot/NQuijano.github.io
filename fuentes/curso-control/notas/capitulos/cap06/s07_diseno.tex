@@ -1,0 +1,25 @@
+%% ---------------------------------------------------------------------
+\section{Especificaciones de error y de transitorio}
+\label{sec:er-diseno}
+%% ---------------------------------------------------------------------
+
+Una especificación de error se traduce en una cota sobre una constante: ``$\ess\le0.05$ ante rampa unitaria'' es $\kv\ge20$. Con un controlador proporcional, la única perilla es $K$, y la misma perilla mueve los polos del lazo cerrado. Las dos especificaciones pueden chocar.
+
+\begin{ejemplo}[label=ej:er-conflicto]{Un servo que no puede con las dos}
+Con $G_p=\dfrac{1}{s(s+4)(s+8)}$ y $\Gc=K$, se pide $\ess\le0.05$ ante rampa unitaria y $\OS\le20$\,\% ante escalón.
+\solucion Tipo 1 con $\kv=K/32$: el error pide $K\ge640$. Pero la ecuación característica $s^3+12s^2+32s+K=0$ exige $K<12\cdot32=384$: \alerta{con $K$ solo, ni siquiera es estable}. Y el sobrepico pide un $K$ mucho menor: para $\zeta=0.49$ en los polos dominantes ($17$\,\% estimado, con margen; la simulación da $16$\,\%), $K=67.8$, que da $\kv=2.1$ y $\ess=0.47$ (\cref{fig:er-atraso}, azul).
+
+Un \textbf{compensador de atraso} $\Gc=K\dfrac{s+a}{s+b}$ con $a>b>0$ multiplica $\kv$ por $a/b$. Si el par polo-cero está muy cerca del origen, en la zona de los polos dominantes $(s+a)/(s+b)\approx1$, y el transitorio casi no cambia. Se escoge $K=67.8$ por el transitorio, y $a/b=1.1\cdot640/67.8=10.4$ (con un $10$\,\% de margen); con $b=0.005$, $a=0.0519$. El lazo compensado tiene $\kv=22$ y $\ess=0.045$, con $\OS=19$\,\%; el precio es una cola lenta (un polo en $-0.053$ casi cancelado por el cero en $-0.052$): el tiempo de establecimiento sube de $3.1$ a $4.8$\,s, y el error de rampa tarda unos $116$\,s en quedar a menos del $2$\,\% de su valor final.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_atraso}
+\caption{Ejemplo~\ref{ej:er-conflicto}: con solo $K=67.8$ (azul) y con el atraso (coral). El atraso deja casi igual la respuesta al escalón y baja el error de rampa de $0.47$ a $0.045$, con una cola lenta.}
+\label{fig:er-atraso}
+\end{figure}
+
+\codigorepo{cap06_error/C6_Ej5_Atraso.m}{conflicto}{el conflicto entre las dos especificaciones}
+\codigorepo{cap06_error/C6_Ej5_Atraso.m}{atraso}{el compensador de atraso}
+
+El diseño de atrasos en el dominio de la frecuencia es tema de la \cref{sec:rf-atraso}; el PI, que lleva $b$ hasta cero, del \cref{cap:pn}.

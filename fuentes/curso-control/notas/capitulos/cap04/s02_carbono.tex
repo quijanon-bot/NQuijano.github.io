@@ -1,0 +1,54 @@
+%% ---------------------------------------------------------------------
+\section{Un ejemplo: el ciclo global del carbono}
+\label{sec:ee-carbono}
+%% ---------------------------------------------------------------------
+
+Antes de definir nada, un modelo. Li, Jarvis y Leedal describen el ciclo global del carbono con cinco reservorios que intercambian carbono entre sí~\citep{LJL09} (\cref{fig:ee-carbono}). Las variables, en gigatoneladas de carbono (GtC), son las masas en la atmósfera $m_A$, la vegetación $m_V$, el suelo $m_S$, la superficie del océano $m_{SO}$ y el océano profundo $m_{DO}$; la entrada es la emisión humana $u_E$, en GtC/año. Cada flujo es proporcional a la masa del reservorio de donde sale, con un coeficiente de intercambio $k$ en 1/año.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap04/carbono}
+\caption{Ciclo global del carbono con cinco reservorios~\citep{LJL09}. Cada flecha es un flujo proporcional a la masa del reservorio de origen.}
+\label{fig:ee-carbono}
+\end{figure}
+
+Un balance de masa por reservorio (lo que entra menos lo que sale) da
+\begin{align*}
+  \dot m_A    &= u_E-(k_{O1}+k_{L1})m_A+k_{L2}m_V+k_{L4}m_S+k_{O2}m_{SO},\\
+  \dot m_V    &= k_{L1}m_A-(k_{L2}+k_{L3})m_V,\\
+  \dot m_S    &= k_{L3}m_V-k_{L4}m_S,\\
+  \dot m_{SO} &= k_{O1}m_A-(k_{O2}+k_{O3})m_{SO}+k_{O4}m_{DO},\\
+  \dot m_{DO} &= k_{O3}m_{SO}-k_{O4}m_{DO}.
+\end{align*}
+Son cinco ecuaciones de primer orden, y se pueden escribir de una vez en forma matricial, $\dot x=\Am x+\Bm u_E$, con $x=[m_A\;\,m_V\;\,m_S\;\,m_{SO}\;\,m_{DO}]^\top$,
+\begin{equation}
+  \Am=\begin{bmatrix}
+  -(k_{O1}+k_{L1}) & k_{L2} & k_{L4} & k_{O2} & 0\\
+  k_{L1} & -(k_{L2}+k_{L3}) & 0 & 0 & 0\\
+  0 & k_{L3} & -k_{L4} & 0 & 0\\
+  k_{O1} & 0 & 0 & -(k_{O2}+k_{O3}) & k_{O4}\\
+  0 & 0 & 0 & k_{O3} & -k_{O4}
+  \end{bmatrix},\qquad
+  \Bm=\begin{bmatrix}1\\0\\0\\0\\0\end{bmatrix}.
+  \label{eq:ee-carbono}
+\end{equation}
+
+\begin{ejemplo}[label=ej:ee-carbono]{Lo que dice la estructura de $\Am$}
+Con $k_{L1}=0.0842$, $k_{L2}=0.0684$, $k_{L3}=0.0159$, $k_{L4}=0.0332$, $k_{O1}=0.0846$, $k_{O2}=0.0433$, $k_{O3}=0.0011$ y $k_{O4}=0.0001$ (todos en 1/año), ¿qué pasa con $u_E=8$ GtC/año constante?
+\solucion Cada columna de $\Am$ suma cero: lo que sale de un reservorio entra a otro. Por eso $\mathbf 1^\top\Am=0$ y, como $\mathbf 1^\top\Bm=1$,
+\[
+  \deriv{}{t}\bigl(m_A+m_V+m_S+m_{SO}+m_{DO}\bigr)=\mathbf 1^\top\dot x=u_E :
+\]
+el carbono total crece exactamente al ritmo de las emisiones; los intercambios solo lo redistribuyen. La misma propiedad obliga a que $\Am$ tenga un valor propio en $\lambda=0$ (sus filas son linealmente dependientes, porque suman cero). Los otros cuatro son $-0.227$, $-0.067$, $-0.036$ y $-0.00058$ por año: constantes de tiempo de $4.4$, $15$, $28$ y $1729$ años. Con $u_E=8$ GtC/año durante 500 años, la atmósfera pasa de $590$ a $1833$ GtC (\cref{fig:ee-carbono-sim}): el valor propio nulo actúa como un integrador, y con emisión constante no hay estado estacionario.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_carbono}
+\caption{Ejemplo~\ref{ej:ee-carbono}: 500 años de emisiones constantes de 8 GtC/año, desde $x(0)=[590\;\,550\;\,1500\;\,900\;\,37000]^\top$ GtC.}
+\label{fig:ee-carbono-sim}
+\end{figure}
+
+\codigorepo{cap04_espacio_estado/C4_Ej5_Carbono.m}{matrices}{las matrices, la conservación de la masa y los valores propios}
+
+Con este ejemplo en mente veamos qué es el estado, cómo se escoge y qué se gana con él.

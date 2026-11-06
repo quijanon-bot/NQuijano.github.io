@@ -49,7 +49,22 @@ revisar('PI w frontera', sqrt(2*3/((9 - 5)/2)), 1.7321, 1e-4);
 revisar('   Kc = 10/3: polo en -0.05', max(real(roots([900 420 43 1+0.8*10/3]))), -0.05, 1e-6);
 revisar('   Kc = 17/64: polo en -0.05', max(real(roots([900 420 43 1+0.8*17/64]))), -0.05, 1e-6);
 
-fprintf('5.6  Espacio de estado\n');
+fprintf('5.6  Tiempo muerto (Padé)\n');
+ck = @(n, k) factorial(2*n-k)*factorial(n)/(factorial(2*n)*factorial(k)*factorial(n-k));
+revisar('Padé 2: c2 = 1/12', ck(2, 2), 1/12, 1e-12);
+revisar('Padé 1, T=1: K < 1+2/T', 1 + 2/1, 3, 0);
+T = 1;  d2 = [ck(2,2)*T^2 ck(2,1)*T 1];  n2 = [ck(2,2)*T^2 -ck(2,1)*T 1];
+Ks = linspace(2, 2.5, 50001);
+ok = arrayfun(@(K) all(real(roots(conv([1 1], d2) + K*[0 n2])) < 0), Ks);
+revisar('Padé 2, T=1: Kmax', Ks(find(ok, 1, 'last')), 2.2915, 1e-3);
+w = fzero(@(w) w*T + atan(w) - pi, [0.1 3]);
+revisar('exacto T=1: w', w, 2.0288, 1e-4);
+revisar('exacto T=1: Kmax', sqrt(1 + w^2), 2.2618, 1e-4);
+w = fzero(@(w) w*1 + atan(w/2) - pi, [0.1 3]);
+revisar('(s+2), T=1: Kmax exacto', sqrt(4 + w^2), 3.0396, 1e-4);
+revisar('(s+2), K=2.5: Tmax exacto', (pi - atan(1.5/2))/1.5, 1.6654, 1e-4);
+
+fprintf('5.7  Espacio de estado\n');
 revisar('eig A (máx)', max(real(eig([0 1 0; 0 0 1; -6 -11 -6]))), -1, 1e-9);
 Au = [0 1 0; 0 0 1; 2 1 -2];
 revisar('modo escondido: max eig', max(real(eig(Au))), 1, 1e-9);
@@ -58,7 +73,7 @@ revisar('   orden de la FT', numel(pole(G)), 1, 0);
 revisar('   polo de la FT', pole(G), -2, 1e-6);
 revisar('péndulo arriba', max(eig([0 1; 9.81 -0.5])), 2.8921, 1e-4);
 
-fprintf('5.7  Kharitonov\n');
+fprintf('5.8  Kharitonov\n');
 P = kharitonov([1 4 3 1], [2 5 4 2]);
 revisar('pausa: 4 polinomios Hurwitz', sum(arrayfun(@(k) esHurwitz(P(k, :)), 1:4)), 4, 0);
 revisar('K1 = a0- + a1- s + a2+ s^2 + a3+ s^3', P(1, 1)*1000 + P(1, 2)*100 + P(1, 3)*10 + P(1, 4), 2531, 0);

@@ -162,5 +162,55 @@ def khar_diseno():
     g(fig, 'f_khar_diseno')
 
 
+# ------------------------------------------------- retardo y Padé
+def kmax_exacto(T, a=1.0):
+    from scipy.optimize import brentq
+    w = brentq(lambda w: w*T + np.arctan(w/a) - np.pi, 1e-9, np.pi/T + 10)
+    return np.hypot(w, a)
+
+
+def kmax_pade(T, n, a=1.0):
+    num, den = ct.pade(T, n)
+    lo, hi = 0.0, 1e4
+    for _ in range(100):
+        m = (lo + hi)/2
+        p = np.polyadd(np.polymul([1, a], den), m*np.array(num))
+        lo, hi = (m, hi) if all(np.roots(p).real < 0) else (lo, m)
+    return lo
+
+
+def lazo_retardo_exacto(K, T, tf_, dt=1e-3):
+    """y' = -y + K e(t-T), e = 1 - y (Euler con memoria)."""
+    n = int(tf_/dt); d = int(round(T/dt)); y = np.zeros(n + 1); e = np.ones(n + 1)
+    for k in range(n):
+        ed = e[k - d] if k >= d else 0.0
+        y[k + 1] = y[k] + dt*(-y[k] + K*ed); e[k + 1] = 1 - y[k + 1]
+    return np.arange(n + 1)*dt, y
+
+
+def pade_fig():
+    fig, axs = plt.subplots(1, 3, figsize=(7.0, 2.5), gridspec_kw=dict(wspace=0.38))
+    t = np.linspace(0, 4, 2001); T = 1.0
+    axs[0].plot(t, (t >= T).astype(float), color=C['noche'], label='$e^{-s}$ exacto')
+    for n, c in ((1, C['coral']), (2, C['azul'])):
+        num, den = ct.pade(T, n)
+        axs[0].plot(t, ct.step_response(ct.tf(num, den), t).outputs, color=c, label=f'Padé {n}')
+    axs[0].set_title('escalón retrasado $T=1$'); axs[0].set_xlabel('t (s)'); axs[0].grid(True); axs[0].legend(fontsize=7, loc='lower right')
+    Ts = np.logspace(-1, np.log10(5), 30)
+    axs[1].plot(Ts, [kmax_exacto(x) for x in Ts], color=C['noche'], label='exacto')
+    axs[1].plot(Ts, [kmax_pade(x, 1) for x in Ts], color=C['coral'], ls='--', label='Padé 1: $1+2/T$')
+    axs[1].plot(Ts, [kmax_pade(x, 2) for x in Ts], color=C['azul'], ls=':', label='Padé 2')
+    axs[1].set_xscale('log'); axs[1].set_yscale('log'); axs[1].grid(True, which='both')
+    axs[1].set_xlabel('$T$ (s)'); axs[1].set_title('$K_{\\max}$'); axs[1].legend(fontsize=7)
+    tt, y = lazo_retardo_exacto(2.5, 1.0, 30)
+    num, den = ct.pade(1.0, 1)
+    yp = ct.step_response(ct.feedback(2.5*ct.tf(num, den)/(s + 1), 1), tt).outputs
+    axs[2].plot(tt, yp, color=C['coral'], ls='--', label='modelo Padé 1')
+    axs[2].plot(tt, y, color=C['noche'], label='retardo exacto')
+    axs[2].set_ylim(-2.5, 5.5); axs[2].set_title('$K=2.5$, $T=1$'); axs[2].set_xlabel('t (s)'); axs[2].grid(True)
+    axs[2].legend(fontsize=7, loc='upper left', ncol=1)
+    g(fig, 'f_pade')
+
+
 if __name__ == '__main__':
-    modos(); rango_kc(); inestable(); region_pi(); relativa(); kharitonov_rect(); khar_diseno()
+    modos(); rango_kc(); inestable(); region_pi(); relativa(); kharitonov_rect(); khar_diseno(); pade_fig()

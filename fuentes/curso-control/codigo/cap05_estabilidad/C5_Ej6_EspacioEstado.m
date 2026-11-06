@@ -1,4 +1,4 @@
-%% C5_Ej6_EspacioEstado -- Notas: sección 5.6 (estabilidad en el espacio de estado)
+%% C5_Ej6_EspacioEstado -- Notas: sección 5.7 (estabilidad en el espacio de estado)
 % QUÉ HACE   (1) Valores propios de A y polinomio característico.
 %            (2) Un modo inestable que NO aparece en la función de transferencia.
 %            (3) Estabilidad local de los dos equilibrios del péndulo linealizado.

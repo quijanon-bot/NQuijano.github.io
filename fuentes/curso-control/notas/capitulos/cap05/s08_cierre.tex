@@ -10,13 +10,14 @@
   \item Condición necesaria: todos los coeficientes presentes y del mismo signo. Suficiente solo para $n\le2$; para $n=3$, además, $a_1a_2>a_0a_3$.
   \item Routh-Hurwitz: el número de raíces con parte real positiva es el número de cambios de signo en la primera columna. Cero aislado en la primera columna: $\epsilon$. Fila de ceros: polinomio auxiliar (raíces simétricas, que se pueden calcular).
   \item Con parámetros en los coeficientes, la tabla da rangos y regiones de diseño. La fila que se anula da $\Kcr$ y el auxiliar, $\wcr$: los mismos números de Ziegler-Nichols y del margen de ganancia. Con $s=z-\sigma$ se exige un margen de estabilidad.
+  \item Con tiempo muerto, $e^{-Ts}$ se aproxima con Padé \eqref{eq:es-pade} para poder usar Routh. El retardo estrecha el rango de ganancia; Padé de primer orden lo sobrestima (hasta un $30\%$): para decidir, use orden 2 o el retardo exacto.
   \item En el espacio de estado se analiza $\det(s\Id-\Am)$, no una función de transferencia simplificada: puede esconder modos inestables. Linealizando, $\Am$ Hurwitz implica estabilidad local del equilibrio no lineal.
   \item Kharitonov: una familia de intervalo es robustamente estable si y solo si cuatro polinomios lo son. Si los coeficientes dependen de los mismos parámetros, el resultado es conservador.
 \end{enumerate}
 \end{parallevar}
 
 \begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
-(i) Se retiró la sección de tiempo muerto (aproximación de Padé) y sus dos ejercicios: el curso no cubre retardos. (ii) ``Estable si todos los polos y ceros están en el semiplano izquierdo'' $\to$ solo los polos. (iii) $s^3+2s^2+s+2$ es un caso de fila de ceros, no de $\epsilon$; el auxiliar da las raíces $\pm j$. (iv) Se resolvieron los ejemplos que no tenían solución ($s^5+7s^4+6s^3+42s^2+8s+56$, el primer ejemplo de Kharitonov y el diseño robusto). (v) En el primer ejemplo de Kharitonov faltaba el intervalo de $a_4\in[35,61]$, y la familia \emph{no} es robustamente estable. (vi) El rango robusto del diseño es $-100<K<251$ por Kharitonov y $K<642$ con la dependencia entre coeficientes. (vii) $C(s)/R(s)\to Y(s)/R(s)$; Kharitanov $\to$ Kharitonov. (viii) Historia: Hurwitz publicó en 1895 en \emph{Mathematische Annalen}; el premio Adams de Routh fue en 1877; la anécdota del sirviente es de lord Kelvin. Todos los números se verificaron con \texttt{herramientas/cap05\_numeros.py} y \cmd{verificarCap05.m}.
+(i) Tiempo muerto: la fórmula de $c_k$ decía $2n!$ en el denominador (es $(2n)!$); se agregaron el límite exacto, la comparación entre Padé de orden 1 y 2 y la advertencia de que el de orden 1 es optimista. (ii) ``Estable si todos los polos y ceros están en el semiplano izquierdo'' $\to$ solo los polos. (iii) $s^3+2s^2+s+2$ es un caso de fila de ceros, no de $\epsilon$; el auxiliar da las raíces $\pm j$. (iv) Se resolvieron los ejemplos que no tenían solución ($s^5+7s^4+6s^3+42s^2+8s+56$, el primer ejemplo de Kharitonov y el diseño robusto). (v) En el primer ejemplo de Kharitonov faltaba el intervalo de $a_4\in[35,61]$, y la familia \emph{no} es robustamente estable. (vi) El rango robusto del diseño es $-100<K<251$ por Kharitonov y $K<642$ con la dependencia entre coeficientes. (vii) $C(s)/R(s)\to Y(s)/R(s)$; Kharitanov $\to$ Kharitonov. (viii) Historia: Hurwitz publicó en 1895 en \emph{Mathematische Annalen}; el premio Adams de Routh fue en 1877; la anécdota del sirviente es de lord Kelvin. Todos los números se verificaron con \texttt{herramientas/cap05\_numeros.py} y \cmd{verificarCap05.m}.
 \end{profundiza}
 
 %% ---------------------------------------------------------------------
@@ -50,6 +51,14 @@ La planta $\Gp(s)=\dfrac{1}{(s+1)(s+2)}$ se controla con $\Gc(s)=\Kc+K_i/s$ y re
 El sistema $\dot x_1=x_2$, $\dot x_2=-2x_1+x_1^2-c\,x_2$ tiene equilibrios en $x^*=(0,0)$ y $x^*=(2,0)$. (a) Linealice alrededor de cada uno. (b) Con $c=1$, decida la estabilidad de cada equilibrio con Routh-Hurwitz y con los valores propios. (c) ¿Qué dice la linealización si $c=0$? (d) \etiquetaM{} Simule el sistema no lineal con $c=1$ desde $(0.5,0)$ y desde $(2.1,0)$ y relacione lo que ve con (b).
 \end{problema}
 
+\begin{problema}[tiempo muerto]\label{prob:es-retardo}
+Un proceso con tiempo muerto se controla con acción proporcional y retroalimentación unitaria: $\Gma(s)=\dfrac{Ke^{-Ts}}{s+2}$. (a) Escriba la ecuación característica exacta y explique por qué Routh-Hurwitz no se le puede aplicar directamente. (b) Con Padé de primer orden, halle el rango de $K$ en función de $T$. (c) Calcule $K_{\max}$ para $T=0.1$, $0.2$, $0.5$, $1$, $2$ y $5$\,s y grafique $K_{\max}$ contra $T$. (d) Verifique el límite $T\to0$ y explique por qué es el esperado. (e) \etiquetaM{} Con $T=1$\,s, simule con el retardo \emph{exacto} (bloque \emph{Transport Delay} de \simulink) para $K=2$, $3$ y $4$, y diga entre cuáles valores se pierde la estabilidad. Compare con (b).
+\end{problema}
+
+\begin{problema}[el error de Padé]\label{prob:es-errorpade}
+\etiquetaEstrella{} Con el lazo del problema anterior: (a) evaluando la ecuación exacta en $s=j\omega$, muestre que en el límite de estabilidad $K=\sqrt{\omega^2+4}$ y $\omega T+\arctan(\omega/2)=\pi$. (b) Resuelva numéricamente para $T=0.2$, $1$ y $2$\,s y reporte la ganancia crítica exacta y la frecuencia de oscilación. (c) Compare con Padé de primer orden y calcule el error porcentual. (d) Repita con Padé de segundo orden. (e) Invierta el problema: con $K=2.5$, halle el retardo máximo $T_{\max}$ que tolera el lazo con la condición exacta y con Padé de orden 1 y 2. ¿Cuál aproximación sirve para diseñar? ¿El error de la de primer orden es conservador? (f) \etiquetaM{} Verifique simulando con el retardo exacto para $T=0.9\,T_{\max}$ y $T=1.1\,T_{\max}$.
+\end{problema}
+
 \subsection*{Espacio de estado}
 
 \begin{problema}[matrices Hurwitz]\label{prob:es-matrices}
@@ -81,6 +90,12 @@ Sea $\chi(s)=a_0s^4+a_1s^3+a_2s^2+a_3s+a_4$ con $a_0\in[1,1.2]$, $a_1\in[4,5]$, 
 
 \paragraph{Problema~\ref{prob:es-pi}}
 (a) $s^3+3s^2+(2+\Kc)s+K_i$: $K_i>0$ y $K_i<3(2+\Kc)$. (d) Sobre la frontera, el auxiliar $3s^2+K_i$ da $\omega=\sqrt{2+\Kc}$. (e) $z^3+1.5z^2+(\Kc-0.25)z+(K_i-\Kc/2-0.375)$: $\frac{\Kc}{2}+0.375<K_i<2\Kc$. (f) Por ejemplo $(\Kc,K_i)=(2,5)$: estable, pero con polos en $-0.39\pm j1.45$, poco amortiguados.
+
+\paragraph{Problema~\ref{prob:es-retardo}}
+(a) $s+2+Ke^{-Ts}=0$: no es un polinomio (tiene infinitas raíces). (b) $\frac{T}{2}s^2+(1+T-K\frac{T}{2})s+(2+K)=0$: $-2<K<2+\frac{2}{T}$. (c) $K_{\max}=22$, $12$, $6$, $4$, $3$ y $2.4$. (d) $K_{\max}\to\infty$: sin retardo el lazo es de primer orden y estable para todo $K>-2$. (e) El límite exacto con $T=1$ es $3.04$: estable con $K=2$ y $3$, inestable con $4$ (Padé~1 predecía el límite justo en $4$).
+
+\paragraph{Problema~\ref{prob:es-errorpade}}
+(b) $T=0.2$: $K=9.17$, $\omega=8.95$\,rad/s; $T=1$: $3.04$ y $2.29$; $T=2$: $2.38$ y $1.29$. (c) Padé~1 da $12$, $4$ y $3$: errores de $+31\%$, $+32\%$ y $+26\%$. (d) Padé~2 da $9.27$, $3.08$ y $2.41$: errores de $+1.0\%$, $+1.4\%$ y $+1.2\%$. (e) Exacto: $\omega=1.5$\,rad/s y $T_{\max}=1.67$\,s; Padé~1: $4.0$\,s; Padé~2: $1.74$\,s. El error de Padé~1 \emph{no} es conservador (más del doble del retardo admisible); Padé~2 sirve para un primer diseño, con un margen.
 
 \paragraph{Problema~\ref{prob:es-local}}
 (a) $\Am=\begin{bmatrix}0&1\\-2+2x_1^*&-c\end{bmatrix}$. (b) En $(0,0)$: $s^2+s+2$, estable ($-0.5\pm j1.32$). En $(2,0)$: $s^2+s-2$, inestable ($1$ y $-2$). (c) Con $c=0$, en el origen los valores propios son $\pm j\sqrt2$: la linealización no decide.

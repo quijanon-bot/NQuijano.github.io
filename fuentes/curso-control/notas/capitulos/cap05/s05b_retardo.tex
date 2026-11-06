@@ -1,0 +1,103 @@
+%% ---------------------------------------------------------------------
+\section{Tiempo muerto: la aproximación de Padé}
+\label{sec:es-retardo}
+%% ---------------------------------------------------------------------
+
+En muchos procesos la salida no responde de inmediato: el agua tarda en recorrer la tubería entre la válvula y el sensor, la banda transportadora tarda en llevar el material a la báscula, la señal tarda en viajar por la red. La salida es la entrada \emph{desplazada} un tiempo $T$, el \clave{tiempo muerto} o \clave{retardo de transporte}. Por la propiedad de desplazamiento en el tiempo de la transformada de Laplace (capítulo~2),
+\[
+  y(t)=u(t-T)\,\escalon(t-T)\quad\Longleftrightarrow\quad Y(s)=e^{-Ts}\,U(s).
+\]
+Este es el único lugar del curso en que se analiza la estabilidad con retardo, y lo volveremos a encontrar en los modelos de primer orden con tiempo muerto que se usan para sintonizar controladores PID (capítulo~8).
+
+\begin{cuidado}[Routh no se puede aplicar directamente]
+Con un retardo, la ecuación característica deja de ser un polinomio: para el lazo de la \cref{fig:es-retardo} es
+\[
+  s+1+Ke^{-Ts}=0 ,
+\]
+una ecuación \emph{trascendente}, con infinitas raíces. La tabla de Routh necesita coeficientes de un polinomio, así que primero hay que \emph{aproximar} $e^{-Ts}$ por un cociente de polinomios.
+\end{cuidado}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap05/lazo_retardo}
+\caption{Lazo con retardo de transporte del ejemplo~\ref{ej:es-retardo}.}
+\label{fig:es-retardo}
+\end{figure}
+
+\subsection*{La aproximación de Padé}
+
+La \clave{aproximación de Padé} de orden $n$ es el cociente de dos polinomios de grado $n$ cuya serie de Taylor coincide con la de $e^{-Ts}$ en tantos términos como es posible~\citep{Pad92}:
+\begin{equation}
+  e^{-Ts}\approx P_n(s)=\frac{\sum_{k=0}^{n}(-1)^k c_k\,(Ts)^k}{\sum_{k=0}^{n}c_k\,(Ts)^k},
+  \qquad
+  c_k=\frac{(2n-k)!\;n!}{(2n)!\;k!\;(n-k)!},\quad k=0,\dots,n.
+  \label{eq:es-pade}
+\end{equation}
+Con $n=1$, $c_0=1$ y $c_1=\tfrac12$; con $n=2$, $c_0=1$, $c_1=\tfrac12$ y $c_2=\tfrac1{12}$:
+\[
+  e^{-Ts}\approx\frac{1-\frac{T}{2}s}{1+\frac{T}{2}s},
+  \qquad
+  e^{-Ts}\approx\frac{1-\frac{T}{2}s+\frac{(Ts)^2}{12}}{1+\frac{T}{2}s+\frac{(Ts)^2}{12}} .
+\]
+Observe la estructura: el numerador tiene los mismos coeficientes que el denominador con los signos alternados, así que tiene \emph{ceros en el semiplano derecho} (simétricos a los polos). Por eso la aproximación tiene magnitud $1$ en todas las frecuencias, como el retardo, y por eso su respuesta al escalón arranca en sentido contrario (\cref{fig:es-pade}, izquierda): es la forma que tiene una función racional de ``esperar'' $T$ segundos.
+
+\begin{historia}[Henri Padé]
+El matemático francés Henri Padé (1863--1953) estudió en su tesis doctoral de 1892 cómo aproximar una función por cocientes de polinomios, y organizó las aproximaciones en la tabla que lleva su nombre~\citep{Pad92}. La de $e^{-x}$ fue uno de sus ejemplos. Setenta años después, cuando los ingenieros de control quisieron llevar los retardos a las herramientas de los sistemas racionales (Routh, el lugar de las raíces, el espacio de estado), la tomaron de ahí; en \matlab\ es la función \cmd{pade(T,n)}.
+\end{historia}
+
+\begin{ejemplo}[label=ej:es-retardo]{Rango de $K$ con tiempo muerto}
+Halle, en función de $T$, el rango de $K$ para el cual el lazo de la \cref{fig:es-retardo} tiene un equilibrio asintóticamente estable.
+\solucion \textbf{1. Aproximar.} Con Padé de primer orden, $1+K\dfrac{1}{s+1}\cdot\dfrac{1-\frac{T}{2}s}{1+\frac{T}{2}s}=0$, es decir,
+\[
+  (s+1)\Bigl(1+\tfrac{T}{2}s\Bigr)+K\Bigl(1-\tfrac{T}{2}s\Bigr)=0
+  \;\Longrightarrow\;
+  \tfrac{T}{2}\,s^2+\Bigl(1+\tfrac{T}{2}-K\tfrac{T}{2}\Bigr)s+(1+K)=0 .
+\]
+\textbf{2. Tabla.}
+\[
+\begin{array}{c|cc}
+  s^2 & \frac{T}{2} & 1+K\\[3pt]
+  s^1 & 1+\frac{T}{2}-K\frac{T}{2} & \\[3pt]
+  s^0 & 1+K
+\end{array}
+\]
+\textbf{3. Condiciones.} $1+K>0$ y $1+\frac{T}{2}(1-K)>0$:
+\[
+  \alerta{-1<K<1+\frac{2}{T}} .
+\]
+El rango se \emph{estrecha} a medida que crece el retardo: con $T=1$\,s, $K<3$; con $T=5$\,s, $K<1.4$. Y si $T\to0$, la cota superior desaparece, como debe ser: sin retardo el lazo es de primer orden, estable para todo $K>-1$.
+\end{ejemplo}
+
+\begin{ideaclave}
+\textbf{El retardo consume estabilidad.}\enspace El retardo no cambia la magnitud de la malla abierta, pero le resta una fase $\omega T$ que crece sin límite con la frecuencia. Por eso un lazo que sin retardo era estable para cualquier ganancia, con retardo tiene una ganancia crítica, y esta baja cuando $T$ crece. Es la misma idea del margen de fase del capítulo~10: el retardo se ``come'' el margen.
+\end{ideaclave}
+
+\subsection*{¿Qué tan buena es la aproximación?}
+
+Para este lazo el límite exacto se puede calcular. En el borde de la estabilidad hay raíces en $s=\pm j\omega$; reemplazando en $1+Ke^{-j\omega T}/(j\omega+1)=0$ y separando magnitud y fase,
+\[
+  K=\sqrt{1+\omega^2},\qquad \omega T+\arctan\omega=\pi .
+\]
+Con $T=1$: $\omega=2.029$\,rad/s y $K_{\max}=2.262$. Padé de primer orden predice $3$: un error del $33\%$, y \alerta{hacia el lado peligroso}. Con Padé de segundo orden la tabla da $2.292$, apenas $1.3\%$ por encima (\cref{fig:es-pade}, centro).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_pade}
+\caption{Izquierda: escalón retrasado $1$\,s y sus aproximaciones de Padé (arrancan en sentido contrario). Centro: ganancia máxima en función del retardo; Padé~1 sobrestima entre $15$ y $33\%$, Padé~2 alrededor del $1\%$. Derecha: con $K=2.5$ y $T=1$, el modelo de Padé~1 es estable, pero el lazo con el retardo exacto oscila y crece.}
+\label{fig:es-pade}
+\end{figure}
+
+\begin{cuidado}[Padé de primer orden es optimista]
+La aproximación de primer orden sobrestima la ganancia máxima: un diseño que la tabla declara estable puede no serlo (\cref{fig:es-pade}, derecha). Úsela para entender la tendencia ($K_{\max}$ baja con $T$) y para un primer cálculo; para decidir, use Padé de segundo orden o más, o verifique con el retardo exacto: \cmd{margin} y \cmd{allmargin} aceptan modelos con retardo (\texttt{tf(1,[1 1],'InputDelay',T)}), y en \simulink\ está el bloque \emph{Transport Delay}.
+\end{cuidado}
+
+\codigorepo{cap05_estabilidad/C5_Ej8_Pade.m}{pade}{ejemplo~\ref{ej:es-retardo}: Padé de orden 1 y 2 contra el retardo exacto}
+
+\begin{modelo}[Retardo.slx]
+El script \cmd{crearModelo\_Retardo.m} arma el lazo de la \cref{fig:es-retardo} dos veces: una con el bloque \emph{Transport Delay} y otra con la aproximación de Padé de primer orden. Con $T=1$, suba $K$ desde $2$ hasta $3$ y encuentre la ganancia a la que cada uno empieza a oscilar.
+\end{modelo}
+
+\begin{pausa}
+Para $\Gma(s)=\dfrac{Ke^{-Ts}}{s+2}$, use Padé de primer orden para hallar el rango de $K$ en función de $T$. ¿Cuánto vale la cota con $T=1$?
+\respuesta{$(s+2)(1+\tfrac{T}{2}s)+K(1-\tfrac{T}{2}s)=\tfrac{T}{2}s^2+(1+T-K\tfrac{T}{2})s+(2+K)$: $-2<K<2+\tfrac{2}{T}$. Con $T=1$, $K<4$ (el valor exacto es $3.04$).}
+\end{pausa}

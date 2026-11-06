@@ -106,7 +106,7 @@ Verificado con `herramientas/cap01_numeros.py` y `verificarCap01.m` (17/17 en Oc
 
 ## Correcciones hechas en el capítulo 5 (Estabilidad)
 
-- **Tiempo muerto retirado.** La sección de Padé (con el ejemplo $s+1+Ke^{-Ts}$) y los dos ejercicios de retardo salieron: el curso no cubre retardos. Se reemplazaron por un problema de ganancias negativas y Bode (Actividad 1, sección B) y uno de estabilidad local de un sistema no lineal.
+- **Tiempo muerto (§5.6), conservado y ampliado:** es el único lugar del curso donde se ve un retardo, y reaparece en los ejercicios de PID. La fórmula de $c_k$ decía $2n!$ en el denominador: es $(2n)!$. Se agregaron el límite exacto ($K=\sqrt{1+\omega^2}$, $\omega T+\arctan\omega=\pi$: con $T=1$, $K_{\max}=2.262$ frente a 3 de Padé 1 y 2.292 de Padé 2), la advertencia de que Padé 1 sobrestima (no es conservador), `C5_Ej8_Pade.m`, `crearModelo_Retardo.m` y los dos ejercicios de retardo con sus soluciones. Se sumaron un problema de ganancias negativas y Bode (Actividad 1, sección B) y uno de estabilidad local.
 - "Un sistema es estable si todos los polos **y ceros** están en el semiplano izquierdo" → solo los polos.
 - Se agregó la distinción asintótica / marginal (Lyapunov) / BIBO, con el contraejemplo del polo doble en el eje y de $1/(s^2+1)$ ante $\sin t$.
 - $s^3+2s^2+s+2$ estaba como ejemplo del caso 1 ($\epsilon$): la fila $s^1$ es una **fila completa** de ceros (caso 2); auxiliar $2(s^2+1)$, raíces $\pm j$.
@@ -122,4 +122,4 @@ Verificado con `herramientas/cap01_numeros.py` y `verificarCap01.m` (17/17 en Oc
 - **Historia**, verificada: Hurwitz publicó en 1895 en *Mathematische Annalen* (no en una revista de ingeniería en 1894; Stodola publicó en la *Schweizerische Bauzeitung* en 1893–94); el tema del premio Adams 1875–77 lo propusieron Challis, Maxwell y Stokes, y Routh lo ganó en 1877; se retiró que Stodola introdujo $\zeta$, $\omega_n$ y que citó a Routh en lugar de Hurwitz en 1899 (no se encontró en las fuentes); la anécdota del sirviente ("¡usted, señor!") se cuenta de lord Kelvin en 1845, no de Maxwell (corregida también en el capítulo 1).
 - Funciones nuevas en `codigo/comun/`: `tablaRouth.m` (tabla numérica con los dos casos especiales) y `kharitonov.m`.
 
-Verificado con `herramientas/cap05_numeros.py` y `verificarCap05.m` (39/39 en Octave 8.4).
+Verificado con `herramientas/cap05_numeros.py` y `verificarCap05.m` (46/46 en Octave 8.4).

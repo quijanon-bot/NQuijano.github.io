@@ -1,4 +1,4 @@
-%% C5_Ej7_Kharitonov -- Notas: sección 5.7 (robustez: teorema de Kharitonov)
+%% C5_Ej7_Kharitonov -- Notas: sección 5.8 (robustez: teorema de Kharitonov)
 % QUÉ HACE   (1) Construye los cuatro polinomios de Kharitonov (función
 %            kharitonov de comun/) y los revisa. (2) Contrasta con un muestreo
 %            aleatorio de 2000 polinomios. (3) Rango robusto de K en el lazo

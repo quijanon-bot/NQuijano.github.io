@@ -4,8 +4,8 @@
 %%  con material de las Actividades 1 (Routh y Kharitonov) y de la clase 2
 %%  de Bode (rango de Kc por Routh y por Bode).
 %%  Cambios de fondo respecto a la versión anterior (ver MIGRACION.md):
-%%    se retiró el tiempo muerto (aproximación de Padé y dos ejercicios):
-%%    el curso no cubre retardos; "estable si todos los polos Y CEROS están
+%%    la sección de tiempo muerto (Padé) se conserva, con la fórmula de c_k
+%%    corregida y la comparación con el límite exacto; "estable si todos los polos Y CEROS están
 %%    en el semiplano izquierdo" -> solo los polos; el ejemplo
 %%    s^3+2s^2+s+2 es un caso de FILA de ceros (no de epsilon); se
 %%    resolvieron los ejemplos que no tenían solución; en el primer ejemplo
@@ -23,6 +23,7 @@
   \item Distinguir estabilidad asintótica, marginal (en el sentido de Lyapunov) y BIBO, y decidirla a partir de los polos o de los valores propios.
   \item Aplicar el criterio de Routh-Hurwitz, incluidos sus dos casos especiales, para contar las raíces con parte real positiva sin calcularlas.
   \item Usar la tabla de Routh para diseñar: rango de ganancia, ganancia y frecuencia críticas, regiones de estabilidad de un PI y estabilidad relativa.
+  \item Analizar la estabilidad de un lazo con tiempo muerto mediante la aproximación de Padé, y reconocer cuánto se equivoca.
   \item Decidir la estabilidad de un equilibrio en el espacio de estado, también cuando el modelo viene de linealizar, y reconocer los modos que la función de transferencia esconde.
   \item Verificar la estabilidad robusta de una familia de polinomios de intervalo con el teorema de Kharitonov, y reconocer cuándo el resultado es conservador.
 \end{objetivos}
@@ -32,6 +33,7 @@
 \input{capitulos/cap05/s03_routh}
 \input{capitulos/cap05/s04_casos}
 \input{capitulos/cap05/s05_diseno}
+\input{capitulos/cap05/s05b_retardo}
 \input{capitulos/cap05/s06_espacio_estado}
 \input{capitulos/cap05/s07_kharitonov}
 \input{capitulos/cap05/s08_cierre}

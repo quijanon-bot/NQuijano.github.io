@@ -220,3 +220,41 @@ lo2 = [1, 0.2, 6, 4, 1.0]
 P = khar(lo2, hi); print('  Kharitonov con a3 en [0.2,4]:', [hurwitz(p) for p in P], [np.round(np.roots(p[::-1]), 3) for p in P])
 # P = 1/(s^3 + r1 s^2 + r2 s + r3), C = K
 print('  problema planta incierta: K <', 6*100 - 2, ' K > -1; nominal K <', 6.5*110 - 1.5)
+
+print('\n=== 5.6 Tiempo muerto: Padé ===')
+from math import factorial as F
+from scipy.optimize import brentq
+def ck(n): return [F(2*n-k)*F(n)/(F(2*n)*F(k)*F(n-k)) for k in range(n+1)]
+print('c1',ck(1),'c2',ck(2),'c3',ck(3))
+s,K,T=sp.symbols('s K T',positive=True)
+def pade(n,T):
+    c=ck(n); num=sum((-1)**k*c[k]*(T*s)**k for k in range(n+1)); den=sum(c[k]*(T*s)**k for k in range(n+1)); return num,den
+def exacto(a,T):   # K e^{-Ts}/(s+a): K = sqrt(w^2+a^2), wT + atan(w/a) = pi
+    w=brentq(lambda w: w*T+np.arctan(w/a)-np.pi,1e-9,np.pi/T+10); return np.hypot(w,a),w
+def kpade(a,Tv,n):
+    num,den=pade(n,sp.Float(Tv))
+    p=sp.Poly(sp.expand((s+a)*den+K*num),s)
+    # buscar Kmax numérico: mayor K>0 estable
+    lo,hi=0,1e4
+    st=lambda k: all(np.real(np.roots([float(c.subs(K,k)) for c in p.all_coeffs()]))<0)
+    for _ in range(200):
+        m=(lo+hi)/2
+        if st(m): lo=m
+        else: hi=m
+    return lo
+for a in (1,2):
+  print('a=',a)
+  for Tv in (0.1,0.2,0.5,1,2,5):
+    ke,w=exacto(a,Tv); k1=kpade(a,Tv,1); k2=kpade(a,Tv,2)
+    print(f'  T={Tv}: exacto K={ke:.4f} w={w:.4f} | Pade1 {k1:.4f} ({100*(k1-ke)/ke:+.1f}%) | Pade2 {k2:.4f} ({100*(k2-ke)/ke:+.2f}%)')
+# Padé1 simbólico a=1 y a=2
+for a in (1,2):
+    num,den=pade(1,T); print(a, sp.Poly(sp.expand((s+a)*den+K*num),s).all_coeffs())
+num,den=pade(2,T); print('pade2 a=2', sp.Poly(sp.expand(((s+2)*den+K*num)*12),s).all_coeffs())
+# Tmax for K=2.5, a=2
+for n in (0,1,2):
+    if n==0:
+        w=np.sqrt(2.5**2-4); Tm=(np.pi-np.arctan(w/2))/w; print('Tmax exacto',Tm,'w',w)
+    else:
+        f=lambda Tv: kpade(2,Tv,n)-2.5
+        print('Tmax pade',n,brentq(f,0.05,5))

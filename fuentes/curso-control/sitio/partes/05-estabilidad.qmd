@@ -7,7 +7,7 @@ subtitle: "Semana 6 · dos clases"
 <div class="franja"><div class="rotulo">Parte 5 · Semana 6</div><div class="titulo">Estabilidad</div><div class="cita">En la cocina, la educación y el amor la rapidez va en contra del placer y la calidad. — Julián de Zubiría Samper</div><svg class="bode" viewBox="0 0 600 160" preserveAspectRatio="none"><path d="M0,30 L170,30 L330,105 L420,105 L600,160" stroke="#ffffff" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linejoin="round"/><path d="M0,30 C120,30 150,32 175,42 C230,65 300,98 330,104 C370,110 400,108 425,112 C480,128 540,148 600,160" stroke="#E09F3E" stroke-width="2.5" fill="none"/></svg></div>
 ```
 
-Antes de preguntar *cómo* llega la salida a la referencia hay que preguntar *si* llega. En esta parte definimos con cuidado qué es un **equilibrio estable**, vemos por qué todo lo decide la ubicación de los **polos**, y aprendemos el **criterio de Routh-Hurwitz**, que cuenta las raíces inestables sin calcularlas. Como trabaja con los coeficientes, Routh-Hurwitz sirve para **diseñar**: rangos de ganancia, ganancia y frecuencia críticas, regiones de un PI. Terminamos con la estabilidad en el **espacio de estado** y con la **robustez**: el teorema de **Kharitonov** reduce infinitas verificaciones a cuatro.
+Antes de preguntar *cómo* llega la salida a la referencia hay que preguntar *si* llega. En esta parte definimos con cuidado qué es un **equilibrio estable**, vemos por qué todo lo decide la ubicación de los **polos**, y aprendemos el **criterio de Routh-Hurwitz**, que cuenta las raíces inestables sin calcularlas. Como trabaja con los coeficientes, Routh-Hurwitz sirve para **diseñar**: rangos de ganancia, ganancia y frecuencia críticas, regiones de un PI. Vemos también cómo tratar un **tiempo muerto** con la **aproximación de Padé**, y cuánto se equivoca. Terminamos con la estabilidad en el **espacio de estado** y con la **robustez**: el teorema de **Kharitonov** reduce infinitas verificaciones a cuatro.
 
 ```{=html}
 <div class="botones">
@@ -23,8 +23,9 @@ Antes de preguntar *cómo* llega la salida a la referencia hay que preguntar *si
 1. Distinguir estabilidad asintótica, marginal y BIBO, y decidirla a partir de los polos o de los valores propios.
 2. Aplicar el criterio de Routh-Hurwitz, incluidos sus dos casos especiales.
 3. Usar la tabla para diseñar: rango de ganancia, $\Kcr$ y $\wcr$, regiones de estabilidad de un PI y estabilidad relativa.
-4. Decidir la estabilidad de un equilibrio en el espacio de estado, también linealizando, y reconocer los modos que la función de transferencia esconde.
-5. Verificar la estabilidad robusta con el teorema de Kharitonov y reconocer cuándo el resultado es conservador.
+4. Analizar un lazo con tiempo muerto mediante la aproximación de Padé y reconocer su error.
+5. Decidir la estabilidad de un equilibrio en el espacio de estado, también linealizando, y reconocer los modos que la función de transferencia esconde.
+6. Verificar la estabilidad robusta con el teorema de Kharitonov y reconocer cuándo el resultado es conservador.
 :::
 
 ## Ruta de las clases
@@ -32,7 +33,7 @@ Antes de preguntar *cómo* llega la salida a la referencia hay que preguntar *si
 | Clase | Qué se ve | Handout | Scripts |
 |:--|:--|:--|:--|
 | 1 | Qué es estabilidad; modos y polos; historia; condición necesaria; tabla de Routh; casos especiales | §5.1–5.4 | `C5_Ej1`–`C5_Ej3` |
-| 2 | Rango de ganancia, $\Kcr$ y $\wcr$; planta inestable; región de un PI; estabilidad relativa; espacio de estado y linealización; Kharitonov | §5.5–5.7 | `C5_Ej4`–`C5_Ej7`, `crearModelo_LazoPI` |
+| 2 | Rango de ganancia, $\Kcr$ y $\wcr$; planta inestable; región de un PI; estabilidad relativa; tiempo muerto y Padé; espacio de estado y linealización; Kharitonov | §5.5–5.8 | `C5_Ej4`–`C5_Ej8`, `crearModelo_LazoPI`, `crearModelo_Retardo` |
 
 : Lea la sección del handout **antes** de cada clase. {.striped}
 
@@ -92,6 +93,21 @@ Con un parámetro en la ecuación característica, las condiciones de la tabla d
 ![Por debajo de $\Kcr$ la oscilación se amortigua, en $\Kcr$ se sostiene y por encima crece.](../figuras/cap05/f_rango_kc.svg){width=100%}
 
 ![Región de estabilidad de un PI en el plano $(\Kc,K_i)$ y tres puntos simulados: adentro, en la frontera y afuera.](../figuras/cap05/f_region_pi.svg){width=100%}
+
+::: {.ideaclave}
+[Tiempo muerto y Padé]{.caja-titulo}
+
+Un retardo $T$ multiplica por $e^{-Ts}$ y la ecuación característica deja de ser un polinomio. Se aproxima con Padé:
+
+$$
+e^{-Ts}\approx\frac{1-\frac{T}{2}s}{1+\frac{T}{2}s}\ \ (n=1),\qquad
+e^{-Ts}\approx\frac{1-\frac{T}{2}s+\frac{(Ts)^2}{12}}{1+\frac{T}{2}s+\frac{(Ts)^2}{12}}\ \ (n=2).
+$$
+
+Para $K e^{-Ts}/(s+1)$, Padé 1 da $-1<K<1+2/T$: el retardo estrecha el rango. Pero **sobrestima**: con $T=1$ predice $K<3$ y el límite exacto es $2.262$ (Padé 2: $2.292$). Para decidir, use orden 2 o el retardo exacto (`margin` con `InputDelay`, o el bloque *Transport Delay*).
+:::
+
+![Escalón retrasado y sus aproximaciones; $K_{\max}$ contra $T$; con $K=2.5$ y $T=1$ el modelo de Padé 1 es estable pero el lazo real no.](../figuras/cap05/f_pade.svg){width=100%}
 
 ::: {.cuidado}
 [Routh sobre $\det(s\Id-\Am)$]{.caja-titulo}
@@ -182,9 +198,21 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 ```{.matlab include="../../codigo/cap05_estabilidad/C5_Ej5_RegionPI.m" marca="region"}
 ```
 
+### Tiempo muerto
+
+**Padé de orden 1 y 2 contra el retardo exacto (§5.6).**
+
+```{.matlab include="../../codigo/cap05_estabilidad/C5_Ej8_Pade.m" marca="pade"}
+```
+
+**El modelo de Padé 1 dice estable; el lazo real no.**
+
+```{.matlab include="../../codigo/cap05_estabilidad/C5_Ej8_Pade.m" marca="comparar"}
+```
+
 ### Espacio de estado
 
-**Valores propios y polinomio característico (§5.6).**
+**Valores propios y polinomio característico (§5.7).**
 
 ```{.matlab include="../../codigo/cap05_estabilidad/C5_Ej6_EspacioEstado.m" marca="eig"}
 ```
@@ -201,7 +229,7 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 
 ### Kharitonov
 
-**Los cuatro polinomios y un muestreo aleatorio (§5.7).**
+**Los cuatro polinomios y un muestreo aleatorio (§5.8).**
 
 ```{.matlab include="../../codigo/cap05_estabilidad/C5_Ej7_Kharitonov.m" marca="kharitonov"}
 ```
@@ -225,14 +253,15 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 
 :::
 
-## Modelo de Simulink
+## Modelos de Simulink
 
 ::: {.modelo}
-[El modelo se construye por código]{.caja-titulo}
+[Los modelos se construyen por código]{.caja-titulo}
 
 | Script | Modelo | Para qué |
 |:--|:--|:--|
 | `crearModelo_LazoPI.m` | PI en forma paralela, $\Gc=\Kc+K_i/s$, con la planta $2/(s^3+4s^2+5s+2)$ | recorrer la región de estabilidad: un punto adentro, uno en la frontera y uno afuera; medir el periodo de la oscilación sostenida |
+| `crearModelo_Retardo.m` | el lazo $K e^{-Ts}/(s+1)$ dos veces: con *Transport Delay* y con Padé de primer orden | encontrar la ganancia a la que cada uno empieza a oscilar y ver que Padé 1 es optimista |
 
 Corra el script y se crea el `.slx`.
 :::
@@ -281,14 +310,14 @@ Sí. En tercer orden basta el peor caso de $a_2a_1>a_3a_0$: $4\cdot3=12>2\cdot2=
 
 ## Problemas
 
-El handout trae 8 problemas (tablas y casos especiales, ganancia crítica, ganancias negativas y Bode, región de un PI con estabilidad relativa, estabilidad local de un sistema no lineal, matrices Hurwitz y modos escondidos, una familia de cuarto orden y una planta incierta), con soluciones seleccionadas.
+El handout trae 10 problemas (tablas y casos especiales, ganancia crítica, ganancias negativas y Bode, región de un PI con estabilidad relativa, tiempo muerto con Padé y el error de la aproximación, estabilidad local de un sistema no lineal, matrices Hurwitz y modos escondidos, una familia de cuarto orden y una planta incierta), con soluciones seleccionadas.
 
 ```{=html}
-<div class="botones"><a class="boton" href="../pdf/cap05_estabilidad.pdf">Ir a los problemas (PDF, §5.9)</a></div>
+<div class="botones"><a class="boton" href="../pdf/cap05_estabilidad.pdf">Ir a los problemas (PDF, §5.10)</a></div>
 ```
 
 ::: {.profundiza}
 [Correcciones respecto a la versión anterior]{.caja-titulo}
 
-Se retiró el tiempo muerto (aproximación de Padé), que el curso no cubre. La estabilidad depende solo de los polos, no de los ceros. $s^3+2s^2+s+2$ es un caso de fila de ceros, no de $\epsilon$. Se resolvieron los ejemplos que no tenían solución; en el primer ejemplo de Kharitonov faltaba un intervalo y la familia **no** es robustamente estable; el diseño robusto da $-100<K<251$ con Kharitonov y $K<642$ con la dependencia entre coeficientes. Hurwitz publicó su criterio en 1895; la anécdota del sirviente es de lord Kelvin, no de Maxwell.
+En la aproximación de Padé, $c_k$ lleva $(2n)!$ en el denominador; se agregó la comparación con el límite exacto, que muestra que Padé de primer orden es optimista. La estabilidad depende solo de los polos, no de los ceros. $s^3+2s^2+s+2$ es un caso de fila de ceros, no de $\epsilon$. Se resolvieron los ejemplos que no tenían solución; en el primer ejemplo de Kharitonov faltaba un intervalo y la familia **no** es robustamente estable; el diseño robusto da $-100<K<251$ con Kharitonov y $K<642$ con la dependencia entre coeficientes. Hurwitz publicó su criterio en 1895; la anécdota del sirviente es de lord Kelvin, no de Maxwell.
 :::

@@ -1,0 +1,24 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node (r) {$R(s)$};
+  \coordinate[right=5mm of r] (r0);
+  \node[bloque,right=8mm of r0,yshift=10mm] (Gsp) {$G_{sp}(s)$};
+  \node[suma,right=40mm of r0] (S) {};
+  \node[bloque,right=8mm of S] (P) {$\Gp(s)$};
+  \coordinate[right=8mm of P] (y0);
+  \node[right=6mm of y0] (y) {$Y(s)$};
+  \node[bloque,below=9mm of S] (Gc) {$\Gc(s)$};
+  \draw[thick,draw=ctrlnoche] (r) -- (r0);
+  \draw[senal] (r0) |- (Gsp);
+  \draw[senal] (Gsp) -| node[pos=0.9,right,rot]{$+$} (S);
+  \draw[senal] (S) -- node[above,rot]{$U_c$} (P);
+  \draw[senal] (P) -- (y);
+  \draw[senal] (y0) |- (Gc);
+  \draw[senal] (Gc) -- node[pos=0.7,right,rot]{$-$} (S);
+  \fill (y0) circle (1.3pt);
+  \node[rot,above=0.5mm of Gsp] {acción sobre la referencia};
+  \node[rot,below=0.5mm of Gc] {acción sobre la salida};
+\end{tikzpicture}
+\end{document}

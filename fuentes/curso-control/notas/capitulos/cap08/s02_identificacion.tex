@@ -1,0 +1,110 @@
+%% ---------------------------------------------------------------------
+\section{Tipos de procesos e identificación}
+\label{sec:ps-identificacion}
+%% ---------------------------------------------------------------------
+
+La forma más común de conocer la dinámica de un proceso industrial es la \textbf{prueba escalón en lazo abierto} (\cref{fig:ps-prueba}): con el controlador en \emph{manual}, se espera a que la PV esté en estado estacionario, se cambia la CO de golpe y se registra la PV. La respuesta dice dónde estarán las dificultades del control: un tiempo muerto grande, una respuesta inversa, una no linealidad. La misma prueba puede hacerse en lazo cerrado, con el controlador en automático y un escalón de referencia; la usaremos en la \cref{sec:ps-malla-cerrada}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.75\linewidth]{cap08/prueba_abierta}
+\caption{Prueba escalón en lazo abierto: el controlador en manual entrega un escalón $\Delta u_c$ y se registra la PV.}
+\label{fig:ps-prueba}
+\end{figure}
+
+\subsection{Seis tipos de respuesta}
+
+La \cref{fig:ps-tipos} reúne las respuestas típicas.
+\begin{description}
+  \item[(a) Primer orden.] Sube de inmediato y se acerca exponencialmente al valor final, como un termómetro de vidrio delgado sumergido en agua hirviendo. Se comporta como un filtro pasabajos.
+  \item[(b) Orden superior.] La más común: varios almacenamientos en serie (procesos \emph{multicapacidad}) dan una curva en forma de S que arranca con pendiente nula.
+  \item[(c) Integrador.] No tiene valor final: la PV crece como una rampa mientras la CO esté desplazada. Aparece donde hay almacenamiento sin autorregulación: nivel, presión en tanques cerrados, concentración en lotes, temperatura en recipientes bien aislados.
+  \item[(d) Oscilatorio.] Raro en procesos sin controlar, común en sistemas mecánicos y en lazos ya controlados.
+  \item[(e) Tiempo muerto.] Nada pasa durante $L$ segundos: transporte por tuberías o bandas, la ducha del capítulo~\ref{cap:in}, retardos de comunicación. Casi siempre aparece combinado con otro tipo.
+  \item[(f) Respuesta inversa.] Arranca en la dirección contraria. Es la marca de un cero en el semiplano derecho (\emph{fase no mínima}). El caso clásico es el nivel de una caldera: más agua fría hace colapsar burbujas de vapor y el nivel primero baja.
+\end{description}
+Los procesos de primer orden e integradores son los más fáciles de controlar, porque la PV responde de inmediato a la CO; los de tiempo muerto y respuesta inversa, los más difíciles. Los oscilatorios son manejables mientras no se les pida rapidez.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_tipos}
+\caption{Respuesta escalón de los seis tipos de proceso: $1/(4s+1)$, $1/(2s+1)^4$, $1/(s(s+1))$, $1/(s^2+0.4s+1)$, $e^{-6s}/(4s+1)$ y $(1-3s)/((2s+1)(4s+1))$.}
+\label{fig:ps-tipos}
+\end{figure}
+
+\subsection{Ganancia normalizada}
+
+En los controladores industriales la PV y la CO suelen expresarse en \emph{porcentaje de su rango}, y la ganancia del controlador es adimensional. La ganancia del proceso debe estar en las mismas unidades:
+\begin{equation}
+  \Kproc=\frac{\Delta y/\text{rango de la PV}}{\Delta u_c/\text{rango de la CO}} .
+  \label{eq:ps-ganancia}
+\end{equation}
+
+\begin{ejemplo}[label=ej:ps-ganancia]{Ganancia de un proceso de temperatura}
+La CO va de $0$ a $100$\,\% y la PV se mide entre $10$ y $70\,\grados$C. La CO pasa de $20$ a $40$\,\% y la PV, de $30$ a $60\,\grados$C. Halle $\Kproc$.
+\solucion $\Kproc=\dfrac{30/60}{20/100}=2.5$. En unidades físicas serían $30/20=1.5\,\grados$C/\%; la diferencia es el factor $100/60$ de los rangos.
+\end{ejemplo}
+
+\codigorepo{cap08_pid_sintonizacion/C8_Ej1_Identificacion.m}{ganancia}{ejemplo~\ref{ej:ps-ganancia}}
+
+\begin{cuidado}
+Si no se dice nada, en este capítulo las señales están normalizadas ($0$--$100$\,\%) y $\Kproc=\Delta y/\Delta u_c$. Mezclar una ganancia física con una regla de sintonización pensada para ganancias normalizadas da un $\Kc$ errado por el cociente de los rangos.
+\end{cuidado}
+
+\subsection{Modelo de primer orden con tiempo muerto}
+
+Casi todas las reglas de sintonización resumen el proceso con tres números, los del modelo FOPDT (\emph{first order plus dead time}):
+\begin{equation}
+  \Gp(s)\approx\frac{\Kproc\,e^{-Ls}}{\tau s+1}.
+  \label{eq:ps-fopdt}
+\end{equation}
+Con la curva de reacción (\cref{fig:ps-identificacion}) se obtienen así:
+\begin{receta}[Método de la tangente]
+\begin{enumerate}
+  \item Ubique el punto de máxima pendiente de la PV y trace la tangente por él.
+  \item Donde la tangente corta el valor inicial de la PV, lea $L$ (desde el instante del escalón).
+  \item \textbf{Método del 63\,\%:} $\tau$ es el tiempo entre $L$ y el instante en que la PV alcanza el $63.2$\,\% de su cambio total. \textbf{Variante de Ziegler y Nichols:} $\tau$ es el tiempo entre $L$ y el corte de la tangente con el valor final.
+  \item $\Kproc=\Delta y/\Delta u_c$ con \eqref{eq:ps-ganancia}.
+\end{enumerate}
+\end{receta}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap08/f_identificacion}
+\caption{Ejemplo~\ref{ej:ps-ident}: tangente de máxima pendiente sobre la respuesta de $e^{-2s}/((8s+1)(2s+1))$. El tiempo muerto aparente ($3.0$\,s) es mayor que el retardo puro ($2$\,s), y $\tau_{ZN}>\tau_{63}$.}
+\label{fig:ps-identificacion}
+\end{figure}
+
+\begin{ejemplo}[label=ej:ps-ident]{Un segundo orden visto como primer orden}
+Identifique un FOPDT para $\Gp(s)=e^{-2s}/((8s+1)(2s+1))$ con los dos métodos.
+\solucion La pendiente máxima es $0.079$ por segundo, en $t=5.7$\,s, con la PV en $0.213$; la tangente corta el cero en $L\approx3.0$\,s. El $63.2$\,\% se alcanza en $t=12.3$\,s, así que $\tau_{63}\approx9.3$\,s, mientras que la tangente llega al valor final $\tau_{ZN}\approx12.7$\,s después de $L$. El retardo aparente absorbe el polo rápido ($2$\,s de retardo puro más parte de la constante de $2$\,s), y la variante de Ziegler y Nichols da una constante de tiempo mayor.
+\end{ejemplo}
+
+\codigorepo{cap08_pid_sintonizacion/C8_Ej1_Identificacion.m}{tangente}{identificación con la función \cmd{identificarFOPDT}}
+
+Dos observaciones. Primera, en un proceso de orden superior el tiempo muerto identificado suele ser mayor que el retardo puro: incluye el efecto de los polos rápidos. Segunda, la variante de Ziegler y Nichols tiende a sobrestimar $\tau$; las reglas posteriores a la suya usan el método del $63$\,\%.
+
+\begin{cuidado}[La pendiente máxima de un primer orden]
+En un proceso de primer orden, $y(t)=\Kproc\bigl(1-e^{-(t-L)/\tau}\bigr)$ tiene pendiente $\frac{\Kproc}{\tau}e^{-(t-L)/\tau}$, que es \emph{máxima al comienzo}, en $t=L$, y no en el $63$\,\% (allí vale solo el $37$\,\% del máximo). Por eso en un primer orden puro la tangente arranca justo en $L$ y los dos métodos dan el mismo $\tau$.
+\end{cuidado}
+
+\begin{pausa}
+Con un primer orden puro sin retardo, $1/(5s+1)$, ¿qué $L$ y qué $\tau$ dan la tangente de Ziegler y Nichols y el método del 63\,\%?
+\respuesta{$L=0$ en los dos. La tangente en $t=0$ tiene pendiente $1/5$ y llega a $1$ en $t=5$: $\tau_{ZN}=5$\,s. El $63.2$\,\% se alcanza en $t=5$\,s: $\tau_{63}=5$\,s.}
+\end{pausa}
+
+\subsection{Procesos integradores}
+
+En un integrador lo difícil es empezar: hay que encontrar una CO que deje la PV quieta (el caudal de salida igual al de entrada, por ejemplo). Desde ahí, un escalón $\Delta u_c$ produce, tras un tiempo muerto, una rampa de pendiente $v$ (\cref{fig:ps-integrador}). Como la ganancia estática es infinita, se usa la \textbf{ganancia de velocidad}
+\begin{equation}
+  K_v=\frac{v}{\Delta u_c},\qquad \Gp(s)\approx\frac{K_v\,e^{-Ls}}{s},
+  \label{eq:ps-kv}
+\end{equation}
+con $L$ medido donde la asíntota de la rampa corta el nivel inicial.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.6\linewidth]{cap08/f_integrador}
+\caption{Respuesta de un proceso integrador con tiempo muerto: rampa de pendiente $v$ tras un tiempo muerto $L$.}
+\label{fig:ps-integrador}
+\end{figure}

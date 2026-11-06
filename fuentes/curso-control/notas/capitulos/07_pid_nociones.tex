@@ -1,0 +1,30 @@
+%% =====================================================================
+%%  Capítulo 7 -- Controladores PID: nociones básicas
+%%  Migrado al formato nuevo (noviembre de 2026) desde Handout6a_Ctrl.tex.
+%%  Correcciones de fondo (ver MIGRACION.md): conversión ideal -> serie
+%%  (tau_d^S usa tau_i^I, no tau_d^I); expansión de la forma serie; la forma
+%%  paralelo no es "la única que permite quitar la integral"; historia
+%%  (Taylor: pre-act fijo en 1936, ajustable en el Fulscope de 1939); se
+%%  completaron las figuras y simulaciones marcadas "AÑADIR FIGURA";
+%%  notación tau_i, tau_d -> T_i, T_d (convenciones del curso); MP -> %OS.
+%% =====================================================================
+
+\capitulo[cap:pn]{Controladores PID: nociones básicas}
+  {Nunca, ni en las situaciones más desesperadas, he perdido mi sentido del humor, y soy de los que piensan que esta vida es de risa.}
+  {Enrique Vila-Matas}
+
+\begin{objetivos}[partes/07-pid-nociones.html]
+  \item Explicar qué hace cada una de las tres acciones (proporcional, integral y derivativa) y cómo afecta la respuesta transitoria, el error y la estabilidad.
+  \item Pasar los parámetros de un PID entre las formas ideal, paralelo y serie, y saber cuándo la conversión es posible.
+  \item Reconocer los problemas prácticos del PID ---\emph{kicks}, ruido, \emph{wind-up}--- y las modificaciones que los resuelven: filtro derivativo, estructuras I-P e I-PD, anti-windup y ponderación de la referencia.
+  \item Escribir el algoritmo digital del PID en forma posicional e incremental.
+\end{objetivos}
+
+\input{capitulos/cap07/s01_intro}
+\input{capitulos/cap07/s02_onoff}
+\input{capitulos/cap07/s03_acciones}
+\input{capitulos/cap07/s04_estructuras}
+\input{capitulos/cap07/s05_ejemplo}
+\input{capitulos/cap07/s06_modificaciones}
+\input{capitulos/cap07/s07_digital}
+\input{capitulos/cap07/s08_cierre}

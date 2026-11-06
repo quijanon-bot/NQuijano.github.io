@@ -1,0 +1,26 @@
+%% ---------------------------------------------------------------------
+\section{El controlador más sencillo: on/off}
+\label{sec:pn-onoff}
+%% ---------------------------------------------------------------------
+
+Para entender el PID conviene empezar por el controlador más simple, el \clave{on/off} (o de dos posiciones):
+\[
+  u_c(t)=\begin{cases} u_{\max}, & e(t)>0,\\ u_{\min}, & e(t)<0. \end{cases}
+\]
+Solo mira el signo del error. Supone que el proceso tiene ganancia positiva: más salida del controlador, más PV.
+
+\begin{ejemplo}[label=ej:pn-onoff]{Un horno on/off}
+Un proceso $e^{-2s}/(10s+1)$ se controla con $r=50\%$, $u_{\max}=90\%$ y $u_{\min}=10\%$ (\cref{fig:pn-onoff}).
+\solucion La PV oscila sin asentarse alrededor de la referencia, entre unos $42$ y $58\%$, y la salida del controlador salta entre sus dos valores cada pocos segundos. La oscilación la sostiene el tiempo muerto: cuando el controlador cambia, el proceso tarda $2$\,s en enterarse.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap07/f_onoff}
+\caption{Ejemplo~\ref{ej:pn-onoff}. Arriba, referencia y PV; abajo, salida del controlador y error.}
+\label{fig:pn-onoff}
+\end{figure}
+
+El on/off es barato, no hay nada que sintonizar y basta un sensor que distinga ``por encima'' de ``por debajo''. Por eso está en los termostatos de hornos, neveras y calentadores. Sus defectos son la oscilación permanente de la PV y los cambios bruscos de la salida, que desgastan el elemento final de control (una válvula, una bomba, un relé). En la práctica se le agrega una histéresis para que no conmute con el ruido.
+
+\codigorepo{cap07_pid_nociones/C7_Ej1_OnOff.m}{onoff}{ejemplo~\ref{ej:pn-onoff}: el control on/off y su oscilación}

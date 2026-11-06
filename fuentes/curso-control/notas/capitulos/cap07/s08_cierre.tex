@@ -1,0 +1,89 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:pn-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item PID ideal: $\Kc\bigl(1+\frac{1}{\Ti s}+\Td s\bigr)$. P mira el presente, I el pasado (área), D el futuro (tendencia): un PD es un proporcional que mira $\Td$ segundos adelante.
+  \item El on/off oscila; el P deja error en procesos de tipo~0; la I lo elimina ajustando el \emph{bias} sola, a costa de estabilidad; la D amortigua, pero amplifica el ruido.
+  \item Formas ideal, paralelo y serie. Serie $\to$ ideal siempre; ideal $\to$ serie solo si $\Ti\ge4\Td$. Los métodos de sintonización dan la forma ideal.
+  \item Filtro derivativo con $N\approx8$--$16$: ganancia acotada en $\Kc(1+N)$ y controlador realizable.
+  \item Los \emph{kicks} se evitan sacando la P y la D del camino de la referencia (I-P, PI-D, I-PD). La ponderación $\beta$, $\gamma$ separa la respuesta a la referencia del rechazo de perturbaciones.
+  \item Con actuador saturado, la integral se infla (\emph{wind-up}). Anti-windup: integración condicional o recálculo con $T_t\approx\sqrt{\Ti\Td}$.
+  \item Digital: algoritmo posicional o incremental; el incremental resiste mejor el \emph{wind-up}.
+\end{enumerate}
+\end{parallevar}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo]
+(i) La conversión ideal $\to$ serie daba $\Td^S=\frac{\Td^I}{2}(1-\rho)$; es $\frac{\Ti^I}{2}(1-\rho)$. (ii) La expansión de la forma serie tenía los términos mal agrupados. (iii) La forma paralelo no es ``la única que permite desactivar la integral'': es la única que admite $\Kc=0$. (iv) Historia: la Taylor introdujo una derivada fija hacia 1936; en 1939 salieron el Fulscope y el Stabilog con las tres acciones ajustables. Se retiró que la ganancia del Stabilog ``podía ajustarse entre 0.7 y 100'' y la mención al \emph{Trans Scan Log}, que no se encontraron en las fuentes. (v) Se completaron las figuras y simulaciones pendientes (on/off, kicks, \emph{wind-up}, ponderación) y se calcularon todos los números de los ejemplos. (vi) Notación: $\tau_i,\tau_d\to\Ti,\Td$; MP $\to\OS$; ``realimentar'' $\to$ retroalimentar; ``Allan Braedley'' $\to$ Allen-Bradley.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:pn-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización.
+
+\begin{problema}[formas del PID]\label{prob:pn-formas}
+(a) Expanda la forma serie y deduzca \eqref{eq:pn-serie-ideal}. (b) Un controlador en forma serie tiene $\Kc^S=2$, $\Ti^S=8$\,s y $\Td^S=2$\,s; halle la forma ideal. (c) Muestre que $\Ti^S$ y $\Td^S$ son las raíces de $z^2-\Ti^Iz+\Ti^I\Td^I=0$, obtenga \eqref{eq:pn-ideal-serie} y verifique con (b). (d) Muestre, con el discriminante, que la conversión exige $\Ti^I\ge4\Td^I$. (e) Verifique que el PID ideal con $\Kc=5$, $\Ti=4$\,s y $\Td=2$\,s no tiene forma serie y calcule sus ceros. (f) Pase el PID paralelo $350/300/50$ del ejemplo~\ref{ej:pn-mra} a forma ideal y diga si tiene forma serie.
+\end{problema}
+
+\begin{problema}[las tendencias, con números]\label{prob:pn-mra}
+Con el sistema del ejemplo~\ref{ej:pn-mra}: (a) en lazo abierto, calcule el valor final, $\zeta$, $\wn$, $\tr$ y $\ts$, y verifique con \cmd{stepinfo}; (b) con un P, halle $\ess$, $\zeta$, $\wn$ y $\OS$ en función de $\Kc$ y tabule para $\Kc=10$, $100$ y $300$; (c) con $\Kc=300$ y $K_d=10$, $20$, ubique el cero, explique por qué $\ess$ no cambia y compare el $\OS$ con el que predice el segundo orden sin el cero; (d) con $\Kc=300$, halle por Routh el rango de $K_i$ y evalúe $K_i=70$ y $200$; (e) \etiquetaM{} arme una tabla P, PD, PI, PID con $\tr$, $\OS$, $\ts$, $\ess$ y $|u_c|_{\max}$, y verifique una por una las tendencias de la \cref{tab:pn-efectos}. ¿Alguna no se cumple aquí?
+\end{problema}
+
+\begin{problema}[banda proporcional y \emph{bias}]\label{prob:pn-banda}
+Un lazo de temperatura tiene un transmisor de $0$--$200\,\grados$C, una válvula de $0$--$100\%$ y un proceso de ganancia estática $\Kproc=2.5\,\grados$C/\%, con control proporcional. (a) Con $PB=25\%$, calcule $\Kc$ con las dos convenciones y explique por qué difieren. (b) Con la segunda y $u_0=50\%$, halle el error para $r=120\,\grados$C. (c) Halle el $u_0$ que lo anula. (d) Con ese $u_0$, ¿cuál es el error si la ganancia cae a $2.2$? ¿Y si sube a $2.8$? (e) Explique, con esos números, por qué el \emph{bias} manual no es robusto y qué hace la integral. (f) Con $u_0=50\%$ y $r=150\,\grados$C, ¿qué banda proporcional deja el error por debajo de $2\,\grados$C? ¿Es razonable?
+\end{problema}
+
+\begin{problema}[ruido y filtro derivativo]\label{prob:pn-ruido}
+Con el PID ideal $\Kc=3$, $\Ti=8$\,s, $\Td=2$\,s: (a) para un ruido $0.01\sin\omega t$, calcule su amplitud en la salida del controlador con la derivada pura para $\omega=0.1$, $10$ y $100$\,rad/s; (b) muestre que la derivada filtrada tiene ganancia acotada en alta frecuencia y halle la cota; (c) halle la frecuencia a partir de la cual actúa el filtro y la amplitud del ruido en $\omega=100$ para $N=5$, $10$ y $20$; (d) \etiquetaM{} grafique $|\Gc(j\omega)|$ con y sin filtro; (e) verifique que el controlador filtrado es propio; (f) \etiquetaM{} simule el lazo con $\Gp=1/(10s+1)$ y ruido blanco en la medida, y mida la desviación estándar de $u_c$ para cada $N$.
+\end{problema}
+
+\begin{problema}[algoritmo digital]\label{prob:pn-digital}
+Con el mismo PID: (a) escriba el algoritmo posicional y el incremental con $T_s=0.1$\,s; (b) deduzca el incremental del posicional; (c) \etiquetaM{} compruebe que dan la misma salida con $\Gp=1/(10s+1)$; (d) \etiquetaM{} repita con $T_s=0.01$, $0.5$ y $1$\,s y halle el mayor $T_s$ con el que $\OS$ y $\ts$ empeoran menos del $5\%$ frente al continuo; (e) \etiquetaEstrella{} cuantice el error a 12 bits en $\pm10$ y mida el ruido en $u_c$ para cada $T_s$; (f) agregue una saturación y explique por qué el incremental sufre menos \emph{wind-up}.
+\end{problema}
+
+\begin{problema}[\emph{kicks}]\label{prob:pn-kicks}
+Con $\Gp=1/(s^2+10s+20)$ y el PID paralelo $350/300/50$, compare las estructuras estándar, PI-D e I-PD. (a) Escriba $U_c(s)$ en función de $R$ y $Y$ para cada una. (b) Con el teorema del valor inicial, halle $u_c(0^+)$ ante un escalón de referencia; muestre que en la estándar no está acotado. (c) Repita con la derivada filtrada de constante $\tau_f$ y evalúe para $\tau_f=0.01$, $0.05$ y $0.1$\,s. (d) \etiquetaM{} Simule y tabule $|u_c|_{\max}$, $\OS$ y $\ts$. (e) \etiquetaM{} Agregue una saturación en $[-100,\,100]$ y diga cuáles saturan y cuánto tiempo. (f) Muestre que PI-D e I-PD son casos de la ponderación con $\beta$ y $\gamma$.
+\end{problema}
+
+\begin{problema}[\emph{wind-up}]\label{prob:pn-windup}
+Con el ejemplo~\ref{ej:pn-windup}: (a) \etiquetaM{} simule sin saturación y reporte $\OS$, $\ts$ y el pico de $u_c$; (b) agregue la saturación y reporte cuánto tiempo satura y cuánto empeoran $\OS$ y $\ts$; (c) grafique el término integral y marque el instante en que el error cambia de signo y el instante en que el actuador sale de saturación; explique la diferencia; (d) implemente el recálculo con $T_t=\sqrt{\Ti\Td}$ y $T_t=\Ti$; (e) recorra $T_t$ entre $0.5$ y $20$\,s y grafique $\OS$, $\ts$ e IAE; (f) implemente la integración condicional y compárela con el mejor recálculo.
+\end{problema}
+
+\begin{problema}[dos grados de libertad]\label{prob:pn-beta}
+Con el ejemplo~\ref{ej:pn-beta}: (a) verifique por Routh que el PI agresivo es estable; (b) \etiquetaM{} compare el rechazo de un escalón de perturbación a la entrada con el PI conservador ($\Kc=2$, $\Ti=1$); (c) simule la respuesta a la referencia y constate el conflicto; (d) obtenga $G_f(s)$ para un PI con ponderación $\beta$; (e) muestre que $G_f$ no aparece en la función de transferencia de la perturbación; (f) tabule $\OS$ y $\ts$ para $\beta=0$, $0.3$, $0.5$ y $1$; ¿qué valores de $\beta$ dan $\OS\le30\%$? Explique por qué ningún $\beta$ baja de unos $27\%$.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:pn-formas}}
+(b) $\Kc^I=2.5$, $\Ti^I=10$\,s, $\Td^I=1.6$\,s. (e) $\Ti=4<8$; ceros $-0.25\pm j0.25$. (f) $\Kc=350$, $\Ti=1.167$\,s, $\Td=0.143$\,s; como $\Ti\ge4\Td$, sí: $\Kc^S=300$, $\Ti^S=1$\,s, $\Td^S=0.167$\,s (ceros en $-1$ y $-6$).
+
+\paragraph{Problema~\ref{prob:pn-mra}}
+(a) Valor final $0.05$, $\zeta=1.12$, $\wn=4.47$\,rad/s, $\tr=0.88$\,s, $\ts=1.60$\,s. (b) $\ess=\frac{20}{20+\Kc}$, $\wn=\sqrt{20+\Kc}$, $\zeta=\frac{5}{\sqrt{20+\Kc}}$; para $\Kc=10$, $100$, $300$: $\ess=0.667$, $0.167$, $0.0625$; $\OS=0.1\%$, $20\%$, $40\%$. (c) Cero en $-30$ y $-15$; $\OS=15.3\%$ y $5.8\%$ frente a $12.0\%$ y $0.8\%$ sin el cero. (d) $0<K_i<3200$; $\OS=33\%$ ($\ts=4.7$\,s) y $36\%$ ($\ts=1.2$\,s). (e) Aquí, subir $\Kc$ de $10$ a $100$ \emph{baja} $\ts$ (de $0.88$ a $0.76$\,s) en lugar de subirlo; de $100$ a $300$ casi no lo cambia. Las tendencias de la tabla no son leyes.
+
+\paragraph{Problema~\ref{prob:pn-banda}}
+(a) $\Kc=4$ (adimensional) y $\Kc=2$\,\%/$\grados$C. (b) $e=-0.83\,\grados$C (el \emph{bias} de $50\%$ llevaría la PV a $125\,\grados$C). (c) $u_0=48\%$. (d) $+2.67$ y $-2.18\,\grados$C. (f) $\Kc\ge4.6$\,\%/$\grados$C, es decir, $PB\le10.9\%$.
+
+\paragraph{Problema~\ref{prob:pn-ruido}}
+(a) $0.006$, $0.6$ y $6$. (b) $\Kc N$ en la derivada, $\Kc(1+N)$ en el controlador. (c) A partir de $N/\Td$: $2.5$, $5$ y $10$\,rad/s; amplitudes $0.15$, $0.30$ y $0.60$.
+
+\paragraph{Problema~\ref{prob:pn-digital}}
+(a) $u_c[k]=3\bigl(e[k]+0.0125\sum e[i]+20(e[k]-e[k-1])\bigr)$ y $u_c[k]=u_c[k-1]+63.04\,e[k]-123\,e[k-1]+60\,e[k-2]$.
+
+\paragraph{Problema~\ref{prob:pn-kicks}}
+(b) $u_c(0^+)=\Kc+K_d\,\delta$: un impulso. (c) $u_c(0^+)=\Kc+K_d/\tau_f=5350$, $1350$ y $850$. (d) $|u_c|_{\max}\approx5300$, $350$ y $20$; $\OS=0$, $5.3$ y $0\%$; $\ts=0.84$, $2.06$ y $4.29$\,s. (f) PI-D: $\beta=1$, $\gamma=0$; I-PD: $\beta=\gamma=0$.
+
+\paragraph{Problema~\ref{prob:pn-windup}}
+(a) Sin saturación, $\OS=67\%$ y el pico de $u_c$ es de $32$ (el \emph{derivative kick} con $N=10$). (b) $25$\,s saturado, $\OS=38\%$, $\ts=45$\,s. (d) $T_t=4$: $\OS=3.3\%$, $\ts=30$\,s; $T_t=8$: $\OS=11\%$, $\ts=32$\,s. (f) $\OS=3.7\%$, $\ts=29$\,s, sin parámetro que sintonizar.
+
+\paragraph{Problema~\ref{prob:pn-beta}}
+(a) $s^3+6s^2+25s+66.7$: $6\cdot25=150>66.7$. (b) Pico $0.032$ frente a $0.114$. (f) $\OS=27\%$, $29\%$, $33\%$ y $51\%$; $\OS\le30\%$ con $\beta\lesssim0.35$.
+
+\respuestaspausas

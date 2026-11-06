@@ -1,0 +1,28 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[b/.style={bloque,minimum width=14mm}]
+  \node (r) {$R$};
+  \node[suma,right=7mm of r] (S) {};
+  \node[b,right=9mm of S,fill=ctrlcoral!10] (q) {$Q(s)$};
+  \coordinate[right=7mm of q] (u);
+  \node[b,right=7mm of u,fill=ctrlverde!10] (p) {$\Gp(s)$};
+  \node[suma,right=12mm of p] (S2) {};
+  \node[above=8mm of S2] (d) {$D$};
+  \coordinate[right=7mm of S2] (o); \node[right=5mm of o] (y) {$Y$};
+  \node[b,below=9mm of p] (gm) {$\tilde G_p(s)$};
+  \node[suma] (S3) at (gm -| o) {};
+  \draw[senal] (r)--(S);
+  \draw[senal] (S)--(q);
+  \draw[thick,draw=ctrlnoche] (q)--(u); \draw[senal] (u)--node[above,rot]{$U$}(p);
+  \draw[senal] (p)--node[above,rot]{$+$}(S2);
+  \draw[senal] (d)--node[right,rot]{$+$}(S2);
+  \draw[thick,draw=ctrlnoche] (S2)--(o); \draw[senal] (o)--(y);
+  \draw[senal] (u)|-(gm);
+  \draw[senal] (o)--node[right,rot]{$+$}(S3);
+  \draw[senal] (gm)--node[below,rot]{$-$}(S3);
+  \draw[senal] (S3)--++(0,-11mm)-|node[pos=0.97,left,rot]{$-$}node[pos=0.3,below,rot]{$\tilde D$: lo que el modelo no explica}(S);
+  \fill (u) circle (1.3pt); \fill (o) circle (1.3pt);
+  \node[rot,text=ctrlcoral,above=2mm of q] {$Q$ y $\tilde G_p$ juntos equivalen a $\Gc$};
+\end{tikzpicture}
+\end{document}

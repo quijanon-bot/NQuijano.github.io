@@ -1,0 +1,88 @@
+%% ---------------------------------------------------------------------
+\section{Las tres acciones, una por una}
+\label{sec:pn-acciones}
+%% ---------------------------------------------------------------------
+
+\subsection{Acción proporcional}
+
+El on/off funciona razonablemente cuando el error es grande: si la PV está lejos, tiene sentido abrir la válvula del todo. El problema aparece cerca de la referencia. La solución natural es que la acción sea \emph{proporcional} al error dentro de una banda:
+\[
+  u_c(t)=\begin{cases} u_{\max}, & e(t)>e_0,\\ u_0+\Kc\,e(t), & -e_0\le e(t)\le e_0,\\ u_{\min}, & e(t)<-e_0. \end{cases}
+\]
+$u_0$ es la salida cuando el error es cero (el \emph{bias} o \emph{reset} manual) y $\Kc$ la ganancia proporcional (\cref{fig:pn-banda}). Dentro de la banda, $\Gc(s)=\Kc$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap07/f_banda}
+\caption{Característica estática del on/off y del proporcional con banda.}
+\label{fig:pn-banda}
+\end{figure}
+
+\paragraph{El error en estado estacionario.} Despejando, $e(t)=\bigl(u_c(t)-u_0\bigr)/\Kc$: el error solo es cero si, en estado estacionario, la salida del controlador coincide con el \emph{bias}. Para un proceso de tipo~0 eso ocurre para una sola referencia. Con $\Gp=\Kproc/(\tau s+1)$ y $u_0=0$, el error ante escalón es $\ess=1/(1+\Kc\Kproc)$ (capítulo~6): baja al subir $\Kc$, pero no se anula, y una ganancia muy alta puede desestabilizar el lazo (capítulo~5).
+
+\begin{cuidado}[Ajustar el \emph{bias} a mano no es robusto]
+Con el proceso conocido, el \emph{bias} que anula el error es $u_0=r/\Gp(0)$. Pero basta que la ganancia del proceso cambie un poco (ensuciamiento, otro punto de operación) para que el error reaparezca. Lo que hace falta es un mecanismo que ajuste $u_0$ \emph{solo}: esa es la acción integral.
+\end{cuidado}
+
+\paragraph{Banda proporcional.} Muchos controladores industriales no muestran $\Kc$ sino la \clave{banda proporcional}: el porcentaje del rango del error que lleva la salida de un extremo al otro. Con $e_R$ y $u_R$ los rangos del error y de la salida,
+\[
+  PB\%=\frac{1}{\Kc}\,\frac{u_R}{e_R}\times100\%,
+  \qquad\text{y con señales normalizadas al }100\%:\qquad PB\%=\frac{100}{\Kc}.
+\]
+Una banda estrecha es una ganancia grande. (Algunos fabricantes, como ABB, usan la primera forma; otros, como Foxboro, la segunda~\citep{ACL05}.)
+
+\begin{pausa}
+Un controlador tiene $PB=25\%$ con señales normalizadas. ¿Cuánto vale $\Kc$? ¿Y si el error se mide sobre un rango de $200\,\grados$C y la salida sobre $100\%$?
+\respuesta{$\Kc=100/25=4$ (adimensional). Con los rangos: $\Kc=\frac{1}{0.25}\cdot\frac{100}{200}=2$\,\%/$\grados$C.}
+\end{pausa}
+
+\subsection{Acción integral}
+
+La acción integral es proporcional al área acumulada del error:
+\[
+  u_c(t)=K_i\int_0^t e(\tau)\,\dif\tau,\qquad K_i=\frac{\Kc}{\Ti},\qquad \Gc(s)=\frac{K_i}{s}.
+\]
+Mientras haya error, la salida sigue cambiando; solo se detiene cuando el error es cero. Ese polo en el origen sube en uno el \clave{tipo} del sistema: el error ante escalón, en la referencia o en una perturbación de carga, se anula.
+
+\begin{ideaclave}
+\textbf{La integral ajusta el \emph{bias} sola.}\enspace En un PI, $u_0$ se reemplaza por $\frac{\Kc}{\Ti}\int_0^t e\,\dif\tau$, que crece o decrece hasta encontrar el valor que deja el error en cero, sin conocer el proceso. Así se construían los PI neumáticos, con un lazo de \emph{reset automático} (\cref{fig:pn-reset}): $U_c=\Kc E+\frac{1}{\Ti s+1}U_c$, es decir, $\frac{U_c}{E}=\Kc\Bigl(1+\frac{1}{\Ti s}\Bigr)$.
+\end{ideaclave}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.55\linewidth]{cap07/pi_reset}
+\caption{PI con reajuste automático (\emph{automatic reset}).}
+\label{fig:pn-reset}
+\end{figure}
+
+La acción integral tiene memoria: cuando el error llega a cero, la integral no es cero, porque guarda todo lo anterior. La \cref{fig:pn-integral} (izquierda) lo muestra con $\Gc=1/s$ y $\Gp=1/(s+1)$: la salida del controlador sobrepasa su valor final y solo empieza a bajar cuando el error se vuelve negativo, es decir, después de que la salida ya pasó la referencia. De ahí viene el sobrepico. A la derecha, al reducir $\Ti$ (más acción integral) la respuesta es más rápida pero menos amortiguada: el lazo es $s^2+s+1/\Ti$, con $\zeta=\tfrac12\sqrt{\Ti}$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_integral}
+\caption{Izquierda: control integral puro; la salida del controlador ($u$) sigue subiendo mientras el error es positivo. Derecha: menos $\Ti$, más rápido y más oscilatorio.}
+\label{fig:pn-integral}
+\end{figure}
+
+El PI resuelve los dos problemas anteriores: la oscilación del on/off y el error del proporcional. Por eso es, de lejos, la estructura más usada en la industria; si no hay exigencias fuertes de velocidad, la acción derivativa sobra. Su precio es una pérdida de estabilidad (un polo más en el origen) y un fenómeno que veremos en la \cref{sec:pn-modificaciones}: el \emph{wind-up}. Algunos fabricantes usan, en lugar de $\Ti$, la \clave{tasa de reajuste} $1/\Ti$, en repeticiones por minuto: cuántas veces por minuto la integral repite la acción proporcional ante un error constante.
+
+\subsection{Acción derivativa}
+
+El PI mira el pasado y el presente, pero no se anticipa. En la \cref{fig:pn-derivada} los dos errores tienen el mismo valor en $t_1$ y la misma área hasta $t_1$, así que un PI daría exactamente la misma salida. Sin embargo, en (a) el error cae rápido y el controlador debería frenar para no pasarse, y en (b) el error está volviendo a subir y debería reaccionar ya.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap07/f_derivada}
+\caption{Dos errores con el mismo valor y la misma área en $t_1$: un PI no los distingue; la derivada sí.}
+\label{fig:pn-derivada}
+\end{figure}
+
+La acción derivativa es proporcional a la pendiente del error: $u_c=K_d\,\dot e$, con $K_d=\Kc\Td$. Casi nunca se usa sola, sino con la proporcional, y entonces tiene una interpretación muy clara. Por Taylor, $e(t+\Td)\approx e(t)+\Td\,\dot e(t)$, así que
+\[
+  \Kc\bigl(e(t)+\Td\,\dot e(t)\bigr)\approx\Kc\,e(t+\Td):
+\]
+\begin{ideaclave}
+\textbf{El PD es un proporcional que mira $\Td$ segundos adelante.}\enspace La salida en $t$ se basa en el error que se \emph{predice} para $t+\Td$, extrapolando en línea recta. Por eso los fabricantes la llamaron \emph{pre-act} o \emph{rate action}.
+\end{ideaclave}
+
+La derivada sirve cuando el lazo se beneficia de anticiparse, como en procesos de temperatura de orden alto. Pero tiene dos problemas. $\Gc=K_d s$ es una función de transferencia \alerta{impropia} (más ceros que polos): no se puede realizar físicamente y amplifica sin límite las altas frecuencias, es decir, el ruido. Y reacciona con violencia a los saltos de la referencia. Las dos cosas se resuelven en la \cref{sec:pn-modificaciones}.

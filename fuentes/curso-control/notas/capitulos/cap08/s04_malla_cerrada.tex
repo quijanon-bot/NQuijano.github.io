@@ -1,0 +1,93 @@
+%% ---------------------------------------------------------------------
+\section{Reglas de malla cerrada}
+\label{sec:ps-malla-cerrada}
+%% ---------------------------------------------------------------------
+
+Las reglas de malla abierta exigen sacar el lazo a manual, y eso no siempre es posible: un proceso inestable en lazo abierto (un reactor exotérmico, ciertos niveles) se escapa durante la prueba. Las de malla cerrada dejan el controlador en \emph{automático} y caracterizan el proceso con dos números medidos en el propio lazo.
+
+\subsection{Ajuste manual}
+
+Antes de las reglas, el método que se usa en campo: ensayo y error con una secuencia ordenada. Es lento y la acción derivativa es difícil de ajustar así, pero no necesita modelo y se inspira en la misma idea que la regla de Ziegler y Nichols.
+\begin{receta}[Ajuste manual en lazo cerrado]
+\begin{enumerate}
+  \item Arranque con $\Kc$ y $\Td$ pequeños y $\Ti$ grande.
+  \item Duplique $\Kc$ y observe la respuesta, hasta que aparezcan oscilaciones sostenidas con $\Kc=K_{cu}$. Deje $\Kc=K_{cu}/2$.
+  \item Reduzca $\Ti$ a la mitad sucesivamente hasta que vuelva a oscilar, con $\Ti=\Ti^*$. Deje $\Ti=2\Ti^*$.
+  \item Aumente $\Td$ hasta que la respuesta oscile, con $\Td=\Td^*$. Deje $\Td=\Td^*/3$.
+\end{enumerate}
+\end{receta}
+
+\subsection{Ziegler y Nichols de malla cerrada}
+
+Con el controlador en solo proporcional ($\Ti\to\infty$, $\Td=0$), se sube $\Kc$ desde cero hasta que la salida oscila sin crecer ni decaer. Esa es la \textbf{ganancia crítica} $\Kcr$, y el periodo de la oscilación es el \textbf{periodo crítico} $\Pcr$. En ese punto dos polos del lazo cerrado están sobre el eje imaginario, en $\pm j\wcr$ con $\wcr=2\pi/\Pcr$. Si el lazo nunca oscila al subir la ganancia (un primer o segundo orden sin retardo, por ejemplo), el método no se aplica. Con un modelo, $\Kcr$ y $\wcr$ salen de sustituir $s=\jw$ en la ecuación característica, o de la fila nula de Routh (capítulo~\ref{cap:es}).
+
+\begin{table}[ht]
+\centering
+\caption{Reglas de malla cerrada: Ziegler-Nichols~\citep{ZiNi42} y Tyreus-Luyben~\citep{TyLu92}.}
+\label{tab:ps-cerrada}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Regla & & $\Kc$ & $\Ti$ & $\Td$\\
+\midrule
+Ziegler-Nichols & P & $0.5\Kcr$ & --- & ---\\
+ & PI & $0.45\Kcr$ & $\Pcr/1.2$ & ---\\
+ & PID ideal & $0.6\Kcr$ & $0.5\Pcr$ & $0.125\Pcr$\\
+ & PID serie & $0.3\Kcr$ & $0.25\Pcr$ & $0.25\Pcr$\\
+\midrule
+Tyreus-Luyben & PI & $\Kcr/3.2$ & $2.2\Pcr$ & ---\\
+ & PID ideal & $\Kcr/2.2$ & $2.2\Pcr$ & $\Pcr/6.3$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{ejemplo}[label=ej:ps-critico]{Ganancia y periodo críticos}
+Halle $\Kcr$ y $\Pcr$ para $\Gp(s)=1/((s+1)(0.5s+1)(0.2s+1))$ con control proporcional.
+\solucion La ecuación característica es $0.1s^3+0.8s^2+1.7s+1+\Kc=0$, y Routh da estabilidad para $-1<\Kc<12.6$. Con $s=\jw$:
+\[
+  \underbrace{-0.8\omega^2+1+\Kc}_{\text{real}}+j\,\underbrace{\bigl(-0.1\omega^3+1.7\omega\bigr)}_{\text{imaginaria}}=0 .
+\]
+La parte imaginaria da $\wcr=\sqrt{17}=4.12$\,rad/s, y la real, $\Kcr=0.8\cdot17-1=12.6$. Entonces $\Pcr=2\pi/\sqrt{17}=1.52$\,s.
+\end{ejemplo}
+
+La meta de Ziegler y Nichols era la \textbf{razón de decaimiento de un cuarto}: que cada pico de la oscilación fuera la cuarta parte del anterior. Es una respuesta bastante oscilatoria, con sobrepicos de $40$ a $60$\,\% ante la referencia.
+
+\subsection{Tyreus y Luyben}
+
+Tyreus y Luyben propusieron sus reglas para procesos con integrador y tiempo muerto, donde Ziegler-Nichols resulta demasiado agresivo~\citep{TyLu92}. Usan los mismos $\Kcr$ y $\Pcr$, pero con menos ganancia y tiempos integrales mucho más largos: dan respuestas más amortiguadas y menos sensibles a cambios en el proceso. \alerta{No buscan la razón de un cuarto}: son deliberadamente más conservadoras.
+
+\begin{ejemplo}[label=ej:ps-zntl]{Ziegler-Nichols contra Tyreus-Luyben}
+Para $\Gp(s)=1/((3s+1)(2s+1)(s+1))$, halle $\Kcr$ y $\Pcr$, sintonice un PID ideal con las dos reglas y compare.
+\solucion La ecuación característica es $6s^3+11s^2+6s+1+\Kc=0$. La parte imaginaria, $-6\omega^3+6\omega=0$, da $\wcr=1$\,rad/s y $\Pcr=2\pi=6.28$\,s; la real, $\Kcr=11-1=10$. Las reglas dan
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Regla & $\Kc$ & $\Ti$ (s) & $\Td$ (s) & $\OS$ & $\ts$ (s) & decaimiento\\
+\midrule
+Ziegler-Nichols & $6$ & $3.14$ & $0.785$ & $46.5$\,\% & $16.3$ & $0.17$\\
+Tyreus-Luyben & $4.55$ & $13.8$ & $1.00$ & $9.0$\,\% & $30.0$ & sin segundo pico\\
+\bottomrule
+\end{tabular}
+\end{center}
+(simulación con filtro derivativo $N=10$). Ziegler-Nichols oscila con una razón de $0.17$, algo mejor que un cuarto; Tyreus-Luyben casi no sobrepasa, a cambio de un establecimiento más lento (\cref{fig:ps-cerrada}). Si la ganancia del proceso sube un $50$\,\% sin retocar el controlador, el sobrepico pasa a $55$\,\% con Ziegler-Nichols y a $22$\,\% con Tyreus-Luyben.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_malla_cerrada}
+\caption{Ejemplo~\ref{ej:ps-zntl}. Izquierda: lazo proporcional por debajo, en y por encima de $\Kcr$. Derecha: PID ideal sintonizado por las dos reglas.}
+\label{fig:ps-cerrada}
+\end{figure}
+
+\codigorepo{cap08_pid_sintonizacion/C8_Ej3_MallaCerrada.m}{critico}{$\Kcr$ y $\Pcr$ por sustitución y con \cmd{tablaRouth}}
+\codigorepo{cap08_pid_sintonizacion/C8_Ej3_MallaCerrada.m}{zntl}{las dos sintonías y la razón de decaimiento}
+
+\begin{cuidado}[Llevar un lazo real al límite]
+La prueba de malla cerrada lleva el proceso al borde de la inestabilidad. En una planta real eso puede ser inaceptable (o peligroso), y el actuador puede saturar antes de que la oscilación sea limpia. Por eso se prefiere la variante con relé de Åström y Hägglund, que produce una oscilación controlada de amplitud pequeña~\citep{AsHa84}.
+\end{cuidado}
+
+\begin{pausa}
+Para el ejemplo~\ref{ej:ps-zntl}, ¿qué PI daría Ziegler-Nichols de malla cerrada?
+\respuesta{$\Kc=0.45\cdot10=4.5$ y $\Ti=2\pi/1.2=5.24$\,s.}
+\end{pausa}

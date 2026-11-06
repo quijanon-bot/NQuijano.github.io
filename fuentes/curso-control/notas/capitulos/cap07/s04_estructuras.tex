@@ -1,0 +1,58 @@
+%% ---------------------------------------------------------------------
+\section{Tres formas de escribir un PID}
+\label{sec:pn-estructuras}
+%% ---------------------------------------------------------------------
+
+Los controladores comerciales no implementan todos el mismo algoritmo, y los parámetros que da un método de sintonización dependen de la forma. Las tres clásicas son:
+\begin{align}
+  \text{ideal (ISA, estándar):}\qquad & \Gc(s)=\Kc^I\left(1+\frac{1}{\Ti^I s}+\Td^I s\right), \label{eq:pn-forma-ideal}\\
+  \text{paralelo:}\qquad & \Gc(s)=\Kc^P+\frac{K_i^P}{s}+K_d^P s, \label{eq:pn-forma-paralelo}\\
+  \text{serie (interactiva):}\qquad & \Gc(s)=\Kc^S\left(1+\frac{1}{\Ti^S s}\right)\left(1+\Td^S s\right). \label{eq:pn-forma-serie}
+\end{align}
+Los métodos de sintonización del capítulo~8 dan los parámetros en forma ideal; si el controlador es de otra forma, hay que convertirlos.
+
+\paragraph{Paralelo e ideal.} Las tres acciones son independientes en las dos, y la conversión es inmediata:
+\[
+  \Kc^I=\Kc^P,\qquad \Ti^I=\frac{\Kc^P}{K_i^P},\qquad \Td^I=\frac{K_d^P}{\Kc^P}.
+\]
+La forma paralelo es la más general: es la única que admite $\Kc^P=0$, es decir, un controlador integral o integral-derivativo puro. (Quitar la integral o la derivada se puede en cualquiera de las tres, con $\Ti\to\infty$ o $\Td=0$.) La usan, entre otros, Siemens, Modicon y Allen-Bradley.
+
+\paragraph{Serie e ideal.} Multiplicando la forma serie,
+\[
+  \Kc^S\left(1+\frac{1}{\Ti^S s}\right)\left(1+\Td^S s\right)
+  =\Kc^S\left(1+\frac{\Td^S}{\Ti^S}+\frac{1}{\Ti^S s}+\Td^S s\right),
+\]
+y agrupando como en la ideal,
+\begin{equation}
+  \Kc^I=\Kc^S\left(1+\frac{\Td^S}{\Ti^S}\right),\qquad
+  \Ti^I=\Ti^S+\Td^S,\qquad
+  \Td^I=\frac{\Ti^S\Td^S}{\Ti^S+\Td^S}.
+  \label{eq:pn-serie-ideal}
+\end{equation}
+Las acciones interactúan: cambiar $\Td^S$ cambia la ganancia y el tiempo integral equivalentes. El camino inverso no siempre existe. Imponiendo \eqref{eq:pn-serie-ideal}, $\Ti^S+\Td^S=\Ti^I$ y $\Ti^S\Td^S=\Ti^I\Td^I$, así que $\Ti^S$ y $\Td^S$ son las raíces de $z^2-\Ti^Iz+\Ti^I\Td^I=0$:
+\begin{equation}
+  \Kc^S=\frac{\Kc^I}{2}\bigl(1+\rho\bigr),\qquad
+  \Ti^S=\frac{\Ti^I}{2}\bigl(1+\rho\bigr),\qquad
+  \Td^S=\frac{\Ti^I}{2}\bigl(1-\rho\bigr),\qquad
+  \rho=\sqrt{1-4\,\frac{\Td^I}{\Ti^I}} ,
+  \label{eq:pn-ideal-serie}
+\end{equation}
+que solo son reales si \alerta{$\Ti^I\ge4\Td^I$}.
+
+\begin{ideaclave}
+\textbf{Los ceros del PID.}\enspace Un PID tiene un polo en el origen y dos ceros, las raíces de $\Ti\Td s^2+\Ti s+1$. La forma serie solo puede tener ceros reales (en $-1/\Ti^S$ y $-1/\Td^S$). La ideal admite ceros complejos, cuando $\Ti<4\Td$: es más general. En $\Ti=4\Td$ los dos ceros coinciden.
+\end{ideaclave}
+
+La forma serie fue la primera que se construyó con tecnología neumática, y muchos fabricantes la conservaron por tradición y porque se dice que es más fácil de sintonizar a mano.
+
+\begin{ejemplo}[label=ej:pn-conversion]{De serie a ideal, y de vuelta}
+Un controlador en forma serie tiene $\Kc^S=2$, $\Ti^S=8$\,s y $\Td^S=2$\,s. Halle la forma ideal y regrese.
+\solucion Con \eqref{eq:pn-serie-ideal}: $\Kc^I=2(1+2/8)=2.5$, $\Ti^I=10$\,s y $\Td^I=16/10=1.6$\,s. De vuelta, $\rho=\sqrt{1-4\cdot1.6/10}=0.6$, y \eqref{eq:pn-ideal-serie} da $\Kc^S=2.5\cdot0.8=2$, $\Ti^S=5\cdot1.6=8$\,s y $\Td^S=5\cdot0.4=2$\,s.
+\end{ejemplo}
+
+\codigorepo{cap07_pid_nociones/C7_Ej3_Estructuras.m}{conversion}{ejemplo~\ref{ej:pn-conversion} con la función \cmd{convertirPID}}
+
+\begin{pausa}
+¿Tiene forma serie el PID ideal con $\Kc=5$, $\Ti=4$\,s y $\Td=2$\,s?
+\respuesta{No: $4\Td=8>\Ti=4$. Los ceros, raíces de $8s^2+4s+1$, son $-0.25\pm j0.25$.}
+\end{pausa}

@@ -1,0 +1,194 @@
+%% ---------------------------------------------------------------------
+\section{Control por modelo interno}
+\label{sec:ps-imc}
+%% ---------------------------------------------------------------------
+
+La síntesis directa usa un modelo del proceso para diseñar. El \clave{control por modelo interno} (IMC, \emph{internal model control}) va más lejos: mete el modelo \emph{dentro} del controlador, y con eso maneja de forma explícita los errores de modelado y las perturbaciones~\citep{GaMo82,RMS86}. Para ciertos modelos, el resultado es un PID con un solo parámetro de ajuste.
+
+\subsection{Control basado en modelo, en lazo abierto}
+
+Supongamos un proceso estable $\Gp$ y un controlador $Q(s)$ en lazo abierto: $Y=Q\Gp R$. Con $\Gp=\Kproc/(\tau s+1)$, el controlador estático $Q=1/\Kproc$ lleva la salida al valor de la referencia, pero con la dinámica del proceso. Para acelerar habría que invertir el proceso, $Q=1/\Gp$, y la salida seguiría a la referencia de manera perfecta. Pero
+\[
+  Q(s)=\frac{\tau s+1}{\Kproc}
+  \quad\Longrightarrow\quad
+  U(s)=\frac{1}{\Kproc}(\tau s+1)R(s),
+  \qquad
+  u(t)=\frac{\tau}{\Kproc}\frac{\dif r}{\dif t}+\frac{r(t)}{\Kproc},
+\]
+que es impropio: ante un escalón de referencia de tamaño $A$ pide un impulso $\frac{A\tau}{\Kproc}\impulso(t)$. La solución es un filtro que haga $Q$ propio,
+\begin{equation}
+  F(s)=\frac{1}{\lambda s+1},\qquad Q(s)=\frac{F(s)}{\Gp(s)}=\frac{1}{\Kproc}\,\frac{\tau s+1}{\lambda s+1},
+  \label{eq:ps-q-filtro}
+\end{equation}
+un adelanto-atraso. Ahora $Y=F R$: un primer orden de constante $\lambda$, más rápido que el proceso si $\lambda<\tau$. Como en síntesis directa, $\lambda$ es la constante de tiempo deseada.
+
+\subsection{Estabilidad interna}
+
+¿Se puede invertir cualquier proceso? Con $\Gp=(1-9s)/((15s+1)(3s+1))$ y $\lambda=5$, compare
+\[
+  Q_1(s)=\frac{(15s+1)(3s+1)}{(1-9s)(5s+1)}
+  \qquad\text{y}\qquad
+  Q_2(s)=\frac{(15s+1)(3s+1)}{(5s+1)^2} .
+\]
+$Q_1$ invierte todo el proceso y $\Gp Q_1=1/(5s+1)$: una salida impecable. Pero $Q_1$ tiene un polo en $s=+1/9$, y la acción de control crece como $e^{t/9}$: supera $50$ unidades en $t=28$\,s y diverge (\cref{fig:ps-interna}). La salida no lo muestra porque el cero del proceso cancela exactamente ese polo. $Q_2$ deja el cero sin invertir; la salida conserva la respuesta inversa, $Y=(1-9s)/(5s+1)^2\,R$, pero todas las señales están acotadas.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_imc_interna}
+\caption{Estabilidad interna: si $Q$ invierte el cero en $+1/9$, la salida es perfecta mientras la acción de control diverge.}
+\label{fig:ps-interna}
+\end{figure}
+
+\begin{definicion}[label=def:ps-interna]{Estabilidad interna}
+Un sistema de control es \textbf{internamente estable} si toda señal del lazo (salida, acción de control, error, señales internas) permanece acotada ante cualquier entrada acotada aplicada en cualquier punto. Revisar solo $Y/R$ no basta: una cancelación entre un polo inestable y un cero inestable la esconde.
+\end{definicion}
+
+Por eso el modelo se factoriza en una parte no invertible y una invertible,
+\begin{equation}
+  \tilde G_p(s)=\tilde G_p^+(s)\,\tilde G_p^-(s),
+  \label{eq:ps-factorizacion}
+\end{equation}
+donde $\tilde G_p^+$ contiene los ceros en el semiplano derecho y el tiempo muerto, con $\tilde G_p^+(0)=1$. Hay dos formas: la \textbf{simple}, que deja en $\tilde G_p^+$ solo el factor $(1-as)$; y la \textbf{pasa-todo} (\emph{all-pass}), que lo divide por su espejo, $\tilde G_p^+=(1-as)/(1+as)$, de modo que $|\tilde G_p^+(\jw)|=1$ y $\tilde G_p^-$ gana un polo estable. Solo $\tilde G_p^-$ se invierte:
+\begin{equation}
+  Q(s)=\bigl(\tilde G_p^-(s)\bigr)^{-1}F(s),
+  \label{eq:ps-q}
+\end{equation}
+con el orden del filtro escogido para que $Q$ sea propio.
+
+\subsection{La estructura IMC}
+
+En lazo abierto, cualquier error del modelo pasa directo a la salida. Si el proceso real es $2/(8s+1)$ y se diseña con el modelo $1/(10s+1)$, $Q=(10s+1)/(\lambda s+1)$ y la salida se va a $2$ en lugar de $1$. Y una perturbación no se corrige nunca. La estructura IMC (\cref{fig:ps-imc}) corre el modelo $\tilde G_p$ en paralelo con el proceso y retroalimenta solo la diferencia, $\tilde D=Y-\tilde G_pU$: lo que el modelo no explica, sea perturbación o error de modelado. De la figura,
+\begin{equation}
+  Y=\frac{\Gp Q}{1+Q(\Gp-\tilde G_p)}\,R+\frac{1-\tilde G_pQ}{1+Q(\Gp-\tilde G_p)}\,D .
+  \label{eq:ps-imc-lazo}
+\end{equation}
+Con un modelo perfecto, $\Gp=\tilde G_p$, el denominador es $1$: $Y=\Gp QR+(1-\Gp Q)D$. El lazo es estable si $Q$ y $\Gp$ lo son, y $Q(0)=1/\tilde G_p(0)$ asegura que la perturbación constante se rechaza por completo. Con modelo imperfecto, la estabilidad depende de $1+Q(\Gp-\tilde G_p)=0$, y $\lambda$ se vuelve una perilla de robustez.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap08/imc}
+\caption{Estructura IMC. Solo vuelve a la entrada lo que el modelo no explica.}
+\label{fig:ps-imc}
+\end{figure}
+
+\begin{receta}[Diseño IMC]
+\begin{enumerate}
+  \item Obtenga un modelo nominal $\tilde G_p$ y factorícelo como en \eqref{eq:ps-factorizacion}.
+  \item Forme $Q=(\tilde G_p^-)^{-1}F$ con un filtro que lo haga propio:
+  \begin{itemize}
+    \item cambios escalón de referencia: $F=1/(\lambda s+1)^n$;
+    \item referencias tipo rampa: $F=(n\lambda s+1)/(\lambda s+1)^n$;
+    \item rechazo de perturbaciones, procesos integradores o inestables: $F=(\gamma s+1)/(\lambda s+1)^n$, con $\gamma$ escogido para cancelar el polo más lento o inestable.
+  \end{itemize}
+  \item Ajuste $\lambda$ revisando la estabilidad con el proceso real o con los peores modelos posibles.
+\end{enumerate}
+\end{receta}
+
+\begin{ejemplo}[label=ej:ps-bequette]{El modelo no coincide con el proceso}
+El proceso real es $\Gp=1.5(1-s)/((s+1)(4s+1))$, pero el modelo es $\tilde G_p=2/(5s+1)$ (ejemplo de Bequette~\citep{Beq03}). ¿Para qué $\lambda$ es estable el lazo IMC?
+\solucion Con $Q=(5s+1)/(2(\lambda s+1))$, la ecuación $1+Q(\Gp-\tilde G_p)=0$ da, multiplicando por el denominador común,
+\[
+  8\lambda s^3+(10\lambda-7.5)s^2+(2\lambda+6)s+1.5=0 .
+\]
+Routh exige $\lambda>0.75$ por el segundo coeficiente y, por la fila $s^1$, $(10\lambda-7.5)(2\lambda+6)>12\lambda$, es decir, $20\lambda^2+33\lambda-45>0$: \alerta{$\lambda>0.887$}. La \cref{fig:ps-robusto} lo confirma: con $\lambda=0.85$ el lazo es inestable; con $1.5$ responde rápido con algo de oscilación; con $3$, suave.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap08/f_imc_robusto}
+\caption{Ejemplo~\ref{ej:ps-bequette}: el $\lambda$ del filtro decide si el error de modelado desestabiliza el lazo.}
+\label{fig:ps-robusto}
+\end{figure}
+
+\codigorepo{cap08_pid_sintonizacion/C8_Ej5_IMC.m}{interna}{estabilidad interna con $Q_1$ y $Q_2$}
+\codigorepo{cap08_pid_sintonizacion/C8_Ej5_IMC.m}{robusto}{ejemplo~\ref{ej:ps-bequette}}
+
+\begin{modelo}[Modelo de Simulink: \texttt{crearModelo\_IMC}]
+\texttt{codigo/cap08\_pid\_sintonizacion/crearModelo\_IMC.m} arma la \cref{fig:ps-imc} con el proceso y el modelo del ejemplo~\ref{ej:ps-bequette}, un escalón de referencia y una perturbación a la salida. Cambie \texttt{lambda} en el espacio de trabajo y vuelva a simular: por debajo de $0.887$ el lazo se inestabiliza.
+\end{modelo}
+
+\subsection{El PID que hay dentro del IMC}
+
+Reordenando la \cref{fig:ps-imc}, el lazo IMC equivale a un lazo clásico con
+\begin{equation}
+  \Gc(s)=\frac{Q(s)}{1-\tilde G_p(s)Q(s)} .
+  \label{eq:ps-imc-pid}
+\end{equation}
+Para muchos modelos sencillos, $\Gc$ resulta un PID (a veces con un filtro de primer orden): es la relación \clave{IMC-PID}~\citep{RMS86}.
+
+\begin{receta}[IMC-PID]
+\begin{enumerate}
+  \item Forme $Q$ con un filtro que lo deje \emph{semipropio}: se admite que el numerador tenga un grado más, porque eso es justamente la acción derivativa. Para procesos integradores o inestables use $F=(\gamma s+1)/(\lambda s+1)^n$; si el modelo tiene un polo inestable en $s=p_u$, imponga $F(p_u)=1$.
+  \item Calcule $\Gc$ con \eqref{eq:ps-imc-pid} y escríbalo como cociente de polinomios.
+  \item Identifique $\Kc$, $\Ti$, $\Td$ y, si aparece, $\tau_f$ en $\Kc\Bigl(\dfrac{\Ti\Td s^2+\Ti s+1}{\Ti s}\Bigr)\dfrac{1}{\tau_f s+1}$.
+  \item Ajuste $\lambda$ con simulaciones, con el modelo nominal y con modelos perturbados. Un punto de partida usual es entre un tercio y la mitad de la constante de tiempo dominante.
+\end{enumerate}
+\end{receta}
+
+\paragraph{Primer orden.} Con $\tilde G_p=\Kproc/(\tau s+1)$ y $F=1/(\lambda s+1)$, $Q$ es \eqref{eq:ps-q-filtro} y
+\[
+  \Gc(s)=\frac{\tau s+1}{\Kproc\lambda s}:\qquad \Kc=\frac{\tau}{\Kproc\lambda},\quad\Ti=\tau ,
+\]
+el mismo PI de la síntesis directa: con modelo perfecto, el IMC es una síntesis directa con $T=F$. Queda un único parámetro; un $\lambda$ pequeño da un $\Kc$ grande, y al revés.
+
+\paragraph{Segundo orden.} Con $\tilde G_p=\Kproc/((\tau_1s+1)(\tau_2s+1))$, $\Gc=(\tau_1s+1)(\tau_2s+1)/(\Kproc\lambda s)$: el PID ideal con $\Kc=(\tau_1+\tau_2)/(\Kproc\lambda)$, $\Ti=\tau_1+\tau_2$ y $\Td=\tau_1\tau_2/(\tau_1+\tau_2)$.
+
+\paragraph{Primer orden con tiempo muerto.} El retardo no se invierte. Con la aproximación de Padé de primer orden de la \cref{sec:es-retardo}, $e^{-Ls}\approx(1-\frac{L}{2}s)/(1+\frac{L}{2}s)$, y la factorización pasa-todo,
+\[
+  \tilde G_p^+=\frac{1-\frac L2s}{1+\frac L2s},\qquad
+  \tilde G_p^-=\frac{\Kproc}{(\tau s+1)(\frac L2s+1)},\qquad
+  Q=\frac{(\tau s+1)(\frac L2s+1)}{\Kproc(\lambda s+1)} .
+\]
+Entonces $\Gc=\dfrac{(\tau s+1)(Ls+2)}{\Kproc(2\lambda+L)s}$, un PID ideal con
+\begin{equation}
+  \Kc=\frac{\tau+L/2}{\Kproc(\lambda+L/2)},\qquad \Ti=\tau+\frac L2,\qquad \Td=\frac{\tau L}{2\tau+L} .
+  \label{eq:ps-imc-fopdt}
+\end{equation}
+Como Padé solo es buena a bajas frecuencias, $\lambda$ no puede ser arbitrariamente pequeño: Rivera, Morari y Skogestad recomiendan $\lambda>0.8L$~\citep{RMS86}.
+
+\begin{ejemplo}[label=ej:ps-imc-fopdt]{IMC-PID con el retardo exacto}
+Con $\Kproc=1.2$, $\tau=20$\,s y $L=4$\,s, evalúe $\lambda=3.2$, $6.7$ y $10$\,s simulando con el retardo exacto (estructura estándar, $N=10$).
+\solucion $\Ti=22$\,s y $\Td=1.82$\,s en los tres casos; $\Kc=3.53$, $2.11$ y $1.53$. El sobrepico es $16$\,\%, $0$ y $0$, con $\ts=16.5$, $28.3$ y $41.1$\,s (\cref{fig:ps-imc-fopdt}). Bajando $\lambda$, el lazo con retardo exacto se inestabiliza hacia $\lambda\approx0.75$\,s: la regla $\lambda>0.8L=3.2$\,s deja un margen holgado.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap08/f_imc_fopdt}
+\caption{Ejemplo~\ref{ej:ps-imc-fopdt}: IMC-PID sobre $1.2e^{-4s}/(20s+1)$ con el retardo exacto.}
+\label{fig:ps-imc-fopdt}
+\end{figure}
+
+\codigorepo{cap08_pid_sintonizacion/C8_Ej5_IMC.m}{fopdt}{ejemplo~\ref{ej:ps-imc-fopdt}}
+
+\paragraph{Proceso inestable.} Con $\tilde G_p=\Kproc/(1-\tau_u s)$, $\tau_u>0$, el polo está en $p_u=+1/\tau_u$. Un filtro $F=(\gamma s+1)/(\lambda s+1)^2$ con $F(1/\tau_u)=1$ exige
+\[
+  \frac{\gamma}{\tau_u}+1=\Bigl(\frac{\lambda}{\tau_u}+1\Bigr)^2
+  \quad\Longrightarrow\quad
+  \gamma=\lambda\Bigl(\frac{\lambda}{\tau_u}+2\Bigr),
+\]
+y con $Q=(1-\tau_us)(\gamma s+1)/(\Kproc(\lambda s+1)^2)$ resulta un PI:
+\[
+  \Kc=-\frac{\lambda+2\tau_u}{\Kproc\lambda},\qquad \Ti=\gamma .
+\]
+La ganancia es negativa porque, a alta frecuencia, $\Kproc/(1-\tau_us)\approx-\Kproc/(\tau_us)$ invierte el signo. Con $\Kproc=\tau_u=1$ los polos del lazo quedan dobles en $-1/\lambda$; para $\lambda=0.5$, $1$ y $2$\,s el sobrepico es $28$, $45$ y $79$\,\%: el cero del PI, en $-1/\gamma$, se acerca al origen a medida que $\lambda$ crece. Con un proceso inestable, el IMC se implementa como el lazo clásico \eqref{eq:ps-imc-pid}: la estructura de la \cref{fig:ps-imc} correría el modelo inestable en lazo abierto.
+
+\begin{table}[ht]
+\centering
+\caption{Sintonías IMC-PID para el PID ideal (algunas con un filtro $1/(\tau_fs+1)$). Las filas con tiempo muerto usan aproximaciones: Taylor de primer orden, $e^{-Ls}\approx1-Ls$, para el PI, y Padé de primer orden para el PID; la fila con $\tau_3$ trunca además la serie de $1/(\tau_3s+1)$. Fuentes:~\citep{RMS86,Beq03}.}
+\label{tab:ps-imc}
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Modelo $\tilde G_p$ & $\Kc\Kproc$ & $\Ti$ & $\Td$\\
+\midrule
+$\dfrac{\Kproc}{\tau s+1}$ & $\dfrac{\tau}{\lambda}$ & $\tau$ & ---\\
+$\dfrac{\Kproc e^{-Ls}}{\tau s+1}$ (PI) & $\dfrac{\tau}{\lambda+L}$ & $\tau$ & ---\\
+$\dfrac{\Kproc e^{-Ls}}{\tau s+1}$ (PID) & $\dfrac{\tau+L/2}{\lambda+L/2}$ & $\tau+\dfrac L2$ & $\dfrac{\tau L}{2\tau+L}$\\
+$\dfrac{\Kproc}{(\tau_1s+1)(\tau_2s+1)}$ & $\dfrac{\tau_1+\tau_2}{\lambda}$ & $\tau_1+\tau_2$ & $\dfrac{\tau_1\tau_2}{\tau_1+\tau_2}$\\
+$\dfrac{\Kproc(\tau_3s+1)e^{-Ls}}{(\tau_1s+1)(\tau_2s+1)}$ & $\dfrac{\tau_1+\tau_2-\tau_3}{\lambda+L}$ & $\tau_1+\tau_2-\tau_3$ & $\dfrac{\tau_1\tau_2}{\tau_1+\tau_2-\tau_3}-\tau_3$\\
+$\dfrac{\Kproc}{\tau^2s^2+2\zeta\tau s+1}$ & $\dfrac{2\zeta\tau}{\lambda}$ & $2\zeta\tau$ & $\dfrac{\tau}{2\zeta}$\\
+$\dfrac{\Kproc}{s}$ & $\dfrac{1}{\lambda}$ & --- & ---\\
+$\dfrac{\Kproc e^{-Ls}}{s}$ & $\dfrac{2\lambda+L}{(\lambda+L)^2}$ & $2\lambda+L$ & ---\\
+\bottomrule
+\end{tabular}
+\end{table}

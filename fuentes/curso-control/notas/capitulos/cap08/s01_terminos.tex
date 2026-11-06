@@ -1,0 +1,28 @@
+%% ---------------------------------------------------------------------
+\section{El lazo de un proceso industrial}
+\label{sec:ps-terminos}
+%% ---------------------------------------------------------------------
+
+El capítulo~\ref{cap:pn} explicó qué hace cada acción del PID; falta decidir cuánto vale cada una. A eso se le llama \textbf{sintonizar}. El problema no está resuelto en la práctica: un estudio muy citado de Van Overschee y De Moor reportó que cerca del $80$\,\% de los PID industriales estaban mal sintonizados, que un $30$\,\% operaba en manual y que un $25$\,\% conservaba los parámetros de fábrica~\citep{VaDe00}. Y no es por falta de reglas: el compendio de O'Dwyer reúne más de cuatrocientas~\citep{ODw06}. Este capítulo presenta unas pocas, las que más se usan y las que mejor enseñan, empezando por el vocabulario de los procesos, que es donde vive el PID.
+
+\paragraph{Terminología.} La \textbf{variable del proceso} (PV) es la que se quiere controlar: nivel, presión, flujo, temperatura, pH. La \textbf{referencia} o \emph{set point} (SP) es el valor deseado. La \textbf{variable manipulada} (MV) es la que se puede mover para corregir, y la \textbf{salida del controlador} (CO, la $u_c$ del capítulo anterior) es la orden que llega al elemento final. A veces se mide algo distinto de la PV: en un control de nivel que manipula el caudal de entrada, la PV es el nivel y la MV es el caudal. El \textbf{offset} es una desviación permanente entre la PV y la SP, y una \textbf{perturbación de carga} es un cambio indeseado en alguna entrada que afecta la PV. Cuando una persona hace los ajustes, el control es \textbf{manual}; cuando los hace el controlador, \textbf{automático}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap08/lazo_terminos}
+\caption{Lazo de un proceso: controlador, elemento final $\Gv$, proceso $\Gp$, perturbación a través de $G_d$ y medición $G_m$ (sensor y transmisor). El controlador solo ve el producto $\Gv\Gp G_m$.}
+\label{fig:ps-lazo}
+\end{figure}
+
+\paragraph{Componentes.} La \cref{fig:ps-lazo} muestra los bloques. El \textbf{sensor} o elemento primario es el primero que mide la PV; el \textbf{transductor} convierte una magnitud en otra (una presión en una capacitancia, por ejemplo); un \textbf{convertidor} cambia el tipo de señal (corriente a presión, analógica a digital); el \textbf{transmisor} lleva la medida a una señal estándar. El \textbf{elemento final de control} (válvula, bomba, variador) es el que mueve físicamente la MV, y su \textbf{actuador} lo acciona con energía neumática, hidráulica o eléctrica. Completan el lazo los \textbf{indicadores}, que muestran la medida a un operador, y los \textbf{registradores}, que la guardan.
+
+\paragraph{Señales estándar.} La señal neumática va de $3$ a $15$\,psig; la analógica, de $4$ a $20$\,mA (o de $1$ a $5$\,V), con el cero ``vivo'' en $4$\,mA para distinguir un valor mínimo de un cable roto; y la digital usa protocolos como HART, Fieldbus o Modbus. El extremo inferior del rango se llama LRV y el superior URV.
+
+\begin{ejemplo}[label=ej:ps-4a20]{Un transmisor de 4 a 20 mA}
+Un transmisor de temperatura está calibrado entre $95$ y $105\,\grados$C. ¿Qué corriente corresponde a $100\,\grados$C? ¿Y a $98\,\grados$C?
+\solucion La relación es lineal: $i=4+16\,\dfrac{T-95}{105-95}$\,mA. Para $100\,\grados$C, $i=12$\,mA, la mitad del rango; para $98\,\grados$C, $i=8.8$\,mA.
+\end{ejemplo}
+
+\begin{ideaclave}
+\textbf{Lo que se sintoniza es todo el lazo.}\enspace El controlador no distingue la válvula, el proceso y el transmisor: ve un solo sistema, de la CO a la medida. Por eso las pruebas de este capítulo se hacen moviendo la CO y mirando la PV medida, y el ``proceso'' identificado incluye la válvula y el transmisor.
+\end{ideaclave}

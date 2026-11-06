@@ -1,0 +1,29 @@
+%% =====================================================================
+%%  Capítulo 8 -- Controladores PID: sintonización
+%%  Migrado al formato nuevo (noviembre de 2026) desde Handout6b_Ctrl.tex.
+%%  Correcciones de fondo (ver MIGRACION.md y la caja "Correcciones" de la
+%%  sección 8.8): pendiente máxima de un primer orden; PI de Ziegler-Nichols
+%%  de malla cerrada (0.45 Kcr, Pcr/1.2); Tyreus-Luyben no es de "un cuarto";
+%%  efecto de lambda en síntesis directa; IMC inestable F(1/tau_u) = 1; fila
+%%  FOPDT de la tabla IMC; notación tau_i, tau_d -> T_i, T_d; theta -> L.
+%% =====================================================================
+
+\capitulo[cap:ps]{Controladores PID: sintonización}
+  {La autoridad y el dinero se rodean de calma, y se puede medir el alcance de la influencia de una persona por la intensidad del silencio que la rodea.}
+  {Hernán Díaz}
+
+\begin{objetivos}[partes/08-pid-sintonizacion.html]
+  \item Usar la terminología del control de procesos y reconocer los elementos de un lazo industrial.
+  \item Clasificar un proceso por su respuesta al escalón e identificar un modelo de primer orden con tiempo muerto, con la ganancia normalizada.
+  \item Sintonizar un PID con reglas de malla abierta (Ziegler-Nichols, Cohen-Coon, coeficiente de ajustabilidad) y de malla cerrada (Ziegler-Nichols, Tyreus-Luyben), y juzgar el resultado por desempeño \emph{y} por robustez.
+  \item Diseñar un controlador por síntesis directa y por modelo interno (IMC), y obtener de ellos un PID con un solo parámetro de ajuste, $\lambda$.
+\end{objetivos}
+
+\input{capitulos/cap08/s01_terminos}
+\input{capitulos/cap08/s02_identificacion}
+\input{capitulos/cap08/s03_malla_abierta}
+\input{capitulos/cap08/s04_malla_cerrada}
+\input{capitulos/cap08/s05_sintesis}
+\input{capitulos/cap08/s06_imc}
+\input{capitulos/cap08/s07_robustez}
+\input{capitulos/cap08/s08_cierre}

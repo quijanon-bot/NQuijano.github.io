@@ -1,0 +1,33 @@
+%% ---------------------------------------------------------------------
+\section{Implementación digital}
+\label{sec:pn-digital}
+%% ---------------------------------------------------------------------
+
+Hoy casi todos los PID corren en un computador que muestrea el error cada $T_s$ segundos. Hay varias formas de discretizar~\citep{AsWi97}; la más sencilla aproxima la integral por una suma y la derivada por una diferencia hacia atrás:
+\[
+  \int_0^t e\,\dif\tau\approx T_s\sum_{i=1}^{k}e[i],\qquad \deriv{e}{t}\approx\frac{e[k]-e[k-1]}{T_s}.
+\]
+El resultado es el \clave{algoritmo posicional}, que calcula la salida completa en cada muestra:
+\begin{equation}
+  u_c[k]=\Kc\left(e[k]+\frac{T_s}{\Ti}\sum_{i=1}^{k}e[i]+\frac{\Td}{T_s}\bigl(e[k]-e[k-1]\bigr)\right).
+  \label{eq:pn-posicional}
+\end{equation}
+Restando \eqref{eq:pn-posicional} en $k$ y en $k-1$ se obtiene el \clave{algoritmo incremental} (o de velocidad), que calcula solo el cambio:
+\begin{equation}
+  u_c[k]=u_c[k-1]+\Kc\left[\Bigl(1+\frac{T_s}{\Ti}+\frac{\Td}{T_s}\Bigr)e[k]-\Bigl(1+\frac{2\Td}{T_s}\Bigr)e[k-1]+\frac{\Td}{T_s}\,e[k-2]\right].
+  \label{eq:pn-incremental}
+\end{equation}
+
+\begin{ideaclave}
+\textbf{Por qué gusta el incremental.}\enspace No guarda la suma de todos los errores, se lleva bien con actuadores que reciben incrementos (motores de paso) y, si la salida se satura y se recorta el valor que se guarda como $u_c[k-1]$, no acumula integral: es naturalmente resistente al \emph{wind-up}. Note el factor $\Td/T_s$: con muestreo rápido amplifica mucho cualquier cambio entre dos muestras, incluido el ruido y la cuantización del conversor.
+\end{ideaclave}
+
+\begin{ejemplo}[label=ej:pn-digital]{Coeficientes del algoritmo incremental}
+Para $\Kc=3$, $\Ti=8$\,s, $\Td=2$\,s y $T_s=0.1$\,s,
+\[
+  u_c[k]=u_c[k-1]+63.04\,e[k]-123\,e[k-1]+60\,e[k-2].
+\]
+Simulado con $\Gp=1/(10s+1)$, da la misma señal de control que el posicional (diferencias del orden de $10^{-13}$).
+\end{ejemplo}
+
+\codigorepo{cap07_pid_nociones/C7_Ej8_Digital.m}{digital}{ejemplo~\ref{ej:pn-digital}: posicional e incremental}

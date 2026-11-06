@@ -1,0 +1,15 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[b/.style={bloque,minimum width=14mm}]
+  \node[b,fill=ctrlcoral!10,align=center,font=\footnotesize] (c) {controlador\\en \textbf{manual}};
+  \node[b,right=28mm of c,fill=ctrlambar!12] (v) {$G_v$};
+  \node[b,right=10mm of v,fill=ctrlverde!10] (p) {$\Gp$};
+  \node[b,right=10mm of p] (m) {$G_m$};
+  \node[right=8mm of m] (y) {PV};
+  \draw[senal] (c)--node[above,rot]{CO: escalón $\Delta u_c$}(v);
+  \draw[senal] (v)--(p); \draw[senal] (p)--(m); \draw[senal] (m)--(y);
+  \draw[densely dashed,ctrlgris,rounded corners] ($(v.north west)+(-3mm,4mm)$) rectangle ($(m.south east)+(3mm,-4mm)$);
+  \node[rot,below=6mm of p] {modelo identificado: $\dfrac{\Kproc\,e^{-Ls}}{\tau s+1}$};
+\end{tikzpicture}
+\end{document}

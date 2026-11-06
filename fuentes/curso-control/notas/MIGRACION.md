@@ -1,6 +1,6 @@
 # Guía para migrar un capítulo al formato nuevo
 
-El capítulo 10 (respuesta frecuencial) fue el piloto; los capítulos 1 (introducción), 2, 3 (Modelado I y II), 5 (estabilidad) y 9 (retroalimentación de estado) ya están migrados con el mismo esquema. Para migrar cualquier otro:
+El capítulo 10 (respuesta frecuencial) fue el piloto; los capítulos 1 (introducción), 2, 3 (Modelado I y II), 5 (estabilidad) y 9 (retroalimentación de estado) ya están migrados con el mismo esquema, igual que los capítulos 7 y 8 (PID). Para migrar cualquier otro:
 
 1. **Copiar** el `HandoutN_Ctrl.tex` a `notas/capitulos/NN_nombre.tex` (o partirlo en `capitulos/capNN/sXX_*.tex` como el piloto).
 2. **Abrir el capítulo** con `\capitulo[cap:etiqueta]{Título}{cita}{autor}` (se conserva la cita literaria de cada capítulo) y un bloque `objetivos` con la ruta de su página web.
@@ -23,8 +23,8 @@ El capítulo 10 (respuesta frecuencial) fue el piloto; los capítulos 1 (introdu
 | Espacio de estado (`Handout3`) | `\bar{x}` (14) → `\eq{x}`; "tiempo de asentamiento" (1) |
 | Estabilidad (`Handout4`) | **migrado** (capítulo 5) |
 | Error (`Handout5`) | 15 `\textcolor`; ya usa $\kappa_p$, $\kappa_v$ ✓ |
-| PID nociones (`Handout6a`) | "realimentación" (2); "overshoot"/`MP` (22) → `\OS`; "incremental" se queda (algoritmo digital) ✓ |
-| PID sintonización (`Handout6b`) | $K_p$ = ganancia del proceso ✓ (coincide con la notación); unificar `P_{cr}` |
+| PID nociones (`Handout6a`) | **migrado** (capítulo 7) |
+| PID sintonización (`Handout6b`) | **migrado** (capítulo 8) |
 | Retroalimentación de estado (`Handout7`) | **migrado** (capítulo 9) |
 | Bode (`Handout8`) | **migrado** (capítulo 10 piloto) |
 | Presentación Clase 2 de Bode | tabla de Ziegler-Nichols usa $K_p$ para el controlador → $K_c$ |
@@ -123,3 +123,30 @@ Verificado con `herramientas/cap01_numeros.py` y `verificarCap01.m` (17/17 en Oc
 - Funciones nuevas en `codigo/comun/`: `tablaRouth.m` (tabla numérica con los dos casos especiales) y `kharitonov.m`.
 
 Verificado con `herramientas/cap05_numeros.py` y `verificarCap05.m` (46/46 en Octave 8.4).
+
+## Correcciones hechas en el capítulo 7 (PID: nociones básicas)
+
+- **Conversión ideal → serie**: $T_d^S=\frac{T_i^I}{2}(1-\rho)$ (decía $\frac{T_d^I}{2}(1-\rho)$); se corrigió también la expansión de la forma serie, que tenía los términos mal agrupados.
+- **Forma paralelo**: no es "la única que permite desactivar la integral" (todas pueden, con $T_i\to\infty$); es la única que admite $K_c=0$.
+- **Historia**, verificada con Bennett (1984, 1993): la Taylor introdujo una derivada fija (*pre-act*) hacia 1936; el Fulscope (Taylor) y el Stabilog con *hyper-reset* (Foxboro) ofrecieron las tres acciones ajustables en 1939. Se retiraron el rango de ganancia "0.7–100" del Stabilog y la mención al *Trans Scan Log*, que no aparecen en las fuentes. Geraldine Coon (Cohen-Coon) está confirmada. El capítulo 1 decía "1935"; se corrigió.
+- **Problema de banda proporcional (f)**: se cambió a $r=150\,^\circ$C, que da $K_c\ge4.6$ %/°C ($PB\le10.9\,\%$).
+- **Ponderación $\beta$**: con el PI agresivo del ejemplo, $\%OS\le30\,\%$ exige $\beta\lesssim0.35$, y ningún $\beta$ baja de unos $27\,\%$ (la oscilación la ponen los polos del lazo).
+- Se completaron las simulaciones marcadas "AÑADIR" (on/off, *kicks*, *wind-up*, ponderación) y se calcularon todos los números de los ejemplos. Notación: $\tau_i,\tau_d\to T_i,T_d$; MP → `\OS`; "realimentar" → retroalimentar; "Allan Braedley" → Allen-Bradley.
+
+Verificado con `herramientas/cap07_numeros.py` y `verificarCap07.m` (39/39 en Octave 8.4).
+
+## Correcciones hechas en el capítulo 8 (PID: sintonización)
+
+- **Pendiente máxima de un primer orden**: está al comienzo de la respuesta ($t=L$), no en el 63 % (allí vale el 37 % del máximo).
+- **Ziegler-Nichols de malla cerrada, PI**: $0.45K_{cr}$ y $P_{cr}/1.2$ (decía $0.4K_{cr}$ y $0.8P_{cr}$).
+- **Tyreus-Luyben** no es "un método de caída de un cuarto": es deliberadamente más conservador (en el ejemplo, %OS de 9 % contra 47 % de ZN).
+- **Síntesis directa**: con $\lambda$ (o $\alpha$) pequeño el lazo responde **más rápido** ($t_s\approx4\lambda$); decía lo contrario.
+- **Erratas**: el proceso del ejemplo de Tyreus-Luyben aparecía como $G_c$ y $P_{cr}=6.2$ (es $6.28$); en el ejemplo de fase no mínima "$\tau_2=2.5$" es $T_d=2.5$; en el IMC faltaba la $s$ en $U(s)=\frac{1}{K_p}(\tau_ps+1)R(s)$.
+- **IMC con proceso inestable**: la condición es $F(s=1/\tau_u)=1$, no $F(\tau_u)=1$; resulta $\gamma=\lambda(\lambda/\tau_u+2)$ y $K_c=-(\lambda+2\tau_u)/(K_p\lambda)$ (negativo, como debe ser).
+- **Tabla IMC-PID**: la fila del FOPDT mezclaba la ganancia del PID con Padé, $(L+2\tau)/(L+2\lambda)$, con el $T_i=\tau$ del PI. Se separó en una fila PI ($K_cK_p=\tau/(\lambda+L)$, $T_i=\tau$, de $e^{-Ls}\approx1-Ls$) y una PID ($\frac{\tau+L/2}{\lambda+L/2}$, $\tau+L/2$, $\frac{\tau L}{2\tau+L}$). Se retiró la fila del subamortiguado con cero y tiempo muerto, que no se pudo verificar (su $T_d$ tenía además una errata). Se verificaron las demás filas.
+- **Integrador**: $K_v$ se define con la pendiente $v$ de la rampa, no con $\Delta y/L$.
+- **Coeficiente de ajustabilidad**: la tabla se conserva, marcada como regla empírica sin derivación publicada.
+- Se completaron las simulaciones marcadas "AÑADIR SIMS" y los ejemplos: identificación sobre datos, comparación de reglas de malla abierta, ZN contra TL, síntesis directa, IMC de Bequette, IMC-PID con retardo exacto, IMC inestable, y una sección nueva de robustez (márgenes y malla de 125 procesos perturbados).
+- Notación: $\tau_i,\tau_d\to T_i,T_d$; $\theta\to L$; la constante de tiempo del FOPDT es $\tau$ (no $T$, para no confundirla con $T(s)$).
+
+Verificado con `herramientas/cap08_numeros.py` y `verificarCap08.m` (67/67 en Octave 8.4).

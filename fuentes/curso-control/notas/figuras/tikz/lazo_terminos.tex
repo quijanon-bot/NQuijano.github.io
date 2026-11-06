@@ -1,0 +1,27 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}[b/.style={bloque,minimum width=14mm}]
+  \node (r) {$R$};
+  \node[suma,right=7mm of r] (S) {};
+  \node[b,right=8mm of S,fill=ctrlcoral!10] (c) {$\Gc(s)$};
+  \node[b,right=17mm of c,fill=ctrlambar!12] (v) {$G_v(s)$};
+  \node[b,right=10mm of v,fill=ctrlverde!10] (p) {$\Gp(s)$};
+  \node[suma,right=9mm of p] (S2) {};
+  \node[b,above=7mm of S2] (d) {$G_d(s)$};
+  \node[above=5mm of d] (D) {$D$};
+  \coordinate[right=7mm of S2] (o); \node[right=5mm of o] (y) {$Y$};
+  \node[b,below=9mm of v] (m) {$G_m(s)$};
+  \draw[senal] (r)--(S);
+  \draw[senal] (S)--node[above,rot]{$E$}(c);
+  \draw[senal] (c)--node[above,rot]{$U_c$ (CO)}(v);
+  \draw[senal] (v)--node[above,rot]{$U$}(p);
+  \draw[senal] (p)--node[above,rot]{$+$}(S2);
+  \draw[senal] (D)--(d); \draw[senal] (d)--node[right,rot]{$+$}(S2);
+  \draw[thick,draw=ctrlnoche] (S2)--(o); \draw[senal] (o)--(y);
+  \draw[senal] (o)|-(m);
+  \draw[senal] (m)-|node[pos=0.95,left,rot]{$-$}node[pos=0.4,below,rot]{$Y_m$ (PV)}(S);
+  \fill (o) circle (1.3pt);
+  \node[rot,below=3mm of m] {el controlador ``ve'' el producto $G_v\,\Gp\,G_m$}; 
+\end{tikzpicture}
+\end{document}

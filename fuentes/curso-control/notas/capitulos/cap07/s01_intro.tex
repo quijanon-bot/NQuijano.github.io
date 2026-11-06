@@ -1,0 +1,37 @@
+%% ---------------------------------------------------------------------
+\section{El controlador de tres términos}
+\label{sec:pn-intro}
+%% ---------------------------------------------------------------------
+
+Hasta aquí hemos modelado, analizado la respuesta transitoria, la estabilidad y el error. Ahora empezamos a \emph{diseñar}, y lo hacemos con el controlador más usado en la industria: el de tres términos, \clave{proporcional, integral y derivativo} (PID). Más del noventa por ciento de los lazos de control de procesos son PI o PID~\citep{ACL05}. Los primeros fueron neumáticos, luego electrónicos y, desde los años setenta, digitales; la idea, sin embargo, es la misma desde hace un siglo.
+
+\begin{historia}[De los timoneles a la Taylor]
+En 1910 Elmer Sperry fundó la Sperry Gyroscope Company; su piloto automático para barcos, que acoplaba un girocompás al timón, hacía en la práctica lo que hacían los timoneles expertos, y resultó ser un PID mecánico~\citep{AsKu14}. En 1922 Nicolas Minorsky, que había observado a esos timoneles, propuso por escrito la ley de tres términos y analizó la estabilidad del lazo con un modelo lineal (capítulo~1)~\citep{Min22,Ben01}. En la industria de procesos el PID llegó con los controladores neumáticos. La Foxboro vendía desde 1931 el \emph{Stabilog}, con acción proporcional e integral (\emph{reset}), y la Taylor agregó hacia 1936 una acción derivativa fija (\emph{pre-act}) a su controlador. En 1939 aparecieron los dos primeros PID comerciales con las tres acciones ajustables: el \emph{Fulscope} rediseñado de la Taylor y el \emph{Stabilog} con \emph{hyper-reset} de la Foxboro~\citep{Ben84,Ben93}. Entre 1925 y 1935 se vendieron en Estados Unidos unos $75\,000$ controladores, y había unas $600$ empresas de instrumentos. Quedaba un problema: cómo escoger los parámetros. Lo resolvieron en 1942 John Ziegler y Nathaniel Nichols, de la Taylor~\citep{ZiNi42}, y en 1953 Cohen y Coon, también de la Taylor~\citep{CoCo53}; Geraldine Coon comprobó sus reglas en el computador analógico de la empresa. En 1959 se cerró el primer lazo industrial completamente digital, en la unidad de polimerización de la refinería de Texaco en Port Arthur (Texas).
+\end{historia}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap07/lazo_pid}
+\caption{Lazo de control con filtro de la referencia $G_f$, perturbación de carga $D$ y ruido de medida $N$.}
+\label{fig:pn-lazo}
+\end{figure}
+
+En el lazo de la \cref{fig:pn-lazo}, $R$ es la referencia (\emph{set point}, SP), $Y$ la variable del proceso (PV), $U_c$ la salida del controlador (OC), $D$ una perturbación de carga y $N$ el ruido de medida. Mientras no digamos otra cosa, $G_f=1$ y $D=N=0$, y el error es $E=R-Y$. El \clave{PID ideal} es
+\begin{equation}
+  \frac{U_c(s)}{E(s)}=\Kc\left(1+\frac{1}{\Ti s}+\Td s\right),
+  \qquad
+  u_c(t)=\Kc\left(e(t)+\frac{1}{\Ti}\int_0^t e(\tau)\,\dif\tau+\Td\,\deriv{e}{t}\right),
+  \label{eq:pn-ideal}
+\end{equation}
+con $\Kc$ la ganancia proporcional, $\Ti$ el \clave{tiempo integral} y $\Td$ el \clave{tiempo derivativo}.
+
+\begin{ideaclave}
+\textbf{Pasado, presente y futuro.}\enspace La acción proporcional mira el error \emph{ahora}; la integral, el área acumulada, es decir, el \emph{pasado}; la derivativa, la tendencia, es decir, hacia dónde va el error en el \emph{futuro} cercano (\cref{fig:pn-tiempos}).
+\end{ideaclave}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap07/f_tiempos}
+\caption{Las tres acciones del PID sobre la misma señal de error.}
+\label{fig:pn-tiempos}
+\end{figure}

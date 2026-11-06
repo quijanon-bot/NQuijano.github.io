@@ -9,7 +9,7 @@ import sys
 from pypdf import PdfReader, PdfWriter
 
 NOMBRES = {1: 'cap01_introduccion', 2: 'cap02_modelado_primer_orden', 3: 'cap03_modelado_segundo_orden',
-           5: 'cap05_estabilidad',
+           5: 'cap05_estabilidad', 7: 'cap07_pid_nociones', 8: 'cap08_pid_sintonizacion',
            9: 'cap09_retroalimentacion_estado',
            10: 'cap10_respuesta_frecuencial'}
 

@@ -1,0 +1,26 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node (r) {$R(s)$};
+  \node[suma,right=7mm of r] (S) {};
+  \node[bloque,right=8mm of S] (I) {$\dfrac{\Kc}{\Ti s}$};
+  \node[suma,right=8mm of I] (S2) {};
+  \node[bloque,right=8mm of S2] (P) {$\Gp(s)$};
+  \coordinate[right=8mm of P] (y0);
+  \node[right=6mm of y0] (y) {$Y(s)$};
+  \node[bloque,below=9mm of S2] (K) {$\Kc\Big(1+\dfrac{\Td s}{\Td s/N+1}\Big)$};
+  \coordinate[below=30mm of y0] (abajo);
+  \draw[senal] (r) -- (S);
+  \draw[senal] (S) -- node[above,rot]{$E$} (I);
+  \draw[senal] (I) -- node[above,rot]{$+$} (S2);
+  \draw[senal] (S2) -- node[above,rot]{$U_c$} (P);
+  \draw[senal] (P) -- (y);
+  \draw[thick,draw=ctrlnoche] (y0) -- (abajo);
+  \draw[senal] (abajo) -| node[pos=0.98,left,rot]{$-$} (S);
+  \draw[senal] (y0 |- K) -- (K);
+  \draw[senal] (K) -- node[right,rot]{$-$} (S2);
+  \fill (y0) circle (1.3pt); \fill (y0 |- K) circle (1.3pt);
+  \node[rot] at ($(S)!0.5!(S2)+(0,9mm)$) {I sobre el error; P y D sobre la salida};
+\end{tikzpicture}
+\end{document}

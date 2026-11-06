@@ -1,0 +1,31 @@
+%% ---------------------------------------------------------------------
+\section{Desempeño contra robustez}
+\label{sec:ps-robustez}
+%% ---------------------------------------------------------------------
+
+Una sintonía se calcula con un modelo, pero se aplica a un proceso que no es exactamente ese modelo: la ganancia cambia con el punto de operación, el tiempo muerto con el caudal, la constante de tiempo con el nivel. Una buena sintonía debe aguantar esas diferencias. Comparemos las reglas con el proceso del ejercicio de identificación, $1.2e^{-4s}/(20s+1)$, que tiene $L/\tau=0.2$.
+
+\begin{ejemplo}[label=ej:ps-robustez]{Cuatro sintonías, nominal y perturbado}
+Compare ZN, CC, ajustabilidad e IMC-PID ($\lambda=6.7$\,s) en estructura estándar con $N=10$: respuesta nominal, márgenes con el retardo exacto y estabilidad ante una malla de procesos con $\Kproc$ en $\pm30$\,\%, $\tau$ en $\pm30$\,\% y $L$ en $\pm50$\,\% (cinco valores de cada uno: 125 procesos).
+\solucion Los márgenes de ganancia y de fase son los del capítulo~\ref{cap:rf} (definiciones~\ref{def:rf-gm} y \ref{def:rf-pm}); $\Delta L=\PM/\omega_{PM}$ es el retardo adicional que el lazo tolera antes de volverse inestable.
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+Sintonía & $\OS$ & $\ts$ (s) & IAE & GM & PM & $\Delta L$ (s) & estables\\
+\midrule
+Ziegler-Nichols & $87$\,\% & $42$ & $9.7$ & $1.33$ & $39^\circ$ & $2.2$ & $98/125$\\
+Cohen-Coon & $95$\,\% & $48$ & $11.5$ & $1.31$ & $27^\circ$ & $1.3$ & $90/125$\\
+Ajustabilidad & $0$\,\% & $26$ & $8.0$ & $2.91$ & $75^\circ$ & $10.1$ & $125/125$\\
+IMC, $\lambda=6.7$ & $0$\,\% & $28$ & $8.7$ & $3.16$ & $76^\circ$ & $11.2$ & $125/125$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Cohen-Coon, la más agresiva, tolera solo $1.3$\,s más de retardo (un $33$\,\% de $L$); en la esquina con $\Kproc$ alto, $\tau$ corto y $L$ largo, Ziegler-Nichols y Cohen-Coon se vuelven inestables. Las dos sintonías conservadoras toleran toda la malla. Para que Cohen-Coon la tolere hay que multiplicar su $\Kc$ por $0.48$; y entonces, curiosamente, \emph{mejora} también el desempeño nominal ($\OS=24$\,\%, IAE $9.4$), porque la sintonía original oscilaba demasiado.
+\end{ejemplo}
+
+\codigorepo{cap08_pid_sintonizacion/C8_Ej6_Robustez.m}{malla}{márgenes y malla de procesos con \cmd{allmargin}}
+
+\begin{ideaclave}
+\textbf{La agresividad se paga en robustez.}\enspace Las reglas que buscan la razón de un cuarto dejan márgenes de ganancia cercanos a $1.3$ y márgenes de fase de $25$ a $40^\circ$: muy poco para un proceso que cambia. Ante la perturbación, en cambio, son las mejores (IAE de $1.9$ contra $9.6$ y $10.4$ de las conservadoras). Escoger una sintonía es escoger un punto en ese compromiso, y el IMC lo hace explícito con un solo parámetro: $\lambda$.
+\end{ideaclave}

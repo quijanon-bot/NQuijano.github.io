@@ -1,0 +1,19 @@
+\documentclass[tikz,border=4pt]{standalone}
+\input{estilobloques}
+\begin{document}
+\begin{tikzpicture}
+  \node (e) {$E(s)$};
+  \node[bloque,right=8mm of e] (K) {$\Kc$};
+  \node[suma,right=10mm of K] (S) {};
+  \coordinate[right=10mm of S] (u0);
+  \node[right=6mm of u0] (u) {$U_c(s)$};
+  \node[bloque,below=8mm of S] (R) {$\dfrac{1}{\Ti s+1}$};
+  \draw[senal] (e) -- (K);
+  \draw[senal] (K) -- node[above,rot]{$+$} (S);
+  \draw[senal] (S) -- (u);
+  \draw[senal] (u0) |- (R);
+  \draw[senal] (R) -- node[right,rot]{$+$} (S);
+  \fill (u0) circle (1.3pt);
+  \node[rot,below=1mm of R] {reajuste automático del \textit{bias} $u_0$};
+\end{tikzpicture}
+\end{document}

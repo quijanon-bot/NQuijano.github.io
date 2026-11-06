@@ -1,0 +1,101 @@
+%% ---------------------------------------------------------------------
+\section{Síntesis directa}
+\label{sec:ps-sintesis}
+%% ---------------------------------------------------------------------
+
+Las reglas anteriores fijan la estructura (un PID) y ajustan sus tres números. La síntesis directa invierte el razonamiento: se escoge la respuesta de lazo cerrado que se quiere, $T(s)$, y se despeja el controlador que la produce. De $T=\Gc\Gp/(1+\Gc\Gp)$,
+\begin{equation}
+  \Gc(s)=\frac{1}{\Gp(s)}\,\frac{T(s)}{1-T(s)} ,
+  \label{eq:ps-sintesis}
+\end{equation}
+la \clave{ecuación de síntesis}. El controlador contiene el inverso del modelo: cancela la dinámica del proceso y la reemplaza por la deseada. Nada garantiza que el resultado sea implementable, y lo difícil es escoger $T(s)$. Debe dar error nulo en estado estacionario ($T(0)=1$), ser rápida sin sobrepasar mucho, y ser simple. Las elecciones usuales son
+\begin{equation}
+  T(s)=\frac{1}{\lambda s+1}
+  \qquad\text{o}\qquad
+  T(s)=\frac{1}{(\lambda_1 s+1)(\lambda_2 s+1)},
+  \label{eq:ps-T-deseada}
+\end{equation}
+que llevadas a \eqref{eq:ps-sintesis} dan
+\[
+  \Gc(s)=\frac{1}{\Gp(s)}\,\frac{1}{\lambda s}
+  \qquad\text{y}\qquad
+  \Gc(s)=\frac{1}{\Gp(s)}\,\frac{1}{s\bigl(\lambda_1\lambda_2 s+\lambda_1+\lambda_2\bigr)} .
+\]
+En los dos aparece un integrador: por eso el error ante el escalón es nulo.
+
+\begin{ideaclave}
+\textbf{$\lambda$ es la constante de tiempo del lazo cerrado.}\enspace Con $T=1/(\lambda s+1)$, el lazo responde como un primer orden de constante $\lambda$: se establece en unos $4\lambda$. Un $\lambda$ \emph{pequeño} da una respuesta \emph{rápida}, a cambio de una ganancia del controlador grande y una acción de control mayor; un $\lambda$ grande da un lazo lento y suave. Es un único parámetro de ajuste con significado físico.
+\end{ideaclave}
+
+\paragraph{Proceso estático.} Si $\Gp=\Kproc$, $\Gc=1/(\lambda\Kproc s)$: un controlador integral puro.
+
+\paragraph{Primer orden.} Si $\Gp=\Kproc/(\tau s+1)$,
+\[
+  \Gc(s)=\frac{\tau s+1}{\Kproc\lambda s}=\frac{\tau}{\Kproc\lambda}\left(1+\frac{1}{\tau s}\right):
+  \qquad \Kc=\frac{\tau}{\Kproc\lambda},\quad \Ti=\tau ,
+\]
+un PI cuyo cero cancela el polo del proceso.
+
+\paragraph{Segundo orden.} Si $\Gp=\Kproc/((\tau_1s+1)(\tau_2s+1))$,
+\[
+  \Gc(s)=\frac{(\tau_1s+1)(\tau_2s+1)}{\Kproc\lambda s}:
+  \qquad \Kc=\frac{\tau_1+\tau_2}{\Kproc\lambda},\quad \Ti=\tau_1+\tau_2,\quad \Td=\frac{\tau_1\tau_2}{\tau_1+\tau_2},
+\]
+un PID ideal. En la práctica se le agrega el filtro derivativo.
+
+\begin{ejemplo}[label=ej:ps-sintesis]{Un PID por síntesis directa}
+Para $\Gp(s)=3/((2s+1)(10s+1))$ y $T(s)=1/(\lambda s+1)$, halle el PID y evalúe $\lambda=1$, $3$ y $5$\,s.
+\solucion $\Kc=12/(3\lambda)=4/\lambda$, $\Ti=12$\,s y $\Td=20/12=1.67$\,s. Con filtro $N=10$, la simulación da
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$\lambda$ (s) & $\Kc$ & $\ts$ (s) & $|u_c|_{\max}$\\
+\midrule
+$1$ & $4$ & $3.9$ & $43.8$\\
+$3$ & $1.33$ & $12.1$ & $14.6$\\
+$5$ & $0.8$ & $19.8$ & $8.8$\\
+\bottomrule
+\end{tabular}
+\end{center}
+El tiempo de establecimiento es casi exactamente $4\lambda$, y la acción de control crece como $1/\lambda$.
+\end{ejemplo}
+
+\codigorepo{cap08_pid_sintonizacion/C8_Ej4_SintesisDirecta.m}{pi}{síntesis directa de un PI}
+\codigorepo{cap08_pid_sintonizacion/C8_Ej4_SintesisDirecta.m}{pid}{ejemplo~\ref{ej:ps-sintesis}}
+
+\subsection{Procesos de fase no mínima}
+
+Un cero en el semiplano derecho no puede invertirse: se convertiría en un polo inestable del controlador. Lo mismo vale para el tiempo muerto, que es de fase no mínima (su aproximación de Padé de la \cref{sec:es-retardo} tiene un cero en $+2/L$). La salida es dejar ese factor en la respuesta deseada: lo que el proceso no permite cambiar debe aparecer en $T(s)$.
+
+\begin{ejemplo}[label=ej:ps-nomin]{Síntesis directa con un cero inestable}
+Para $\Gp(s)=(1-9s)/((15s+1)(3s+1))$, diseñe por síntesis directa.
+\solucion Con $T=1/(\lambda s+1)$,
+\[
+  \Gc(s)=\frac{(15s+1)(3s+1)}{\lambda s(1-9s)},
+\]
+que tiene un polo en $s=+1/9$: no es implementable. Si se conserva el cero en la respuesta deseada y se sube el orden para mantener el grado relativo, $T(s)=(1-9s)/(\lambda s+1)^2$, entonces
+\[
+  \Gc(s)=\frac{45s^2+18s+1}{s\bigl(\lambda^2s+2\lambda+9\bigr)}
+  =\Kc\left(1+\frac{1}{\Ti s}+\Td s\right)\frac{1}{\tau_f s+1},
+\]
+un PID ideal en serie con un filtro de primer orden, con
+\[
+  \Kc=\frac{18}{2\lambda+9},\qquad \Ti=18\text{ s},\qquad \Td=2.5\text{ s},\qquad \tau_f=\frac{\lambda^2}{2\lambda+9}.
+\]
+Para $\lambda=5$: $\Kc=0.947$ y $\tau_f=1.32$\,s. La respuesta inversa sigue ahí (\cref{fig:ps-nomin}): ningún controlador lineal estable la elimina.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_sintesis_nomin}
+\caption{Ejemplo~\ref{ej:ps-nomin}: salida y acción de control para tres valores de $\lambda$. Un $\lambda$ menor acelera la respuesta pero profundiza el arranque en sentido contrario y exige más acción de control.}
+\label{fig:ps-nomin}
+\end{figure}
+
+\codigorepo{cap08_pid_sintonizacion/C8_Ej4_SintesisDirecta.m}{nomin}{ejemplo~\ref{ej:ps-nomin}}
+
+\begin{pausa}
+¿Por qué, en el ejemplo~\ref{ej:ps-nomin}, la respuesta deseada tiene denominador de segundo orden y no de primero?
+\respuesta{Para conservar el grado relativo. $\Gp$ tiene grado relativo $1$, y un lazo cerrado no puede tener menos. Con $T=(1-9s)/(\lambda s+1)$, de grado relativo $0$, saldría $\Gc=(15s+1)(3s+1)/((\lambda+9)s)$: impropio, un PID ideal sin filtro que pediría a la salida saltar instantáneamente.}
+\end{pausa}

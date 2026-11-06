@@ -1,0 +1,59 @@
+%% ---------------------------------------------------------------------
+\section{Un ejemplo para verlas actuar}
+\label{sec:pn-ejemplo}
+%% ---------------------------------------------------------------------
+
+\begin{ejemplo}[label=ej:pn-mra]{Masa, resorte y amortiguador}
+El sistema $M\ddot x+b\dot x+kx=F$, con $M=1$\,kg, $b=10$\,N\,s/m y $k=20$\,N/m, tiene
+\[
+  \Gp(s)=\frac{X(s)}{F(s)}=\frac{1}{s^2+10s+20}.
+\]
+Se quiere, con retroalimentación unitaria y un PID en forma paralelo, un tiempo de subida corto, el menor sobrepico posible y error cero ante escalón.
+\solucion \textbf{Lazo abierto.} Los polos son $-2.76$ y $-7.24$ ($\zeta=1.12$): sin sobrepico, con $\tr=0.88$\,s, $\ts=1.60$\,s y valor final $1/20$. Respecto a una referencia unitaria, el error es del $95\%$.
+
+\textbf{P.} El lazo es $s^2+10s+(20+\Kc)$: $\wn=\sqrt{20+\Kc}$, $\zeta=5/\sqrt{20+\Kc}$ y $\ess=20/(20+\Kc)$. Subir $\Kc$ reduce el tiempo de subida y el error, pero baja $\zeta$ y sube el sobrepico. Con $\Kc=300$: $\ess=0.0625$, $\zeta=0.28$ y $\OS=40\%$ (\cref{fig:pn-mra}, arriba a la izquierda).
+
+\textbf{PD.} Con $\Kc=300$, la derivada agrega amortiguamiento: el lazo es $s^2+(10+K_d)s+320$. Con $K_d=20$, $\zeta=0.84$ y el sobrepico cae al $5.8\%$; el error no cambia ($K_ds$ se anula en $s=0$). El PD introduce además un cero en $-\Kc/K_d=-15$; por eso el sobrepico real es mayor que el que predice el segundo orden sin cero ($0.8\%$).
+
+\textbf{PI.} Con $\Kc=300$, la integral anula el error, pero el lazo es de tercer orden, $s^3+10s^2+320s+K_i$, estable solo si $K_i<3200$ (Routh). Con $K_i=200$: $\ess=0$ y $\OS=36\%$.
+
+\textbf{PID.} Con $\Kc=350$, $K_i=300$ y $K_d=50$, la respuesta no tiene sobrepico, sube en $0.05$\,s, se establece en $0.83$\,s y no tiene error. Los ceros del controlador ($-1$ y $-6$) casi cancelan los polos más lentos del lazo cerrado.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_mra}
+\caption{Ejemplo~\ref{ej:pn-mra}: efecto de cada acción sobre la respuesta al escalón.}
+\label{fig:pn-mra}
+\end{figure}
+
+\codigorepo{cap07_pid_nociones/C7_Ej2_Acciones.m}{pid}{ejemplo~\ref{ej:pn-mra}: P, PD, PI y PID sobre el sistema masa-resorte-amortiguador}
+
+\begin{table}[ht]
+\centering
+\caption{Efecto típico de aumentar cada parámetro de un PID sobre una planta estable~\citep{ACL05}. Son tendencias, no leyes: el problema~\ref{prob:pn-mra} pide comprobarlas.}
+\label{tab:pn-efectos}
+\small
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Aumentar & $\tr$ & $\OS$ & $\ts$ & $\ess$ & Estabilidad\\
+\midrule
+$\Kc$ & baja & sube & sube un poco & baja & empeora\\
+$K_i=\Kc/\Ti$ & baja un poco & sube & sube & se anula & empeora\\
+$K_d=\Kc\Td$ & baja un poco & baja & baja & casi no cambia & mejora (si no hay ruido)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{receta}[Ajuste manual de un PID]
+\begin{enumerate}
+  \item Mire la respuesta en lazo abierto y decida qué hay que mejorar.
+  \item Agregue acción proporcional para acelerar la respuesta.
+  \item Agregue acción derivativa si el sobrepico es excesivo.
+  \item Agregue acción integral para eliminar el error en estado estacionario.
+  \item Ajuste las tres hasta lograr la respuesta deseada, y verifique la estabilidad.
+  \item No use las tres si no hace falta: la derivada trae problemas (\cref{sec:pn-modificaciones}). Mantenga el controlador tan simple como se pueda.
+\end{enumerate}
+\end{receta}
+
+En resumen: el \textbf{P} acelera pero deja error (salvo en procesos integradores); el \textbf{PI} elimina el error pero oscila más y pierde estabilidad al subir $\Kc$; el \textbf{PD} anticipa y amortigua, pero deja el error del P; el \textbf{PID} junta las ventajas, a costa de amplificar el ruido. En el capítulo~10 (\cref{sec:rf-pid}) veremos lo mismo en frecuencia: un PI es un compensador de atraso, un PD uno de adelanto y un PID uno de atraso-adelanto.

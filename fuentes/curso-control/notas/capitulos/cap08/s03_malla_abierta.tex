@@ -1,0 +1,115 @@
+%% ---------------------------------------------------------------------
+\section{Reglas de malla abierta}
+\label{sec:ps-malla-abierta}
+%% ---------------------------------------------------------------------
+
+Un buen PID debe dar un lazo estable y robusto, rechazar las perturbaciones, seguir la referencia con rapidez y suavidad, y no dejar error en estado estacionario. Las reglas de malla abierta buscan eso a partir del modelo \eqref{eq:ps-fopdt}: se hace la prueba escalón, se identifican $\Kproc$, $L$ y $\tau$, y una tabla da $\Kc$, $\Ti$ y $\Td$ del PID ideal $\Kc\bigl(1+\frac{1}{\Ti s}+\Td s\bigr)$. Todas dependen de la \textbf{razón de controlabilidad} $L/\tau$: cuanto mayor, más difícil el proceso.
+
+\subsection{Ziegler y Nichols}
+
+\begin{historia}[Ziegler y Nichols, 1942]
+John G. Ziegler y Nathaniel B. Nichols, ingenieros de la Taylor Instruments, publicaron en 1942 dos métodos para ajustar los controladores que vendía su empresa: uno a partir de la curva de reacción en lazo abierto y otro a partir de la oscilación sostenida en lazo cerrado~\citep{ZiNi42}. Antes hubo reglas sueltas (Callender y colaboradores, 1936), pero fueron las suyas las que se volvieron estándar. Su criterio fue empírico: que la respuesta a una perturbación decayera con una razón de un cuarto entre picos sucesivos.
+\end{historia}
+
+La regla supone una curva de reacción en forma de S, es decir, un proceso sin integradores ni polos dominantes complejos; con otra forma de respuesta no debe usarse. Mide $\tau$ con la tangente hasta el $100$\,\% (\cref{sec:ps-identificacion}).
+
+\begin{table}[ht]
+\centering
+\caption{Ziegler-Nichols de malla abierta para $\Kproc e^{-Ls}/(\tau s+1)$ y para el integrador $K_v e^{-Ls}/s$. La fila serie es la misma sintonía escrita en forma serie (capítulo~\ref{cap:pn}).}
+\label{tab:ps-zn-abierta}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+ & \multicolumn{3}{c}{FOPDT} & \multicolumn{3}{c}{Integrador}\\
+\cmidrule(lr){2-4}\cmidrule(l){5-7}
+ & $\Kc$ & $\Ti$ & $\Td$ & $\Kc$ & $\Ti$ & $\Td$\\
+\midrule
+P & $\dfrac{\tau}{\Kproc L}$ & --- & --- & $\dfrac{1}{K_vL}$ & --- & ---\\
+PI & $\dfrac{0.9\tau}{\Kproc L}$ & $3.33L$ & --- & $\dfrac{0.9}{K_vL}$ & $3L$ & ---\\
+PID ideal & $\dfrac{1.2\tau}{\Kproc L}$ & $2L$ & $0.5L$ & $\dfrac{1.2}{K_vL}$ & $2L$ & $0.5L$\\
+PID serie & $\dfrac{0.6\tau}{\Kproc L}$ & $L$ & $L$ & $\dfrac{0.6}{K_vL}$ & $L$ & $L$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Note que $\Kc$ crece como $\tau/L$: con un tiempo muerto pequeño frente a la constante de tiempo, la regla pide ganancias enormes y tiempos integrales cortos, y el lazo oscila. Por eso no se recomienda para $L/\tau$ pequeño.
+
+\subsection{Cohen y Coon}
+
+Cohen y Coon partieron del mismo modelo, pero ajustaron las fórmulas para ubicar los polos dominantes del lazo con razón de decaimiento de un cuarto en un rango amplio de $L/\tau$~\citep{CoCo53}. Geraldine Coon verificó el método con simulaciones en un computador analógico. Una ventaja es que incluye un PD. Con $r=L/\tau$:
+
+\begin{table}[ht]
+\centering
+\caption{Cohen-Coon, con $r=L/\tau$.}
+\label{tab:ps-cc}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & $\Kc$ & $\Ti$ & $\Td$\\
+\midrule
+P & $\dfrac{\tau}{\Kproc L}\Bigl(1+\dfrac{r}{3}\Bigr)$ & --- & ---\\
+PI & $\dfrac{\tau}{\Kproc L}\Bigl(0.9+\dfrac{r}{12}\Bigr)$ & $L\,\dfrac{30+3r}{9+20r}$ & ---\\
+PD & $\dfrac{\tau}{\Kproc L}\Bigl(\dfrac54+\dfrac{r}{6}\Bigr)$ & --- & $L\,\dfrac{6-2r}{22+3r}$\\
+PID & $\dfrac{\tau}{\Kproc L}\Bigl(\dfrac43+\dfrac{r}{4}\Bigr)$ & $L\,\dfrac{32+6r}{13+8r}$ & $\dfrac{4L}{11+2r}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+El precio de ser tan agresivo es la fragilidad: un cambio pequeño en el proceso puede llevar el lazo a la inestabilidad. La \cref{sec:ps-robustez} lo cuantifica.
+
+\subsection{Coeficiente de ajustabilidad}
+
+Como Ziegler-Nichols y Cohen-Coon dan respuestas muy oscilatorias, en la práctica se usan versiones más suaves. Una regla empírica de instrumentistas usa el \textbf{coeficiente de ajustabilidad} $r_c=L/\tau$ (\cref{tab:ps-ajust}); se recomienda para $0.1<r_c<1$, y para $r_c$ grandes un PID solo no basta. La tabla no tiene una derivación publicada que la respalde: tómela como una regla de taller que da resultados conservadores, no como un resultado.
+
+\begin{table}[H]
+\centering
+\caption{Regla del coeficiente de ajustabilidad, $r_c=L/\tau$.}
+\label{tab:ps-ajust}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+$r_c$ & $\Kc$ & $\Ti$ & $\Td$\\
+\midrule
+$0$ a $0.1$ & $5/\Kproc$ & $\tau$ & $0$\\
+$0.1$ a $0.2$ & $\dfrac{0.5}{\Kproc r_c}$ & $\tau$ & $0$\\
+$0.2$ a $0.5$ & $\dfrac{0.5(1+0.5r_c)}{\Kproc r_c}$ & $\tau(1+0.5r_c)$ & $\tau\,\dfrac{0.5r_c}{0.5r_c+1}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{ejemplo}[label=ej:ps-abierta]{Tres reglas sobre el mismo proceso}
+Un proceso se identificó como $2e^{-2s}/(10s+1)$. Sintonice un PID ideal con las tres reglas y compare la respuesta a un escalón de referencia y a un escalón de perturbación a la entrada del proceso. Use la estructura PI-D (derivada solo sobre la medida) y filtro derivativo con $N=10$.
+\solucion Con $L/\tau=0.2$:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+Regla & $\Kc$ & $\Ti$ (s) & $\Td$ (s) & $\OS$ & $\ts$ (s) & pico pert. & IAE pert.\\
+\midrule
+Ziegler-Nichols & $3$ & $4$ & $1$ & $64$\,\% & $19.7$ & $0.38$ & $1.6$\\
+Cohen-Coon & $3.46$ & $4.55$ & $0.70$ & $84$\,\% & $24.2$ & $0.39$ & $1.6$\\
+Ajustabilidad & $1.38$ & $11$ & $0.91$ & $2$\,\% & $20.4$ & $0.48$ & $8.0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Ziegler-Nichols y Cohen-Coon responden rápido pero con sobrepicos enormes; la regla de ajustabilidad casi no sobrepasa, pero deja crecer más la perturbación y tarda mucho más en eliminarla: su IAE ante la perturbación es cinco veces mayor, porque $\Ti$ es casi tres veces más largo (\cref{fig:ps-abierta}). Ante la perturbación, Ziegler-Nichols decae con una razón cercana a $0.19$ entre picos sucesivos: cerca del cuarto que buscaba.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_malla_abierta}
+\caption{Ejemplo~\ref{ej:ps-abierta}: tres sintonías de malla abierta sobre $2e^{-2s}/(10s+1)$.}
+\label{fig:ps-abierta}
+\end{figure}
+
+\codigorepo{cap08_pid_sintonizacion/C8_Ej2_MallaAbierta.m}{reglas}{las tres reglas con la función \cmd{reglasPID}}
+\codigorepo{cap08_pid_sintonizacion/C8_Ej2_MallaAbierta.m}{simulacion}{referencia y perturbación con \cmd{simularPID}}
+
+\begin{ideaclave}
+\textbf{Seguir la referencia o rechazar perturbaciones.}\enspace Ziegler-Nichols y Cohen-Coon se diseñaron para rechazar perturbaciones, y en eso son buenos; ante cambios de referencia sobrepasan demasiado. Una regla conservadora hace lo contrario. No hay una sintonía mejor en todo: hay que decidir para qué se sintoniza.
+\end{ideaclave}
+
+\begin{pausa}
+En el ejemplo~\ref{ej:ps-abierta}, ¿qué pasa con el $\Kc$ de Ziegler-Nichols si el tiempo muerto fuera de $0.5$\,s en lugar de $2$\,s?
+\respuesta{Se multiplica por cuatro: $\Kc=1.2\cdot10/(2\cdot0.5)=12$, y $\Ti=1$\,s. Un $L/\tau$ pequeño lleva a ganancias muy altas.}
+\end{pausa}

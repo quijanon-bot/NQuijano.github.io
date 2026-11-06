@@ -1,0 +1,138 @@
+%% ---------------------------------------------------------------------
+\section{Del PID de libro al PID de planta}
+\label{sec:pn-modificaciones}
+%% ---------------------------------------------------------------------
+
+El PID ideal tiene problemas que aparecen apenas se conecta a un proceso real: saltos en la salida cuando cambia la referencia, ruido amplificado y un comportamiento extraño cuando el actuador se satura. Casi todos los controladores comerciales traen opciones para resolverlos; veamos cuáles y por qué funcionan.
+
+\subsection{El \emph{proportional kick} y la estructura I-P}
+
+Si el lazo está en equilibrio ($e\approx0$) y la referencia salta, el error salta con ella, y la acción proporcional lleva ese salto completo a la salida del controlador: un golpe al actuador que se llama \clave{proportional kick}. La solución es que el término proporcional actúe sobre la salida del proceso y no sobre el error, mientras la integral sigue sobre el error (estructura \clave{I-P}, \cref{fig:pn-ip}):
+\[
+  U_c(s)=\frac{\Kc}{\Ti s}E(s)-\Kc Y(s).
+\]
+La salida del controlador ya no salta, y el rechazo de perturbaciones es el mismo (para $R=0$ las dos estructuras coinciden). A cambio, la respuesta a la referencia es más lenta.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.72\linewidth]{cap07/estructura_ip}
+\caption{Estructura I-P.}
+\label{fig:pn-ip}
+\end{figure}
+
+\subsection{La derivada y el ruido: el filtro derivativo}
+
+Un ruido de medida $n(t)=A\sin\omega t$ que pase por la derivada pura produce $u_c=AK_d\,\omega\cos\omega t$: \alerta{la amplitud crece con la frecuencia}. Con $\Kc=3$, $\Td=2$ y $A=0.01$, un ruido de $100$\,rad/s aparece en la salida del controlador con amplitud $6$. La solución es limitar la ganancia de alta frecuencia con un \clave{filtro derivativo}:
+\begin{equation}
+  \Gc(s)=\Kc\left(1+\frac{1}{\Ti s}+\frac{\Td s}{\dfrac{\Td}{N}s+1}\right).
+  \label{eq:pn-filtro}
+\end{equation}
+Para $\omega\ll N/\Td$ la derivada funciona como antes; por encima, su ganancia se aplana en $\Kc N$, y la del controlador en $\Kc(1+N)$ (\cref{fig:pn-ruido}). El controlador queda propio (grado relativo cero) y realizable. $N$ suele estar entre $8$ y $16$~\citep{ACL05}; otros textos dan $5\le N\le20$~\citep{DoBi08}. Con $N=10$ el ruido del ejemplo baja de $6$ a $0.30$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap07/f_ruido}
+\caption{Magnitud del PID ideal ($\Kc=3$, $\Ti=8$, $\Td=2$) sin filtro y con filtro derivativo. Las líneas punteadas son las cotas $\Kc(1+N)$.}
+\label{fig:pn-ruido}
+\end{figure}
+
+\begin{profundiza}[Otros filtros]
+Hay variantes: un filtro de segundo orden en la derivada, $\Td s/\bigl(1+\frac{\Td s}{N}+\frac12(\frac{\Td s}{N})^2\bigr)$~\citep{gerry2004pid}; la forma serie con filtro, $\Kc\bigl(1+\frac{1}{\Ti s}\bigr)\frac{\Td s+1}{\Td s/N+1}$; o un filtro sobre toda la salida, $\Kc\bigl(1+\frac{1}{\Ti s}+\Td s\bigr)\frac{1}{(\tau_fs+1)^k}$ con $k=1$ o $2$. El diseño del filtro es un compromiso entre atenuar el ruido y no perder la acción derivativa útil.
+\end{profundiza}
+
+\subsection{El \emph{derivative kick} y la estructura I-PD}
+
+Aun con filtro, si la derivada actúa sobre el error, un escalón en la referencia produce un pico enorme: la derivada (filtrada) de un escalón es un pulso de altura $\Kc\Td/(\Td/N)=\Kc N$. Es el \clave{derivative kick}. Con el PID $350/300/50$ del ejemplo~\ref{ej:pn-mra} y un filtro de constante $0.01$\,s, el pico es de unas $5300$ unidades (\cref{fig:pn-kicks}). Como la referencia es constante a trozos, su derivada no aporta nada útil entre saltos; por eso se deriva solo la salida. Con la proporcional también sobre la salida se obtiene la estructura \clave{I-PD} (\cref{fig:pn-ipd}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.72\linewidth]{cap07/estructura_ipd}
+\caption{Estructura I-PD: solo la integral ve el error.}
+\label{fig:pn-ipd}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_kicks}
+\caption{PID $350/300/50$ sobre $1/(s^2+10s+20)$. Estándar: pico de unas $5300$ unidades en la salida del controlador. PI-D (derivada sobre la salida): queda el salto proporcional de $350$. I-PD: sin saltos, pero más lento.}
+\label{fig:pn-kicks}
+\end{figure}
+
+\codigorepo{cap07_pid_nociones/C7_Ej5_Kicks.m}{kicks}{las tres estructuras ante un escalón de referencia}
+
+\subsection{\emph{Wind-up} y anti-windup}
+
+Todo actuador tiene límites: una válvula no abre más del $100\%$. Si un cambio grande de referencia lleva la salida del controlador al límite, el lazo queda, en la práctica, abierto: el actuador ya no responde a lo que pida el controlador. Pero el error sigue siendo grande, y la integral sigue acumulándolo (\emph{winds up}). Cuando la salida del proceso por fin alcanza la referencia, la integral está inflada y mantiene el actuador saturado hasta que un error negativo igual de grande la descarga: sobrepico grande y establecimiento lento. Es el \clave{wind-up} del integrador.
+
+\begin{ejemplo}[label=ej:pn-windup]{\emph{Wind-up} en un proceso con tiempo muerto}
+Un PID ideal con $\Kc=3$, $\Ti=8$\,s, $\Td=2$\,s (y $N=10$) controla $\Gp(s)=e^{-4s}/(10s+1)$, con el actuador limitado a $[0,\,1.5]$~\citep{Vis06}.
+\solucion Ante un escalón unitario, el actuador queda saturado $25$\,s en total; el término integral llega a más de $3$ cuando el actuador solo puede dar $1.5$. Resultado: $\OS=38\%$ y $\ts=45$\,s (\cref{fig:pn-windup}, en rojo).
+\end{ejemplo}
+
+Las correcciones \clave{anti-windup} más usadas son dos.
+\begin{itemize}
+  \item \textbf{Integración condicional} (\emph{clamping}): se detiene la integral mientras el actuador esté saturado y el error empuje hacia el mismo lado ($u_c$ saturado y $(v-u)\,e>0$). No hay que sintonizar nada. En el ejemplo: $\OS=3.7\%$, $\ts=29$\,s.
+  \item \textbf{Recálculo} (\emph{back-calculation}, \cref{fig:pn-antiwindup}): se retroalimenta a la integral la diferencia entre la salida saturada $u$ y la que pedía el controlador $v$,
+  \[
+    \frac{\dif I}{\dif t}=\frac{\Kc}{\Ti}\,e+\frac{1}{T_t}\,(u-v).
+  \]
+  Mientras no hay saturación, $u=v$ y no pasa nada; con saturación, la integral se descarga con constante de tiempo $T_t$. Funciona como un observador: estima el estado correcto del controlador. Se recomienda $T_t=\sqrt{\Ti\Td}$~\citep{astrom1995pid}, o $T_t=\Ti$ para un PI~\citep{atherton1995pid}. En el ejemplo, con $T_t=4$: $\OS=3.3\%$, $\ts=30$\,s; con $T_t=8$: $\OS=11\%$.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap07/antiwindup}
+\caption{PID con anti-windup por recálculo (\emph{back-calculation}).}
+\label{fig:pn-antiwindup}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_windup}
+\caption{Ejemplo~\ref{ej:pn-windup}. Sin corrección, la integral (punteada) sube mucho más de lo que el actuador puede dar; con anti-windup se mantiene acotada.}
+\label{fig:pn-windup}
+\end{figure}
+
+\codigorepo{cap07_pid_nociones/C7_Ej6_Windup.m}{windup}{ejemplo~\ref{ej:pn-windup}: sin corrección, con recálculo y con integración condicional}
+
+\begin{modelo}[AntiWindup.slx]
+El script \cmd{crearModelo\_AntiWindup.m} arma el ejemplo con el bloque \emph{PID Controller} de \simulink, que trae la saturación y el anti-windup incorporados (parámetros \emph{Limit output} y \emph{Anti-windup method}). Compare las dos copias del lazo y cambie $T_t$.
+\end{modelo}
+
+\begin{cuidado}[Dónde aparece el \emph{wind-up}]
+El \emph{wind-up} es más grave ante cambios grandes de la referencia que ante perturbaciones de carga~\citep{VPPH97}, y en procesos de orden bajo con tiempo muerto pequeño respecto a la constante de tiempo, donde el controlador puede ser agresivo. Un controlador que nunca satura no lo necesita, pero en planta casi todos saturan alguna vez (arranques, cambios de producto).
+\end{cuidado}
+
+\subsection{Ponderación de la referencia: dos grados de libertad}
+
+Un lazo sintonizado para rechazar perturbaciones rápido suele responder con mucho sobrepico a los cambios de referencia. Con un solo controlador sobre el error no se pueden tener las dos cosas. La salida es separar cómo actúa el controlador sobre la referencia y sobre la salida (\cref{fig:pn-2gdl}):
+\[
+  u_c=\Kc\Bigl(\beta\,r-y\Bigr)+\frac{\Kc}{\Ti}\int(r-y)\,\dif\tau+\Kc\Td\,\deriv{}{t}\bigl(\gamma\,r-y\bigr),
+  \qquad 0\le\beta,\gamma\le1 .
+\]
+La integral siempre actúa sobre el error completo, para no perder el error cero. Con $\beta=\gamma=1$ es el PID estándar; con $\beta=1$, $\gamma=0$, el PI-D; con $\beta=\gamma=0$, el I-PD. Esta es la estructura del \clave{PID ISA} (o controlador $\beta$-$\gamma$). Equivale a un filtro sobre la referencia,
+\[
+  G_f(s)=\frac{1+\bigl(\beta\Ti+\frac{\Td}{N}\bigr)s+\Ti\Td\bigl(\gamma+\frac{\beta}{N}\bigr)s^2}{1+\bigl(\Ti+\frac{\Td}{N}\bigr)s+\Ti\Td\bigl(1+\frac{1}{N}\bigr)s^2},
+\]
+que \alerta{no aparece en la función de transferencia de la perturbación a la salida}: el rechazo de perturbaciones se sintoniza con $\Kc$, $\Ti$, $\Td$, y la respuesta a la referencia, después, con $\beta$ y $\gamma$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.62\linewidth]{cap07/dos_gdl}
+\caption{Controlador de dos grados de libertad: $G_{sp}=\Kc\bigl(\beta+\frac{1}{\Ti s}+\gamma\Td s\bigr)$ sobre la referencia y $\Gc$ sobre la salida.}
+\label{fig:pn-2gdl}
+\end{figure}
+
+\begin{ejemplo}[label=ej:pn-beta]{Un PI agresivo con ponderación}
+Un PI con $\Kc=20$ y $\Ti=0.3$\,s controla $\Gp=1/\bigl((s+1)(s+5)\bigr)$; está sintonizado para rechazar perturbaciones (pico de $0.032$ ante un escalón unitario a la entrada de la planta, frente a $0.11$ de un PI conservador con $\Kc=2$, $\Ti=1$).
+\solucion Ante la referencia, con $\beta=1$ el sobrepico es del $51\%$; con $\beta=0.5$, del $33\%$, y con $\beta=0$, del $27\%$ (\cref{fig:pn-beta}). La respuesta a la perturbación es la misma para todos. Note que ningún $\beta$ baja el sobrepico de $27\%$: con $\beta=0$ queda solo la integral sobre la referencia, y la oscilación la imponen los polos del lazo cerrado, que $\beta$ no mueve.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_beta}
+\caption{Ejemplo~\ref{ej:pn-beta}: $\beta$ cambia la respuesta a la referencia y no la respuesta a la perturbación.}
+\label{fig:pn-beta}
+\end{figure}
+
+\codigorepo{cap07_pid_nociones/C7_Ej7_Ponderacion.m}{beta}{ejemplo~\ref{ej:pn-beta}: ponderación de la referencia}

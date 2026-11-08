@@ -1,7 +1,6 @@
 ---
 title: "Sistemas No Lineales"
 subtitle: "IELE 4311 · Departamento de Ingeniería Eléctrica y Electrónica · Universidad de los Andes"
-toc: false
 ---
 
 ```{=html}

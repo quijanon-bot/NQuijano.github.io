@@ -1,7 +1,6 @@
 ---
 title: "Análisis de Sistemas de Control"
 subtitle: "IELE 2300 · Departamento de Ingeniería Eléctrica y Electrónica · Universidad de los Andes"
-toc: false
 ---
 
 ```{=html}

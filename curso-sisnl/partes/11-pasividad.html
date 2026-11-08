@@ -2,23 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.11.9">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>11. Pasividad y disipatividad – Sistemas No Lineales</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
+code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -65,29 +59,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../partes/12-linealizacion.html" rel="next">
-<link href="../partes/10-estabilidad-avanzada.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dbbe0fff2f2090c0935a9f5054aa7a45.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-9a3858c2df4329f0ae725c3158754c63.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dbbe0fff2f2090c0935a9f5054aa7a45.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64fae8b6b810ab41c64c8dc374c4eb1f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1254d0813b011433870983bd0d892b19.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-a00af45abd16218c4fa149d640309f50.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-1254d0813b011433870983bd0d892b19.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1302efad12ca0f3334cd3ad114c2f45b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -132,7 +119,7 @@ window.MathJax = { tex: { macros: {
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -163,194 +150,27 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Saltar al contenido principal</a><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          toggle.setAttribute("aria-checked", alternate ? "true" : "false");
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455).
-    // Not run on load: stylesheets are set before first paint there, and
-    // scrolling would undo the scroll to a URL fragment (#14973).
-    // The one pixel nudge keeps the reader where they were.
-    const refreshSafariScrollbar = () => {
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        const scrollY = window.scrollY;
-        window.scrollTo(0, scrollY > 0 ? scrollY - 1 : 1);
-        setTimeout(() => {
-          window.scrollTo(0, scrollY);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      refreshSafariScrollbar();
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Sitio web">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Sistemas No Lineales</span>
     </a>
   </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Inicio</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -430,147 +250,16 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <button type="button" role="switch" aria-checked="false" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro" aria-label="Alternar modo oscuro"><i class="bi"></i></button>
 </div>
-            <div id="quarto-search" class="" title="Buscar"></div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav" aria-label="Barra de herramientas">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="Hilo de Ariadna"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/11-pasividad.html">11. Pasividad y disipatividad</a></li></ol></nav>
-        <a class="flex-grow-1" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto" aria-label="Sección">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sistemas No Lineales</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-controls="quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text" id="quarto-sidebar-section-1-label">Partes del curso</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
-      </div>
-      <ul id="quarto-sidebar-section-1" aria-labelledby="quarto-sidebar-section-1-label" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/01-introduccion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1. Introducción y motivación</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/02-unidimensionales.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2. Sistemas unidimensionales: el flujo sobre la recta</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/03-preliminares.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3. Preliminares matemáticos</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/04-bidimensionales.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4. Sistemas bidimensionales</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/05-orbitas-ciclos.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">5. Órbitas, flujos circulares y ciclos límite</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/06-bifurcaciones.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6. Bifurcaciones</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/07-lyapunov.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">7. Estabilidad de Lyapunov</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/08-invarianza.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">8. Principio de invarianza y construcción de funciones de Lyapunov</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/09-variantes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9. Sistemas variantes en el tiempo</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/10-estabilidad-avanzada.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">10. Estabilidad avanzada: UUB, CLF e ISS</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/11-pasividad.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">11. Pasividad y disipatividad</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../partes/12-linealizacion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">12. Linealización por retroalimentación</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <button type="button" class="sidebar-item-text sidebar-item-toggle sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-controls="quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text" id="quarto-sidebar-section-2-label">Recursos</span><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
-      </div>
-      <ul id="quarto-sidebar-section-2" aria-labelledby="quarto-sidebar-section-2-label" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../notacion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Notación del curso</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../codigos.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Códigos de MATLAB y Simulink</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../videos.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Videos</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
@@ -581,13 +270,12 @@ window.Quarto = {
   <li><a href="#videos" id="toc-videos" class="nav-link" data-scroll-target="#videos">Videos</a></li>
   <li><a href="#problemas" id="toc-problemas" class="nav-link" data-scroll-target="#problemas">Problemas</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar sobre problema</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content" tabindex="-1">
+<main class="content" id="quarto-document-content">
 
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="Hilo de Ariadna"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../partes/01-introduccion.html">Partes del curso</a></li><li class="breadcrumb-item"><a href="../partes/11-pasividad.html">11. Pasividad y disipatividad</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">11. Pasividad y disipatividad</h1>
 <p class="subtitle lead">Semana 13 · dos clases</p>
@@ -752,222 +440,40 @@ PA+A\T P=-L\T L-\epsilon P,\qquad PB=C\T-L\T W,\qquad W\T W=D+D\T ,
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p><strong>Balance de energía a lo largo de una simulación (§11.2).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="cap11_pasividad/C11_Ej1_MasaResorte.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">delta</span> <span class="op">=</span> <span class="fl">0.3</span><span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">F</span>  <span class="op">=</span> <span class="op">@</span>(<span class="va">x1</span>) <span class="va">x1</span> <span class="op">+</span> <span class="va">x1</span><span class="op">.^</span><span class="fl">3</span><span class="op">;</span>                        <span class="co">% resorte duro: F(x1) x1 &gt; 0</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">u</span>  <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span>) <span class="fl">0.8</span><span class="op">*</span><span class="va">sin</span>(<span class="fl">1.2</span><span class="op">*</span><span class="va">t</span>)<span class="op">.*</span>(<span class="va">t</span> <span class="op">&lt;</span> <span class="fl">12</span>)<span class="op">;</span>           <span class="co">% fuerza externa hasta t = 12 s</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">f</span>  <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="op">-</span><span class="va">F</span>(<span class="va">x</span>(<span class="fl">1</span>)) <span class="op">-</span> <span class="va">delta</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>) <span class="op">+</span> <span class="va">u</span>(<span class="va">t</span>)]<span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span><span class="op">,</span> <span class="ss">'MaxStep'</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>[<span class="va">t1</span><span class="op">,</span> <span class="va">X1</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">f</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">12</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span>     <span class="co">% por tramos: u es discontinua en t = 12</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>[<span class="va">t2</span><span class="op">,</span> <span class="va">X2</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">f</span><span class="op">,</span> [<span class="fl">12</span> <span class="fl">30</span>]<span class="op">,</span> <span class="va">X1</span>(<span class="kw">end</span><span class="op">,:</span>)<span class="op">.',</span> <span class="va">opc</span>)<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> [<span class="va">t1</span><span class="op">;</span> <span class="va">t2</span>(<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>)]<span class="op">;</span>  <span class="va">X</span> <span class="op">=</span> [<span class="va">X1</span><span class="op">;</span> <span class="va">X2</span>(<span class="fl">2</span><span class="op">:</span><span class="kw">end</span><span class="op">,:</span>)]<span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="va">y</span>  <span class="op">=</span> <span class="va">X</span>(<span class="op">:,</span><span class="fl">2</span>)<span class="op">;</span>                                  <span class="co">% salida conjugada de u: la velocidad</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="va">V</span>  <span class="op">=</span> <span class="va">X</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span> <span class="op">+</span> <span class="va">X</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">.^</span><span class="fl">4</span><span class="op">/</span><span class="fl">4</span> <span class="op">+</span> <span class="va">X</span>(<span class="op">:,</span><span class="fl">2</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span><span class="op">;</span> <span class="co">% energía potencial + cinética</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="va">uu</span> <span class="op">=</span> [<span class="va">u</span>(<span class="va">t1</span>)<span class="op">;</span> <span class="va">zeros</span>(<span class="va">numel</span>(<span class="va">t2</span>) <span class="op">-</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1</span>)]<span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>[<span class="va">S</span><span class="op">,</span> <span class="va">D</span><span class="op">,</span> <span class="va">res</span>] <span class="op">=</span> <span class="va">balanceEnergia</span>(<span class="va">t</span><span class="op">,</span> <span class="va">V</span><span class="op">,</span> <span class="va">uu</span><span class="op">.*</span><span class="va">y</span><span class="op">,</span> <span class="va">delta</span><span class="op">*</span><span class="va">y</span><span class="op">.^</span><span class="fl">2</span>)<span class="op">;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'residuo máximo del balance: %.1e\n'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">res</span>)))<span class="op">;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'V(12) = %.4f   V(30) = %.4f   suministrada hasta 12 s = %.4f\n'</span><span class="op">,</span> <span class="op">...</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">V</span>(<span class="va">numel</span>(<span class="va">t1</span>))<span class="op">,</span> <span class="va">V</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="va">S</span>(<span class="va">numel</span>(<span class="va">t1</span>)))<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-include="../../codigo/cap11_pasividad/C11_Ej1_MasaResorte.m" data-marca="balance"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej1_MasaResorte.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Pasivo con pendiente negativa (§11.4).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="cap11_pasividad/C11_Ej3_SinMemoria.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">h</span>  <span class="op">=</span> <span class="op">@</span>(<span class="va">v</span>) <span class="fl">17.76</span><span class="op">*</span><span class="va">v</span> <span class="op">-</span> <span class="fl">103.79</span><span class="op">*</span><span class="va">v</span><span class="op">.^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">229.62</span><span class="op">*</span><span class="va">v</span><span class="op">.^</span><span class="fl">3</span> <span class="op">-</span> <span class="fl">226.31</span><span class="op">*</span><span class="va">v</span><span class="op">.^</span><span class="fl">4</span> <span class="op">+</span> <span class="fl">83.72</span><span class="op">*</span><span class="va">v</span><span class="op">.^</span><span class="fl">5</span><span class="op">;</span>   <span class="co">% mA</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">dh</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">v</span>) <span class="fl">17.76</span> <span class="op">-</span> <span class="fl">207.58</span><span class="op">*</span><span class="va">v</span> <span class="op">+</span> <span class="fl">688.86</span><span class="op">*</span><span class="va">v</span><span class="op">.^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">905.24</span><span class="op">*</span><span class="va">v</span><span class="op">.^</span><span class="fl">3</span> <span class="op">+</span> <span class="fl">418.6</span><span class="op">*</span><span class="va">v</span><span class="op">.^</span><span class="fl">4</span><span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">v</span>  <span class="op">=</span> <span class="va">linspace</span>(<span class="op">-</span><span class="fl">1.5</span><span class="op">,</span> <span class="fl">1.5</span><span class="op">,</span> <span class="fl">300001</span>)<span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'min de u h(u) en [-1.5, 1.5]: %.3g  (&gt;= 0: pasivo)\n'</span><span class="op">,</span> <span class="va">min</span>(<span class="va">v</span><span class="op">.*</span><span class="va">h</span>(<span class="va">v</span>)))<span class="op">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">v1</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="va">dh</span><span class="op">,</span> [<span class="fl">0.1</span> <span class="fl">0.4</span>])<span class="op">;</span>  <span class="va">v2</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="va">dh</span><span class="op">,</span> [<span class="fl">0.4</span> <span class="fl">0.9</span>])<span class="op">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'pendiente negativa entre v1 = %.4f y v2 = %.4f;  h(v2) = %.4f &gt; 0\n'</span><span class="op">,</span> <span class="va">v1</span><span class="op">,</span> <span class="va">v2</span><span class="op">,</span> <span class="op">...</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">h</span>(<span class="va">v2</span>))<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-include="../../codigo/cap11_pasividad/C11_Ej3_SinMemoria.m" data-marca="diodo"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej3_SinMemoria.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>La prueba de que un sistema no es pasivo (§11.5).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="cap11_pasividad/C11_Ej6_PasividadLocal.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">k</span>  <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>   <span class="va">xb</span> <span class="op">=</span> <span class="fl">1.5</span><span class="op">;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">ub</span> <span class="op">=</span> <span class="op">-</span>(<span class="va">xb</span><span class="op">^</span><span class="fl">3</span> <span class="op">-</span> <span class="va">k</span><span class="op">*</span><span class="va">xb</span>)<span class="op">;</span>                      <span class="co">% entrada que mantiene x(t) = xb</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">x</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">x</span><span class="op">^</span><span class="fl">3</span> <span class="op">-</span> <span class="va">k</span><span class="op">*</span><span class="va">x</span> <span class="op">+</span> <span class="va">ub</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">4</span>]<span class="op">,</span> <span class="va">xb</span><span class="op">,</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-12</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>))<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'x(4) - xb = %.1e   (el estado no se mueve)\n'</span><span class="op">,</span> <span class="va">x</span>(<span class="kw">end</span>) <span class="op">-</span> <span class="va">xb</span>)<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'potencia u y = %.4f (negativa: entrega energía)\n'</span><span class="op">,</span> <span class="va">ub</span><span class="op">*</span><span class="va">xb</span>)<span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'int_0^4 u y dt = %.4f,   V(4) - V(0) = %.4f\n'</span><span class="op">,</span> <span class="fl">4</span><span class="op">*</span><span class="va">ub</span><span class="op">*</span><span class="va">xb</span><span class="op">,</span> <span class="va">x</span>(<span class="kw">end</span>)<span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span> <span class="op">-</span> <span class="va">xb</span><span class="op">^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-include="../../codigo/cap11_pasividad/C11_Ej6_PasividadLocal.m" data-marca="local"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej6_PasividadLocal.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>OSP + ZSO + LaSalle (§11.6).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="cap11_pasividad/C11_Ej7_LaSalleRLC.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="op">-</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">-</span> <span class="va">x</span>(<span class="fl">2</span>)]<span class="op">,</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">20</span><span class="op">,</span> <span class="fl">4001</span>)<span class="op">,</span> [<span class="fl">1.5</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">V</span>  <span class="op">=</span> (<span class="va">X</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">.^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">X</span>(<span class="op">:,</span><span class="fl">2</span>)<span class="op">.^</span><span class="fl">2</span>)<span class="op">/</span><span class="fl">2</span><span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">cruces</span> <span class="op">=</span> <span class="va">t</span>(<span class="va">find</span>(<span class="va">diff</span>(<span class="va">sign</span>(<span class="va">X</span>(<span class="op">:,</span><span class="fl">2</span>))) <span class="op">~=</span> <span class="fl">0</span>))<span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'V(20) = %.1e;  la trayectoria cruza x2 = 0 en t = %s\n'</span><span class="op">,</span> <span class="va">V</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="op">...</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">mat2str</span>(<span class="va">cruces</span>(<span class="fl">1</span><span class="op">:</span><span class="fl">4</span>)<span class="op">.',</span> <span class="fl">3</span>))<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-include="../../codigo/cap11_pasividad/C11_Ej7_LaSalleRLC.m" data-marca="lasalle"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej7_LaSalleRLC.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p><strong>La familia <span class="math inline">\(G_z\)</span> y la prueba <code>esPR</code> (§11.7).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="cap11_pasividad/C11_Ej8_PR_SPR.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">a</span> <span class="op">=</span> <span class="fl">3</span><span class="op">;</span>  <span class="va">b</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">w</span> <span class="op">=</span> <span class="va">logspace</span>(<span class="op">-</span><span class="fl">3</span><span class="op">,</span> <span class="fl">3.5</span><span class="op">,</span> <span class="fl">4000</span>)<span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">fig</span> <span class="op">=</span> <span class="va">estiloFigura</span>(<span class="fl">1100</span><span class="op">,</span> <span class="fl">420</span>)<span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">z</span> <span class="op">=</span> [<span class="fl">1.5</span> <span class="fl">3</span> <span class="fl">5</span>]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">G</span> <span class="op">=</span> <span class="va">respFrec</span>([<span class="fl">1</span> <span class="va">z</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="va">a</span> <span class="va">b</span>]<span class="op">,</span> <span class="va">w</span>)<span class="op">;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">v</span> <span class="op">=</span> <span class="va">esPR</span>([<span class="fl">1</span> <span class="va">z</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="va">a</span> <span class="va">b</span>])<span class="op">;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'z = %3.1f:  min Re G = %+.4f   w^2 Re G(w = 3000) = %+.4f  (a - z = %+.1f)  -&gt; %s\n'</span><span class="op">,</span> <span class="op">...</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="va">z</span><span class="op">,</span> <span class="va">min</span>(<span class="va">real</span>(<span class="va">G</span>))<span class="op">,</span> <span class="fl">3000</span><span class="op">^</span><span class="fl">2</span><span class="op">*</span><span class="va">real</span>(<span class="va">respFrec</span>([<span class="fl">1</span> <span class="va">z</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="va">a</span> <span class="va">b</span>]<span class="op">,</span> <span class="fl">3000</span>))<span class="op">,</span> <span class="va">a</span> <span class="op">-</span> <span class="va">z</span><span class="op">,</span> <span class="va">v</span>)<span class="op">;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">subplot</span>(<span class="fl">1</span><span class="op">,</span><span class="fl">2</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span> <span class="va">plot</span>(<span class="va">real</span>(<span class="va">G</span>)<span class="op">,</span> <span class="va">imag</span>(<span class="va">G</span>))<span class="op">;</span> <span class="va">hold</span> <span class="va">on</span><span class="op">;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">subplot</span>(<span class="fl">1</span><span class="op">,</span><span class="fl">2</span><span class="op">,</span><span class="fl">2</span>)<span class="op">;</span> <span class="va">semilogx</span>(<span class="va">w</span><span class="op">,</span> <span class="va">w</span><span class="op">.^</span><span class="fl">2</span><span class="op">.*</span><span class="va">real</span>(<span class="va">G</span>))<span class="op">;</span> <span class="va">hold</span> <span class="va">on</span><span class="op">;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-include="../../codigo/cap11_pasividad/C11_Ej8_PR_SPR.m" data-marca="familia"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej8_PR_SPR.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Las ecuaciones KYP (§11.7).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="cap11_pasividad/C11_Ej9_KYP.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">ejemplos</span> <span class="op">=</span> { <span class="ss">'RLC s/(s^2+s+1)'</span><span class="op">,</span>      [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">1</span> <span class="op">-</span><span class="fl">1</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="fl">0</span> <span class="fl">1</span>]<span class="op">,</span>   <span class="va">eye</span>(<span class="fl">2</span>)<span class="op">,</span>         <span class="fl">0</span><span class="op">;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>             <span class="ss">'(s+3)/((s+1)(s+2))'</span><span class="op">,</span>   [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">2</span> <span class="op">-</span><span class="fl">3</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="fl">3</span> <span class="fl">1</span>]<span class="op">,</span>   [<span class="fl">11</span> <span class="fl">3</span><span class="op">;</span> <span class="fl">3</span> <span class="fl">1</span>]<span class="op">,</span>    <span class="fl">0</span><span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>             <span class="ss">'(s+1.5)/((s+1)(s+2))'</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">2</span> <span class="op">-</span><span class="fl">3</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="fl">1.5</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="fl">6.5</span> <span class="fl">1.5</span><span class="op">;</span> <span class="fl">1.5</span> <span class="fl">1</span>]<span class="op">,</span> <span class="fl">0.5</span> }<span class="op">;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">size</span>(<span class="va">ejemplos</span><span class="op">,</span> <span class="fl">1</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    [<span class="va">nombre</span><span class="op">,</span> <span class="va">A</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">C</span><span class="op">,</span> <span class="va">P</span><span class="op">,</span> <span class="va">ep</span>] <span class="op">=</span> <span class="va">ejemplos</span>{<span class="va">k</span><span class="op">,</span> <span class="op">:</span>}<span class="op">;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">M</span> <span class="op">=</span> <span class="va">P</span><span class="op">*</span><span class="va">A</span> <span class="op">+</span> <span class="va">A</span><span class="op">.'*</span><span class="va">P</span> <span class="op">+</span> <span class="va">ep</span><span class="op">*</span><span class="va">P</span><span class="op">;</span>                     <span class="co">% debe ser -L'L &lt;= 0</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">L</span> <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">max</span>(<span class="fl">0</span><span class="op">,</span> <span class="op">-</span><span class="va">diag</span>(<span class="va">M</span>)))<span class="op">.'</span> <span class="op">+</span> <span class="fl">0</span><span class="op">;</span>           <span class="co">% aquí M resulta diagonal</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">norm</span>(<span class="va">M</span> <span class="op">-</span> <span class="va">diag</span>(<span class="va">diag</span>(<span class="va">M</span>))) <span class="op">&gt;</span> <span class="fl">1e-12</span><span class="op">,</span> <span class="va">L</span> <span class="op">=</span> <span class="va">chol</span>(<span class="op">-</span><span class="va">M</span>)<span class="op">;</span> <span class="kw">end</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'%-22s eig(P) = %s  |PB - C''| = %.1e  |M + L''L| = %.1e  L = %s\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="op">...</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            <span class="va">mat2str</span>(<span class="va">eig</span>(<span class="va">P</span>)<span class="op">.',</span> <span class="fl">4</span>)<span class="op">,</span> <span class="va">norm</span>(<span class="va">P</span><span class="op">*</span><span class="va">B</span> <span class="op">-</span> <span class="va">C</span><span class="op">.'</span>)<span class="op">,</span> <span class="va">norm</span>(<span class="va">M</span> <span class="op">+</span> <span class="va">L</span><span class="op">.'*</span><span class="va">L</span>)<span class="op">,</span> <span class="va">mat2str</span>(<span class="va">L</span><span class="op">,</span> <span class="fl">4</span>))<span class="op">;</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">% el mayor eps del ejemplo SPR: PA + A'P + eps P &lt;= 0</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">2</span> <span class="op">-</span><span class="fl">3</span>]<span class="op">;</span>  <span class="va">P</span> <span class="op">=</span> [<span class="fl">6.5</span> <span class="fl">1.5</span><span class="op">;</span> <span class="fl">1.5</span> <span class="fl">1</span>]<span class="op">;</span>  <span class="va">M0</span> <span class="op">=</span> <span class="va">P</span><span class="op">*</span><span class="va">A</span> <span class="op">+</span> <span class="va">A</span><span class="op">.'*</span><span class="va">P</span><span class="op">;</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="va">epsmax</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="op">@</span>(<span class="va">e</span>) <span class="va">max</span>(<span class="va">eig</span>(<span class="va">M0</span> <span class="op">+</span> <span class="va">e</span><span class="op">*</span><span class="va">P</span>))<span class="op">,</span> [<span class="fl">0.01</span> <span class="fl">3</span>])<span class="op">;</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'ejemplo SPR: eps máximo = %.4f\n'</span><span class="op">,</span> <span class="va">epsmax</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-include="../../codigo/cap11_pasividad/C11_Ej9_KYP.m" data-marca="kyp"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej9_KYP.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Dos osciladores en lazo (§11.8).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-filename="cap11_pasividad/C11_Ej10_Interconexion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">a</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">k</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">b</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">modeloOsciladores</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">a</span><span class="op">,</span> <span class="va">k</span><span class="op">,</span> <span class="va">b</span>)<span class="op">,</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">40</span><span class="op">,</span> <span class="fl">8001</span>)<span class="op">,</span> <span class="op">...</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">1.5</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="va">V1</span> <span class="op">=</span> <span class="va">a</span><span class="op">*</span><span class="va">X</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">.^</span><span class="fl">4</span><span class="op">/</span><span class="fl">4</span> <span class="op">+</span> <span class="va">X</span>(<span class="op">:,</span><span class="fl">2</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span><span class="op">;</span>            <span class="co">% H1: resorte duro + masa</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="va">V2</span> <span class="op">=</span> <span class="va">b</span><span class="op">*</span><span class="va">X</span>(<span class="op">:,</span><span class="fl">3</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span> <span class="op">+</span> <span class="va">X</span>(<span class="op">:,</span><span class="fl">4</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span><span class="op">;</span>            <span class="co">% H2: resorte lineal + masa</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">V</span>  <span class="op">=</span> <span class="va">V1</span> <span class="op">+</span> <span class="va">V2</span><span class="op">;</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'V(0) = %.4f   max V2 = %.4f   V(40) = %.1e\n'</span><span class="op">,</span> <span class="va">V</span>(<span class="fl">1</span>)<span class="op">,</span> <span class="va">max</span>(<span class="va">V2</span>)<span class="op">,</span> <span class="va">V</span>(<span class="kw">end</span>))<span class="op">;</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'¿V no creciente? %d    ¿V1 sube en algún momento? %d\n'</span><span class="op">,</span> <span class="va">all</span>(<span class="va">diff</span>(<span class="va">V</span>) <span class="op">&lt;=</span> <span class="fl">1e-10</span>)<span class="op">,</span> <span class="op">...</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">any</span>(<span class="va">diff</span>(<span class="va">V1</span>) <span class="op">&gt;</span> <span class="fl">1e-6</span>))<span class="op">;</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="va">dVteo</span> <span class="op">=</span> <span class="op">-</span><span class="va">k</span><span class="op">*</span><span class="va">X</span>(<span class="op">:,</span><span class="fl">2</span>)<span class="op">.^</span><span class="fl">2</span> <span class="op">-</span> <span class="va">X</span>(<span class="op">:,</span><span class="fl">4</span>)<span class="op">.^</span><span class="fl">4</span><span class="op">;</span>            <span class="co">% V' = -k y1^2 - y2^4</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="va">dVnum</span> <span class="op">=</span> <span class="va">gradient</span>(<span class="va">V</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'max |V''(numérica) - (-k y1^2 - y2^4)| = %.1e\n'</span><span class="op">,</span> <span class="op">...</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">max</span>(<span class="va">abs</span>(<span class="va">dVnum</span>(<span class="fl">3</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">2</span>) <span class="op">-</span> <span class="va">dVteo</span>(<span class="fl">3</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">2</span>))))<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-include="../../codigo/cap11_pasividad/C11_Ej10_Interconexion.m" data-marca="lazo"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej10_Interconexion.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p><strong>El modelo, una sola función para scripts y Simulink.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="cap11_pasividad/modeloAgua.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">dx</span> <span class="op">=</span> <span class="va">modeloAgua</span>(<span class="va">x</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="va">Q</span><span class="op">,</span> <span class="va">r</span><span class="op">,</span> <span class="va">vm</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">% MODELOAGUA  Tanques + dinámica del replicador (sección 11.10; Ramírez-Llanos y Quijano, 2010).</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   x = [v; q]  (N volúmenes y N caudales),  c: coeficientes de descarga (N x 1)</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   v_i' = q_i - c_i sqrt(v_i)                      (Torricelli)</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   q_i' = q_i (F_i - Fbar),  F_i = r (1 - v_i/vm),  Fbar = (1/Q) sum_j q_j F_j</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   Notación del artículo -&gt; curso: x_i -&gt; q_i, f_i -&gt; F_i, Sigma_1,2 -&gt; H_1,2.</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="va">N</span> <span class="op">=</span> <span class="va">numel</span>(<span class="va">x</span>)<span class="op">/</span><span class="fl">2</span><span class="op">;</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="va">v</span> <span class="op">=</span> <span class="va">max</span>(<span class="va">x</span>(<span class="fl">1</span><span class="op">:</span><span class="va">N</span>)<span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span>            <span class="co">% sqrt no está definida para v &lt; 0 (error numérico)</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="va">q</span> <span class="op">=</span> <span class="va">x</span>(<span class="va">N</span><span class="op">+</span><span class="fl">1</span><span class="op">:</span><span class="kw">end</span>)<span class="op">;</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="va">F</span> <span class="op">=</span> <span class="va">r</span><span class="op">*</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">v</span><span class="op">/</span><span class="va">vm</span>)<span class="op">;</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="va">Fbar</span> <span class="op">=</span> (<span class="va">q</span><span class="op">.'*</span><span class="va">F</span>)<span class="op">/</span><span class="va">Q</span><span class="op">;</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="va">dx</span> <span class="op">=</span> [<span class="va">q</span> <span class="op">-</span> <span class="va">c</span>(<span class="op">:</span>)<span class="op">.*</span><span class="va">sqrt</span>(<span class="va">v</span>)<span class="op">;</span> <span class="va">q</span><span class="op">.*</span>(<span class="va">F</span> <span class="op">-</span> <span class="va">Fbar</span>)]<span class="op">;</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-include="../../codigo/cap11_pasividad/modeloAgua.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/modeloAgua.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Cambio de demanda (§11.10).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-filename="cap11_pasividad/C11_Ej13_Agua.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">x0</span>  <span class="op">=</span> [<span class="fl">0.1</span><span class="op">;</span> <span class="fl">0.8</span><span class="op">;</span> <span class="fl">0.3</span><span class="op">;</span> <span class="fl">0.9</span><span class="op">;</span> <span class="fl">0.6</span><span class="op">;</span> <span class="fl">0.5</span>]<span class="op">;</span>           <span class="co">% [v; q], con sum q = Q</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>[<span class="va">t1</span><span class="op">,</span> <span class="va">X1</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">modeloAgua</span>(<span class="va">x</span><span class="op">,</span> <span class="va">c1</span><span class="op">,</span> <span class="va">Q</span><span class="op">,</span> <span class="va">r</span><span class="op">,</span> <span class="va">vm</span>)<span class="op">,</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">40</span><span class="op">,</span> <span class="fl">4001</span>)<span class="op">,</span> <span class="va">x0</span><span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>[<span class="va">t2</span><span class="op">,</span> <span class="va">X2</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">modeloAgua</span>(<span class="va">x</span><span class="op">,</span> <span class="va">c2</span><span class="op">,</span> <span class="va">Q</span><span class="op">,</span> <span class="va">r</span><span class="op">,</span> <span class="va">vm</span>)<span class="op">,</span> <span class="va">linspace</span>(<span class="fl">40</span><span class="op">,</span> <span class="fl">80</span><span class="op">,</span> <span class="fl">4001</span>)<span class="op">,</span> <span class="op">...</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">X1</span>(<span class="kw">end</span><span class="op">,:</span>)<span class="op">.',</span> <span class="va">opc</span>)<span class="op">;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>[<span class="va">V1a</span><span class="op">,</span> <span class="va">V2a</span>] <span class="op">=</span> <span class="va">energiaAgua</span>(<span class="va">X1</span><span class="op">,</span> <span class="va">c1</span><span class="op">,</span> <span class="va">Q</span><span class="op">,</span> <span class="va">r</span><span class="op">,</span> <span class="va">vm</span>)<span class="op">;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>[<span class="va">V1b</span><span class="op">,</span> <span class="va">V2b</span>] <span class="op">=</span> <span class="va">energiaAgua</span>(<span class="va">X2</span><span class="op">,</span> <span class="va">c2</span><span class="op">,</span> <span class="va">Q</span><span class="op">,</span> <span class="va">r</span><span class="op">,</span> <span class="va">vm</span>)<span class="op">;</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> [<span class="va">t1</span><span class="op">;</span> <span class="va">t2</span>]<span class="op">;</span>   <span class="va">X</span> <span class="op">=</span> [<span class="va">X1</span><span class="op">;</span> <span class="va">X2</span>]<span class="op">;</span>   <span class="va">V</span> <span class="op">=</span> [<span class="va">V1a</span> <span class="op">+</span> <span class="va">V2a</span><span class="op">;</span> <span class="va">V1b</span> <span class="op">+</span> <span class="va">V2b</span>]<span class="op">;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'max |sum q - Q| = %.1e\n'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">sum</span>(<span class="va">X</span>(<span class="op">:,</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span>)<span class="op">,</span> <span class="fl">2</span>) <span class="op">-</span> <span class="va">Q</span>)))<span class="op">;</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'¿V no creciente en cada tramo? %d %d\n'</span><span class="op">,</span> <span class="va">all</span>(<span class="va">diff</span>(<span class="va">V1a</span> <span class="op">+</span> <span class="va">V2a</span>) <span class="op">&lt;=</span> <span class="fl">1e-9</span>)<span class="op">,</span> <span class="op">...</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">all</span>(<span class="va">diff</span>(<span class="va">V1b</span> <span class="op">+</span> <span class="va">V2b</span>) <span class="op">&lt;=</span> <span class="fl">1e-9</span>))<span class="op">;</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'v(80) = %s   q(80) = %s\n'</span><span class="op">,</span> <span class="va">mat2str</span>(<span class="va">X</span>(<span class="kw">end</span><span class="op">,</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>)<span class="op">,</span> <span class="fl">4</span>)<span class="op">,</span> <span class="va">mat2str</span>(<span class="va">X</span>(<span class="kw">end</span><span class="op">,</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span>)<span class="op">,</span> <span class="fl">4</span>))<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-include="../../codigo/cap11_pasividad/C11_Ej13_Agua.m" data-marca="simulacion"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej13_Agua.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>La trampa de las caras (§11.10).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="cap11_pasividad/C11_Ej14_AguaCaras.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">Q</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">r</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">vm</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">c</span> <span class="op">=</span> [<span class="fl">0.6</span><span class="op">;</span> <span class="fl">1.0</span><span class="op">;</span> <span class="fl">1.4</span>]<span class="op">;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'tanque 3 sin caudal: se vacía en t = 2 sqrt(v3(0))/c3 = %.4f s\n'</span><span class="op">,</span> <span class="op">...</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="fl">2</span><span class="op">*</span><span class="va">sqrt</span>(<span class="fl">0.4</span>)<span class="op">/</span><span class="fl">1.4</span>)<span class="op">;</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">q30</span> <span class="op">=</span> <span class="fl">10</span><span class="op">.^</span>(<span class="op">-</span><span class="fl">2</span><span class="op">:-</span><span class="fl">2</span><span class="op">:-</span><span class="fl">8</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">x0</span>  <span class="op">=</span> [<span class="fl">0.4</span><span class="op">;</span> <span class="fl">0.4</span><span class="op">;</span> <span class="fl">0.4</span><span class="op">;</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">q30</span><span class="op">/</span><span class="fl">2</span><span class="op">;</span> <span class="fl">1</span> <span class="op">-</span> <span class="va">q30</span><span class="op">/</span><span class="fl">2</span><span class="op">;</span> <span class="va">q30</span>]<span class="op">;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">ev</span>  <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">deal</span>(<span class="va">x</span>(<span class="fl">6</span>) <span class="op">-</span> <span class="fl">0.5</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span>           <span class="co">% q3 cruza 0.5 subiendo</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-8</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> [<span class="fl">1e-10</span><span class="op">*</span><span class="va">ones</span>(<span class="fl">5</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span> <span class="fl">1e-3</span><span class="op">*</span><span class="va">q30</span>]<span class="op">,</span> <span class="ss">'Events'</span><span class="op">,</span> <span class="op">...</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="va">ev</span>)<span class="op">;</span>   <span class="co">% tolerancia a la escala de q3</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    [<span class="op">~,</span> <span class="op">~,</span> <span class="va">te</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">modeloAgua</span>(<span class="va">x</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="va">Q</span><span class="op">,</span> <span class="va">r</span><span class="op">,</span> <span class="va">vm</span>)<span class="op">,</span> [<span class="fl">0</span> <span class="fl">40</span>]<span class="op">,</span> <span class="va">x0</span><span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'q3(0) = %.0e:  q3 llega a 0.5 en t = %.2f s\n'</span><span class="op">,</span> <span class="va">q30</span><span class="op">,</span> <span class="va">te</span>)<span class="op">;</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-include="../../codigo/cap11_pasividad/C11_Ej14_AguaCaras.m" data-marca="caras"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej14_AguaCaras.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <p><strong>PD con y sin compensación de gravedad (§11.9).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-filename="cap11_pasividad/C11_Ej11_ControlPasividad.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">m</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">l</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">g</span> <span class="op">=</span> <span class="fl">9.81</span><span class="op">;</span>  <span class="va">bf</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">Kp</span> <span class="op">=</span> <span class="fl">20</span><span class="op">;</span>  <span class="va">Kd</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span>  <span class="va">qr</span> <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">3</span><span class="op">;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">compensa</span> <span class="op">=</span> [<span class="va">true</span> <span class="va">false</span>]</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">ley</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">q</span><span class="op">,</span> <span class="va">dq</span>) <span class="va">compensa</span><span class="op">*</span><span class="va">m</span><span class="op">*</span><span class="va">g</span><span class="op">*</span><span class="va">l</span><span class="op">*</span><span class="va">sin</span>(<span class="va">q</span>) <span class="op">-</span> <span class="va">Kp</span><span class="op">*</span>(<span class="va">q</span> <span class="op">-</span> <span class="va">qr</span>) <span class="op">-</span> <span class="va">Kd</span><span class="op">*</span><span class="va">dq</span><span class="op">;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">f</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> (<span class="va">ley</span>(<span class="va">x</span>(<span class="fl">1</span>)<span class="op">,</span> <span class="va">x</span>(<span class="fl">2</span>)) <span class="op">-</span> <span class="va">bf</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="va">m</span><span class="op">*</span><span class="va">g</span><span class="op">*</span><span class="va">l</span><span class="op">*</span><span class="va">sin</span>(<span class="va">x</span>(<span class="fl">1</span>)))<span class="op">/</span>(<span class="va">m</span><span class="op">*</span><span class="va">l</span><span class="op">^</span><span class="fl">2</span>)]<span class="op">;</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    [<span class="va">t</span><span class="op">,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">f</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">10</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'compensación = %d:  q(10) = %.4f rad = %.2f°\n'</span><span class="op">,</span> <span class="va">compensa</span><span class="op">,</span> <span class="va">X</span>(<span class="kw">end</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> <span class="op">...</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>            <span class="va">rad2deg</span>(<span class="va">X</span>(<span class="kw">end</span><span class="op">,</span><span class="fl">1</span>)))<span class="op">;</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="va">qss</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="op">@</span>(<span class="va">q</span>) <span class="va">Kp</span><span class="op">*</span>(<span class="va">qr</span> <span class="op">-</span> <span class="va">q</span>) <span class="op">-</span> <span class="va">m</span><span class="op">*</span><span class="va">g</span><span class="op">*</span><span class="va">l</span><span class="op">*</span><span class="va">sin</span>(<span class="va">q</span>)<span class="op">,</span> [<span class="fl">0</span> <span class="va">qr</span>])<span class="op">;</span>    <span class="co">% equilibrio del PD solo</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'PD solo: equilibrio q = %.4f rad; error = %.2f°\n'</span><span class="op">,</span> <span class="va">qss</span><span class="op">,</span> <span class="va">rad2deg</span>(<span class="va">qr</span> <span class="op">-</span> <span class="va">qss</span>))<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-include="../../codigo/cap11_pasividad/C11_Ej11_ControlPasividad.m" data-marca="pendulo"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej11_ControlPasividad.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Escape en tiempo finito de una cascada (§11.9).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-filename="cap11_pasividad/C11_Ej12_Cascada.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">x0</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">z0</span> <span class="op">=</span> <span class="fl">3</span><span class="op">;</span>                   <span class="co">% x0 z0 = 3 &gt; 1 + k = 2</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="va">evento</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">deal</span>(<span class="va">abs</span>(<span class="va">x</span>(<span class="fl">1</span>)) <span class="op">-</span> <span class="fl">1e6</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-11</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span><span class="op">,</span> <span class="ss">'Events'</span><span class="op">,</span> <span class="va">evento</span>)<span class="op">;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">X</span><span class="op">,</span> <span class="va">te</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="op">-</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">+</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">^</span><span class="fl">2</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="op">-</span><span class="va">k</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>)]<span class="op">,</span> [<span class="fl">0</span> <span class="fl">5</span>]<span class="op">,</span> [<span class="va">x0</span><span class="op">;</span> <span class="va">z0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">% fórmula exacta: con w = 1/x, w' = w - z0 e^{-k t}  -&gt;  w = 0 en</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="va">tex</span> <span class="op">=</span> <span class="va">log</span>((<span class="va">z0</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">k</span>))<span class="op">/</span>(<span class="va">z0</span><span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">k</span>) <span class="op">-</span> <span class="fl">1</span><span class="op">/</span><span class="va">x0</span>))<span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">k</span>)<span class="op">;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'u = -k z: |x| llega a 1e6 en t = %.4f;  escape exacto en t = %.4f\n'</span><span class="op">,</span> <span class="va">te</span><span class="op">,</span> <span class="va">tex</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-include="../../codigo/cap11_pasividad/C11_Ej12_Cascada.m" data-marca="escape"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/C11_Ej12_Cascada.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
 <p>Los modelos se <strong>construyen por código</strong>: ejecute el script y se crea, se simula y se compara con <code>ode45</code>.</p>
 <p><strong><code>LazoPasivo.slx</code>: dos osciladores en la conexión estándar, con <span class="math inline">\(V_1\)</span>, <span class="math inline">\(V_2\)</span> y <span class="math inline">\(V\)</span> en línea.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-filename="cap11_pasividad/crearModelo_LazoPasivo.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% crearModelo_LazoPasivo -- Construye "LazoPasivo.slx" (sección 11.8)</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Dos osciladores no lineales en la conexión estándar de Khalil (Fig. 6.11):</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   H1: x1' = x2,  x2' = -a x1^3 - k x2 + e1,  y1 = x2      (OSP y ZSO)</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   H2: x3' = x4,  x4' = -b x3 - x4^3 + e2,    y2 = x4      (OSP y ZSO)</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   e1 = u1 - y2,  e2 = u2 + y1.</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">% Calcula en línea V1, V2 y V = V1 + V2, los muestra en un Scope y los guarda</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">% en el workspace; al final compara con ode45 (modeloOsciladores.m).</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">% USO   1) ejecute el script (crea, simula y compara);</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">%       2) abra el Scope "energias": V1 y V2 suben y bajan, V solo baja;</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">%       3) cambie el signo del sumador e1 a '++' y vuelva a simular (trampa del signo).</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="va">clear</span><span class="op">;</span> <span class="va">clc</span><span class="op">;</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="va">a</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">k</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">b</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">x0</span> <span class="op">=</span> [<span class="fl">1.5</span> <span class="fl">0</span> <span class="fl">0</span> <span class="fl">0</span>]<span class="op">;</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="va">vars</span> <span class="op">=</span> {<span class="ss">'a'</span><span class="op">,</span> <span class="ss">'k'</span><span class="op">,</span> <span class="ss">'b'</span><span class="op">,</span> <span class="ss">'x0'</span>}<span class="op">;</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">numel</span>(<span class="va">vars</span>)<span class="op">,</span> <span class="va">assignin</span>(<span class="ss">'base'</span><span class="op">,</span> <span class="va">vars</span>{<span class="va">i</span>}<span class="op">,</span> <span class="va">eval</span>(<span class="va">vars</span>{<span class="va">i</span>}))<span class="op">;</span> <span class="kw">end</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="va">mdl</span> <span class="op">=</span> <span class="ss">'LazoPasivo'</span><span class="op">;</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">bdIsLoaded</span>(<span class="va">mdl</span>)<span class="op">,</span> <span class="va">close_system</span>(<span class="va">mdl</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span> <span class="kw">end</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="va">new_system</span>(<span class="va">mdl</span>)<span class="op">;</span>  <span class="va">open_system</span>(<span class="va">mdl</span>)<span class="op">;</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">tipo</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">varargin</span>) <span class="va">add_block</span>(<span class="va">tipo</span><span class="op">,</span> [<span class="va">mdl</span> <span class="ss">'/'</span> <span class="va">nombre</span>]<span class="op">,</span> <span class="va">varargin</span>{<span class="op">:</span>})<span class="op">;</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">desde</span><span class="op">,</span> <span class="va">hasta</span>) <span class="va">add_line</span>(<span class="va">mdl</span><span class="op">,</span> <span class="va">desde</span><span class="op">,</span> <span class="va">hasta</span><span class="op">,</span> <span class="ss">'autorouting'</span><span class="op">,</span> <span class="ss">'on'</span>)<span class="op">;</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co">% --- entradas externas (cero: el lazo evoluciona solo) y conexión estándar</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Sources/Constant'</span><span class="op">,</span> <span class="ss">'u1'</span><span class="op">,</span> <span class="ss">'Value'</span><span class="op">,</span> <span class="ss">'0'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">20</span> <span class="fl">40</span> <span class="fl">50</span> <span class="fl">60</span>])<span class="op">;</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Sources/Constant'</span><span class="op">,</span> <span class="ss">'u2'</span><span class="op">,</span> <span class="ss">'Value'</span><span class="op">,</span> <span class="ss">'0'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">520</span> <span class="fl">260</span> <span class="fl">550</span> <span class="fl">280</span>])<span class="op">;</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Math Operations/Sum'</span><span class="op">,</span> <span class="ss">'e1 = u1 - y2'</span><span class="op">,</span> <span class="ss">'Inputs'</span><span class="op">,</span> <span class="ss">'+-'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">90</span> <span class="fl">40</span> <span class="fl">110</span> <span class="fl">60</span>])<span class="op">;</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Math Operations/Sum'</span><span class="op">,</span> <span class="ss">'e2 = u2 + y1'</span><span class="op">,</span> <span class="ss">'Inputs'</span><span class="op">,</span> <span class="ss">'++'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">460</span> <span class="fl">250</span> <span class="fl">480</span> <span class="fl">270</span>])<span class="op">;</span></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co">% --- H1</span></span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Signal Routing/Mux'</span><span class="op">,</span> <span class="ss">'mux H1'</span><span class="op">,</span> <span class="ss">'Inputs'</span><span class="op">,</span> <span class="ss">'3'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">150</span> <span class="fl">20</span> <span class="fl">155</span> <span class="fl">90</span>])<span class="op">;</span></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/User-Defined Functions/Fcn'</span><span class="op">,</span> <span class="ss">'x2'' (H1)'</span><span class="op">,</span> <span class="ss">'Expr'</span><span class="op">,</span> <span class="ss">'-a*u(1)^3 - k*u(2) + u(3)'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">180</span> <span class="fl">40</span> <span class="fl">300</span> <span class="fl">70</span>])<span class="op">;</span></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Continuous/Integrator'</span><span class="op">,</span> <span class="ss">'x2'</span><span class="op">,</span> <span class="ss">'InitialCondition'</span><span class="op">,</span> <span class="ss">'x0(2)'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">330</span> <span class="fl">40</span> <span class="fl">360</span> <span class="fl">70</span>])<span class="op">;</span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Continuous/Integrator'</span><span class="op">,</span> <span class="ss">'x1'</span><span class="op">,</span> <span class="ss">'InitialCondition'</span><span class="op">,</span> <span class="ss">'x0(1)'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">400</span> <span class="fl">100</span> <span class="fl">430</span> <span class="fl">130</span>])<span class="op">;</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co">% --- H2</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Signal Routing/Mux'</span><span class="op">,</span> <span class="ss">'mux H2'</span><span class="op">,</span> <span class="ss">'Inputs'</span><span class="op">,</span> <span class="ss">'3'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">420</span> <span class="fl">200</span> <span class="fl">425</span> <span class="fl">270</span>]<span class="op">,</span> <span class="ss">'Orientation'</span><span class="op">,</span> <span class="ss">'left'</span>)<span class="op">;</span></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/User-Defined Functions/Fcn'</span><span class="op">,</span> <span class="ss">'x4'' (H2)'</span><span class="op">,</span> <span class="ss">'Expr'</span><span class="op">,</span> <span class="ss">'-b*u(1) - u(2)^3 + u(3)'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">270</span> <span class="fl">220</span> <span class="fl">390</span> <span class="fl">250</span>]<span class="op">,</span> <span class="ss">'Orientation'</span><span class="op">,</span> <span class="ss">'left'</span>)<span class="op">;</span></span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Continuous/Integrator'</span><span class="op">,</span> <span class="ss">'x4'</span><span class="op">,</span> <span class="ss">'InitialCondition'</span><span class="op">,</span> <span class="ss">'x0(4)'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">200</span> <span class="fl">220</span> <span class="fl">230</span> <span class="fl">250</span>]<span class="op">,</span> <span class="ss">'Orientation'</span><span class="op">,</span> <span class="ss">'left'</span>)<span class="op">;</span></span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Continuous/Integrator'</span><span class="op">,</span> <span class="ss">'x3'</span><span class="op">,</span> <span class="ss">'InitialCondition'</span><span class="op">,</span> <span class="ss">'x0(3)'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">130</span> <span class="fl">290</span> <span class="fl">160</span> <span class="fl">320</span>]<span class="op">,</span> <span class="ss">'Orientation'</span><span class="op">,</span> <span class="ss">'left'</span>)<span class="op">;</span></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a><span class="co">% --- energías</span></span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Signal Routing/Mux'</span><span class="op">,</span> <span class="ss">'mux x'</span><span class="op">,</span> <span class="ss">'Inputs'</span><span class="op">,</span> <span class="ss">'4'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">560</span> <span class="fl">330</span> <span class="fl">565</span> <span class="fl">410</span>])<span class="op">;</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/User-Defined Functions/Fcn'</span><span class="op">,</span> <span class="ss">'V1'</span><span class="op">,</span> <span class="ss">'Expr'</span><span class="op">,</span> <span class="ss">'a*u(1)^4/4 + u(2)^2/2'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">600</span> <span class="fl">330</span> <span class="fl">700</span> <span class="fl">355</span>])<span class="op">;</span></span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/User-Defined Functions/Fcn'</span><span class="op">,</span> <span class="ss">'V2'</span><span class="op">,</span> <span class="ss">'Expr'</span><span class="op">,</span> <span class="ss">'b*u(3)^2/2 + u(4)^2/2'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">600</span> <span class="fl">385</span> <span class="fl">700</span> <span class="fl">410</span>])<span class="op">;</span></span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Math Operations/Sum'</span><span class="op">,</span> <span class="ss">'V'</span><span class="op">,</span> <span class="ss">'Inputs'</span><span class="op">,</span> <span class="ss">'++'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">740</span> <span class="fl">360</span> <span class="fl">760</span> <span class="fl">380</span>])<span class="op">;</span></span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Signal Routing/Mux'</span><span class="op">,</span> <span class="ss">'mux V'</span><span class="op">,</span> <span class="ss">'Inputs'</span><span class="op">,</span> <span class="ss">'3'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">790</span> <span class="fl">330</span> <span class="fl">795</span> <span class="fl">410</span>])<span class="op">;</span></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Sinks/Scope'</span><span class="op">,</span> <span class="ss">'energias'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">830</span> <span class="fl">355</span> <span class="fl">860</span> <span class="fl">385</span>])<span class="op">;</span></span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="va">blk</span>(<span class="ss">'simulink/Sinks/To Workspace'</span><span class="op">,</span> <span class="ss">'a workspace'</span><span class="op">,</span> <span class="ss">'VariableName'</span><span class="op">,</span> <span class="ss">'Vsim'</span><span class="op">,</span> <span class="ss">'SaveFormat'</span><span class="op">,</span> <span class="ss">'Array'</span><span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> [<span class="fl">830</span> <span class="fl">420</span> <span class="fl">900</span> <span class="fl">440</span>])<span class="op">;</span></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'u1/1'</span><span class="op">,</span> <span class="ss">'e1 = u1 - y2/1'</span>)<span class="op">;</span>   <span class="va">lin</span>(<span class="ss">'e1 = u1 - y2/1'</span><span class="op">,</span> <span class="ss">'mux H1/3'</span>)<span class="op">;</span></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'x1/1'</span><span class="op">,</span> <span class="ss">'mux H1/1'</span>)<span class="op">;</span>         <span class="va">lin</span>(<span class="ss">'x2/1'</span><span class="op">,</span> <span class="ss">'mux H1/2'</span>)<span class="op">;</span></span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'mux H1/1'</span><span class="op">,</span> <span class="ss">'x2'' (H1)/1'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'x2'' (H1)/1'</span><span class="op">,</span> <span class="ss">'x2/1'</span>)<span class="op">;</span>   <span class="va">lin</span>(<span class="ss">'x2/1'</span><span class="op">,</span> <span class="ss">'x1/1'</span>)<span class="op">;</span></span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'x2/1'</span><span class="op">,</span> <span class="ss">'e2 = u2 + y1/2'</span>)<span class="op">;</span>   <span class="va">lin</span>(<span class="ss">'u2/1'</span><span class="op">,</span> <span class="ss">'e2 = u2 + y1/1'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'e2 = u2 + y1/1'</span><span class="op">,</span> <span class="ss">'mux H2/3'</span>)<span class="op">;</span></span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'x3/1'</span><span class="op">,</span> <span class="ss">'mux H2/1'</span>)<span class="op">;</span>         <span class="va">lin</span>(<span class="ss">'x4/1'</span><span class="op">,</span> <span class="ss">'mux H2/2'</span>)<span class="op">;</span></span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'mux H2/1'</span><span class="op">,</span> <span class="ss">'x4'' (H2)/1'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'x4'' (H2)/1'</span><span class="op">,</span> <span class="ss">'x4/1'</span>)<span class="op">;</span>   <span class="va">lin</span>(<span class="ss">'x4/1'</span><span class="op">,</span> <span class="ss">'x3/1'</span>)<span class="op">;</span></span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'x4/1'</span><span class="op">,</span> <span class="ss">'e1 = u1 - y2/2'</span>)<span class="op">;</span></span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'x1/1'</span><span class="op">,</span> <span class="ss">'mux x/1'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'x2/1'</span><span class="op">,</span> <span class="ss">'mux x/2'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'x3/1'</span><span class="op">,</span> <span class="ss">'mux x/3'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'x4/1'</span><span class="op">,</span> <span class="ss">'mux x/4'</span>)<span class="op">;</span></span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'mux x/1'</span><span class="op">,</span> <span class="ss">'V1/1'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'mux x/1'</span><span class="op">,</span> <span class="ss">'V2/1'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'V1/1'</span><span class="op">,</span> <span class="ss">'V/1'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'V2/1'</span><span class="op">,</span> <span class="ss">'V/2'</span>)<span class="op">;</span></span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'V1/1'</span><span class="op">,</span> <span class="ss">'mux V/1'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'V2/1'</span><span class="op">,</span> <span class="ss">'mux V/2'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'V/1'</span><span class="op">,</span> <span class="ss">'mux V/3'</span>)<span class="op">;</span></span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a><span class="va">lin</span>(<span class="ss">'mux V/1'</span><span class="op">,</span> <span class="ss">'energias/1'</span>)<span class="op">;</span>  <span class="va">lin</span>(<span class="ss">'mux V/1'</span><span class="op">,</span> <span class="ss">'a workspace/1'</span>)<span class="op">;</span></span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="kw">try</span><span class="op">,</span> <span class="va">Simulink</span>.<span class="va">BlockDiagram</span>.<span class="va">arrangeSystem</span>(<span class="va">mdl</span>)<span class="op">;</span> <span class="kw">catch</span><span class="op">,</span> <span class="kw">end</span>   <span class="co">% (R2018b o posterior)</span></span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="va">set_param</span>(<span class="va">mdl</span><span class="op">,</span> <span class="ss">'StopTime'</span><span class="op">,</span> <span class="ss">'40'</span><span class="op">,</span> <span class="ss">'Solver'</span><span class="op">,</span> <span class="ss">'ode45'</span><span class="op">,</span> <span class="ss">'RelTol'</span><span class="op">,</span> <span class="ss">'1e-8'</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="ss">'1e-10'</span><span class="op">,</span> <span class="ss">'MaxStep'</span><span class="op">,</span> <span class="ss">'0.01'</span>)<span class="op">;</span></span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="va">save_system</span>(<span class="va">mdl</span>)<span class="op">;</span></span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Modelo %s.slx creado. Simulando...\n'</span><span class="op">,</span> <span class="va">mdl</span>)<span class="op">;</span></span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a><span class="co">% --- simular y comparar con ode45</span></span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a><span class="va">salida</span> <span class="op">=</span> <span class="va">sim</span>(<span class="va">mdl</span>)<span class="op">;</span></span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a><span class="va">tS</span> <span class="op">=</span> <span class="va">salida</span>.<span class="va">tout</span><span class="op">;</span>   <span class="va">VS</span> <span class="op">=</span> <span class="va">salida</span>.<span class="va">get</span>(<span class="ss">'Vsim'</span>)<span class="op">;</span></span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>[<span class="va">tO</span><span class="op">,</span> <span class="va">XO</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">modeloOsciladores</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">a</span><span class="op">,</span> <span class="va">k</span><span class="op">,</span> <span class="va">b</span>)<span class="op">,</span> <span class="va">tS</span><span class="op">,</span> <span class="va">x0</span>(<span class="op">:</span>)<span class="op">,</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>))<span class="op">;</span></span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a><span class="va">VO</span> <span class="op">=</span> <span class="va">a</span><span class="op">*</span><span class="va">XO</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">.^</span><span class="fl">4</span><span class="op">/</span><span class="fl">4</span> <span class="op">+</span> <span class="va">XO</span>(<span class="op">:,</span><span class="fl">2</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span> <span class="op">+</span> <span class="va">b</span><span class="op">*</span><span class="va">XO</span>(<span class="op">:,</span><span class="fl">3</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span> <span class="op">+</span> <span class="va">XO</span>(<span class="op">:,</span><span class="fl">4</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span><span class="op">;</span></span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'max |V(Simulink) - V(ode45)| = %.1e   (esperado &lt; 1e-5)\n'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">VS</span>(<span class="op">:,</span><span class="fl">3</span>) <span class="op">-</span> <span class="va">VO</span>)))<span class="op">;</span></span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'¿V no creciente en Simulink? %d\n'</span><span class="op">,</span> <span class="va">all</span>(<span class="va">diff</span>(<span class="va">VS</span>(<span class="op">:,</span><span class="fl">3</span>)) <span class="op">&lt;=</span> <span class="fl">1e-8</span>))<span class="op">;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-include="../../codigo/cap11_pasividad/crearModelo_LazoPasivo.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap11_pasividad/crearModelo_LazoPasivo.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1021,54 +527,6 @@ PA+A\T P=-L\T L-\epsilon P,\qquad PB=C\T-L\T W,\qquad W\T W=D+D\T ,
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const toggle = window.document.createElement('button');
-      toggle.type = "button";
-      toggle.setAttribute("role", "switch");
-      toggle.setAttribute("aria-checked", "false");
-      toggle.classList.add('top-right');
-      toggle.classList.add('quarto-color-scheme-toggle');
-      toggle.setAttribute("aria-label", "Alternar modo oscuro");
-      toggle.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      toggle.appendChild(i);
-      // Put the toggle in a landmark of its own, so that landmark navigation
-      // can reach it.
-      //
-      // The container is always a fresh direct child of body, and the toggle is
-      // never moved into page furniture that the theme or the author controls.
-      // The toggle is positioned against the page, so any ancestor that
-      // establishes a containing block captures it: a positioned element or a
-      // grid for position: absolute, and transform, filter, will-change or
-      // contain for position: fixed. A direct child of body has none of these
-      // to inherit, and the shift when one appears is silent and visual.
-      //
-      // ARIA says a document should have at most one banner, and axe reports a
-      // duplicate whether or not the banners carry distinct labels. So use a
-      // header when the page has no banner yet, and a named region otherwise.
-      //
-      // A header is a banner wherever it sits, unless it is inside sectioning
-      // content, so this cannot just look at the children of body: a custom
-      // page layout wraps the title block header in a plain div. An explicit
-      // role="banner" always counts.
-      const sectioning = 'article, aside, main, nav, section, [role="article"], [role="complementary"], [role="main"], [role="navigation"], [role="region"]';
-      const hasBanner = Array.from(
-        window.document.querySelectorAll('header:not([role]), [role="banner"]')
-      ).some(function(el) {
-        return el.hasAttribute("role") || el.closest(sectioning) === null;
-      });
-      const container = window.document.createElement(hasBanner ? "div" : "header");
-      if (hasBanner) {
-        container.setAttribute("role", "region");
-        container.setAttribute("aria-label", "Alternar modo oscuro");
-      }
-      container.classList.add('quarto-color-scheme-toggle-container');
-      container.appendChild(toggle);
-      window.document.body.appendChild(container);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
@@ -1145,8 +603,7 @@ PA+A\T P=-L\T L-\epsilon P,\qquad PB=C\T-L\T W,\qquad W\T W=D+D\T ,
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-      window.quartoDecorateExternalLinks = function (root) {
-     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -1155,69 +612,8 @@ PA+A\T P=-L\T L-\epsilon P,\qquad PB=C\T-L\T W,\qquad W\T W=D+D\T ,
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-          if (!link.classList.contains('no-external-icon')) {
-          }
         }
       }
-      };
-      window.quartoDecorateExternalLinks(window.document);
-    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
-    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
-    const hideOnEscAndFocusOut = {
-      name: 'hideOnEscAndFocusOut',
-      defaultValue: true,
-      fn(instance) {
-        const dismiss = () => {
-          // A show scheduled by the trigger delay would otherwise reopen it
-          instance.clearDelayTimeouts();
-          instance.hide();
-        };
-        const onKeyDown = (event) => {
-          if (event.key !== 'Escape') {
-            return;
-          }
-          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
-          // except an open reveal.js slide menu, which Esc should close too.
-          // The menu handles keys only when its keyboard option is on.
-          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
-            window.Reveal.getConfig().menu?.keyboard !== false;
-          if (!menuHandlesEsc) {
-            event.stopPropagation();
-          }
-          if (instance.popper.contains(window.document.activeElement)) {
-            // Disabled while refocusing so the focus trigger does not reopen it
-            instance.disable();
-            instance.reference.focus();
-            instance.enable();
-          }
-          dismiss();
-        };
-        const onFocusOut = (event) => {
-          const target = event.relatedTarget;
-          if (target && !instance.reference.contains(target) &&
-              !instance.popper.contains(target)) {
-            dismiss();
-          }
-        };
-        // On the trigger too: a click trigger (code-annotations: select) has no
-        // blur handling. Attached for the instance's lifetime so leaving the
-        // trigger also cancels a show still pending on the trigger delay.
-        instance.reference.addEventListener('focusout', onFocusOut);
-        return {
-          onShow() {
-            window.document.addEventListener('keydown', onKeyDown, true);
-            instance.popper.addEventListener('focusout', onFocusOut);
-          },
-          onHide() {
-            window.document.removeEventListener('keydown', onKeyDown, true);
-            instance.popper.removeEventListener('focusout', onFocusOut);
-          },
-          onDestroy() {
-            instance.reference.removeEventListener('focusout', onFocusOut);
-          },
-        };
-      },
-    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -1231,7 +627,6 @@ PA+A\T P=-L\T L-\epsilon P,\qquad PB=C\T-L\T W,\qquad W\T W=D+D\T ,
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
-        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -1394,54 +789,44 @@ PA+A\T P=-L\T L-\epsilon P,\qquad PB=C\T-L\T W,\qquad W\T W=D+D\T ,
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          // Each band is positioned against its own containing block, which is
-          // not the offsetParent of the lines, so place it from client rects.
-          const placeBand = (band, firstEl, lastEl, codeBlock) => {
-            const container = band.offsetParent;
-            if (container === null) {
-              return;
-            }
-            const containerRect = container.getBoundingClientRect();
-            // Reveal.js scales slides with a transform, so convert client
-            // pixels back to the CSS pixels of the container.
-            const scale = containerRect.height / container.offsetHeight || 1;
-            const firstRect = firstEl.getBoundingClientRect();
-            const lastRect = lastEl.getBoundingClientRect();
-            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
-            const height = (lastRect.bottom - firstRect.top) / scale;
-            band.style.top = top - 2 + "px";
-            band.style.height = height + 4 + "px";
-            if (codeBlock) {
-              // Without the copy button wrapper, the containing block is wider
-              // than the code block, so span the code block explicitly.
-              const blockRect = codeBlock.getBoundingClientRect();
-              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
-              band.style.width = blockRect.width / scale + "px";
-            }
-          };
+          let top = null;
+          let height = null;
+          let parent = null;
           if (lineIds.length > 0) {
-            const el = window.document.getElementById(lineIds[0]);
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const parent = el.parentElement.parentElement;
-            // cook up a div (if necessary) and position it
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
             }
-            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
             }
-            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -1540,21 +925,6 @@ PA+A\T P=-L\T L-\epsilon P,\qquad PB=C\T-L\T W,\qquad W\T W=D+D\T ,
     }
   });
   </script>
-  <script type="application/javascript">
-  window.quartoScrollableRegionsLabels = {"code":"Código desplazable","output":"Salida desplazable"};
-  </script>
-<nav class="page-navigation" aria-label="Página">
-  <div class="nav-page nav-page-previous">
-      <a href="../partes/10-estabilidad-avanzada.html" class="pagination-link" aria-label="10. Estabilidad avanzada: UUB, CLF e ISS">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">10. Estabilidad avanzada: UUB, CLF e ISS</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../partes/12-linealizacion.html" class="pagination-link" aria-label="12. Linealización por retroalimentación">
-        <span class="nav-page-text">12. Linealización por retroalimentación</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1563,7 +933,7 @@ PA+A\T P=-L\T L-\epsilon P,\qquad PB=C\T-L\T W,\qquad W\T W=D+D\T ,
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/quijanon-bot/NQuijano.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Informar sobre problema</a></li></ul></div></div>
+    </div>
     <div class="nav-footer-right">
 <p>Hecho con <a href="https://quarto.org">Quarto</a></p>
 </div>

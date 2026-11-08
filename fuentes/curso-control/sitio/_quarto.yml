@@ -20,7 +20,7 @@ website:
   back-to-top-navigation: true
   navbar:
     pinned: true
-    background: "#14213D"
+    background: "#ffffff"
     left:
       - href: index.qmd
         text: Inicio
@@ -54,9 +54,7 @@ filters:
 
 format:
   html:
-    theme:
-      light: [cosmo, recursos/estilos.scss]
-      dark: [darkly, recursos/estilos.scss, recursos/oscuro.scss]
+    theme: [cosmo, recursos/estilos.scss]
     toc: true
     toc-title: "En esta página"
     number-sections: false

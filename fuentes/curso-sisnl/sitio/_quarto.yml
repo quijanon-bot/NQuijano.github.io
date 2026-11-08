@@ -19,7 +19,7 @@ website:
   back-to-top-navigation: true
   navbar:
     pinned: true
-    background: "#ffffff"
+    background: "#14213D"
     left:
       - href: index.qmd
         text: Inicio

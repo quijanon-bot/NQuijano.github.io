@@ -1,0 +1,115 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:pm-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{Espacio $=$ conjunto $+$ estructura.} Una métrica mide distancias; una norma, tamaños; un producto interno, ángulos. Cada una induce la anterior. La completitud se agrega aparte: normado y completo es Banach; con producto interno y completo, Hilbert.
+  \item \textbf{En $\R^n$ todas las normas son equivalentes}, así que acotado, convergente o estable no depende de la norma (las constantes sí). En espacios de señales las normas \emph{no} son equivalentes: hay que decir en cuál.
+  \item \textbf{Normas de matrices:} $\norm A_1$ por columnas, $\norm A_\infty$ por filas, $\norm A_2=\sqrt{\lmax(A\T A)}$, que en general es mayor que el radio espectral.
+  \item \textbf{Regularidad:} $\Cont1\Rightarrow$ localmente Lipschitz; con jacobiano acotado en un convexo, Lipschitz en ese convexo; con jacobiano uniformemente acotado en $\R^n$, globalmente Lipschitz.
+  \item \textbf{Existencia y unicidad:} localmente Lipschitz da una solución única en un intervalo máximo. Se prueba con el principio de contracción en $(C[t_0,t_0+\delta],\norm\cdot_C)$, y la unicidad, con Gronwall--Bellman.
+  \item \textbf{Existencia global:} con Lipschitz global, o ---lo que se usa en la práctica--- mostrando que la solución se queda en un compacto.
+  \item \textbf{Gronwall y comparación:} una cantidad que crece a lo sumo como $f(t,v)$ se queda debajo de la solución de $\dot u=f(t,u)$. Con $v=\norm x$ hace falta la derivada de Dini.
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item Parecer una distancia no basta: falta la triangular (\cref{tr:pm-parece}); y la fórmula de $\norm\cdot_p$ no es norma si $p<1$ (\cref{tr:pm-pmenor}).
+  \item La equivalencia de normas es un privilegio de $\R^n$ (\cref{tr:pm-dimension}); $\norm A_2$ no es el mayor $\abs\lambda$ (\cref{tr:pm-radio}).
+  \item Cauchy--Schwarz no sale de $\abs{\cos\theta}\le1$ (\cref{tr:pm-circular}); producto interno no es Hilbert sin completitud (\cref{tr:pm-completo}).
+  \item El valor medio no tiene un punto intermedio para campos vectoriales (\cref{tr:pm-valormedio}); local en cada punto no es Lipschitz en el conjunto (\cref{tr:pm-localglobal}).
+  \item El simulador no detecta la no unicidad (\cref{tr:pm-simulador}); Lipschitz global es suficiente, no necesario (\cref{tr:pm-global}).
+  \item La cota de Gronwall no predice separación (\cref{tr:pm-cotaexp}); compare con la ecuación completa (\cref{tr:pm-comparacion}).
+\end{itemize}
+\end{trampa}
+
+\begin{profundiza}[Correcciones respecto a las versiones anteriores (PrelimMath, Handout6a y las diapositivas de 2026)]
+(i) Un espacio de Banach no es ``un conjunto con norma'' ni ``el conjunto unido con todas las normas posibles'': es un espacio normado \emph{completo}; lo mismo para Hilbert con producto interno. (ii) $(C[0,\infty),\mathcal{L}_p)$ no es un espacio de Banach: $C[a,b]$ con la norma $\mathcal{L}_2$ no es completo (\cref{tr:pm-completo}), y en $[0,\infty)$ ni siquiera toda función continua tiene norma finita. (iii) La desigualdad de Cauchy--Schwarz es un teorema, no una definición, y su prueba no puede usar $\cos\theta$ (\cref{tr:pm-circular}); se corrigió la prueba de $\norm x_\infty\le\norm x_2$, que tenía una errata. (iv) La equivalencia de normas no requiere $\alpha,\beta\in\mathbb N$: vale para \emph{cualquier} par de normas en $\R^n$. (v) Continua a trozos admite saltos; la versión anterior decía lo contrario. (vi) $\sat$ es \emph{globalmente} Lipschitz, no solo localmente. (vii) El resumen de existencia decía que con Lipschitz global la solución es única ``en un intervalo finito $[0,\infty)$''; el enunciado correcto es el \cref{thm:pm-global}, y la existencia global se obtiene en la práctica con el \cref{thm:pm-compacto}. (viii) En Gronwall--Bellman, la forma con $\lambda$ constante es $\lambda e^{\int_a^t\mu}$, no $\lambda e^{\int_s^t\mu}$; se completó la prueba y se agregó la parte de la unicidad que faltaba en la demostración del teorema local. (ix) En el diagrama de regularidad, Lipschitz está contenido en localmente Lipschitz (\cref{fig:pm-regularidad}); el diagrama anterior lo dibujaba parcialmente afuera. (x) Se agregaron las figuras que decían ``AÑADIR FIGURA'' (dominio y convexidad, \cref{fig:pm-conjuntos}). (xi) La notación se unificó con \texttt{notacion.sty}: sin negrillas, $f(t,x)$, $\inner xy$ en lugar de $<x,y>$, $\mathcal{L}_p$ para las señales. Todos los números se verificaron con \texttt{herramientas/cap03\_numeros.py} (43 de 43) y \cmd{verificarCap03.m} (33 de 33).
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:pm-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\subsection*{Espacios, normas y productos internos}
+
+\begin{problema}[una métrica acotada]\label{prob:pm-acotada}
+(a) Pruebe que $d(x,y)=\dfrac{\abs{x-y}}{1+\abs{x-y}}$ es una métrica en $\R$. (Pista: $s\mapsto s/(1+s)$ es creciente y subaditiva.) (b) Con esta métrica, ninguna distancia pasa de $1$. ¿Es $\R$ ``acotado'' con $d$? ¿Es compacto? (c) ¿Viene $d$ de alguna norma?
+\end{problema}
+
+\begin{problema}[normas pesadas]\label{prob:pm-pesada}
+Sea $P\in\R^{n\times n}$. (a) Pruebe que $\norm x_P=\sqrt{x\T Px}$ es una norma si $P$ es simétrica y definida positiva, y que viene del producto interno $\inner xy_P=x\T Py$. (b) Muestre que $\lmin(P)\norm x_2^2\le x\T Px\le\lmax(P)\norm x_2^2$. (c) Para $P=\begin{bmatrix}1&2\\0&1\end{bmatrix}$, ¿es $\sqrt{x\T Px}$ una norma? (d) ¿Y para $P=\begin{bmatrix}1&0\\0&0\end{bmatrix}$?
+\end{problema}
+
+\begin{problema}[señales]\label{prob:pm-senales}
+Diga a cuáles de $\mathcal{L}_1$, $\Ldos$ y $\Linf$ en $[0,\infty)$ pertenece cada señal y calcule las normas finitas: (a) $e^{-t}\cos t$; (b) $te^{-t}$; (c) $1/\sqrt{1+t}$; (d) $\sin(t)/(1+t)$.
+\end{problema}
+
+\begin{problema}[crecimiento transitorio]\label{prob:pm-transitorio}
+Sea $A=\begin{bmatrix}-1&10\\0&-2\end{bmatrix}$. (a) ¿Es $A$ Hurwitz? (b) Calcule $\norm A_2$ y $\rho(A)$. (c) \etiquetaM{} Grafique $\norm{e^{At}}_2$ para $t\in[0,6]$ y halle su máximo. (d) Explique con la \cref{tr:pm-radio} por qué una matriz con valores propios $-1$ y $-2$ puede amplificar más de $2.5$ veces una condición inicial.
+\end{problema}
+
+\subsection*{Regularidad}
+
+\begin{problema}[clasificar]\label{prob:pm-clasificar}
+Clasifique en $\R$ (continua, $\Cont1$, localmente Lipschitz, globalmente Lipschitz) y dé una constante de Lipschitz cuando exista: (a) $\abs x$; (b) $x\abs x$; (c) $\sqrt{\abs x}$; (d) $\tanh x$; (e) $x+\sin x$. ¿Cuál de ellas es globalmente Lipschitz sin ser $\Cont1$?
+\end{problema}
+
+\begin{problema}[el péndulo]\label{prob:pm-pendulo}
+Para $\dot x_1=x_2$, $\dot x_2=-\sin x_1-bx_2$, $b>0$: (a) calcule el jacobiano y muestre que $f$ es globalmente Lipschitz. (b) Dé una constante de Lipschitz con la norma $\infty$ y otra con la norma $2$. (c) Concluya que las soluciones existen para todo $t$ sin resolver nada. (d) ¿Sigue valiendo si la fricción es $-bx_2^3$?
+\end{problema}
+
+\subsection*{Existencia, unicidad y cotas}
+
+\begin{problema}[el tanque que se vacía]\label{prob:pm-torricelli}
+El nivel de un tanque que se vacía por un orificio cumple $\dot h=-k\sqrt h$, $h\ge0$. (a) Resuelva desde $h(0)=h_0>0$ y halle el instante $T$ en que se vacía. (b) Muestre que, hacia atrás en el tiempo, la solución que pasa por $h=0$ no es única. (c) ¿Qué hipótesis del \cref{thm:pm-local} falla y dónde? (d) Interprete físicamente.
+\end{problema}
+
+\begin{problema}[escape en $\pi/2$]\label{prob:pm-tan}
+Para $\dot x=1+x^2$, $x(0)=0$: (a) resuelva y halle el tiempo de escape. (b) Calcule el $\delta$ que garantiza \eqref{eq:pm-delta}, optimizando en $r$. (c) \etiquetaM{} Implemente las iteraciones de Picard en $[0,\delta]$ y en $[0,1.5]$. ¿Convergen en los dos intervalos?
+\end{problema}
+
+\begin{problema}[un compacto invariante]\label{prob:pm-compacto}
+Para $\dot x=x-x^3$: (a) ¿es globalmente Lipschitz? (b) Muestre que para todo $x_0$ el intervalo $W=[-\max\{1,\abs{x_0}\},\max\{1,\abs{x_0}\}]$ es positivamente invariante. (c) Concluya existencia global con el \cref{thm:pm-compacto}.
+\end{problema}
+
+\begin{problema}[comparación con entrada]\label{prob:pm-entrada}
+Para $\dot x=-x-x^3+u(t)$ con $\abs{u(t)}\le1$, use $v=\abs x$ y la derivada de Dini para probar que $\abs{x(t)}\le e^{-t}\abs{x_0}+1-e^{-t}$. ¿Por qué no se puede usar $\dot v$ directamente? ¿Qué cota da si usa también el término $-x^3$? \etiquetaEstrella{}
+\end{problema}
+
+\begin{problema}[unicidad con Gronwall]\label{prob:pm-unicidadGB}
+\etiquetaEstrella{} Sin usar el principio de contracción: si $x$ y $y$ son dos soluciones de \eqref{eq:pm-pvi} que se quedan en $B$, donde $f$ es Lipschitz con constante $L$, pruebe con Gronwall--Bellman que $x\equiv y$.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:pm-acotada}}
+(a) Con $\varphi(s)=s/(1+s)$, creciente y con $\varphi(s+t)\le\varphi(s)+\varphi(t)$: $d(x,y)=\varphi(\abs{x-y})\le\varphi(\abs{x-z}+\abs{z-y})\le d(x,z)+d(z,y)$. (b) Todo $\R$ está a distancia menor que $1$ de $0$: es acotado con $d$, pero no compacto (la sucesión $x_k=k$ no tiene subsucesión convergente). ``Cerrado y acotado implica compacto'' es un teorema sobre $\R^n$ \emph{con una norma}. (c) No: una métrica que viene de una norma cumple $d(\alpha x,0)=\abs\alpha d(x,0)$, y esta no.
+
+\paragraph{Problema~\ref{prob:pm-pesada}}
+(c) No: $x\T Px$ solo ve la parte simétrica $\tfrac12(P+P\T)=\begin{bmatrix}1&1\\1&1\end{bmatrix}$, que es semidefinida, y $x=[1,-1]\T$ da $x\T Px=1-2+1=0$ con $x\neq0$. (d) No: $x=[0,1]\T$ tiene ``norma'' cero. La trampa es mirar $P$ y no su parte simétrica.
+
+\paragraph{Problema~\ref{prob:pm-transitorio}}
+(a) Sí, valores propios $-1$ y $-2$. (b) $\rho=2$ y $\norm A_2\approx10.2$. (c) $e^{At}=\begin{bmatrix}e^{-t}&10(e^{-t}-e^{-2t})\\0&e^{-2t}\end{bmatrix}$; la entrada fuera de la diagonal llega a $2.5$ en $t=\ln2$, y $\norm{e^{At}}_2$ llega a $2.56$ en $t\approx0.66$ antes de decaer. (d) $A$ no es normal; los valores propios dicen hacia dónde converge, no cuánto amplifica en el camino.
+
+\paragraph{Problema~\ref{prob:pm-clasificar}}
+(a) Globalmente Lipschitz con $L=1$, no $\Cont1$. (b) $\Cont1$ (derivada $2\abs x$), localmente pero no globalmente Lipschitz. (c) Continua, no localmente Lipschitz en $0$ (como $x^{1/3}$). (d) $\Cont\infty$ y globalmente Lipschitz, $L=1$. (e) $\Cont\infty$ y globalmente Lipschitz, $L=2$. La respuesta a la pregunta final es (a).
+
+\paragraph{Problema~\ref{prob:pm-torricelli}}
+(a) $\sqrt{h(t)}=\sqrt{h_0}-kt/2$, el tanque se vacía en $T=2\sqrt{h_0}/k$ y después $h\equiv0$. (b) Desde $h(T)=0$ hacia atrás, cualquier $h_0$ (y cualquier instante de vaciado anterior) es compatible. (c) $\sqrt h$ no es Lipschitz en $h=0$. (d) Mirando un tanque vacío no se puede saber cuándo se vació: la información se pierde. Hacia adelante sí hay unicidad (el tanque vacío se queda vacío), porque $f\le0$ empuja contra el borde $h=0$.
+
+\paragraph{Problema~\ref{prob:pm-tan}}
+(a) $x=\tan t$, escape en $t=\pi/2\approx1.571$. (b) En $\{\abs x\le r\}$: $L=2r$, $h=1$; $r/(2r^2+1)$ es máximo en $r=1/\sqrt2$ con valor $1/(2\sqrt2)\approx0.354$, y $\rho/L<1/\sqrt2$: $\delta\approx0.354$. (c) Numéricamente convergen en los dos intervalos (con $60$ iteraciones el error en $[0,1.5]$ es del orden de $10^{-5}$), aunque el teorema solo lo garantiza en $[0,\delta]$: la conclusión del teorema es una cota inferior del intervalo, no superior.
+
+\paragraph{Problema~\ref{prob:pm-entrada}}
+Donde $x\neq0$, $\dot v=\sgn(x)\dot x=-\abs x-\abs x^3+\sgn(x)u\le-v+1$. Donde $x=0$, $\abs x$ no es derivable, pero $D^+v=\abs{\dot x}=\abs u\le1=-0+1$. La comparación con $\dot w=-w+1$ da la cota. Usando $-v^3$ se obtiene una cota mejor, pero la ecuación de comparación $\dot w=-w-w^3+1$ no tiene solución explícita.
+
+\respuestaspausas

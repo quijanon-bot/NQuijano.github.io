@@ -1,0 +1,36 @@
+%% =====================================================================
+%%  Capítulo 3 -- Fundamentos matemáticos
+%%  Formato nuevo (noviembre de 2026). Integra: PrelimMath.tex (2024),
+%%  Handout6.tex y Handout6a.tex (versiones anteriores, con la prueba de
+%%  existencia y unicidad), y las clases de 2026 de Manuela Chacón
+%%  ("Propiedades matemáticas fundamentales": espacio = conjunto +
+%%  estructura, ejemplos de métricas, normas de matrices, espacios
+%%  completos, jerarquía de regularidad y lema de comparación).
+%%  Correcciones respecto a las versiones anteriores: ver \S\ref{sec:pm-cierre}.
+%%  Números verificados con herramientas/cap03_numeros.py (43/43) y
+%%  codigo/cap03_preliminares/verificarCap03.m (33/33 en Octave 8.4).
+%% =====================================================================
+
+\capitulo[cap:preliminares]{Fundamentos matemáticos}
+  {Los amores pasados siempre ofenden a los amantes nuevos, por muy muertos que estén aquellos.}
+  {Javier Marías}
+
+\begin{objetivos}[partes/03-preliminares.html]
+  \item Decir qué estructura tiene un espacio (métrica, norma, producto interno, completitud) y qué preguntas permite responder cada una.
+  \item Calcular normas de vectores, de señales y de matrices, y usar la equivalencia de normas en $\R^n$ sin extenderla a espacios de funciones.
+  \item Clasificar un campo vectorial como continuo, $\Cont1$, localmente Lipschitz, Lipschitz o globalmente Lipschitz, y calcular una constante de Lipschitz con el jacobiano.
+  \item Enunciar y demostrar el teorema de existencia y unicidad local, y decir qué hipótesis falla en cada contraejemplo (no unicidad, escape en tiempo finito).
+  \item Acotar soluciones que no se pueden calcular con la desigualdad de Gronwall--Bellman y el lema de comparación.
+\end{objetivos}
+
+\input{capitulos/cap03/s01_por_que}
+\input{capitulos/cap03/s02_metricos}
+\input{capitulos/cap03/s03_normas}
+\input{capitulos/cap03/s04_producto}
+\input{capitulos/cap03/s05_completos}
+\input{capitulos/cap03/s06_conjuntos}
+\input{capitulos/cap03/s07_regularidad}
+\input{capitulos/cap03/s08_lipschitz}
+\input{capitulos/cap03/s09_existencia}
+\input{capitulos/cap03/s10_comparacion}
+\input{capitulos/cap03/s11_cierre}

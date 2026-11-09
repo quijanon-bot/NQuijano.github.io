@@ -1,0 +1,32 @@
+%% ---------------------------------------------------------------------
+\section{Conjuntos en \texorpdfstring{$\R^n$}{Rn}: el vocabulario mínimo}
+\label{sec:pm-conjuntos}
+%% ---------------------------------------------------------------------
+
+Los teoremas de este capítulo y de los siguientes piden que un conjunto sea abierto, cerrado, compacto, convexo o un dominio. Estas son las definiciones, en $\R^n$ con cualquier norma (por la equivalencia de normas, no importa cuál).
+
+\begin{definicion}[label=def:pm-conjuntos]{Abierto, cerrado, acotado, compacto}
+Sea $S\subseteq\R^n$ y sea $\{x:\norm{x-p}<\delta\}$ la \clave{vecindad} de radio $\delta$ de $p$.
+\begin{itemize}
+  \item $S$ es \clave{abierto} si cada $p\in S$ tiene una vecindad contenida en $S$.
+  \item $p$ es un \clave{punto límite} de $S$ si toda vecindad de $p$ contiene un punto de $S$ distinto de $p$. $S$ es \clave{cerrado} si contiene todos sus puntos límite; equivalentemente, si el límite de toda sucesión convergente de puntos de $S$ está en $S$.
+  \item $S$ es \clave{acotado} si existe $r$ con $\norm x\le r$ para todo $x\in S$.
+  \item $S$ es \clave{compacto} si es cerrado y acotado.
+\end{itemize}
+\end{definicion}
+
+\notamargen{En espacios métricos generales, ``compacto'' significa que toda sucesión tiene una subsucesión convergente en $S$. En $\R^n$ eso equivale a cerrado y acotado (Heine--Borel). En dimensión infinita no: la bola unitaria cerrada de $C[0,1]$ es cerrada y acotada y no es compacta.}
+La bola cerrada $\Bola{r}=\{x:\norm x\le r\}$ es compacta; la abierta $\{\norm x<r\}$ es abierta y acotada, pero no cerrada. La compacidad es lo que garantiza que una función continua alcance su máximo y su mínimo, y que toda sucesión tenga una subsucesión convergente; las dos cosas se usan en las pruebas de existencia global (\cref{thm:pm-compacto}) y de Poincaré--Bendixson (capítulo~5).
+
+\begin{definicion}[label=def:pm-convexo]{Convexo, conexo, dominio}
+$W\subseteq\R^n$ es \clave{convexo} si contiene el segmento entre dos cualesquiera de sus puntos: $\lambda x+(1-\lambda)y\in W$ para todo $x,y\in W$ y $\lambda\in[0,1]$. Un abierto es \clave{conexo} si dos puntos cualesquiera se pueden unir con una poligonal contenida en él. Un \clave{dominio} es un conjunto abierto y conexo.
+\end{definicion}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_conjuntos}
+\caption{De izquierda a derecha: un abierto (el borde discontinuo no le pertenece), un compacto, un conjunto no convexo y un abierto que no es conexo.}
+\label{fig:pm-conjuntos}
+\end{figure}
+
+La convexidad aparece en un solo lugar, pero es esencial: para acotar $f(x)-f(y)$ con el jacobiano hay que recorrer el segmento entre $x$ y $y$, y ese segmento tiene que quedarse donde la cota vale (\cref{lem:pm-jacobiano}). Los dominios aparecen en los enunciados porque en un abierto se puede derivar en todas las direcciones, y porque en un conjunto conexo una propiedad local se puede ``propagar''.

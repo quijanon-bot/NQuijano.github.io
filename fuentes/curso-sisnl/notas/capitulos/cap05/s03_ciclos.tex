@@ -1,0 +1,88 @@
+%% ---------------------------------------------------------------------
+\section{Ciclos límite}
+\label{sec:oc-ciclos}
+%% ---------------------------------------------------------------------
+
+\begin{definicion}[label=def:oc-ciclo]{Ciclo límite}
+Un \clave{ciclo límite} es una órbita cerrada \emph{aislada}: alguna vecindad suya no contiene otras órbitas cerradas. Equivalentemente (en el plano), es una órbita cerrada $\gamma$ que es el conjunto $\omega$-límite o $\alpha$-límite de algún punto que no está en $\gamma$.
+\end{definicion}
+
+Todo ciclo límite es una órbita cerrada; no toda órbita cerrada es un ciclo límite (las de Duffing y las de un sistema lineal no lo son). Por la \cref{prop:oc-lineal}, los ciclos límite son un fenómeno exclusivamente no lineal. Las trayectorias vecinas a un ciclo límite se acercan o se alejan de él en espiral, y eso da tres tipos (\cref{fig:oc-tipos}): \clave{estable} (se acercan por los dos lados), \clave{inestable} (se alejan por los dos lados) y \clave{semiestable} (se acercan por un lado y se alejan por el otro).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_tipos_ciclo}
+\caption{Ciclos límite estable ($\dot r=r(1-r^2)$), inestable ($\dot r=-r(1-r^2)$) y semiestable ($\dot r=r(1-r)^2$), todos con $\dot\theta=1$. En rojo, trayectorias que empiezan adentro; en azul, afuera.}
+\label{fig:oc-tipos}
+\end{figure}
+
+\begin{ejemplo}[label=ej:oc-polar]{Un ciclo límite que se puede calcular}
+Analice $\dot x_1=-x_2+x_1(1-x_1^2-x_2^2)$, $\dot x_2=x_1+x_2(1-x_1^2-x_2^2)$.
+\solucion El único equilibrio es el origen, con jacobiano $\begin{bmatrix}1&-1\\1&1\end{bmatrix}$ y valores propios $1\pm j$: un foco inestable. La linealización no dice a dónde van las trayectorias. En polares, $r^2=x_1^2+x_2^2$ y $\theta=\operatorname{atan2}(x_2,x_1)$, se usan las identidades
+\begin{equation}
+  r\dot r=x_1\dot x_1+x_2\dot x_2,\qquad r^2\dot\theta=x_1\dot x_2-x_2\dot x_1,
+  \label{eq:oc-polares}
+\end{equation}
+válidas en todo punto con $r>0$ (no hace falta excluir $x_1=0$). Aquí dan $\dot r=r(1-r^2)$ y $\dot\theta=1$: el radio y el ángulo se desacoplan. La ecuación radial es la logística del capítulo~2, con $r=0$ inestable y $r=1$ estable, y tiene solución explícita
+\[
+  r(t)=\Bigl(1+\bigl(r_0^{-2}-1\bigr)e^{-2t}\Bigr)^{-1/2}.
+\]
+Toda trayectoria con $r_0>0$ se enrolla sobre el círculo unitario, que es un ciclo límite estable de período $2\pi$ (\cref{fig:oc-linealciclo}, derecha). Desde $r_0=0.1$, $r(5)=0.99776$; la simulación coincide con la fórmula con error menor que $10^{-10}$.
+\end{ejemplo}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej2_CicloPolar.m}{ciclo}{La solución en polares contra la simulación}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.86\linewidth]{cap05/f_lineal_vs_ciclo}
+\caption{Izquierda: el oscilador armónico tiene una familia continua de órbitas; la amplitud la escoge la condición inicial. Derecha: el ciclo límite del \cref{ej:oc-polar} atrae a las trayectorias de adentro y de afuera; la amplitud la escoge el sistema.}
+\label{fig:oc-linealciclo}
+\end{figure}
+
+%% ---------------------------------------------------------------------
+\subsection{Oscilaciones autosostenidas: de Rayleigh a Liénard}
+%% ---------------------------------------------------------------------
+
+Un ciclo límite estable es una \clave{oscilación autosostenida}: el sistema oscila sin ninguna entrada periódica, con un período, una amplitud y una forma de onda propios, y si se le perturba, vuelve a ellos. El latido del corazón, el ritmo circadiano de la temperatura corporal, las reacciones químicas que oscilan espontáneamente (Belousov--Zhabotinsky) y el aleteo (\emph{flutter}) de un ala son ejemplos.
+
+Los primeros modelos vinieron de la acústica y de la electrónica. Lord Rayleigh, estudiando las vibraciones \emph{mantenidas} ---la cuerda de un violín frotada por el arco, el tubo de un órgano---, propuso en 1883 la ecuación $\ddot x+\epsilon\bigl(\tfrac13\dot x^2-1\bigr)\dot x+x=0$, es decir,
+\[
+  \dot x_1=x_2,\qquad \dot x_2=-x_1-\epsilon\bigl(\tfrac13x_2^2-1\bigr)x_2 \qquad\citep{Ray1883}.
+\]
+Con los tubos de vacío aparecieron oscilaciones de amplitud fija que no dependían del arranque, y Balthasar van der Pol propuso en 1926 la ecuación que hoy lleva su nombre \citep{van26}:
+\begin{equation}
+  \ddot x+\mu(x^2-1)\dot x+x=0,\qquad\mu>0 .
+  \label{eq:oc-vdp}
+\end{equation}
+Es un oscilador armónico con un amortiguamiento que \emph{cambia de signo}: para $\abs x<1$ el coeficiente $\mu(x^2-1)$ es negativo y el sistema inyecta energía (las oscilaciones pequeñas crecen); para $\abs x>1$ es positivo y la disipa (las grandes decrecen). Entre las dos, una oscilación de amplitud cercana a $2$ (\cref{fig:oc-vdp}). Para $\mu$ grande la oscilación es de \emph{relajación}: lentas cargas y descargas rápidas, con período aproximadamente $(3-2\ln2)\mu$.
+
+\video{V5_3_vanderpol}{Todas las trayectorias llegan al mismo ciclo}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_vanderpol}
+\caption{Van der Pol. Con $\mu=1$ el ciclo tiene período $6.663$ y amplitud $2.009$; con $\mu=5$, período $11.61$ y la forma de onda de una oscilación de relajación.}
+\label{fig:oc-vdp}
+\end{figure}
+
+¿Cómo se \emph{prueba} que \eqref{eq:oc-vdp} tiene un ciclo límite, y que es uno solo? Alfred Liénard lo hizo en 1928 para una familia más amplia \citep{Lie28}.
+
+\begin{teorema}[label=thm:oc-lienard]{Teorema de Liénard \citep[Teorema~7.4.1]{Str15}}
+Considere $\ddot x+f(x)\dot x+g(x)=0$, es decir, $\dot x_1=x_2$, $\dot x_2=-g(x_1)-f(x_1)x_2$, y suponga que
+\begin{enumerate}
+  \item $f$ y $g$ son $\Cont1$;
+  \item $g$ es impar y $g(x)>0$ para $x>0$;
+  \item $f$ es par;
+  \item $F(x)=\int_0^xf(u)\,\dif u$ tiene exactamente un cero positivo en $x=a$, es negativa en $(0,a)$, positiva y no decreciente para $x>a$, y $F(x)\to\infty$ cuando $x\to\infty$.
+\end{enumerate}
+Entonces el sistema tiene un único ciclo límite, que rodea el origen y es estable.
+\end{teorema}
+
+Para van der Pol, $f(x)=\mu(x^2-1)$ es par, $g(x)=x$ es impar y positiva para $x>0$, y $F(x)=\mu(\tfrac13x^3-x)=\tfrac\mu3x(x^2-3)$ tiene su único cero positivo en $a=\sqrt3$, es negativa en $(0,\sqrt3)$ y creciente después. El teorema da existencia, unicidad y estabilidad del ciclo para todo $\mu>0$. Es, en este capítulo, el único resultado que dice \emph{cuántos} ciclos hay.
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej3_VanDerPol.m}{ciclo}{Período y amplitud del ciclo de van der Pol}
+
+\begin{trampa}[label=tr:oc-orbital]{Un ciclo estable no es una solución asintóticamente estable}
+\plausible{Las trayectorias vecinas convergen al ciclo límite; por lo tanto la solución periódica es asintóticamente estable en el sentido de Lyapunov: si $x(0)$ está cerca de $\bar x(0)$, entonces $x(t)-\bar x(t)\to0$.}
+Lo que converge es la \emph{órbita}, no el instante en que se pasa por cada punto. Una trayectoria que empieza un poco afuera del ciclo de van der Pol llega al ciclo con un desfase: $x(t)$ se acerca al conjunto $\gamma$, pero $x(t)-\bar x(t)$ no tiende a cero, salvo que se corrija la fase. Basta comparar dos puntos \emph{sobre} el mismo ciclo: siguen separados para siempre, aunque los dos estén en el ciclo.
+\correcto{Un ciclo límite estable es \emph{orbitalmente} asintóticamente estable: $\dist(x(t),\gamma)\to0$. Cada trayectoria vecina converge, además, a la solución periódica con alguna \emph{fase asintótica} propia. La estabilidad de Lyapunov de una solución periódica de un sistema invariante en el tiempo nunca es asintótica, porque un corrimiento de fase sobre el ciclo no decae.}
+\end{trampa}

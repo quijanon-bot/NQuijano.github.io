@@ -1,0 +1,110 @@
+%% ---------------------------------------------------------------------
+\section{Teoría del índice}
+\label{sec:oc-indice}
+%% ---------------------------------------------------------------------
+
+En Duffing (\cref{fig:oc-duffing}) las órbitas cerradas rodean a los centros, nunca a la silla sola; y la curva grande que rodea los tres equilibrios también es una órbita. ¿Es casualidad? ¿Debe una órbita cerrada rodear algún equilibrio? ¿Cuáles? La linealización no puede responder: mira un equilibrio a la vez. Necesitamos un número que se lea \emph{sobre} una curva y diga algo de lo que hay \emph{adentro}, sin mirar adentro.
+
+%% ---------------------------------------------------------------------
+\subsection{El número de vueltas del campo}
+%% ---------------------------------------------------------------------
+
+Sea $\Gamma$ una curva cerrada simple (no se corta a sí misma), recorrida en sentido antihorario, que \emph{no pasa por ningún equilibrio}. En cada punto $x\in\Gamma$ el campo $f(x)\neq0$ forma un ángulo $\theta_f(x)$ con el eje $x_1$. Al dar la vuelta a $\Gamma$, el vector $f$ gira continuamente y, al volver al punto de partida, vuelve a su dirección inicial: su ángulo cambió en un múltiplo entero de $2\pi$.
+
+\begin{definicion}[label=def:oc-indice]{Índice de una curva}
+El \clave{índice} de $\Gamma$ respecto a $f$ es el número neto de vueltas antihorarias que da el vector $f$ al recorrer $\Gamma$ una vez en sentido antihorario:
+\[
+  I_f(\Gamma)=\frac1{2\pi}\bigl[\theta_f\bigr]_\Gamma=\frac1{2\pi}\oint_\Gamma\frac{f_1\,\dif f_2-f_2\,\dif f_1}{f_1^2+f_2^2} .
+\]
+\end{definicion}
+
+\notamargen{La integral es $\oint\dif\theta_f$ con $\theta_f=\arctan(f_2/f_1)$ derivado sin preocuparse por las ramas del arcotangente: $\dif\theta_f=(f_1\dif f_2-f_2\dif f_1)/(f_1^2+f_2^2)$.}
+Para calcularlo a mano basta numerar unos cuantos puntos de $\Gamma$, dibujar en cada uno el vector $f$, \emph{trasladar} todos esos vectores al origen sin rotarlos, y contar cuántas vueltas dan en orden (\cref{fig:oc-anclas}). El script \cmd{indiceCurva.m} hace exactamente eso con miles de puntos.
+
+\begin{ejemplo}[label=ej:oc-anclas]{Dos cálculos que anclan todo lo demás}
+Calcule el índice del círculo unitario para el nodo $f(x)=-x$ y para la silla $f(x)=(x_1,-x_2)$.
+\solucion Sobre el círculo, $x=(\cos s,\sin s)$, $s\in[0,2\pi]$. \emph{Nodo:} $f=(-\cos s,-\sin s)$, de ángulo $\theta_f=s+\pi$; cuando $s$ avanza $2\pi$, $\theta_f$ avanza $2\pi$: $I=+1$. \emph{Silla:} $f=(\cos s,-\sin s)$, de ángulo $\theta_f=-s$; cuando $s$ avanza $2\pi$, $\theta_f$ \emph{retrocede} $2\pi$: $I=-1$. En la silla, el campo gira al revés que el punto que recorre la curva (\cref{fig:oc-anclas}). Con cuentas idénticas, un foco ($f=Ax$ con $A=\begin{bmatrix}1&-1\\1&1\end{bmatrix}$) y un centro ($f=(-x_2,x_1)$) dan $+1$.
+\end{ejemplo}
+
+\video{V5_2_indice}{El vector da vueltas: nodo, silla, $z^2$}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_indice_anclas}
+\caption{Índice del círculo unitario para un nodo (arriba) y una silla (abajo). Columna 1: el campo en doce puntos numerados. Columna 2: los mismos vectores trasladados al origen. Columna 3: el ángulo acumulado, en vueltas.}
+\label{fig:oc-anclas}
+\end{figure}
+
+¿Por qué esos dos números alcanzan para casi todo? Porque el índice es un \clave{invariante topológico}: si $\Gamma$ se deforma continuamente sin pasar por ningún equilibrio, el índice no cambia. La razón es corta: el índice depende continuamente de la curva (el campo es continuo y no se anula sobre ella) y solo toma valores enteros; una función continua con valores enteros es constante. En particular, el índice de un círculo pequeño alrededor de un equilibrio aislado no depende del radio: es el \clave{índice del equilibrio}, $I_f(\eq)$.
+
+\begin{proposicion}[label=prop:oc-signo]{El índice se lee en el jacobiano}
+Si $\eq$ es un equilibrio con $\det\jacat fx{\eq}\neq0$, entonces $I_f(\eq)=\sgn\det\jacat fx{\eq}$.
+\end{proposicion}
+
+\begin{proof}
+Sea $A=\jacat fx{\eq}$. En un círculo de radio $\epsilon$ alrededor de $\eq$, $f(x)=A(x-\eq)+o(\epsilon)$ y $\norm{A(x-\eq)}\ge\epsilon/\norm{A^{-1}}$, así que la familia $A(x-\eq)+s\bigl(f(x)-A(x-\eq)\bigr)$, $s\in[0,1]$, no se anula sobre el círculo si $\epsilon$ es pequeño: $f$ y $A(x-\eq)$ tienen el mismo índice. Para el campo lineal, las matrices con $\det A>0$ se pueden deformar continuamente, sin pasar por $\det=0$, hasta $-I$ (el nodo, índice $+1$); las de $\det A<0$, hasta $\diag(1,-1)$ (la silla, índice $-1$).
+\end{proof}
+
+Así, nodos, focos y centros (de la linealización) tienen índice $+1$ y las sillas $-1$: es lo que calculamos en el \cref{ej:oc-anclas}, y ahora sabemos por qué. Si $\det\jacat fx{\eq}=0$, el índice puede ser cualquier entero: el campo $f=(x_1^2-x_2^2,\,2x_1x_2)$ (en complejos, $z\mapsto z^2$) tiene índice $+2$ en el origen.
+
+%% ---------------------------------------------------------------------
+\subsection{Propiedades y el teorema}
+%% ---------------------------------------------------------------------
+
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Si $\Gamma$ no encierra equilibrios, $I_f(\Gamma)=0$.} Se puede encoger $\Gamma$ hasta un punto sin cruzar equilibrios; en una curva diminuta $f$ es casi constante y no da vueltas.
+  \item \emph{Aditividad.} Si $\Gamma$ encierra los equilibrios aislados $x_1^*,\dots,x_k^*$, entonces $I_f(\Gamma)=\sum_iI_f(x_i^*)$. Se deforma $\Gamma$ en $k$ círculos pequeños unidos por puentes recorridos dos veces en sentidos opuestos, que se cancelan.
+  \item \emph{Invertir el tiempo no cambia el índice.} Cambiar $f$ por $-f$ suma $\pi$ a todos los ángulos, y el cambio neto no se altera. Un nodo estable y uno inestable tienen el mismo índice.
+  \item \emph{Una órbita cerrada tiene índice $+1$.} Sobre una órbita, $f$ es tangente a la curva, y la tangente de una curva cerrada simple da exactamente una vuelta (el \emph{Umlaufsatz} de Hopf \citep{Hop35}).
+\end{enumerate}
+
+\begin{teorema}[label=thm:oc-indice]{Lo que encierra una órbita cerrada}
+Si $\gamma$ es una órbita cerrada de $\dot x=f(x)$, $x\in\R^2$, y los equilibrios que encierra son aislados, la suma de sus índices es $+1$. En consecuencia:
+\begin{enumerate}
+  \item toda órbita cerrada encierra al menos un equilibrio;
+  \item si encierra un solo equilibrio, este no es una silla;
+  \item \textbf{si todos los equilibrios encerrados tienen $\det\jacat fx{\eq}\neq0$}, y encierra $N$ nodos, focos o centros y $S$ sillas, entonces $N=S+1$ \citep[\S2.6]{Kha02}.
+\end{enumerate}
+\end{teorema}
+
+\begin{proof}
+Por (iv), $I_f(\gamma)=+1$; por (i) y (ii), es la suma de los índices encerrados. Los corolarios: si no encerrara nada, el índice sería $0$; un solo equilibrio de índice $-1$ daría $-1$; con equilibrios no degenerados, $N\cdot(+1)+S\cdot(-1)=1$.
+\end{proof}
+
+\begin{ideaclave}
+El teorema da una condición \textbf{necesaria}: si los equilibrios dentro de una curva no suman $+1$, esa curva no puede ser una órbita. No da una condición suficiente: un nodo estable solo cumple la cuenta y no tiene órbitas cerradas alrededor.
+\end{ideaclave}
+
+\begin{ejemplo}[label=ej:oc-indicekhalil]{¿Qué puede rodear una órbita?}
+Para $\dot x_1=-x_1+x_1x_2$, $\dot x_2=x_1+x_2-2x_1x_2$, diga qué combinaciones de equilibrios puede rodear una órbita cerrada.
+\solucion Equilibrios: $x_1(x_2-1)=0$; con $x_1=0$ sale $x_2=0$, y con $x_2=1$ sale $x_1=1$. El jacobiano es $\begin{bmatrix}-1+x_2&x_1\\1-2x_2&1-2x_1\end{bmatrix}$. En $(0,0)$: $\begin{bmatrix}-1&0\\1&1\end{bmatrix}$, valores propios $\pm1$, $\det=-1$: silla, índice $-1$. En $(1,1)$: $\begin{bmatrix}0&1\\-1&-1\end{bmatrix}$, valores propios $-\tfrac12\pm j\tfrac{\sqrt3}2$, $\det=1$: foco estable, índice $+1$. Una órbita que rodeara a los dos tendría índice $0$; una que rodeara solo la silla, $-1$. La única posibilidad es una órbita que rodee solo el foco (\cref{fig:oc-indiceej}). El índice no dice si esa órbita existe.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\linewidth]{cap05/f_indice_ejemplo}
+\caption{Campo del \cref{ej:oc-indicekhalil}. Una curva que rodea la silla y el foco tiene índice $0$ y no puede ser una órbita; una que rodea solo el foco tiene índice $+1$.}
+\label{fig:oc-indiceej}
+\end{figure}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej7_Indice.m}{ejemplo}{Índices del ejemplo, numéricamente}
+
+\begin{ejemplo}[label=ej:oc-degenerado]{Cuando la linealización no ve nada, el índice sí}
+Muestre que $\dot x_1=x_1^2x_2$, $\dot x_2=x_1^2-x_2^2$ no tiene \emph{ninguna} órbita cerrada.
+\solucion El único equilibrio es el origen ($x_1^2x_2=0$ y $x_1^2=x_2^2$ obligan a $x_1=x_2=0$), y su jacobiano es la matriz nula: la linealización no dice nada y la \cref{prop:oc-signo} no aplica. Calculamos el índice en el círculo unitario: en $(1,0)$, $f=(0,1)$; en $\tfrac1{\sqrt2}(1,1)$, $f=\tfrac1{2\sqrt2}(1,0)$; siguiendo así, el vector gira $180^\circ$ en sentido horario, luego $360^\circ$ en sentido antihorario y otra vez $180^\circ$ en sentido horario: $[\theta_f]=-\pi+2\pi-\pi=0$. El origen tiene índice $0$. Una órbita cerrada tendría que encerrar equilibrios con índice total $+1$, y el único que hay tiene índice $0$. No hay órbitas cerradas en ninguna parte del plano.
+\end{ejemplo}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej7_Indice.m}{indices}{Índices de nodo, foco, centro, silla, $z^2$ y el caso degenerado}
+
+\begin{trampa}[label=tr:oc-indice]{El índice no garantiza la órbita}
+\plausible{La curva $\Gamma$ encierra un foco, de índice $+1$; por lo tanto hay una órbita cerrada alrededor del foco.}
+El \cref{thm:oc-indice} va en una sola dirección: órbita cerrada $\Rightarrow$ índice $+1$. El recíproco es falso: $\dot x=-x$ tiene un nodo de índice $+1$ y ninguna órbita cerrada. En el \cref{ej:oc-indicekhalil}, el índice permite una órbita alrededor del foco estable, pero no la produce.
+\correcto{Use el índice para \emph{descartar} (``esta curva no puede ser una órbita''). Para \emph{probar} que una órbita existe hace falta otra herramienta: Poincaré--Bendixson (\cref{sec:oc-pb}) o Liénard.}
+\end{trampa}
+
+\begin{cuidado}[La hipótesis de $N=S+1$]
+La fórmula $N=S+1$ solo vale si los equilibrios encerrados son no degenerados. El \cref{ej:oc-degenerado} lo muestra: su único equilibrio no es nodo, ni foco, ni centro, ni silla, y la fórmula no dice nada. La versión que siempre vale es la suma de índices igual a $+1$.
+\end{cuidado}
+
+\begin{profundiza}[Poincaré--Hopf: por qué el número es $+1$]
+El teorema de Poincaré--Hopf dice que, para un campo en una superficie compacta (que en el borde apunta hacia afuera, si hay borde), la suma de los índices de los equilibrios es la característica de Euler $\chi$ de la superficie. El disco tiene $\chi=1$: por eso una órbita, que hace de borde de un disco invariante, encierra índice total $+1$. El círculo tiene $\chi=0$: por eso en $\dot\theta=\omega-a\sin\theta$ los equilibrios aparecen en pares estable--inestable (índices $+1$ y $-1$ en una dimensión). El toro tiene $\chi=0$: por eso dos osciladores de fase pueden derivar sin ningún equilibrio, como en la \cref{sec:oc-acoplados}.
+\end{profundiza}

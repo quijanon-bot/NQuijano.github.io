@@ -1,0 +1,60 @@
+%% ---------------------------------------------------------------------
+\section{Producto interno: medir ángulos}
+\label{sec:pm-producto}
+%% ---------------------------------------------------------------------
+
+Una norma dice qué tan grande es un vector, pero no si dos vectores ``apuntan para el mismo lado''. Esa información ---ángulos, ortogonalidad, proyecciones--- la da el producto interno.
+
+\begin{definicion}[label=def:pm-pinterno]{Producto interno}
+Sea $X$ un espacio vectorial real. Una función $\inner{\cdot}{\cdot}:X\times X\to\R$ es un \clave{producto interno} si para todo $x,y,z\in X$ y $\alpha\in\R$:
+\begin{enumerate}[label=(P\arabic*),leftmargin=3em]
+  \item $\inner{x+y}{z}=\inner xz+\inner yz$ y $\inner{\alpha x}{y}=\alpha\inner xy$ \hfill(lineal en el primer argumento)
+  \item $\inner xy=\inner yx$ \hfill(simétrico)
+  \item $\inner xx>0$ si $x\neq0$ \hfill(definido positivo)
+\end{enumerate}
+\end{definicion}
+
+En $\R^n$ el producto interno usual es $\inner xy=x\T y=\sum_ix_iy_i$, y en $C[a,b]$ es $\inner fg=\int_a^bf(t)g(t)\,\dif t$. Un producto interno induce una norma, $\norm x=\sqrt{\inner xx}$: el de $\R^n$ induce $\norm\cdot_2$ y el de $C[a,b]$ induce $\norm\cdot_{\Ldos}$. Hay, por lo tanto, una cadena
+\[
+  \text{producto interno}\implica\text{norma}\implica\text{métrica}.
+\]
+Que $\sqrt{\inner xx}$ cumpla la desigualdad triangular no es obvio; es consecuencia del resultado central de esta sección.
+
+\begin{teorema}[label=thm:pm-cs]{Desigualdad de Cauchy--Schwarz}
+En un espacio con producto interno, con $\norm x=\sqrt{\inner xx}$,
+\[
+  \abs{\inner xy}\le\norm x\,\norm y\qquad\text{para todo }x,y,
+\]
+con igualdad si y solo si $x$ y $y$ son linealmente dependientes.
+\end{teorema}
+
+\begin{proof}
+Si $y=0$ no hay nada que probar. Si $y\neq0$, para todo $s\in\R$,
+\[
+  0\le\inner{x-sy}{x-sy}=\norm x^2-2s\inner xy+s^2\norm y^2 .
+\]
+Es una parábola en $s$ que nunca es negativa, así que su discriminante no es positivo: $4\inner xy^2-4\norm x^2\norm y^2\le0$. La igualdad ocurre si y solo si la parábola toca el cero, es decir, si $x=sy$ para algún $s$.
+\end{proof}
+
+Con Cauchy--Schwarz, la triangular de la norma inducida es una línea: $\norm{x+y}^2=\norm x^2+2\inner xy+\norm y^2\le(\norm x+\norm y)^2$. Y tiene sentido definir el \clave{ángulo} entre $x$ y $y$ como el $\theta\in[0,\pi]$ con $\cos\theta=\inner xy/(\norm x\norm y)$: el cociente está en $[-1,1]$ \emph{gracias} al teorema. El signo de $\inner xy$ dice si el ángulo es agudo ($>0$), recto ($=0$, vectores \clave{ortogonales}) u obtuso ($<0$). Esa lectura geométrica es la que se usa en Lyapunov: $\Vdot=\nabla V(x)\T f(x)<0$ dice que el campo forma un ángulo obtuso con el gradiente de $V$, es decir, que apunta ``cuesta abajo''.
+
+\begin{trampa}[label=tr:pm-circular]{Cauchy--Schwarz no sale de $\abs{\cos\theta}\le1$}
+\plausible{$\inner xy=\norm x\norm y\cos\theta$ y $\abs{\cos\theta}\le1$; por lo tanto $\abs{\inner xy}\le\norm x\norm y$.}
+En $\R^2$ y $\R^3$ el argumento es correcto porque el ángulo se define con la geometría euclidiana. Pero en un espacio general ---funciones, polinomios, $\R^{100}$--- el ángulo \emph{se define} con la fórmula $\cos\theta=\inner xy/(\norm x\norm y)$, y para que esa definición tenga sentido hace falta saber antes que el cociente está en $[-1,1]$. El argumento es circular.
+\correcto{La prueba general usa solo los axiomas (la parábola del \cref{thm:pm-cs}). La figura en $\R^2$ es una buena intuición, no una demostración.}
+\end{trampa}
+
+\begin{teorema}[label=thm:pm-holder]{Desigualdad de Hölder}
+Sean $p,q\in[1,\infty]$ con $\frac1p+\frac1q=1$ (exponentes conjugados; $p=1$ va con $q=\infty$). Para $x,y\in\R^n$ y para funciones $f\in\mathcal{L}_p$, $g\in\mathcal{L}_q$,
+\[
+  \sum_{i=1}^n\abs{x_iy_i}\le\norm x_p\norm y_q,\qquad
+  \int\abs{f(t)g(t)}\,\dif t\le\norm f_{\mathcal{L}_p}\norm g_{\mathcal{L}_q} .
+\]
+\end{teorema}
+
+Con $p=q=2$ se recupera Cauchy--Schwarz. Hölder permite acotar un producto usando normas \emph{distintas} para cada factor; por ejemplo, $\abs{x\T y}\le\norm x_1\norm y_\infty$, que se usa cuando una señal es acotada y la otra tiene área finita: la potencia que entra a un sistema con una entrada acotada y una salida en $\mathcal{L}_1$ tiene energía total finita.
+
+\begin{pausa}
+¿Proviene $\norm\cdot_1$ de algún producto interno en $\R^2$? Pista: si $\norm x=\sqrt{\inner xx}$, entonces $\norm{x+y}^2+\norm{x-y}^2=2\norm x^2+2\norm y^2$ (ley del paralelogramo).
+\respuesta{No. Con $x=[1,0]\T$, $y=[0,1]\T$: $\norm{x+y}_1^2+\norm{x-y}_1^2=4+4=8$, mientras que $2\norm x_1^2+2\norm y_1^2=4$. La ley del paralelogramo falla, así que ningún producto interno induce $\norm\cdot_1$. Entre las normas-$p$, solo $p=2$ viene de un producto interno: por eso la geometría de ángulos y proyecciones se hace con la norma euclidiana.}
+\end{pausa}

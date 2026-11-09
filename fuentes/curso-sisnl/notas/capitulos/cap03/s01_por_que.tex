@@ -1,0 +1,44 @@
+%% ---------------------------------------------------------------------
+\section{¿Por qué matemáticas ahora?}
+\label{sec:pm-porque}
+%% ---------------------------------------------------------------------
+
+En el capítulo anterior estudiamos $\dot x=f(x)$ con $x\in\R$ suponiendo, casi siempre en silencio, dos cosas: que por cada condición inicial pasa \emph{una} solución, y que esa solución existe \emph{para todo} $t\ge0$. Los dos supuestos fallaron al final del capítulo. La ecuación $\dot x=x^{1/3}$ con $x(0)=0$ tiene infinitas soluciones; $\dot x=x^2$ con $x(0)=1$ tiene una sola, pero deja de existir en $t=1$. Ninguno de los dos es un caso patológico inventado por matemáticos. La no unicidad aparece en el vaciado de un tanque por un orificio (ley de Torricelli, $\dot h=-k\sqrt h$): mirando un tanque vacío no hay manera de saber cuándo se vació, porque hacia atrás en el tiempo la solución no es única. El escape en tiempo finito aparece en cualquier retroalimentación positiva que crezca más rápido que linealmente.
+
+Antes de seguir con sistemas de dimensión dos necesitamos responder, con precisión, tres preguntas sobre el problema de valor inicial
+\begin{equation}
+  \dot x=f(t,x),\qquad x(t_0)=x_0,\qquad x\in\R^n .
+  \label{eq:pm-pvi}
+\end{equation}
+\begin{enumerate}
+  \item ¿Qué condiciones sobre $f$ garantizan que exista una solución y que sea única?
+  \item ¿Durante cuánto tiempo existe?
+  \item Si no la podemos calcular, ¿podemos al menos \emph{acotarla}?
+\end{enumerate}
+
+\notamargen{\textbf{Notación.} El tiempo es el primer argumento: $f(t,x)$, y $f(t,x,u)$ cuando hay entrada. Un sistema es \emph{invariante en el tiempo} si $f$ no depende de $t$ y \emph{variante en el tiempo} si depende. No usamos ``autónomo''.}
+Las tres respuestas dependen de poder decir qué tan \emph{cerca} están dos estados, dos soluciones o dos funciones, y qué tan \emph{rápido} puede cambiar $f$ cuando cambia el estado. Lo primero es la geometría de los espacios (métricas, normas, productos internos y completitud, \cref{sec:pm-metricos,sec:pm-normas,sec:pm-producto,sec:pm-completos}). Lo segundo es la regularidad de $f$ (continuidad, diferenciabilidad y la condición de Lipschitz, \cref{sec:pm-regularidad,sec:pm-lipschitz}). Con las dos cosas se prueba el teorema de existencia y unicidad (\cref{sec:pm-existencia}) y se construye la herramienta que más vamos a usar después de este capítulo: el lema de comparación (\cref{sec:pm-comparacion}).
+
+\notamargen{\textbf{Ruta de las clases.} Clase~1: \S\ref{sec:pm-metricos}--\ref{sec:pm-producto}. Clase~2: \S\ref{sec:pm-completos}--\ref{sec:pm-regularidad}. Clase~3: \S\ref{sec:pm-lipschitz} y \S\ref{sec:pm-existencia}. Clase~4: \S\ref{sec:pm-existencia} (pruebas) y \S\ref{sec:pm-comparacion}.}
+
+¿Por qué este capítulo va aquí y no antes? Porque ahora tenemos los ejemplos que lo justifican. Un estudiante que llega a la definición de norma sin haber visto una ecuación con dos soluciones no tiene ninguna razón para quererla; uno que ya vio $\dot x=x^{1/3}$ sabe exactamente qué está buscando.
+
+\begin{ideaclave}
+La idea que organiza la primera mitad del capítulo es una sola:
+\begin{center}
+\sffamily\large\color{snlazul}espacio $=$ conjunto $+$ estructura.
+\end{center}
+Los elementos pueden ser vectores, funciones del tiempo o incluso palabras. La estructura que se les agrega ---una métrica, una norma, un producto interno--- decide qué preguntas tienen sentido: qué tan lejos, qué tan grande, en qué ángulo, y si las sucesiones que ``deberían'' converger convergen dentro del espacio.
+\end{ideaclave}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/t_estructuras}
+\caption{Cada estructura induce la anterior: un producto interno da una norma y una norma da una métrica. La completitud se agrega por separado; con ella aparecen los espacios de Banach y de Hilbert.}
+\label{fig:pm-estructuras}
+\end{figure}
+
+\begin{pausa}
+Antes de seguir, apueste: si $f$ es continua, ¿el problema \eqref{eq:pm-pvi} tiene una solución única?
+\respuesta{No. La continuidad garantiza que existe al menos una solución en un intervalo pequeño (teorema de Peano), pero no que sea única: $\dot x=x^{1/3}$, $x(0)=0$ tiene $x\equiv0$ y $x(t)=(2t/3)^{3/2}$, entre infinitas otras (\cref{ej:pm-nounicidad}). Para la unicidad hace falta la condición de Lipschitz (\cref{thm:pm-local}).}
+\end{pausa}

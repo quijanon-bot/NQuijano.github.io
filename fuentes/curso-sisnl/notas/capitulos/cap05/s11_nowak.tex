@@ -1,0 +1,70 @@
+%% ---------------------------------------------------------------------
+\section{Aplicación: ciclos límite y lenguaje}
+\label{sec:oc-nowak}
+%% ---------------------------------------------------------------------
+
+Esta sección no es un ejemplo más: es un ejercicio de \emph{todas} las herramientas del capítulo sobre un modelo publicado. \citet{MiNo04} modelaron el cambio de una lengua en una población que aprende de sus padres. Hay $n$ gramáticas posibles $G_1,\dots,G_n$; $x_j\ge0$ es la fracción de la población que usa $G_j$, con $\sum_jx_j=1$. Dos hablantes con gramáticas $G_i$ y $G_j$ se entienden con un beneficio $B_{ij}$; la \emph{aptitud} de $G_i$ es su beneficio promedio y la de la población, la media:
+\[
+  F_i=\sum_jB_{ij}x_j=(Bx)_i,\qquad\bar F=\sum_iF_ix_i=x\T Bx .
+\]
+Un niño cuyo padre usa $G_i$ aprende $G_j$ con probabilidad $Q_{ij}$ (aprendizaje imperfecto si $Q_{ii}<1$; las filas de $Q$ suman $1$). La dinámica \clave{replicador--mutador} es
+\begin{equation}
+  \dot x_j=\sum_{i=1}^nF_i\,x_i\,Q_{ij}-\bar F\,x_j,\qquad\text{es decir,}\qquad\dot x=Q\T(F\odot x)-\bar F\,x .
+  \label{eq:oc-nowak}
+\end{equation}
+Con $Q=I$ es la dinámica del replicador de la teoría de juegos evolutiva (capítulo~2). Tomamos $n=3$, los valores del artículo, $B_{ii}=0.88$ y $B_{ij}=0.2$ ($i\neq j$), y la familia circulante
+\[
+  Q(c)=\begin{bmatrix}0.8-c&0.2&c\\ c&0.8-c&0.2\\ 0.2&c&0.8-c\end{bmatrix},
+\]
+en la que $c$ es la probabilidad de ``saltar'' a la gramática anterior en el ciclo $G_1\to G_2\to G_3\to G_1$. Las figuras 1a y 1b del artículo corresponden a $c=0.01$ y $c=0.04$.
+
+\notamargen{\textbf{Notación.} Usamos $\bar F$ para la aptitud media, que en el artículo es $\phi$; en el curso, $\phi$ es el flujo.}
+\paragraph{Paso 1: el problema es plano.} Sea $s=\sum_jx_j$. Sumando \eqref{eq:oc-nowak} sobre $j$ y usando que las filas de $Q$ suman $1$,
+\[
+  \dot s=\sum_iF_ix_i-\bar F\,s=\bar F\,(1-s).
+\]
+El plano $s=1$ es invariante y \emph{atractor} (con tasa $\bar F>0$), y en la cara $x_j=0$, $\dot x_j=\sum_iF_ix_iQ_{ij}\ge0$: el símplex $\simplex=\{x\ge0,\ s=1\}$ es compacto y positivamente invariante. Sobre él hay dos coordenadas libres, $(x_1,x_2)$: \emph{todo el arsenal plano del capítulo se aplica literalmente}.
+
+\paragraph{Paso 2: el equilibrio interior y su índice.} Por la simetría circulante, $x^*=(\tfrac13,\tfrac13,\tfrac13)$ es un equilibrio para todo $c$, con $\bar F^*=1.28/3=0.4267$. Restringido al símplex, el jacobiano tiene valores propios con
+\[
+  \Re\lambda=\frac{0.092-2.94\,c}{3},\qquad\text{por ejemplo }\lambda=0.0209\pm0.1075j\ \text{con }c=0.01 .
+\]
+(El tercer valor propio del jacobiano completo, $-\bar F^*=-0.4267$, es el de la dirección transversal al símplex del paso~1.) Con $c=0.01$ es un foco inestable, de índice $+1$: \emph{el índice no prohíbe una órbita alrededor de él}.
+
+\paragraph{Paso 3: sin mutación no hay ciclos.} Con $Q=I$ y $B$ simétrica, la aptitud media cumple
+\[
+  \dot{\bar F}=2x\T B\dot x=2\sum_ix_i(F_i-\bar F)^2\ge0,
+\]
+con igualdad solo en los equilibrios (es el \emph{teorema fundamental} de Fisher). $-\bar F$ es una función que decrece estrictamente fuera de los equilibrios: por el \cref{thm:oc-lyapunov}, el replicador puro no tiene órbitas cerradas. Lo que la mutación destruye no es la linealidad ---el modelo es no lineal con o sin ella---, sino esa estructura de gradiente.
+
+\paragraph{Paso 4: el ciclo nace en una bifurcación de Hopf.} $\Re\lambda$ cambia de signo en
+\[
+  c^*=\frac{0.092}{2.94}=\frac{23}{735}\approx0.0313,
+\]
+con parte imaginaria $0.0955$ (período $\approx65.8$ al nacer). Para $c<c^*$ el foco es inestable; para $c>c^*$, estable (\cref{fig:oc-nowak}). Es la bifurcación de Hopf del capítulo~6, en un caso real.
+
+\paragraph{Paso 5: Poincaré--Bendixson cierra el argumento.} Con $c=0.01$: el símplex es compacto y positivamente invariante (paso~1); la frontera es \emph{repelente} (la mutación alimenta las gramáticas ausentes: en $x=(10^{-6},\tfrac12,\tfrac12)$, $\dot x_1=+0.0567$); el único equilibrio interior es un foco inestable (paso~2). Quitando un disco pequeño alrededor de él y una franja delgada junto a la frontera, queda un anillo compacto, positivamente invariante y sin equilibrios. Por el \cref{thm:oc-pb} contiene una órbita periódica: el ciclo de la figura~1a del artículo está \emph{demostrado}, no solo simulado. En la simulación, $x_1$ oscila entre $0.186$ y $0.478$ con período $\approx63$.
+
+\script{cap05_orbitas_ciclos/C5_Ej11_Nowak.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_nowak}
+\caption{Replicador--mutador de tres gramáticas en el símplex. Con $c=0.01$ las trayectorias de adentro y de afuera llegan a un ciclo límite; con $c=0.04$, al equilibrio $(\tfrac13,\tfrac13,\tfrac13)$. Derecha: la parte real de los valores propios cruza cero en $c^*=23/735\approx0.0313$.}
+\label{fig:oc-nowak}
+\end{figure}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej11_Nowak.m}{hopf}{Los valores propios en el símplex y la bifurcación de Hopf}
+
+\paragraph{Paso 6: el caos exige salir del plano.} Mitchener y Nowak pasan después a cinco gramáticas, y encuentran caos. No es realismo lingüístico: con tres gramáticas el símplex es bidimensional y Poincaré--Bendixson prohíbe el caos (\cref{tr:oc-pb3d}). Con cuatro, el símplex ya es tridimensional. La hipótesis de dimensión de todos los teoremas de este capítulo es exacta.
+
+\begin{trampa}[label=tr:oc-simulado]{Una simulación no prueba un ciclo}
+\plausible{La simulación con $c=0.01$ muestra una curva cerrada a la que llegan todas las trayectorias; eso prueba que hay un ciclo límite.}
+Una simulación finita no distingue un ciclo de un foco estable muy lento ni de una espiral que se cierra en un millón de vueltas. Cerca de $c^*$ la parte real es diminuta: con $c=0.03$, $\Re\lambda=0.0013$, y una espiral inestable tarda cientos de unidades de tiempo en notarse.
+\correcto{La prueba es la del paso~5: región compacta positivamente invariante $+$ un solo equilibrio, foco inestable $\Rightarrow$ órbita periódica. La simulación ilustra y sugiere; Poincaré--Bendixson demuestra.}
+\end{trampa}
+
+\begin{trampa}[label=tr:oc-fisher]{No es la no linealidad la que produce el ciclo}
+\plausible{El ciclo aparece porque el replicador es no lineal; la mutación solo cambia los números.}
+Con $Q=I$ el replicador es igual de no lineal y no tiene ciclos: $\bar F$ crece estrictamente (paso~3). El ciclo aparece porque el aprendizaje imperfecto ($Q\neq I$) rompe la estructura que lo prohibía.
+\correcto{Antes de buscar un ciclo, pregunte qué estructura lo impediría (gradiente, función que decrece, Dulac) y si el modelo la tiene. Cuando una perturbación rompe esa estructura, puede aparecer un ciclo.}
+\end{trampa}

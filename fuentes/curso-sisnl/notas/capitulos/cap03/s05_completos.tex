@@ -1,0 +1,50 @@
+%% ---------------------------------------------------------------------
+\section{Espacios completos: Banach y Hilbert}
+\label{sec:pm-completos}
+%% ---------------------------------------------------------------------
+
+La prueba de existencia de soluciones (\cref{sec:pm-existencia}) construye una sucesión de funciones que se acercan unas a otras y afirma que tiene un límite. Que ese límite exista \emph{dentro del espacio} no es automático. Es la propiedad que falta.
+
+\begin{definicion}[label=def:pm-cauchy]{Sucesión de Cauchy y espacio completo}
+En un espacio métrico $(X,d)$, una sucesión $\{x_k\}$ es \clave{de Cauchy} si para todo $\epsilon>0$ existe $N$ tal que $d(x_k,x_m)<\epsilon$ para todo $k,m\ge N$. El espacio es \clave{completo} si toda sucesión de Cauchy converge a un elemento \emph{de} $X$.
+\end{definicion}
+
+Toda sucesión convergente es de Cauchy (si $x_k\to x$, los términos se acercan a $x$ y, por la triangular, entre sí). Lo contrario es lo que define la completitud. Los racionales no son completos: $1,\ 1.4,\ 1.41,\ 1.414,\dots$ es de Cauchy en $\mathbb{Q}$ y su límite, $\sqrt2$, no es racional. Un espacio completo es uno sin ``huecos''.
+
+\begin{definicion}[label=def:pm-banach]{Espacios de Banach y de Hilbert}
+Un espacio normado que es completo con la métrica $d(x,y)=\norm{x-y}$ es un \clave{espacio de Banach}. Un espacio con producto interno que es completo con la norma inducida es un \clave{espacio de Hilbert}.
+\end{definicion}
+
+Todo espacio de Hilbert es de Banach (su norma inducida lo hace normado y completo); no todo Banach es Hilbert: $(\R^n,\norm\cdot_1)$ es Banach y su norma no viene de un producto interno.
+
+\begin{ejemplo}[label=ej:pm-Rnbanach]{$\R^n$ es completo con cualquier norma-$p$}
+Pruebe que $(\R^n,\norm\cdot_p)$, $1\le p\le\infty$, es un espacio de Banach.
+\solucion Sea $\{x^{(k)}\}$ de Cauchy. Como $\abs{x^{(k)}_i-x^{(m)}_i}\le\norm{x^{(k)}-x^{(m)}}_\infty\le\norm{x^{(k)}-x^{(m)}}_p$, cada componente $\{x_i^{(k)}\}$ es de Cauchy en $\R$. Los reales son completos, así que $x_i^{(k)}\to x_i^*$ para cada $i$. Sea $x^*=[x_1^*,\dots,x_n^*]\T$. Convergencia componente a componente da $\norm{x^{(k)}-x^*}_\infty\to0$ y, por la equivalencia de normas, $\norm{x^{(k)}-x^*}_p\to0$. Con el producto interno usual, $\R^n$ es además un espacio de Hilbert.
+\end{ejemplo}
+
+El espacio de funciones que vamos a usar para probar la existencia de soluciones es $C[a,b]$ (funciones continuas $x:[a,b]\to\R^n$) con la \emph{norma del máximo}
+\begin{equation}
+  \norm x_C=\max_{a\le t\le b}\norm{x(t)} .
+  \label{eq:pm-normaC}
+\end{equation}
+$(C[a,b],\norm\cdot_C)$ es un espacio de Banach: si $\{x_k\}$ es de Cauchy en esa norma, para cada $t$ la sucesión $\{x_k(t)\}$ es de Cauchy en $\R^n$ y tiene límite $x(t)$; la convergencia es \emph{uniforme} en $t$, y un límite uniforme de funciones continuas es continuo. El límite vive en $C[a,b]$.
+
+\begin{trampa}[label=tr:pm-completo]{Producto interno no es lo mismo que Hilbert}
+\plausible{$C[0,1]$ con $\inner fg=\int_0^1fg\,\dif t$ tiene producto interno; por lo tanto es un espacio de Hilbert.}
+Falta la completitud, y falla. Las rampas continuas $f_k(t)$, que valen $0$ hasta $t=\tfrac12$, suben con pendiente $k$ y valen $1$ después, forman una sucesión de Cauchy en $\Ldos$: $\norm{f_k-f_m}_{\Ldos}\to0$ (por ejemplo, $\norm{f_{10}-f_{20}}_{\Ldos}=1/\sqrt{120}\approx0.091$). Pero se acercan al escalón, que no es continuo (\cref{fig:pm-completitud}). En la norma del máximo la misma sucesión ni siquiera es de Cauchy: $\norm{f_k-f_{2k}}_C=\tfrac12$ para todo $k$.
+\correcto{$(C[0,1],\norm\cdot_C)$ es Banach; $(C[0,1],\norm\cdot_{\Ldos})$ no es completo. Su completación ---agregar todos los límites--- es el espacio $\Ldos[0,1]$, que sí es de Hilbert. Por eso la prueba de existencia trabaja con la norma del máximo.}
+\end{trampa}
+
+\script{cap03_preliminares/C3_Ej4_Completitud.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\linewidth]{cap03/f_completitud}
+\caption{Rampas continuas que, en la norma $\Ldos$, se acercan entre sí y al escalón: $\norm{f_k-\text{escalón}}_{\Ldos}=1/\sqrt{3k}$. El límite no está en $C[0,1]$.}
+\label{fig:pm-completitud}
+\end{figure}
+
+\codigorepo{cap03_preliminares/C3_Ej4_Completitud.m}{rampas}{Cauchy en $\Ldos$, no en la norma del máximo}
+
+\begin{historia}[Banach, Hilbert y el espacio $\Ldos$]
+Hilbert estudió entre 1904 y 1910 ecuaciones integrales en lo que hoy llamamos el espacio $\ell^2$ de sucesiones de cuadrado sumable; la estructura abstracta de espacio de Hilbert la axiomatizó von Neumann hacia 1929. Stefan Banach definió los espacios normados completos en su tesis, publicada en 1922, donde también aparece el principio de contracción que usaremos en la \cref{sec:pm-existencia} \citep{Ban22}. Que $\Ldos$ es completo es el teorema de Riesz--Fischer (1907).
+\end{historia}

@@ -11,7 +11,7 @@ Versión **piloto** (noviembre de 2026), con el mismo esquema del repositorio de
 | `notas/` | Las notas en LaTeX: clase `apuntessisnl.cls` (derivada de `apuntescontrol.cls`), notación `notacion.sty`, `NotasSisNL.tex`, capítulos partidos en secciones, figuras, bibliografía |
 | `codigo/` | MATLAB y Simulink: `iniciarCurso.m`, funciones `comun/`, scripts por capítulo (`C11_Ej*`, `C11_Video_*`), modelos de Simulink construidos por código (`crearModelo_*`) y `verificarCap11.m` |
 | `sitio/` | Página web (Quarto): una página por parte del curso, notación, códigos, videos y el explorador interactivo de pasividad |
-| `herramientas/` | Python para regenerar las figuras y verificar los números (`cap11_figuras.py`, `cap11_numeros.py`), `tikz.sh` para los diagramas y `pdf_por_capitulo.py` para los PDF de cada parte |
+| `herramientas/` | Python para regenerar las figuras y verificar los números (`capNN_figuras.py`, `capNN_numeros.py`, para los capítulos 3, 5 y 11), `tikz.sh` para los diagramas y `pdf_por_capitulo.py` para los PDF de cada parte |
 | `.github/workflows/` | Compila el PDF y publica el sitio en GitHub Pages en cada *push* |
 
 **Una sola fuente.** Los bloques de código de las notas y del sitio se leen directamente de `codigo/` (marcas `% [ini:nombre]` / `% [fin:nombre]`); la notación vive en `notas/notacion.sty` (y sus macros se repiten para MathJax en `sitio/recursos/macros.html`).
@@ -28,12 +28,17 @@ quarto preview sitio
 # Figuras y verificación de números (Python 3 + numpy, scipy, sympy, matplotlib)
 python3 herramientas/cap11_figuras.py
 python3 herramientas/cap11_numeros.py      # 72 verificaciones
+python3 herramientas/cap03_numeros.py      # 43 verificaciones
+python3 herramientas/cap05_numeros.py      # 59 verificaciones
+python3 herramientas/pdf_por_capitulo.py notas/NotasSisNL.pdf sitio/pdf   # PDF por capítulo
 herramientas/tikz.sh cap11 t_feedback      # recompilar un diagrama TikZ
 ```
 
-En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap11` (39 verificaciones).
+En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap03` (33), `verificarCap05` (34) o `verificarCap11` (39).
 
-## Estado de las pruebas (4 de noviembre de 2026)
+## Estado de las pruebas (9 de noviembre de 2026)
+
+- Capítulos 3 y 5: `cap03_numeros.py` 43/43, `cap05_numeros.py` 59/59, `verificarCap03` 33/33 y `verificarCap05` 34/34 en Octave 8.4. **Falta correr en MATLAB** los `C3_Video_*`, `C5_Video_*` y `crearModelo_VanDerPol`.
 
 - `herramientas/cap11_numeros.py`: 72/72.
 - `verificarCap11.m`: 39/39 en GNU Octave 8.4. Los catorce `C11_Ej*` corren en Octave sin errores.

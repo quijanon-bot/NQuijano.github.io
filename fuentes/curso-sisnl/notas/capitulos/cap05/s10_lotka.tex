@@ -1,0 +1,105 @@
+%% ---------------------------------------------------------------------
+\section{Presas y depredadores: tres modelos, tres respuestas}
+\label{sec:oc-lotka}
+%% ---------------------------------------------------------------------
+
+Esta sección aplica el arsenal completo a tres modelos de poblaciones. Se parecen mucho y se comportan de tres maneras cualitativamente distintas: un continuo de órbitas cerradas, un equilibrio que atrae todo y un ciclo límite aislado. Distinguirlos es exactamente el trabajo de las herramientas del capítulo.
+
+\begin{historia}[Lotka, Volterra y los peces del Adriático]
+Alfred J.\ Lotka (1880--1949), químico físico de formación y luego estadístico de una aseguradora en Nueva York, mostró en 1920 que un modelo de reacciones químicas podía producir oscilaciones no amortiguadas \citep{Lot20}. Vito Volterra (1860--1940), matemático italiano conocido por sus ecuaciones integrales, llegó al mismo modelo en 1926 por otra pregunta: su yerno, el biólogo marino Umberto D'Ancona, había notado que durante la Primera Guerra Mundial, cuando casi no se pescaba en el Adriático, la proporción de peces depredadores en las capturas había aumentado \citep{Vol26}. En 1931 Volterra fue uno de los pocos profesores universitarios italianos que se negaron a jurar lealtad al régimen fascista, y perdió su cátedra. La descripción moderna del modelo y sus variantes está en \citet{HoSi98}.
+\end{historia}
+
+%% ---------------------------------------------------------------------
+\subsection{El modelo clásico: un continuo de órbitas}
+%% ---------------------------------------------------------------------
+
+Con $v$ la densidad de presas y $p$ la de depredadores,
+\begin{equation}
+  \dot v=v(a-bp),\qquad\dot p=p(-c+dv),\qquad a,b,c,d>0 .
+  \label{eq:oc-lv}
+\end{equation}
+Sin depredadores las presas crecen exponencialmente; sin presas los depredadores se extinguen; los encuentros (proporcionales a $vp$) pasan biomasa de unas a otros. Los ejes son invariantes ($v=0$ implica $\dot v=0$), así que el cuadrante positivo también lo es. Hay dos equilibrios: el origen, que es una silla (valores propios $a$ y $-c$), y $(c/d,\ a/b)$, con valores propios $\pm j\sqrt{ac}$: la linealización no decide (\cref{tr:oc-centro}).
+
+Lo que decide es una primera integral. Dividiendo las ecuaciones y separando variables, $(d-c/v)\dot v=(a/p-b)\dot p$, que integrada da
+\begin{equation}
+  K(v,p)=dv-c\ln v+bp-a\ln p=\text{constante}.
+  \label{eq:oc-K}
+\end{equation}
+$K$ tiene un mínimo estricto en $(c/d,a/b)$ y crece hacia los bordes del cuadrante: sus curvas de nivel son cerradas y el equilibrio es un centro rodeado de órbitas (\cref{fig:oc-lotka}, izquierda). Dos consecuencias: la amplitud de la oscilación la decide la condición inicial (como en el oscilador lineal), y el \emph{promedio} sobre un período no: integrando $\frac{\dif}{\dif t}\ln v=a-bp$ sobre un período $T$, el lado izquierdo da cero y queda $\frac1T\int_0^Tp\,\dif t=\frac ab$; igualmente $\frac1T\int_0^Tv\,\dif t=\frac cd$. Esa fue la respuesta de Volterra a D'Ancona: pescar disminuye $a$ y aumenta $c$, así que \emph{menos} pesca aumenta el promedio de depredadores ($a/b$) y disminuye el de presas ($c/d$).
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej10_LotkaVolterra.m}{clasico}{$K$ se conserva y los promedios son el equilibrio}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_lotka}
+\caption{Tres modelos presa--depredador. Izquierda: Lotka--Volterra clásico con $(a,b,c,d)=(6,3,2,1)$, curvas de nivel de $K$ alrededor de $(2,2)$. Centro: con competencia, $(a,b,c,d,e,f)=(1,1,0.5,1,0.5,0.2)$, todo converge a $(0.636,0.682)$. Derecha: Rosenzweig--MacArthur con $K=5$, un ciclo límite.}
+\label{fig:oc-lotka}
+\end{figure}
+
+\begin{trampa}[label=tr:oc-lvciclo]{Las órbitas de Lotka--Volterra no son ciclos límite}
+\plausible{Lotka--Volterra oscila; las oscilaciones de las poblaciones reales son ciclos límite; luego \eqref{eq:oc-lv} explica las oscilaciones reales.}
+Las órbitas de \eqref{eq:oc-lv} forman una familia continua: ninguna está aislada, la amplitud depende de la condición inicial y cualquier perturbación la cambia para siempre. Peor: el modelo es \emph{estructuralmente inestable}, y el menor término adicional destruye los centros, como muestran los dos modelos siguientes.
+\correcto{\eqref{eq:oc-lv} es un modelo conservativo (tiene la primera integral $K$), igual que Duffing sin fricción. Para explicar una oscilación robusta hace falta un ciclo límite, y para eso hace falta otra no linealidad.}
+\end{trampa}
+
+%% ---------------------------------------------------------------------
+\subsection{Con competencia: un equilibrio globalmente atractor}
+%% ---------------------------------------------------------------------
+
+Si las presas compiten por un recurso limitado ($e>0$) y los depredadores también ($f\ge0$),
+\begin{equation}
+  \dot v=v(a-ev-bp),\qquad\dot p=p(-c+dv-fp) .
+  \label{eq:oc-lvc}
+\end{equation}
+Los equilibrios en el cuadrante cerrado son $(0,0)$, $(a/e,0)$ y, si $ad-ce>0$, el de coexistencia
+\[
+  v^*=\frac{af+bc}{bd+ef},\qquad p^*=\frac{ad-ce}{bd+ef} .
+\]
+\emph{Linealización.} En $(v^*,p^*)$ la traza del jacobiano es $-(ev^*+fp^*)<0$ y el determinante es $(ad-ce)(af+bc)/(bd+ef)>0$: los dos valores propios tienen parte real negativa, un nodo o foco \emph{estable}.
+
+\emph{Dulac descarta órbitas.} Con $g=1/(vp)$ (\cref{sec:oc-descartar}),
+\[
+  \operatorname{div}\Bigl(\frac{f}{vp}\Bigr)=\frac{\partial}{\partial v}\Bigl(\frac{a-ev-bp}{p}\Bigr)+\frac{\partial}{\partial p}\Bigl(\frac{-c+dv-fp}{v}\Bigr)=-\frac ep-\frac fv<0
+\]
+en el cuadrante abierto, que es simplemente conexo: no hay órbitas cerradas. (Con $e=f=0$ la misma cuenta da $0$, consistente con los centros del modelo clásico.)
+
+\emph{Una función de Lyapunov.} Volterra encontró algo más fuerte. Con
+\[
+  W(v,p)=d\bigl(v-v^*\ln v\bigr)+b\bigl(p-p^*\ln p\bigr),\qquad
+  \dot W=-de\,(v-v^*)^2-bf\,(p-p^*)^2\le0 .
+\]
+$W$ tiene su mínimo en $(v^*,p^*)$ y crece hacia los bordes del cuadrante. $\dot W=0$ solo donde $v=v^*$ (si $f=0$) o en el equilibrio (si $f>0$); en la recta $v\equiv v^*$, $\dot v=0$ obliga a $p=p^*$. Por el principio de invarianza (capítulo~8), toda trayectoria que empieza en el cuadrante abierto converge a $(v^*,p^*)$ (\cref{fig:oc-lotka}, centro). Con $(a,b,c,d,e,f)=(1,1,0.5,1,0.5,0.2)$, el equilibrio es $(0.636,\ 0.682)$.
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej10_LotkaVolterra.m}{competencia}{Convergencia con competencia y la función de Volterra}
+
+%% ---------------------------------------------------------------------
+\subsection{Rosenzweig--MacArthur: un ciclo límite}
+%% ---------------------------------------------------------------------
+
+Un depredador real no come proporcionalmente a la cantidad de presas: se sacia. Con una respuesta funcional saturada (Holling tipo II) y presas con crecimiento logístico, el modelo adimensional de Rosenzweig y MacArthur \citep{RoMa63} es
+\begin{equation}
+  \dot v=v\Bigl(1-\frac vK\Bigr)-\frac{vp}{1+v},\qquad\dot p=p\Bigl(\frac{\beta v}{1+v}-\gamma\Bigr),
+  \label{eq:oc-rm}
+\end{equation}
+con $K$ la capacidad de carga del ambiente y $\beta>\gamma$. El equilibrio de coexistencia tiene $v^*=\gamma/(\beta-\gamma)$, y el cálculo de la traza del jacobiano muestra que cambia de signo en
+\[
+  K_H=\frac{\beta+\gamma}{\beta-\gamma} .
+\]
+Con $\beta=2$, $\gamma=1$: $v^*=1$ y $K_H=3$. Para $K<3$ el equilibrio es un foco estable; para $K>3$ es un foco inestable. Se puede mostrar que una región acotada del cuadrante atrapa todas las trayectorias y que las trayectorias interiores no pueden acercarse a las sillas de los ejes, $(0,0)$ y $(K,0)$; con eso, Poincaré--Bendixson da una órbita periódica alrededor del foco (es el Problema~\ref{prob:oc-rm}). La simulación con $K=5$ muestra un ciclo límite en el que las presas oscilan entre $0.047$ y $4.47$ (\cref{fig:oc-lotka}, derecha). El ciclo nace en una bifurcación de Hopf (capítulo~6).
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej10_LotkaVolterra.m}{rosenzweig}{Del equilibrio estable al ciclo al aumentar $K$}
+
+\begin{trampa}[label=tr:oc-enriquecer]{Más recursos no estabilizan}
+\plausible{Si se aumenta la capacidad de carga $K$ de las presas ---más alimento, mejor hábitat---, el ecosistema se vuelve más estable.}
+En \eqref{eq:oc-rm} pasa lo contrario: para $K>K_H$ el equilibrio pierde la estabilidad y aparece un ciclo cuya amplitud crece con $K$. Con $K=5$ las presas bajan hasta $0.047$, cerca de la extinción. Es la \emph{paradoja del enriquecimiento} \citep{Ros71}.
+\correcto{La estabilidad depende de la estructura del sistema, no de la abundancia. Lo que hay que mirar es la traza del jacobiano en el equilibrio (cambio de estabilidad) y, después, una región que atrape las trayectorias (existencia del ciclo).}
+\end{trampa}
+
+\begin{ideaclave}
+\begin{tabular}{@{}lll@{}}
+\textbf{modelo} & \textbf{herramienta que decide} & \textbf{resultado}\\
+Lotka--Volterra & primera integral $K$ & continuo de órbitas (centro)\\
+con competencia & Dulac con $1/(vp)$; Lyapunov $W$ & equilibrio globalmente atractor\\
+Rosenzweig--MacArthur & traza $>0$ + Poincaré--Bendixson & ciclo límite
+\end{tabular}
+\end{ideaclave}

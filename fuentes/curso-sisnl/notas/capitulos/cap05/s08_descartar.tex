@@ -1,0 +1,73 @@
+%% ---------------------------------------------------------------------
+\section{Cómo descartar órbitas cerradas}
+\label{sec:oc-descartar}
+%% ---------------------------------------------------------------------
+
+El índice descarta curvas que encierran los equilibrios equivocados. Hay tres certificados más, que descartan órbitas en regiones enteras. Los tres tienen la misma lógica: una cantidad que, a lo largo de una órbita cerrada, tendría que volver a su valor inicial, y que el sistema obliga a cambiar.
+
+\begin{teorema}[label=thm:oc-gradiente]{Sistemas gradiente}
+Si $\dot x=-\nabla V(x)$ con $V\in\Cont1$, el sistema no tiene órbitas cerradas (en cualquier dimensión).
+\end{teorema}
+
+\begin{proof}
+A lo largo de una solución, $\Vdot=\nabla V\T\dot x=-\norm{\nabla V}^2\le0$, con igualdad solo en equilibrios. Si $x(t)$ fuera periódica no constante con período $T$, entonces $0=V(x(T))-V(x(0))=-\int_0^T\norm{\nabla V}^2\,\dif t<0$.
+\end{proof}
+
+\begin{ejemplo}[label=ej:oc-gradiente]{Reconocer un gradiente}
+Muestre que $\dot x_1=\sin x_2$, $\dot x_2=x_1\cos x_2$ no tiene órbitas cerradas.
+\solucion Con $V(x)=-x_1\sin x_2$: $-\partial V/\partial x_1=\sin x_2$ y $-\partial V/\partial x_2=x_1\cos x_2$. Es un sistema gradiente. (Una prueba rápida: un campo plano es un gradiente en $\R^2$ si y solo si $\partial f_1/\partial x_2=\partial f_2/\partial x_1$; aquí ambas valen $\cos x_2$.)
+\end{ejemplo}
+
+\begin{teorema}[label=thm:oc-lyapunov]{Una función que siempre decrece}
+Si existe $V\in\Cont1$ con $\Vdot(x)=\nabla V(x)\T f(x)<0$ para todo $x$ que no sea equilibrio, el sistema no tiene órbitas cerradas.
+\end{teorema}
+
+\noindent La prueba es la misma: a lo largo de una órbita de período $T$, $V$ tendría que bajar estrictamente y volver a su valor. Note que el teorema \emph{no} pide que $V$ sea definida positiva ni radialmente no acotada.
+
+\begin{ejemplo}[label=ej:oc-lyapunov]{Una función de Lyapunov como certificado}
+Muestre que $\dot x_1=-x_1+4x_2$, $\dot x_2=-x_1-x_2^3$ no tiene órbitas cerradas, con $V=x_1^2+4x_2^2$.
+\solucion $\Vdot=2x_1(-x_1+4x_2)+8x_2(-x_1-x_2^3)=-2x_1^2-8x_2^4$, que es negativa salvo en el origen (el único equilibrio). Los términos cruzados $8x_1x_2$ se cancelan: el peso $4$ en $V$ se escogió para eso.
+\end{ejemplo}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej8_Descartar.m}{lyapunov}{$\Vdot<0$ fuera del origen, verificado en una malla}
+
+\begin{trampa}[label=tr:oc-gas]{Para descartar órbitas no hace falta estabilidad global}
+\plausible{Para descartar órbitas cerradas con una función $V$ hay que probar que el origen es globalmente asintóticamente estable: $V$ definida positiva, radialmente no acotada y $\Vdot<0$.}
+Esas hipótesis dan GAS (capítulo~7), y GAS implica que no hay órbitas cerradas; pero para descartar órbitas basta mucho menos. El \cref{thm:oc-lyapunov} solo usa que $V$ baja estrictamente fuera de los equilibrios: $V$ puede ser indefinida, y el sistema puede tener varios equilibrios, algunos inestables. En un sistema gradiente con dos mínimos y una silla, $V$ no es definida positiva respecto a ningún punto, y aun así descarta todas las órbitas.
+\correcto{Una cantidad que decrece estrictamente a lo largo de toda trayectoria no estacionaria prohíbe las órbitas cerradas. Es la misma idea que usaremos con la entropía relativa del replicador y con la aptitud media en la \cref{sec:oc-nowak}.}
+\end{trampa}
+
+%% ---------------------------------------------------------------------
+\subsection{El criterio de Bendixson--Dulac}
+%% ---------------------------------------------------------------------
+
+\begin{teorema}[label=thm:oc-bendixson]{Criterio de Bendixson--Dulac \citep{Ben01,Dul37}}
+Sea $D\subseteq\R^2$ una región \emph{simplemente conexa} (sin huecos), $f\in\Cont1$ y $g:D\to\R$ una función $\Cont1$. Si
+\[
+  \operatorname{div}(gf)=\frac{\partial(gf_1)}{\partial x_1}+\frac{\partial(gf_2)}{\partial x_2}
+\]
+no es idénticamente cero y no cambia de signo en $D$, entonces $D$ no contiene órbitas cerradas. Con $g\equiv1$ es el criterio de Bendixson.
+\end{teorema}
+
+\begin{proof}
+Suponga que $\gamma\subset D$ es una órbita cerrada y sea $S$ la región que encierra; $S\subset D$ porque $D$ es simplemente conexa. Sobre $\gamma$, $\dif x_1=f_1\dif t$ y $\dif x_2=f_2\dif t$, así que $g(f_1\dif x_2-f_2\dif x_1)=g(f_1f_2-f_2f_1)\dif t=0$. Por el teorema de Green,
+\[
+  0=\oint_\gamma g\,(f_1\,\dif x_2-f_2\,\dif x_1)=\iint_S\operatorname{div}(gf)\,\dif x_1\dif x_2 .
+\]
+Una función continua de un solo signo, que no es idénticamente cero, no puede tener integral cero sobre $S$.
+\end{proof}
+
+\begin{ejemplo}[label=ej:oc-duffingfriccion]{La fricción destruye las órbitas de Duffing}
+Muestre que $\ddot x+\delta\dot x+x^3-x=0$ no tiene órbitas cerradas si $\delta\neq0$.
+\solucion Con $f=(x_2,\ x_1-x_1^3-\delta x_2)$, $\operatorname{div}f=0-\delta=-\delta$, de signo constante en todo $\R^2$. Con $\delta=0$ la divergencia es cero y Bendixson no dice nada, en concordancia con la familia de órbitas de la \cref{fig:oc-duffing}.
+\end{ejemplo}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej8_Descartar.m}{bendixson}{Divergencia de Duffing y de Lotka--Volterra con el factor de Dulac}
+
+La función $g$ de Dulac es un grado de libertad que hay que adivinar. Un caso clásico: en un modelo de poblaciones $\dot v=vF(v,p)$, $\dot p=pG(v,p)$, el factor $g=1/(vp)$ cancela los prefactores y da $\operatorname{div}(gf)=\frac1p\partial F/\partial v+\frac1v\partial G/\partial p$, que muchas veces tiene signo fijo en el cuadrante positivo (\cref{sec:oc-lotka}).
+
+\begin{trampa}[label=tr:oc-bendixson]{Bendixson solo descarta}
+\plausible{$\operatorname{div}f$ cambia de signo en $D$; por lo tanto $D$ contiene una órbita cerrada.}
+El criterio es una condición suficiente para que \emph{no} haya órbitas; si la divergencia cambia de signo, no dice nada. El sistema gradiente $\dot x_1=-x_1^3$, $\dot x_2=x_2^3$ (con $V=\tfrac14(x_1^4-x_2^4)$) tiene $\operatorname{div}f=3(x_2^2-x_1^2)$, que cambia de signo, y no tiene ninguna órbita cerrada (\cref{thm:oc-gradiente}). En el otro sentido, el ciclo del \cref{ej:oc-polar} vive en una región donde $\operatorname{div}f=2-4r^2$ cambia de signo, como debe ser: sobre el ciclo, la integral de la divergencia en el disco que encierra tiene que ser cero.
+\correcto{Bendixson--Dulac solo se usa para descartar. Para probar que hay una órbita hace falta Poincaré--Bendixson. Y si $D$ tiene un hueco (un anillo alrededor de un equilibrio), el criterio no se puede usar: la región encerrada por la órbita no está en $D$.}
+\end{trampa}

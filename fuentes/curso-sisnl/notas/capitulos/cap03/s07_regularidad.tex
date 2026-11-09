@@ -1,0 +1,78 @@
+%% ---------------------------------------------------------------------
+\section{Regularidad del campo vectorial}
+\label{sec:pm-regularidad}
+%% ---------------------------------------------------------------------
+
+Casi nunca se analiza la ecuación de la planta tal como viene, $\dot x=f_p(t,x,u)$, con $x(t)\in\R^n$ y $u(t)\in\R^m$. Se le conecta una ley de control $u=\gamma(t,x)$ y se analiza el lazo cerrado
+\begin{equation}
+  \dot x=f_p\bigl(t,x,\gamma(t,x)\bigr)\eqqcolon f(t,x) .
+  \label{eq:pm-lazo}
+\end{equation}
+\notamargen{Una entrada $u(t)$ conocida (una referencia, una perturbación medida) también entra a través de la dependencia en $t$. Si $u$ tiene saltos, $f$ tiene saltos en $t$: por eso se pide continuidad a trozos.}
+Las propiedades de $f$ heredan las de $f_p$ y las de $\gamma$: un controlador discontinuo (un relé, una saturación con conmutación) produce un $f$ discontinuo. Esta sección fija el vocabulario para decir qué tan ``suave'' es $f$.
+
+\begin{definicion}[label=def:pm-ck]{Continuidad y clases $\Cont k$}
+Sea $f:\R^n\to\R^m$, $f(x)=[f_1(x),\dots,f_m(x)]\T$.
+\begin{itemize}
+  \item $f$ es \clave{continua} en $x_0$ si $\lim_{x\to x_0}f(x)=f(x_0)$; equivalentemente, si cada $f_i$ es continua en $x_0$. Se escribe $f\in\Cont0$.
+  \item $f\in\Cont1$ (\clave{continuamente diferenciable}) si todas las derivadas parciales $\partial f_i/\partial x_j$ existen y son continuas.
+  \item $f\in\Cont k$ si las derivadas parciales hasta orden $k$ existen y son continuas; $f\in\Cont\infty$ (\clave{suave}) si las tiene de todos los órdenes.
+\end{itemize}
+\end{definicion}
+
+Cada clase contiene a la siguiente: $\Cont\infty\subset\cdots\subset\Cont2\subset\Cont1\subset\Cont0$, y ninguna inclusión es una igualdad ($\abs x\in\Cont0\setminus\Cont1$; $x\abs x\in\Cont1\setminus\Cont2$).
+
+\begin{cuidado}[Continua a trozos no quiere decir ``sin saltos'']
+Una función $g(t)$ es \clave{continua a trozos} en $[t_0,t_1]$ si el intervalo se puede partir en un número finito de subintervalos en cuyo interior $g$ es continua y si en los extremos tiene límites laterales finitos. Puede tener \emph{saltos}: un escalón o una onda cuadrada son continuos a trozos. Lo que no puede tener son infinitos saltos ni explosiones. En el teorema de existencia se pide continuidad a trozos en $t$ precisamente para admitir entradas que conmutan.
+\end{cuidado}
+
+%% ---------------------------------------------------------------------
+\subsection{El jacobiano}
+%% ---------------------------------------------------------------------
+
+\begin{definicion}[label=def:pm-jacobiano]{Jacobiano y gradiente}
+El \clave{jacobiano} de $f:\R^n\to\R^m$ es la matriz $m\times n$ de sus derivadas parciales,
+\[
+  \jac fx=\begin{bmatrix}
+    \partial f_1/\partial x_1 & \cdots & \partial f_1/\partial x_n\\
+    \vdots & \ddots & \vdots\\
+    \partial f_m/\partial x_1 & \cdots & \partial f_m/\partial x_n
+  \end{bmatrix}:
+  \quad\text{fila $i$ = componente $f_i$, columna $j$ = variable $x_j$.}
+\]
+Para una función escalar $h:\R^n\to\R$ el jacobiano es un vector \emph{fila}, $\jac hx\in\R^{1\times n}$, y el \clave{gradiente} es su transpuesta, $\nabla h(x)=\bigl(\jac hx\bigr)\T\in\R^n$.
+\end{definicion}
+
+El jacobiano es la mejor aproximación lineal de $f$ cerca de un punto: $f(x_0+\delta)=f(x_0)+\jacat fx{x_0}\delta+o(\norm\delta)$. Es la matriz que se calcula para linealizar en un equilibrio (capítulo~4). El gradiente apunta en la dirección de máximo crecimiento de $h$; la derivada de $h$ a lo largo de las soluciones de $\dot x=f(x)$ es $\dot h=\jac hx\,f(x)=\nabla h(x)\T f(x)$, la cuenta que repetiremos con cada función de Lyapunov.
+
+\begin{ejemplo}[label=ej:pm-jacobiano]{Calcular un jacobiano}
+Calcule el jacobiano de $f(x)=\begin{bmatrix}x_1^2+x_2x_3\\ x_1x_2+\sin x_3\\ \ee^{x_1}+x_2^2-x_3\end{bmatrix}$ y diga sus dimensiones.
+\solucion Fila por componente, columna por variable:
+\[
+  \jac fx=\begin{bmatrix}2x_1&x_3&x_2\\ x_2&x_1&\cos x_3\\ \ee^{x_1}&2x_2&-1\end{bmatrix}\in\R^{3\times3} .
+\]
+Todas las entradas son continuas, así que $f\in\Cont1$ (de hecho $\Cont\infty$).
+\end{ejemplo}
+
+%% ---------------------------------------------------------------------
+\subsection{El teorema del valor medio, en la forma correcta}
+%% ---------------------------------------------------------------------
+
+Para funciones escalares de una variable, $f(x)-f(y)=f'(z)(x-y)$ para algún $z$ entre $x$ y $y$. La versión que sirve para campos vectoriales es una integral.
+
+\begin{lema}[label=lem:pm-valormedio]{Valor medio en forma integral}
+Si $f\in\Cont1$ en un conjunto que contiene el segmento entre $x$ y $y$, entonces
+\[
+  f(x)-f(y)=\Bigl(\int_0^1\jacat fx{y+s(x-y)}\,\dif s\Bigr)(x-y) .
+\]
+\end{lema}
+
+\begin{proof}
+Sea $g(s)=f(y+s(x-y))$, $s\in[0,1]$. Por la regla de la cadena, $g'(s)=\jacat fx{y+s(x-y)}(x-y)$, y $f(x)-f(y)=g(1)-g(0)=\int_0^1g'(s)\,\dif s$.
+\end{proof}
+
+\begin{trampa}[label=tr:pm-valormedio]{No hay un punto intermedio para campos vectoriales}
+\plausible{Como en una variable, $f(x)-f(y)=\jacat fx z(x-y)$ para algún $z$ en el segmento entre $x$ y $y$.}
+Falso si $f$ tiene más de una componente. Tome $f(\theta)=[\cos\theta,\sin\theta]\T$ entre $\theta=0$ y $\theta=2\pi$: $f(2\pi)-f(0)=0$, pero $f'(z)\cdot2\pi=2\pi[-\sin z,\cos z]\T\neq0$ para todo $z$. Cada componente tiene su propio punto intermedio, y en general no coinciden.
+\correcto{Use la forma integral (\cref{lem:pm-valormedio}) o, para acotar, la desigualdad $\norm{f(x)-f(y)}\le\sup_{z}\norm{\jacat fxz}\,\norm{x-y}$ con $z$ en el segmento. Esa desigualdad es la que convierte un jacobiano acotado en una constante de Lipschitz.}
+\end{trampa}

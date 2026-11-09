@@ -1,0 +1,66 @@
+%% ---------------------------------------------------------------------
+\section{Osciladores acoplados: arrastre y deriva}
+\label{sec:oc-acoplados}
+%% ---------------------------------------------------------------------
+
+Hasta ahora cada oscilador evoluciona solo. En muchos sistemas los osciladores \emph{interactúan}, y la pregunta es si la interacción los sincroniza.
+
+\begin{historia}[De los relojes de Huygens a Kuramoto]
+En febrero de 1665, enfermo en cama, Christiaan Huygens notó que dos relojes de péndulo colgados de la misma viga terminaban oscilando en antifase, y que volvían a ella si se les perturbaba; lo llamó la ``simpatía de los relojes'' y lo publicó en el \emph{Horologium Oscillatorium} de 1673 \citep{Huy73}. Rayleigh describió en \emph{The Theory of Sound} la sincronización de tubos de órgano vecinos. En 1920, Eccles y Vincent patentaron el acoplamiento de dos generadores de triodo con frecuencias ligeramente distintas, que terminaban oscilando a la misma; Appleton y van der Pol extendieron esos experimentos y empezaron su teoría. En biología, de Mairan observó en 1729 que las hojas de una planta seguían abriéndose y cerrándose con el ritmo del día aun en la oscuridad: un reloj interno. Wiener se preguntó en los años cincuenta cómo se sincronizan las neuronas que producen el ritmo alfa del cerebro \citep{Wie58}; Winfree propuso en 1967 el primer modelo matemático de una población de osciladores biológicos acoplados y descubrió una transición de la incoherencia a la sincronía \citep{Win67}; y Kuramoto, en 1975, simplificó ese modelo hasta hacerlo resoluble \citep{Kur75,Kur84}. La revisión de \citet{DoBu14} cuenta la historia completa desde el punto de vista de control.
+\end{historia}
+
+Una población de $N$ osciladores de fase acoplados se modela, en general, como
+\begin{equation}
+  \dot\theta_i=\omega_i-\sum_{j=1}^Na_{ij}\sin(\theta_i-\theta_j),\qquad i=1,\dots,N,
+  \label{eq:oc-redsin}
+\end{equation}
+donde $\omega_i$ es la frecuencia natural del oscilador $i$ y $a_{ij}\ge0$ el peso de la arista $j\to i$ de un grafo. El término $-a_{ij}\sin(\theta_i-\theta_j)$ frena al oscilador $i$ si va adelante de $j$ y lo acelera si va atrás. Linealizado alrededor de $\theta_i=\theta_j$, \eqref{eq:oc-redsin} es el protocolo de consenso que se usa en control de sistemas multiagente.
+
+Con dos osciladores, la diferencia de fase $\varphi=\theta_1-\theta_2$ cumple
+\begin{equation}
+  \dot\varphi=(\omega_1-\omega_2)-(a_{12}+a_{21})\sin\varphi :
+  \label{eq:oc-dos}
+\end{equation}
+toda la pregunta de sincronización se reduce al oscilador no uniforme \eqref{eq:oc-nouniforme}. Hay enganche si y solo si el acoplamiento total $a_{12}+a_{21}$ supera la diferencia de frecuencias $\abs{\omega_1-\omega_2}$.
+
+%% ---------------------------------------------------------------------
+\subsection{Luciérnagas}
+%% ---------------------------------------------------------------------
+
+\begin{quote}\small\itshape
+Some twenty years ago I saw, or thought I saw, a synchronal or simultaneous flashing of fireflies. I could hardly believe my eyes, for such a thing to occur among insects is certainly contrary to all natural laws.
+\par\hfill\normalfont--- Philip Laurent, carta a \emph{Science}, 1917 \citep{Lau17}
+\end{quote}
+
+En algunos lugares del sudeste asiático, miles de luciérnagas macho se posan en los árboles al atardecer y, poco a poco, empiezan a destellar al unísono. Llegan con fases distintas; nadie dirige; cada una ve los destellos de las vecinas y ajusta su ritmo. El experimento que permitió modelarlo fue sencillo: encender una linterna periódicamente frente a una luciérnaga \citep{Han78}. Si la frecuencia de la linterna es cercana a la natural de la luciérnaga (período cercano a $0.9$\,s), la luciérnaga la sigue: queda \clave{arrastrada} (\emph{entrained}). Si es demasiado rápida o demasiado lenta, la luciérnaga no la alcanza y la diferencia de fase avanza sin cesar: \clave{deriva de fase} (\emph{phase drift}).
+
+\begin{ejemplo}[label=ej:oc-luciernaga]{Arrastre y deriva}
+Sea $\theta$ la fase de la luciérnaga, con frecuencia natural $\omega$, y $\psi$ la de la linterna, $\dot\psi=\Omega$. Suponga que la luciérnaga acelera si el estímulo va adelante y frena si va atrás \citep{ErRi84}:
+\[
+  \dot\theta=\omega+A\sin(\psi-\theta),\qquad A>0 .
+\]
+Halle el rango de frecuencias $\Omega$ que arrastran a la luciérnaga, la diferencia de fase en el arrastre y el período de la deriva fuera de él.
+\solucion La diferencia $\varphi=\psi-\theta$ cumple
+\[
+  \dot\varphi=\Omega-\omega-A\sin\varphi,
+\]
+otra vez \eqref{eq:oc-nouniforme}. Hay equilibrios si y solo si $\abs{\Omega-\omega}\le A$: el \clave{rango de arrastre} es $\omega-A\le\Omega\le\omega+A$. Dentro de él, el equilibrio estable es $\varphi^*=\arcsin\bigl((\Omega-\omega)/A\bigr)\in[-\pi/2,\pi/2]$ (allí $-A\cos\varphi^*<0$). Fuera de él, la deriva tiene período $T_{\text{deriva}}=2\pi/\sqrt{(\Omega-\omega)^2-A^2}$. Con $\omega=1$ y $A=0.5$: $\Omega=1.3$ arrastra con $\varphi^*=0.644$; $\Omega=1.6$ deriva con período $18.94$; $\Omega=2$, con período $7.26$ (\cref{fig:oc-luciernagas}). Midiendo el rango de arrastre en el laboratorio se estima $A$, la ``fuerza de reajuste'' de la luciérnaga.
+\end{ejemplo}
+
+\script{cap05_orbitas_ciclos/C5_Ej5_Luciernagas.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_luciernagas}
+\caption{Izquierda: dentro del rango de arrastre la diferencia de fase se queda quieta (verde); fuera, avanza a saltos, lenta cerca de $\varphi=\pi/2$. Derecha: el período de la deriva explota en los bordes del rango de arrastre.}
+\label{fig:oc-luciernagas}
+\end{figure}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej5_Luciernagas.m}{arrastre}{Arrastre y deriva de una luciérnaga}
+
+\begin{trampa}[label=tr:oc-enfase]{Arrastrada no quiere decir en fase}
+\plausible{Si la luciérnaga queda arrastrada por la linterna, destellan al mismo tiempo.}
+En el arrastre la diferencia de fase es \emph{constante}, no nula: $\varphi^*=\arcsin\bigl((\Omega-\omega)/A\bigr)$, que es cero solo si $\Omega=\omega$. Con $\Omega=1.3$, $\omega=1$ y $A=0.5$, la luciérnaga destella siempre $0.64$\,rad (una décima de ciclo) después de la linterna. Tienen la misma \emph{frecuencia}, no la misma fase.
+\correcto{Distinga \emph{sincronización de frecuencia} (las fases avanzan al mismo ritmo, $\dot\varphi\to0$) de \emph{sincronización de fase} ($\varphi\to0$). La primera exige que el acoplamiento compense la diferencia de frecuencias; la segunda, además, frecuencias iguales.}
+\end{trampa}
+
+\notamargen{La sesión de 2026 sobre osciladores se dictó el 31 de agosto, aniversario de la muerte de Jan C.\ Willems (1939--2013). Su teoría de los sistemas disipativos es la base del capítulo~11, donde volvemos a interconectar osciladores, esta vez contando la energía que intercambian.}

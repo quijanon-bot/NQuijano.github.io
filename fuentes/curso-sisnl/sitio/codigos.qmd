@@ -26,7 +26,18 @@ codigo/
 │   ├── abrirVideo.m          grabar videos en cualquier sistema operativo
 │   ├── respFrec.m            G(jw) sin toolboxes
 │   ├── esPR.m                prueba numérica PR / SPR (Khalil, Lema 6.1)
-│   └── balanceEnergia.m      V - V(0) = int s - int d sobre una simulación
+│   ├── balanceEnergia.m      V - V(0) = int s - int d sobre una simulación
+│   └── jacobianoNumerico.m   jacobiano por diferencias centradas
+├── cap03_preliminares/
+│   ├── C3_Ej1 … C3_Ej10      métricas, normas, Lipschitz, Picard, escape, comparación
+│   ├── C3_Video_*            Picard y no unicidad
+│   └── verificarCap03.m      33 pruebas de los números del capítulo
+├── cap05_orbitas_ciclos/
+│   ├── C5_Ej1 … C5_Ej11      Duffing, van der Pol, fase, Kuramoto, índice, PB, Lotka–Volterra, Nowak
+│   ├── C5_Video_*            Kuramoto, índice y van der Pol
+│   ├── crearModelo_VanDerPol VanDerPol.slx
+│   ├── modeloKuramoto.m, modeloNowak.m, indiceCurva.m
+│   └── verificarCap05.m      34 pruebas de los números del capítulo
 └── cap11_pasividad/
     ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
     ├── C11_Video_*           los cinco videos de la parte

@@ -6,6 +6,8 @@ project:
     - videos/
     - figuras/
     - recursos/explorador-pasividad.js
+    - recursos/explorador-fundamentos.js
+    - recursos/explorador-ciclos.js
 
 lang: es
 

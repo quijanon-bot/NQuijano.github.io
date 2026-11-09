@@ -1,0 +1,75 @@
+%% ---------------------------------------------------------------------
+\section{Flujos en el círculo y osciladores de fase}
+\label{sec:oc-circulo}
+%% ---------------------------------------------------------------------
+
+El modelo más simple de algo que oscila no necesita dos dimensiones. Basta una variable angular,
+\begin{equation}
+  \dot\theta=f(\theta),\qquad\theta\in S^1,
+  \label{eq:oc-circulo}
+\end{equation}
+donde $S^1$ es el círculo: $\theta$ y $\theta+2\pi$ son el \emph{mismo} punto. La dinámica sigue siendo unidimensional, pero ahora una trayectoria puede dar la vuelta y volver a su punto de partida: hay soluciones periódicas sin equilibrios, algo imposible en la recta (capítulo~2). Para que \eqref{eq:oc-circulo} defina un campo en el círculo, $f$ tiene que asignar una sola velocidad a cada punto, es decir, ser $2\pi$-periódica: $f(\theta+2\pi)=f(\theta)$. $\dot\theta=\theta$ \emph{no} es un campo en el círculo, porque daría velocidades distintas en $\theta=0$ y en $\theta=2\pi$.
+
+\begin{ejemplo}[label=ej:oc-seno]{El campo $\dot\theta=\sin\theta$}
+Dibuje el flujo en el círculo (con $\theta$ creciendo en sentido antihorario) y clasifique los equilibrios.
+\solucion Equilibrios: $\sin\theta^*=0$, es decir, $\theta^*=0$ y $\theta^*=\pi$. En $(0,\pi)$, $\dot\theta>0$: el flujo va en sentido antihorario; en $(\pi,2\pi)$, en sentido horario. Las flechas salen de $0$ y llegan a $\pi$: $\theta^*=0$ es inestable y $\theta^*=\pi$ estable. Con la derivada: $f'(0)=\cos0=1>0$ y $f'(\pi)=-1<0$ (\cref{fig:oc-circulo}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\linewidth]{cap05/f_circulo_seno}
+\caption{$\dot\theta=\sin\theta$ dibujado en la recta (identificando $0$ con $2\pi$) y en el círculo. En el círculo, los equilibrios estables e inestables tienen que alternarse.}
+\label{fig:oc-circulo}
+\end{figure}
+
+%% ---------------------------------------------------------------------
+\subsection{El oscilador uniforme}
+%% ---------------------------------------------------------------------
+
+Un punto del círculo es una \clave{fase}. El oscilador más simple es aquel cuya fase avanza a velocidad constante: $\dot\theta=\omega$, con solución $\theta(t)=\omega t+\theta_0$ y período $T=2\pi/\omega$. No hay amplitud; para eso hace falta una segunda dimensión. Lo que sí hay es la posibilidad de comparar dos osciladores por su \emph{diferencia de fase}.
+
+\begin{ejemplo}[label=ej:oc-corredores]{Dos corredores en una pista}
+$P_1$ da una vuelta a la pista en $T_1=4$ minutos y $P_2$ en $T_2=5$. Si salen juntos, ¿cuánto tarda $P_1$ en sacarle una vuelta a $P_2$?
+\solucion Con $\dot\theta_i=\omega_i=2\pi/T_i$, la diferencia de fase $\varphi=\theta_1-\theta_2$ cumple $\dot\varphi=\omega_1-\omega_2$. $P_1$ saca una vuelta cuando $\varphi$ llega a $2\pi$:
+\[
+  T_{\text{vuelta}}=\frac{2\pi}{\omega_1-\omega_2}=\Bigl(\frac1{T_1}-\frac1{T_2}\Bigr)^{-1}=\Bigl(\frac14-\frac15\Bigr)^{-1}=20\ \text{minutos}.
+\]
+Es el fenómeno de \emph{batido}: dos osciladores de frecuencias cercanas se ponen en fase y se desfasan periódicamente, con una frecuencia igual a la diferencia de las suyas. Así suenan dos campanas o dos cuerdas casi afinadas.
+\end{ejemplo}
+
+\notamargen{\textbf{Notación.} En este capítulo $\varphi$ es una diferencia de fase y $\phi(t;x_0)$ el flujo. No se confundan.}
+
+%% ---------------------------------------------------------------------
+\subsection{El oscilador no uniforme}
+%% ---------------------------------------------------------------------
+
+La ecuación
+\begin{equation}
+  \dot\theta=\omega-a\sin\theta,\qquad\omega>0,\ a\ge0,
+  \label{eq:oc-nouniforme}
+\end{equation}
+aparece en los lazos de enganche de fase (PLL) en electrónica, en el disparo periódico de neuronas, en el ciclo sueño--vigilia y, como veremos, en las luciérnagas. Con $a=0$ es el oscilador uniforme; $a$ introduce una no uniformidad: el oscilador va rápido cerca de $\theta=-\pi/2$ y lento cerca de $\theta=\pi/2$. Hay tres casos (\cref{fig:oc-nouniforme}):
+\begin{itemize}
+  \item $a<\omega$: $\dot\theta>0$ siempre, no hay equilibrios y la fase da vueltas, cada vez más despacio al cruzar $\pi/2$. El período es
+  \begin{equation}
+    T=\int_0^{2\pi}\frac{\dif\theta}{\omega-a\sin\theta}=\frac{2\pi}{\sqrt{\omega^2-a^2}} .
+    \label{eq:oc-periodo}
+  \end{equation}
+  \item $a=\omega$: aparece un equilibrio semiestable en $\theta=\pi/2$ (atrae por la izquierda y repele por la derecha).
+  \item $a>\omega$: dos equilibrios, $\sin\theta^*=\omega/a$; el de $\cos\theta^*>0$ es estable y el otro inestable. La fase se \emph{engancha}.
+\end{itemize}
+Cuando $a\to\omega^-$ el período \eqref{eq:oc-periodo} crece sin cota, como $1/\sqrt{\omega-a}$: con $\omega=2$, vale $3.63$ para $a=1$, $10.06$ para $a=1.9$ y $31.46$ para $a=1.99$. Ese ``cuello de botella'' es la huella de una bifurcación silla-nodo en el círculo, que veremos en el capítulo~6.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_no_uniforme}
+\caption{$\dot\theta=\omega-a\sin\theta$ con $\omega=2$: deriva sin equilibrios ($a=1$), un equilibrio semiestable ($a=2$) y un par estable--inestable ($a=3$). A la derecha, el período \eqref{eq:oc-periodo}, que explota al acercarse $a$ a $\omega$.}
+\label{fig:oc-nouniforme}
+\end{figure}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej4_Circulo.m}{nouniforme}{El período del oscilador no uniforme, simulado y con la fórmula}
+
+\begin{pausa}
+En el círculo, ¿puede un campo continuo tener exactamente un equilibrio estable y ningún otro equilibrio? ¿Y exactamente un equilibrio, semiestable?
+\respuesta{Un solo equilibrio estable, no: si $f$ cambia de signo de $+$ a $-$ en $\theta^*$, al recorrer el círculo tiene que volver a cambiar de $-$ a $+$, y ese otro cero es un equilibrio inestable. En el círculo los cambios de signo vienen en pares. Un solo equilibrio semiestable, sí: $\dot\theta=1-\sin\theta$ tiene solo $\theta^*=\pi/2$, donde $f$ toca el cero sin cambiar de signo. Es el caso $a=\omega$.}
+\end{pausa}

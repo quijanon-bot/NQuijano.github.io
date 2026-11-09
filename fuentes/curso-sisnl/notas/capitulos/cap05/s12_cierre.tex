@@ -1,0 +1,110 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:oc-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{Órbita cerrada:} la trayectoria de una solución periódica no constante. No pasa por equilibrios ni se corta. En un sistema lineal vienen en familias; un \textbf{ciclo límite} es una órbita aislada, y es un fenómeno exclusivamente no lineal.
+  \item \textbf{Con valores propios imaginarios puros la linealización no concluye.} Deciden una cantidad conservada (centro), una función de Lyapunov o las coordenadas polares.
+  \item \textbf{Osciladores de fase:} en el círculo hay órbitas sin equilibrios. $\dot\theta=\omega-a\sin\theta$ deriva con período $2\pi/\sqrt{\omega^2-a^2}$ si $a<\omega$ y se engancha si $a>\omega$. Dos osciladores, una luciérnaga y su linterna, y cada oscilador de Kuramoto frente al campo medio obedecen esa misma ecuación.
+  \item \textbf{Kuramoto:} la incoherencia pierde la estabilidad en $K_c=2/(\pi g(0))$; para Lorentz, $r=\sqrt{1-K_c/K}$. Acoplar sincroniza frecuencias, no iguala fases.
+  \item \textbf{Para descartar órbitas:} índice (la suma dentro de una órbita es $+1$), sistemas gradiente, funciones que decrecen estrictamente, Bendixson--Dulac. Son condiciones necesarias.
+  \item \textbf{Para probar que existen:} Poincaré--Bendixson (región compacta que atrapa, sin equilibrios o con un solo foco/nodo inestable) y Liénard (además, unicidad). Solo en el plano.
+  \item \textbf{Lotka--Volterra:} un centro (primera integral); con competencia, un equilibrio globalmente atractor (Dulac y Volterra); con saturación, un ciclo límite (Hopf y Poincaré--Bendixson). Nowak: la mutación rompe la estructura de Fisher y aparece un ciclo, demostrado con Poincaré--Bendixson.
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item $\pm j\omega$ en la linealización no es un centro (\cref{tr:oc-centro}); un ciclo estable no es una solución asintóticamente estable (\cref{tr:oc-orbital}).
+  \item Arrastrada no quiere decir en fase (\cref{tr:oc-enfase}); acoplar no es igualar (\cref{tr:oc-kuramoto}).
+  \item El índice no garantiza la órbita (\cref{tr:oc-indice}); para descartar órbitas no hace falta estabilidad global (\cref{tr:oc-gas}); Bendixson solo descarta (\cref{tr:oc-bendixson}).
+  \item Poincaré--Bendixson no da un ciclo \emph{límite} (\cref{tr:oc-pbciclo}) y no vale en tres dimensiones (\cref{tr:oc-pb3d}).
+  \item Las órbitas de Lotka--Volterra no son ciclos límite (\cref{tr:oc-lvciclo}); más recursos no estabilizan (\cref{tr:oc-enriquecer}).
+  \item Una simulación no prueba un ciclo (\cref{tr:oc-simulado}); no es la no linealidad la que produce el ciclo de Nowak (\cref{tr:oc-fisher}).
+\end{itemize}
+\end{trampa}
+
+\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout4a, LotkaVolterra y las diapositivas de 2026)]
+(i) El criterio de Bendixson \emph{descarta} órbitas y Poincaré--Bendixson \emph{prueba} su existencia; el handout decía exactamente lo contrario. (ii) El criterio de Poincaré--Bendixson permite \emph{un solo} equilibrio en $M$ (foco o nodo inestable), no ``al menos uno''. (iii) En el ejemplo de índice, $J(1,1)=\begin{bmatrix}0&1\\-1&-1\end{bmatrix}$; la versión anterior tenía una fila equivocada. (iv) $N=S+1$ requiere equilibrios no degenerados; se agregó el ejemplo degenerado de índice $0$ y su conclusión (no hay órbitas en ninguna parte). (v) En el modelo con competencia, la traza del jacobiano en el equilibrio de coexistencia es \emph{negativa}; el texto anterior decía que los valores propios tenían parte real positiva y luego llamaba estable al equilibrio. (vi) Las coordenadas polares valen para todo $r>0$, sin excluir $x_1=0$, y en el ejemplo $\dot\theta=+1$; se corrigieron $\arctan(x_2/x_2)$ y el signo de $\dot\theta$. (vii) Las ecuaciones de estado de Rayleigh tenían un término perdido; la ecuación es de 1883. (viii) Huygens observó la sincronización en 1665 (mediados, no principios, del siglo~XVII) y la publicó en 1673; el modelo sinusoidal con pesos $a_{ij}$ generales no es el de Winfree, que propuso otro acoplamiento; Kuramoto lo planteó en 1975. (ix) En la caracterización de un ciclo límite con conjuntos $\omega$-límite se cambió ``puede ser'' por la equivalencia precisa, y se agregó la distinción entre estabilidad orbital y estabilidad de la solución periódica. (x) En el modelo de Nowak, $F_i=\sum_jB_{ij}x_j$ (el índice estaba cambiado), y la referencia es \citet{MiNo04} (2004, no 1977). (xi) Se completaron los ejemplos que no tenían solución (Khalil, ej.~2.8) y las figuras pendientes (índice, Poincaré--Bendixson, Lotka--Volterra con competencia). (xii) Notación unificada: $\phi(t;x_0)$ para el flujo, $\varphi$ para diferencias de fase, $\bar F$ para la aptitud media, $j$ para la unidad imaginaria, $\nabla V\T f$ para la derivada a lo largo del campo. Números verificados con \texttt{herramientas/cap05\_numeros.py} (59 de 59) y \cmd{verificarCap05.m} (34 de 34).
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:oc-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\subsection*{Órbitas y ciclos}
+
+\begin{problema}[un ciclo en polares]\label{prob:oc-polar2}
+Para $\dot r=r(r-1)(2-r)$, $\dot\theta=1$: (a) halle las órbitas cerradas y su estabilidad; (b) escriba el sistema en coordenadas cartesianas; (c) ¿cuál es la región de atracción del origen?
+\end{problema}
+
+\begin{problema}[el péndulo]\label{prob:oc-pendulo}
+Para $\ddot\theta+\sin\theta=0$: (a) muestre que $E=\tfrac12\dot\theta^2+1-\cos\theta$ se conserva; (b) ¿son las órbitas alrededor de $(0,0)$ ciclos límite?; (c) \etiquetaM{} calcule el período en función de la amplitud. ¿Es el péndulo un oscilador isócrono? (d) Con fricción $b\dot\theta$, ¿quedan órbitas cerradas en el plano $(\theta,\dot\theta)$? ¿Y en el cilindro $S^1\times\R$?
+\end{problema}
+
+\begin{problema}[van der Pol]\label{prob:oc-vdp}
+\etiquetaM{} (a) Grafique el período del ciclo de van der Pol en función de $\mu\in[0.1,10]$ y compárelo con $2\pi$ (para $\mu$ pequeño) y con $(3-2\ln2)\mu$ (para $\mu$ grande). (b) Con \cmd{crearModelo\_VanDerPol.m}, cambie el signo de $\mu$. ¿Qué tipo de ciclo queda? Explíquelo con la inversión del tiempo.
+\end{problema}
+
+\subsection*{Osciladores}
+
+\begin{problema}[un PLL]\label{prob:oc-pll}
+Un lazo de enganche de fase se modela con $\dot\varphi=\Delta\omega-K\sin\varphi$, donde $\Delta\omega$ es la diferencia entre la frecuencia de la señal y la del oscilador local. (a) ¿Cuál es el rango de enganche? (b) Con $K=2\pi\cdot100$\,rad/s y $\Delta\omega=2\pi\cdot60$\,rad/s, ¿cuál es el error de fase de régimen? (c) Si $\Delta\omega=2\pi\cdot120$\,rad/s, ¿cada cuánto se ``resbala'' un ciclo?
+\end{problema}
+
+\begin{problema}[Kuramoto con $N=3$]\label{prob:oc-kur3}
+\etiquetaM{} Con $\omega=(-1,0,1)$ en \eqref{eq:oc-kuramoto}: (a) simule para $K=0.5,1,1.5,2$ y grafique $r(t)$; (b) estime el menor $K$ con el que los tres giran a la misma frecuencia; (c) ¿es $r=1$ alguna vez? Explique con la \cref{tr:oc-kuramoto}.
+\end{problema}
+
+\subsection*{Índice, criterios y Poincaré--Bendixson}
+
+\begin{problema}[contar índices]\label{prob:oc-indice}
+Para $\dot x_1=x_2$, $\dot x_2=x_1-x_1^3-0.2x_2$ (Duffing con fricción): (a) halle los equilibrios y sus índices; (b) ¿qué combinaciones podría rodear una órbita cerrada según el índice?; (c) ¿qué dice Bendixson? (d) Concluya.
+\end{problema}
+
+\begin{problema}[Dulac]\label{prob:oc-dulac}
+Muestre que $\dot x=x(2-x-y)$, $\dot y=y(4x-x^2-3)$ no tiene órbitas cerradas en el cuadrante positivo. (Pista: $g=1/(xy)$.)
+\end{problema}
+
+\begin{problema}[Poincaré--Bendixson]\label{prob:oc-pb}
+Para $\dot x_1=x_2$, $\dot x_2=-x_1+x_2(1-x_1^2-2x_2^2)$: (a) muestre que el origen es un foco inestable; (b) con $V=x_1^2+x_2^2$, muestre que $\Vdot\ge0$ en $V=\tfrac12$ y $\Vdot\le0$ en $V=1$; (c) concluya que hay una órbita periódica en $\tfrac12\le V\le1$. (d) \etiquetaM{} Simúlelo. ¿Es un círculo?
+\end{problema}
+
+\begin{problema}[Rosenzweig--MacArthur]\label{prob:oc-rm}
+\etiquetaEstrella{} Para \eqref{eq:oc-rm}: (a) muestre que el triángulo $\{v,p\ge0,\ \beta v+p\le C\}$ es positivamente invariante para $C$ grande; (b) calcule la traza del jacobiano en el equilibrio de coexistencia y verifique $K_H=(\beta+\gamma)/(\beta-\gamma)$; (c) argumente por qué las trayectorias del interior no pueden tener como $\omega$-límite a las sillas $(0,0)$ y $(K,0)$ cuando $K>K_H$; (d) concluya la existencia del ciclo.
+\end{problema}
+
+\subsection*{La aplicación}
+
+\begin{problema}[Nowak]\label{prob:oc-nowak}
+\etiquetaM{} Con \cmd{C5\_Ej11\_Nowak.m}: (a) verifique numéricamente que $\dot s=\bar F(1-s)$ fuera del símplex; (b) grafique la amplitud del ciclo en función de $c\in[0,c^*]$ y muestre que se anula como $\sqrt{c^*-c}$ (huella de una Hopf supercrítica); (c) con $Q=I$ grafique $\bar F(x(t))$ y verifique que nunca decrece.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:oc-polar2}}
+(a) Órbitas en $r=1$ y $r=2$. Entre $0$ y $1$, $\dot r<0$; entre $1$ y $2$, $\dot r>0$; arriba de $2$, $\dot r<0$. Luego $r=1$ es un ciclo inestable y $r=2$ uno estable. (c) La región de atracción del origen es el disco abierto $r<1$: el ciclo inestable es su frontera.
+
+\paragraph{Problema~\ref{prob:oc-pendulo}}
+(b) No: forman una familia continua (curvas de nivel de $E$). (c) No es isócrono: el período crece con la amplitud y tiende a infinito al acercarse a la separatriz. (d) En el plano no hay órbitas cerradas ($\operatorname{div}f=-b$). En el cilindro, Bendixson no aplica (no es simplemente conexo: una órbita podría dar la vuelta al cilindro sin encerrar nada), pero la energía sí: $\dot E=-b\dot\theta^2\le0$, y no puede ser idénticamente cero a lo largo de una solución que no sea un equilibrio (si $\dot\theta\equiv0$, $\theta$ es constante y $\sin\theta=0$). En una vuelta de una órbita cerrada $E$ bajaría estrictamente y no podría volver a su valor: el argumento del \cref{thm:oc-lyapunov} descarta toda órbita cerrada, también las que dan la vuelta. Con un par constante aplicado, en cambio, el péndulo puede girar periódicamente alrededor del cilindro.
+
+\paragraph{Problema~\ref{prob:oc-pll}}
+(a) $\abs{\Delta\omega}\le K$. (b) $\varphi^*=\arcsin(0.6)\approx0.64$\,rad. (c) $T=2\pi/\sqrt{\Delta\omega^2-K^2}=2\pi/\bigl(2\pi\sqrt{120^2-100^2}\bigr)=1/66.3$\,s, unos $15$\,ms.
+
+\paragraph{Problema~\ref{prob:oc-indice}}
+(a) $(0,0)$: silla, índice $-1$; $(\pm1,0)$: focos estables, índice $+1$. (b) Una órbita podría rodear un foco solo, o los tres equilibrios ($+1-1+1=+1$). (c) $\operatorname{div}f=-0.2$: no hay órbitas cerradas en ninguna parte. (d) El índice permitía órbitas; Bendixson las descarta todas. Las dos herramientas son necesarias, no suficientes, y se complementan.
+
+\paragraph{Problema~\ref{prob:oc-dulac}}
+Con $g=1/(xy)$: $\operatorname{div}(gf)=\partial_x\bigl((2-x-y)/y\bigr)+\partial_y\bigl((4x-x^2-3)/x\bigr)=-1/y<0$.
+
+\paragraph{Problema~\ref{prob:oc-pb}}
+(b) $\Vdot=2x_2^2(1-x_1^2-2x_2^2)$. En $V=\tfrac12$: $x_1^2+2x_2^2\le2V=1$, luego $\Vdot\ge0$. En $V=1$: $x_1^2+2x_2^2\ge V=1$, luego $\Vdot\le0$. (d) No es un círculo: el ciclo vive entre las dos circunferencias sin coincidir con ninguna.
+
+\respuestaspausas

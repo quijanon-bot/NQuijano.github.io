@@ -1,0 +1,101 @@
+%% ---------------------------------------------------------------------
+\section{La condición de Lipschitz}
+\label{sec:pm-lipschitz}
+%% ---------------------------------------------------------------------
+
+La continuidad dice que $f(x)$ se acerca a $f(y)$ cuando $x$ se acerca a $y$, pero no \emph{qué tan rápido}. La condición de Lipschitz lo cuantifica, y es exactamente lo que hace falta para la unicidad.
+
+\begin{definicion}[label=def:pm-lipschitz]{Funciones Lipschitz}
+Sea $f:[a,b]\times D\to\R^n$, con $D\subseteq\R^n$.
+\begin{itemize}
+  \item $f$ es \clave{Lipschitz en $x$ en un conjunto $W\subseteq D$} si existe $L\ge0$ tal que
+  \begin{equation}
+    \norm{f(t,x)-f(t,y)}\le L\norm{x-y}\qquad\text{para todo }x,y\in W,\ t\in[a,b] .
+    \label{eq:pm-lipschitz}
+  \end{equation}
+  $L$ es una \clave{constante de Lipschitz} (cualquier número mayor también lo es).
+  \item $f$ es \clave{localmente Lipschitz} en $D$ si cada punto de $D$ tiene una vecindad $W$ en la que $f$ es Lipschitz, con una constante que puede depender de la vecindad.
+  \item $f$ es \clave{globalmente Lipschitz} si es Lipschitz en todo $\R^n$, con una sola constante.
+\end{itemize}
+\end{definicion}
+
+Para $n=1$ e invariante en el tiempo, \eqref{eq:pm-lipschitz} dice $\abs{f(x)-f(y)}/\abs{x-y}\le L$: \emph{ninguna secante de la gráfica tiene pendiente mayor que $L$ en valor absoluto}. Geométricamente, en cada punto de la gráfica cabe un ``cono'' de pendiente $\pm L$ que contiene al resto de la gráfica (\cref{fig:pm-lipschitz}). El caso más simple es $f(x)=ax$: $\norm{ax-ay}=\abs a\norm{x-y}$, así que $L=\abs a$ sirve en todo $\R^n$.
+
+\script{cap03_preliminares/C3_Ej5_Lipschitz.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_lipschitz}
+\caption{Conos de Lipschitz. $x^3$: en $[-a,a]$ cabe un cono de pendiente $3a^2$, pero no uno que sirva en toda la recta. $\sat$: un solo cono de pendiente $1$ sirve en todas partes, aunque $\sat$ no es derivable en $\pm1$. $x^{1/3}$: en el origen ningún cono sirve.}
+\label{fig:pm-lipschitz}
+\end{figure}
+
+\begin{ejemplo}[label=ej:pm-tres]{Tres funciones, tres respuestas}
+Clasifique $x^3$, $\sat(x)$ y $x^{1/3}$ en $\R$.
+\solucion \emph{$x^3$: localmente, no globalmente.} $x^3-y^3=(x-y)(x^2+xy+y^2)$ y en $[-a,a]$ el segundo factor es a lo sumo $3a^2$; esa es la constante en $[-a,a]$, y crece sin cota con $a$. \emph{$\sat$: globalmente.} $\abs{\sat x-\sat y}\le\abs{x-y}$ para todo $x,y$ (por casos), con $L=1$, aunque $\sat\notin\Cont1$. \emph{$x^{1/3}$: ni siquiera localmente en $0$.} La secante entre $0$ y $h>0$ tiene pendiente $h^{1/3}/h=h^{-2/3}$, que crece sin cota cuando $h\to0$ (vale $100$ con $h=10^{-3}$ y $10^4$ con $h=10^{-6}$). Ningún $L$ sirve en ninguna vecindad del origen; fuera del origen sí es localmente Lipschitz.
+\end{ejemplo}
+
+\codigorepo{cap03_preliminares/C3_Ej5_Lipschitz.m}{secantes}{Pendientes de las secantes de $x^3$, $\sat$ y $x^{1/3}$}
+
+%% ---------------------------------------------------------------------
+\subsection{Del jacobiano a la constante de Lipschitz}
+%% ---------------------------------------------------------------------
+
+Calcular el supremo de los cocientes es poco práctico. Para funciones $\Cont1$ hay un atajo: acotar el jacobiano.
+
+\begin{lema}[label=lem:pm-jacobiano]{Jacobiano acotado en un convexo \citep[Lema~3.1]{Kha02}}
+Sea $f:[a,b]\times D\to\R^m$ continua, con $\partial f/\partial x$ continua en $[a,b]\times D$. Si $W\subseteq D$ es \emph{convexo} y $\norm{\partial f/\partial x(t,x)}\le L$ en $[a,b]\times W$ (norma inducida), entonces
+\[
+  \norm{f(t,x)-f(t,y)}\le L\norm{x-y}\qquad\text{para todo }t\in[a,b],\ x,y\in W .
+\]
+\end{lema}
+
+\begin{proof}
+El segmento entre $x$ y $y$ está en $W$ porque $W$ es convexo. Por el \cref{lem:pm-valormedio} y la \cref{prop:pm-matrices},
+$\norm{f(t,x)-f(t,y)}\le\int_0^1\norm{\jacat fx{(t,y+s(x-y))}}\,\norm{x-y}\,\dif s\le L\norm{x-y}$.
+\end{proof}
+
+\begin{lema}[label=lem:pm-c1lip]{$\Cont1$ implica localmente Lipschitz \citep[Lema~3.2]{Kha02}}
+Si $f$ y $\partial f/\partial x$ son continuas en $[a,b]\times D$, con $D$ un dominio, entonces $f$ es localmente Lipschitz en $x$ en $[a,b]\times D$.
+\end{lema}
+
+\begin{proof}
+Cada $x_0\in D$ tiene una bola cerrada $W=\{\norm{x-x_0}\le r\}\subset D$. $W$ es convexa y compacta, y $\norm{\partial f/\partial x}$ es continua en el compacto $[a,b]\times W$: alcanza un máximo $L$. El \cref{lem:pm-jacobiano} hace el resto.
+\end{proof}
+
+\begin{lema}[label=lem:pm-global]{Lipschitz global \citep[Lema~3.3]{Kha02}}
+Si $f$ y $\partial f/\partial x$ son continuas en $[a,b]\times\R^n$, entonces $f$ es globalmente Lipschitz en $x$ si y solo si $\partial f/\partial x$ está uniformemente acotada en $[a,b]\times\R^n$.
+\end{lema}
+
+\begin{proof}
+Si $\norm{\partial f/\partial x}\le L$ en todas partes, el \cref{lem:pm-jacobiano} con $W=\R^n$ da $L$. Al revés, si $f$ es globalmente Lipschitz con constante $L$, cada derivada direccional es un límite de cocientes acotados por $L$: $\norm{\jacat fx{(t,x)}v}=\lim_{h\to0}\norm{f(t,x+hv)-f(t,x)}/\abs h\le L\norm v$, luego $\norm{\partial f/\partial x}\le L$.
+\end{proof}
+
+\begin{ejemplo}[label=ej:pm-lipcaja]{Una constante de Lipschitz en una caja}
+Para $f(x)=\begin{bmatrix}-x_1+x_1x_2\\ x_2-x_1x_2\end{bmatrix}$ en $\R^2$: (a) ¿es localmente Lipschitz?, ¿globalmente? (b) Halle una constante de Lipschitz en $W=\{\abs{x_1}\le a_1,\ \abs{x_2}\le a_2\}$ con la norma $\infty$.
+\solucion (a) $\jac fx=\begin{bmatrix}-1+x_2&x_1\\-x_2&1-x_1\end{bmatrix}$ es continuo, así que $f\in\Cont1$ y es localmente Lipschitz (\cref{lem:pm-c1lip}). No es globalmente Lipschitz: las entradas crecen sin cota y el \cref{lem:pm-global} lo descarta. (b) $W$ es convexo. La norma $\infty$ inducida es la máxima suma por filas: $\abs{-1+x_2}+\abs{x_1}\le1+a_1+a_2$ y $\abs{x_2}+\abs{1-x_1}\le1+a_1+a_2$. Luego $L=1+a_1+a_2$. Con $a_1=1$, $a_2=2$, $L=4$, y el mayor cociente encontrado con $50\,000$ pares aleatorios es $3.57$.
+\end{ejemplo}
+
+\codigorepo{cap03_preliminares/C3_Ej5_Lipschitz.m}{caja}{Verificación de $L=1+a_1+a_2$ con pares aleatorios}
+
+\begin{trampa}[label=tr:pm-localglobal]{Local en cada punto no es Lipschitz en el conjunto}
+\plausible{$f$ es localmente Lipschitz en cada punto de $D$; por lo tanto es Lipschitz en $D$.}
+La constante puede crecer al moverse por $D$: $x^3$ es localmente Lipschitz en todo $\R$ y no es Lipschitz en $\R$. Tampoco basta con que $D$ sea acotado: $\sqrt x$ es localmente Lipschitz en $(0,1)$ y no es Lipschitz en $(0,1)$, porque la constante explota cerca del borde.
+\correcto{Localmente Lipschitz en $D$ implica Lipschitz en cada \emph{compacto} $W\subset D$ (con una constante que depende de $W$). Esa es la versión que usan los teoremas: en un compacto se puede elegir una sola $L$.}
+\end{trampa}
+
+\begin{definicion}[label=def:pm-unifcont]{Continuidad uniforme}
+$f$ es \clave{uniformemente continua} en $W$ si para todo $\epsilon>0$ existe $\delta>0$ ---el mismo para todos los puntos--- tal que $\norm{x-y}<\delta$ implica $\norm{f(x)-f(y)}<\epsilon$.
+\end{definicion}
+
+Si $f$ es Lipschitz en $W$ con constante $L>0$, es uniformemente continua ($\delta=\epsilon/L$). La \cref{fig:pm-regularidad} resume las relaciones en $\R$: $\Cont1\Rightarrow$ localmente Lipschitz; Lipschitz $\Rightarrow$ localmente Lipschitz \emph{y} uniformemente continua; ninguna de las implicaciones se invierte. $x^{1/3}$ es uniformemente continua en $\R$ sin ser localmente Lipschitz en el origen; $x^3$ es $\Cont1$ sin ser uniformemente continua.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\linewidth]{cap03/f_regularidad}
+\caption{Clases de regularidad para funciones $\R\to\R$, con un representante en cada región.}
+\label{fig:pm-regularidad}
+\end{figure}
+
+\begin{profundiza}[Lipschitz fuera de las ecuaciones diferenciales]
+La constante de Lipschitz de una red neuronal mide cuánto puede cambiar la salida cuando cambia la entrada; acotarla controla la sensibilidad y el sobreajuste. Para una red residual, cada bloque es $x\mapsto x+\sigma(Wx+b)$, y con una activación $1$-Lipschitz su constante es a lo sumo $1+\norm W_2$; la de la red es a lo sumo el producto de las constantes de los bloques (composición y submultiplicatividad, \cref{prop:pm-matrices}). Con exactamente estas tres herramientas ---Lipschitz, normas matriciales y composición---, \citet{CGR26} diseñaron una regularización adaptativa para redes ResNet. Las redes residuales son, además, la discretización de Euler de una ecuación diferencial $\dot x=\sigma(W(t)x+b(t))$, y la condición de Lipschitz es la misma del teorema de existencia y unicidad.
+\end{profundiza}

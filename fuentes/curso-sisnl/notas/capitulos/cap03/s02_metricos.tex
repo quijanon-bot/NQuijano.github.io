@@ -1,0 +1,72 @@
+%% ---------------------------------------------------------------------
+\section{Espacios métricos: medir distancias}
+\label{sec:pm-metricos}
+%% ---------------------------------------------------------------------
+
+Tres conjuntos muy distintos van a acompañarnos en esta sección:
+\begin{itemize}
+  \item $\R^n$, cuyos elementos son vectores $x=[x_1,\dots,x_n]\T$. En un sistema dinámico, el \emph{estado en un instante}.
+  \item $C[a,b]$, el conjunto de funciones continuas $f:[a,b]\to\R$. En un sistema dinámico, una \emph{trayectoria completa} o una señal.
+  \item Un conjunto de palabras de cuatro letras, $X=\{\text{casa},\text{cama},\text{masa},\text{pasa},\dots\}$.
+\end{itemize}
+¿Qué tan lejos está un vector de otro? ¿Una función de otra? ¿Una palabra de otra? La respuesta no viene con los objetos: depende de la estructura que se les agregue.
+
+\begin{definicion}[label=def:pm-metrica]{Métrica y espacio métrico}
+Sea $X$ un conjunto. Una función $d:X\times X\to\R$ es una \clave{métrica} si para todo $x,y,z\in X$:
+\begin{enumerate}[label=(M\arabic*),leftmargin=3em]
+  \item $d(x,y)\ge0$ \hfill(no negatividad)
+  \item $d(x,y)=0$ si y solo si $x=y$ \hfill(separa puntos)
+  \item $d(x,y)=d(y,x)$ \hfill(simetría)
+  \item $d(x,y)\le d(x,z)+d(z,y)$ \hfill(desigualdad triangular)
+\end{enumerate}
+El par $(X,d)$ es un \clave{espacio métrico}.
+\end{definicion}
+
+La desigualdad triangular es la que hace el trabajo: dice que no hay atajos, que pasar por un tercer punto nunca acorta el camino. Es la única de las cuatro que hay que probar con cuidado en cada ejemplo.
+
+\begin{ejemplo}[label=ej:pm-metricasRn]{Tres distancias entre los mismos dos puntos}
+En $\R^n$ se usan
+\[
+  d_1(x,y)=\sum_{i=1}^n\abs{x_i-y_i},\qquad
+  d_2(x,y)=\Bigl(\sum_{i=1}^n\abs{x_i-y_i}^2\Bigr)^{1/2},\qquad
+  d_\infty(x,y)=\max_i\abs{x_i-y_i},
+\]
+y, en general, $d_p(x,y)=\bigl(\sum_i\abs{x_i-y_i}^p\bigr)^{1/p}$ con $1\le p<\infty$ ($d_\infty$ es el límite de $d_p$ cuando $p\to\infty$). Calcule las tres para $x=[1,1]\T$ y $y=[4,3]\T$, y pruebe que $d_1$ es una métrica.
+\solucion $d_1=3+2=5$ (el taxista que solo se mueve por calles), $d_2=\sqrt{9+4}=\sqrt{13}\approx3.61$ (la línea recta) y $d_\infty=\max\{3,2\}=3$ (la coordenada que más difiere). Los puntos son los mismos; la distancia cambia con la métrica (\cref{fig:pm-distancias}, izquierda). Para $d_1$, (M1)--(M3) son inmediatas. Para (M4), en cada componente $x_i-y_i=(x_i-z_i)+(z_i-y_i)$ y la desigualdad triangular de los reales da $\abs{x_i-y_i}\le\abs{x_i-z_i}+\abs{z_i-y_i}$; sumando sobre $i$ se obtiene $d_1(x,y)\le d_1(x,z)+d_1(z,y)$.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:pm-hamming]{Una distancia entre palabras}
+En el conjunto de palabras de cuatro letras, sea $d(u,v)$ el número de posiciones en las que $u$ y $v$ difieren (distancia de Hamming). Calcule $d(\text{casa},\text{cama})$, $d(\text{casa},\text{masa})$ y $d(\text{cama},\text{masa})$, y diga por qué es una métrica.
+\solucion $d(\text{casa},\text{cama})=1$, $d(\text{casa},\text{masa})=1$ y $d(\text{cama},\text{masa})=2$. Es una métrica: (M1)--(M3) son claras, y para (M4), si $u$ y $v$ difieren en la posición $i$, entonces $w$ difiere de $u$ o de $v$ en esa posición; cada posición que cuenta en $d(u,v)$ cuenta al menos una vez en $d(u,w)+d(w,v)$. La misma distancia mide cuántos bits cambió el ruido en un mensaje digital: los objetos no tienen que ser números para que tenga sentido hablar de cercanía.
+\end{ejemplo}
+
+\script{cap03_preliminares/C3_Ej1_Metricas.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_distancias}
+\caption{Izquierda: tres métricas en $\R^2$ para los mismos dos puntos. Derecha: entre funciones de $C[0,1]$, $d_1$ es el área entre las curvas y $d_\infty$ la mayor separación vertical.}
+\label{fig:pm-distancias}
+\end{figure}
+
+Entre funciones continuas $f,g\in C[a,b]$ se definen, de la misma manera,
+\begin{equation}
+  d_p(f,g)=\Bigl(\int_a^b\abs{f(\tau)-g(\tau)}^p\,\dif\tau\Bigr)^{1/p},\quad 1\le p<\infty,\qquad
+  d_\infty(f,g)=\max_{a\le t\le b}\abs{f(t)-g(t)} .
+  \label{eq:pm-dfunciones}
+\end{equation}
+La suma sobre las componentes se reemplaza por una integral sobre el tiempo. Para $f(t)=\sin2\pi t$ y $g(t)=t$ en $[0,1]$, $d_1(f,g)=0.921$ y $d_\infty(f,g)=1.763$, alcanzada en $t=0.775$ (\cref{fig:pm-distancias}, derecha). Que $d_p(f,g)=0$ implique $f=g$ usa la continuidad: una función continua y no negativa con integral nula es idénticamente cero.
+
+\codigorepo{cap03_preliminares/C3_Ej1_Metricas.m}{vectores}{Tres métricas para los mismos dos puntos}
+
+\begin{trampa}[label=tr:pm-parece]{Parecer una distancia no basta}
+\plausible{$d(x,y)=(x-y)^2$ es no negativa, simétrica y vale cero solo si $x=y$; por lo tanto es una métrica en $\R$.}
+Falta la desigualdad triangular, y falla: $d(0,2)=4$, pero $d(0,1)+d(1,2)=1+1=2$. Pasar por $z=1$ ``acorta'' el camino. Elevar al cuadrado castiga las distancias grandes más que proporcionalmente, y eso es incompatible con (M4).
+\correcto{Para concluir que una función es una métrica hay que verificar las cuatro propiedades; la triangular es la que casi siempre decide. En cambio, $\abs{x-y}^{1/2}$ sí es una métrica en $\R$ (pruébelo: $\sqrt{a+b}\le\sqrt a+\sqrt b$).}
+\end{trampa}
+
+\codigorepo{cap03_preliminares/C3_Ej1_Metricas.m}{nometrica}{$(x-y)^2$ no es métrica}
+
+\begin{pausa}
+En un tablero de ajedrez, ¿qué métrica cuenta el número de movidas que necesita un rey para ir de una casilla a otra? ¿Y una torre que solo puede moverse una casilla a la vez?
+\respuesta{El rey se mueve una casilla en cualquier dirección, incluidas las diagonales: necesita $\max\{\abs{\Delta x},\abs{\Delta y}\}$ movidas, la métrica $d_\infty$. La torre restringida a una casilla por movida necesita $\abs{\Delta x}+\abs{\Delta y}$, la métrica $d_1$.}
+\end{pausa}

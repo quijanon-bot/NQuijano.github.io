@@ -1,0 +1,23 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}[font=\sffamily\small,
+  caja/.style={draw=#1,fill=#1!8,thick,rounded corners=2pt,align=center,minimum height=12mm,text width=30mm},
+  fl/.style={-{Stealth[length=2.2mm]},thick,draw=snlgris},
+  et/.style={font=\sffamily\scriptsize,text=snlgris,align=center}]
+  \node[caja=snlgris] (con) {conjunto $X$\\ \footnotesize sin estructura};
+  \node[caja=snlazul,right=17mm of con] (met) {espacio métrico\\ \footnotesize $d(x,y)$: distancia};
+  \node[caja=snlvioleta,right=17mm of met] (nor) {espacio normado\\ \footnotesize $\|x\|$: tamaño};
+  \node[caja=snlverde,right=17mm of nor] (pi) {producto interno\\ \footnotesize $\langle x,y\rangle$: ángulo};
+  \node[caja=snlcoral,below=12mm of nor] (ban) {espacio de Banach\\ \footnotesize normado y completo};
+  \node[caja=snlcoral,below=12mm of pi] (hil) {espacio de Hilbert\\ \footnotesize p.\,interno y completo};
+  \draw[fl] (con) -- node[et,above]{+ métrica} (met);
+  \draw[fl] (nor) -- node[et,above]{$d=\|x-y\|$} (met);
+  \draw[fl] (pi) -- node[et,above]{$\|x\|=\sqrt{\langle x,x\rangle}$} (nor);
+  \draw[fl] (nor) -- node[et,left]{+ completitud} (ban);
+  \draw[fl] (pi) -- node[et,right]{+ completitud} (hil);
+  \draw[fl] (hil) -- node[et,above]{todo Hilbert\\es Banach} (ban);
+  \node[et,below=2mm of ban,xshift=-22mm,text width=70mm,align=left] {Ejemplos: $(\mathbb{R}^n,\|\cdot\|_p)$ es Banach; $(\mathbb{R}^n,x^\top y)$ es Hilbert;\\
+     $(C[a,b],\|\cdot\|_\infty)$ es Banach; $(C[a,b],\|\cdot\|_{\mathcal{L}_2})$ \textbf{no} es completo.};
+\end{tikzpicture}
+\end{document}

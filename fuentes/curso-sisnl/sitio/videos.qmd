@@ -5,6 +5,23 @@ subtitle: "Los videos que se usan en clase, generados con los scripts del reposi
 
 Cada video se genera con un script de MATLAB; si quiere cambiar algo, cambie el script y vuelva a grabarlo. Los `.mp4` se copian a `sitio/videos/`.
 
+## Parte 3 · Fundamentos matemáticos
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V3_1_picard}V3.1 · Picard | Las iteraciones de Picard se acercan a la solución. | `C3_Video_Picard.m` |
+| []{#V3_2_no_unicidad}V3.2 · No unicidad | La familia de soluciones de $\dot x=x^{1/3}$ desde $x(0)=0$. | `C3_Video_NoUnicidad.m` |
+
+## Parte 5 · Órbitas, osciladores y ciclos límite
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V5_1_kuramoto}V5.1 · Kuramoto | Los osciladores en el círculo y $r(t)$ mientras $K$ cruza $K_c$. | `C5_Video_Kuramoto.m` |
+| []{#V5_2_indice}V5.2 · Índice | La curva barre el plano y el contador de vueltas cambia al cruzar equilibrios. | `C5_Video_Indice.m` |
+| []{#V5_3_vanderpol}V5.3 · van der Pol | Trayectorias de adentro y de afuera llegan al mismo ciclo. | `C5_Video_VanDerPol.m` |
+
+Los videos de las partes 3 y 5 todavía no se han grabado: los scripts están listos y, cuando se graben, basta con copiar los `.mp4` a `sitio/videos/` y convertir el nombre en enlace.
+
 ## Parte 11 · Pasividad
 
 | Video | Qué muestra | Script |
@@ -18,5 +35,5 @@ Cada video se genera con un script de MATLAB; si quiere cambiar algo, cambie el 
 ::: {.cuidado}
 [Para publicar los videos]{.caja-titulo}
 
-Ejecute los scripts `C11_Video_*.m` (quedan en `codigo/cap11_pasividad/videos/`) y copie los `.mp4` a `sitio/videos/`. Si pesan mucho, súbalos a YouTube y cambie los enlaces.
+Ejecute los scripts `C*_Video_*.m` (quedan en `codigo/capNN_*/videos/`) y copie los `.mp4` a `sitio/videos/`. Si pesan mucho, súbalos a YouTube y cambie los enlaces.
 :::

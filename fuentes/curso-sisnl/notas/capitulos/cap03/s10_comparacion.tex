@@ -1,0 +1,71 @@
+%% ---------------------------------------------------------------------
+\section{El lema de comparación}
+\label{sec:pm-comparacion}
+%% ---------------------------------------------------------------------
+
+Sabemos cuándo existe una solución única, pero casi nunca la podemos escribir. La tercera pregunta del capítulo es si al menos se puede \emph{acotar}. La idea: si una cantidad escalar $v(t)$ ---una norma, una energía--- crece a lo sumo como la solución de una ecuación escalar sencilla, entonces se queda por debajo de esa solución.
+
+Para enunciarlo con generalidad hace falta una derivada que exista aunque $v$ no sea derivable, porque $v(t)=\norm{x(t)}$ no lo es cuando $x(t)=0$. La \clave{derivada superior por la derecha} (de Dini) de una función continua $v$ es
+\[
+  D^+v(t)=\limsup_{h\to0^+}\frac{v(t+h)-v(t)}{h} .
+\]
+Si $v$ es derivable en $t$, $D^+v(t)=\dot v(t)$.
+
+\begin{lema}[label=lem:pm-comparacion]{Lema de comparación \citep[Lema~3.4]{Kha02}}
+Considere $\dot u=f(t,u)$, $u(t_0)=u_0$, con $u\in\R$, $f$ continua en $t$ y localmente Lipschitz en $u$ para $t\ge t_0$ y $u\in J\subseteq\R$. Sea $[t_0,T)$ el intervalo máximo de existencia de $u(t)$ ($T$ puede ser $\infty$), con $u(t)\in J$. Si $v(t)$ es continua, $v(t)\in J$, y
+\[
+  D^+v(t)\le f\bigl(t,v(t)\bigr),\qquad v(t_0)\le u_0,
+\]
+entonces $v(t)\le u(t)$ para todo $t\in[t_0,T)$.
+\end{lema}
+
+\noindent Dicho con palabras: si $v$ empieza por debajo de $u$ y en cada instante crece a lo sumo como crecería $u$ \emph{en el mismo valor}, no la puede adelantar. La hipótesis de Lipschitz no es decorativa: garantiza que $u$ es la única solución, y por lo tanto que no hay otra solución ``más alta'' con la que $v$ pudiera compararse. La prueba \citep[\S3.4]{Kha02} compara $v$ con las soluciones de $\dot u=f(t,u)+\lambda$, $\lambda>0$, y hace tender $\lambda\to0$ usando la dependencia continua.
+
+\begin{ejemplo}[label=ej:pm-comparacion1]{Una cota sin resolver la ecuación}
+Acote la solución de $\dot x=-(1+x^2)x$, $x(0)=a$, sin resolverla.
+\solucion $f$ es $\Cont1$, así que hay una solución única en algún $[0,t_1)$. Sea $v=x^2$, que es derivable:
+\[
+  \dot v=2x\dot x=-2x^2-2x^4\le-2v,\qquad v(0)=a^2 .
+\]
+La ecuación de comparación $\dot u=-2u$, $u(0)=a^2$, tiene solución $u(t)=a^2e^{-2t}$, definida para todo $t$. Por el lema, $x(t)^2\le a^2e^{-2t}$, es decir,
+\[
+  \abs{x(t)}\le\abs a\,e^{-t}\qquad\text{mientras la solución exista.}
+\]
+Como la solución queda acotada, el \cref{thm:pm-compacto} dice que existe para todo $t\ge0$: la cota da, de paso, la existencia global. Con $a=2$: $x(1)=0.348\le2e^{-1}=0.736$.
+\end{ejemplo}
+
+\codigorepo{cap03_preliminares/C3_Ej9_Comparacion.m}{escalar}{La cota $\abs a e^{-t}$ contra la solución}
+
+\begin{ejemplo}[label=ej:pm-comparacion2]{Comparación con la norma: por qué la derivada de Dini}
+Para
+\[
+  \dot x_1=-x_1+\frac{2x_2}{1+x_2^2},\qquad\dot x_2=-x_2+\frac{2x_1}{1+x_1^2},
+\]
+pruebe que $\norm{x(t)}_2\le e^{-t}\norm{x(0)}_2+\sqrt2\,(1-e^{-t})$.
+\solucion Escriba $\dot x=-x+g(x)$ con $g=\bigl[\frac{2x_2}{1+x_2^2},\frac{2x_1}{1+x_1^2}\bigr]\T$. Como $\abs{2s/(1+s^2)}\le1$ para todo $s$, $\norm{g(x)}_2\le\sqrt2$. Sea $v=\norm x_2$. Donde $x\neq0$, $v$ es derivable y, por Cauchy--Schwarz,
+\[
+  \dot v=\frac{x\T\dot x}{\norm x}=\frac{-\norm x^2+x\T g(x)}{\norm x}\le-v+\norm{g(x)}\le-v+\sqrt2 .
+\]
+Donde $x=0$, $v$ no es derivable, pero $D^+v=\lim_{h\to0^+}\norm{x(t+h)}/h=\norm{\dot x(t)}=\norm{g(0)}=0\le-0+\sqrt2$. Así que $D^+v\le-v+\sqrt2$ en todas partes; la ecuación de comparación $\dot u=-u+\sqrt2$ da la cota. Note lo que la cota \emph{no} dice: no dice que $x\to0$. El sistema tiene un equilibrio en $(1,1)$, con norma exactamente $\sqrt2$, y desde $(3,-2)$ la solución va hacia él (\cref{fig:pm-comparacion}, derecha).
+\end{ejemplo}
+
+\script{cap03_preliminares/C3_Ej9_Comparacion.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_comparacion}
+\caption{Izquierda: la cota del \cref{ej:pm-comparacion1}. Derecha: la cota del \cref{ej:pm-comparacion2}; la solución se acerca al equilibrio $(1,1)$, cuya norma es el valor final $\sqrt2$ de la cota.}
+\label{fig:pm-comparacion}
+\end{figure}
+
+\codigorepo{cap03_preliminares/C3_Ej9_Comparacion.m}{vectorial}{La cota de comparación para la norma}
+
+\begin{trampa}[label=tr:pm-comparacion]{Comparar con la función equivocada}
+\plausible{$\dot v\le-v+\sqrt2$ y $v(0)$ es pequeño; por lo tanto $v(t)\to0$.}
+La comparación da $v\le u$, donde $u$ es la solución de la ecuación con \emph{igualdad}. Aquí $u(t)\to\sqrt2$, no $0$, y la conclusión correcta es $\limsup v\le\sqrt2$. En el \cref{ej:pm-comparacion2} el límite real es $\sqrt2$: la cota es ajustada y $x\not\to0$. El error es leer la desigualdad como si la ecuación de comparación fuera $\dot u=-u$.
+\correcto{Resuelva la ecuación de comparación completa, con el mismo término que aparece en la desigualdad, y lea la cota que da. Una cota que no tiende a cero no prueba estabilidad, pero sí prueba que la solución es acotada y, con el \cref{thm:pm-compacto}, que existe para todo $t$.}
+\end{trampa}
+
+\begin{pausa}
+Si $v\ge0$ cumple $\dot v\le-v^2$ con $v(0)=v_0>0$, ¿qué cota da el lema de comparación? ¿Converge $v$ a cero exponencialmente?
+\respuesta{La ecuación de comparación $\dot u=-u^2$, $u(0)=v_0$, tiene solución $u=v_0/(1+v_0t)$. Luego $v(t)\le v_0/(1+v_0t)$: $v\to0$, pero solo como $1/t$, no exponencialmente. Es, salvo constantes, lo que pasa con $\dot x=-x^3$: con $v=x^2$, $\dot v=-2v^2$.}
+\end{pausa}

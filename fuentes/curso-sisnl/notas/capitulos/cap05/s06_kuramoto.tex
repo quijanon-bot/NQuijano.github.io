@@ -1,0 +1,61 @@
+%% ---------------------------------------------------------------------
+\section{El modelo de Kuramoto}
+\label{sec:oc-kuramoto}
+%% ---------------------------------------------------------------------
+
+\notamargen{Esta sección es fenomenológica: se describe lo que pasa y por qué es plausible. Las pruebas de sincronización usan herramientas de Lyapunov y de pasividad (capítulos~7 a~11).}
+Kuramoto tomó \eqref{eq:oc-redsin} con todos contra todos y el mismo peso:
+\begin{equation}
+  \dot\theta_i=\omega_i+\frac KN\sum_{j=1}^N\sin(\theta_j-\theta_i),\qquad i=1,\dots,N,
+  \label{eq:oc-kuramoto}
+\end{equation}
+donde $K\ge0$ es la intensidad del acoplamiento y las frecuencias naturales $\omega_i$ se sacan de una distribución con densidad $g(\omega)$, simétrica alrededor de su centro (que, cambiando de marco de referencia, se puede tomar como cero). La pregunta: ¿a partir de qué $K$ emerge la sincronía?
+
+Para medirla se usa el \clave{parámetro de orden}
+\begin{equation}
+  r\,e^{j\Psi}=\frac1N\sum_{j=1}^Ne^{j\theta_j} .
+  \label{eq:oc-orden}
+\end{equation}
+Es el centroide de las $N$ fases vistas como puntos del círculo unitario: $r\in[0,1]$ mide la coherencia ($r\approx0$, fases repartidas; $r=1$, todas iguales) y $\Psi$ es la fase promedio. Multiplicando \eqref{eq:oc-orden} por $e^{-j\theta_i}$ y tomando la parte imaginaria, $r\sin(\Psi-\theta_i)=\frac1N\sum_j\sin(\theta_j-\theta_i)$, y el modelo queda
+\begin{equation}
+  \dot\theta_i=\omega_i+K\,r\sin(\Psi-\theta_i) .
+  \label{eq:oc-campomedio}
+\end{equation}
+Cada oscilador ya no ve a los demás uno por uno: ve un solo ``estímulo'' de fase $\Psi$ e intensidad $Kr$. Es la luciérnaga frente a la linterna, \eqref{eq:oc-dos}, con la diferencia de que la linterna la fabrican entre todos. El mecanismo es una retroalimentación: un poco de coherencia ($r>0$) hace que más osciladores se enganchen (los que cumplen $\abs{\omega_i}\le Kr$), y eso aumenta $r$.
+
+Kuramoto mostró que, cuando $N\to\infty$, la solución incoherente $r=0$ pierde la estabilidad en
+\begin{equation}
+  K_c=\frac2{\pi g(0)},
+  \label{eq:oc-Kc}
+\end{equation}
+y que, para la distribución de Lorentz $g(\omega)=\frac{\gamma}{\pi(\gamma^2+\omega^2)}$, la coherencia de régimen es exactamente $r=\sqrt{1-K_c/K}$ para $K>K_c=2\gamma$ \citep{Kur84}. La \cref{fig:oc-kuramoto} compara esa predicción con una simulación de $N=400$ osciladores con $\gamma=0.5$: $r=0.58$, $0.71$ y $0.82$ para $K=1.5$, $2$ y $3$, contra $0.577$, $0.707$ y $0.816$ de la teoría.
+
+\video{V5_1_kuramoto}{Las fases se agrupan; algunas siguen dando vueltas}
+\script{cap05_orbitas_ciclos/C5_Ej6_Kuramoto.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_kuramoto}
+\caption{Kuramoto con $N=400$ y frecuencias de Lorentz ($\gamma=0.5$, $K_c=1$). Las fases en $t=100$ (color: frecuencia natural) para $K=0.5$ y $K=2$, con la flecha $re^{j\Psi}$. Derecha: $r$ de régimen contra la predicción $\sqrt{1-K_c/K}$.}
+\label{fig:oc-kuramoto}
+\end{figure}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej6_Kuramoto.m}{kuramoto}{Parámetro de orden de régimen para varios $K$}
+
+\begin{trampa}[label=tr:oc-kuramoto]{Acoplar no es igualar}
+\plausible{Con $K$ suficientemente grande, todas las fases convergen a la misma: $r\to1$.}
+Con frecuencias naturales distintas, las fases \emph{no} pueden ser iguales: si $\theta_i=\theta_j$ para todo $i,j$, entonces $\dot\theta_i=\omega_i$ y se separan de inmediato. Lo que se alcanza es un estado en que los osciladores enganchados giran a una frecuencia común con desfases fijos, y para Lorentz quedan además osciladores rápidos sin enganchar (los de $\abs{\omega_i}>Kr$), que siguen dando vueltas. Aun con $K=3$, $r=0.82$.
+\correcto{Para $K>K_c$, $r$ crece con $K$ pero se queda por debajo de $1$; solo $r\to1$ cuando $K\to\infty$. Igual que en la \cref{tr:oc-enfase}: el acoplamiento da sincronía de frecuencia, no de fase, salvo que las frecuencias sean idénticas.}
+\end{trampa}
+
+\begin{pausa}
+Con dos osciladores ($N=2$) y frecuencias $\pm\Delta/2$, ¿qué valor de $K$ en \eqref{eq:oc-kuramoto} los engancha?
+\respuesta{Con $N=2$, $a_{12}=a_{21}=K/2$ en \eqref{eq:oc-redsin}, y \eqref{eq:oc-dos} da $\dot\varphi=\Delta-K\sin\varphi$. Hay enganche si y solo si $K\ge\Delta$.}
+\end{pausa}
+
+\begin{profundiza}[Investigación: sincronización resiliente con pocos actuadores]
+En una red real (una red eléctrica, una red de sensores) hay perturbaciones y se puede actuar sobre algunos nodos:
+\[
+  \dot\theta_i=\omega_i+\frac KN\sum_{j=1}^Na_{ij}\sin(\theta_j-\theta_i)+u_i(t)+d_i(t),
+\]
+con $d_i$ una disrupción y $u_i$ un control. ¿Cómo recuperar la sincronía después de una disrupción controlando solo unos pocos nodos y gastando poca energía? Es la pregunta del proyecto de Chacón-Chamorro, Charria-Macías, Giraldo y Quijano sobre sincronización resiliente de redes de Kuramoto \citep{CCGQ26}: una arquitectura en la que una red neuronal escoge en línea qué nodos actuar (\emph{pinning}) y un controlador de consenso los lleva de vuelta al estado sincronizado.
+\end{profundiza}

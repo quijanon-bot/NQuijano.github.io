@@ -13,6 +13,13 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 9. **Página web.** Copiar `sitio/partes/11-pasividad.qmd` como plantilla y agregar el capítulo a `NOMBRES` en `herramientas/pdf_por_capitulo.py`.
 10. **Numeración.** En `NotasSisNL.tex`, `\setcounter{chapter}{N-1}` antes del `\input` del capítulo N mientras los anteriores no estén migrados.
 
+## Pendientes de los capítulos 3 y 5 (migrados el 9 de noviembre de 2026)
+
+- Correr en MATLAB `C3_Video_*`, `C5_Video_*` y `crearModelo_VanDerPol` (probados solo en Octave o sin probar), copiar los `.mp4` a `sitio/videos/` y convertir en enlaces las filas de `videos.qmd` y de las páginas 03 y 05.
+- Confirmar en la 3.ª edición de Khalil: Lemas 3.1–3.4, Teoremas 3.1–3.4, Lema A.1, Teorema B.1 (cap. 3); Lema 2.1, Lema 4.1 y §2.6 (cap. 5).
+- Verificar datos bibliográficos de Ray1883, Lie28 (páginas), Kur75, Lau17, CGR26 y CCGQ26.
+- Los epígrafes con letras de canciones y las fotos de las diapositivas de Manuela no se pasaron a las notas (derechos de autor); se usaron epígrafes de Javier Marías y Enrique Vila-Matas.
+
 ## Pendientes del piloto
 
 - Correr en MATLAB los `C11_Video_*` y los `crearModelo_*` (no se pudieron probar sin MATLAB/Simulink).

@@ -1,0 +1,52 @@
+%% ---------------------------------------------------------------------
+\section{Cómo probar que existe una órbita: Poincaré--Bendixson}
+\label{sec:oc-pb}
+%% ---------------------------------------------------------------------
+
+Las herramientas de las dos secciones anteriores dicen dónde \emph{no} puede haber órbitas. El resultado de esta sección es el único, en dimensión dos, que permite probar que una órbita \emph{existe} sin conocerla.
+
+\begin{teorema}[label=thm:oc-pb]{Poincaré--Bendixson \citep[Lema~2.1]{Kha02}}
+Considere $\dot x=f(x)$, $x\in\R^2$, con $f$ localmente Lipschitz, y sea $M$ un conjunto cerrado y acotado tal que
+\begin{enumerate}
+  \item $M$ no contiene equilibrios, o contiene \emph{un solo} equilibrio, y en él el jacobiano tiene valores propios con parte real positiva (un foco o un nodo inestable);
+  \item toda trayectoria que empieza en $M$ se queda en $M$ para todo $t\ge0$ ($M$ es positivamente invariante).
+\end{enumerate}
+Entonces $M$ contiene una órbita periódica.
+\end{teorema}
+
+\noindent\emph{Idea de la prueba.} Si $M$ no tiene equilibrios: una trayectoria que empieza en $M$ es acotada, así que su conjunto $\omega$-límite es no vacío, compacto e invariante (\cref{lem:oc-omega}) y no contiene equilibrios. En el plano, un conjunto así es una órbita cerrada; el argumento usa que una curva cerrada simple separa el plano en dos regiones (teorema de Jordan), y por eso \emph{no} se generaliza a más dimensiones. Si $M$ tiene un foco o nodo inestable, se le quita un disco pequeño alrededor de él, en cuyo borde el campo apunta hacia afuera; lo que queda es un anillo positivamente invariante sin equilibrios (\cref{fig:oc-pbkhalil}). \hfill$\square$
+
+\begin{cuidado}[Cómo se verifica la invariancia]
+Para $M=\{V(x)\le c\}$, con $V\in\Cont1$, basta que el campo no apunte hacia afuera en la frontera: $\nabla V(x)\T f(x)\le0$ en $\{V=c\}$. Para un anillo $M=\{W(x)\ge c_1,\ V(x)\le c_2\}$ hace falta además $\nabla W\T f\ge0$ en $\{W=c_1\}$. Es un producto interno con el gradiente, no un producto de vectores, y se calcula sin resolver la ecuación.
+\end{cuidado}
+
+\begin{ejemplo}[label=ej:oc-pbkhalil]{Una región que atrapa un ciclo}
+Pruebe que $\dot x_1=x_1+x_2-x_1(x_1^2+x_2^2)$, $\dot x_2=-2x_1+x_2-x_2(x_1^2+x_2^2)$ tiene una órbita periódica.
+\solucion \emph{Equilibrios.} $f(x)=0$ se escribe $Ax=r^2x$ con $A=\begin{bmatrix}1&1\\-2&1\end{bmatrix}$ y $r^2=x_1^2+x_2^2$: un $x\neq0$ sería un vector propio de $A$ con valor propio real $r^2$, y $A$ no tiene valores propios reales. El único equilibrio es el origen. Su jacobiano $\begin{bmatrix}1&1\\-2&1\end{bmatrix}$ tiene valores propios $1\pm j\sqrt2$: foco inestable. \emph{Región.} Con $V=x_1^2+x_2^2$,
+\[
+  \Vdot=2(x_1^2+x_2^2)-2x_1x_2-2(x_1^2+x_2^2)^2 .
+\]
+En el círculo $V=c$, $\abs{2x_1x_2}\le x_1^2+x_2^2=c$, así que $\Vdot\le2c+c-2c^2=3c-2c^2$, que es $\le0$ si $c\ge\tfrac32$ (y se alcanza: con $c=1$ hay puntos de la frontera con $\Vdot=+1$). $M=\{V\le\tfrac32\}$ es compacto, positivamente invariante y contiene un solo equilibrio, un foco inestable. Por el \cref{thm:oc-pb}, $M$ contiene una órbita periódica. La simulación muestra un ciclo límite que \emph{no} es un círculo: $r$ oscila entre $0.850$ y $1.130$, con período $4.44$.
+\end{ejemplo}
+
+\script{cap05_orbitas_ciclos/C5_Ej9_PoincareBendixson.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_pb_khalil}
+\caption{Izquierda: el disco $V\le3/2$ (verde) atrapa las trayectorias; al quitar un disco pequeño alrededor del foco inestable (ámbar) queda un anillo sin equilibrios que contiene el ciclo (rojo). Derecha: el máximo de $\Vdot$ en la frontera $V=c$ es $3c-2c^2$.}
+\label{fig:oc-pbkhalil}
+\end{figure}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej9_PoincareBendixson.m}{criterio}{Las dos condiciones del criterio}
+
+\begin{trampa}[label=tr:oc-pbciclo]{Poincaré--Bendixson no da un ciclo límite}
+\plausible{El anillo $M=\{c_1\le x_1^2+x_2^2\le c_2\}$ es compacto, positivamente invariante y sin equilibrios para el oscilador armónico $\dot x_1=x_2$, $\dot x_2=-x_1$; por Poincaré--Bendixson, el oscilador armónico tiene un ciclo límite.}
+El teorema garantiza una \emph{órbita periódica}, no una aislada. En el oscilador armónico el anillo está lleno de órbitas cerradas, ninguna aislada. Tampoco dice cuántas hay: puede haber varias, anidadas.
+\correcto{Poincaré--Bendixson da existencia de al menos una órbita periódica en $M$. Para concluir que es un ciclo límite, y que es único, hace falta más: un argumento como el de Liénard, o que la región se pueda encoger hasta una sola curva (en el \cref{ej:oc-polar}, los anillos $\{c_1\le r^2\le c_2\}$ con $c_1<1<c_2$ son invariantes para todos esos valores, y al encogerlos queda solo $r=1$).}
+\end{trampa}
+
+\begin{trampa}[label=tr:oc-pb3d]{En tres dimensiones no hay Poincaré--Bendixson}
+\plausible{Una trayectoria acotada que no converge a ningún equilibrio converge a una órbita periódica.}
+Es cierto en el plano y falso en $\R^3$. El sistema de Lorenz \citep{Lor63} tiene trayectorias acotadas que no convergen ni a equilibrios ni a órbitas periódicas: se mueven para siempre en un atractor extraño. La prueba de Poincaré--Bendixson usa que una curva cerrada separa el plano en un adentro y un afuera, y en $\R^3$ una curva no separa nada.
+\correcto{En dimensión dos, los únicos comportamientos de largo plazo de una trayectoria acotada son: un equilibrio, una órbita cerrada o una cadena de equilibrios unidos por trayectorias. El caos necesita al menos tres dimensiones (en tiempo continuo, invariante en el tiempo). Lo usaremos en la \cref{sec:oc-nowak}.}
+\end{trampa}

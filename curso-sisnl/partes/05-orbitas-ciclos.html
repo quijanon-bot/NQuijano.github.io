@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5. Órbitas, flujos circulares y ciclos límite – Sistemas No Lineales</title>
+<title>5. Órbitas, osciladores y ciclos límite – Sistemas No Lineales</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,17 +63,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64fae8b6b810ab41c64c8dc374c4eb1f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6ca0c397212994b6a3f632fc19759a7d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f8760966cb2d12057e57b1a3106917f7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-db75d47dca11e65f57750a85bb0935e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -54,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -77,24 +109,54 @@ window.MathJax = { tex: { macros: {
   D: "D", eq: "x^{*}", Vdot: "\\dot V", Va: "V_a", K: "\\mathcal{K}", Kinf: "\\mathcal{K}_{\\infty}", KL: "\\mathcal{KL}",
   Linf: "\\mathcal{L}_{\\infty}", Ldos: "\\mathcal{L}_{2}", Lext: "\\mathcal{L}_{2e}",
   jac: ["\\frac{\\partial #1}{\\partial #2}", 2], simplex: "\\Delta", dif: "\\mathrm{d}", dd: "\\mathrm{d}", ee: "\\mathrm{e}",
-  defeq: "\\coloneqq", Nivel: ["\\Omega_{#1}", 1], Cont: ["\\mathcal{C}^{#1}", 1], grados: "^{\\circ}"
+  defeq: "\\coloneqq", Nivel: ["\\Omega_{#1}", 1], Cont: ["\\mathcal{C}^{#1}", 1], grados: "^{\\circ}",
+  inner: ["\\left\\langle #1,#2\\right\\rangle", 2], lmin: "\\lambda_{\\min}", lmax: "\\lambda_{\\max}",
+  flujo: ["\\phi(#1;#2)", 2], jacat: ["\\left.\\frac{\\partial #1}{\\partial #2}\\right|_{#3}", 3],
+  Bola: ["B_{#1}", 1], omegalim: ["\\omega(#1)", 1], alphalim: ["\\alpha(#1)", 1]
 } } };
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Sistemas No Lineales</span>
     </a>
@@ -124,7 +186,7 @@ window.MathJax = { tex: { macros: {
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/03-preliminares.html">
- <span class="dropdown-text">3. Preliminares matemáticos</span></a>
+ <span class="dropdown-text">3. Fundamentos matemáticos</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/04-bidimensionales.html">
@@ -132,7 +194,7 @@ window.MathJax = { tex: { macros: {
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/05-orbitas-ciclos.html">
- <span class="dropdown-text">5. Órbitas, flujos circulares y ciclos límite</span></a>
+ <span class="dropdown-text">5. Órbitas, osciladores y ciclos límite</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../partes/06-bifurcaciones.html">
@@ -194,16 +256,27 @@ window.MathJax = { tex: { macros: {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#ruta-de-las-clases" id="toc-ruta-de-las-clases" class="nav-link active" data-scroll-target="#ruta-de-las-clases">Ruta de las clases</a></li>
+  <li><a href="#lo-esencial-en-una-página" id="toc-lo-esencial-en-una-página" class="nav-link" data-scroll-target="#lo-esencial-en-una-página">Lo esencial, en una página</a></li>
+  <li><a href="#explorador" id="toc-explorador" class="nav-link" data-scroll-target="#explorador">Explorador interactivo</a></li>
+  <li><a href="#códigos-de-esta-parte" id="toc-códigos-de-esta-parte" class="nav-link" data-scroll-target="#códigos-de-esta-parte">Códigos de esta parte</a></li>
+  <li><a href="#videos" id="toc-videos" class="nav-link" data-scroll-target="#videos">Videos</a></li>
+  <li><a href="#problemas" id="toc-problemas" class="nav-link" data-scroll-target="#problemas">Problemas</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">5. Órbitas, flujos circulares y ciclos límite</h1>
-<p class="subtitle lead">Semanas 5–7</p>
+<h1 class="title">5. Órbitas, osciladores y ciclos límite</h1>
+<p class="subtitle lead">Semanas 5–7 · cinco clases</p>
 </div>
 
 
@@ -220,253 +293,672 @@ window.MathJax = { tex: { macros: {
 </header>
 
 
-<div class="franja"><div class="rotulo">Parte 5 · Semanas 5–7</div><div class="titulo">Órbitas, flujos circulares y ciclos límite</div><svg class="fase" viewbox="0 0 600 160" preserveaspectratio="xMaxYMid slice"><ellipse cx="430" cy="80" rx="30" ry="15" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="60" ry="30" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="90" ry="45" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="120" ry="60" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="150" ry="75" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="180" ry="90" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="210" ry="105" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="240" ry="120" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><polyline points="580.0,80.0 578.7,84.5 577.0,88.9 574.7,93.2 571.9,97.4 568.6,101.4 564.9,105.4 560.8,109.2 556.2,112.9 551.2,116.3 545.9,119.6 540.2,122.8 534.2,125.7 527.9,128.4 521.3,130.9 514.5,133.2 507.4,135.3 500.2,137.1 492.8,138.7 485.3,140.1 477.6,141.3 469.9,142.2 462.2,142.8 454.4,143.3 446.7,143.5 439.0,143.4 431.4,143.2 423.8,142.7 416.4,142.0 409.1,141.1 402.0,139.9 395.1,138.6 388.4,137.1 382.0,135.3 375.8,133.4 369.9,131.4 364.3,129.2 359.0,126.8 354.0,124.3 349.3,121.7 345.1,118.9 341.1,116.0 337.6,113.1 334.4,110.1 331.6,107.0 329.2,103.8 327.2,100.6 325.6,97.4 324.4,94.1 323.6,90.9 323.2,87.6 323.2,84.4 323.6,81.1 324.4,78.0 325.5,74.8 327.0,71.8 328.8,68.8 331.0,65.9 333.5,63.0 336.3,60.3 339.5,57.7 342.9,55.2 346.6,52.8 350.5,50.5 354.7,48.4 359.1,46.4 363.7,44.6 368.5,42.9 373.4,41.4 378.5,40.0 383.7,38.8 389.0,37.8 394.3,36.9 399.8,36.2 405.2,35.7 410.7,35.3 416.2,35.1 421.7,35.1 427.1,35.2 432.5,35.5 437.7,35.9 442.9,36.5 448.0,37.3 452.9,38.2 457.7,39.2 462.4,40.4 466.8,41.7 471.1,43.1 475.1,44.6 479.0,46.3 482.6,48.0 485.9,49.8 489.1,51.8 491.9,53.7 494.5,55.8 496.9,57.9 499.0,60.1 500.7,62.3 502.3,64.6 503.5,66.9 504.4,69.2 505.1,71.5 505.5,73.8 505.6,76.1 505.4,78.4 505.0,80.6 504.3,82.9 503.3,85.0 502.1,87.2 500.7,89.3 499.0,91.3 497.0,93.3 494.9,95.2 492.6,97.0 490.0,98.7 487.3,100.3 484.4,101.8 481.3,103.3 478.1,104.6 474.8,105.8 471.3,107.0 467.8,108.0 464.1,108.9 460.4,109.6 456.6,110.3 452.8,110.8 448.9,111.3 445.0,111.6 441.2,111.7 437.3,111.8 433.4,111.8 429.6,111.6 425.9,111.3 422.2,110.9 418.5,110.4 415.0,109.8 411.6,109.1 408.3,108.4 405.1,107.5 402.0,106.5 399.1,105.4 396.3,104.3 393.7,103.1 391.2,101.8 389.0,100.5 386.9,99.1 385.0,97.7 383.2,96.2 381.7,94.6 380.4,93.1 379.2,91.5 378.3,89.9 377.5,88.3 377.0,86.6 376.6,85.0 376.5,83.4 376.5,81.7 376.8,80.1 377.2,78.5 377.8,77.0 378.6,75.5 379.6,74.0 380.7,72.5 382.0,71.1 383.5,69.8 385.1,68.5 386.9,67.2 388.7,66.0 390.8,64.9 392.9,63.9 395.1,62.9 397.4,62.0 399.9,61.2 402.3,60.5 404.9,59.8 407.5,59.2 410.2,58.7 412.9,58.3 415.6,58.0 418.4,57.7 421.1,57.6 423.9,57.5 426.6,57.5 429.3,57.6 432.0,57.8 434.6,58.0 437.2,58.3 439.7,58.7 442.2,59.2 444.5,59.7 446.8,60.3 449.0,61.0 451.2,61.7 453.2,62.5 455.0,63.3 456.8,64.2 458.5,65.2 460.0,66.1 461.4,67.1 462.7,68.2 463.8,69.2 464.8,70.3 465.7,71.5 466.4,72.6 467.0,73.7 467.4,74.9 467.7,76.1 467.9,77.2 467.9,78.4 467.7,79.5 467.5,80.6 467.1,81.7 466.6,82.8 465.9,83.9 465.2,84.9 464.3,85.9 463.3,86.9 462.2,87.8 461.0,88.7 459.7,89.6 458.3,90.4 456.8,91.2 455.3,91.9 453.6,92.5 452.0,93.1 450.2,93.7 448.4,94.1 446.6,94.6 444.7,94.9 442.8,95.3 440.9,95.5 438.9,95.7 437.0,95.8 435.0,95.9 433.1,95.9 431.2,95.9 429.3,95.8 427.4,95.6 425.6,95.4 423.8,95.2 422.0,94.9 420.3,94.5 418.7,94.1 417.1,93.6 415.6,93.1 414.1,92.6 412.7,92.0 411.5,91.4 410.3,90.8 409.1,90.1 408.1,89.4 407.2,88.6 406.3,87.9 405.6,87.1 405.0,86.3 404.4,85.5 404.0,84.7 403.6,83.9 403.4,83.1 403.2,82.3 403.2,81.5 403.2,80.6 403.4,79.8 403.6,79.0 404.0,78.3 404.4,77.5 404.9,76.8 405.5,76.0 406.2,75.4 406.9,74.7 407.7,74.0 408.6,73.4 409.6,72.8 410.6,72.3 411.7,71.8 412.8,71.3 414.0,70.9 415.2,70.5 416.5,70.1 417.8,69.8 419.1,69.5 420.5,69.3 421.8,69.1 423.2,68.9 424.6,68.8 425.9,68.7 427.3,68.7 428.7,68.7 430.0,68.8 431.4,68.9 432.7,69.0 434.0,69.2 435.2,69.4 436.4,69.6 437.6,69.9 438.8,70.2 439.8,70.6 440.9,70.9 441.9,71.3 442.8,71.8 443.7,72.2 444.5,72.7 445.2,73.2 445.9,73.7 446.5,74.2 447.1,74.8 447.6,75.3 448.0,75.9 448.3,76.5 448.6,77.0 448.8,77.6 448.9,78.2 449.0,78.8 449.0,79.3 448.9,79.9 448.7,80.5 448.5,81.0 448.2,81.6 447.9,82.1 447.5,82.6 447.0,83.1 446.5,83.6 446.0,84.1 445.3,84.5 444.7,84.9 444.0,85.3 443.2,85.7 442.4,86.0 441.6,86.4 440.8,86.6 439.9,86.9 439.0,87.1 438.0,87.4 437.1,87.5 436.1,87.7 435.2,87.8 434.2,87.9 433.2,87.9 432.3,88.0 431.3,88.0 430.3,88.0 429.4,87.9 428.4,87.8 427.5,87.7 426.6,87.6 425.8,87.4 424.9,87.2 424.1,87.0 423.3,86.8 422.6,86.5 421.8,86.2 421.2,85.9 420.5,85.6 419.9,85.3 419.4,84.9 418.9,84.6 418.4,84.2 418.0,83.8 417.7,83.5 417.4,83.1 417.1,82.7 416.9,82.3 416.7,81.8 416.6,81.4 416.6,81.0 416.6,80.6 416.6,80.2 416.7,79.8 416.8,79.4 417.0,79.0 417.2,78.6 417.5,78.3 417.8,77.9 418.2,77.6 418.6,77.2 419.0,76.9 419.4,76.6 419.9,76.3 420.4,76.1 421.0,75.8 421.6,75.6 422.2,75.4 422.8,75.2 423.4,75.0 424.1,74.8 424.7,74.7 425.4,74.6 426.1,74.5 426.8,74.4 427.5,74.4 428.2,74.4 428.8,74.3 429.5,74.4 430.2,74.4 430.9,74.4 431.5,74.5 432.2,74.6 432.8,74.7 433.4,74.8 434.0,75.0" stroke="#E09F3E" stroke-width="2.5" fill="none"></polyline><circle cx="430" cy="80" r="4" fill="#E09F3E"></circle></svg></div>
-<div class="profundiza">
-<p><span class="caja-titulo">Por migrar</span></p>
-<p>Esta parte todavía está en el formato anterior (Handout4.tex, Handout4a.tex). Se migrará siguiendo la guía <code>notas/MIGRACION.md</code>, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en <code>codigo/cap05_*/</code>, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.</p>
+<div class="franja"><div class="rotulo">Parte 5 · Semanas 5–7</div><div class="titulo">Órbitas, osciladores y ciclos límite</div><div class="cita">Se escribe para atar al lector, para adueñarse de él, para seducirlo, para subyugarlo […] — Enrique Vila-Matas</div><svg class="fase" viewbox="0 0 600 160" preserveaspectratio="xMaxYMid slice"><ellipse cx="430" cy="80" rx="30" ry="15" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="60" ry="30" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="90" ry="45" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="120" ry="60" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="150" ry="75" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="180" ry="90" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="210" ry="105" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="240" ry="120" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><polyline points="580.0,80.0 578.7,84.5 577.0,88.9 574.7,93.2 571.9,97.4 568.6,101.4 564.9,105.4 560.8,109.2 556.2,112.9 551.2,116.3 545.9,119.6 540.2,122.8 534.2,125.7 527.9,128.4 521.3,130.9 514.5,133.2 507.4,135.3 500.2,137.1 492.8,138.7 485.3,140.1 477.6,141.3 469.9,142.2 462.2,142.8 454.4,143.3 446.7,143.5 439.0,143.4 431.4,143.2 423.8,142.7 416.4,142.0 409.1,141.1 402.0,139.9 395.1,138.6 388.4,137.1 382.0,135.3 375.8,133.4 369.9,131.4 364.3,129.2 359.0,126.8 354.0,124.3 349.3,121.7 345.1,118.9 341.1,116.0 337.6,113.1 334.4,110.1 331.6,107.0 329.2,103.8 327.2,100.6 325.6,97.4 324.4,94.1 323.6,90.9 323.2,87.6 323.2,84.4 323.6,81.1 324.4,78.0 325.5,74.8 327.0,71.8 328.8,68.8 331.0,65.9 333.5,63.0 336.3,60.3 339.5,57.7 342.9,55.2 346.6,52.8 350.5,50.5 354.7,48.4 359.1,46.4 363.7,44.6 368.5,42.9 373.4,41.4 378.5,40.0 383.7,38.8 389.0,37.8 394.3,36.9 399.8,36.2 405.2,35.7 410.7,35.3 416.2,35.1 421.7,35.1 427.1,35.2 432.5,35.5 437.7,35.9 442.9,36.5 448.0,37.3 452.9,38.2 457.7,39.2 462.4,40.4 466.8,41.7 471.1,43.1 475.1,44.6 479.0,46.3 482.6,48.0 485.9,49.8 489.1,51.8 491.9,53.7 494.5,55.8 496.9,57.9 499.0,60.1 500.7,62.3 502.3,64.6 503.5,66.9 504.4,69.2 505.1,71.5 505.5,73.8 505.6,76.1 505.4,78.4 505.0,80.6 504.3,82.9 503.3,85.0 502.1,87.2 500.7,89.3 499.0,91.3 497.0,93.3 494.9,95.2 492.6,97.0 490.0,98.7 487.3,100.3 484.4,101.8 481.3,103.3 478.1,104.6 474.8,105.8 471.3,107.0 467.8,108.0 464.1,108.9 460.4,109.6 456.6,110.3 452.8,110.8 448.9,111.3 445.0,111.6 441.2,111.7 437.3,111.8 433.4,111.8 429.6,111.6 425.9,111.3 422.2,110.9 418.5,110.4 415.0,109.8 411.6,109.1 408.3,108.4 405.1,107.5 402.0,106.5 399.1,105.4 396.3,104.3 393.7,103.1 391.2,101.8 389.0,100.5 386.9,99.1 385.0,97.7 383.2,96.2 381.7,94.6 380.4,93.1 379.2,91.5 378.3,89.9 377.5,88.3 377.0,86.6 376.6,85.0 376.5,83.4 376.5,81.7 376.8,80.1 377.2,78.5 377.8,77.0 378.6,75.5 379.6,74.0 380.7,72.5 382.0,71.1 383.5,69.8 385.1,68.5 386.9,67.2 388.7,66.0 390.8,64.9 392.9,63.9 395.1,62.9 397.4,62.0 399.9,61.2 402.3,60.5 404.9,59.8 407.5,59.2 410.2,58.7 412.9,58.3 415.6,58.0 418.4,57.7 421.1,57.6 423.9,57.5 426.6,57.5 429.3,57.6 432.0,57.8 434.6,58.0 437.2,58.3 439.7,58.7 442.2,59.2 444.5,59.7 446.8,60.3 449.0,61.0 451.2,61.7 453.2,62.5 455.0,63.3 456.8,64.2 458.5,65.2 460.0,66.1 461.4,67.1 462.7,68.2 463.8,69.2 464.8,70.3 465.7,71.5 466.4,72.6 467.0,73.7 467.4,74.9 467.7,76.1 467.9,77.2 467.9,78.4 467.7,79.5 467.5,80.6 467.1,81.7 466.6,82.8 465.9,83.9 465.2,84.9 464.3,85.9 463.3,86.9 462.2,87.8 461.0,88.7 459.7,89.6 458.3,90.4 456.8,91.2 455.3,91.9 453.6,92.5 452.0,93.1 450.2,93.7 448.4,94.1 446.6,94.6 444.7,94.9 442.8,95.3 440.9,95.5 438.9,95.7 437.0,95.8 435.0,95.9 433.1,95.9 431.2,95.9 429.3,95.8 427.4,95.6 425.6,95.4 423.8,95.2 422.0,94.9 420.3,94.5 418.7,94.1 417.1,93.6 415.6,93.1 414.1,92.6 412.7,92.0 411.5,91.4 410.3,90.8 409.1,90.1 408.1,89.4 407.2,88.6 406.3,87.9 405.6,87.1 405.0,86.3 404.4,85.5 404.0,84.7 403.6,83.9 403.4,83.1 403.2,82.3 403.2,81.5 403.2,80.6 403.4,79.8 403.6,79.0 404.0,78.3 404.4,77.5 404.9,76.8 405.5,76.0 406.2,75.4 406.9,74.7 407.7,74.0 408.6,73.4 409.6,72.8 410.6,72.3 411.7,71.8 412.8,71.3 414.0,70.9 415.2,70.5 416.5,70.1 417.8,69.8 419.1,69.5 420.5,69.3 421.8,69.1 423.2,68.9 424.6,68.8 425.9,68.7 427.3,68.7 428.7,68.7 430.0,68.8 431.4,68.9 432.7,69.0 434.0,69.2 435.2,69.4 436.4,69.6 437.6,69.9 438.8,70.2 439.8,70.6 440.9,70.9 441.9,71.3 442.8,71.8 443.7,72.2 444.5,72.7 445.2,73.2 445.9,73.7 446.5,74.2 447.1,74.8 447.6,75.3 448.0,75.9 448.3,76.5 448.6,77.0 448.8,77.6 448.9,78.2 449.0,78.8 449.0,79.3 448.9,79.9 448.7,80.5 448.5,81.0 448.2,81.6 447.9,82.1 447.5,82.6 447.0,83.1 446.5,83.6 446.0,84.1 445.3,84.5 444.7,84.9 444.0,85.3 443.2,85.7 442.4,86.0 441.6,86.4 440.8,86.6 439.9,86.9 439.0,87.1 438.0,87.4 437.1,87.5 436.1,87.7 435.2,87.8 434.2,87.9 433.2,87.9 432.3,88.0 431.3,88.0 430.3,88.0 429.4,87.9 428.4,87.8 427.5,87.7 426.6,87.6 425.8,87.4 424.9,87.2 424.1,87.0 423.3,86.8 422.6,86.5 421.8,86.2 421.2,85.9 420.5,85.6 419.9,85.3 419.4,84.9 418.9,84.6 418.4,84.2 418.0,83.8 417.7,83.5 417.4,83.1 417.1,82.7 416.9,82.3 416.7,81.8 416.6,81.4 416.6,81.0 416.6,80.6 416.6,80.2 416.7,79.8 416.8,79.4 417.0,79.0 417.2,78.6 417.5,78.3 417.8,77.9 418.2,77.6 418.6,77.2 419.0,76.9 419.4,76.6 419.9,76.3 420.4,76.1 421.0,75.8 421.6,75.6 422.2,75.4 422.8,75.2 423.4,75.0 424.1,74.8 424.7,74.7 425.4,74.6 426.1,74.5 426.8,74.4 427.5,74.4 428.2,74.4 428.8,74.3 429.5,74.4 430.2,74.4 430.9,74.4 431.5,74.5 432.2,74.6 432.8,74.7 433.4,74.8 434.0,75.0" stroke="#E09F3E" stroke-width="2.5" fill="none"></polyline><circle cx="430" cy="80" r="4" fill="#E09F3E"></circle></svg></div>
+<p>Un sistema no lineal puede hacer algo que ningún sistema lineal hace: <strong>oscilar de manera robusta</strong>, con una amplitud y un período que no dependen de dónde empezó. Esta parte estudia esas oscilaciones —ciclos límite, osciladores de fase, sincronización— y las dos preguntas que hay que saber responder sobre ellas: cómo <strong>descartar</strong> que existan (índice, sistemas gradiente, Lyapunov, Bendixson–Dulac) y cómo <strong>probar</strong> que existen (Poincaré–Bendixson, Liénard). Terminamos con poblaciones de presas y depredadores y con un modelo de cambio de lenguaje.</p>
+<div class="botones">
+  <a class="boton" href="../pdf/cap05_orbitas_ciclos.pdf">⬇ Capítulo en PDF</a>
+  <a class="boton sec" href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap05_orbitas_ciclos">Códigos en GitHub</a>
+  <a class="boton sec" href="#explorador">Explorador interactivo</a>
 </div>
+<div class="receta">
+<p><span class="caja-titulo">Al terminar esta parte usted podrá</span></p>
+<ol type="1">
+<li>Distinguir una órbita cerrada de un ciclo límite y explicar por qué un sistema lineal no puede tener ciclos límite.</li>
+<li>Analizar flujos en el círculo y osciladores de fase: período, arrastre y deriva, y el umbral de sincronización del modelo de Kuramoto.</li>
+<li>Calcular el índice de una curva cerrada y usarlo, junto con los sistemas gradiente, las funciones de Lyapunov y el criterio de Bendixson–Dulac, para <strong>descartar</strong> órbitas cerradas.</li>
+<li>Construir una región que atrape trayectorias y usar el teorema de Poincaré–Bendixson para <strong>probar</strong> que existe una órbita periódica.</li>
+<li>Aplicar el mismo arsenal a modelos de poblaciones (Lotka–Volterra y sus variantes) y a un modelo de cambio de lenguaje.</li>
+</ol>
+</div>
+<section id="ruta-de-las-clases" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-las-clases">Ruta de las clases</h2>
+<table class="table-striped caption-top table">
+<caption>Lea la sección del capítulo <strong>antes</strong> de cada clase.</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Qué se ve</th>
+<th style="text-align: left;">Capítulo</th>
+<th style="text-align: left;">Scripts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Más allá de los equilibrios. Órbitas cerradas (Duffing), ciclos límite, van der Pol y Liénard</td>
+<td style="text-align: left;">§5.1–5.3</td>
+<td style="text-align: left;"><code>C5_Ej1</code>, <code>C5_Ej2</code>, <code>C5_Ej3</code>, <code>crearModelo_VanDerPol</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Flujos en el círculo, oscilador no uniforme, osciladores acoplados, luciérnagas, Kuramoto</td>
+<td style="text-align: left;">§5.4–5.6</td>
+<td style="text-align: left;"><code>C5_Ej4</code>, <code>C5_Ej5</code>, <code>C5_Ej6</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Teoría del índice; descartar órbitas: gradiente, Lyapunov, Bendixson–Dulac</td>
+<td style="text-align: left;">§5.7–5.8</td>
+<td style="text-align: left;"><code>C5_Ej7</code>, <code>C5_Ej8</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Conjuntos <span class="math inline">\(\omega\)</span>-límite y Poincaré–Bendixson</td>
+<td style="text-align: left;">§5.9</td>
+<td style="text-align: left;"><code>C5_Ej9</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Presas y depredadores (Lotka–Volterra, competencia, Rosenzweig–MacArthur) y cambio de lenguaje (Nowak)</td>
+<td style="text-align: left;">§5.10–5.11</td>
+<td style="text-align: left;"><code>C5_Ej10</code>, <code>C5_Ej11</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lo-esencial-en-una-página" class="level2">
+<h2 class="anchored" data-anchor-id="lo-esencial-en-una-página">Lo esencial, en una página</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/t_herramientas.svg" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption>Las herramientas del capítulo: unas descartan órbitas cerradas, otras prueban que existen.</figcaption>
+</figure>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Órbita cerrada y ciclo límite</span></p>
+<p>Una solución no constante con <span class="math inline">\(x(t+T)=x(t)\)</span> es <strong>periódica</strong>; su imagen en el plano de fase es una <strong>órbita cerrada</strong>. Un <strong>ciclo límite</strong> es una órbita cerrada <strong>aislada</strong>: alguna vecindad suya no contiene otras órbitas cerradas. En un sistema lineal las órbitas cerradas vienen en familias (si <span class="math inline">\(x(t)\)</span> lo es, también <span class="math inline">\(c\,x(t)\)</span>), así que un sistema lineal no tiene ciclos límite.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_duffing.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Duffing sin amortiguamiento: órbitas cerradas alrededor de <span class="math inline">\((\pm1,0)\)</span>, no ciclos límite. El período depende de la órbita.</figcaption>
+</figure>
+</div>
+<div class="trampa">
+<p><span class="caja-titulo">Trampa: <span class="math inline">\(\pm j\omega\)</span> en la linealización no es un centro</span></p>
+<p><span class="math inline">\(\dot x_1=-x_2+x_1(x_1^2+x_2^2)\)</span>, <span class="math inline">\(\dot x_2=x_1+x_2(x_1^2+x_2^2)\)</span> tiene la linealización de un centro (<span class="math inline">\(\pm j\)</span>), pero en polares <span class="math inline">\(\dot r=r^3\)</span>: el origen es un foco <strong>inestable</strong> y las soluciones escapan en <span class="math inline">\(t=1/(2r_0^2)\)</span>. Con valores propios imaginarios puros la linealización no concluye nada.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_vanderpol.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>van der Pol con <span class="math inline">\(\mu=1\)</span> y <span class="math inline">\(\mu=5\)</span>: todas las trayectorias (salvo el origen) llegan al mismo ciclo.</figcaption>
+</figure>
+</div>
+<div class="ideaclave">
+<p><span class="caja-titulo">Osciladores de fase</span></p>
+<p>En el círculo, <span class="math inline">\(\dot\theta=\omega-a\sin\theta\)</span>. Si <span class="math inline">\(a&gt;\abs\omega\)</span> hay dos equilibrios y la fase se <strong>engancha</strong>; si <span class="math inline">\(a&lt;\abs\omega\)</span> la fase <strong>deriva</strong> con período <span class="math inline">\(T=2\pi/\sqrt{\omega^2-a^2}\)</span>, que crece sin límite cuando <span class="math inline">\(a\to\abs\omega\)</span>. La misma ecuación describe la diferencia de fase de dos osciladores acoplados y la de una luciérnaga frente a una linterna.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_no_uniforme.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Oscilador no uniforme: cerca del umbral, la fase se demora en el “cuello de botella”.</figcaption>
+</figure>
+</div>
+<div class="ideaclave">
+<p><span class="caja-titulo">Kuramoto</span></p>
+<p><span class="math inline">\(\dot\theta_i=\omega_i+\frac KN\sum_j\sin(\theta_j-\theta_i)=\omega_i+Kr\sin(\Psi-\theta_i)\)</span>, con <span class="math inline">\(re^{j\Psi}=\frac1N\sum_je^{j\theta_j}\)</span>. Con frecuencias de Lorentz de ancho <span class="math inline">\(\gamma\)</span>, la sincronización parcial aparece en <span class="math inline">\(K_c=2\gamma\)</span>, y <span class="math inline">\(r=\sqrt{1-K_c/K}\)</span> para <span class="math inline">\(K&gt;K_c\)</span>. Acoplar no es igualar: los osciladores de los extremos siguen derivando.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_kuramoto.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Kuramoto con <span class="math inline">\(N=400\)</span> y frecuencias de Lorentz (<span class="math inline">\(\gamma=0.5\)</span>, <span class="math inline">\(K_c=1\)</span>): fases para <span class="math inline">\(K=0.5\)</span> y <span class="math inline">\(K=2\)</span>, y <span class="math inline">\(r\)</span> de régimen contra <span class="math inline">\(\sqrt{1-K_c/K}\)</span>.</figcaption>
+</figure>
+</div>
+<div class="teorema">
+<p><span class="caja-titulo">Lo que encierra una órbita cerrada</span></p>
+<p>El <strong>índice</strong> de una curva cerrada es el número de vueltas que da el campo vectorial al recorrerla. Nodos, focos y centros tienen índice <span class="math inline">\(+1\)</span>; las sillas, <span class="math inline">\(-1\)</span>. Toda órbita cerrada tiene índice <span class="math inline">\(+1\)</span>, así que encierra equilibrios cuyos índices suman <span class="math inline">\(+1\)</span>. <strong>Se usa para descartar</strong>: una curva que no encierra equilibrios, o que solo encierra sillas, no puede ser una órbita.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_indice_anclas.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Índice del círculo unitario para un nodo y una silla: el campo en doce puntos, los mismos vectores trasladados al origen y el ángulo acumulado, en vueltas.</figcaption>
+</figure>
+</div>
+<div class="teorema">
+<p><span class="caja-titulo">Bendixson–Dulac</span></p>
+<p>Si en una región simplemente conexa <span class="math inline">\(D\subset\R^2\)</span> existe <span class="math inline">\(g\in\Cont1\)</span> tal que <span class="math inline">\(\nabla\cdot(gf)\)</span> no es idénticamente cero y no cambia de signo, entonces <span class="math inline">\(D\)</span> no contiene órbitas cerradas (con <span class="math inline">\(g\equiv1\)</span> es el criterio de Bendixson). <strong>Solo descarta</strong>: que la divergencia cambie de signo no prueba nada.</p>
+</div>
+<div class="teorema">
+<p><span class="caja-titulo">Poincaré–Bendixson (Khalil, Lema 2.1)</span></p>
+<p>Sea <span class="math inline">\(M\subset\R^2\)</span> compacto y positivamente invariante. Si <span class="math inline">\(M\)</span> no contiene equilibrios, o contiene solo uno con valores propios de parte real positiva (foco o nodo inestable), entonces <span class="math inline">\(M\)</span> contiene una <strong>órbita periódica</strong>. No dice que sea aislada ni que sea única, y no vale en <span class="math inline">\(\R^3\)</span>.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_pb_khalil.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Ejemplo de Khalil: con <span class="math inline">\(V=x_1^2+x_2^2\)</span>, el disco <span class="math inline">\(\{V\le c\}\)</span> atrapa las trayectorias para <span class="math inline">\(c\ge3/2\)</span>; el ciclo vive en <span class="math inline">\(r\in[0.85,1.13]\)</span>.</figcaption>
+</figure>
+</div>
+<div class="trampa">
+<p><span class="caja-titulo">Trampa: Poincaré–Bendixson no da un ciclo límite</span></p>
+<p>El anillo <span class="math inline">\(\{c_1\le x_1^2+x_2^2\le c_2\}\)</span> es compacto, invariante y sin equilibrios para el oscilador armónico, que no tiene ningún ciclo límite: el anillo está lleno de órbitas cerradas. El teorema da <strong>una órbita periódica</strong>; para concluir que es aislada y única hace falta más (Liénard, o encoger la región).</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_lotka.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Tres modelos de presas y depredadores: centros conservativos, equilibrio estable y ciclo límite de Rosenzweig–MacArthur.</figcaption>
+</figure>
+</div>
+<div class="trampa">
+<p><span class="caja-titulo">Trampa: más recursos no estabilizan</span></p>
+<p>En Rosenzweig–MacArthur, si la capacidad de carga <span class="math inline">\(K\)</span> supera <span class="math inline">\(K_H=3\)</span>, el equilibrio pierde la estabilidad y aparece un ciclo cuya amplitud crece con <span class="math inline">\(K\)</span>; con <span class="math inline">\(K=5\)</span> las presas bajan hasta <span class="math inline">\(0.047\)</span>. Es la <strong>paradoja del enriquecimiento</strong>.</p>
+</div>
+<div class="ejemplo">
+<p><span class="caja-titulo">Aplicación: ciclos límite y lenguaje (Mitchener y Nowak, 2004)</span></p>
+<p>Tres gramáticas compiten en el símplex <span class="math inline">\(\simplex\)</span> con dinámica de replicador–mutador; <span class="math inline">\(c\)</span> es la probabilidad de aprender la gramática anterior en el ciclo <span class="math inline">\(G_1\to G_2\to G_3\to G_1\)</span>. Para <span class="math inline">\(c&lt;c^*=23/735\approx0.0313\)</span> el equilibrio <span class="math inline">\((\tfrac13,\tfrac13,\tfrac13)\)</span> es un foco inestable, la frontera repele y Poincaré–Bendixson <strong>demuestra</strong> que hay una órbita periódica: la población oscila entre gramáticas (con <span class="math inline">\(c=0.01\)</span>, período <span class="math inline">\(\approx63\)</span>). Sin mutación no hay ciclos: la aptitud media crece (Fisher) y hace de función de Lyapunov.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap05/f_nowak.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Modelo de Nowak: con <span class="math inline">\(c=0.01\)</span> un ciclo límite, con <span class="math inline">\(c=0.04\)</span> el equilibrio <span class="math inline">\((\tfrac13,\tfrac13,\tfrac13)\)</span>; a la derecha, <span class="math inline">\(\Re\lambda\)</span> cruza cero en <span class="math inline">\(c^*\)</span>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="explorador" class="level2">
+<h2 class="anchored" data-anchor-id="explorador">Explorador interactivo</h2>
+<p>Cuatro pestañas con los modelos del capítulo. Los cálculos se hacen en su navegador con Runge–Kutta de paso fijo (los mismos modelos de <code>C5_Ej3</code>, <code>C5_Ej4</code>, <code>C5_Ej6</code>, <code>C5_Ej7</code>, <code>C5_Ej9</code> y <code>C5_Ej10</code>).</p>
+<div class="explorador" id="explorador-ciclos"></div>
+<script src="../recursos/explorador-ciclos.js"></script>
+<div class="pausa">
+<p><span class="caja-titulo">Retos con el explorador</span></p>
+<ol type="1">
+<li><strong>Oscilador de fase:</strong> con <span class="math inline">\(\omega=2\)</span>, baje <span class="math inline">\(a\)</span> desde <span class="math inline">\(3\)</span>. ¿En qué valor exacto empieza la deriva? ¿Qué le pasa al período cuando <span class="math inline">\(a=1.99\)</span>?</li>
+<li><strong>Plano de fase:</strong> en van der Pol, pase <span class="math inline">\(\mu\)</span> de positivo a negativo. ¿Desaparece el ciclo o cambia otra cosa?</li>
+<li><strong>Plano de fase:</strong> en el ejemplo de Khalil, mueva <span class="math inline">\(c\)</span> de <span class="math inline">\(0.5\)</span> a <span class="math inline">\(3\)</span>. ¿Desde qué valor el disco <span class="math inline">\(\{V\le c\}\)</span> atrapa las trayectorias?</li>
+<li><strong>Plano de fase:</strong> en Rosenzweig–MacArthur, suba <span class="math inline">\(K\)</span> de <span class="math inline">\(2\)</span> a <span class="math inline">\(6\)</span> y mire qué tan cerca de cero llegan las presas.</li>
+<li><strong>Kuramoto:</strong> con <span class="math inline">\(\gamma=0.5\)</span>, ponga <span class="math inline">\(K\)</span> justo por debajo y justo por encima de <span class="math inline">\(1\)</span>. Luego baje <span class="math inline">\(N\)</span> a 20: ¿qué tan fiable es la teoría con pocos osciladores?</li>
+<li><strong>Índice:</strong> con el campo “silla + foco”, ¿qué curvas tienen índice <span class="math inline">\(+1\)</span>? ¿Alguna de ellas puede ser una órbita cerrada?</li>
+</ol>
+</div>
+</section>
+<section id="códigos-de-esta-parte" class="level2">
+<h2 class="anchored" data-anchor-id="códigos-de-esta-parte">Códigos de esta parte</h2>
+<p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap05_orbitas_ciclos">repositorio</a>. Ejecute antes <code>iniciarCurso</code>. <code>verificarCap05</code> comprueba los números del capítulo (34/34).</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Clase 1: órbitas y ciclos</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Clase 2: fase y sincronización</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Clase 3: índice y descartar</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Clase 4: Poincaré–Bendixson</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Clase 5: poblaciones y lenguaje</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false">Simulink</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>Duffing: la energía se conserva (§5.2).</strong></p>
+<div class="sourceCode" id="cb1" data-filename="cap05_orbitas_ciclos/C5_Ej1_Duffing.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">H</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="va">x</span>(<span class="op">:,</span><span class="fl">2</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span> <span class="op">-</span> <span class="va">x</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">/</span><span class="fl">2</span> <span class="op">+</span> <span class="va">x</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">.^</span><span class="fl">4</span><span class="op">/</span><span class="fl">4</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-11</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">f</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">50</span>]<span class="op">,</span> [<span class="fl">1.3</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'H(x(t)): de %.10f a %.10f (variación %.1e)\n'</span><span class="op">,</span> <span class="va">H</span>(<span class="va">X</span>(<span class="fl">1</span><span class="op">,:</span>))<span class="op">,</span> <span class="va">H</span>(<span class="va">X</span>(<span class="kw">end</span><span class="op">,:</span>))<span class="op">,</span> <span class="va">max</span>(<span class="va">H</span>(<span class="va">X</span>)) <span class="op">-</span> <span class="va">min</span>(<span class="va">H</span>(<span class="va">X</span>)))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>El falso centro (§5.2).</strong></p>
+<div class="sourceCode" id="cb2" data-filename="cap05_orbitas_ciclos/C5_Ej1_Duffing.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">g</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="op">-</span><span class="va">x</span>(<span class="fl">2</span>) <span class="op">+</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">*</span>(<span class="va">x</span>(<span class="fl">1</span>)<span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">^</span><span class="fl">2</span>)<span class="op">;</span> <span class="va">x</span>(<span class="fl">1</span>) <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">*</span>(<span class="va">x</span>(<span class="fl">1</span>)<span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">^</span><span class="fl">2</span>)]<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>[<span class="va">t2</span><span class="op">,</span> <span class="va">X2</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">g</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">1.99</span>]<span class="op">,</span> [<span class="fl">0.5</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'contraejemplo: r(1.99) = %.3f  (exacto %.3f); escapa en t = 1/(2 r0^2) = 2\n'</span><span class="op">,</span> <span class="op">...</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">norm</span>(<span class="va">X2</span>(<span class="kw">end</span><span class="op">,:</span>))<span class="op">,</span> <span class="fl">0.5</span><span class="op">/</span><span class="va">sqrt</span>(<span class="fl">1</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="fl">0.25</span><span class="op">*</span><span class="fl">1.99</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>van der Pol: período y amplitud del ciclo (§5.3).</strong></p>
+<div class="sourceCode" id="cb3" data-filename="cap05_orbitas_ciclos/C5_Ej3_VanDerPol.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">mu</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">5</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">f</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="op">-</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">-</span> <span class="va">mu</span><span class="op">*</span>(<span class="va">x</span>(<span class="fl">1</span>)<span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>)]<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    [<span class="va">t</span><span class="op">,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">f</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">200</span>]<span class="op">,</span> [<span class="fl">0.5</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">k</span>  <span class="op">=</span> <span class="va">find</span>(<span class="va">t</span> <span class="op">&gt;</span> <span class="fl">100</span>)<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">sube</span> <span class="op">=</span> <span class="va">k</span>(<span class="va">X</span>(<span class="va">k</span>(<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span>)<span class="op">,</span> <span class="fl">2</span>) <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">X</span>(<span class="va">k</span>(<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>)<span class="op">,</span> <span class="fl">2</span>) <span class="op">&gt;=</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">X</span>(<span class="va">k</span>(<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span>)<span class="op">,</span> <span class="fl">1</span>) <span class="op">&lt;</span> <span class="fl">0</span>)<span class="op">;</span>  <span class="co">% mínimos de x1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">T</span> <span class="op">=</span> <span class="va">mean</span>(<span class="va">diff</span>(<span class="va">t</span>(<span class="va">sube</span>)))<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'mu = %g: período %.4f, amplitud %.4f\n'</span><span class="op">,</span> <span class="va">mu</span><span class="op">,</span> <span class="va">T</span><span class="op">,</span> <span class="va">max</span>(<span class="va">X</span>(<span class="va">k</span><span class="op">,</span> <span class="fl">1</span>)))<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>El oscilador no uniforme (§5.4).</strong></p>
+<div class="sourceCode" id="cb4" data-filename="cap05_orbitas_ciclos/C5_Ej4_Circulo.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">w</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-11</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">a</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">1.9</span> <span class="fl">1.99</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">ev</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="va">opc</span><span class="op">,</span> <span class="ss">'Events'</span><span class="op">,</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">th</span>) <span class="va">deal</span>(<span class="va">th</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1</span>))<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    [<span class="op">~,</span> <span class="op">~,</span> <span class="va">te</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">th</span>) <span class="va">w</span> <span class="op">-</span> <span class="va">a</span><span class="op">*</span><span class="va">sin</span>(<span class="va">th</span>)<span class="op">,</span> [<span class="fl">0</span> <span class="fl">200</span>]<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="va">ev</span>)<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'a = %4.2f: período simulado %.4f, fórmula %.4f\n'</span><span class="op">,</span> <span class="va">a</span><span class="op">,</span> <span class="va">te</span><span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="va">sqrt</span>(<span class="va">w</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="va">a</span><span class="op">^</span><span class="fl">2</span>))<span class="op">;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Luciérnagas: arrastre y deriva (§5.5).</strong></p>
+<div class="sourceCode" id="cb5" data-filename="cap05_orbitas_ciclos/C5_Ej5_Luciernagas.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">w</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">A</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-11</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'rango de arrastre: %.2f &lt;= Omega &lt;= %.2f\n'</span><span class="op">,</span> <span class="va">w</span> <span class="op">-</span> <span class="va">A</span><span class="op">,</span> <span class="va">w</span> <span class="op">+</span> <span class="va">A</span>)<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">Om</span> <span class="op">=</span> [<span class="fl">1.3</span> <span class="fl">1.6</span> <span class="fl">2</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">mu</span> <span class="op">=</span> (<span class="va">Om</span> <span class="op">-</span> <span class="va">w</span>)<span class="op">/</span><span class="va">A</span><span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">abs</span>(<span class="va">mu</span>) <span class="op">&lt;=</span> <span class="fl">1</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        [<span class="op">~,</span> <span class="va">P</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">p</span>) <span class="va">Om</span> <span class="op">-</span> <span class="va">w</span> <span class="op">-</span> <span class="va">A</span><span class="op">*</span><span class="va">sin</span>(<span class="va">p</span>)<span class="op">,</span> [<span class="fl">0</span> <span class="fl">60</span>]<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">fprintf</span>(<span class="ss">'Omega = %.1f: arrastre, phi(60) = %.4f, arcsin(mu) = %.4f\n'</span><span class="op">,</span> <span class="va">Om</span><span class="op">,</span> <span class="va">P</span>(<span class="kw">end</span>)<span class="op">,</span> <span class="va">asin</span>(<span class="va">mu</span>))<span class="op">;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">ev</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="va">opc</span><span class="op">,</span> <span class="ss">'Events'</span><span class="op">,</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">p</span>) <span class="va">deal</span>(<span class="va">p</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1</span>))<span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        [<span class="op">~,</span> <span class="op">~,</span> <span class="va">te</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">p</span>) <span class="va">Om</span> <span class="op">-</span> <span class="va">w</span> <span class="op">-</span> <span class="va">A</span><span class="op">*</span><span class="va">sin</span>(<span class="va">p</span>)<span class="op">,</span> [<span class="fl">0</span> <span class="fl">500</span>]<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="va">ev</span>)<span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">fprintf</span>(<span class="ss">'Omega = %.1f: deriva, período %.4f, fórmula %.4f\n'</span><span class="op">,</span> <span class="va">Om</span><span class="op">,</span> <span class="va">te</span><span class="op">,</span> <span class="op">...</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="va">sqrt</span>((<span class="va">Om</span> <span class="op">-</span> <span class="va">w</span>)<span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="va">A</span><span class="op">^</span><span class="fl">2</span>))<span class="op">;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>El modelo de Kuramoto (§5.6).</strong></p>
+<div class="sourceCode" id="cb6" data-filename="cap05_orbitas_ciclos/modeloKuramoto.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">dth</span> <span class="op">=</span> <span class="va">modeloKuramoto</span>(<span class="op">~,</span> <span class="va">th</span><span class="op">,</span> <span class="va">w</span><span class="op">,</span> <span class="va">K</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">% MODELOKURAMOTO  Osciladores de Kuramoto con acoplamiento global.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   dth_i = w_i + (K/N) sum_j sin(th_j - th_i) = w_i + K r sin(Psi - th_i),</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   con r e^{j Psi} = (1/N) sum_j e^{j th_j} (parámetro de orden).</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   La segunda forma cuesta O(N) en lugar de O(N^2).</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="va">z</span>   <span class="op">=</span> <span class="va">mean</span>(<span class="va">exp</span>(<span class="fl">1j</span><span class="op">*</span><span class="va">th</span>))<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="va">dth</span> <span class="op">=</span> <span class="va">w</span>(<span class="op">:</span>) <span class="op">+</span> <span class="va">K</span><span class="op">*</span><span class="va">abs</span>(<span class="va">z</span>)<span class="op">*</span><span class="va">sin</span>(<span class="va">angle</span>(<span class="va">z</span>) <span class="op">-</span> <span class="va">th</span>(<span class="op">:</span>))<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7" data-filename="cap05_orbitas_ciclos/C5_Ej6_Kuramoto.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">N</span> <span class="op">=</span> <span class="fl">400</span><span class="op">;</span>  <span class="va">gam</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">i</span> <span class="op">=</span> (<span class="fl">1</span><span class="op">:</span><span class="va">N</span>)<span class="op">.';</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">w</span> <span class="op">=</span> <span class="va">gam</span><span class="op">*</span><span class="va">tan</span>(<span class="va">pi</span><span class="op">*</span>(<span class="va">i</span> <span class="op">-</span> <span class="fl">0.5</span>)<span class="op">/</span><span class="va">N</span> <span class="op">-</span> <span class="va">pi</span><span class="op">/</span><span class="fl">2</span>)<span class="op">;</span>            <span class="co">% cuantiles de Lorentz</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">th0</span> <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="va">mod</span>((<span class="fl">1</span><span class="op">:</span><span class="va">N</span>)<span class="op">.'*</span><span class="fl">0.6180339887</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span>       <span class="co">% fases iniciales repartidas (reproducible)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">Ks</span> <span class="op">=</span> [<span class="fl">0.5</span> <span class="fl">1.5</span> <span class="fl">2</span> <span class="fl">3</span>]<span class="op">;</span>  <span class="va">rK</span> <span class="op">=</span> <span class="va">zeros</span>(<span class="va">size</span>(<span class="va">Ks</span>))<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-6</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-8</span>)<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">numel</span>(<span class="va">Ks</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    [<span class="op">~,</span> <span class="va">TH</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">th</span>) <span class="va">modeloKuramoto</span>(<span class="va">t</span><span class="op">,</span> <span class="va">th</span><span class="op">,</span> <span class="va">w</span><span class="op">,</span> <span class="va">Ks</span>(<span class="va">k</span>))<span class="op">,</span> [<span class="fl">0</span> <span class="fl">100</span>]<span class="op">,</span> <span class="va">th0</span><span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span>   <span class="co">% transitorio</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    [<span class="op">~,</span> <span class="va">TH</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">th</span>) <span class="va">modeloKuramoto</span>(<span class="va">t</span><span class="op">,</span> <span class="va">th</span><span class="op">,</span> <span class="va">w</span><span class="op">,</span> <span class="va">Ks</span>(<span class="va">k</span>))<span class="op">,</span> <span class="va">linspace</span>(<span class="fl">100</span><span class="op">,</span> <span class="fl">200</span><span class="op">,</span> <span class="fl">201</span>)<span class="op">,</span> <span class="va">TH</span>(<span class="kw">end</span><span class="op">,:</span>)<span class="op">.',</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">rK</span>(<span class="va">k</span>) <span class="op">=</span> <span class="va">mean</span>(<span class="va">abs</span>(<span class="va">mean</span>(<span class="va">exp</span>(<span class="fl">1j</span><span class="op">*</span><span class="va">TH</span>)<span class="op">,</span> <span class="fl">2</span>)))<span class="op">;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'K = %.1f: r = %.3f  (teoría %.4f)\n'</span><span class="op">,</span> <span class="va">Ks</span>(<span class="va">k</span>)<span class="op">,</span> <span class="va">rK</span>(<span class="va">k</span>)<span class="op">,</span> <span class="va">sqrt</span>(<span class="va">max</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">1</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">gam</span><span class="op">/</span><span class="va">Ks</span>(<span class="va">k</span>))))<span class="op">;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>El índice como número de vueltas (§5.7).</strong></p>
+<div class="sourceCode" id="cb8" data-filename="cap05_orbitas_ciclos/indiceCurva.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">I</span> <span class="op">=</span> <span class="va">indiceCurva</span>(<span class="va">f</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="va">r</span><span class="op">,</span> <span class="va">n</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">% INDICECURVA  Índice de una circunferencia respecto al campo f (Poincaré).</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   I = indiceCurva(f, c, r) recorre la circunferencia de centro c y radio r</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   en sentido antihorario, sigue el ángulo de f(x) sin saltos (unwrap) y</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   devuelve el número neto de vueltas que dio el vector.  f: R^2 -&gt; R^2.</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   La curva no debe pasar por equilibrios (f ~= 0 sobre ella).</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">nargin</span> <span class="op">&lt;</span> <span class="fl">4</span><span class="op">,</span> <span class="va">n</span> <span class="op">=</span> <span class="fl">4000</span><span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="va">th</span>  <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">,</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="va">ang</span> <span class="op">=</span> <span class="va">zeros</span>(<span class="fl">1</span><span class="op">,</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">v</span> <span class="op">=</span> <span class="va">f</span>(<span class="va">c</span>(<span class="op">:</span>) <span class="op">+</span> <span class="va">r</span><span class="op">*</span>[<span class="va">cos</span>(<span class="va">th</span>(<span class="va">k</span>))<span class="op">;</span> <span class="va">sin</span>(<span class="va">th</span>(<span class="va">k</span>))])<span class="op">;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">ang</span>(<span class="va">k</span>) <span class="op">=</span> <span class="va">atan2</span>(<span class="va">v</span>(<span class="fl">2</span>)<span class="op">,</span> <span class="va">v</span>(<span class="fl">1</span>))<span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="va">I</span> <span class="op">=</span> (<span class="va">sum</span>(<span class="va">diff</span>(<span class="va">unwrap</span>(<span class="va">ang</span>))))<span class="op">/</span>(<span class="fl">2</span><span class="op">*</span><span class="va">pi</span>)<span class="op">;</span>   <span class="co">% cambio neto del ángulo / 2 pi</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9" data-filename="cap05_orbitas_ciclos/C5_Ej7_Indice.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">f</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) [<span class="op">-</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">+</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="va">x</span>(<span class="fl">1</span>) <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>)<span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>)]<span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">J</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) [<span class="op">-</span><span class="fl">1</span> <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">,</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">;</span> <span class="fl">1</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>)<span class="op">,</span> <span class="fl">1</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>)]<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">xe</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">1</span> <span class="fl">1</span>]<span class="op">.'</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'equilibrio (%g,%g): valores propios %s, sign(det J) = %+d\n'</span><span class="op">,</span> <span class="va">xe</span><span class="op">,</span> <span class="op">...</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            <span class="va">mat2str</span>(<span class="va">eig</span>(<span class="va">J</span>(<span class="va">xe</span>))<span class="op">.',</span> <span class="fl">3</span>)<span class="op">,</span> <span class="va">sign</span>(<span class="va">det</span>(<span class="va">J</span>(<span class="va">xe</span>))))<span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'círculo que rodea ambos: %+.4f;  solo el foco: %+.4f\n'</span><span class="op">,</span> <span class="op">...</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">indiceCurva</span>(<span class="va">f</span><span class="op">,</span> [<span class="fl">0.5</span> <span class="fl">0.5</span>]<span class="op">,</span> <span class="fl">2</span>)<span class="op">,</span> <span class="va">indiceCurva</span>(<span class="va">f</span><span class="op">,</span> [<span class="fl">1</span> <span class="fl">1</span>]<span class="op">,</span> <span class="fl">0.3</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Bendixson–Dulac (§5.8).</strong></p>
+<div class="sourceCode" id="cb10" data-filename="cap05_orbitas_ciclos/C5_Ej8_Descartar.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">delta</span> <span class="op">=</span> <span class="fl">0.2</span><span class="op">;</span>  <span class="va">h</span> <span class="op">=</span> <span class="fl">1e-6</span><span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">% f = (x2, x1 - x1^3 - delta x2):  div f = d f1/d x1 + d f2/d x2 = 0 + (-delta)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">f2</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="va">x</span>(<span class="fl">1</span>) <span class="op">-</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">^</span><span class="fl">3</span> <span class="op">-</span> <span class="va">delta</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="va">divDuffing</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="fl">0</span> <span class="op">+</span> (<span class="va">f2</span>(<span class="va">x</span> <span class="op">+</span> [<span class="fl">0</span> <span class="va">h</span>]) <span class="op">-</span> <span class="va">f2</span>(<span class="va">x</span> <span class="op">-</span> [<span class="fl">0</span> <span class="va">h</span>]))<span class="op">/</span>(<span class="fl">2</span><span class="op">*</span><span class="va">h</span>)<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'(3) div Duffing en (0.7, -1.2) = %.6f  (= -delta)\n'</span><span class="op">,</span> <span class="va">divDuffing</span>([<span class="fl">0.7</span> <span class="op">-</span><span class="fl">1.2</span>]))<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="va">a</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span> <span class="va">b</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span> <span class="va">c</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span> <span class="va">d</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span> <span class="va">e</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span> <span class="va">ff</span> <span class="op">=</span> <span class="fl">0.2</span><span class="op">;</span>  <span class="va">v</span> <span class="op">=</span> <span class="fl">0.8</span><span class="op">;</span> <span class="va">p</span> <span class="op">=</span> <span class="fl">1.3</span><span class="op">;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="va">g1</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">v</span><span class="op">,</span> <span class="va">p</span>) (<span class="va">a</span> <span class="op">-</span> <span class="va">e</span><span class="op">*</span><span class="va">v</span> <span class="op">-</span> <span class="va">b</span><span class="op">*</span><span class="va">p</span>)<span class="op">/</span><span class="va">p</span><span class="op">;</span>  <span class="va">g2</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">v</span><span class="op">,</span> <span class="va">p</span>) (<span class="op">-</span><span class="va">c</span> <span class="op">+</span> <span class="va">d</span><span class="op">*</span><span class="va">v</span> <span class="op">-</span> <span class="va">ff</span><span class="op">*</span><span class="va">p</span>)<span class="op">/</span><span class="va">v</span><span class="op">;</span>   <span class="co">% f/(v p)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="va">divD</span> <span class="op">=</span> (<span class="va">g1</span>(<span class="va">v</span> <span class="op">+</span> <span class="va">h</span><span class="op">,</span> <span class="va">p</span>) <span class="op">-</span> <span class="va">g1</span>(<span class="va">v</span> <span class="op">-</span> <span class="va">h</span><span class="op">,</span> <span class="va">p</span>))<span class="op">/</span>(<span class="fl">2</span><span class="op">*</span><span class="va">h</span>) <span class="op">+</span> (<span class="va">g2</span>(<span class="va">v</span><span class="op">,</span> <span class="va">p</span> <span class="op">+</span> <span class="va">h</span>) <span class="op">-</span> <span class="va">g2</span>(<span class="va">v</span><span class="op">,</span> <span class="va">p</span> <span class="op">-</span> <span class="va">h</span>))<span class="op">/</span>(<span class="fl">2</span><span class="op">*</span><span class="va">h</span>)<span class="op">;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'    div(f/(v p)) en (0.8, 1.3) = %.6f;  -e/p - f/v = %.6f\n'</span><span class="op">,</span> <span class="va">divD</span><span class="op">,</span> <span class="op">-</span><span class="va">e</span><span class="op">/</span><span class="va">p</span> <span class="op">-</span> <span class="va">ff</span><span class="op">/</span><span class="va">v</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><strong>La región que atrapa (§5.9).</strong></p>
+<div class="sourceCode" id="cb11" data-filename="cap05_orbitas_ciclos/C5_Ej9_PoincareBendixson.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">f</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">1</span>) <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">*</span>(<span class="va">x</span>(<span class="fl">1</span>)<span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">^</span><span class="fl">2</span>)<span class="op">;</span> <span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">*</span>(<span class="va">x</span>(<span class="fl">1</span>)<span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">^</span><span class="fl">2</span>)]<span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'valores propios en el origen: %s\n'</span><span class="op">,</span> <span class="va">mat2str</span>(<span class="va">eig</span>([<span class="fl">1</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">2</span> <span class="fl">1</span>])<span class="op">.',</span> <span class="fl">4</span>))<span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">th</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">,</span> <span class="fl">20001</span>)<span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">c</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">1.5</span> <span class="fl">2</span>]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">x1</span> <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">c</span>)<span class="op">*</span><span class="va">cos</span>(<span class="va">th</span>)<span class="op">;</span>  <span class="va">x2</span> <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">c</span>)<span class="op">*</span><span class="va">sin</span>(<span class="va">th</span>)<span class="op">;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">Vd</span> <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">c</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">x1</span><span class="op">.*</span><span class="va">x2</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">c</span><span class="op">^</span><span class="fl">2</span><span class="op">;</span>                 <span class="co">% V' = 2 r^2 - 2 x1 x2 - 2 r^4 en r^2 = c</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'c = %.1f: max de V'' en la frontera = %+.4f  (3c - 2c^2 = %+.4f)\n'</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="va">max</span>(<span class="va">Vd</span>)<span class="op">,</span> <span class="fl">3</span><span class="op">*</span><span class="va">c</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">c</span><span class="op">^</span><span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>El ciclo dentro del anillo (§5.9).</strong></p>
+<div class="sourceCode" id="cb12" data-filename="cap05_orbitas_ciclos/C5_Ej9_PoincareBendixson.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">x0</span> <span class="op">=</span> [<span class="fl">0.01</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">1.2</span> <span class="fl">0</span>]<span class="op">.'</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    [<span class="va">t</span><span class="op">,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">f</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">60</span>]<span class="op">,</span> <span class="va">x0</span><span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">k</span> <span class="op">=</span> <span class="va">t</span> <span class="op">&gt;</span> <span class="fl">40</span><span class="op">;</span>  <span class="va">r</span> <span class="op">=</span> <span class="va">vecnorm</span>(<span class="va">X</span>(<span class="va">k</span><span class="op">,:</span>)<span class="op">.'</span>)<span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'desde (%.2f, %.2f): en régimen r entre %.4f y %.4f\n'</span><span class="op">,</span> <span class="va">x0</span><span class="op">,</span> <span class="va">min</span>(<span class="va">r</span>)<span class="op">,</span> <span class="va">max</span>(<span class="va">r</span>))<span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="va">tk</span> <span class="op">=</span> <span class="va">t</span>(<span class="va">k</span>)<span class="op">;</span>  <span class="va">x1k</span> <span class="op">=</span> <span class="va">X</span>(<span class="va">k</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="va">cruza</span> <span class="op">=</span> <span class="va">tk</span>([<span class="va">false</span><span class="op">;</span> <span class="va">x1k</span>(<span class="fl">1</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span>) <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">x1k</span>(<span class="fl">2</span><span class="op">:</span><span class="kw">end</span>) <span class="op">&gt;=</span> <span class="fl">0</span>])<span class="op">;</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'período del ciclo = %.4f\n'</span><span class="op">,</span> <span class="va">mean</span>(<span class="va">diff</span>(<span class="va">cruza</span>)))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p><strong>Rosenzweig–MacArthur y la paradoja del enriquecimiento (§5.10).</strong></p>
+<div class="sourceCode" id="cb13" data-filename="cap05_orbitas_ciclos/C5_Ej10_LotkaVolterra.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="va">beta</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">gam</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">vs</span> <span class="op">=</span> <span class="va">gam</span><span class="op">/</span>(<span class="va">beta</span> <span class="op">-</span> <span class="va">gam</span>)<span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'(3) v* = %g, K_H = %g\n'</span><span class="op">,</span> <span class="va">vs</span><span class="op">,</span> (<span class="va">beta</span> <span class="op">+</span> <span class="va">gam</span>)<span class="op">/</span>(<span class="va">beta</span> <span class="op">-</span> <span class="va">gam</span>))<span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">K</span> <span class="op">=</span> [<span class="fl">2.5</span> <span class="fl">5</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">rm</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">1</span>)<span class="op">*</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">/</span><span class="va">K</span>) <span class="op">-</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>)<span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">x</span>(<span class="fl">1</span>))<span class="op">;</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">*</span>(<span class="va">beta</span><span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>)<span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">x</span>(<span class="fl">1</span>)) <span class="op">-</span> <span class="va">gam</span>)]<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">ps</span> <span class="op">=</span> (<span class="fl">1</span> <span class="op">-</span> <span class="va">vs</span><span class="op">/</span><span class="va">K</span>)<span class="op">*</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">vs</span>)<span class="op">;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    [<span class="va">t</span><span class="op">,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">rm</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">800</span>]<span class="op">,</span> [<span class="fl">1.1</span><span class="op">*</span><span class="va">vs</span><span class="op">;</span> <span class="va">ps</span>]<span class="op">,</span> <span class="va">odeset</span>(<span class="va">opc</span><span class="op">,</span> <span class="ss">'MaxStep'</span><span class="op">,</span> <span class="fl">0.5</span>))<span class="op">;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">v</span> <span class="op">=</span> <span class="va">X</span>(<span class="va">t</span> <span class="op">&gt;</span> <span class="fl">600</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'    K = %.1f: equilibrio (%g, %.4f); en régimen v entre %.4f y %.4f\n'</span><span class="op">,</span> <span class="va">K</span><span class="op">,</span> <span class="va">vs</span><span class="op">,</span> <span class="va">ps</span><span class="op">,</span> <span class="va">min</span>(<span class="va">v</span>)<span class="op">,</span> <span class="va">max</span>(<span class="va">v</span>))<span class="op">;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>El modelo de Nowak (§5.11).</strong></p>
+<div class="sourceCode" id="cb14" data-filename="cap05_orbitas_ciclos/modeloNowak.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">dx</span> <span class="op">=</span> <span class="va">modeloNowak</span>(<span class="op">~,</span> <span class="va">x</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">Q</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">% MODELONOWAK  Dinámica replicador-mutador del lenguaje (Mitchener y Nowak, 2004).</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   F = B x (aptitud de cada gramática),  Fbar = x' B x (aptitud media),</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   dx_j = sum_i F_i x_i Q_ij - Fbar x_j,   es decir   dx = Q' (F .* x) - Fbar x.</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   Q es estocástica por filas: Q(i,j) = prob. de que el hijo de un hablante</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   de G_i aprenda G_j.</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="va">F</span>    <span class="op">=</span> <span class="va">B</span><span class="op">*</span><span class="va">x</span>(<span class="op">:</span>)<span class="op">;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="va">Fbar</span> <span class="op">=</span> <span class="va">x</span>(<span class="op">:</span>)<span class="op">.'*</span><span class="va">F</span><span class="op">;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="va">dx</span>   <span class="op">=</span> <span class="va">Q</span><span class="op">.'*</span>(<span class="va">F</span><span class="op">.*</span><span class="va">x</span>(<span class="op">:</span>)) <span class="op">-</span> <span class="va">Fbar</span><span class="op">*</span><span class="va">x</span>(<span class="op">:</span>)<span class="op">;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15" data-filename="cap05_orbitas_ciclos/C5_Ej11_Nowak.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="va">xs</span> <span class="op">=</span> <span class="va">ones</span>(<span class="fl">3</span><span class="op">,</span><span class="fl">1</span>)<span class="op">/</span><span class="fl">3</span><span class="op">;</span>  <span class="va">P</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">1</span><span class="op">;</span> <span class="op">-</span><span class="fl">1</span> <span class="op">-</span><span class="fl">1</span>]<span class="op">;</span>         <span class="co">% coordenadas (x1, x2) en el símplex</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="va">Js</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">c</span>) <span class="va">jacobianoNumerico</span>(<span class="op">@</span>(<span class="va">y</span>) [<span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">1</span> <span class="fl">0</span>]<span class="op">*</span><span class="va">modeloNowak</span>(<span class="fl">0</span><span class="op">,</span> <span class="va">xs</span> <span class="op">+</span> <span class="va">P</span><span class="op">*</span><span class="va">y</span><span class="op">,</span> <span class="va">B</span><span class="op">,</span> <span class="va">Qc</span>(<span class="va">c</span>))<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span>])<span class="op">;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">c</span> <span class="op">=</span> [<span class="fl">0.01</span> <span class="fl">0.04</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'(2) c = %.2f: valores propios en el símplex %s\n'</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="va">mat2str</span>(<span class="va">eig</span>(<span class="va">Js</span>(<span class="va">c</span>))<span class="op">.',</span> <span class="fl">4</span>))<span class="op">;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="va">cs</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="op">@</span>(<span class="va">c</span>) <span class="va">max</span>(<span class="va">real</span>(<span class="va">eig</span>(<span class="va">Js</span>(<span class="va">c</span>))))<span class="op">,</span> [<span class="fl">0.01</span> <span class="fl">0.04</span>])<span class="op">;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'(3) Hopf en c* = %.6f, período %.2f\n'</span><span class="op">,</span> <span class="va">cs</span><span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="va">max</span>(<span class="va">abs</span>(<span class="va">imag</span>(<span class="va">eig</span>(<span class="va">Js</span>(<span class="va">cs</span>))))))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p>El modelo se <strong>construye por código</strong>: ejecute el script y se crea, se simula y se compara con <code>ode45</code>.</p>
+<p><strong><code>VanDerPol.slx</code>: el oscilador con integradores y ganancia <span class="math inline">\(\mu\)</span> ajustable.</strong></p>
+<div class="sourceCode" id="cb16" data-filename="cap05_orbitas_ciclos/crearModelo_VanDerPol.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">%% crearModelo_VanDerPol -- Construye VanDerPol.slx por código (Simulink)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">% QUÉ HACE   Arma con bloques el oscilador x'' + mu (x^2 - 1) x' + x = 0:</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">%            dos integradores en cascada (x' y x), un producto para x^2 x' y</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">%            sumadores. Simula 40 s desde (0.5, 0) con mu = 1, compara contra</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">%            ode45 y dibuja el plano de fase.</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">% OBSERVE    El diagrama es la ecuación leída de derecha a izquierda: x'' es la</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">%            suma de -x (resorte) y -mu (x^2 - 1) x' (amortiguamiento que cambia</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">%            de signo). Cambie mu en el workspace y vuelva a simular.</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">% ESPERADO   max |x_Simulink - x_ode45| &lt; 1e-5 (si falla, el mensaje dice qué bloque).</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">% REQUIERE   Simulink.</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="va">clear</span><span class="op">;</span> <span class="va">close</span> <span class="va">all</span><span class="op">;</span> <span class="va">clc</span><span class="op">;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="va">nombre</span> <span class="op">=</span> <span class="ss">'VanDerPol'</span><span class="op">;</span>  <span class="va">mu</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">x0</span> <span class="op">=</span> [<span class="fl">0.5</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">;</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">bdIsLoaded</span>(<span class="va">nombre</span>)<span class="op">,</span> <span class="va">close_system</span>(<span class="va">nombre</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="va">new_system</span>(<span class="va">nombre</span>)<span class="op">;</span>  <span class="va">open_system</span>(<span class="va">nombre</span>)<span class="op">;</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="va">set_param</span>(<span class="va">nombre</span><span class="op">,</span> <span class="ss">'StopTime'</span><span class="op">,</span> <span class="ss">'40'</span><span class="op">,</span> <span class="ss">'Solver'</span><span class="op">,</span> <span class="ss">'ode45'</span><span class="op">,</span> <span class="ss">'RelTol'</span><span class="op">,</span> <span class="ss">'1e-9'</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="ss">'1e-10'</span><span class="op">,</span> <span class="op">...</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>          <span class="ss">'SaveOutput'</span><span class="op">,</span> <span class="ss">'on'</span><span class="op">,</span> <span class="ss">'SaveFormat'</span><span class="op">,</span> <span class="ss">'Array'</span>)<span class="op">;</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="va">b</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">tipo</span><span class="op">,</span> <span class="va">nom</span><span class="op">,</span> <span class="va">pos</span>) <span class="va">add_block</span>([<span class="ss">'simulink/'</span> <span class="va">tipo</span>]<span class="op">,</span> [<span class="va">nombre</span> <span class="ss">'/'</span> <span class="va">nom</span>]<span class="op">,</span> <span class="ss">'Position'</span><span class="op">,</span> <span class="va">pos</span>)<span class="op">;</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>(<span class="ss">'Continuous/Integrator'</span><span class="op">,</span> <span class="ss">'xdot'</span><span class="op">,</span> [<span class="fl">300</span> <span class="fl">100</span> <span class="fl">330</span> <span class="fl">130</span>])<span class="op">;</span>  <span class="va">set_param</span>([<span class="va">nombre</span> <span class="ss">'/xdot'</span>]<span class="op">,</span> <span class="ss">'InitialCondition'</span><span class="op">,</span> <span class="va">num2str</span>(<span class="va">x0</span>(<span class="fl">2</span>)))<span class="op">;</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>(<span class="ss">'Continuous/Integrator'</span><span class="op">,</span> <span class="ss">'x'</span><span class="op">,</span>    [<span class="fl">420</span> <span class="fl">100</span> <span class="fl">450</span> <span class="fl">130</span>])<span class="op">;</span>  <span class="va">set_param</span>([<span class="va">nombre</span> <span class="ss">'/x'</span>]<span class="op">,</span>    <span class="ss">'InitialCondition'</span><span class="op">,</span> <span class="va">num2str</span>(<span class="va">x0</span>(<span class="fl">1</span>)))<span class="op">;</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>(<span class="ss">'Math Operations/Product'</span><span class="op">,</span> <span class="ss">'x2'</span><span class="op">,</span> [<span class="fl">300</span> <span class="fl">180</span> <span class="fl">330</span> <span class="fl">210</span>])<span class="op">;</span>  <span class="va">set_param</span>([<span class="va">nombre</span> <span class="ss">'/x2'</span>]<span class="op">,</span> <span class="ss">'Inputs'</span><span class="op">,</span> <span class="ss">'2'</span>)<span class="op">;</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>(<span class="ss">'Math Operations/Bias'</span><span class="op">,</span> <span class="ss">'menos1'</span><span class="op">,</span> [<span class="fl">360</span> <span class="fl">180</span> <span class="fl">390</span> <span class="fl">210</span>])<span class="op">;</span> <span class="va">set_param</span>([<span class="va">nombre</span> <span class="ss">'/menos1'</span>]<span class="op">,</span> <span class="ss">'Bias'</span><span class="op">,</span> <span class="ss">'-1'</span>)<span class="op">;</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>(<span class="ss">'Math Operations/Product'</span><span class="op">,</span> <span class="ss">'amort'</span><span class="op">,</span> [<span class="fl">420</span> <span class="fl">180</span> <span class="fl">450</span> <span class="fl">210</span>])<span class="op">;</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>(<span class="ss">'Math Operations/Gain'</span><span class="op">,</span> <span class="ss">'mu'</span><span class="op">,</span> [<span class="fl">480</span> <span class="fl">180</span> <span class="fl">510</span> <span class="fl">210</span>])<span class="op">;</span>     <span class="va">set_param</span>([<span class="va">nombre</span> <span class="ss">'/mu'</span>]<span class="op">,</span> <span class="ss">'Gain'</span><span class="op">,</span> <span class="ss">'mu'</span>)<span class="op">;</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>(<span class="ss">'Math Operations/Sum'</span><span class="op">,</span> <span class="ss">'suma'</span><span class="op">,</span> [<span class="fl">220</span> <span class="fl">100</span> <span class="fl">250</span> <span class="fl">130</span>])<span class="op">;</span>    <span class="va">set_param</span>([<span class="va">nombre</span> <span class="ss">'/suma'</span>]<span class="op">,</span> <span class="ss">'Inputs'</span><span class="op">,</span> <span class="ss">'--'</span>)<span class="op">;</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>(<span class="ss">'Sinks/Out1'</span><span class="op">,</span> <span class="ss">'y'</span><span class="op">,</span> [<span class="fl">520</span> <span class="fl">100</span> <span class="fl">550</span> <span class="fl">130</span>])<span class="op">;</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="va">b</span>(<span class="ss">'Sinks/Out1'</span><span class="op">,</span> <span class="ss">'yd'</span><span class="op">,</span> [<span class="fl">520</span> <span class="fl">40</span> <span class="fl">550</span> <span class="fl">70</span>])<span class="op">;</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="va">l</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">a</span><span class="op">,</span> <span class="va">c</span>) <span class="va">add_line</span>(<span class="va">nombre</span><span class="op">,</span> <span class="va">a</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="ss">'autorouting'</span><span class="op">,</span> <span class="ss">'on'</span>)<span class="op">;</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="va">l</span>(<span class="ss">'suma/1'</span><span class="op">,</span> <span class="ss">'xdot/1'</span>)<span class="op">;</span>  <span class="va">l</span>(<span class="ss">'xdot/1'</span><span class="op">,</span> <span class="ss">'x/1'</span>)<span class="op">;</span>  <span class="va">l</span>(<span class="ss">'x/1'</span><span class="op">,</span> <span class="ss">'y/1'</span>)<span class="op">;</span>  <span class="va">l</span>(<span class="ss">'xdot/1'</span><span class="op">,</span> <span class="ss">'yd/1'</span>)<span class="op">;</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="va">l</span>(<span class="ss">'x/1'</span><span class="op">,</span> <span class="ss">'x2/1'</span>)<span class="op">;</span>  <span class="va">l</span>(<span class="ss">'x/1'</span><span class="op">,</span> <span class="ss">'x2/2'</span>)<span class="op">;</span>  <span class="va">l</span>(<span class="ss">'x2/1'</span><span class="op">,</span> <span class="ss">'menos1/1'</span>)<span class="op">;</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="va">l</span>(<span class="ss">'menos1/1'</span><span class="op">,</span> <span class="ss">'amort/1'</span>)<span class="op">;</span>  <span class="va">l</span>(<span class="ss">'xdot/1'</span><span class="op">,</span> <span class="ss">'amort/2'</span>)<span class="op">;</span>  <span class="va">l</span>(<span class="ss">'amort/1'</span><span class="op">,</span> <span class="ss">'mu/1'</span>)<span class="op">;</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="va">l</span>(<span class="ss">'mu/1'</span><span class="op">,</span> <span class="ss">'suma/2'</span>)<span class="op">;</span>  <span class="va">l</span>(<span class="ss">'x/1'</span><span class="op">,</span> <span class="ss">'suma/1'</span>)<span class="op">;</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="va">save_system</span>(<span class="va">nombre</span>)<span class="op">;</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="va">assignin</span>(<span class="ss">'base'</span><span class="op">,</span> <span class="ss">'mu'</span><span class="op">,</span> <span class="va">mu</span>)<span class="op">;</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="va">out</span> <span class="op">=</span> <span class="va">sim</span>(<span class="va">nombre</span><span class="op">,</span> <span class="ss">'ReturnWorkspaceOutputs'</span><span class="op">,</span> <span class="ss">'on'</span>)<span class="op">;</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="va">tS</span> <span class="op">=</span> <span class="va">out</span>.<span class="va">tout</span><span class="op">;</span>  <span class="va">YS</span> <span class="op">=</span> <span class="va">out</span>.<span class="va">yout</span><span class="op">;</span>                       <span class="co">% columnas: x, x'</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">XO</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="op">-</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">-</span> <span class="va">mu</span><span class="op">*</span>(<span class="va">x</span>(<span class="fl">1</span>)<span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">1</span>)<span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>)]<span class="op">,</span> <span class="va">tS</span><span class="op">,</span> <span class="va">x0</span><span class="op">,</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>))<span class="op">;</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="va">err</span> <span class="op">=</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">YS</span>(<span class="op">:,</span><span class="fl">1</span>) <span class="op">-</span> <span class="va">XO</span>(<span class="op">:,</span><span class="fl">1</span>)))<span class="op">;</span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">err</span> <span class="op">&lt;</span> <span class="fl">1e-5</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'VanDerPol.slx coincide con ode45: max |error| = %.1e\n'</span><span class="op">,</span> <span class="va">err</span>)<span class="op">;</span></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="kw">else</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>    <span class="va">warning</span>(<span class="ss">'Diferencia %.2e: revise los bloques "suma" (signos --) y "menos1" (Bias -1).'</span><span class="op">,</span> <span class="va">err</span>)<span class="op">;</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span><span class="op">;</span> <span class="va">plot</span>(<span class="va">YS</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">,</span> <span class="va">YS</span>(<span class="op">:,</span><span class="fl">2</span>))<span class="op">;</span> <span class="va">grid</span> <span class="va">on</span><span class="op">;</span> <span class="va">xlabel</span>(<span class="ss">'x'</span>)<span class="op">;</span> <span class="va">ylabel</span>(<span class="ss">'dx/dt'</span>)<span class="op">;</span> <span class="va">title</span>(<span class="ss">'VanDerPol.slx'</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="videos" class="level2">
+<h2 class="anchored" data-anchor-id="videos">Videos</h2>
+<p>Los videos se generan con los scripts de la tabla (MATLAB, <code>VideoWriter</code>).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Video</th>
+<th style="text-align: left;">Qué muestra</th>
+<th style="text-align: left;">Script</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">V5.1 · Kuramoto</td>
+<td style="text-align: left;">Los osciladores en el círculo y <span class="math inline">\(r(t)\)</span> mientras <span class="math inline">\(K\)</span> cruza <span class="math inline">\(K_c\)</span>.</td>
+<td style="text-align: left;"><code>C5_Video_Kuramoto.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">V5.2 · Índice</td>
+<td style="text-align: left;">La curva barre el plano y el contador de vueltas cambia al cruzar equilibrios.</td>
+<td style="text-align: left;"><code>C5_Video_Indice.m</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">V5.3 · van der Pol</td>
+<td style="text-align: left;">Trayectorias de adentro y de afuera llegan al mismo ciclo.</td>
+<td style="text-align: left;"><code>C5_Video_VanDerPol.m</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="problemas" class="level2">
+<h2 class="anchored" data-anchor-id="problemas">Problemas</h2>
+<p>Los problemas del capítulo (§5.13) tienen cada uno una trampa; las soluciones seleccionadas están en §5.14 y las respuestas a las pausas al final del capítulo.</p>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiado");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiado");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-sisnl");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-sisnl");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -474,161 +966,185 @@ window.MathJax = { tex: { macros: {
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

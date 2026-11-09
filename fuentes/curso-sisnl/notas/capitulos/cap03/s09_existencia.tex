@@ -1,0 +1,228 @@
+%% ---------------------------------------------------------------------
+\section{Existencia y unicidad de soluciones}
+\label{sec:pm-existencia}
+%% ---------------------------------------------------------------------
+
+Ya tenemos el lenguaje para responder la primera pregunta del capítulo. Una \emph{solución} de \eqref{eq:pm-pvi} en $[t_0,t_1]$ es una función continua $x:[t_0,t_1]\to\R^n$ tal que $\dot x(t)$ existe y vale $f(t,x(t))$ salvo, a lo sumo, en los instantes donde $f$ salta en $t$. Integrando, $x$ es solución si y solo si
+\begin{equation}
+  x(t)=x_0+\int_{t_0}^tf\bigl(s,x(s)\bigr)\,\dif s,\qquad t\in[t_0,t_1] .
+  \label{eq:pm-integral}
+\end{equation}
+La ecuación integral tiene dos ventajas: no pide derivar (solo integrar, lo que tolera saltos en $t$) y convierte el problema en buscar un \emph{punto fijo}: si $(Px)(t)\defeq x_0+\int_{t_0}^tf(s,x(s))\,\dif s$, las soluciones son exactamente las funciones con $x=Px$.
+
+%% ---------------------------------------------------------------------
+\subsection{Dos herramientas}
+%% ---------------------------------------------------------------------
+
+\begin{lema}[label=lem:pm-gronwall]{Desigualdad de Gronwall--Bellman \citep[Lema~A.1]{Kha02}}
+Sean $\lambda:[a,b]\to\R$ continua y $\mu:[a,b]\to\R$ continua y no negativa. Si una función continua $y:[a,b]\to\R$ cumple
+\[
+  y(t)\le\lambda(t)+\int_a^t\mu(s)\,y(s)\,\dif s\qquad\text{para }a\le t\le b,
+\]
+entonces, en el mismo intervalo,
+\[
+  y(t)\le\lambda(t)+\int_a^t\lambda(s)\,\mu(s)\exp\Bigl[\int_s^t\mu(\tau)\,\dif\tau\Bigr]\dif s .
+\]
+Si $\lambda\equiv\lambda_0$ es constante, $y(t)\le\lambda_0\exp\bigl[\int_a^t\mu(\tau)\,\dif\tau\bigr]$; si además $\mu\equiv\mu_0$, $y(t)\le\lambda_0e^{\mu_0(t-a)}$.
+\end{lema}
+
+\begin{proof}
+Sea $z(t)=\int_a^t\mu(s)y(s)\,\dif s$, que es derivable con $\dot z=\mu y\le\mu(\lambda+z)$ (porque $\mu\ge0$ y $y\le\lambda+z$). Multiplicando por el factor integrante $\exp[-\int_a^t\mu]$,
+\[
+  \frac{\dif}{\dif t}\Bigl(z(t)e^{-\int_a^t\mu}\Bigr)=\bigl(\dot z-\mu z\bigr)e^{-\int_a^t\mu}\le\lambda\mu\,e^{-\int_a^t\mu}.
+\]
+Integrando de $a$ a $t$ con $z(a)=0$ y multiplicando por $e^{\int_a^t\mu}$: $z(t)\le\int_a^t\lambda(s)\mu(s)e^{\int_s^t\mu}\,\dif s$. Como $y\le\lambda+z$, queda la desigualdad. Si $\lambda\equiv\lambda_0$, la integral es $\lambda_0\int_a^t\mu(s)e^{\int_s^t\mu}\dif s=\lambda_0\bigl(e^{\int_a^t\mu}-1\bigr)$, de donde sale la segunda forma.
+\end{proof}
+
+\begin{ideaclave}
+Gronwall--Bellman dice: una cantidad que crece \emph{a lo sumo} proporcionalmente a sí misma crece \emph{a lo sumo} exponencialmente. Convierte una desigualdad integral, que no se sabe resolver, en una cota explícita.
+\end{ideaclave}
+
+\begin{teorema}[label=thm:pm-contraccion]{Principio de contracción \citep{Ban22}, \citep[Teorema~B.1]{Kha02}}
+Sea $S$ un subconjunto cerrado de un espacio de Banach $X$ y $T:S\to S$ un mapa con
+\[
+  \norm{T(x)-T(y)}\le\rho\norm{x-y}\qquad\text{para todo }x,y\in S,\qquad 0\le\rho<1 .
+\]
+Entonces existe un único $x^*\in S$ con $x^*=T(x^*)$, y las iteraciones $x_{k+1}=T(x_k)$ convergen a $x^*$ desde cualquier $x_1\in S$.
+\end{teorema}
+
+\begin{proof}
+\emph{Cauchy.} $\norm{x_{k+1}-x_k}\le\rho\norm{x_k-x_{k-1}}\le\dots\le\rho^{k-1}\norm{x_2-x_1}$. Para $r\ge1$, por la triangular y la serie geométrica,
+$\norm{x_{k+r}-x_k}\le\sum_{i=k}^{k+r-1}\rho^{i-1}\norm{x_2-x_1}\le\frac{\rho^{k-1}}{1-\rho}\norm{x_2-x_1}\to0$.
+\emph{Límite en $S$.} $X$ es completo, así que $x_k\to x^*\in X$; $S$ es cerrado, así que $x^*\in S$.
+\emph{Punto fijo.} $\norm{x^*-T(x^*)}\le\norm{x^*-x_{k+1}}+\norm{T(x_k)-T(x^*)}\le\norm{x^*-x_{k+1}}+\rho\norm{x_k-x^*}\to0$.
+\emph{Unicidad.} Si $x^*$ y $y^*$ son puntos fijos, $\norm{x^*-y^*}=\norm{T(x^*)-T(y^*)}\le\rho\norm{x^*-y^*}$ con $\rho<1$; luego $x^*=y^*$.
+\end{proof}
+
+Las dos hipótesis que se usan de verdad son la completitud de $X$ (para que el límite exista) y que $S$ sea cerrado (para que el límite no se escape de $S$). Es aquí donde la \cref{sec:pm-completos} deja de ser abstracta.
+
+%% ---------------------------------------------------------------------
+\subsection{El teorema local}
+%% ---------------------------------------------------------------------
+
+\begin{teorema}[label=thm:pm-local]{Existencia y unicidad local \citep[Teorema~3.1]{Kha02}}
+Sea $f(t,x)$ continua a trozos en $t$ y tal que
+\[
+  \norm{f(t,x)-f(t,y)}\le L\norm{x-y}\qquad\text{para todo }x,y\in B=\{x:\norm{x-x_0}\le r\},\ t\in[t_0,t_1] .
+\]
+Entonces existe $\delta>0$ tal que \eqref{eq:pm-pvi} tiene una solución única en $[t_0,t_0+\delta]$. Basta tomar
+\begin{equation}
+  \delta\le\min\Bigl\{t_1-t_0,\ \frac{r}{Lr+h},\ \frac\rho L\Bigr\},\qquad h=\max_{t\in[t_0,t_1]}\norm{f(t,x_0)},\quad \rho<1 .
+  \label{eq:pm-delta}
+\end{equation}
+\end{teorema}
+
+\begin{proof}
+\emph{El espacio.} Sea $X=C[t_0,t_0+\delta]$ con $\norm\cdot_C$ (Banach, \cref{sec:pm-completos}) y $S=\{x\in X:\norm{x-x_0}_C\le r\}$, la bola de las funciones que no salen de $B$; $S$ es cerrado. Las soluciones de \eqref{eq:pm-pvi} son los puntos fijos de $P$.
+
+\emph{$P$ manda $S$ en $S$.} Para $x\in S$, $f(s,x(s))-f(s,x_0)$ está acotado por $L\norm{x(s)-x_0}\le Lr$, y $\norm{f(s,x_0)}\le h$. Entonces
+$\norm{(Px)(t)-x_0}\le\int_{t_0}^t\bigl(\norm{f(s,x(s))-f(s,x_0)}+\norm{f(s,x_0)}\bigr)\dif s\le(t-t_0)(Lr+h)\le\delta(Lr+h)\le r$.
+
+\emph{$P$ es una contracción en $S$.} Para $x,y\in S$,
+$\norm{(Px)(t)-(Py)(t)}\le\int_{t_0}^tL\norm{x(s)-y(s)}\,\dif s\le L\delta\norm{x-y}_C\le\rho\norm{x-y}_C$.
+Por el \cref{thm:pm-contraccion}, $P$ tiene un único punto fijo en $S$: existe una única solución que se queda en $B$.
+
+\emph{No hay otras soluciones fuera de $S$.} Sea $x$ cualquier solución en $[t_0,t_0+\delta]$. Si saliera de $B$, habría un primer instante $t_0+\mu$, $\mu\le\delta$, con $\norm{x(t_0+\mu)-x_0}=r$, y hasta ese instante estaría en $B$. Allí, con Gronwall--Bellman aplicado a $\norm{x(t)-x_0}\le h(t-t_0)+\int_{t_0}^tL\norm{x(s)-x_0}\,\dif s$, se obtiene $r=\norm{x(t_0+\mu)-x_0}\le\frac hL\bigl(e^{L\mu}-1\bigr)$, es decir $\mu\ge\frac1L\ln\bigl(1+\frac{Lr}h\bigr)>\frac{r}{Lr+h}\ge\delta$ (porque $\ln(1+u)>u/(1+u)$), una contradicción. Luego toda solución está en $S$ y es la del punto fijo.
+\end{proof}
+
+\notamargen{La palabra clave es \emph{local}: el teorema solo garantiza un intervalo $[t_0,t_0+\delta]$, y $\delta$ depende de $x_0$ a través de $h$ y de $r$.}
+La prueba es constructiva: las iteraciones de Picard $x_{k+1}=Px_k$, desde $x_0(t)\equiv x_0$, convergen a la solución en la norma del máximo. Para $\dot x=x$, $x(0)=1$, en $[0,1]$, la iteración $k$ es el polinomio de Taylor $\sum_{j=0}^kt^j/j!$ de $e^t$, y el error en la norma del máximo cae como $e/(k+1)!$: $1.6\times10^{-3}$ en la quinta iteración (\cref{fig:pm-picard}).
+
+\video{V3_1_picard}{Las iteraciones de Picard se pegan a $e^t$}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_picard}
+\caption{Aproximaciones sucesivas de Picard para $\dot x=x$, $x(0)=1$. Cada iteración aplica una vez el operador $P$; el error en la norma del máximo cae factorialmente.}
+\label{fig:pm-picard}
+\end{figure}
+
+\codigorepo{cap03_preliminares/C3_Ej7_Picard.m}{picard}{Iteraciones de Picard: $x_{k+1}=x_0+\int_0^tf(x_k)$}
+
+\begin{ejemplo}[label=ej:pm-delta]{¿Cuánto garantiza el teorema?}
+Para $\dot x=x^2$, $x(0)=1$, calcule el mayor $\delta$ que da \eqref{eq:pm-delta} y compárelo con el intervalo donde realmente existe la solución.
+\solucion En $B=\{\abs{x-1}\le r\}$, $\abs{x^2-y^2}=\abs{x+y}\abs{x-y}\le2(1+r)\abs{x-y}$: $L=2(1+r)$, y $h=\abs{f(1)}=1$. El cociente $r/(Lr+h)=r/(2r^2+2r+1)$ es máximo en $r^*=1/\sqrt2$, donde vale $(\sqrt2-1)/2\approx0.207$; el término $\rho/L$ con $\rho\to1$ vale allí $0.293$, mayor. El teorema garantiza $[0,\,0.207]$. La solución exacta, $x(t)=1/(1-t)$, existe en $[0,1)$ y escapa en $t=1$ (\cref{fig:pm-escape}, izquierda). El teorema es conservador, pero no es falso: \emph{nunca} promete más de lo que hay.
+\end{ejemplo}
+
+\codigorepo{cap03_preliminares/C3_Ej7_Picard.m}{delta}{El intervalo garantizado para $\dot x=x^2$}
+
+%% ---------------------------------------------------------------------
+\subsection{Cuando falla Lipschitz: no unicidad}
+%% ---------------------------------------------------------------------
+
+\begin{ejemplo}[label=ej:pm-nounicidad]{Infinitas soluciones desde el mismo punto}
+Muestre que $\dot x=x^{1/3}$, $x(0)=0$, tiene infinitas soluciones y diga qué hipótesis del \cref{thm:pm-local} falla.
+\solucion Para cada $c\ge0$, $x_c(t)=0$ si $t\le c$ y $x_c(t)=\bigl(\tfrac23(t-c)\bigr)^{3/2}$ si $t\ge c$ es solución: en $t>c$, $\dot x_c=\bigl(\tfrac23(t-c)\bigr)^{1/2}=x_c^{1/3}$, y las dos ramas empalman con derivada cero en $t=c$. La solución ``espera'' en el origen un tiempo arbitrario y luego despega (\cref{fig:pm-nounicidad}). Falla Lipschitz en el origen (\cref{ej:pm-tres}): la pendiente $\frac13x^{-2/3}$ es infinita en $0$. $f$ es continua, y por eso sí hay soluciones (teorema de Peano \citep{Pea1890}); lo que se pierde es la unicidad.
+\end{ejemplo}
+
+\video{V3_2_no_unicidad}{Todas parten de $x(0)=0$}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{cap03/f_no_unicidad}
+\caption{Soluciones de $\dot x=x^{1/3}$ con $x(0)=0$. \cmd{ode45} devuelve $x\equiv0$ sin avisar que hay otras.}
+\label{fig:pm-nounicidad}
+\end{figure}
+
+\codigorepo{cap03_preliminares/C3_Ej6_NoUnicidad.m}{ode45}{Lo que hace \cmd{ode45} desde $0$ y desde $10^{-12}$}
+
+\begin{trampa}[label=tr:pm-simulador]{El simulador no detecta la no unicidad}
+\plausible{Simulé $\dot x=x^{1/3}$ desde $x(0)=0$ con \cmd{ode45} y obtuve $x(t)\equiv0$; la solución es única y es cero.}
+El integrador evalúa $f(0)=0$, da pasos de tamaño cero en $x$ y se queda en la rama $x\equiv0$. Desde $x(0)=10^{-12}$, que en cualquier experimento físico es indistinguible de cero, sigue la rama que despega y llega a $2\sqrt2\approx2.83$ en $t=3$. La simulación \emph{elige} una solución; no prueba que sea la única.
+\correcto{La unicidad es una propiedad de $f$, y se verifica con la condición de Lipschitz, no con una simulación. Cuando falla, el modelo predice más de un futuro desde el mismo estado y hay que decidir, con información física adicional, cuál es el relevante.}
+\end{trampa}
+
+%% ---------------------------------------------------------------------
+\subsection{¿Hasta cuándo existe la solución?}
+%% ---------------------------------------------------------------------
+
+Si $f$ es localmente Lipschitz en un dominio $D$, el \cref{thm:pm-local} se puede aplicar de nuevo en $t_0+\delta$, y otra vez, y así la solución se extiende a un \clave{intervalo máximo} $[t_0,T)$. Si $T<\infty$, la solución tiene que salir de todo compacto de $D$ cuando $t\to T$; en $D=\R^n$ eso quiere decir $\norm{x(t)}\to\infty$: \clave{escape en tiempo finito}. Para garantizar existencia en todo $t\ge t_0$ hay dos caminos.
+
+\begin{teorema}[label=thm:pm-global]{Existencia global con Lipschitz global \citep[Teorema~3.2]{Kha02}}
+Si $f(t,x)$ es continua a trozos en $t$ y existen $L$ y $h$ con
+\[
+  \norm{f(t,x)-f(t,y)}\le L\norm{x-y},\qquad\norm{f(t,x_0)}\le h\qquad\text{para todo }x,y\in\R^n,\ t\in[t_0,t_1],
+\]
+entonces \eqref{eq:pm-pvi} tiene una solución única en todo $[t_0,t_1]$.
+\end{teorema}
+
+\noindent La idea de la prueba: con Lipschitz global se puede tomar $r$ tan grande como se quiera en \eqref{eq:pm-delta}, y entonces $\delta$ no depende del punto de partida; se avanza en pasos de igual longitud hasta cubrir $[t_0,t_1]$.
+
+\begin{teorema}[label=thm:pm-compacto]{Existencia global con un compacto \citep[Teorema~3.3]{Kha02}}
+Sea $f(t,x)$ continua a trozos en $t$ y localmente Lipschitz en $x$ para $t\ge t_0$ y $x\in D$. Sea $W\subset D$ compacto con $x_0\in W$. Si se sabe que toda solución de \eqref{eq:pm-pvi} se queda en $W$ mientras existe, entonces existe una única solución definida para todo $t\ge t_0$.
+\end{teorema}
+
+\begin{proof}
+En el compacto $W$, $f$ es Lipschitz con una sola constante (\cref{tr:pm-localglobal}). Si el intervalo máximo fuera $[t_0,T)$ con $T<\infty$, la solución tendría que salir de todo compacto de $D$ cuando $t\to T$, pero se queda en $W$.
+\end{proof}
+
+La gracia del \cref{thm:pm-compacto} es que se puede verificar \emph{sin resolver la ecuación}: basta mostrar que algún conjunto compacto es positivamente invariante. Para $\dot x=-x^3$, el intervalo $W=[-\abs{x_0},\abs{x_0}]$ es invariante porque $x\dot x=-x^4\le0$ (el tamaño $\abs x$ nunca crece). Las funciones de Lyapunov del capítulo~7 son, precisamente, una fábrica de compactos invariantes.
+
+\script{cap03_preliminares/C3_Ej8_Escape.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap03/f_escape}
+\caption{Izquierda: $\dot x=x^2$ escapa en $t=1$; en verde, el intervalo que garantiza el \cref{thm:pm-local}. Derecha: $\dot x=-x^3$ tampoco es globalmente Lipschitz y su solución $x_0/\sqrt{1+2x_0^2t}$ existe para todo $t\ge0$.}
+\label{fig:pm-escape}
+\end{figure}
+
+\begin{trampa}[label=tr:pm-global]{Lipschitz global es suficiente, no necesario}
+\plausible{$f(x)=-x^3$ no es globalmente Lipschitz (su derivada $-3x^2$ no es acotada); por lo tanto sus soluciones pueden escapar en tiempo finito.}
+El \cref{thm:pm-global} da una condición \emph{suficiente}. Que no se cumpla no dice nada. Aquí el término $-x^3$ empuja hacia el origen, y el \cref{thm:pm-compacto} con $W=[-\abs{x_0},\abs{x_0}]$ da existencia global; la solución explícita es $x(t)=x_0/\sqrt{1+2x_0^2t}$ (con $x_0=2$, $x(10)=2/9$). Lo que decide si hay escape no es el tamaño de $\abs{f'}$, sino hacia dónde apunta $f$: $\dot x=x^2$ escapa y $\dot x=-x^2$ (para $x_0>0$) no.
+\correcto{Casi ningún sistema no lineal interesante es globalmente Lipschitz. La existencia global se prueba, en la práctica, encontrando un compacto positivamente invariante.}
+\end{trampa}
+
+\codigorepo{cap03_preliminares/C3_Ej8_Escape.m}{escape}{Escape de $\dot x=x^2$ y existencia global de $\dot x=-x^3$}
+
+%% ---------------------------------------------------------------------
+\subsection{Dependencia continua: ¿importan los errores de modelado?}
+%% ---------------------------------------------------------------------
+
+Un modelo nunca es exacto y una condición inicial nunca se conoce con precisión. Para que el modelo sirva, errores pequeños deben producir soluciones cercanas, al menos en intervalos finitos.
+
+\begin{teorema}[label=thm:pm-dependencia]{Dependencia continua \citep[Teorema~3.4]{Kha02}}
+Sea $f(t,x)$ continua a trozos en $t$ y Lipschitz en $x$ con constante $L$ en $[t_0,t_1]\times W$. Sean $y$ y $z$ soluciones de
+\[
+  \dot y=f(t,y),\ y(t_0)=y_0,\qquad\dot z=f(t,z)+g(t,z),\ z(t_0)=z_0,
+\]
+que se quedan en $W$ en $[t_0,t_1]$, con $\norm{g(t,x)}\le\mu$ en $[t_0,t_1]\times W$. Entonces, con $\gamma=\norm{y_0-z_0}$,
+\begin{equation}
+  \norm{y(t)-z(t)}\le\gamma\,e^{L(t-t_0)}+\frac\mu L\bigl(e^{L(t-t_0)}-1\bigr),\qquad t\in[t_0,t_1] .
+  \label{eq:pm-dependencia}
+\end{equation}
+\end{teorema}
+
+\begin{proof}
+Restando las ecuaciones integrales y usando Lipschitz y la cota de $g$,
+$\norm{y(t)-z(t)}\le\gamma+\mu(t-t_0)+\int_{t_0}^tL\norm{y(s)-z(s)}\,\dif s$.
+Gronwall--Bellman con $\lambda(t)=\gamma+\mu(t-t_0)$ y $\mu(\cdot)\equiv L$ da
+$\norm{y-z}\le\gamma+\mu(t-t_0)+\int_{t_0}^tL\bigl(\gamma+\mu(s-t_0)\bigr)e^{L(t-s)}\,\dif s$, y la integral (por partes) es $\gamma(e^{L(t-t_0)}-1)+\frac\mu L(e^{L(t-t_0)}-1)-\mu(t-t_0)$.
+\end{proof}
+
+\script{cap03_preliminares/C3_Ej10_Dependencia.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{cap03/f_dependencia}
+\caption{$\dot y=-y+\tfrac12\sin y$ contra la versión perturbada con $\mu=0.1$ y $\gamma=0.05$ ($L=1.5$). La diferencia real se queda en $0.09$; la cota de Gronwall llega a $211$ en $t=5$.}
+\label{fig:pm-dependencia}
+\end{figure}
+
+\begin{trampa}[label=tr:pm-cotaexp]{La cota exponencial no predice que las soluciones se separan}
+\plausible{Por \eqref{eq:pm-dependencia}, dos soluciones que empiezan cerca se separan exponencialmente.}
+\eqref{eq:pm-dependencia} es una \emph{cota superior}, válida para cualquier $f$ con constante $L$, incluso las que contraen. Para $\dot y=-y+\tfrac12\sin y$ la diferencia real con la versión perturbada nunca pasa de $0.091$ en $[0,5]$, mientras la cota llega a $211$ (\cref{fig:pm-dependencia}). El teorema solo usa $\norm{f(y)-f(z)}\le L\norm{y-z}$, que no distingue entre un sistema que acerca las soluciones y uno que las aleja.
+\correcto{El teorema garantiza que en un intervalo \emph{finito} el error se puede hacer tan pequeño como se quiera achicando $\gamma$ y $\mu$. Para cotas que no crezcan con $t$ hace falta estabilidad, que es el tema de los capítulos~7 a~10.}
+\end{trampa}
+
+\codigorepo{cap03_preliminares/C3_Ej10_Dependencia.m}{dependencia}{La cota de Gronwall contra la diferencia real}
+
+\begin{ideaclave}
+\begin{tabular}{@{}ll@{}}
+$f$ continua & existe una solución, quizá no única (Peano)\\
+$f$ localmente Lipschitz & solución única en un intervalo máximo $[t_0,T)$\\
+\quad\dots y una solución acotada & $T=\infty$ (\cref{thm:pm-compacto})\\
+$f$ globalmente Lipschitz & solución única para todo $t$ (\cref{thm:pm-global})\\
+cualquiera de los anteriores con Lipschitz & dependencia continua en intervalos finitos
+\end{tabular}
+\end{ideaclave}
+
+\begin{historia}[Cauchy, Lipschitz, Peano, Picard, Lindelöf]
+Cauchy probó existencia y unicidad en la década de 1820 para $f$ con derivada continua, con un método de poligonales. Lipschitz, en 1876, reemplazó la derivada por la condición que hoy lleva su nombre \citep{Lip1876}. Peano mostró en 1890 que la continuidad basta para la existencia \citep{Pea1890}. Picard introdujo ese mismo año las aproximaciones sucesivas \citep{Pic1890}, y Lindelöf, en 1894, dio la versión con la que se enuncia hoy el teorema \citep{Lin1894}. Por eso en muchos textos el \cref{thm:pm-local} se llama teorema de Picard--Lindelöf.
+\end{historia}

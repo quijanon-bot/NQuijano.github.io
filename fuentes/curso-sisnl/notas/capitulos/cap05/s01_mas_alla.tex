@@ -1,0 +1,50 @@
+%% ---------------------------------------------------------------------
+\section{¿Qué hay además de los equilibrios?}
+\label{sec:oc-masalla}
+%% ---------------------------------------------------------------------
+
+En el capítulo~4 estudiamos sistemas planos \emph{cerca} de sus equilibrios: linealización, Hartman--Grobman, variedad central. Es un análisis local: dice qué pasa en una vecindad de $\eq$ y nada sobre a dónde van las trayectorias que salen de ella. Después de los equilibrios, el comportamiento de largo plazo más simple es el \emph{periódico}: una trayectoria que vuelve al mismo estado, $x(t+T)=x(t)$. Sobre ellas hay dos preguntas, y todo el capítulo gira alrededor de las dos:
+\begin{center}
+\sffamily\large\color{snlazul}¿existen? \qquad ¿son estables?
+\end{center}
+
+\begin{ejemplo}[label=ej:oc-duffing]{Duffing sin forzamiento ni fricción}
+Para $\ddot x+\delta\dot x+x^3-x=0$ con $\delta=0$: (a) escriba el modelo de estado; (b) halle los equilibrios; (c) clasifíquelos por linealización; (d) dibuje el plano de fase. ¿Explica la linealización lo que ve?
+\solucion (a) Con $x_1=x$, $x_2=\dot x$: $\dot x_1=x_2$, $\dot x_2=x_1-x_1^3$. (b) $x_2=0$ y $x_1(1-x_1^2)=0$: equilibrios en $(-1,0)$, $(0,0)$ y $(1,0)$. (c) $\jac fx=\begin{bmatrix}0&1\\1-3x_1^2&0\end{bmatrix}$. En el origen los valores propios son $\pm1$: una silla (hiperbólica, Hartman--Grobman sí concluye). En $(\pm1,0)$ son $\pm j\sqrt2$: parte real nula, Hartman--Grobman \emph{no} concluye. (d) Multiplicando la ecuación por $\dot x$,
+\[
+  \frac{\dif}{\dif t}H=0,\qquad H(x_1,x_2)=\tfrac12x_2^2-\tfrac12x_1^2+\tfrac14x_1^4 .
+\]
+$H$ se conserva: las trayectorias viven en sus curvas de nivel. Alrededor de $(\pm1,0)$, donde $H$ tiene mínimos ($H=-\tfrac14$), las curvas de nivel son cerradas: son centros \emph{no lineales}, rodeados de una familia continua de órbitas cerradas. El nivel $H=0$ pasa por la silla y forma dos órbitas homoclínicas, que salen de la silla y vuelven a ella (\cref{fig:oc-duffing}).
+\end{ejemplo}
+
+\notamargen{Un sistema con $\dot x_1=\partial H/\partial x_2$, $\dot x_2=-\partial H/\partial x_1$ es \emph{hamiltoniano}; Duffing sin fricción lo es. Los sistemas hamiltonianos conservan $H$ y no pueden tener equilibrios asintóticamente estables ni ciclos límite.}
+\script{cap05_orbitas_ciclos/C5_Ej1_Duffing.m}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap05/f_duffing}
+\caption{Izquierda: Duffing con $\delta=0$; las trayectorias son curvas de nivel de $H$. En rojo, las órbitas homoclínicas ($H=0$). Derecha: el período de las órbitas que rodean a $(1,0)$ depende de la órbita; solo cerca del centro se acerca a $2\pi/\sqrt2$, el que predice la linealización.}
+\label{fig:oc-duffing}
+\end{figure}
+
+El ejemplo deja tres lecciones. La linealización no decide en los equilibrios no hiperbólicos; aquí decidió una \emph{primera integral} (una cantidad conservada). Las órbitas cerradas de Duffing no son ``una oscilación'': son infinitas, una por cada nivel de energía, y cada una con su propio período ($4.63$ para $H=-0.2$, $7.41$ para $H=-0.01$, y crece sin cota al acercarse a la homoclínica). Y basta un poco de fricción ($\delta>0$) para destruirlas todas (\cref{sec:oc-descartar}).
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej1_Duffing.m}{energia}{$H$ se conserva a lo largo de la simulación}
+
+\begin{trampa}[label=tr:oc-centro]{$\pm j\omega$ en la linealización no es un centro}
+\plausible{En $(\pm1,0)$ los valores propios son $\pm j\sqrt2$; por lo tanto el equilibrio es un centro del sistema no lineal.}
+En Duffing la conclusión es cierta, pero no por la linealización: es cierta porque $H$ se conserva. Sin una razón así, es falsa. El sistema
+\[
+  \dot x_1=-x_2+x_1(x_1^2+x_2^2),\qquad \dot x_2=x_1+x_2(x_1^2+x_2^2)
+\]
+tiene la misma linealización en el origen que un centro ($\pm j$), y sin embargo en polares $\dot r=r^3$, $\dot\theta=1$: el origen es un foco \emph{inestable} y las soluciones escapan en $t=1/(2r_0^2)$ (\cref{fig:oc-centrofalso}). Los términos de orden superior, que Hartman--Grobman permite ignorar cuando el equilibrio es hiperbólico, deciden todo cuando no lo es.
+\correcto{Con valores propios imaginarios puros, la linealización no concluye nada. Hace falta un argumento no lineal: una cantidad conservada (centro), una función de Lyapunov (estable o inestable) o el cálculo en polares.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.86\linewidth]{cap05/f_centro_falso}
+\caption{La misma linealización (izquierda) y dos comportamientos no lineales distintos: Duffing tiene centros; el sistema de la \cref{tr:oc-centro} tiene un foco inestable (derecha).}
+\label{fig:oc-centrofalso}
+\end{figure}
+
+\codigorepo{cap05_orbitas_ciclos/C5_Ej1_Duffing.m}{contraejemplo}{El centro falso: $\dot r=r^3$}

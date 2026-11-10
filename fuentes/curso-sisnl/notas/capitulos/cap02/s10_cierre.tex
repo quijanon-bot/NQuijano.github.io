@@ -1,0 +1,99 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:un-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{La gráfica de $f$ lo dice todo} en una dimensión: los ceros son los equilibrios y el signo de $f$ da el sentido del flujo.
+  \item \textbf{Linealización:} $f'(\eq)<0$, estable; $f'(\eq)>0$, inestable; $\tau=1/\abs{f'(\eq)}$. Si $f'(\eq)=0$, la linealización no decide.
+  \item \textbf{Con unicidad, las soluciones escalares son monótonas:} no hay oscilaciones, ninguna solución cruza un equilibrio y toda solución acotada converge a uno.
+  \item \textbf{El potencial} $V=-\int f$ decrece a lo largo de las soluciones: el primer ejemplo de función de Lyapunov.
+  \item \textbf{Varios equilibrios estables} dan biestabilidad, regiones de atracción separadas por un equilibrio inestable y, si un parámetro cambia, histéresis.
+  \item \textbf{Cuando los equilibrios chocan} (cosecha crítica, extremos de la histéresis) el sistema se reorganiza: silla-nodo.
+  \item \textbf{Continuidad da existencia; Lipschitz da unicidad; ninguna da existencia global.} Un simulador devuelve una sola trayectoria aunque haya infinitas, y ``falla'' justo cuando la solución escapa.
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item Crecer no es tender a infinito (\cref{tr:un-infinito}); $f'(\eq)=0$ no decide nada (\cref{tr:un-nohiperbolico}).
+  \item ``En una dimensión nada oscila'' necesita tres hipótesis (\cref{tr:un-oscilar}).
+  \item La cosecha máxima sostenible está en el borde del colapso (\cref{tr:un-sostenible}).
+  \item Cerca de una silla-nodo el salto se retrasa (\cref{tr:un-histeresis}).
+  \item Una raíz de $f$ fuera del dominio no es un equilibrio (\cref{tr:un-dominio}).
+  \item El simulador no detecta la no unicidad, y \cmd{(-8)\^{}(1/3)} no es $-2$ (\cref{tr:un-raiz}).
+  \item Suave no implica existencia global (\cref{tr:un-suave}).
+\end{itemize}
+\end{trampa}
+
+\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout2, el borrador de LibroSisNL2026 y SisUniDim2026)]
+(i) En $\dot x=\sin x$ con $x_0=\pi/4$ se afirmaba que $x(t)\to\infty$; la solución tiende a $\pi$ (\cref{tr:un-infinito}). (ii) En $\dot x=x^2-1$ se decía que una perturbación grande de $-1$ ``podría tender a $1$''; si $x_0>1$ la solución escapa en tiempo finito (\cref{ej:un-x2menos1}). (iii) La ecuación integral se escribía con $f(\tau)$ en lugar de $f(x(\tau))$. (iv) En el juego halcón--paloma se cambió la notación de los pagos ($F$ en lugar de $\omega(\bar\pi_i,p)$ y $J_1$) y se probó la invarianza por columnas, que antes se usaba sin justificar (\cref{lem:un-columnas}). (v) El tiempo de escape de $\dot x=x^2$ se llamaba \emph{finite escape time} sin decir que la solución no existe después; se aclaró que la rama de la fórmula para $t>1/x_0$ no es parte de la solución. (vi) Se agregaron la logística con cosecha y la histéresis del diodo túnel, que conectan con la silla-nodo del capítulo~6; las bifurcaciones de las diapositivas de 2026 (silla-nodo, transcrítica, horquilla, láser) quedan para ese capítulo. (vii) El teorema de existencia y unicidad se enuncia y se demuestra en el \cref{cap:preliminares}; aquí solo se usa. (viii) Notación de \texttt{notacion.sty}: invariante en el tiempo (no autónomo), $\eq$, $\Cont1$. Todos los números se verificaron con \texttt{herramientas/cap02\_numeros.py} (42 de 42) y \cmd{verificarCap02.m} (37 de 37).
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:un-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\begin{problema}[silla-nodo]\label{prob:un-sillanodo}
+Trace la línea de fase de $\dot x=r+x^2$ para $r<0$, $r=0$ y $r>0$. ¿Cuántos equilibrios hay en cada caso? ¿Qué le pasa a $f'$ en el equilibrio estable cuando $r\to0^-$? ¿Qué significa eso para la velocidad de convergencia?
+\end{problema}
+
+\begin{problema}[efecto Allee]\label{prob:un-allee}
+Analice $\dot x=x(1-x)(x-a)$, $0<a<1$, como modelo de una población que se extingue si es demasiado pequeña. Clasifique los equilibrios y dé la región de atracción de cada equilibrio estable. Compare con la cosecha (\cref{ej:un-cosecha}): ¿qué tienen en común $a$ y $x^*_-$?
+\end{problema}
+
+\begin{problema}[convergencia en tiempo finito]\label{prob:un-finito}
+Muestre que la solución de $\dot x=-x^{1/3}$, $x(0)=x_0>0$, llega a $0$ en $T=\tfrac32x_0^{2/3}$ y se queda ahí. ¿Por qué no contradice la \cref{prop:un-monotonia}? Pruebe que ningún sistema $\dot x=f(x)$ con $f$ localmente Lipschitz llega a un equilibrio en tiempo finito.
+\end{problema}
+
+\begin{problema}[clasificar sin dibujar]\label{prob:un-clasificar}
+Clasifique los equilibrios de (a) $\dot x=x^3-x$; (b) $\dot x=e^{-x}\sin x$; (c) $\dot x=x^2(1-x)$; (d) $\dot x=1-x-e^{-2x}$. ¿En cuál falla la \cref{prop:un-derivada} y qué hace en su lugar?
+\end{problema}
+
+\begin{problema}[un juego de coordinación]\label{prob:un-coordinacion}
+Repita el \cref{ej:un-hd} con $\Pi=\diag(a,b)$, $a,b>0$ (las dos estrategias ganan cuando coinciden). Muestre que el equilibrio interior es inestable y dé la región de atracción de cada estrategia pura. Compare con el diodo túnel.
+\end{problema}
+
+\begin{problema}[histéresis]\label{prob:un-histeresis}
+\etiquetaM{} (a) Con \cmd{C2\_Ej6\_Histeresis}, repita el barrido de $E$ diez veces más rápido. ¿Cuánto se retrasan los saltos? (b) ¿Para qué valores de $R$ desaparece la histéresis? (Pista: la curva $E=v+Rh(v)$ debe ser monótona; la condición es $1+Rh'(v)>0$ para todo $v$.)
+\end{problema}
+
+\begin{problema}[la advertencia de MATLAB]\label{prob:un-advertencia}
+\etiquetaM{} Comente la opción \cmd{'Events'} en \cmd{C2\_Ej9\_Escape} y ejecute de nuevo. Copie la advertencia y explique, con la solución exacta, por qué aparece y en qué instante.
+\end{problema}
+
+\begin{problema}[detecte la trampa]\label{prob:un-trampa}
+Un estudiante afirma: ``$\dot x=-x+x^3$ tiene el origen localmente estable, luego toda solución converge al origen''. Encuentre el error, determine la región de atracción del origen y calcule el tiempo de escape para $x_0>1$.
+\end{problema}
+
+\begin{problema}[un sistema de primer orden con entrada]\label{prob:un-entrada}
+\etiquetaEstrella{} Para $\dot x=-x^3+u$ con $u$ constante, encuentre el equilibrio en función de $u$ y su estabilidad. Si $u(t)=\sin t$, ¿puede oscilar la solución? ¿Contradice eso la \cref{prop:un-monotonia}?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:un-sillanodo}}
+$r<0$: dos equilibrios, $-\sqrt{-r}$ estable y $\sqrt{-r}$ inestable. $r=0$: uno, semiestable. $r>0$: ninguno; todas las soluciones escapan en tiempo finito. En el estable, $f'=-2\sqrt{-r}\to0$: la escala de tiempo $1/\abs{f'}$ crece sin límite y la convergencia se vuelve lenta (es el retraso de la \cref{tr:un-histeresis}).
+
+\paragraph{Problema~\ref{prob:un-allee}}
+$0$ estable, $a$ inestable, $1$ estable. Región de atracción de $0$: $(-\infty,a)$ (en el modelo, $[0,a)$); de $1$: $(a,\infty)$. Como en la cosecha, el equilibrio inestable es un umbral de extinción; la diferencia es que aquí el umbral lo pone la biología (encontrar pareja), no el cosechador.
+
+\paragraph{Problema~\ref{prob:un-finito}}
+$\dif x/x^{1/3}=-\dif t$ da $\tfrac32\bigl(x_0^{2/3}-x^{2/3}\bigr)=t$, que llega a $0$ en $T$. No contradice la proposición porque $x^{1/3}$ no es Lipschitz en $0$. Si $f$ es localmente Lipschitz y $x(T)=\eq$, entonces $x(t)$ y la constante $\eq$ resuelven el mismo problema de valor inicial en $T$, hacia atrás en el tiempo; por unicidad, $x\equiv\eq$, contradicción.
+
+\paragraph{Problema~\ref{prob:un-clasificar}}
+(a) $0$ estable, $\pm1$ inestables. (b) $k\pi$; $f'(k\pi)=e^{-k\pi}(-1)^k$: alternan como en $\sin x$. (c) $0$ con $f'(0)=0$: semiestable ($f\ge0$ a los dos lados); $1$ estable. (d) $0$, con $f'(0)=-1+2=1$: inestable; y otra raíz positiva cerca de $0.797$, estable. La proposición falla en (c), y se decide por el signo de $f$.
+
+\paragraph{Problema~\ref{prob:un-coordinacion}}
+$\dot p_1=p_1(1-p_1)\bigl((a+b)p_1-b\bigr)$: equilibrio interior $b/(a+b)$ inestable; $0$ y $1$ estables, con regiones $[0,b/(a+b))$ y $(b/(a+b),1]$. Biestable, como el diodo túnel: la población ``recuerda'' qué estrategia era mayoritaria.
+
+\paragraph{Problema~\ref{prob:un-trampa}}
+El error es pasar de local a global. Los equilibrios son $0$ (estable) y $\pm1$ (inestables); la región de atracción del origen es $(-1,1)$. Para $x_0>1$, $\bar t=\tfrac12\ln\frac{x_0^2}{x_0^2-1}$.
+
+\respuestaspausas

@@ -1,0 +1,71 @@
+%% ---------------------------------------------------------------------
+\section{Halcones y palomas: una dinámica evolutiva}
+\label{sec:un-halcon}
+%% ---------------------------------------------------------------------
+
+El último ejemplo viene de la teoría de juegos evolutiva y muestra que la línea de fase no depende del origen físico del modelo.
+
+\begin{historia}[La lógica del conflicto animal]
+En 1973, John Maynard Smith y George Price se preguntaron por qué los conflictos entre animales de la misma especie rara vez escalan hasta el daño grave, aunque los contendientes tienen armas eficaces (cuernos, colmillos) \citep{MSPr73}. Su respuesta introdujo la noción de \emph{estrategia evolutivamente estable}. En 1978, Peter Taylor y Leo Jonker propusieron una dinámica que describe cómo cambia la composición de una población que usa varias estrategias \citep{TaJo78}; el nombre \emph{dinámica del replicador} lo acuñaron Schuster y Sigmund en 1983 \citep{ScSi83}. La versión de dos estrategias con el nombre halcón--paloma se popularizó con el libro de Maynard Smith \citep{MS82}.
+\end{historia}
+
+\paragraph{La dinámica del replicador.} Una población usa $N$ estrategias. Su estado es el vector de proporciones $p=(p_1,\dots,p_N)\T$, que vive en el \clave{símplex}
+\[
+  \simplex=\Bigl\{p\in\R^N:\ p_i\ge0,\ \textstyle\sum_{i=1}^Np_i=1\Bigr\}.
+\]
+En un juego simétrico con \clave{matriz de pagos} $\Pi\in\R^{N\times N}$, el pago esperado de la estrategia $i$ es $F_i(p)=(\Pi p)_i$ y el pago medio es $\bar F(p)=p\T\Pi p$. Una estrategia crece en proporción a cuánto supera su pago al promedio:
+\begin{equation}
+  \dot p_i=p_i\bigl(F_i(p)-\bar F(p)\bigr),\qquad i=1,\dots,N .
+  \label{eq:un-replicador}
+\end{equation}
+\notamargen{Se usa $F$ para los pagos, como en \citet{San10}. Las notas de 2024 escribían $\omega(\bar\pi_i,p)$ y $J_1$; se cambió para no chocar con la frecuencia $\omega$ ni con los conjuntos $\omega$-límite.}
+
+\paragraph{El juego.} Dos individuos se disputan un recurso de valor $v>0$. Un \emph{halcón} pelea hasta ganar o salir herido (costo $c>0$); una \emph{paloma} amenaza, pero se retira si el otro escala. Dos halcones ganan cada uno la mitad de las veces: pago esperado $(v-c)/2$. Un halcón contra una paloma se lleva $v$ y la paloma $0$. Dos palomas se reparten el recurso: $v/2$. La matriz de pagos del que elige la fila es
+\begin{equation}
+  \Pi_{\mathrm o}=\begin{bmatrix}\dfrac{v-c}2 & v\\[6pt] 0 & \dfrac v2\end{bmatrix}.
+  \label{eq:un-hd}
+\end{equation}
+
+\begin{lema}[label=lem:un-columnas]{Invarianza por columnas}
+Si a todos los elementos de una columna $j$ de $\Pi$ se les suma la misma constante $k$, la dinámica \eqref{eq:un-replicador} no cambia en $\simplex$.
+\end{lema}
+
+\begin{proof}
+Con $\Pi'=\Pi+k\,\mathbf1e_j\T$, $F_i'(p)=F_i(p)+kp_j$ para todo $i$, y $\bar F'(p)=\bar F(p)+kp_j\sum_ip_i=\bar F(p)+kp_j$ porque $p\in\simplex$. La diferencia $F_i'-\bar F'$ no cambia.
+\end{proof}
+
+Restando $v$ a la segunda columna de $\Pi_{\mathrm o}$ queda $\Pi=\diag\bigl((v-c)/2,\,-v/2\bigr)$, que genera la misma dinámica. Con $p_2=1-p_1$, \eqref{eq:un-replicador} se reduce a un sistema escalar:
+\begin{equation}
+  \dot p_1=f(p_1)\defeq\tfrac12\,p_1(1-p_1)(v-c\,p_1),\qquad p_1\in[0,1] .
+  \label{eq:un-hd-escalar}
+\end{equation}
+
+\begin{ejemplo}[label=ej:un-hd]{Halcones y palomas en la línea de fase}
+Encuentre y clasifique los equilibrios de \eqref{eq:un-hd-escalar} según el signo de $v-c$.
+\solucion Los equilibrios son $0$, $1$ y $v/c$. Derivando,
+\[
+  f'(p_1)=\tfrac12\bigl[(1-2p_1)(v-cp_1)-c\,p_1(1-p_1)\bigr],
+\]
+de donde $f'(0)=v/2>0$, $f'(1)=(c-v)/2$ y $f'(v/c)=-\tfrac v2\bigl(1-\tfrac vc\bigr)$.
+\begin{itemize}
+  \item Si $v<c$ (pelear cuesta más de lo que se gana): los tres están en $[0,1]$; $0$ y $1$ son inestables y $v/c$ es estable. La población converge a una mezcla con una fracción $v/c$ de halcones desde cualquier estado interior (\cref{fig:un-halcon}). Con $v=1$ y $c=3$, a $1/3$, con $f'(1/3)=-1/3$. Esa es la respuesta de Maynard Smith y Price: no todos los encuentros escalan porque, en equilibrio, solo una parte de la población usa la estrategia agresiva.
+  \item Si $v>c$: $v/c>1$ no está en el espacio de estado; $f>0$ en $(0,1)$ y la población converge a $p_1=1$: todos halcones.
+\end{itemize}
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_halcon}
+\caption{Línea de fase de \eqref{eq:un-hd-escalar} con $v<c$ y con $v>c$, y fracción de halcones con $v=1$, $c=3$ desde siete condiciones iniciales.}
+\label{fig:un-halcon}
+\end{figure}
+
+\codigorepo{cap02_unidimensionales/C2_Ej7_HalconPaloma.m}{replicador}{Replicador: matriz original, matriz reducida y forma escalar}
+
+Dos hechos de este ejemplo reaparecerán. Primero, el intervalo $[0,1]$ es \clave{invariante}: como $0$ y $1$ son equilibrios, la \cref{prop:un-monotonia} impide que una solución que empieza en $[0,1]$ lo abandone. Es el primer ejemplo de un conjunto invariante, la idea central del principio de LaSalle (capítulo~8). Segundo, el sistema escalar se obtuvo restringiendo un sistema de dimensión 2 a la recta invariante $p_1+p_2=1$; en el \cref{cap:pasividad} la misma dinámica del replicador reaparece repartiendo agua entre tanques.
+
+\begin{trampa}[label=tr:un-dominio]{Los equilibrios son las raíces de $f$}
+\plausible{Los equilibrios del juego halcón--paloma son siempre $0$, $1$ y $v/c$.}
+Las tres raíces de $f$ existen siempre, pero $v/c$ es un estado de la población solo si $v/c\le1$. Si $v>c$, la raíz $v/c$ es un número sin significado: una proporción mayor que uno.
+\correcto{Una raíz de $f$ es un equilibrio \emph{del modelo} solo si está en el conjunto donde el modelo tiene sentido. Antes de clasificar equilibrios hay que verificar que estén en el dominio y que el dominio sea invariante.}
+\end{trampa}

@@ -267,7 +267,7 @@ window.MathJax = { tex: { macros: {
 <div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">cd</span> <span class="va">ruta</span><span class="op">/</span><span class="va">al</span><span class="op">/</span><span class="va">repositorio</span><span class="op">/</span><span class="va">codigo</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">iniciarCurso</span>              <span class="co">% agrega comun/ y todos los capítulos al path</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">C11_Ej1_MasaResorte</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">verificarCap11</span>            <span class="co">% comprueba los números del capítulo (o verificarCap03, 05, 12)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">verificarCap11</span>            <span class="co">% comprueba los números del capítulo (o verificarCap01, 02, 03, 05, 12)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Los scripts <code>C*_Ej*</code> no requieren <em>toolboxes</em> (y corren en GNU Octave); los <code>crearModelo_*.m</code> requieren Simulink y los videos, <code>VideoWriter</code>.</p>
 </section>
 <section id="organización" class="level2">
@@ -282,7 +282,19 @@ window.MathJax = { tex: { macros: {
 │   ├── balanceEnergia.m      V - V(0) = int s - int d sobre una simulación
 │   ├── jacobianoNumerico.m   jacobiano por diferencias centradas
 │   ├── derivadaLie.m         derivada de Lie numérica L_f lambda
-│   └── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
+│   ├── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
+│   └── lineaFase.m           línea de fase de x' = f(x), clasificación por el signo de f
+├── cap01_introduccion/
+│   ├── C1_Ej1 … C1_Ej9       superposición, logística, panorama, energía, reescalamiento, control
+│   ├── C1_Video_*            Lorenz y mapa logístico
+│   ├── crearModelo_EstructuraVariable  EstructuraVariable.slx
+│   └── verificarCap01.m      34 pruebas de los números del capítulo
+├── cap02_unidimensionales/
+│   ├── C2_Ej1 … C2_Ej9       línea de fase, no hiperbólicos, potencial, cosecha, diodo, histéresis, halcón-paloma, unicidad, escape
+│   ├── C2_Video_*            línea de fase e histéresis
+│   ├── crearModelo_DiodoTunel  DiodoTunel.slx
+│   ├── diodoTunel.m          característica h(v) del diodo túnel (Khalil)
+│   └── verificarCap02.m      37 pruebas de los números del capítulo
 ├── cap03_preliminares/
 │   ├── C3_Ej1 … C3_Ej10      métricas, normas, Lipschitz, Picard, escape, comparación
 │   ├── C3_Video_*            Picard y no unicidad

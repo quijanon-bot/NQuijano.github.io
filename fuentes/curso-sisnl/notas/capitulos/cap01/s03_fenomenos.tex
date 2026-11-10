@@ -1,0 +1,106 @@
+%% ---------------------------------------------------------------------
+\section{Cinco cosas que un sistema lineal no puede hacer}
+\label{sec:in-fenomenos}
+%% ---------------------------------------------------------------------
+
+Un sistema lineal $\dot x=Ax$ es, en cierto sentido, aburrido. O el origen es su único equilibrio, o tiene un subespacio entero de ellos. Sus soluciones son combinaciones de exponenciales y senoides, $x(t)=e^{At}x_0$, que existen para todo $t$. Si oscila, la amplitud la fija la condición inicial y el período no depende de ella. Y si $x_a$ y $x_b$ son soluciones, $\alpha x_a+\beta x_b$ también lo es. Un sistema no lineal puede romper cada una de esas reglas. La lista que sigue es el mapa del curso (\cref{fig:in-panorama}).
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_panorama}
+\caption{Cinco comportamientos imposibles para $\dot x=Ax$. (a) Péndulo con fricción: infinitos equilibrios, unos estables y otros no. (b) Van der Pol: el mismo ciclo desde adentro (azul) y desde afuera (violeta). (c) Escape en tiempo finito. (d) Silla-nodo: dos equilibrios chocan y desaparecen. (e)--(f) Lorenz: dos condiciones iniciales a $10^{-9}$ se separan.}
+\label{fig:in-panorama}
+\end{figure*}
+
+\subsection{Equilibrios aislados múltiples}
+
+El péndulo con fricción, con $x_1=\theta$ medido desde la vertical hacia abajo y $x_2=\dot\theta$,
+\begin{equation}
+  \dot x_1=x_2,\qquad \dot x_2=-\frac g\ell\sin x_1-\frac km\,x_2 ,
+  \label{eq:in-pendulo}
+\end{equation}
+tiene equilibrios en $\eq=(n\pi,0)$, $n\in\Z$. Infinitos, y de dos clases: con $n$ par el péndulo cuelga, y vuelve si se le perturba; con $n$ impar está invertido, y se cae. La consecuencia es inmediata: \alerta{en un sistema no lineal la estabilidad es una propiedad de un equilibrio, no del sistema}. Preguntar ``¿es estable esta planta?'' es una pregunta mal planteada. Y aparece una pregunta que en lo lineal no existe: no basta saber a dónde converge la solución, hay que saber \emph{desde dónde}: la \clave{región de atracción} (capítulos~7 y~8).
+
+\subsection{Ciclos límite: oscilar sin que nadie lo sostenga}
+
+El oscilador armónico $\ddot x+x=0$ oscila, pero la amplitud la decide la condición inicial: hay una familia continua de órbitas cerradas, y cualquier perturbación lo pasa a otra. Compare con el oscilador de van der Pol \citep{van26},
+\begin{equation}
+  \ddot x-\varepsilon\,(1-x^2)\,\dot x+x=0,\qquad\varepsilon>0 .
+  \label{eq:in-vdp}
+\end{equation}
+El término $-\varepsilon(1-x^2)\dot x$ es un amortiguamiento que \emph{cambia de signo}: inyecta energía cuando $\abs x<1$ y la disipa cuando $\abs x>1$. El resultado es una órbita cerrada \emph{aislada}, un \clave{ciclo límite}, a la que llegan las soluciones desde adentro y desde afuera; con $\varepsilon=1$, su amplitud es $2.009$ desde cualquier condición inicial distinta del origen (\cref{fig:in-panorama}b). La amplitud y la frecuencia son propiedades \emph{del sistema}. El latido del corazón, los osciladores de radio, los relojes mecánicos y las neuronas son ciclos límite; si fueran osciladores lineales, un empujón les cambiaría la amplitud para siempre. Detectarlos, y descartarlos, es el tema del \cref{cap:orbitas}.
+
+\codigorepo{cap01_introduccion/C1_Ej3_Panorama.m}{vanderpol}{El mismo ciclo desde adentro y desde afuera}
+
+\subsection{Escape en tiempo finito}
+
+Las soluciones de un sistema lineal inestable crecen, pero tardan un tiempo infinito en llegar a infinito. Un sistema no lineal puede llegar \emph{a una hora fija}. Con $\dot x=-x^2$, $x(0)=-1$, separando variables, $x(t)=1/(t-1)$: la solución tiende a $-\infty$ cuando $t\to1^-$ y \emph{no existe} después (\cref{fig:in-panorama}c). Un integrador numérico no lo anuncia; reporta números cada vez más grandes. Un pariente todavía más incómodo es la \clave{no unicidad}: $\dot x=x^{1/3}$ con $x(0)=0$ tiene infinitas soluciones. Los dos fenómenos se ven en el \cref{cap:unidimensionales} y se explican en el \cref{cap:preliminares}.
+
+\subsection{La amplitud importa: período, armónicos, sincronización}
+
+En un sistema lineal invariante en el tiempo, una entrada senoidal produce en régimen permanente una salida senoidal de la \emph{misma} frecuencia; sobre ese hecho descansa el diagrama de Bode. En un sistema no lineal la salida tiene armónicos, a veces subarmónicos, y el período de una oscilación libre depende de su amplitud. El péndulo sin fricción con amplitud $\theta_0$ tiene período
+\[
+  T(\theta_0)=\frac{4}{\omega_0}\,K\!\left(\sin\frac{\theta_0}{2}\right),\qquad K(k)=\int_0^{\pi/2}\frac{\dif\varphi}{\sqrt{1-k^2\sin^2\varphi}},
+\]
+donde $\omega_0=\sqrt{g/\ell}$ y $T_0=2\pi/\omega_0$ es el período de las oscilaciones pequeñas. La \cref{tab:in-periodo} muestra que el ``período del péndulo'' solo existe para amplitudes pequeñas. Y hay fenómenos sin ninguna contraparte lineal, como la \clave{sincronización}: una población de osciladores acoplados que, por encima de un acople crítico, adopta espontáneamente una frecuencia común \citep{Kur75}. Es el modelo de Kuramoto del \cref{cap:orbitas}, el mismo que aparece, con otras unidades, en el sincronismo de los generadores de un sistema de potencia.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Amplitud $\theta_0$ & $10\grados$ & $45\grados$ & $90\grados$ & $170\grados$\\
+\midrule
+$T/T_0$ & $1.0019$ & $1.0400$ & $1.1803$ & $2.4394$\\
+\bottomrule
+\end{tabular}
+\caption{Período del péndulo sin fricción contra la amplitud (\cmd{C1\_Ej3\_Panorama.m}).}
+\label{tab:in-periodo}
+\end{table}
+
+\codigorepo{cap01_introduccion/C1_Ej3_Panorama.m}{periodo}{El período depende de la amplitud}
+
+\subsection{Bifurcaciones y caos}
+
+Los cuatro fenómenos anteriores ocurren con parámetros fijos. El quinto tiene que ver con lo que pasa cuando los parámetros \emph{cambian}. En $\dot x=r+x^2$, para $r<0$ hay dos equilibrios, $\pm\sqrt{-r}$, uno estable y otro inestable; en $r=0$ chocan; para $r>0$ no hay ninguno y todas las soluciones escapan. El retrato de fase no se deforma: se \emph{reorganiza}. Eso es una \clave{bifurcación} (aquí, silla-nodo; capítulo~6).
+
+En dimensión tres o más, un sistema determinista, sin nada aleatorio, puede tener soluciones acotadas, no periódicas y con dependencia sensible de las condiciones iniciales. El ejemplo canónico es el de Lorenz \citep{Lor63},
+\begin{equation}
+  \dot x=\sigma(y-x),\qquad \dot y=x(\rho-z)-y,\qquad \dot z=xy-\beta z,
+  \label{eq:in-lorenz}
+\end{equation}
+con $\sigma=10$, $\rho=28$, $\beta=8/3$. Dos condiciones iniciales a $10^{-9}$ una de la otra son indistinguibles durante unos 25 segundos; hacia $t\approx33$ la diferencia ya es del tamaño del atractor (\cref{fig:in-panorama}f). \clave{Determinismo no implica predictibilidad.} Este no es un curso de caos, pero conviene saber dónde termina el mapa.
+
+\video{V1_1_lorenz}{Dos trayectorias de Lorenz a $10^{-9}$}
+\codigorepo{cap01_introduccion/C1_Ej3_Panorama.m}{lorenz}{Sensibilidad a las condiciones iniciales}
+
+\begin{trampa}[label=tr:in-caos]{Una simulación muy precisa predice el futuro}
+\plausible{Con tolerancias de $10^{-12}$, la simulación de Lorenz es la trayectoria verdadera hasta $t=40$.}
+Un error de $10^{-12}$ en cada paso se amplifica como la diferencia de condiciones iniciales: en promedio, por un factor $e^{0.9}$ por unidad de tiempo. Hacia $t\approx30$ el error de redondeo ya es del tamaño del atractor, y el instante exacto en que la simulación se separa de la solución verdadera cambia si se cambian las tolerancias (pruébelo en \cmd{C1\_Ej3\_Panorama}).
+\correcto{En un sistema caótico la simulación es confiable en un horizonte finito y, después, solo en lo cualitativo: la forma del atractor, las estadísticas, el rango de valores. Ningún integrador predice $x(40)$.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/t_mapa_curso}
+\caption{El mapa del curso. Los capítulos 1--6 construyen la geometría del espacio de estado; los capítulos 7--10, la teoría de estabilidad que no necesita resolver la ecuación; los capítulos 11 y 12, el diseño.}
+\label{fig:in-mapa}
+\end{figure}
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}p{0.42\linewidth}p{0.5\linewidth}@{}}
+\toprule
+Fenómeno & Dónde se estudia\\
+\midrule
+Equilibrios, estabilidad en la recta y en el plano & capítulos~\ref{cap:unidimensionales} y~4\\
+Existencia, unicidad, escape en tiempo finito & capítulos~\ref{cap:unidimensionales} y~\ref{cap:preliminares}\\
+Órbitas, ciclos límite, sincronización & \cref{cap:orbitas}\\
+Bifurcaciones & capítulo~6\\
+Estabilidad de Lyapunov, región de atracción, LaSalle & capítulos~7 y~8\\
+Sistemas variantes en el tiempo, ISS, CLF & capítulos~9 y~10\\
+Diseño: pasividad y linealización por retroalimentación & \cref{cap:pasividad,cap:linealizacion}\\
+\bottomrule
+\end{tabular}
+\caption{Dónde se estudia cada fenómeno.}
+\label{tab:in-mapa}
+\end{table}

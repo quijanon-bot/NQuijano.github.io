@@ -1,0 +1,88 @@
+%% ---------------------------------------------------------------------
+\section{Un circuito con memoria: el diodo túnel}
+\label{sec:un-diodo}
+%% ---------------------------------------------------------------------
+
+El diodo túnel tiene una característica corriente--voltaje $i=h(v)$ con una región de \clave{resistencia diferencial negativa}: en un intervalo de voltajes, la corriente \emph{baja} cuando el voltaje sube. Conectado en paralelo con un condensador $C$ y alimentado por una fuente $E$ a través de una resistencia $R$ (\cref{fig:un-circuito}), la ley de corrientes de Kirchhoff en el nodo da
+\begin{equation}
+  C\,\dot v=\frac{E-v}{R}-h(v) .
+  \label{eq:un-diodo}
+\end{equation}
+\notamargen{Es el circuito de la sección~1.2.2 de \citet{Kha02} sin la inductancia; con ella el modelo es de segundo orden (\cref{prob:in-diodo} y capítulo~4). Unidades: $v$ en V, $h$ en mA, $R$ en k$\Omega$, $C$ en pF y $t$ en ns, porque $1\,\text{mA}/1\,\text{pF}=1\,\text{V/ns}$.}
+Se usa la característica de \citet{Kha02},
+\[
+  h(v)=17.76v-103.79v^2+229.62v^3-226.31v^4+83.72v^5 ,
+\]
+con $E=1.2$\,V, $R=1.5$\,k$\Omega$ y $C=2$\,pF.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap02/t_diodo}
+\caption{Circuito con diodo túnel. El estado es el voltaje $v$ del condensador.}
+\label{fig:un-circuito}
+\end{figure}
+
+Los equilibrios cumplen $h(v)=(E-v)/R$: son las intersecciones de la característica del diodo con la \clave{recta de carga} (\cref{fig:un-diodo}). Hay tres. Derivando el lado derecho de \eqref{eq:un-diodo},
+\[
+  f'(\eq)=-\frac1C\Bigl(\frac1R+h'(\eq)\Bigr),
+\]
+de modo que un equilibrio es inestable exactamente cuando la resistencia diferencial negativa del diodo vence la conductancia de la carga, $h'(\eq)<-1/R$. Eso solo ocurre en el del medio (\cref{tab:un-diodo}).
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}ccccl@{}}
+\toprule
+$v^*$ [V] & $i^*$ [mA] & $f'(v^*)$ [ns$^{-1}$] & $\tau$ [ns] & tipo\\
+\midrule
+$0.0626$ & $0.758$ & $-3.956$ & $0.253$ & estable\\
+$0.2854$ & $0.610$ & $+1.487$ & $0.673$ & inestable\\
+$0.8844$ & $0.210$ & $-1.770$ & $0.565$ & estable\\
+\bottomrule
+\end{tabular}
+\caption{Equilibrios del circuito con diodo túnel ($E=1.2$\,V). Coinciden con los de \citet{Kha02}.}
+\label{tab:un-diodo}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_diodo}
+\caption{Izquierda: característica del diodo y recta de carga; sus intersecciones son los equilibrios. Derecha: línea de fase de \eqref{eq:un-diodo}.}
+\label{fig:un-diodo}
+\end{figure}
+
+\codigorepo{cap02_unidimensionales/C2_Ej5_DiodoTunel.m}{equilibrios}{Equilibrios del diodo túnel y su clasificación}
+
+El circuito es \clave{biestable} (\cref{fig:un-diodo-tiempo}): toda condición inicial por debajo de $0.2854$\,V termina en el estado ``bajo'' y toda condición por encima, en el ``alto''. El equilibrio inestable es la frontera entre las dos \clave{regiones de atracción}: $(-\infty,\,0.2854)$ para el bajo y $(0.2854,\,\infty)$ para el alto. Es una celda de memoria: el circuito ``recuerda'' de qué lado del umbral se le dejó. Ningún circuito lineal puede hacerlo, porque no puede tener dos equilibrios aislados.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\linewidth]{cap02/f_diodo_tiempo}
+\caption{Respuestas $v(t)$ para $v(0)=0,0.1,\dots,1$\,V. En menos de 3\,ns cada una llega al equilibrio estable de su lado del umbral.}
+\label{fig:un-diodo-tiempo}
+\end{figure}
+
+\subsection{Histéresis}
+
+¿Qué pasa si el voltaje $E$ de la fuente cambia lentamente? Los equilibrios son los puntos de la curva $E=v+R\,h(v)$, que tiene un máximo local en $v=0.149$ ($E=1.643$\,V) y un mínimo local en $v=0.513$ ($E=0.659$\,V): \alerta{hay tres equilibrios para $0.659<E<1.643$\,V} y uno solo fuera de ese intervalo. Si $E$ sube desde $0$, el voltaje sigue la rama baja; cuando la rama baja desaparece, en $E\approx1.64$\,V, el estado no tiene a dónde ir más que a la rama alta, y salta. Si después $E$ baja, el estado se queda en la rama alta hasta que esta desaparece, en $E\approx0.66$\,V, y salta abajo (\cref{fig:un-histeresis}). El estado depende de la historia de $E$, no solo de su valor actual: eso es \clave{histéresis}. Cada salto ocurre cuando un equilibrio estable choca con el inestable y ambos desaparecen: dos bifurcaciones silla-nodo.
+
+
+\codigorepo{cap02_unidimensionales/C2_Ej6_Histeresis.m}{intervalo}{¿Para qué $E$ hay tres equilibrios?}
+\codigorepo{cap02_unidimensionales/C2_Ej6_Histeresis.m}{barrido}{Barrido lento de $E$: los saltos}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_histeresis}
+\caption{Izquierda: $E$ sube de $0$ a $1.8$\,V en 4000\,ns y vuelve a bajar; el estado (azul al subir, coral al bajar) recorre las ramas estables de la curva de equilibrios y salta en sus extremos. Derecha: el lado derecho de \eqref{eq:un-diodo} con uno, tres y un equilibrio.}
+\label{fig:un-histeresis}
+\end{figure}
+
+\video{V2_2_histeresis}{El diodo túnel recuerda}
+\begin{modelo}[DiodoTunel.slx]
+\cmd{crearModelo\_DiodoTunel.m} arma \eqref{eq:un-diodo} con un integrador, un bloque \emph{Polynomial} para $h(v)$ y una fuente que sube y baja; simula 8000\,ns y compara con \cmd{ode45}.
+\end{modelo}
+
+\begin{trampa}[label=tr:un-histeresis]{El salto ocurre exactamente en el valor estático}
+\plausible{En el barrido, el voltaje salta a la rama alta justo cuando $E=1.643$\,V.}
+En la simulación salta en $E=1.652$\,V, y al bajar en $0.650$\,V en lugar de $0.659$. No es un error numérico: cerca de una silla-nodo la dinámica es muy lenta (el campo es casi tangente al eje, $f'\approx0$), y el estado se demora en abandonar la rama que acaba de desaparecer. Mientras más rápido el barrido, mayor el retraso.
+\correcto{El análisis de equilibrios (cuasiestático) da los valores a los que tiende el salto cuando el barrido es infinitamente lento. Cerca de una bifurcación, la escala de tiempo $1/\abs{f'(\eq)}$ crece sin límite y la separación de escalas deja de valer.}
+\end{trampa}

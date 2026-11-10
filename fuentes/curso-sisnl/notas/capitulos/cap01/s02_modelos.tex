@@ -1,0 +1,85 @@
+%% ---------------------------------------------------------------------
+\section{Modelos de estado y equilibrios}
+\label{sec:in-modelos}
+%% ---------------------------------------------------------------------
+
+En todo el curso un sistema no lineal se escribe en \clave{variables de estado}:
+\begin{equation}
+  \dot x=f(t,x,u),\qquad x(t_0)=x_0,\qquad y=h(t,x,u),
+  \label{eq:in-general}
+\end{equation}
+con $x\in\D\subseteq\R^n$ el estado, $u\in\R^m$ la entrada, $y\in\R^p$ la salida y $\D$ un dominio (abierto y conexo). Componente a componente, $\dot x_i=f_i(t,x_1,\dots,x_n,u_1,\dots,u_m)$, $i=1,\dots,n$.
+\notamargen{\textbf{Notación} (la de \citet{Kha02}). El tiempo es el \emph{primer} argumento; los vectores no van en negrilla; $\eq$ es un equilibrio. Las convenciones completas están en ``Cómo leer estas notas''.}
+El caso lineal es $\dot x=A(t)x+B(t)u$, $y=C(t)x+D(t)u$.
+
+\begin{definicion}[label=def:in-invariante]{Invariante y variante en el tiempo; forzado}
+El sistema \eqref{eq:in-general} es \clave{invariante en el tiempo} si $f$ y $h$ no dependen explícitamente de $t$, y \clave{variante en el tiempo} si dependen. Es \clave{forzado} si tiene entrada y \clave{no forzado} si no la tiene (o si $u\equiv0$).
+\end{definicion}
+
+\notamargen{En la literatura clásica se dice \emph{autónomo} y \emph{no autónomo}. En estas notas no: ``autónomo'' se confunde con ``sin entrada'', y lo que importa es si $f$ depende de $t$.}
+La entrada admite dos lecturas. Si $u=u(t)$ es una señal conocida (una referencia, una perturbación), el sistema se vuelve no forzado y variante en el tiempo, $\dot x=f(t,x,u(t))$. Si $u=k(t,x)$ es una \clave{ley de control} que depende del estado, el \clave{lazo cerrado}
+\begin{equation}
+  \dot x=f\bigl(t,x,k(t,x)\bigr)\eqqcolon f_{\mathrm{lc}}(t,x)
+  \label{eq:in-lazo}
+\end{equation}
+tampoco tiene entrada, pero ahora el campo vectorial lo \emph{diseñamos} nosotros. Esa es, en una línea, la diferencia entre \clave{análisis} (estudiar $\dot x=f(t,x)$) y \clave{síntesis} (escoger $k$ para que el lazo cerrado tenga las propiedades deseadas), y es el hilo que une la primera mitad del curso con la segunda. Por eso casi toda la teoría se enuncia para $\dot x=f(t,x)$ o $\dot x=f(x)$.
+
+Una ecuación de orden $n$ se vuelve un sistema de primer orden con $x_1=y$, $x_2=\dot y$, \dots, $x_n=y^{(n-1)}$: si $y^{(n)}=\varphi(y,\dot y,\dots,y^{(n-1)},u)$, entonces
+\[
+  \dot x_1=x_2,\quad\dots,\quad\dot x_{n-1}=x_n,\quad\dot x_n=\varphi(x_1,\dots,x_n,u).
+\]
+
+\begin{definicion}[label=def:in-equilibrio]{Punto de equilibrio}
+Un punto $\eq\in\D$ es un \clave{equilibrio} de $\dot x=f(x)$ si $f(\eq)=0$; de $\dot x=f(t,x)$, si $f(t,\eq)=0$ para todo $t\ge t_0$. Para $\dot x=f(x,u)$, el par $(\eq,u^*)$ es un \clave{par de equilibrio} si $f(\eq,u^*)=0$. Un equilibrio es \clave{aislado} si tiene una vecindad sin otros equilibrios.
+\end{definicion}
+
+Equivalentemente, $\eq$ es un equilibrio si la función constante $x(t)\equiv\eq$ es una solución. Para $\dot x=Ax$ los equilibrios forman el espacio nulo de $A$: si $A$ es invertible el origen es el único, y si no, hay un subespacio entero de equilibrios, ninguno aislado. \alerta{Un sistema lineal no puede tener dos equilibrios aislados.}
+
+\paragraph{Trasladar el equilibrio al origen.} Si $\eq$ es un equilibrio de $\dot x=f(x)$, con $z=x-\eq$,
+\[
+  \dot z=f(z+\eq)\eqqcolon g(z),\qquad g(0)=f(\eq)=0 .
+\]
+Lo mismo con un par $(\eq,u^*)$ y $v=u-u^*$. Por eso los teoremas se enuncian para el origen: la traslación no cambia la forma de las trayectorias, solo su ubicación.
+\notamargen{Gratis para las matemáticas, no para la interpretación: al final del diseño hay que deshacer la traslación para saber qué significa ``$z=0$'' en las unidades de la planta. Olvidarlo es un error frecuente al reportar simulaciones.}
+
+\begin{trampa}[label=tr:in-tiempo]{Convertir el tiempo en un estado}
+\plausible{Todo sistema variante en el tiempo $\dot x=f(t,x)$ es en realidad invariante: basta agregar el estado $x_{n+1}=t$, con $\dot x_{n+1}=1$.}
+Como reescritura es correcta, pero no sirve para estudiar estabilidad: el sistema aumentado $\bigl(\dot x,\dot x_{n+1}\bigr)=\bigl(f(x_{n+1},x),1\bigr)$ \emph{no tiene equilibrios}, porque $\dot x_{n+1}=1\neq0$, y todas sus soluciones son no acotadas en la última coordenada. La pregunta ``¿es estable el origen de $\dot x=f(t,x)$?'' no tiene traducción en el sistema aumentado.
+\correcto{Los sistemas variantes en el tiempo necesitan una teoría propia, con nociones de \emph{uniformidad} respecto al instante inicial (capítulo~9).}
+\end{trampa}
+
+\paragraph{Una advertencia que atraviesa el curso.} Todo lo anterior supone que \eqref{eq:in-general} tiene sentido: que por cada condición inicial pasa una solución, una sola, y que existe mientras la necesitamos. No siempre es así (\cref{sec:in-fenomenos} y capítulo~\ref{cap:unidimensionales}); las condiciones que lo garantizan (Lipschitz) son el tema del \cref{cap:preliminares}. Por ahora la moraleja es: \alerta{antes de aplicar una herramienta a un modelo, verifique sus hipótesis.}
+
+%% ---------------------------------------------------------------------
+\subsection{Reescalar: menos parámetros, más entendimiento}
+\label{sec:in-reescalar}
+%% ---------------------------------------------------------------------
+
+Así como se traslada un equilibrio, se puede \clave{reescalar} el tiempo y las variables para eliminar parámetros \citep{KeBr23}. Considere el masa-resorte con fricción, $m\ddot y+c\dot y+ky=0$, con $x_1=y$, $x_2=\dot y$. Con un tiempo nuevo $\tau=\omega t$ y $z_1=x_1$, $z_2=\dif z_1/\dif\tau=x_2/\omega$,
+\[
+  \frac{\dif z_1}{\dif\tau}=z_2,\qquad \frac{\dif z_2}{\dif\tau}=-\frac{k}{m\omega^2}\,z_1-\frac{c}{m\omega}\,z_2 .
+\]
+Como $\omega$ es libre, se escoge $\omega=\sqrt{k/m}$, y con $\alpha=c/\sqrt{km}$ queda
+\begin{equation}
+  \frac{\dif z_1}{\dif\tau}=z_2,\qquad\frac{\dif z_2}{\dif\tau}=-z_1-\alpha z_2 .
+  \label{eq:in-normalizado}
+\end{equation}
+Tres parámetros $(m,k,c)$ se reducen a uno, $\alpha$: un barrido que era tridimensional ahora es una recta (\cref{fig:in-reescalamiento}). Con el péndulo $m\ell\ddot\theta=-mg\sin\theta-k\ell\dot\theta$, el mismo procedimiento con $\omega=\sqrt{g/\ell}$ y $\alpha=k/(m\omega)$ da
+\begin{equation}
+  \frac{\dif z_1}{\dif\tau}=z_2,\qquad\frac{\dif z_2}{\dif\tau}=-\sin z_1-\alpha z_2 .
+  \label{eq:in-pendulo-norm}
+\end{equation}
+Cerca de $z_1=0$, $\sin z_1\approx z_1$ y \eqref{eq:in-pendulo-norm} se parece a \eqref{eq:in-normalizado}: \emph{cerca del equilibrio de abajo, el péndulo es un masa-resorte}. Esa frase, hecha precisa, es el método indirecto de Lyapunov (capítulo~7).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_reescalamiento}
+\caption{Tres masa-resorte con $(m,k,c)$ distintos y el mismo $\alpha=c/\sqrt{km}=0.5$. En la variable $\tau=\omega t$ las tres respuestas son la misma curva.}
+\label{fig:in-reescalamiento}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej5_Reescalamiento.m}{reescalar}{Tres sistemas, una curva}
+
+\begin{cuidado}[Deshacer el reescalamiento]
+Una ganancia calculada en coordenadas normalizadas no es la que se programa en el equipo, y un tiempo de establecimiento en $\tau$ no está en segundos. Reportar resultados adimensionales sin la transformación inversa es un error recurrente en los proyectos.
+\end{cuidado}

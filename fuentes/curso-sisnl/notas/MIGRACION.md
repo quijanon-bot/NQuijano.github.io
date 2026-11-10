@@ -13,6 +13,14 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 9. **Página web.** Copiar `sitio/partes/11-pasividad.qmd` como plantilla y agregar el capítulo a `NOMBRES` en `herramientas/pdf_por_capitulo.py`.
 10. **Numeración.** En `NotasSisNL.tex`, `\setcounter{chapter}{N-1}` antes del `\input` del capítulo N mientras los anteriores no estén migrados.
 
+## Pendientes de los capítulos 1 y 2 (migrados el 10 de noviembre de 2026)
+
+- Correr en MATLAB `crearModelo_EstructuraVariable` y `crearModelo_DiodoTunel` (Simulink no estaba disponible) y grabar, si se quiere la versión de MATLAB, los `C1_Video_*` y `C2_Video_*`; los MP4 publicados son los de `herramientas/cap01_02_videos.py`.
+- Confirmar en Khalil (3.ª ed.) la sección del diodo túnel (§1.2.2) y la notación del capítulo 1.
+- Verificar datos bibliográficos de Poi1881 (continuación en 1882, 1885 y 1886), And29, Duf18, San64 y Bro83 (páginas en el libro de Birkhäuser).
+- Las fotos de Malthus, Verhulst, Poincaré, Lyapunov y Newton del Handout1 (y las de la colección personal) no se pasaron a las notas; si se quieren, van en `notas/figuras/cap01/` con su crédito.
+- El capítulo 1 cita los capítulos 4 y 6--10 por número (aún no migrados); al migrarlos, cambiar "capítulo~7" por `\cref{cap:lyapunov}`, etc.
+
 ## Pendientes del capítulo 12 (migrado el 9 de noviembre de 2026)
 
 - Correr en MATLAB `C12_Video_*` y `crearModelo_LevitadorFL` (los videos se probaron en Octave sin grabar; el modelo de Simulink no se pudo probar). Los scripts originales de las clases (`FL1_V*`, `FL2_V*`, carpeta `Present2026/FeedbackLinearization2026/matlab`) quedan como están.
@@ -31,4 +39,3 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 - Correr en MATLAB los `C11_Video_*` y los `crearModelo_*` (no se pudieron probar sin MATLAB/Simulink).
 - Confirmar en la 3.ª edición de Khalil la numeración citada: Def. 6.1, 6.3, 6.4, 6.5; Lemas 6.1–6.4, 6.6, 6.7; Teoremas 6.1 y 6.3; §14.4.
 - Verificar volumen y páginas de las entradas nuevas de `referencias.bib` (LuPo44, Pop61, Yak62 en particular).
-- El capítulo 2 ya está revisado en el borrador Tufte `LibroSisNL2026/capitulos/cap02_unidimensionales.tex`: su migración es casi mecánica (cambiar cajas y rutas).

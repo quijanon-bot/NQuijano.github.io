@@ -1,0 +1,45 @@
+%% ---------------------------------------------------------------------
+\section{Estabilidad y linealización}
+\label{sec:un-linealizacion}
+%% ---------------------------------------------------------------------
+
+La línea de fase sugiere tres clases de equilibrios aislados. Las definiciones precisas ($\varepsilon$--$\delta$) son del capítulo~7; por ahora bastan las geométricas.
+
+\begin{definicion}[label=def:un-clasificacion]{Clasificación en la recta}
+Sea $\eq$ un equilibrio aislado de \eqref{eq:un-escalar}. Se dice que $\eq$ es \clave{estable} (un \emph{atractor}) si $f>0$ inmediatamente a la izquierda de $\eq$ y $f<0$ inmediatamente a la derecha; \clave{inestable} (un \emph{repulsor}) si los signos son los opuestos; y \clave{semiestable} si $f$ tiene el mismo signo a ambos lados.
+\end{definicion}
+
+Para decidir el tipo sin graficar se linealiza. Si $f\in\Cont1$ y $x=\eq+\eta$ con $\eta$ pequeño,
+\[
+  \dot\eta=f(\eq+\eta)=\underbrace{f(\eq)}_{=0}+f'(\eq)\,\eta+o(\eta) .
+\]
+Si $f'(\eq)\neq0$ el término lineal domina cerca de $\eq$, y la perturbación evoluciona como $\eta(t)\approx\eta(0)\,e^{f'(\eq)t}$.
+
+\begin{proposicion}[label=prop:un-derivada]{Criterio de la derivada}
+Sea $f\in\Cont1$ con $f(\eq)=0$. Si $f'(\eq)<0$, el equilibrio $\eq$ es estable; si $f'(\eq)>0$, es inestable. En ambos casos $\tau=1/\abs{f'(\eq)}$ es la escala de tiempo de la dinámica cerca de $\eq$.
+\end{proposicion}
+
+\begin{proof}
+Si $f'(\eq)<0$, por la continuidad de $f'$ existe $r>0$ con $f'<0$ en $(\eq-r,\eq+r)$. Allí $f$ es estrictamente decreciente y, como $f(\eq)=0$, $f>0$ a la izquierda y $f<0$ a la derecha. El caso $f'(\eq)>0$ es simétrico.
+\end{proof}
+
+Un equilibrio con $f'(\eq)\neq0$ se llama \clave{hiperbólico}. Para $\sin x$, $f'(k\pi)=\cos k\pi=(-1)^k$: confirma la clasificación del \cref{ej:un-seno}, con $\tau=1$.
+
+\begin{trampa}[label=tr:un-nohiperbolico]{$f'(\eq)=0$ no decide nada}
+\plausible{Si $f'(\eq)=0$, la linealización $\dot\eta=0$ dice que las perturbaciones ni crecen ni decrecen: $\eq$ es marginalmente estable.}
+La \cref{prop:un-derivada} no dice nada cuando $f'(\eq)=0$, y puede pasar cualquier cosa. Los sistemas
+\[
+  \dot x=-x^3,\qquad \dot x=x^3,\qquad \dot x=x^2
+\]
+tienen $f(0)=f'(0)=0$, la misma linealización, y el origen es estable, inestable y semiestable, respectivamente (\cref{fig:un-nohiperbolicos}). Hay más. En el caso estable la convergencia \emph{no es exponencial}: $x(t)=x_0/\sqrt{1+2x_0^2t}$ decae como $t^{-1/2}$ (con $x_0=1$, $x(10)=1/\sqrt{21}=0.218$). En los otros dos, las soluciones no solo se alejan del origen: \emph{escapan a infinito en tiempo finito} (\cref{sec:un-escape}).
+\correcto{Un equilibrio no hiperbólico se clasifica con términos de orden superior o con un argumento global, nunca con la linealización. Este caso límite es el corazón de la teoría de bifurcaciones (capítulo~6).}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_no_hiperbolicos}
+\caption{Tres equilibrios no hiperbólicos con la misma linealización. Abajo, las soluciones se detienen al llegar a $\abs x=3$. La línea punteada es $1.5/\sqrt{1+4.5\,t}$.}
+\label{fig:un-nohiperbolicos}
+\end{figure}
+
+\codigorepo{cap02_unidimensionales/C2_Ej2_NoHiperbolicos.m}{tres}{Tres sistemas con $f'(0)=0$}

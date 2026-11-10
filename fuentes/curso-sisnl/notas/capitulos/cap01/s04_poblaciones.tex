@@ -1,0 +1,66 @@
+%% ---------------------------------------------------------------------
+\section{Un ejemplo con historia: el crecimiento de una población}
+\label{sec:in-poblaciones}
+%% ---------------------------------------------------------------------
+
+Volvamos a los conejos del \cref{ej:in-islas}. El modelo $P[k+1]=2P[k]$ duplica la población cada año sin límite: en unos cientos de generaciones los conejos cubrirían el planeta. Hace falta un freno.
+
+\begin{historia}[Malthus, Verhulst y la ecuación logística]
+Thomas Robert Malthus (1766--1834), pastor anglicano y después profesor de economía política en el colegio de la Compañía de las Indias Orientales en Haileybury, publicó en 1798 su \emph{Ensayo sobre el principio de la población} \citep{Mal86}: la población tiende a crecer en progresión geométrica y los alimentos solo en progresión aritmética, de modo que los recursos acaban por limitar a la población. Pierre François Verhulst (1804--1849), matemático belga doctorado en Gante y discípulo de Adolphe Quetelet, convirtió esa idea en una ecuación: en 1838 propuso un crecimiento que se frena al acercarse a un máximo, y en 1845 la llamó \emph{logística} \citep{Ver45}. La ecuación quedó olvidada hasta que Raymond Pearl y Lowell Reed la redescubrieron en 1920 para ajustar los censos de Estados Unidos \citep{PeRe20}. En 1976, Robert May (1936--2020) mostró en \emph{Nature} que su versión \emph{discreta}, la más simple que uno pueda imaginar, tiene una dinámica extraordinariamente complicada \citep{May76}; a partir de ese artículo los biólogos empezaron a tomarse en serio los modelos no lineales, y dos años después Mitchell Feigenbaum encontró en ella constantes universales del camino al caos \citep{Fei78}.
+\end{historia}
+
+\subsection{El mapa logístico}
+
+Con $P[k]$ la población en el año $k$, $K$ la capacidad del medio y $R$ el factor de crecimiento por generación,
+\begin{equation}
+  P[k+1]=R\,P[k]\Bigl(1-\frac{P[k]}{K}\Bigr).
+  \label{eq:in-mapa}
+\end{equation}
+El factor $(1-P/K)$ es la sobrepoblación: cuando $P$ se acerca a $K$, las crías mueren antes de reproducirse. Los equilibrios (puntos fijos, $P^*=F(P^*)$) son $P^*=0$ y $P^*=K(1-1/R)$.
+
+\begin{ejemplo}[label=ej:in-mapa]{Iterar el mapa}
+Con natalidad $2$, mortandad $0.4$ (de modo que $R=1.6$), capacidad $K=32$ y $P[0]=1$: ¿cuánto vale $P[1]$? ¿Y $P[21]$? Repita con $R=3.2$, $3.5$ y $3.9$. ¿Puede un modelo lineal de una sola variable hacer lo mismo?
+\solucion $P[1]=1.6\cdot1\cdot\tfrac{31}{32}=1.55$. Iterando, la población sube monótonamente hacia el punto fijo $K(1-1/R)=32\cdot0.375=12$; en $P[21]$ ya vale $12.0000$ con cuatro cifras. Con $R=3.2$ la población termina alternando entre $16.42$ y $25.58$: un \emph{ciclo de período 2}. Con $R=3.5$ el ciclo es de período 4. Con $R=3.9$ no se repite nunca (\cref{fig:in-logistica}). Un modelo lineal escalar $P[k+1]=aP[k]$ solo puede crecer, decrecer o alternar de signo geométricamente: nada de eso.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_logistica}
+\caption{El mapa logístico \eqref{eq:in-mapa} con $K=32$, $P[0]=1$ y cuatro valores de $R$.}
+\label{fig:in-logistica}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej2_Logistica.m}{discreta}{Iterar el mapa logístico}
+\codigorepo{cap01_introduccion/C1_Ej2_Logistica.m}{regimenes}{Puntos fijos, ciclos y caos}
+
+¿Por qué aparece el ciclo de período 2? El punto fijo $P^*=K(1-1/R)$ es estable si $\abs{F'(P^*)}<1$, y $F'(P^*)=2-R$. Para $1<R<3$ se cumple; en $R=3$, $F'(P^*)=-1$ y el punto fijo pierde la estabilidad: nace un ciclo de período 2. Al seguir subiendo $R$ ese ciclo también se desestabiliza y nace uno de período 4, luego de 8, \dots, y en $R\approx3.57$ empieza el caos. El \clave{diagrama de bifurcación} de la \cref{fig:in-bifurcacion} resume ese camino.
+
+\video{V1_2_logistica}{El mapa logístico, de la calma al caos}
+
+\subsection{La misma ecuación en tiempo continuo}
+
+La versión continua es la ecuación de Verhulst,
+\begin{equation}
+  \dot P=R\,P\Bigl(1-\frac PK\Bigr),\qquad P(0)=P_0,
+  \label{eq:in-logistica}
+\end{equation}
+que tiene solución explícita (verifíquelo derivando):
+\[
+  P(t)=\frac{K\,P_0\,e^{Rt}}{K+P_0\,(e^{Rt}-1)} .
+\]
+Sus equilibrios son $0$ y $K$, y para todo $R>0$ y $P_0\in(0,K)$ la solución sube monótonamente hasta $K$. El crecimiento $\dot P$ es máximo cuando $P=K/2$; la tasa \emph{per cápita}, $\dot P/P=R(1-P/K)$, es una recta que vale $R$ en $P=0$ y se anula en $K$. En el \cref{cap:unidimensionales} se verá por qué una ecuación escalar continua como \eqref{eq:in-logistica} no puede oscilar, ni mucho menos ser caótica.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_bifurcacion}
+\caption{Izquierda: diagrama de bifurcación del mapa logístico; las líneas marcan los cuatro valores de la \cref{fig:in-logistica}. Derecha: la ecuación logística continua con los mismos $R$ siempre converge monótonamente a $K$.}
+\label{fig:in-bifurcacion}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej2_Logistica.m}{continua}{La logística continua y su solución exacta}
+
+\begin{trampa}[label=tr:in-discreta]{La versión discreta y la continua describen lo mismo}
+\plausible{\eqref{eq:in-mapa} y \eqref{eq:in-logistica} son ``la misma ecuación logística'': deben comportarse igual.}
+Una es dócil (dos equilibrios, monotonía, solución explícita) y la otra es salvaje (ciclos de todos los períodos y caos). Ni siquiera coinciden los equilibrios: $K(1-1/R)$ contra $K$. En el mapa, $R$ es un \emph{factor por generación}; en la ecuación diferencial es una \emph{tasa} (por unidad de tiempo). Y en tiempo discreto la solución puede ``saltar'' por encima del equilibrio, algo imposible para una solución continua de una ecuación escalar.
+\correcto{Discretizar no es una operación inocente. Un mapa y una ecuación diferencial ``parecidos'' pueden tener dinámicas cualitativamente distintas, y lo mismo vale para un método numérico con paso demasiado grande.}
+\end{trampa}

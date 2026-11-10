@@ -1,0 +1,99 @@
+%% ---------------------------------------------------------------------
+\section{¿Qué aportan los sistemas no lineales al control?}
+\label{sec:in-control}
+%% ---------------------------------------------------------------------
+
+Un controlador se usa para seguir una referencia, regular un estado, garantizar estabilidad, dar un transitorio adecuado y reducir la sensibilidad a los parámetros de la planta. Muchas veces un controlador lineal diseñado sobre la linealización basta. Esta sección muestra tres situaciones en las que no: una en la que el lazo lineal no funciona, otra en la que una ley no lineal funciona mejor, y la del \cref{thm:in-brockett}, en la que ninguna ley continua funciona.
+
+%% ---------------------------------------------------------------------
+\subsection{El lazo y lo que se le olvida al diagrama de bloques}
+%% ---------------------------------------------------------------------
+
+En \clave{lazo abierto} la entrada se calcula sin mirar la planta: una tostadora calienta el pan un tiempo fijo, cualquiera que sea la temperatura que alcance. En \clave{lazo cerrado} la entrada depende del error entre lo que se mide y lo que se quiere, $e=y_m-r$: un aire acondicionado. El controlador se \emph{diseña} con un modelo, pero se \emph{evalúa} sobre la planta real, donde hay perturbaciones $v$ en la entrada y errores $w$ en la medición (\cref{fig:in-lazo}). Si además no se mide todo el estado, hace falta un \clave{observador} que lo estime.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap01/t_lazo}
+\caption{El lazo de control con perturbación de entrada $v$ y error de medición $w$. El controlador solo ve $y_m$.}
+\label{fig:in-lazo}
+\end{figure}
+
+\begin{ejemplo}[label=ej:in-pid]{Lo que el integrador corrige y lo que no}
+Para el masa-resorte $m\ddot y+c\dot y+ky=u+v$ con $v$ y $w$ constantes y desconocidos, compare el régimen permanente con un PD, $u=-k_Pe-k_D\dot e$, y con un PID, que agrega $-k_I\int e$.
+\solucion Con el PD, en el equilibrio $\dot y=0$ y $0=-k_P(y+w-r)+v-ky$, de donde
+\[
+  y^*=\frac{k_P(r-w)+v}{k+k_P} .
+\]
+Con $m=1$, $c=1$, $k=2$, $k_P=10$, $k_D=3$, $r=1$, $v=0.5$, $w=0.1$: $y^*=0.7917$. Con el PID, el estado del integrador solo deja de cambiar si $e=0$, es decir, $y^*+w=r$: $y^*=r-w=0.9$ (\cref{fig:in-pid}). El integrador elimina el efecto de la perturbación de entrada (el \clave{principio del modelo interno}) pero no el del sensor: el controlador hace que la \emph{medición} valga $r$, y la medición miente.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{cap01/f_pid}
+\caption{PD y PID con perturbación $v=0.5$ y error de sensor $w=0.1$. Ninguno llega a la referencia.}
+\label{fig:in-pid}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej9_PID.m}{pid}{PD, PID, perturbación y ruido}
+
+%% ---------------------------------------------------------------------
+\subsection{Cuando la ley lineal no funciona}
+%% ---------------------------------------------------------------------
+
+\begin{ejemplo}[label=ej:in-cubico]{La planta $\dot x=x+u^3$ \citep{Mar03}}
+Considere $\dot x=x+u^3$, $x(0)=1$. Compare $u=0$, la realimentación lineal $u=-kx$ y la no lineal $u=-(kx)^{1/3}$, con $k=5$.
+\solucion Con $u=0$, $x(t)=e^t$: el origen es inestable. Con $u=-kx$ el lazo cerrado es
+\[
+  \dot x=x-k^3x^3 ,
+\]
+que tiene \emph{tres} equilibrios, $0$ y $\pm k^{-3/2}=\pm0.0894$. La derivada en el origen es $1$: \alerta{el origen sigue siendo inestable}, para cualquier $k$, y la solución desde $x(0)=1$ converge a $0.0894$, no a $0$. La realimentación lineal no estabilizó nada: creó dos equilibrios nuevos (\cref{fig:in-cubico}). Con $u=-(kx)^{1/3}$ (la raíz cúbica real), $u^3=-kx$ y el lazo cerrado es $\dot x=(1-k)x=-4x$: exponencialmente estable.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_control_cubico}
+\caption{Izquierda: $x(t)$ con las tres leyes. Derecha: el campo en lazo cerrado. Con $u=-kx$ el origen (círculo vacío) sigue siendo inestable y aparecen dos equilibrios estables en $\pm k^{-3/2}$.}
+\label{fig:in-cubico}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej6_ControlCubico.m}{leyes}{Tres leyes para $\dot x=x+u^3$}
+
+\begin{trampa}[label=tr:in-cubico]{Converge a algo, luego es estable}
+\plausible{Con $u=-kx$ la solución deja de crecer y se queda en un valor constante pequeño: el origen es estable, aunque no asintóticamente.}
+Así lo decían las versiones anteriores de estas notas. Pero la solución no converge al origen sino a \emph{otro} equilibrio, $k^{-3/2}$, y el origen es inestable: toda condición inicial distinta de cero, por pequeña que sea, se aleja de él. ``Estable'' es una propiedad de un equilibrio, y aquí hay tres.
+\correcto{Antes de interpretar una simulación, calcule todos los equilibrios del lazo cerrado y su estabilidad. La razón de fondo: la linealización de la planta en el origen, $\dot x=x+0\cdot u$, no depende de $u$; ninguna ley lineal puede moverle el polo.}
+\end{trampa}
+
+%% ---------------------------------------------------------------------
+\subsection{Cuando la ley no lineal funciona mejor}
+%% ---------------------------------------------------------------------
+
+\begin{ejemplo}[label=ej:in-vsc]{Doble integrador y estructura variable}
+Considere el doble integrador $\dot x_1=x_2$, $\dot x_2=u$, desde $x(0)=(1,1)$. Compare $u=-kx_1$, el PD $u=-x_1-x_2$ y la ley de \clave{estructura variable}
+\begin{equation}
+  u=k_3\,x_1,\qquad k_3=\begin{cases}+1 & \text{si } x_1s<0,\\ -1 & \text{si } x_1s>0,\end{cases}\qquad s=x_1+x_2 .
+  \label{eq:in-vsc}
+\end{equation}
+\solucion Con $u=-kx_1$ el lazo es un oscilador armónico: acotado, pero sin converger. El PD da polos en $-\tfrac12\pm\tfrac{\sqrt3}2\,j$: converge, con un sobrepico de $-0.21$, y tarda $8.91$ en quedar dentro del 2\,\% de la norma inicial. La ley \eqref{eq:in-vsc} alterna dos sistemas que, cada uno por separado, \emph{no} convergen: con $k_3=-1$ un centro ($\ddot x_1=-x_1$) y con $k_3=+1$ una silla ($\ddot x_1=x_1$). Desde $(1,1)$, $x_1s>0$ y el estado gira por el círculo $x_1=\cos t+\sin t$, $x_2=\cos t-\sin t$ hasta tocar la recta $s=0$ en $t=\pi/2$, en el punto $(1,-1)$. Allí cada sistema empuja el estado de vuelta hacia la recta, y el estado \emph{desliza} por ella: sobre $s=0$, $\dot x_1=-x_1$. Llega al 2\,\% en $\pi/2+\ln50=5.48$ y sin sobrepico (\cref{fig:in-vsc}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_doble_integrador}
+\caption{Doble integrador con tres leyes. La de estructura variable llega a la recta $s=0$ en $t=\pi/2$ y desliza por ella.}
+\label{fig:in-vsc}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej7_DobleIntegrador.m}{vsc}{Cuatro leyes para el doble integrador}
+
+\begin{modelo}[EstructuraVariable.slx]
+\cmd{crearModelo\_EstructuraVariable.m} arma el lazo con dos integradores y un bloque \emph{Switch} que elige entre $+x_1$ y $-x_1$ según el signo de $x_1s$, simula 10\,s y compara con \cmd{ode45}.
+\end{modelo}
+
+\begin{trampa}[label=tr:in-discontinuo]{El lazo con conmutación es una ecuación diferencial como cualquier otra}
+\plausible{La ley \eqref{eq:in-vsc} da un lazo $\dot x=f(x)$; el teorema de existencia y unicidad garantiza que la simulación es la solución.}
+Sobre la recta $s=0$ el lado derecho es \emph{discontinuo}, y los teoremas de existencia y unicidad del \cref{cap:preliminares} no aplican. ¿Qué significa ``solución'' cuando el estado desliza por una superficie donde $f$ no está definida? Filippov dio la respuesta: una solución en el sentido de las inclusiones diferenciales \citep{Fil88}. En la simulación, \cmd{ode45} conmuta muchas veces por paso (\emph{chattering}) y se vuelve lento.
+\correcto{Los lazos con conmutación son útiles (el control por modos deslizantes, \citealp{Utk77}), pero exigen otra teoría. Y la comparación con el PD depende de las ganancias: con otras ganancias el PD es más rápido. Lo que no puede hacer ninguna ley lineal es llevar el estado a una recta y mantenerlo allí con dinámica de primer orden.}
+\end{trampa}
+
+Los dos primeros ejemplos muestran ventajas de desempeño; el de la \cref{sec:in-brockett} muestra algo cualitativamente distinto: una \emph{imposibilidad}. El control no lineal no es ``control lineal, pero mejor''. A veces es la única opción, y a veces es la teoría que dice que lo que se busca no existe.

@@ -18,8 +18,8 @@ Este sitio acompaña el curso **Sistemas No Lineales**. Cada parte del curso tie
 
 ```{=html}
 <div class="partes">
-<a class="parte" href="partes/01-introduccion.html"><div class="num">1</div><div class="nom">Introducción y motivación</div><div class="sem">Semana 1</div><span class="estado migrar">por migrar</span></a>
-<a class="parte" href="partes/02-unidimensionales.html"><div class="num">2</div><div class="nom">Sistemas unidimensionales: el flujo sobre la recta</div><div class="sem">Semanas 1–2</div><span class="estado migrar">por migrar</span></a>
+<a class="parte" href="partes/01-introduccion.html"><div class="num">1</div><div class="nom">Introducción y motivación</div><div class="sem">Semana 1</div><span class="estado listo">completo</span></a>
+<a class="parte" href="partes/02-unidimensionales.html"><div class="num">2</div><div class="nom">Sistemas unidimensionales: el flujo sobre la recta</div><div class="sem">Semanas 1–2</div><span class="estado listo">completo</span></a>
 <a class="parte" href="partes/03-preliminares.html"><div class="num">3</div><div class="nom">Fundamentos matemáticos</div><div class="sem">Semanas 3–4</div><span class="estado listo">completo</span></a>
 <a class="parte" href="partes/04-bidimensionales.html"><div class="num">4</div><div class="nom">Sistemas bidimensionales</div><div class="sem">Semanas 2 y 5</div><span class="estado migrar">por migrar</span></a>
 <a class="parte" href="partes/05-orbitas-ciclos.html"><div class="num">5</div><div class="nom">Órbitas, osciladores y ciclos límite</div><div class="sem">Semanas 5–7</div><span class="estado listo">completo</span></a>

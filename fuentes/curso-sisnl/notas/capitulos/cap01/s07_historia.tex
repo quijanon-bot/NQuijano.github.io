@@ -1,0 +1,49 @@
+%% ---------------------------------------------------------------------
+\section{Un poco de historia}
+\label{sec:in-historia}
+%% ---------------------------------------------------------------------
+
+Las herramientas del curso tienen dos padres, Henri Poincaré y Aleksandr Lyapunov, y una historia que vale la pena conocer porque explica \emph{qué preguntas} se hacen sobre un sistema no lineal.
+
+\paragraph{De Newton a Poincaré: cambiar la pregunta.} Newton inventó las ecuaciones diferenciales y resolvió el problema de dos cuerpos: la órbita de un planeta alrededor del Sol. Durante dos siglos los matemáticos intentaron hacer lo mismo con tres cuerpos (Sol, Tierra y Luna) buscando fórmulas, sin éxito. Lagrange enunció en su \emph{Mecánica analítica} (1788) que un mínimo aislado de la energía potencial de un sistema conservativo es un equilibrio estable; la demostración rigurosa la dio Dirichlet en 1846. Poincaré cambió la pregunta: en lugar de calcular dónde estará un planeta en cada instante, preguntó si el sistema solar es estable, si los planetas se quedarán para siempre en una región acotada o alguno escapará.
+\notamargen{Este cambio de pregunta, de la cantidad a la cualidad, es la lección metodológica más importante del capítulo: buena parte del semestre consiste en aprender qué preguntas \emph{sí} se pueden responder sobre un sistema no lineal.}
+
+\begin{historia}[Henri Poincaré (1854--1912)]
+Nació en Nancy el 29 de abril de 1854 y murió en París el 17 de julio de 1912. Estudió en la Escuela Politécnica (1873--1875) y en la Escuela de Minas, de la que salió ingeniero en 1879; ese mismo año presentó su tesis doctoral sobre ecuaciones en derivadas parciales. Entre 1881 y 1886 publicó la \emph{Memoria sobre las curvas definidas por una ecuación diferencial} \citep{Poi1881}, donde nace la \clave{teoría cualitativa} de las ecuaciones diferenciales: la clasificación de los puntos singulares (nodos, sillas, focos, centros), el índice, los ciclos límite y la idea de seguir una trayectoria hasta que vuelve a cortar una curva (el mapa de Poincaré). En 1889 ganó el premio del rey Óscar~II de Suecia con una memoria sobre el problema de los tres cuerpos. Una pregunta de Edvard Phragmén, que preparaba la memoria para su publicación, llevó a Poincaré a encontrar en ella un error grave; al corregirlo descubrió que las trayectorias cerca de ciertas órbitas se enredan de manera inextricable: la primera visión de lo que hoy llamamos caos \citep{Poi1890}. Pagó de su bolsillo, más de lo que valía el premio, la reimpresión de la versión corregida.
+\end{historia}
+
+\begin{historia}[Aleksandr Mijáilovich Lyapunov (1857--1918)]
+Nació en Yaroslavl el 6 de junio de 1857. Estudió en San Petersburgo con Pafnuti Chebyshev, quien le planteó una pregunta sobre la estabilidad de las formas de equilibrio de un fluido que rota; de ahí salió su tesis de maestría (1884). En 1892 presentó en la Universidad de Moscú su tesis doctoral, \emph{El problema general de la estabilidad del movimiento}, escrita mientras era profesor en Járkov. Allí aparecen los dos métodos que usamos: el indirecto (la linealización) y el directo, que concluye la estabilidad con una función que se comporta como una energía, sin resolver la ecuación. La obra se tradujo al francés en 1907 y al inglés solo en 1992 \citep{Lya92}, lo que explica por qué el método directo tardó medio siglo en llegar a la ingeniería occidental. Murió en Odesa el 3 de noviembre de 1918, días después de la muerte de su esposa \citep{MBM07}.
+\end{historia}
+
+\paragraph{Osciladores y servomecanismos (1920--1960).} Balthasar van der Pol estudió en 1926 las oscilaciones de relajación de los circuitos con tríodos \citep{van26}, y Alfred Liénard demostró en 1928 la existencia de una solución periódica única para una familia de osciladores \citep{Lie28}. En 1929, Aleksandr Andronov mostró que las oscilaciones autosostenidas de la radiotecnia son los ciclos límite de Poincaré \citep{And29}, y la escuela soviética (Mandelstam, Andronov, Vitt, Jaikin) construyó sobre esa idea la teoría de las oscilaciones no lineales. Georg Duffing publicó en 1918 su estudio de las oscilaciones forzadas con un resorte cúbico \citep{Duf18}. La Segunda Guerra Mundial impulsó el control de servomecanismos (control de tiro, guiado) y con él tres métodos: el plano de fase, la función descriptiva (que solo balancea el primer armónico) y el análisis de sistemas con relés. En 1944, Lur'e y Postnikov plantearon el problema de la estabilidad absoluta \citep{LuPo44}.
+
+\paragraph{La era moderna (desde 1960).} En 1960, el año del primer congreso de la IFAC, Kalman y Bertram llevaron el método directo de Lyapunov al control \citep{KaBe60}, y LaSalle publicó su principio de invarianza \citep{LaS60}, precedido por Barbashin y Krasovskii \citep{BaKr52}. Popov dio en 1961 su criterio de estabilidad absoluta \citep{Pop61}; Yakubovich (1962) y Kalman (1963) lo conectaron con la teoría de estado en el lema KYP \citep{Yak62,Kal63}; Sandberg (1964) y Zames (1966) formularon el teorema de la ganancia pequeña y el criterio del círculo \citep{San64,Zam66a}. Edward Lorenz encontró en 1963 un atractor extraño en un modelo de la atmósfera \citep{Lor63}. Jan Willems propuso en 1972 la teoría de los sistemas disipativos \citep{Wil72}, de donde sale la pasividad (\cref{cap:pasividad}).
+
+En los años ochenta y noventa el control no lineal pasó de describir a \emph{construir} \citep{KoAr01}. Brockett mostró en 1983 los límites de la estabilización continua (\cref{thm:in-brockett}); Artstein introdujo las funciones de Lyapunov de control \citep{Ars83} y Sontag dio una fórmula universal para construir el controlador a partir de ellas \citep{Son89}; Sontag también introdujo la estabilidad entrada-estado (ISS) \citep{Son89a}, cuyas caracterizaciones completó con Wang \citep{SoWa95}. Byrnes e Isidori desarrollaron la dinámica cero y la estabilización de sistemas de fase mínima \citep{ByIs91,Isi95}, base de la linealización por retroalimentación (\cref{cap:linealizacion}), y Krstić, Kanellakopoulos y Kokotović consolidaron el \emph{backstepping} \citep{KKK95}.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}lp{0.78\linewidth}@{}}
+\toprule
+Año & Hito\\
+\midrule
+1788 & Lagrange: mínimo de la energía potencial y estabilidad (prueba de Dirichlet, 1846)\\
+1838 & Verhulst: la ecuación logística\\
+1881--86 & Poincaré: teoría cualitativa de las ecuaciones diferenciales\\
+1892 & Lyapunov: el problema general de la estabilidad del movimiento\\
+1926--29 & van der Pol, Liénard y Andronov: oscilaciones autosostenidas y ciclos límite\\
+1944 & Lur'e y Postnikov: estabilidad absoluta\\
+1960 & Kalman y Bertram: Lyapunov en control; LaSalle: principio de invarianza\\
+1961--66 & Popov; Yakubovich y Kalman (KYP); Sandberg y Zames (ganancia pequeña, círculo)\\
+1963 & Lorenz: caos determinista\\
+1972 & Willems: sistemas disipativos\\
+1975--78 & Kuramoto: sincronización; May: el mapa logístico; Feigenbaum: universalidad\\
+1983 & Brockett: condición necesaria; Artstein: funciones de Lyapunov de control\\
+1989 & Sontag: fórmula universal e ISS\\
+1985--95 & Byrnes e Isidori: dinámica cero y control geométrico; \emph{backstepping}\\
+\bottomrule
+\end{tabular}
+\caption{Algunos hitos. Más detalles en \citet{Ath96}, \citet{Mic96} y \citet{KoAr01}.}
+\label{tab:in-historia}
+\end{table}

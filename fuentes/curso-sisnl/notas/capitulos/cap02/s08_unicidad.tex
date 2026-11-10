@@ -1,0 +1,48 @@
+%% ---------------------------------------------------------------------
+\section{¿Es única la solución?}
+\label{sec:un-unicidad}
+%% ---------------------------------------------------------------------
+
+Todo lo anterior supuso, sin decirlo, que por cada condición inicial pasa exactamente una solución; sin eso, la línea de fase pierde el sentido. Una solución de \eqref{eq:un-escalar} en $[0,T)$ es una función continuamente diferenciable que cumple la ecuación; equivalentemente, una función continua que cumple la \clave{ecuación integral}
+\begin{equation}
+  x(t)=x_0+\int_0^tf\bigl(x(s)\bigr)\,\dif s .
+  \label{eq:un-integral}
+\end{equation}
+\notamargen{Atención al integrando: es $f(x(s))$, no $f(s)$. La solución aparece a los dos lados: \eqref{eq:un-integral} es una ecuación, no una fórmula.}
+Si $f$ es continua, siempre existe al menos una solución local (teorema de Peano, \citealp{Pea1890}). La unicidad pide más.
+
+\begin{ejemplo}[label=ej:un-raiz]{Infinitas soluciones desde el mismo punto}
+Considere $\dot x=x^{1/3}$, $x(0)=0$, con $x^{1/3}$ la raíz cúbica real. ¿Cuántas soluciones tiene?
+\solucion $x(t)\equiv0$ es una. Separando variables con $x>0$, $\tfrac32x^{2/3}=t-c$, y para cada $c\ge0$
+\[
+  x_c(t)=\begin{cases}0, & 0\le t\le c,\\[2pt] \bigl(\tfrac23(t-c)\bigr)^{3/2}, & t>c,\end{cases}
+\]
+también lo es: para $t>c$, $\dot x_c=\bigl(\tfrac23(t-c)\bigr)^{1/2}=x_c^{1/3}$, y las dos ramas empalman con derivada cero. Lo mismo con $-x_c$. Por el origen pasan infinitas soluciones: la partícula puede quedarse quieta un tiempo arbitrario y luego ``arrancar'' sola (\cref{fig:un-nounicidad}). El sistema emparentado $\dot x=-x^{1/3}$ hace lo contrario: desde $x_0>0$ llega a $0$ en el tiempo finito $T=\tfrac32x_0^{2/3}$ y se queda ahí, algo imposible para un $f$ localmente Lipschitz (si se corre el tiempo hacia atrás desde el equilibrio, saldrían dos soluciones del mismo punto).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_no_unicidad}
+\caption{Izquierda: algunas de las infinitas soluciones de $\dot x=x^{1/3}$, $x(0)=0$; \cmd{ode45} devuelve la trivial. Derecha: $\dot x=-x^{1/3}$ llega a cero en tiempo finito.}
+\label{fig:un-nounicidad}
+\end{figure}
+
+¿Qué falla? La pendiente de $x^{1/3}$ es $\tfrac13x^{-2/3}$, que no está acotada cerca del origen. Lo que se necesita es controlar cuánto puede cambiar $f$ entre dos puntos cercanos: $f$ es \clave{Lipschitz} en un conjunto $W$ si existe $L$ con
+\[
+  \abs{f(x)-f(y)}\le L\,\abs{x-y}\qquad\text{para todo }x,y\in W ,
+\]
+y \clave{localmente Lipschitz} si cada punto tiene una vecindad donde lo es. Toda $f\in\Cont1$ es localmente Lipschitz (por el teorema del valor medio, con $L=\max\abs{f'}$ en un intervalo cerrado); $\abs x$ es Lipschitz sin ser derivable; $x^{1/3}$ es continua y no es Lipschitz en ninguna vecindad del origen. El resultado que se usa en todo el curso es:
+\begin{center}
+\fbox{\parbox{0.9\linewidth}{\centering si $f$ es localmente Lipschitz, por cada $x_0$ pasa una única solución, definida en un intervalo $[0,\delta)$.}}
+\end{center}
+Su enunciado preciso y su demostración (con el principio de contracción) son el \cref{thm:pm-local}. La condición lleva el nombre de Rudolf Lipschitz, que la usó en 1876 para probar la unicidad \citep{Lip1876}.
+\notamargen{En Francia el resultado se conoce como teorema de Cauchy--Lipschitz; en buena parte de la literatura, como teorema de Picard--Lindelöf, por la prueba con aproximaciones sucesivas \citep{Pic1890,Lin1894}.}
+
+\begin{trampa}[label=tr:un-raiz]{El simulador me dio una sola solución}
+\plausible{Integré $\dot x=x^{1/3}$ desde $x_0=0$ con \cmd{ode45} y obtuve $x\equiv0$: la solución es única.}
+Desde $x_0=10^{-12}$, que en cualquier experimento es cero, \cmd{ode45} sigue la rama $x_0$ y llega a $2\sqrt2=2.83$ en $t=3$. \emph{Un integrador siempre devuelve una sola trayectoria}: no puede detectar la falta de unicidad, que es una propiedad del problema y no del algoritmo. Y hay una trampa de implementación: en MATLAB, \cmd{(-8)\^{}(1/3)} devuelve el número complejo $1+1.7321\,\ii$ (la raíz principal), no $-2$. La raíz cúbica real es \cmd{nthroot(x,3)}.
+\correcto{Las hipótesis de unicidad se verifican con lápiz y papel antes de simular. Si fallan, el modelo predice más de un futuro y hay que decidir cuál es el físicamente relevante.}
+\end{trampa}
+
+\codigorepo{cap02_unidimensionales/C2_Ej8_NoUnicidad.m}{raiz}{La raíz cúbica en MATLAB}
+\codigorepo{cap02_unidimensionales/C2_Ej8_NoUnicidad.m}{tiempofinito}{Llegar a un equilibrio en tiempo finito}

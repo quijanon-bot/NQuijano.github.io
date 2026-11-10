@@ -1,0 +1,93 @@
+%% ---------------------------------------------------------------------
+\section{La misma matemática con distintas etiquetas}
+\label{sec:in-energia}
+%% ---------------------------------------------------------------------
+
+Un argumento fuerte para estudiar los sistemas no lineales en abstracto es que un puñado de estructuras reaparece, con otros nombres, en campos que no se hablan entre sí. Durante el semestre usted trabajará sobre un sistema que puede venir de la biología, de los circuitos, de los procesos o de la mecánica; las herramientas son las mismas. Esta sección muestra dos de esas estructuras: la energía, que anticipa el método de Lyapunov, y un sistema que se puede controlar pero no estabilizar.
+
+%% ---------------------------------------------------------------------
+\subsection{La energía: concluir sin resolver}
+%% ---------------------------------------------------------------------
+
+Un bloque de masa $m$ unido a una pared por un resorte de constante $k$, con fricción viscosa $c$ y una fuerza $u$, cumple $m\ddot y=u-c\dot y-ky$. Con $x_1=y$ y $x_2=\dot y$,
+\begin{equation}
+  \dot x_1=x_2,\qquad \dot x_2=-\frac km\,x_1-\frac cm\,x_2+\frac1m\,u .
+  \label{eq:in-masa}
+\end{equation}
+Con $u=0$, considere la energía total, potencial más cinética,
+\begin{equation}
+  E(x)=\tfrac12k\,x_1^2+\tfrac12m\,x_2^2 .
+  \label{eq:in-energia}
+\end{equation}
+¿Cómo cambia a lo largo de una solución? Por la regla de la cadena,
+\begin{equation}
+  \frac{\dif}{\dif t}E\bigl(x(t)\bigr)=\inner{\nabla E(x)}{f(x)}=kx_1x_2+mx_2\Bigl(-\frac kmx_1-\frac cmx_2\Bigr)=-c\,x_2^2\le0 .
+  \label{eq:in-dE}
+\end{equation}
+Sabemos dos cosas: $E\ge0$, por ser suma de cuadrados, y $E$ no crece mientras el bloque se mueve. Luego la energía tiene límite y el bloque tiene que ir dejando de moverse. Y lo dedujimos \alerta{sin resolver la ecuación diferencial}. Esa es la idea que Lyapunov generalizó en 1892, reemplazando ``energía'' por ``cualquier función que se comporte como una energía'', y es el núcleo del curso (capítulo~7).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_energia}
+\caption{Masa-resorte con $m=1$, $k=4$, $c=0.5$ desde $x(0)=(1,0)$. La energía nunca crece, pero se aplana en los instantes en que $x_2=0$ (punteado), donde $\dot E=0$.}
+\label{fig:in-energia}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej4_Energia.m}{energia}{La energía a lo largo de una solución}
+
+\begin{trampa}[label=tr:in-lasalle]{La energía decrece, luego el sistema va al origen}
+\plausible{Como $\dot E=-cx_2^2\le0$, el bloque se detiene en $x=0$.}
+La desigualdad dice que $E$ no crece; no dice que llegue a cero, y $\dot E$ se anula en toda la recta $x_2=0$, no solo en el origen (\cref{fig:in-energia}): en cada inversión del movimiento el bloque está quieto y $\dot E=0$. Un $\dot E$ \emph{semidefinido} negativo no basta para concluir que $x_1\to0$; de ahí solo se sigue, con un argumento extra, que $x_2\to0$.
+\correcto{Hace falta un paso más: una solución que se quedara en $\{x_2=0\}$ tendría $\dot x_2=0$, luego $x_1=0$. Ninguna solución puede vivir en $\{\dot E=0\}$ salvo el origen, y eso, hecho preciso, es el \clave{principio de invarianza de LaSalle} (capítulo~8). Saltarse ese paso es la trampa más común del curso.}
+\end{trampa}
+
+Para el péndulo \eqref{eq:in-pendulo}, la energía $E=mg\ell(1-\cos x_1)+\tfrac12m\ell^2x_2^2$ cumple $\dot E=-k\ell^2x_2^2\le0$. Ahora hay una complicación: $E$ es positiva cerca del origen, pero se anula también en $x_1=2\pi$, $4\pi$, \dots\ (el péndulo da una vuelta y vuelve a colgar). La energía sirve como argumento \emph{local}, en una vecindad del equilibrio de abajo, y esa restricción es el germen de la estabilidad local y de la región de atracción.
+
+\paragraph{Otras etiquetas, la misma estructura.} El péndulo sobre un carro modela una grúa (péndulo colgando), un cohete o un \emph{segway} (péndulo invertido): son el mismo sistema mecánico $M(q)\ddot q+C(q,\dot q)+G(q)=B(q)u$ con equilibrios distintos \citep{KeBr23}. Para escribirlo en la forma \eqref{eq:in-general} hay que invertir la matriz de inercia $M(q)$, y verificar que es invertible en todo el espacio de estado: la forma $\dot x=f(x,u)$ no siempre es gratis.
+
+%% ---------------------------------------------------------------------
+\subsection{Controlable, pero no estabilizable}
+\label{sec:in-brockett}
+%% ---------------------------------------------------------------------
+
+Un robot móvil de dos ruedas (el \emph{uniciclo}), con posición $(p_1,p_2)$, orientación $\phi$, velocidad de avance $u_1$ y velocidad de giro $u_2$, es
+\[
+  \dot p_1=u_1\cos\phi,\qquad \dot p_2=u_1\sin\phi,\qquad\dot\phi=u_2 .
+\]
+Con un cambio de coordenadas y de entradas se lleva a la forma del \clave{integrador no holonómico} o \clave{integrador de Brockett} \citep{Bro83,KeBr23}:
+\begin{equation}
+  \dot z_1=v_1,\qquad \dot z_2=v_2,\qquad \dot z_3=z_1v_2-z_2v_1 .
+  \label{eq:in-brockett}
+\end{equation}
+
+\emph{Es controlable.} La velocidad instantánea nunca apunta en la dirección $z_3$ desde el origen, pero dando una vuelta sí se llega. Con $v=\rho(-\sin t,\cos t)$ desde $z=0$, $(z_1,z_2)=\rho(\cos t-1,\sin t)$ recorre un círculo y regresa al origen en $t=2\pi$, mientras que
+\[
+  \dot z_3=z_1v_2-z_2v_1=\rho^2(1-\cos t)\quad\Longrightarrow\quad z_3(2\pi)=2\pi\rho^2 ,
+\]
+el doble del área encerrada (\cref{fig:in-brockett}). Combinando vueltas se llega de cualquier punto a cualquier otro. Note que la linealización en el origen, $\dot z_1=v_1$, $\dot z_2=v_2$, $\dot z_3=0$, \emph{no} es controlable: su matriz de controlabilidad tiene rango $2<3$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_brockett}
+\caption{Integrador de Brockett: una vuelta de radio $\rho=0.5$ en $(z_1,z_2)$ deja $(z_1,z_2)$ donde estaba y sube $z_3$ en $2\pi\rho^2=\pi/2$.}
+\label{fig:in-brockett}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej8_Brockett.m}{vuelta}{Una vuelta sube $z_3$}
+
+\emph{Y no es estabilizable con una realimentación continua.} Brockett encontró una condición necesaria:
+
+\begin{teorema}[label=thm:in-brockett]{Condición de Brockett \citep{Bro83}}
+Sea $\dot x=f(x,u)$ con $f$ de clase $\Cont1$ y $f(0,0)=0$. Si existe una realimentación $u=k(x)$, de clase $\Cont1$ y con $k(0)=0$, que hace asintóticamente estable el origen del lazo cerrado, entonces la imagen de $f$ cerca del origen contiene una vecindad del origen: para todo $\varepsilon>0$ existe $\delta>0$ tal que todo $y\in\R^n$ con $\norm y<\delta$ se puede escribir como $y=f(x,u)$ con $\norm x<\varepsilon$ y $\norm u<\varepsilon$.
+\end{teorema}
+
+\notamargen{Brockett lo enunció con $k$ suave; Zabczyk (1989) lo extendió a realimentaciones continuas con soluciones únicas. La prueba usa topología (grado de un mapa) y está fuera del alcance de estas notas.}
+Para \eqref{eq:in-brockett}, tome $y=(0,0,\delta)$: las dos primeras componentes de $y=f(z,v)$ obligan a $v_1=v_2=0$, y entonces la tercera es $z_1\cdot0-z_2\cdot0=0\neq\delta$. Ningún punto de la forma $(0,0,\delta)$, por pequeño que sea $\delta$, es una velocidad posible. La condición falla, y \alerta{ninguna realimentación estática y suave estabiliza el origen}, aunque el sistema sea controlable.
+
+\codigorepo{cap01_introduccion/C1_Ej8_Brockett.m}{brockett}{Falla la condición de Brockett}
+
+\begin{trampa}[label=tr:in-controlable]{Controlable implica estabilizable}
+\plausible{El integrador de Brockett es controlable; luego hay una realimentación de estado que lo estabiliza.}
+En sistemas lineales eso es cierto: si $(A,B)$ es controlable, se ubican los polos donde se quiera con $u=-Kx$. En sistemas no lineales el puente se rompe: el \cref{thm:in-brockett} muestra que el integrador de Brockett, controlable, no se estabiliza con ninguna $u=k(x)$ suave.
+\correcto{No es que no hayamos encontrado el controlador: no existe. Para estabilizar un robot móvil hay que usar leyes discontinuas, variantes en el tiempo o híbridas. Este es, quizás, el mejor argumento de por qué hace falta una teoría no lineal.}
+\end{trampa}

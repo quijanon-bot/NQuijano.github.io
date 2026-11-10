@@ -11,7 +11,7 @@ Todos los códigos viven en la carpeta [`codigo/`](https://github.com/quijanon-b
 >> cd ruta/al/repositorio/codigo
 >> iniciarCurso              % agrega comun/ y todos los capítulos al path
 >> C11_Ej1_MasaResorte
->> verificarCap11            % comprueba los números del capítulo (o verificarCap03, 05, 12)
+>> verificarCap11            % comprueba los números del capítulo (o verificarCap01, 02, 03, 05, 12)
 ```
 
 Los scripts `C*_Ej*` no requieren *toolboxes* (y corren en GNU Octave); los `crearModelo_*.m` requieren Simulink y los videos, `VideoWriter`.
@@ -29,7 +29,19 @@ codigo/
 │   ├── balanceEnergia.m      V - V(0) = int s - int d sobre una simulación
 │   ├── jacobianoNumerico.m   jacobiano por diferencias centradas
 │   ├── derivadaLie.m         derivada de Lie numérica L_f lambda
-│   └── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
+│   ├── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
+│   └── lineaFase.m           línea de fase de x' = f(x), clasificación por el signo de f
+├── cap01_introduccion/
+│   ├── C1_Ej1 … C1_Ej9       superposición, logística, panorama, energía, reescalamiento, control
+│   ├── C1_Video_*            Lorenz y mapa logístico
+│   ├── crearModelo_EstructuraVariable  EstructuraVariable.slx
+│   └── verificarCap01.m      34 pruebas de los números del capítulo
+├── cap02_unidimensionales/
+│   ├── C2_Ej1 … C2_Ej9       línea de fase, no hiperbólicos, potencial, cosecha, diodo, histéresis, halcón-paloma, unicidad, escape
+│   ├── C2_Video_*            línea de fase e histéresis
+│   ├── crearModelo_DiodoTunel  DiodoTunel.slx
+│   ├── diodoTunel.m          característica h(v) del diodo túnel (Khalil)
+│   └── verificarCap02.m      37 pruebas de los números del capítulo
 ├── cap03_preliminares/
 │   ├── C3_Ej1 … C3_Ej10      métricas, normas, Lipschitz, Picard, escape, comparación
 │   ├── C3_Video_*            Picard y no unicidad

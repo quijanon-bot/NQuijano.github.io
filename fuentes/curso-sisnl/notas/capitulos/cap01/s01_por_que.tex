@@ -1,0 +1,42 @@
+%% ---------------------------------------------------------------------
+\section{¿Por qué sistemas no lineales?}
+\label{sec:in-porque}
+%% ---------------------------------------------------------------------
+
+Un \clave{sistema dinámico} es una regla que dice cómo cambia en el tiempo un conjunto de variables, las \clave{variables de estado}, que resumen todo lo que hace falta saber del pasado para predecir el futuro. Un modelo dinámico tiene tres ingredientes: un \clave{espacio de estado} donde viven esas variables; una \clave{dinámica}, la regla de evolución; y una \clave{condición inicial} desde la que se arranca. Con esos tres ingredientes se modela un péndulo, un circuito, un tanque, una población de conejos o una economía.
+
+Casi todo lo que usted ha estudiado de sistemas dinámicos es lineal. Un sistema es lineal si cumple el \clave{principio de superposición}: la respuesta a una suma de causas es la suma de las respuestas a cada causa. Esa propiedad es tan poderosa que organiza toda la teoría que usted conoce: la transformada de Laplace, la función de transferencia, el diagrama de Bode, la respuesta al escalón, la ubicación de polos. Un sistema lineal se entiende entendiendo sus partes y sumando. Por eso se dice que la linealidad es el sueño del reduccionista \citep{Mit09}.
+
+\notamargen{\textbf{Ruta de las clases.} Clase~1: \S\ref{sec:in-porque}--\ref{sec:in-poblaciones}. La \S\ref{sec:in-energia}--\ref{sec:in-trabajo} se lee por cuenta propia antes de la clase~2 (capítulo~\ref{cap:unidimensionales}).}
+
+El mundo, en cambio, casi nunca es lineal. Un resorte se endurece al estirarse, un actuador se satura, un diodo conduce en un solo sentido, una población no crece sin límite, la fuerza de un electroimán va como el cuadrado de la corriente. Los modelos lineales funcionan muy bien \emph{cerca} de un punto de operación; el curso trata de lo que pasa lejos de él, y de lo que se pierde al ignorarlo.
+
+\begin{ejemplo}[label=ej:in-islas]{Veinte conejos y dos islas}
+Una población de conejos se reproduce una vez al año. En un primer modelo, cada pareja tiene cuatro crías y muere: la población se duplica, $P[k+1]=2P[k]$. En un segundo modelo, la sobrepoblación mata a algunas crías antes de que se reproduzcan; con una capacidad de $K=32$ conejos y un factor de crecimiento $R=1.6$,
+\begin{equation}
+  P[k+1]=F(P[k]),\qquad F(P)=R\,P\Bigl(1-\frac{P}{K}\Bigr).
+  \label{eq:in-logistica-islas}
+\end{equation}
+¿Cuántos conejos hay al año siguiente si se ponen 20 en una isla? ¿Y si se reparten 10 y 10 en dos islas iguales?
+\solucion Con el modelo lineal da igual: $2\cdot20=40=2\cdot10+2\cdot10$. Con el logístico, $F(20)=1.6\cdot20\cdot\tfrac{12}{32}=12$, mientras que $F(10)+F(10)=2\cdot1.6\cdot10\cdot\tfrac{22}{32}=22$. Repartir la población cambia el resultado (\cref{fig:in-superposicion}): el todo no es la suma de las partes. Además, el mejor reparto es 10 y 10: $F(a)+F(20-a)$ es una parábola en $a$ con máximo en $a=10$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap01/f_superposicion}
+\caption{Izquierda: el mapa de un año, lineal y logístico. Derecha: conejos al año siguiente según cómo se repartan 20 entre dos islas. En el modelo lineal el reparto no importa.}
+\label{fig:in-superposicion}
+\end{figure}
+
+\codigorepo{cap01_introduccion/C1_Ej1_Superposicion.m}{islas}{Una isla o dos: superposición}
+
+\begin{ideaclave}
+Un sistema no lineal no se entiende por partes. Las herramientas del curso reemplazan la superposición por \emph{geometría}: en lugar de resolver la ecuación, se estudia la forma del campo vectorial, dónde están los equilibrios, qué regiones atrapan a las soluciones y qué funciones (como la energía) decrecen a lo largo de ellas.
+\end{ideaclave}
+
+Este capítulo responde cinco preguntas: ¿cómo se escribe un modelo no lineal y qué es un equilibrio (\cref{sec:in-modelos})? ¿Qué puede hacer un sistema no lineal que uno lineal no puede (\cref{sec:in-fenomenos})? ¿Por qué se puede concluir algo sin resolver la ecuación (\cref{sec:in-energia})? ¿Qué aportan los sistemas no lineales al control (\cref{sec:in-control})? ¿Cómo se llegó a las herramientas que vamos a usar, y cómo se trabaja con ellas sin caer en conclusiones plausibles pero falsas (\cref{sec:in-historia,sec:in-trabajo})?
+
+\begin{pausa}
+¿Es lineal el sistema $\dot x=-x+1$?
+\respuesta{No cumple la superposición: si $x_a$ y $x_b$ son soluciones, $\frac{\dif}{\dif t}(x_a+x_b)=-(x_a+x_b)+2$, que no es la ecuación. Es \emph{afín}. Pero con $z=x-1$ queda $\dot z=-z$, que sí es lineal. La no linealidad que importa es la que no se quita con un cambio de coordenadas: trasladar un equilibrio al origen (\cref{sec:in-modelos}) es gratis.}
+\end{pausa}

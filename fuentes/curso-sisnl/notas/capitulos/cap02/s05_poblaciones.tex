@@ -1,0 +1,32 @@
+%% ---------------------------------------------------------------------
+\section{Poblaciones: la logística y la cosecha}
+\label{sec:un-poblaciones}
+%% ---------------------------------------------------------------------
+
+La ecuación logística del \cref{cap:introduccion}, reescalada con $x=P/K$ y $\tau=Rt$ (\cref{prob:in-reescalar}), es $\dot x=x(1-x)$: equilibrios en $0$ (inestable, $f'(0)=1$) y $1$ (estable, $f'(1)=-1$). Toda población positiva crece monótonamente hasta la capacidad del medio. Ahora se le quita, cada unidad de tiempo, una cantidad fija $h\ge0$ (pesca, caza, tala), medida en las mismas unidades reescaladas:
+\begin{equation}
+  \dot x=f_h(x)\defeq x(1-x)-h .
+  \label{eq:un-cosecha}
+\end{equation}
+
+\begin{ejemplo}[label=ej:un-cosecha]{Cosecha sostenible y colapso}
+Analice \eqref{eq:un-cosecha} para $h=0.2$ y $h=0.3$. ¿Cuál es la cosecha máxima que la población resiste?
+\solucion Los equilibrios son las raíces de $x^2-x+h=0$, $x^*_\pm=\tfrac12\bigl(1\pm\sqrt{1-4h}\bigr)$, reales si $h\le1/4$. Con $h=0.2$: $x^*_-=0.276$ y $x^*_+=0.724$, con $f_h'(x^*_\pm)=1-2x^*_\pm=\mp0.447$: el de arriba es estable y el de abajo inestable. El de abajo es un \emph{umbral}: si la población cae por debajo de $0.276$ (por una mala temporada, por ejemplo), se extingue aunque la cosecha no cambie. Con $h=0.3>1/4$ no hay equilibrios: $f_h<0$ para todo $x$ y la población llega a cero en tiempo finito desde cualquier condición inicial. Desde $x_0=0.5$, con $a=\sqrt{h-1/4}$, la solución es $x(t)=\tfrac12-a\tan(at)$ y llega a $0$ en $t=\arctan(1/(2a))/a=5.14$ (\cref{fig:un-cosecha}). La cosecha crítica es $h_c=1/4$, el máximo de $x(1-x)$: en unidades originales, $H_c=RK/4$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_cosecha}
+\caption{Izquierda: $f_h(x)=x(1-x)-h$ para cuatro cosechas; los dos equilibrios se acercan, chocan en $h=1/4$ (gris) y desaparecen. Derecha: soluciones con $h=0.2$ (azul; las punteadas son los equilibrios) y con $h=0.3$ desde $x_0=0.5$ (coral).}
+\label{fig:un-cosecha}
+\end{figure}
+
+\codigorepo{cap02_unidimensionales/C2_Ej4_Logistica.m}{cosecha}{Equilibrios de la logística con cosecha}
+
+Al subir $h$, los dos equilibrios se acercan, chocan en $h=1/4$ y desaparecen: es la \clave{bifurcación silla-nodo} del \cref{cap:introduccion} ($\dot x=r+x^2$), que se estudia en el capítulo~6. Y deja una lección de manejo de recursos: el punto de máxima cosecha sostenible está \emph{justo en el borde del colapso}. Operar allí es operar sin margen.
+
+\begin{trampa}[label=tr:un-sostenible]{Cosechar al máximo sostenible es lo óptimo}
+\plausible{La cosecha óptima es $h=1/4$: es la mayor para la que existe un equilibrio.}
+En $h=1/4$ el único equilibrio, $x=1/2$, es semiestable ($f_h\le0$ a ambos lados): cualquier perturbación hacia abajo lleva a la extinción. Además, cualquier error en la estimación de $R$ o de $K$ pone a la población del lado $h>h_c$, donde el colapso ocurre en tiempo finito.
+\correcto{El análisis de un equilibrio incluye su \emph{robustez}: qué tan cerca está de desaparecer y qué tan grande es su región de atracción. En $h=0.2$ esa región es $(0.276,\infty)$; en $h=1/4$ es solo $[1/2,\infty)$.}
+\end{trampa}

@@ -1,0 +1,36 @@
+%% =====================================================================
+%%  Capítulo 2 -- Sistemas unidimensionales: el flujo sobre la recta
+%%  Formato nuevo (noviembre de 2026). Integra: Handout2.tex (2022), el
+%%  borrador revisado LibroSisNL2026/capitulos/cap02_unidimensionales.tex
+%%  (octubre de 2026) con sus scripts MATLAB/cap02, y las diapositivas
+%%  SisUniDim2026.pptx. Agrega la logística con cosecha y la histéresis
+%%  del diodo túnel (adelantos de la silla-nodo del capítulo 6).
+%%  Correcciones respecto a las versiones anteriores: ver \S\ref{sec:un-cierre}.
+%%  Números verificados con herramientas/cap02_numeros.py (42/42) y
+%%  codigo/cap02_unidimensionales/verificarCap02.m (37/37 en Octave 8.4).
+%% =====================================================================
+
+\hyphenation{sobre unidimensionales}
+\capitulo[cap:unidimensionales]{Sistemas unidimensionales: el flujo sobre la recta}
+  {La ciencia no es discípula del genio, sino esclava del mundo.}
+  {Javier Sampedro}
+
+\begin{objetivos}[partes/02-unidimensionales.html]
+  \item Leer el comportamiento de todas las soluciones de $\dot x=f(x)$ en la gráfica de $f$: equilibrios, sentido del flujo y límites, sin resolver la ecuación.
+  \item Clasificar equilibrios con la derivada $f'(\eq)$ y reconocer cuándo ese criterio no decide nada.
+  \item Explicar por qué un sistema escalar invariante en el tiempo no oscila, y qué hipótesis hay detrás de esa afirmación.
+  \item Usar el potencial $V=-\int f$ como un primer ejemplo de función de Lyapunov.
+  \item Analizar modelos de varios dominios (población con cosecha, diodo túnel, juego halcón--paloma) y reconocer biestabilidad, regiones de atracción e histéresis.
+  \item Reconocer la no unicidad y el escape en tiempo finito, y simularlos sin engañarse.
+\end{objetivos}
+
+\input{capitulos/cap02/s01_por_que}
+\input{capitulos/cap02/s02_flujo}
+\input{capitulos/cap02/s03_linealizacion}
+\input{capitulos/cap02/s04_monotonia}
+\input{capitulos/cap02/s05_poblaciones}
+\input{capitulos/cap02/s06_diodo}
+\input{capitulos/cap02/s07_halcon}
+\input{capitulos/cap02/s08_unicidad}
+\input{capitulos/cap02/s09_escape}
+\input{capitulos/cap02/s10_cierre}

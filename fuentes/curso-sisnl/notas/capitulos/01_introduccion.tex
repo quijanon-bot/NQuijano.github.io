@@ -1,0 +1,34 @@
+%% =====================================================================
+%%  Capítulo 1 -- Introducción y motivación
+%%  Formato nuevo (noviembre de 2026). Integra: Handout1.tex (2022), la
+%%  reescritura Handout1_2026 (agosto de 2026, con ideas de Kellett y
+%%  Braun: modelos de estado, fenómenos sin contraparte lineal, ejemplos
+%%  multidominio, integrador de Brockett, conclusiones plausibles y falsas)
+%%  y las diapositivas Intro2026.pptx.
+%%  Correcciones respecto a las versiones anteriores: ver \S\ref{sec:in-cierre}.
+%%  Números verificados con herramientas/cap01_numeros.py (36/36) y
+%%  codigo/cap01_introduccion/verificarCap01.m (34/34 en Octave 8.4).
+%% =====================================================================
+
+\capitulo[cap:introduccion]{Introducción y motivación}
+  {No solo en la investigación, sino también en el mundo cotidiano de la política y la economía, todos estaríamos mejor si más gente se diera cuenta de que los sistemas no lineales simples no poseen necesariamente propiedades dinámicas simples.}
+  {Robert May}
+
+\begin{objetivos}[partes/01-introduccion.html]
+  \item Escribir un modelo en variables de estado $\dot x=f(t,x,u)$, $y=h(t,x,u)$, encontrar sus equilibrios y trasladarlos al origen.
+  \item Reconocer cinco comportamientos que ningún sistema lineal puede tener: equilibrios aislados múltiples, ciclos límite, escape en tiempo finito, dependencia de la amplitud y caos.
+  \item Explicar con un ejemplo por qué el todo no es la suma de las partes, y por qué la versión discreta y la continua de la ecuación logística no se comportan igual.
+  \item Usar la energía para concluir algo sobre un sistema sin resolverlo, y decir qué \emph{no} se puede concluir todavía.
+  \item Dar ejemplos en los que el control lineal no basta, incluido uno en el que ningún control continuo funciona (Brockett).
+  \item Distinguir una conclusión plausible de una correcta, que es el hilo de todo el curso.
+\end{objetivos}
+
+\input{capitulos/cap01/s01_por_que}
+\input{capitulos/cap01/s02_modelos}
+\input{capitulos/cap01/s03_fenomenos}
+\input{capitulos/cap01/s04_poblaciones}
+\input{capitulos/cap01/s05_energia}
+\input{capitulos/cap01/s06_control}
+\input{capitulos/cap01/s07_historia}
+\input{capitulos/cap01/s08_trabajo}
+\input{capitulos/cap01/s09_cierre}

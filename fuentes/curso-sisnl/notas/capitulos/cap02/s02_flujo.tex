@@ -1,0 +1,38 @@
+%% ---------------------------------------------------------------------
+\section{El flujo sobre la recta}
+\label{sec:un-flujo}
+%% ---------------------------------------------------------------------
+
+La idea central, que viene de Poincaré y que \citet{Str15} explota de manera sistemática, es leer \eqref{eq:un-escalar} como un \clave{campo vectorial} sobre la recta: en cada punto $x$ la ecuación prescribe una velocidad $f(x)$. Imagine una partícula que se mueve por el eje real: donde $f(x)>0$ avanza a la derecha, donde $f(x)<0$ a la izquierda, y donde $f(x)=0$ se queda quieta. Basta graficar $f$ contra $x$ y marcar el sentido del movimiento sobre el eje para saber, sin resolver nada, qué hace cada solución. Esa gráfica es la \clave{línea de fase} del sistema.
+\notamargen{\textbf{Convención} (la misma en las notas, en \cmd{lineaFase.m} y en la página web): círculo lleno, equilibrio estable; vacío, inestable; gris, semiestable; triángulos, sentido del flujo.}
+
+\begin{ejemplo}[label=ej:un-seno]{El campo $\dot x=\sin x$}
+Resuelva $\dot x=\sin x$ con $x(0)=\pi/4$ y diga qué pasa cuando $t\to\infty$.
+\solucion Separando variables,
+\[
+  \int_{x_0}^{x}\frac{\dif s}{\sin s}=t\quad\Longrightarrow\quad\tan\frac{x(t)}2=\tan\frac{x_0}2\;e^{t},
+\]
+y para $x_0\in(-\pi,\pi)$, $x(t)=2\arctan\bigl(\tan(x_0/2)\,e^t\bigr)$. Con $x_0=\pi/4$, $\tan(\pi/8)=\sqrt2-1$ y
+\[
+  x(t)=2\arctan\bigl((\sqrt2-1)\,e^t\bigr)\xrightarrow[t\to\infty]{}2\cdot\frac\pi2=\pi ;
+\]
+por ejemplo, $x(1)=1.689$. La fórmula es exacta, pero no se lee de un vistazo. La línea de fase (\cref{fig:un-seno}) dice lo mismo sin cuentas: entre $0$ y $\pi$ el campo es positivo, así que la solución avanza a la derecha y se acerca a $\pi$, donde el flujo se detiene. Los equilibrios son $\eq=k\pi$, $k\in\Z$: los múltiplos pares de $\pi$ repelen y los impares atraen.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_seno}
+\caption{Izquierda: línea de fase de $\dot x=\sin x$. Derecha: quince soluciones; los círculos son la solución exacta desde $x_0=\pi/4$ (el error de \cmd{ode45} es menor que $10^{-9}$). Ninguna solución cruza las rectas $x=k\pi$.}
+\label{fig:un-seno}
+\end{figure}
+
+\codigorepo{cap02_unidimensionales/C2_Ej1_Seno.m}{exacta}{Solución exacta contra \cmd{ode45}}
+
+\video{V2_1_linea_fase}{La partícula sobre la recta}
+La \cref{fig:un-seno} muestra un rasgo que conviene subrayar: \alerta{las soluciones nunca cruzan un equilibrio}. No es una casualidad numérica: es consecuencia de la unicidad de las soluciones, y es la clave de la \cref{sec:un-monotonia}.
+
+\begin{trampa}[label=tr:un-infinito]{Lo que crece, crece sin límite}
+\plausible{En $\dot x=\sin x$ con $x_0=\pi/4$, como $\dot x>0$, la solución crece para siempre: $x(t)\to\infty$.}
+Así lo afirmaban las notas de 2024. Es cierto que $x(t)$ crece para siempre, pero crecer no es tender a infinito: la solución queda atrapada entre los equilibrios $0$ y $\pi$ y tiende a $\pi$. Además, $\abs{\sin x-\sin y}\le\abs{x-y}$, de modo que $\sin x$ es globalmente Lipschitz y las soluciones existen para todo $t$ sin escapar (\cref{sec:un-escape}).
+\correcto{Una función creciente y acotada tiene límite. Antes de concluir que una solución diverge, busque el primer equilibrio en la dirección del flujo.}
+\end{trampa}

@@ -1,0 +1,102 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:in-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{Modelo:} $\dot x=f(t,x,u)$, $y=h(t,x,u)$; invariante o variante en el tiempo según $f$ dependa de $t$. Con $u=k(t,x)$ el lazo cerrado no tiene entrada: análisis y síntesis se encuentran.
+  \item \textbf{Equilibrios:} $f(\eq)=0$. Trasladarlos al origen es gratis; reescalar reduce parámetros. Ambas cosas hay que deshacerlas al interpretar.
+  \item \textbf{Lo que lo lineal no puede:} varios equilibrios aislados, ciclos límite, escape en tiempo finito, período que depende de la amplitud, caos. La estabilidad es de un equilibrio, no del sistema.
+  \item \textbf{El todo no es la suma de las partes}, y la versión discreta de una ecuación no se comporta como la continua.
+  \item \textbf{Energía:} si $E\ge0$ y $\dot E\le0$ se concluye algo sin resolver la ecuación; con $\dot E$ solo semidefinida hace falta LaSalle.
+  \item \textbf{Control:} una ley lineal puede no estabilizar (y crear equilibrios nuevos); una no lineal puede hacerlo mejor; y hay sistemas controlables que ninguna ley continua estabiliza (Brockett).
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item Agregar $t$ como estado no convierte un sistema variante en invariante (\cref{tr:in-tiempo}).
+  \item Una simulación de un sistema caótico no predice el futuro lejano (\cref{tr:in-caos}).
+  \item El mapa logístico y la ecuación logística no son lo mismo (\cref{tr:in-discreta}).
+  \item $\dot E\le0$ no lleva al origen sin LaSalle (\cref{tr:in-lasalle}).
+  \item Controlable no implica estabilizable (\cref{tr:in-controlable}).
+  \item Converger a algo no es ser estable: puede ser otro equilibrio (\cref{tr:in-cubico}).
+  \item Un lazo con conmutación no es una ecuación diferencial ordinaria (\cref{tr:in-discontinuo}).
+\end{itemize}
+\end{trampa}
+
+\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout1, Handout1\_2026 e Intro2026)]
+(i) En el ejemplo $\dot x=x+u^3$ con $u=-kx$ se decía que el origen quedaba ``estable pero no asintóticamente estable''. Es falso: el origen sigue siendo inestable y la solución converge a otro equilibrio, $k^{-3/2}$ (\cref{ej:in-cubico}). (ii) La tesis de Poincaré (1879) trató de ecuaciones en derivadas parciales; la clasificación de puntos singulares, el índice y los ciclos límite son de la \emph{Memoria} de 1881--1886. Nació el 29 de abril, no el 28. (iii) Duffing (1918) estudió oscilaciones forzadas con resorte cúbico; el caos en su ecuación se encontró mucho después. (iv) El criterio del círculo es de Sandberg y Zames; Popov dio en 1961 su propio criterio. (v) La dinámica cero es de Byrnes e Isidori; la ISS la introdujo Sontag en 1989, y con Wang (1995) dio sus caracterizaciones. (vi) La obra de Lyapunov se tradujo al francés 15 años después de 1892, no 25. (vii) La ecuación logística la redescubrieron Pearl y Reed en 1920; se eliminó la mención a un redescubrimiento por ``Alfred Volta''. Rousseau era amigo del padre de Malthus, no su mentor. Feigenbaum trabajó con el mapa logístico a finales de los setenta. (viii) Se corrigió la grafía de Artstein. (ix) La ley de estructura variable produce un lazo discontinuo: se agregó la advertencia sobre la noción de solución y se matizó la comparación con el PD. (x) Se quitaron los restos de la plantilla Tufte y la notación se unificó con \texttt{notacion.sty} (invariante/variante en el tiempo, $\eq$, $f(t,x,u)$). Todos los números se verificaron con \texttt{herramientas/cap01\_numeros.py} (36 de 36) y \cmd{verificarCap01.m} (34 de 34).
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:in-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\begin{problema}[equilibrios y fenómenos]\label{prob:in-equilibrios}
+Encuentre todos los equilibrios y diga cuáles de los fenómenos de la \cref{sec:in-fenomenos} puede tener cada sistema: (a) $\dot x=x-x^3$; (b) $\dot x=x^2$; (c) $\dot x=\sin x$; (d) $\dot x=rx-x^2$, según el signo de $r$.
+\end{problema}
+
+\begin{problema}[Duffing]\label{prob:in-duffing}
+Escriba en variables de estado la ecuación de Duffing $\ddot x+\delta\dot x+\alpha x+\beta x^3=\gamma\cos\omega t$. ¿Es invariante en el tiempo? Con $\gamma=0$, ¿cuántos equilibrios tiene según los signos de $\alpha$ y $\beta$?
+\end{problema}
+
+\begin{problema}[un circuito con diodo túnel]\label{prob:in-diodo}
+Un circuito RLC tiene en paralelo con el condensador un diodo túnel de característica $i=h(v)$ no monótona (\cref{sec:un-diodo}). Escriba el modelo de estado con la corriente del inductor y el voltaje del condensador. ¿Cuántos equilibrios puede tener? Compare con el mismo circuito con una resistencia lineal.
+\end{problema}
+
+\begin{problema}[reescalar la logística]\label{prob:in-reescalar}
+(a) Muestre que con $z=P/K$ y $\tau=Rt$ la ecuación \eqref{eq:in-logistica} queda $\dif z/\dif\tau=z(1-z)$, sin parámetros. (b) Haga lo mismo con la logística con cosecha $\dot P=RP(1-P/K)-H$. ¿Cuántos parámetros quedan, y cuál es? (Este sistema reaparece en el \cref{cap:unidimensionales}.)
+\end{problema}
+
+\begin{problema}[descubrir LaSalle]\label{prob:in-lasalle}
+Para el masa-resorte \eqref{eq:in-masa} con $u=0$ y $c>0$, $\dot E=-cx_2^2$. Describa el conjunto donde $\dot E=0$ y argumente, sin teoremas, por qué la única solución que puede quedarse en ese conjunto para siempre es la del origen. ¿Qué cambia si $c=0$?
+\end{problema}
+
+\begin{problema}[la condición de Brockett]\label{prob:in-brockett}
+(a) Verifique la condición del \cref{thm:in-brockett} para el doble integrador $\dot x_1=x_2$, $\dot x_2=u$: ¿todo $y$ pequeño es $f(x,u)$ para $x,u$ pequeños? (b) Repita con el integrador de Brockett. (c) ¿Qué concluye en cada caso? ¿Qué \emph{no} puede concluir del caso (a)?
+\end{problema}
+
+\begin{problema}[el camino al caos]\label{prob:in-mapa}
+\etiquetaM{} (a) Para el mapa \eqref{eq:in-mapa} muestre que $F'(P^*)=2-R$ en el punto fijo no trivial y concluya que pierde la estabilidad en $R=3$. (b) Con \cmd{C1\_Ej2\_Logistica}, encuentre aproximadamente el valor de $R$ en el que aparece el ciclo de período 4. (c) ¿Qué pasa con las iteraciones si $R>4$ y $P[0]\in(0,K)$?
+\end{problema}
+
+\begin{problema}[la ley lineal que crea equilibrios]\label{prob:in-cubico}
+\etiquetaM{} Para $\dot x=x+u^3$ con $u=-kx$: (a) determine la región de atracción de cada uno de los tres equilibrios del lazo cerrado. (b) ¿Hay algún $k$ que estabilice el origen? (c) ¿Es $u=-(kx)^{1/3}$ una función Lipschitz? ¿Importa, si el lazo cerrado es lineal?
+\end{problema}
+
+\begin{problema}[lo que el integrador no corrige]\label{prob:in-pid}
+En el \cref{ej:in-pid}: (a) muestre que $y^*=r-w$ para todo $k_I>0$ con que el lazo sea estable. (b) Si $v$ fuera una rampa, $v=at$, ¿seguiría siendo cero el error debido a $v$? (c) ¿Qué habría que cambiar para que $y\to r$?
+\end{problema}
+
+\begin{problema}[el período del péndulo]\label{prob:in-periodo}
+\etiquetaEstrella{} (a) Con la conservación de la energía, muestre que el período del péndulo sin fricción de amplitud $\theta_0$ es $T=\frac{4}{\omega_0}\int_0^{\pi/2}\bigl(1-k^2\sin^2\varphi\bigr)^{-1/2}\dif\varphi$ con $k=\sin(\theta_0/2)$. (Pista: el cambio $\sin(\theta/2)=k\sin\varphi$.) (b) \etiquetaM{} Verifique la \cref{tab:in-periodo}. (c) ¿Qué pasa con $T$ cuando $\theta_0\to\pi$?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:in-equilibrios}}
+(a) $0$, $\pm1$: tres equilibrios aislados, imposible en un sistema lineal. (b) Solo $0$, y las soluciones con $x_0>0$ escapan en tiempo finito. (c) $k\pi$, infinitos. (d) $0$ y $r$; en $r=0$ chocan e intercambian la estabilidad (una bifurcación transcrítica, capítulo~6). Ninguno puede tener ciclos límite ni caos: son escalares (\cref{cap:unidimensionales}).
+
+\paragraph{Problema~\ref{prob:in-duffing}}
+$x_1=x$, $x_2=\dot x$: $\dot x_1=x_2$, $\dot x_2=-\delta x_2-\alpha x_1-\beta x_1^3+\gamma\cos\omega t$; variante en el tiempo si $\gamma\neq0$. Con $\gamma=0$ los equilibrios son $(x_1,0)$ con $x_1(\alpha+\beta x_1^2)=0$: uno si $\alpha\beta>0$ (o $\beta=0$, $\alpha\neq0$) y tres, $0$ y $\pm\sqrt{-\alpha/\beta}$, si $\alpha\beta<0$. La trampa: con $\gamma\neq0$ la pregunta ``¿cuántos equilibrios?'' no tiene sentido, porque $f(t,x)=0$ para todo $t$ no tiene solución.
+
+\paragraph{Problema~\ref{prob:in-reescalar}}
+(a) $\dif z/\dif\tau=\frac1{RK}\dot P=z(1-z)$. (b) $\dif z/\dif\tau=z(1-z)-h$ con $h=H/(RK)$: un solo parámetro, la cosecha medida en unidades de $RK$. En el \cref{cap:unidimensionales} se ve que la población se extingue si $h>1/4$, es decir, si la cosecha supera el crecimiento máximo de la población, $H>RK/4$.
+
+\paragraph{Problema~\ref{prob:in-brockett}}
+(a) $f(x,u)=(x_2,u)$: dado $y=(y_1,y_2)$ basta $x_2=y_1$, $u=y_2$, pequeños si $y$ lo es. La condición se cumple, pero es solo \emph{necesaria}: de (a) no se concluye que exista la ley (aunque existe: el PD). (b) Falla, como en la \cref{sec:in-brockett}. (c) El integrador de Brockett no es estabilizable con $u=k(x)$ suave.
+
+\paragraph{Problema~\ref{prob:in-mapa}}
+(a) $F'(P)=R(1-2P/K)$ y $P^*=K(1-1/R)$ dan $F'(P^*)=R(2/R-1)=2-R$; $\abs{2-R}<1$ si $1<R<3$. (b) Cerca de $R=1+\sqrt6\approx3.449$. (c) El máximo de $F$ es $RK/4>K$: algunas iteraciones salen de $[0,K]$, la población se vuelve negativa y diverge. El modelo deja de tener sentido físico.
+
+\paragraph{Problema~\ref{prob:in-cubico}}
+(a) $(0,\infty)$ va a $k^{-3/2}$ y $(-\infty,0)$ a $-k^{-3/2}$; el origen solo se atrae a sí mismo. (b) No: $f'(0)=1$ para todo $k$. (c) No es Lipschitz en $0$ (pendiente infinita), pero el lazo cerrado $\dot x=(1-k)x$ sí lo es, y es lo que importa para la existencia y la unicidad. En la práctica importa otra cosa: cerca de $0$ la ley pide ganancias enormes, y un ruido de medición pequeño produce entradas grandes.
+
+\respuestaspausas

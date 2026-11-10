@@ -24,6 +24,7 @@ slprj/
 # Videos grandes: publíquelos aparte o con Git LFS
 *.mp4
 *.avi
+!sitio/videos/*.mp4
 # Copias locales
 sitio/pdf/*.pdf
 octave-workspace

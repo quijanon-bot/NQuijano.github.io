@@ -9,6 +9,8 @@ project:
     - recursos/explorador-fundamentos.js
     - recursos/explorador-ciclos.js
     - recursos/explorador-linealizacion.js
+    - recursos/explorador-introduccion.js
+    - recursos/explorador-unidimensional.js
 
 lang: es
 

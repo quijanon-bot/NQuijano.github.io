@@ -1,0 +1,33 @@
+%% ---------------------------------------------------------------------
+\section{Cómo trabajar en este curso}
+\label{sec:in-trabajo}
+%% ---------------------------------------------------------------------
+
+Esta sección no es sobre sistemas no lineales: es sobre cómo se trabaja con ellos durante el semestre, y por qué las notas están escritas como están.
+
+\subsection{Tres niveles de análisis}
+
+Todo análisis se puede leer buscando tres cosas, en orden creciente de dificultad.
+\begin{enumerate}
+  \item \clave{Correcto y completo.} Los equilibrios están todos, la linealización está bien calculada, las conclusiones se siguen de las premisas, la simulación corresponde a las ecuaciones.
+  \item \clave{Consciente de sus límites.} Además, el análisis dice \emph{dónde deja de valer}: si la conclusión es local o global, en qué región se cumplen las hipótesis, qué pasa si un parámetro se sale del rango supuesto, si un resultado numérico es una propiedad del sistema o un artefacto del integrador.
+  \item \clave{Original.} Además, contiene algo que no está en ningún libro ni se obtiene pidiéndoselo a una herramienta: una conexión inesperada entre dos sistemas, una interpretación física que ilumina el resultado, un contraejemplo propio.
+\end{enumerate}
+El segundo nivel es donde ocurre la mayor parte del aprendizaje y donde se concentran los errores más costosos.
+
+\subsection{Conclusiones plausibles y falsas}
+
+Un sistema no lineal casi siempre admite una conclusión que \emph{suena} correcta, la que sale de razonar por analogía con el caso lineal, y que es falsa. Este capítulo ya mostró varias: la estabilidad como propiedad del sistema (\cref{sec:in-fenomenos}); ``la energía decrece, luego va al origen'' (\cref{tr:in-lasalle}); ``converge a algo, luego es estable'' (\cref{tr:in-cubico}); ``controlable, luego estabilizable'' (\cref{tr:in-controlable}); ``la logística discreta y la continua son lo mismo'' (\cref{tr:in-discreta}); ``una simulación precisa predice el futuro'' (\cref{tr:in-caos}). Hay más en cada capítulo, en las cajas rojas marcadas \textbf{Trampa}.
+
+\begin{ideaclave}
+En todos los casos la afirmación falsa es una \emph{generalización indebida} de algo que sí es cierto en un contexto más restringido. Las herramientas automáticas de generación de texto son particularmente buenas produciendo exactamente ese tipo de afirmación, porque producen lo que suena bien en el contexto. Distinguir lo plausible de lo correcto es la habilidad que el curso quiere desarrollar, y no se puede delegar.
+\end{ideaclave}
+
+\subsection{Tres reglas para simular}
+
+El curso usa MATLAB y Simulink de manera intensiva; cada figura de estas notas sale de un script del repositorio (\cmd{codigo/}), y \cmd{verificarCapNN} comprueba sus números.
+\begin{enumerate}
+  \item \clave{La simulación no demuestra; ilustra.} Cien condiciones iniciales que convergen no prueban estabilidad global; una que no converge la refuta.
+  \item \clave{Antes de simular, sepa qué espera ver.} Calcule los equilibrios, linealice, estime las escalas de tiempo. Si la simulación contradice el cálculo, uno de los dos está mal, y averiguar cuál es donde está el aprendizaje.
+  \item \clave{Desconfíe del integrador.} Sistemas rígidos, oscilaciones de relajación, soluciones que escapan y lados derechos discontinuos son los sospechosos habituales de resultados espurios. \cmd{ode45} no siempre es la respuesta.
+\end{enumerate}

@@ -1,0 +1,41 @@
+%% ---------------------------------------------------------------------
+\section{Existencia global y escape en tiempo finito}
+\label{sec:un-escape}
+%% ---------------------------------------------------------------------
+
+La unicidad local garantiza una solución en un intervalo $[0,\delta)$, quizás muy corto. Que $f$ sea suave no basta para que exista para todo $t\ge0$.
+
+\begin{ejemplo}[label=ej:un-escape]{Escape en tiempo finito}
+Resuelva $\dot x=x^2$, $x(0)=x_0>0$.
+\solucion $f(x)=x^2$ es $\Cont\infty$ y, por tanto, localmente Lipschitz. Separando variables,
+\[
+  x(t)=\frac{x_0}{1-x_0t},\qquad 0\le t<\frac1{x_0} .
+\]
+La solución tiende a $+\infty$ cuando $t\to1/x_0$: el \clave{tiempo de escape} es $\bar t=1/x_0$ y el intervalo máximo de existencia es $[0,1/x_0)$. La fórmula vuelve a tener sentido para $t>1/x_0$, pero esa rama no está conectada con la condición inicial. Con $x_0=1$, la respuesta a la tercera pregunta de la \cref{sec:un-porque} es que la solución \emph{no existe} en $t=2$: dejó de existir en $t=1$.
+\end{ejemplo}
+
+¿Por qué escapa $x^2$ y no $\sin x$? Por la rapidez con que crece $f$ para $\abs x$ grande: $x^2$ crece más que linealmente, la velocidad aumenta tan deprisa que la partícula recorre una distancia infinita en un tiempo finito. Para descartar el escape hay dos herramientas: si $f$ es \emph{globalmente} Lipschitz, las soluciones existen para todo $t$ (\cref{thm:pm-global}); y si se sabe de antemano que la solución se queda en un compacto, también (\cref{thm:pm-compacto}). La primera es fácil de verificar y muy restrictiva; la segunda es la que se usa en la práctica, y así se usó en la \cref{prop:un-monotonia} y se usará con las funciones de Lyapunov: si $V$ no crece, las soluciones se quedan en un conjunto de nivel compacto y existen para siempre.
+
+\begin{ejemplo}[label=ej:un-x2menos1]{Estable cerca de $-1$, explosivo después de $+1$}
+Analice $\dot x=x^2-1$.
+\solucion Los equilibrios son $-1$ (estable, $f'(-1)=-2$) y $1$ (inestable, $f'(1)=2$). Las notas de 2024 decían que una perturbación grande de $-1$ ``puede llevar al equilibrio $1$''. La línea de fase dice algo más preciso y más grave: si $x_0>1$, la solución no va a ningún equilibrio, escapa. Resolviendo,
+\[
+  \frac{x(t)-1}{x(t)+1}=\frac{x_0-1}{x_0+1}\,e^{2t}\quad\Longrightarrow\quad\bar t=\frac12\ln\frac{x_0+1}{x_0-1}\qquad(x_0>1) .
+\]
+Desde $x_0=1.5$ escapa en $\bar t=\tfrac12\ln5=0.805$; desde $x_0=3$, en $\tfrac12\ln2=0.347$. La región de atracción de $-1$ es exactamente $(-\infty,1)$ (\cref{fig:un-escape}), y la solución que empieza en $1$ se queda en $1$, pero la más mínima perturbación hacia arriba escapa.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap02/f_escape}
+\caption{Izquierda: $\dot x=x^2$ con cuatro condiciones iniciales; las líneas punteadas marcan $\bar t=1/x_0$. Derecha: $\dot x=x^2-1$; las soluciones con $x_0>1$ (coral) escapan.}
+\label{fig:un-escape}
+\end{figure}
+
+\begin{trampa}[label=tr:un-suave]{Si $f$ es suave, la solución existe para siempre}
+\plausible{$f(x)=x^2$ es un polinomio, infinitamente derivable: sus soluciones existen para todo $t$.}
+La suavidad de $f$, incluso si es polinomial, garantiza existencia y unicidad \emph{locales}, nada más. En un sistema no lineal, ``inestable'' puede significar escapar a infinito en tiempo finito, algo imposible para $\dot x=Ax$, cuyas soluciones $e^{At}x_0$ existen siempre. Y en la simulación el escape es engañoso: \cmd{ode45} reduce el paso al acercarse a la asíntota y termina con la advertencia \emph{Unable to meet integration tolerances}, que un usuario desprevenido atribuye a un problema numérico.
+\correcto{Antes de simular, pregúntese si $f$ crece más que linealmente. Si es así, detenga la integración con un evento cuando $\abs x$ supere una cota (opción \cmd{'Events'} de \cmd{odeset}), y compare el instante del evento con el tiempo de escape.}
+\end{trampa}
+
+\codigorepo{cap02_unidimensionales/C2_Ej9_Escape.m}{eventos}{Escape en tiempo finito con detección por eventos}

@@ -5,6 +5,22 @@ subtitle: "Los videos que se usan en clase, generados con los scripts del reposi
 
 Cada video se genera con un script de MATLAB; si quiere cambiar algo, cambie el script y vuelva a grabarlo. Los `.mp4` se copian a `sitio/videos/`.
 
+## Parte 1 · Introducción y motivación
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V1_1_lorenz}[V1.1 · Lorenz](videos/V1_1_lorenz.mp4) | Dos trayectorias a $10^{-9}$ que se separan. | `C1_Video_Lorenz.m` |
+| []{#V1_2_logistica}[V1.2 · Mapa logístico](videos/V1_2_logistica.mp4) | La telaraña y el diagrama de bifurcación mientras $R$ crece. | `C1_Video_Logistica.m` |
+
+## Parte 2 · Sistemas unidimensionales
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V2_1_linea_fase}[V2.1 · Línea de fase](videos/V2_1_linea_fase.mp4) | Partículas sobre la recta con velocidad $\sin x$. | `C2_Video_LineaFase.m` |
+| []{#V2_2_histeresis}[V2.2 · Histéresis](videos/V2_2_histeresis.mp4) | El diodo túnel recuerda: saltos al subir y al bajar $E$. | `C2_Video_Histeresis.m` |
+
+Los cuatro videos de las partes 1 y 2 ya están publicados: se generaron con `herramientas/cap01_02_videos.py` (Python, los mismos modelos y parámetros de los scripts de MATLAB). Los `C1_Video_*` y `C2_Video_*` de MATLAB producen la misma animación para grabarla en su computador.
+
 ## Parte 3 · Fundamentos matemáticos
 
 | Video | Qué muestra | Script |

@@ -1,0 +1,22 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}
+ \node[suma] (s0) {};
+ \node[bloque=snlvioleta,right=9mm of s0,minimum width=24mm] (K) {controlador\\$u=\mu(e)$};
+ \node[suma,right=9mm of K] (s1) {};
+ \node[bloque=snlnoche,right=9mm of s1,minimum width=34mm] (P) {planta \emph{real}\\$\dot x=f(x,u+v)$};
+ \node[suma,right=14mm of P] (s2) {};
+ \draw[flecha] ($(s0.west)+(-13mm,0)$) node[left,etq]{$r$} -- (s0);
+ \draw[flecha] (s0) -- node[above,etq]{$e$} (K);
+ \draw[flecha] (K) -- node[above,etq]{$u$} (s1);
+ \draw[flecha] ($(s1.north)+(0,9mm)$) node[above,etq,text=snlcoral]{$v$ (perturbación)} -- (s1);
+ \draw[flecha] (s1) -- (P);
+ \draw[flecha] (P) -- node[above,etq]{$y=h(x)$} (s2);
+ \draw[flecha] ($(s2.north)+(0,9mm)$) node[above,etq,text=snlcoral]{$w$ (ruido)} -- (s2);
+ \draw[flecha] (s2.east) -- ++(8mm,0) node[right,etq]{$y_m$};
+ \draw[flecha] ($(s2.east)+(4mm,0)$) -- ++(0,-15mm) -| node[pos=0.25,below,etq]{$y_m=y+w$: lo que se mide} (s0.south);
+ \node[font=\scriptsize,text=snlnoche] at ($(s0.south)+(-2.4mm,-2.2mm)$) {$-$};
+ \node[nota,below=1mm of P] {se diseña con un \emph{modelo}; se evalúa sobre la planta};
+\end{tikzpicture}
+\end{document}

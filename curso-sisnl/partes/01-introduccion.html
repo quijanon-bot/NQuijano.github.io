@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -84,6 +118,35 @@ window.MathJax = { tex: { macros: {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -193,8 +256,19 @@ window.MathJax = { tex: { macros: {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#ruta-de-la-clase" id="toc-ruta-de-la-clase" class="nav-link active" data-scroll-target="#ruta-de-la-clase">Ruta de la clase</a></li>
+  <li><a href="#lo-esencial-en-una-página" id="toc-lo-esencial-en-una-página" class="nav-link" data-scroll-target="#lo-esencial-en-una-página">Lo esencial, en una página</a></li>
+  <li><a href="#explorador" id="toc-explorador" class="nav-link" data-scroll-target="#explorador">Explorador interactivo</a></li>
+  <li><a href="#códigos-de-esta-parte" id="toc-códigos-de-esta-parte" class="nav-link" data-scroll-target="#códigos-de-esta-parte">Códigos de esta parte</a></li>
+  <li><a href="#videos" id="toc-videos" class="nav-link" data-scroll-target="#videos">Videos</a></li>
+  <li><a href="#problemas" id="toc-problemas" class="nav-link" data-scroll-target="#problemas">Problemas</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -202,7 +276,7 @@ window.MathJax = { tex: { macros: {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">1. Introducción y motivación</h1>
-<p class="subtitle lead">Semana 1</p>
+<p class="subtitle lead">Semana 1 · una clase</p>
 </div>
 
 
@@ -219,13 +293,283 @@ window.MathJax = { tex: { macros: {
 </header>
 
 
-<div class="franja"><div class="rotulo">Parte 1 · Semana 1</div><div class="titulo">Introducción y motivación</div><svg class="fase" viewbox="0 0 600 160" preserveaspectratio="xMaxYMid slice"><ellipse cx="430" cy="80" rx="30" ry="15" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="60" ry="30" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="90" ry="45" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="120" ry="60" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="150" ry="75" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="180" ry="90" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="210" ry="105" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="240" ry="120" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><polyline points="580.0,80.0 578.7,84.5 577.0,88.9 574.7,93.2 571.9,97.4 568.6,101.4 564.9,105.4 560.8,109.2 556.2,112.9 551.2,116.3 545.9,119.6 540.2,122.8 534.2,125.7 527.9,128.4 521.3,130.9 514.5,133.2 507.4,135.3 500.2,137.1 492.8,138.7 485.3,140.1 477.6,141.3 469.9,142.2 462.2,142.8 454.4,143.3 446.7,143.5 439.0,143.4 431.4,143.2 423.8,142.7 416.4,142.0 409.1,141.1 402.0,139.9 395.1,138.6 388.4,137.1 382.0,135.3 375.8,133.4 369.9,131.4 364.3,129.2 359.0,126.8 354.0,124.3 349.3,121.7 345.1,118.9 341.1,116.0 337.6,113.1 334.4,110.1 331.6,107.0 329.2,103.8 327.2,100.6 325.6,97.4 324.4,94.1 323.6,90.9 323.2,87.6 323.2,84.4 323.6,81.1 324.4,78.0 325.5,74.8 327.0,71.8 328.8,68.8 331.0,65.9 333.5,63.0 336.3,60.3 339.5,57.7 342.9,55.2 346.6,52.8 350.5,50.5 354.7,48.4 359.1,46.4 363.7,44.6 368.5,42.9 373.4,41.4 378.5,40.0 383.7,38.8 389.0,37.8 394.3,36.9 399.8,36.2 405.2,35.7 410.7,35.3 416.2,35.1 421.7,35.1 427.1,35.2 432.5,35.5 437.7,35.9 442.9,36.5 448.0,37.3 452.9,38.2 457.7,39.2 462.4,40.4 466.8,41.7 471.1,43.1 475.1,44.6 479.0,46.3 482.6,48.0 485.9,49.8 489.1,51.8 491.9,53.7 494.5,55.8 496.9,57.9 499.0,60.1 500.7,62.3 502.3,64.6 503.5,66.9 504.4,69.2 505.1,71.5 505.5,73.8 505.6,76.1 505.4,78.4 505.0,80.6 504.3,82.9 503.3,85.0 502.1,87.2 500.7,89.3 499.0,91.3 497.0,93.3 494.9,95.2 492.6,97.0 490.0,98.7 487.3,100.3 484.4,101.8 481.3,103.3 478.1,104.6 474.8,105.8 471.3,107.0 467.8,108.0 464.1,108.9 460.4,109.6 456.6,110.3 452.8,110.8 448.9,111.3 445.0,111.6 441.2,111.7 437.3,111.8 433.4,111.8 429.6,111.6 425.9,111.3 422.2,110.9 418.5,110.4 415.0,109.8 411.6,109.1 408.3,108.4 405.1,107.5 402.0,106.5 399.1,105.4 396.3,104.3 393.7,103.1 391.2,101.8 389.0,100.5 386.9,99.1 385.0,97.7 383.2,96.2 381.7,94.6 380.4,93.1 379.2,91.5 378.3,89.9 377.5,88.3 377.0,86.6 376.6,85.0 376.5,83.4 376.5,81.7 376.8,80.1 377.2,78.5 377.8,77.0 378.6,75.5 379.6,74.0 380.7,72.5 382.0,71.1 383.5,69.8 385.1,68.5 386.9,67.2 388.7,66.0 390.8,64.9 392.9,63.9 395.1,62.9 397.4,62.0 399.9,61.2 402.3,60.5 404.9,59.8 407.5,59.2 410.2,58.7 412.9,58.3 415.6,58.0 418.4,57.7 421.1,57.6 423.9,57.5 426.6,57.5 429.3,57.6 432.0,57.8 434.6,58.0 437.2,58.3 439.7,58.7 442.2,59.2 444.5,59.7 446.8,60.3 449.0,61.0 451.2,61.7 453.2,62.5 455.0,63.3 456.8,64.2 458.5,65.2 460.0,66.1 461.4,67.1 462.7,68.2 463.8,69.2 464.8,70.3 465.7,71.5 466.4,72.6 467.0,73.7 467.4,74.9 467.7,76.1 467.9,77.2 467.9,78.4 467.7,79.5 467.5,80.6 467.1,81.7 466.6,82.8 465.9,83.9 465.2,84.9 464.3,85.9 463.3,86.9 462.2,87.8 461.0,88.7 459.7,89.6 458.3,90.4 456.8,91.2 455.3,91.9 453.6,92.5 452.0,93.1 450.2,93.7 448.4,94.1 446.6,94.6 444.7,94.9 442.8,95.3 440.9,95.5 438.9,95.7 437.0,95.8 435.0,95.9 433.1,95.9 431.2,95.9 429.3,95.8 427.4,95.6 425.6,95.4 423.8,95.2 422.0,94.9 420.3,94.5 418.7,94.1 417.1,93.6 415.6,93.1 414.1,92.6 412.7,92.0 411.5,91.4 410.3,90.8 409.1,90.1 408.1,89.4 407.2,88.6 406.3,87.9 405.6,87.1 405.0,86.3 404.4,85.5 404.0,84.7 403.6,83.9 403.4,83.1 403.2,82.3 403.2,81.5 403.2,80.6 403.4,79.8 403.6,79.0 404.0,78.3 404.4,77.5 404.9,76.8 405.5,76.0 406.2,75.4 406.9,74.7 407.7,74.0 408.6,73.4 409.6,72.8 410.6,72.3 411.7,71.8 412.8,71.3 414.0,70.9 415.2,70.5 416.5,70.1 417.8,69.8 419.1,69.5 420.5,69.3 421.8,69.1 423.2,68.9 424.6,68.8 425.9,68.7 427.3,68.7 428.7,68.7 430.0,68.8 431.4,68.9 432.7,69.0 434.0,69.2 435.2,69.4 436.4,69.6 437.6,69.9 438.8,70.2 439.8,70.6 440.9,70.9 441.9,71.3 442.8,71.8 443.7,72.2 444.5,72.7 445.2,73.2 445.9,73.7 446.5,74.2 447.1,74.8 447.6,75.3 448.0,75.9 448.3,76.5 448.6,77.0 448.8,77.6 448.9,78.2 449.0,78.8 449.0,79.3 448.9,79.9 448.7,80.5 448.5,81.0 448.2,81.6 447.9,82.1 447.5,82.6 447.0,83.1 446.5,83.6 446.0,84.1 445.3,84.5 444.7,84.9 444.0,85.3 443.2,85.7 442.4,86.0 441.6,86.4 440.8,86.6 439.9,86.9 439.0,87.1 438.0,87.4 437.1,87.5 436.1,87.7 435.2,87.8 434.2,87.9 433.2,87.9 432.3,88.0 431.3,88.0 430.3,88.0 429.4,87.9 428.4,87.8 427.5,87.7 426.6,87.6 425.8,87.4 424.9,87.2 424.1,87.0 423.3,86.8 422.6,86.5 421.8,86.2 421.2,85.9 420.5,85.6 419.9,85.3 419.4,84.9 418.9,84.6 418.4,84.2 418.0,83.8 417.7,83.5 417.4,83.1 417.1,82.7 416.9,82.3 416.7,81.8 416.6,81.4 416.6,81.0 416.6,80.6 416.6,80.2 416.7,79.8 416.8,79.4 417.0,79.0 417.2,78.6 417.5,78.3 417.8,77.9 418.2,77.6 418.6,77.2 419.0,76.9 419.4,76.6 419.9,76.3 420.4,76.1 421.0,75.8 421.6,75.6 422.2,75.4 422.8,75.2 423.4,75.0 424.1,74.8 424.7,74.7 425.4,74.6 426.1,74.5 426.8,74.4 427.5,74.4 428.2,74.4 428.8,74.3 429.5,74.4 430.2,74.4 430.9,74.4 431.5,74.5 432.2,74.6 432.8,74.7 433.4,74.8 434.0,75.0" stroke="#E09F3E" stroke-width="2.5" fill="none"></polyline><circle cx="430" cy="80" r="4" fill="#E09F3E"></circle></svg></div>
-<div class="profundiza">
-<p><span class="caja-titulo">Por migrar</span></p>
-<p>Esta parte todavía está en el formato anterior (Handout1_2026.tex). Se migrará siguiendo la guía <code>notas/MIGRACION.md</code>, con el capítulo 11 (pasividad) como modelo: notación unificada, códigos de MATLAB/Simulink en <code>codigo/cap01_*/</code>, verificación de los números, ejercicios con trampa y una página como ésta con exploradores interactivos.</p>
+<div class="franja"><div class="rotulo">Parte 1 · Semana 1</div><div class="titulo">Introducción y motivación</div><div class="cita">No solo en la investigación, sino también en el mundo cotidiano de la política y la economía, todos estaríamos mejor si más gente se diera cuenta de que los sistemas no lineales simples no poseen necesariamente propiedades dinámicas simples. — Robert May</div><svg class="fase" viewbox="0 0 600 160" preserveaspectratio="xMaxYMid slice"><ellipse cx="430" cy="80" rx="30" ry="15" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="60" ry="30" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="90" ry="45" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="120" ry="60" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="150" ry="75" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="180" ry="90" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="210" ry="105" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><ellipse cx="430" cy="80" rx="240" ry="120" stroke="#ffffff" stroke-opacity=".10" fill="none"></ellipse><polyline points="580.0,80.0 578.7,84.5 577.0,88.9 574.7,93.2 571.9,97.4 568.6,101.4 564.9,105.4 560.8,109.2 556.2,112.9 551.2,116.3 545.9,119.6 540.2,122.8 534.2,125.7 527.9,128.4 521.3,130.9 514.5,133.2 507.4,135.3 500.2,137.1 492.8,138.7 485.3,140.1 477.6,141.3 469.9,142.2 462.2,142.8 454.4,143.3 446.7,143.5 439.0,143.4 431.4,143.2 423.8,142.7 416.4,142.0 409.1,141.1 402.0,139.9 395.1,138.6 388.4,137.1 382.0,135.3 375.8,133.4 369.9,131.4 364.3,129.2 359.0,126.8 354.0,124.3 349.3,121.7 345.1,118.9 341.1,116.0 337.6,113.1 334.4,110.1 331.6,107.0 329.2,103.8 327.2,100.6 325.6,97.4 324.4,94.1 323.6,90.9 323.2,87.6 323.2,84.4 323.6,81.1 324.4,78.0 325.5,74.8 327.0,71.8 328.8,68.8 331.0,65.9 333.5,63.0 336.3,60.3 339.5,57.7 342.9,55.2 346.6,52.8 350.5,50.5 354.7,48.4 359.1,46.4 363.7,44.6 368.5,42.9 373.4,41.4 378.5,40.0 383.7,38.8 389.0,37.8 394.3,36.9 399.8,36.2 405.2,35.7 410.7,35.3 416.2,35.1 421.7,35.1 427.1,35.2 432.5,35.5 437.7,35.9 442.9,36.5 448.0,37.3 452.9,38.2 457.7,39.2 462.4,40.4 466.8,41.7 471.1,43.1 475.1,44.6 479.0,46.3 482.6,48.0 485.9,49.8 489.1,51.8 491.9,53.7 494.5,55.8 496.9,57.9 499.0,60.1 500.7,62.3 502.3,64.6 503.5,66.9 504.4,69.2 505.1,71.5 505.5,73.8 505.6,76.1 505.4,78.4 505.0,80.6 504.3,82.9 503.3,85.0 502.1,87.2 500.7,89.3 499.0,91.3 497.0,93.3 494.9,95.2 492.6,97.0 490.0,98.7 487.3,100.3 484.4,101.8 481.3,103.3 478.1,104.6 474.8,105.8 471.3,107.0 467.8,108.0 464.1,108.9 460.4,109.6 456.6,110.3 452.8,110.8 448.9,111.3 445.0,111.6 441.2,111.7 437.3,111.8 433.4,111.8 429.6,111.6 425.9,111.3 422.2,110.9 418.5,110.4 415.0,109.8 411.6,109.1 408.3,108.4 405.1,107.5 402.0,106.5 399.1,105.4 396.3,104.3 393.7,103.1 391.2,101.8 389.0,100.5 386.9,99.1 385.0,97.7 383.2,96.2 381.7,94.6 380.4,93.1 379.2,91.5 378.3,89.9 377.5,88.3 377.0,86.6 376.6,85.0 376.5,83.4 376.5,81.7 376.8,80.1 377.2,78.5 377.8,77.0 378.6,75.5 379.6,74.0 380.7,72.5 382.0,71.1 383.5,69.8 385.1,68.5 386.9,67.2 388.7,66.0 390.8,64.9 392.9,63.9 395.1,62.9 397.4,62.0 399.9,61.2 402.3,60.5 404.9,59.8 407.5,59.2 410.2,58.7 412.9,58.3 415.6,58.0 418.4,57.7 421.1,57.6 423.9,57.5 426.6,57.5 429.3,57.6 432.0,57.8 434.6,58.0 437.2,58.3 439.7,58.7 442.2,59.2 444.5,59.7 446.8,60.3 449.0,61.0 451.2,61.7 453.2,62.5 455.0,63.3 456.8,64.2 458.5,65.2 460.0,66.1 461.4,67.1 462.7,68.2 463.8,69.2 464.8,70.3 465.7,71.5 466.4,72.6 467.0,73.7 467.4,74.9 467.7,76.1 467.9,77.2 467.9,78.4 467.7,79.5 467.5,80.6 467.1,81.7 466.6,82.8 465.9,83.9 465.2,84.9 464.3,85.9 463.3,86.9 462.2,87.8 461.0,88.7 459.7,89.6 458.3,90.4 456.8,91.2 455.3,91.9 453.6,92.5 452.0,93.1 450.2,93.7 448.4,94.1 446.6,94.6 444.7,94.9 442.8,95.3 440.9,95.5 438.9,95.7 437.0,95.8 435.0,95.9 433.1,95.9 431.2,95.9 429.3,95.8 427.4,95.6 425.6,95.4 423.8,95.2 422.0,94.9 420.3,94.5 418.7,94.1 417.1,93.6 415.6,93.1 414.1,92.6 412.7,92.0 411.5,91.4 410.3,90.8 409.1,90.1 408.1,89.4 407.2,88.6 406.3,87.9 405.6,87.1 405.0,86.3 404.4,85.5 404.0,84.7 403.6,83.9 403.4,83.1 403.2,82.3 403.2,81.5 403.2,80.6 403.4,79.8 403.6,79.0 404.0,78.3 404.4,77.5 404.9,76.8 405.5,76.0 406.2,75.4 406.9,74.7 407.7,74.0 408.6,73.4 409.6,72.8 410.6,72.3 411.7,71.8 412.8,71.3 414.0,70.9 415.2,70.5 416.5,70.1 417.8,69.8 419.1,69.5 420.5,69.3 421.8,69.1 423.2,68.9 424.6,68.8 425.9,68.7 427.3,68.7 428.7,68.7 430.0,68.8 431.4,68.9 432.7,69.0 434.0,69.2 435.2,69.4 436.4,69.6 437.6,69.9 438.8,70.2 439.8,70.6 440.9,70.9 441.9,71.3 442.8,71.8 443.7,72.2 444.5,72.7 445.2,73.2 445.9,73.7 446.5,74.2 447.1,74.8 447.6,75.3 448.0,75.9 448.3,76.5 448.6,77.0 448.8,77.6 448.9,78.2 449.0,78.8 449.0,79.3 448.9,79.9 448.7,80.5 448.5,81.0 448.2,81.6 447.9,82.1 447.5,82.6 447.0,83.1 446.5,83.6 446.0,84.1 445.3,84.5 444.7,84.9 444.0,85.3 443.2,85.7 442.4,86.0 441.6,86.4 440.8,86.6 439.9,86.9 439.0,87.1 438.0,87.4 437.1,87.5 436.1,87.7 435.2,87.8 434.2,87.9 433.2,87.9 432.3,88.0 431.3,88.0 430.3,88.0 429.4,87.9 428.4,87.8 427.5,87.7 426.6,87.6 425.8,87.4 424.9,87.2 424.1,87.0 423.3,86.8 422.6,86.5 421.8,86.2 421.2,85.9 420.5,85.6 419.9,85.3 419.4,84.9 418.9,84.6 418.4,84.2 418.0,83.8 417.7,83.5 417.4,83.1 417.1,82.7 416.9,82.3 416.7,81.8 416.6,81.4 416.6,81.0 416.6,80.6 416.6,80.2 416.7,79.8 416.8,79.4 417.0,79.0 417.2,78.6 417.5,78.3 417.8,77.9 418.2,77.6 418.6,77.2 419.0,76.9 419.4,76.6 419.9,76.3 420.4,76.1 421.0,75.8 421.6,75.6 422.2,75.4 422.8,75.2 423.4,75.0 424.1,74.8 424.7,74.7 425.4,74.6 426.1,74.5 426.8,74.4 427.5,74.4 428.2,74.4 428.8,74.3 429.5,74.4 430.2,74.4 430.9,74.4 431.5,74.5 432.2,74.6 432.8,74.7 433.4,74.8 434.0,75.0" stroke="#E09F3E" stroke-width="2.5" fill="none"></polyline><circle cx="430" cy="80" r="4" fill="#E09F3E"></circle></svg></div>
+<p>Casi todo lo que usted conoce de sistemas dinámicos descansa en la <strong>superposición</strong>: la respuesta a una suma de causas es la suma de las respuestas. Esta parte muestra qué se pierde sin ella. Un sistema no lineal puede tener varios equilibrios aislados, oscilar con una amplitud que no depende de la condición inicial, dejar de existir en tiempo finito, cambiar de período con la amplitud y ser caótico. Y en control, una ley lineal puede no estabilizar nada, una no lineal puede hacerlo mejor, y hay sistemas controlables que ninguna ley continua estabiliza.</p>
+<div class="botones">
+  <a class="boton" href="../pdf/cap01_introduccion.pdf">⬇ Capítulo en PDF</a>
+  <a class="boton sec" href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap01_introduccion">Códigos en GitHub</a>
+  <a class="boton sec" href="#explorador">Explorador interactivo</a>
 </div>
+<div class="receta">
+<p><span class="caja-titulo">Al terminar esta parte usted podrá</span></p>
+<ol type="1">
+<li>Escribir un modelo en variables de estado <span class="math inline">\(\dot x=f(t,x,u)\)</span>, <span class="math inline">\(y=h(t,x,u)\)</span>, encontrar sus equilibrios y trasladarlos al origen.</li>
+<li>Reconocer cinco comportamientos que ningún sistema lineal puede tener: equilibrios aislados múltiples, ciclos límite, escape en tiempo finito, dependencia de la amplitud y caos.</li>
+<li>Explicar con un ejemplo por qué el todo no es la suma de las partes, y por qué la versión discreta y la continua de la ecuación logística no se comportan igual.</li>
+<li>Usar la energía para concluir algo sobre un sistema sin resolverlo, y decir qué <em>no</em> se puede concluir todavía.</li>
+<li>Dar ejemplos en los que el control lineal no basta, incluido uno en el que ningún control continuo funciona (Brockett).</li>
+<li>Distinguir una conclusión plausible de una correcta, que es el hilo de todo el curso.</li>
+</ol>
+</div>
+<section id="ruta-de-la-clase" class="level2">
+<h2 class="anchored" data-anchor-id="ruta-de-la-clase">Ruta de la clase</h2>
+<table class="table-striped caption-top table">
+<caption>Lea la sección del capítulo <strong>antes</strong> de cada clase.</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Clase</th>
+<th style="text-align: left;">Qué se ve</th>
+<th style="text-align: left;">Capítulo</th>
+<th style="text-align: left;">Scripts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Por qué no lineal: superposición y los conejos de dos islas. Modelos de estado, equilibrios, reescalamiento. Cinco cosas que un sistema lineal no puede hacer. La logística discreta y la continua</td>
+<td style="text-align: left;">§1.1–1.4</td>
+<td style="text-align: left;"><code>C1_Ej1</code>, <code>C1_Ej2</code>, <code>C1_Ej3</code>, <code>C1_Ej5</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">(lectura)</td>
+<td style="text-align: left;">Energía y LaSalle en miniatura; el integrador de Brockett; qué aporta lo no lineal al control; historia; cómo trabajar en el curso</td>
+<td style="text-align: left;">§1.5–1.8</td>
+<td style="text-align: left;"><code>C1_Ej4</code>, <code>C1_Ej6</code>–<code>C1_Ej9</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lo-esencial-en-una-página" class="level2">
+<h2 class="anchored" data-anchor-id="lo-esencial-en-una-página">Lo esencial, en una página</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/f_panorama.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Cinco comportamientos imposibles para <span class="math inline">\(\dot x=Ax\)</span>: infinitos equilibrios, ciclo límite, escape en tiempo finito, silla-nodo y caos.</figcaption>
+</figure>
+</div>
+<div class="definicion">
+<p><span class="caja-titulo">Modelo de estado y equilibrio (Khalil, §1.1)</span></p>
+<p>Un sistema no lineal es <span class="math inline">\(\dot x=f(t,x,u)\)</span>, <span class="math inline">\(y=h(t,x,u)\)</span>, con <span class="math inline">\(x\in\R^n\)</span>. Es <strong>invariante en el tiempo</strong> si <span class="math inline">\(f\)</span> no depende de <span class="math inline">\(t\)</span> (no decimos “autónomo”). Un punto <span class="math inline">\(\eq\)</span> es un <strong>equilibrio</strong> de <span class="math inline">\(\dot x=f(x)\)</span> si <span class="math inline">\(f(\eq)=0\)</span>; con <span class="math inline">\(z=x-\eq\)</span> se traslada al origen sin cambiar nada más. Un sistema lineal no puede tener dos equilibrios aislados.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/f_superposicion.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Veinte conejos: una isla da 12 al año siguiente; dos islas con 10 dan 22. En el modelo lineal el reparto no importa.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/f_logistica.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>El mapa logístico con cuatro valores de <span class="math inline">\(R\)</span>: punto fijo, período 2, período 4 y caos. La ecuación logística continua, con los mismos <span class="math inline">\(R\)</span>, siempre converge monótonamente.</figcaption>
+</figure>
+</div>
+<div class="trampa">
+<p><span class="caja-titulo">Trampa: la logística discreta y la continua describen lo mismo</span></p>
+<p>Una es dócil (dos equilibrios, monotonía, solución explícita) y la otra es caótica. En el mapa, <span class="math inline">\(R\)</span> es un factor por generación; en la ecuación diferencial, una tasa. Discretizar no es una operación inocente.</p>
+</div>
+<div class="ideaclave">
+<p><span class="caja-titulo">Concluir sin resolver</span></p>
+<p>Para el masa-resorte con fricción, <span class="math inline">\(E=\tfrac12kx_1^2+\tfrac12mx_2^2\)</span> cumple <span class="math inline">\(\dot E=-cx_2^2\le0\)</span>: la energía nunca crece, y eso se sabe sin resolver la ecuación. Es el método de Lyapunov en miniatura. Pero <span class="math inline">\(\dot E=0\)</span> en toda la recta <span class="math inline">\(x_2=0\)</span>: para concluir que el bloque se detiene en el origen hace falta el principio de invarianza de LaSalle.</p>
+</div>
+<div class="trampa">
+<p><span class="caja-titulo">Trampa: controlable implica estabilizable</span></p>
+<p>El integrador de Brockett <span class="math inline">\(\dot z_1=v_1\)</span>, <span class="math inline">\(\dot z_2=v_2\)</span>, <span class="math inline">\(\dot z_3=z_1v_2-z_2v_1\)</span> es controlable (una vuelta en <span class="math inline">\((z_1,z_2)\)</span> sube <span class="math inline">\(z_3\)</span> en <span class="math inline">\(2\pi\rho^2\)</span>), pero el punto <span class="math inline">\((0,0,\delta)\)</span> nunca es una velocidad posible: falla la condición de Brockett y <strong>ninguna</strong> realimentación suave <span class="math inline">\(u=k(z)\)</span> estabiliza el origen.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/f_brockett.svg" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Brockett: una vuelta de radio <span class="math inline">\(0.5\)</span> deja <span class="math inline">\((z_1,z_2)\)</span> donde estaba y sube <span class="math inline">\(z_3\)</span> en <span class="math inline">\(\pi/2\)</span>.</figcaption>
+</figure>
+</div>
+<div class="trampa">
+<p><span class="caja-titulo">Trampa: converge a algo, luego es estable</span></p>
+<p>Con <span class="math inline">\(\dot x=x+u^3\)</span> y <span class="math inline">\(u=-kx\)</span>, el lazo es <span class="math inline">\(\dot x=x-k^3x^3\)</span>: el origen <strong>sigue siendo inestable</strong> (<span class="math inline">\(f'(0)=1\)</span> para todo <span class="math inline">\(k\)</span>) y la solución converge a otro equilibrio, <span class="math inline">\(k^{-3/2}\)</span>. La ley <span class="math inline">\(u=-(kx)^{1/3}\)</span> da <span class="math inline">\(\dot x=(1-k)x\)</span>: exponencialmente estable.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figuras/cap01/f_doble_integrador.svg" class="img-fluid figure-img" style="width:95.0%"></p>
+<figcaption>Doble integrador: PD contra la ley de estructura variable, que llega a la recta <span class="math inline">\(s=x_1+x_2=0\)</span> en <span class="math inline">\(t=\pi/2\)</span> y desliza por ella sin sobrepico.</figcaption>
+</figure>
+</div>
+</section>
+<section id="explorador" class="level2">
+<h2 class="anchored" data-anchor-id="explorador">Explorador interactivo</h2>
+<p>Cuatro pestañas con los ejemplos del capítulo. Todo se calcula en su navegador (los mismos modelos de <code>C1_Ej2</code>, <code>C1_Ej3</code>, <code>C1_Ej6</code> y <code>C1_Ej7</code>).</p>
+<div class="explorador" id="explorador-introduccion"></div>
+<script src="../recursos/explorador-introduccion.js"></script>
+<div class="pausa">
+<p><span class="caja-titulo">Retos con el explorador</span></p>
+<ol type="1">
+<li><strong>Mapa logístico:</strong> suba <span class="math inline">\(R\)</span> lentamente desde <span class="math inline">\(2.9\)</span>. ¿En qué valor deja de converger la población? Compare con <span class="math inline">\(F'(P^*)=2-R\)</span>.</li>
+<li><strong>Mapa logístico:</strong> con <span class="math inline">\(R=3.83\)</span> aparece un ciclo de período 3 en medio del caos. Búsquelo.</li>
+<li><strong><span class="math inline">\(\dot x=x+u^3\)</span>:</strong> con la ley lineal, ponga <span class="math inline">\(x(0)=10^{-3}\)</span>. ¿Se queda cerca del origen? ¿Por qué no?</li>
+<li><strong>Doble integrador:</strong> busque ganancias del PD que lleguen al 2 % antes que la ley de estructura variable. ¿Qué precio pagan?</li>
+<li><strong>Lorenz:</strong> con <span class="math inline">\(\delta=10^{-12}\)</span>, ¿cuánto tiempo más se demoran en separarse que con <span class="math inline">\(\delta=10^{-9}\)</span>? ¿Es lo que predice <span class="math inline">\(\ln(1/\delta)/0.9\)</span>?</li>
+</ol>
+</div>
+</section>
+<section id="códigos-de-esta-parte" class="level2">
+<h2 class="anchored" data-anchor-id="códigos-de-esta-parte">Códigos de esta parte</h2>
+<p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap01_introduccion">repositorio</a>. Ejecute antes <code>iniciarCurso</code>. <code>verificarCap01</code> comprueba los números del capítulo (34/34).</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Superposición y logística</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Fenómenos</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Energía y Brockett</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Control</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>Una isla o dos (§1.1).</strong></p>
+<div class="sourceCode" id="cb1" data-filename="cap01_introduccion/C1_Ej1_Superposicion.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">R</span> <span class="op">=</span> <span class="fl">1.6</span><span class="op">;</span>  <span class="va">K</span> <span class="op">=</span> <span class="fl">32</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">Flin</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">P</span>) <span class="fl">2</span><span class="op">*</span><span class="va">P</span><span class="op">;</span>                    <span class="co">% modelo lineal</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">Flog</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">P</span>) <span class="va">R</span><span class="op">*</span><span class="va">P</span><span class="op">.*</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">P</span><span class="op">/</span><span class="va">K</span>)<span class="op">;</span>         <span class="co">% modelo logístico</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Lineal:     una isla F(20) = %g;   dos islas F(10) + F(10) = %g\n'</span><span class="op">,</span> <span class="va">Flin</span>(<span class="fl">20</span>)<span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">Flin</span>(<span class="fl">10</span>))<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Logístico:  una isla F(20) = %g;   dos islas F(10) + F(10) = %g\n'</span><span class="op">,</span> <span class="va">Flog</span>(<span class="fl">20</span>)<span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">Flog</span>(<span class="fl">10</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Iterar el mapa logístico (§1.4).</strong></p>
+<div class="sourceCode" id="cb2" data-filename="cap01_introduccion/C1_Ej2_Logistica.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">K</span> <span class="op">=</span> <span class="fl">32</span><span class="op">;</span>  <span class="va">R</span> <span class="op">=</span> <span class="fl">1.6</span><span class="op">;</span>  <span class="va">n</span> <span class="op">=</span> <span class="fl">50</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">P</span> <span class="op">=</span> <span class="va">zeros</span>(<span class="fl">1</span><span class="op">,</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span>)<span class="op">;</span>  <span class="va">P</span>(<span class="fl">1</span>) <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>                 <span class="co">% P(1) es P[0]</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">P</span>(<span class="va">k</span><span class="op">+</span><span class="fl">1</span>) <span class="op">=</span> <span class="va">R</span><span class="op">*</span><span class="va">P</span>(<span class="va">k</span>)<span class="op">*</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">P</span>(<span class="va">k</span>)<span class="op">/</span><span class="va">K</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'R = %.1f:  P[1] = %.4f,  P[21] = %.4f,  K(1 - 1/R) = %.4f\n'</span><span class="op">,</span> <span class="va">R</span><span class="op">,</span> <span class="va">P</span>(<span class="fl">2</span>)<span class="op">,</span> <span class="va">P</span>(<span class="fl">22</span>)<span class="op">,</span> <span class="va">K</span><span class="op">*</span>(<span class="fl">1</span> <span class="op">-</span> <span class="fl">1</span><span class="op">/</span><span class="va">R</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Puntos fijos, ciclos y caos (§1.4).</strong></p>
+<div class="sourceCode" id="cb3" data-filename="cap01_introduccion/C1_Ej2_Logistica.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">R</span> <span class="op">=</span> [<span class="fl">3.2</span> <span class="fl">3.5</span> <span class="fl">3.9</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">p</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2000</span><span class="op">,</span> <span class="va">p</span> <span class="op">=</span> <span class="va">R</span><span class="op">*</span><span class="va">p</span><span class="op">*</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">/</span><span class="va">K</span>)<span class="op">;</span> <span class="kw">end</span>      <span class="co">% se deja pasar el transitorio</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">orbita</span> <span class="op">=</span> <span class="va">zeros</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">8</span>)<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">,</span> <span class="va">p</span> <span class="op">=</span> <span class="va">R</span><span class="op">*</span><span class="va">p</span><span class="op">*</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">/</span><span class="va">K</span>)<span class="op">;</span> <span class="va">orbita</span>(<span class="va">k</span>) <span class="op">=</span> <span class="va">p</span><span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'R = %.1f:  '</span><span class="op">,</span> <span class="va">R</span>)<span class="op">;</span> <span class="va">fprintf</span>(<span class="ss">'%8.4f'</span><span class="op">,</span> <span class="va">orbita</span>)<span class="op">;</span> <span class="va">fprintf</span>(<span class="ss">'\n'</span>)<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>Reescalar: tres sistemas, una curva (§1.2).</strong></p>
+<div class="sourceCode" id="cb4" data-filename="cap01_introduccion/C1_Ej5_Reescalamiento.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">casos</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">1</span> <span class="fl">0.5</span><span class="op">;</span> <span class="fl">1</span> <span class="fl">4</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">2</span> <span class="fl">18</span> <span class="fl">3</span>]<span class="op">;</span>            <span class="co">% [m k c]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">tau</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">20</span><span class="op">,</span> <span class="fl">2001</span>)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-11</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">Y</span> <span class="op">=</span> <span class="va">zeros</span>(<span class="fl">3</span><span class="op">,</span> <span class="va">numel</span>(<span class="va">tau</span>))<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">m</span> <span class="op">=</span> <span class="va">casos</span>(<span class="va">i</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span> <span class="va">k</span> <span class="op">=</span> <span class="va">casos</span>(<span class="va">i</span><span class="op">,</span><span class="fl">2</span>)<span class="op">;</span> <span class="va">c</span> <span class="op">=</span> <span class="va">casos</span>(<span class="va">i</span><span class="op">,</span><span class="fl">3</span>)<span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">w</span> <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">k</span><span class="op">/</span><span class="va">m</span>)<span class="op">;</span>  <span class="va">alfa</span> <span class="op">=</span> <span class="va">c</span><span class="op">/</span><span class="va">sqrt</span>(<span class="va">k</span><span class="op">*</span><span class="va">m</span>)<span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    [<span class="op">~,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> (<span class="op">-</span><span class="va">k</span><span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">-</span> <span class="va">c</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>))<span class="op">/</span><span class="va">m</span>]<span class="op">,</span> <span class="va">tau</span><span class="op">/</span><span class="va">w</span><span class="op">,</span> [<span class="fl">1</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">Y</span>(<span class="va">i</span><span class="op">,:</span>) <span class="op">=</span> <span class="va">X</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">';</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'m = %g, k = %g, c = %g:  omega = %g,  alpha = %g\n'</span><span class="op">,</span> <span class="va">m</span><span class="op">,</span> <span class="va">k</span><span class="op">,</span> <span class="va">c</span><span class="op">,</span> <span class="va">w</span><span class="op">,</span> <span class="va">alfa</span>)<span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Diferencia máxima entre las curvas en la variable tau: %.1e\n'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">max</span>(<span class="va">abs</span>(<span class="va">Y</span> <span class="op">-</span> <span class="va">Y</span>(<span class="fl">1</span><span class="op">,:</span>)))))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>El período del péndulo depende de la amplitud (§1.3).</strong></p>
+<div class="sourceCode" id="cb5" data-filename="cap01_introduccion/C1_Ej3_Panorama.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Péndulo sin fricción, g/l = 1:  T(theta0) = 4 K(sin(theta0/2)) con K la integral</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">% elíptica completa de primera especie; T0 = 2 pi.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">th0</span> <span class="op">=</span> [<span class="fl">10</span> <span class="fl">45</span> <span class="fl">90</span> <span class="fl">170</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">k</span> <span class="op">=</span> <span class="va">sind</span>(<span class="va">th0</span><span class="op">/</span><span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">Kel</span> <span class="op">=</span> <span class="va">integral</span>(<span class="op">@</span>(<span class="va">p</span>) <span class="fl">1</span><span class="op">./</span><span class="va">sqrt</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">k</span><span class="op">^</span><span class="fl">2</span><span class="op">*</span><span class="va">sin</span>(<span class="va">p</span>)<span class="op">.^</span><span class="fl">2</span>)<span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="va">pi</span><span class="op">/</span><span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'theta0 = %3d°:  T/T0 = %.4f\n'</span><span class="op">,</span> <span class="va">th0</span><span class="op">,</span> <span class="fl">4</span><span class="op">*</span><span class="va">Kel</span><span class="op">/</span>(<span class="fl">2</span><span class="op">*</span><span class="va">pi</span>))<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Sensibilidad a las condiciones iniciales (§1.3).</strong></p>
+<div class="sourceCode" id="cb6" data-filename="cap01_introduccion/C1_Ej3_Panorama.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">% (e)-(f) Lorenz, sigma = 10, rho = 28, beta = 8/3</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">lor</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="fl">10</span><span class="op">*</span>(<span class="va">x</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="va">x</span>(<span class="fl">1</span>))<span class="op">;</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">*</span>(<span class="fl">28</span> <span class="op">-</span> <span class="va">x</span>(<span class="fl">3</span>)) <span class="op">-</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="va">x</span>(<span class="fl">1</span>)<span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="fl">8</span><span class="op">/</span><span class="fl">3</span><span class="op">*</span><span class="va">x</span>(<span class="fl">3</span>)]<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="va">o12</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-12</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">tt</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">40</span><span class="op">,</span> <span class="fl">4001</span>)<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">Xa</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">lor</span><span class="op">,</span> <span class="va">tt</span><span class="op">,</span> [<span class="fl">1</span><span class="op">;</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">,</span> <span class="va">o12</span>)<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">Xb</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">lor</span><span class="op">,</span> <span class="va">tt</span><span class="op">,</span> [<span class="fl">1</span> <span class="op">+</span> <span class="fl">1e-9</span><span class="op">;</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">,</span> <span class="va">o12</span>)<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="va">d</span> <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">sum</span>((<span class="va">Xa</span> <span class="op">-</span> <span class="va">Xb</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">,</span> <span class="fl">2</span>))<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Lorenz: |diferencia| &gt; 1 por primera vez en t = %.1f\n'</span><span class="op">,</span> <span class="va">tt</span>(<span class="va">find</span>(<span class="va">d</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">1</span>)))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>La energía a lo largo de una solución (§1.5).</strong></p>
+<div class="sourceCode" id="cb7" data-filename="cap01_introduccion/C1_Ej4_Energia.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">m</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">k</span> <span class="op">=</span> <span class="fl">4</span><span class="op">;</span>  <span class="va">c</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">f</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> (<span class="op">-</span><span class="va">k</span><span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">-</span> <span class="va">c</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>))<span class="op">/</span><span class="va">m</span>]<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">E</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="fl">0.5</span><span class="op">*</span><span class="va">k</span><span class="op">*</span><span class="va">x</span>(<span class="op">:,</span><span class="fl">1</span>)<span class="op">.^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">m</span><span class="op">*</span><span class="va">x</span>(<span class="op">:,</span><span class="fl">2</span>)<span class="op">.^</span><span class="fl">2</span><span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">20</span><span class="op">,</span> <span class="fl">4001</span>)<span class="op">';</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">f</span><span class="op">,</span> <span class="va">t</span><span class="op">,</span> [<span class="fl">1</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-11</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>))<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="va">En</span> <span class="op">=</span> <span class="va">E</span>(<span class="va">X</span>)<span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">dE</span> <span class="op">=</span> <span class="va">gradient</span>(<span class="va">En</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>                       <span class="co">% derivada numérica de E(x(t))</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'E(0) = %.4f, E(5) = %.4f, E(10) = %.4f, E(20) = %.2e\n'</span><span class="op">,</span> <span class="va">En</span>(<span class="fl">1</span>)<span class="op">,</span> <span class="va">En</span>(<span class="fl">1001</span>)<span class="op">,</span> <span class="va">En</span>(<span class="fl">2001</span>)<span class="op">,</span> <span class="va">En</span>(<span class="kw">end</span>))<span class="op">;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'max |dE/dt + c x2^2| = %.1e  (diferencias finitas)\n'</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">dE</span>(<span class="fl">2</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span>) <span class="op">+</span> <span class="va">c</span><span class="op">*</span><span class="va">X</span>(<span class="fl">2</span><span class="op">:</span><span class="kw">end</span><span class="op">-</span><span class="fl">1</span><span class="op">,</span><span class="fl">2</span>)<span class="op">.^</span><span class="fl">2</span>)))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Una vuelta sube <span class="math inline">\(z_3\)</span> (§1.5).</strong></p>
+<div class="sourceCode" id="cb8" data-filename="cap01_introduccion/C1_Ej8_Brockett.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">rho</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="va">v</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span>) <span class="va">rho</span><span class="op">*</span>[<span class="op">-</span><span class="va">sin</span>(<span class="va">t</span>)<span class="op">;</span> <span class="va">cos</span>(<span class="va">t</span>)]<span class="op">;</span>               <span class="co">% entrada en lazo abierto</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="va">f</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">z</span>) [<span class="va">v</span>(<span class="va">t</span>)<span class="op">;</span> <span class="va">z</span>(<span class="fl">1</span>)<span class="op">*</span>[<span class="fl">0</span> <span class="fl">1</span>]<span class="op">*</span><span class="va">v</span>(<span class="va">t</span>) <span class="op">-</span> <span class="va">z</span>(<span class="fl">2</span>)<span class="op">*</span>[<span class="fl">1</span> <span class="fl">0</span>]<span class="op">*</span><span class="va">v</span>(<span class="va">t</span>)]<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>[<span class="va">t</span><span class="op">,</span> <span class="va">Z</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="va">f</span><span class="op">,</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">,</span> <span class="fl">801</span>)<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-11</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>))<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Después de una vuelta: z = (%.2e, %.2e, %.4f);  2 pi rho^2 = %.4f\n'</span><span class="op">,</span> <span class="va">Z</span>(<span class="kw">end</span><span class="op">,:</span>)<span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">*</span><span class="va">rho</span><span class="op">^</span><span class="fl">2</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><strong>Tres leyes para <span class="math inline">\(\dot x=x+u^3\)</span> (§1.6).</strong></p>
+<div class="sourceCode" id="cb9" data-filename="cap01_introduccion/C1_Ej6_ControlCubico.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">k</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span>  <span class="va">x0</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>  <span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-11</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-14</span>)<span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">u_nula</span>   <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="va">u_lineal</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="op">-</span><span class="va">k</span><span class="op">*</span><span class="va">x</span><span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="va">u_nolin</span>  <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="op">-</span><span class="va">nthroot</span>(<span class="va">k</span><span class="op">*</span><span class="va">x</span><span class="op">,</span> <span class="fl">3</span>)<span class="op">;</span>           <span class="co">% raíz cúbica REAL (no (k*x)^(1/3))</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="va">leyes</span> <span class="op">=</span> {<span class="va">u_nula</span><span class="op">,</span> <span class="va">u_lineal</span><span class="op">,</span> <span class="va">u_nolin</span>}<span class="op">;</span>  <span class="va">nombres</span> <span class="op">=</span> {<span class="ss">'u = 0'</span><span class="op">,</span> <span class="ss">'u = -k x'</span><span class="op">,</span> <span class="ss">'u = -(k x)^(1/3)'</span>}<span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">u</span> <span class="op">=</span> <span class="va">leyes</span>{<span class="va">i</span>}<span class="op">;</span>  <span class="va">T</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span>  <span class="kw">if</span> <span class="va">i</span> <span class="op">==</span> <span class="fl">1</span><span class="op">,</span> <span class="va">T</span> <span class="op">=</span> <span class="fl">3</span><span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    [<span class="va">t</span><span class="op">,</span> <span class="va">x</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">x</span> <span class="op">+</span> <span class="va">u</span>(<span class="va">x</span>)<span class="op">^</span><span class="fl">3</span><span class="op">,</span> [<span class="fl">0</span> <span class="va">T</span>]<span class="op">,</span> <span class="va">x0</span><span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'%-18s x(%g) = %.4g\n'</span><span class="op">,</span> <span class="va">nombres</span>{<span class="va">i</span>}<span class="op">,</span> <span class="va">T</span><span class="op">,</span> <span class="va">x</span>(<span class="kw">end</span>))<span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">sol</span>{<span class="va">i</span>} <span class="op">=</span> [<span class="va">t</span> <span class="va">x</span>]<span class="op">;</span>                                                        <span class="co">%#ok&lt;SAGROW&gt;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Equilibrios nuevos con u = -k x:  +-k^(-3/2) = +-%.4f\n'</span><span class="op">,</span> <span class="va">k</span><span class="op">^</span>(<span class="op">-</span><span class="fl">1.5</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Estructura variable (§1.6).</strong> El modelo de Simulink se construye con <code>crearModelo_EstructuraVariable.m</code>.</p>
+<div class="sourceCode" id="cb10" data-filename="cap01_introduccion/C1_Ej7_DobleIntegrador.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">k3</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="fl">1</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span>(<span class="va">x</span>(<span class="fl">1</span>)<span class="op">*</span>(<span class="va">x</span>(<span class="fl">1</span>) <span class="op">+</span> <span class="va">x</span>(<span class="fl">2</span>)) <span class="op">&gt;</span> <span class="fl">0</span>)<span class="op">;</span>     <span class="co">% +1 si x1 s &lt; 0,  -1 si x1 s &gt; 0</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">leyes</span> <span class="op">=</span> {<span class="op">@</span>(<span class="va">x</span>) <span class="fl">0</span><span class="op">,</span> <span class="op">@</span>(<span class="va">x</span>) <span class="op">-</span><span class="fl">5</span><span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>)<span class="op">,</span> <span class="op">@</span>(<span class="va">x</span>) <span class="op">-</span><span class="va">x</span>(<span class="fl">1</span>) <span class="op">-</span> <span class="va">x</span>(<span class="fl">2</span>)<span class="op">,</span> <span class="op">@</span>(<span class="va">x</span>) <span class="va">k3</span>(<span class="va">x</span>)<span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>)}<span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">nombres</span> <span class="op">=</span> {<span class="ss">'u = 0'</span><span class="op">,</span> <span class="ss">'u = -5 x1'</span><span class="op">,</span> <span class="ss">'PD'</span><span class="op">,</span> <span class="ss">'estructura variable'</span>}<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-9</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-11</span><span class="op">,</span> <span class="ss">'MaxStep'</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="va">t</span> <span class="op">=</span> <span class="va">linspace</span>(<span class="fl">0</span><span class="op">,</span> <span class="fl">10</span><span class="op">,</span> <span class="fl">10001</span>)<span class="op">';</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">u</span> <span class="op">=</span> <span class="va">leyes</span>{<span class="va">i</span>}<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    [<span class="op">~,</span> <span class="va">X</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span> <span class="va">u</span>(<span class="va">x</span>)]<span class="op">,</span> <span class="va">t</span><span class="op">,</span> [<span class="fl">1</span><span class="op">;</span> <span class="fl">1</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">nx</span> <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">sum</span>(<span class="va">X</span><span class="op">.^</span><span class="fl">2</span><span class="op">,</span> <span class="fl">2</span>))<span class="op">;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">t2</span> <span class="op">=</span> <span class="va">t</span>(<span class="va">find</span>(<span class="va">nx</span> <span class="op">&gt;</span> <span class="fl">0.02</span><span class="op">*</span><span class="va">nx</span>(<span class="fl">1</span>)<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="ss">'last'</span>))<span class="op">;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'%-20s  t(2%%) = %5.2f   min x1 = %7.3f\n'</span><span class="op">,</span> <span class="va">nombres</span>{<span class="va">i</span>}<span class="op">,</span> <span class="va">t2</span><span class="op">,</span> <span class="va">min</span>(<span class="va">X</span>(<span class="op">:,</span><span class="fl">1</span>)))<span class="op">;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">Xs</span>{<span class="va">i</span>} <span class="op">=</span> <span class="va">X</span><span class="op">;</span>                                                              <span class="co">%#ok&lt;SAGROW&gt;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="va">s</span> <span class="op">=</span> <span class="va">Xs</span>{<span class="fl">4</span>}(<span class="op">:,</span><span class="fl">1</span>) <span class="op">+</span> <span class="va">Xs</span>{<span class="fl">4</span>}(<span class="op">:,</span><span class="fl">2</span>)<span class="op">;</span>  <span class="va">ia</span> <span class="op">=</span> <span class="va">find</span>(<span class="va">abs</span>(<span class="va">s</span>) <span class="op">&lt;</span> <span class="fl">1e-3</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'Estructura variable: llega a s = 0 en t = %.4f, x = (%.3f, %.3f)\n'</span><span class="op">,</span> <span class="va">t</span>(<span class="va">ia</span>)<span class="op">,</span> <span class="va">Xs</span>{<span class="fl">4</span>}(<span class="va">ia</span><span class="op">,:</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>PD, PID, perturbación y ruido (§1.6).</strong></p>
+<div class="sourceCode" id="cb11" data-filename="cap01_introduccion/C1_Ej9_PID.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">m</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span> <span class="va">c</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span> <span class="va">k</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span>  <span class="va">v</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">;</span>  <span class="va">w</span> <span class="op">=</span> <span class="fl">0.1</span><span class="op">;</span>  <span class="va">r</span> <span class="op">=</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">kP</span> <span class="op">=</span> <span class="fl">10</span><span class="op">;</span> <span class="va">kD</span> <span class="op">=</span> <span class="fl">3</span><span class="op">;</span> <span class="va">kI</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">% estado: x = (y, y', integral de e)</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="va">dyn</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">kI</span>) [<span class="va">x</span>(<span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                   (<span class="op">-</span><span class="va">kD</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="va">kP</span><span class="op">*</span>(<span class="va">x</span>(<span class="fl">1</span>) <span class="op">+</span> <span class="va">w</span> <span class="op">-</span> <span class="va">r</span>) <span class="op">-</span> <span class="va">kI</span><span class="op">*</span><span class="va">x</span>(<span class="fl">3</span>) <span class="op">+</span> <span class="va">v</span> <span class="op">-</span> <span class="va">c</span><span class="op">*</span><span class="va">x</span>(<span class="fl">2</span>) <span class="op">-</span> <span class="va">k</span><span class="op">*</span><span class="va">x</span>(<span class="fl">1</span>))<span class="op">/</span><span class="va">m</span><span class="op">;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                   <span class="va">x</span>(<span class="fl">1</span>) <span class="op">+</span> <span class="va">w</span> <span class="op">-</span> <span class="va">r</span>]<span class="op">;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>[<span class="va">t1</span><span class="op">,</span> <span class="va">X1</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">dyn</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">,</span>  [<span class="fl">0</span> <span class="fl">40</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>[<span class="va">t2</span><span class="op">,</span> <span class="va">X2</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">dyn</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">kI</span>)<span class="op">,</span> [<span class="fl">0</span> <span class="fl">40</span>]<span class="op">,</span> [<span class="fl">0</span><span class="op">;</span> <span class="fl">0</span><span class="op">;</span> <span class="fl">0</span>]<span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'PD:  y(40) = %.4f   fórmula = %.4f\n'</span><span class="op">,</span> <span class="va">X1</span>(<span class="kw">end</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> (<span class="va">kP</span><span class="op">*</span>(<span class="va">r</span> <span class="op">-</span> <span class="va">w</span>) <span class="op">+</span> <span class="va">v</span>)<span class="op">/</span>(<span class="va">k</span> <span class="op">+</span> <span class="va">kP</span>))<span class="op">;</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'PID: y(40) = %.4f   fórmula = r - w = %.4f\n'</span><span class="op">,</span> <span class="va">X2</span>(<span class="kw">end</span><span class="op">,</span><span class="fl">1</span>)<span class="op">,</span> <span class="va">r</span> <span class="op">-</span> <span class="va">w</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="videos" class="level2">
+<h2 class="anchored" data-anchor-id="videos">Videos</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Video</th>
+<th style="text-align: left;">Qué muestra</th>
+<th style="text-align: left;">Script</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="../videos/V1_1_lorenz.mp4">V1.1 · Lorenz</a></td>
+<td style="text-align: left;">Dos trayectorias a <span class="math inline">\(10^{-9}\)</span>: indistinguibles durante 25 segundos, luego cada una por su lado.</td>
+<td style="text-align: left;"><code>C1_Video_Lorenz.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../videos/V1_2_logistica.mp4">V1.2 · Mapa logístico</a></td>
+<td style="text-align: left;">La telaraña mientras <span class="math inline">\(R\)</span> crece y el diagrama de bifurcación que se va dibujando.</td>
+<td style="text-align: left;"><code>C1_Video_Logistica.m</code></td>
+</tr>
+</tbody>
+</table>
+<video controls="" preload="metadata" style="width:100%;max-width:820px;border-radius:8px" src="../videos/V1_1_lorenz.mp4"></video>
+</section>
+<section id="problemas" class="level2">
+<h2 class="anchored" data-anchor-id="problemas">Problemas</h2>
+<p>Los problemas del capítulo (§1.10) tienen cada uno una trampa; las soluciones seleccionadas están en §1.11 y las respuestas a las pausas al final del capítulo.</p>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

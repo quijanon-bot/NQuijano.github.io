@@ -1,0 +1,13 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\usepackage[siunitx,american]{circuitikz}
+\begin{document}
+\begin{tikzpicture}[color=snlnoche]
+ \draw (0,0) to[V,l=$E$,invert] (0,3) to[R,l=$R$] (3,3) -- (5.5,3);
+ \draw (3,3) to[C,l_=$C$,v^>=$v$] (3,0);
+ \draw (5.5,3) to[tDo,l={$i=h(v)$}] (5.5,0);
+ \draw (0,0) -- (5.5,0);
+ \draw (3,3) node[circ]{} (3,0) node[circ]{};
+ \node[etq,anchor=west] at (7.2,1.5) {$C\,\dot v=\dfrac{E-v}{R}-h(v)$};
+\end{tikzpicture}
+\end{document}

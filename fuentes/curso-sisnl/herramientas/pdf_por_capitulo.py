@@ -8,7 +8,7 @@ import re
 import sys
 from pypdf import PdfReader, PdfWriter
 
-NOMBRES = {3: 'cap03_preliminares', 5: 'cap05_orbitas_ciclos', 11: 'cap11_pasividad'}
+NOMBRES = {3: 'cap03_preliminares', 5: 'cap05_orbitas_ciclos', 11: 'cap11_pasividad', 12: 'cap12_linealizacion'}
 
 entrada = sys.argv[1] if len(sys.argv) > 1 else 'notas/NotasSisNL.pdf'
 salida = sys.argv[2] if len(sys.argv) > 2 else 'sitio/pdf'

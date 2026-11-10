@@ -37,3 +37,14 @@ Los videos de las partes 3 y 5 todavía no se han grabado: los scripts están li
 
 Ejecute los scripts `C*_Video_*.m` (quedan en `codigo/capNN_*/videos/`) y copie los `.mp4` a `sitio/videos/`. Si pesan mucho, súbalos a YouTube y cambie los enlaces.
 :::
+
+## Parte 12 · Linealización por retroalimentación
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V12_1_levitador}V12.1 · Levitador | Seguimiento con la ley jacobiana y con la exacta. | `C12_Video_Levitador.m` |
+| []{#V12_2_fase_no_minima}V12.2 · Fase no mínima | La salida converge y el estado escapa por $Z^*$. | `C12_Video_FaseNoMinima.m` |
+| []{#V12_3_dinamica_cero}V12.3 · Dinámica cero | Fase mínima contra fase no mínima en una superficie. | `C12_Video_DinamicaCero.m` |
+| []{#V12_4_difeomorfismo}V12.4 · Difeomorfismo | Local en todo punto no es global. | `C12_Video_Difeomorfismo.m` |
+
+Como los de las partes 3 y 5, los videos de la parte 12 todavía no se han grabado.

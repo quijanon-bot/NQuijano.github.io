@@ -1,0 +1,115 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:fl-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{Jacobiana:} $u=u^*-K(x-\eq)$ da estabilidad \emph{local}; el modelo lineal cambia con el punto de operación. La acción integral corrige errores constantes si \eqref{eq:fl-rango} se cumple (no hay cero en $s=0$).
+  \item \textbf{Derivada de Lie:} $L_f\lambda=\jac\lambda xf$, la derivada a lo largo de las soluciones ($\Vdot=L_fV$). \textbf{Difeomorfismo:} cambio de coordenadas no lineal; jacobiano no singular da uno \emph{local}, no uno global.
+  \item \textbf{Grado relativo} $r$: cuántas veces hay que derivar $y$ para ver $u$. Depende de la salida y puede no existir en un punto ($b(x^o)=0$). En el caso lineal, es el exceso de polos sobre ceros.
+  \item \textbf{Forma normal:} $\xi=(h,\dots,L_f^{r-1}h)$ es una cadena de $r$ integradores con $\dot\xi_r=a+bu$; $\dot\eta=q(\xi,\eta)$ no ve la entrada.
+  \item \textbf{Linealización entrada--salida:} $u=(v-L_f^rh)/L_gL_f^{r-1}h$ deja $y^{(r)}=v$; un lazo externo lineal estabiliza o sigue referencias con $r$ derivadas. Si $r=n$, linealización entrada--estado.
+  \item \textbf{Dinámica cero:} $\dot\eta=q(0,\eta)$, lo que queda cuando la salida se fuerza a cero; la restricción de $f+gu^*$ a $Z^*$. Depende de la salida, no de las coordenadas ni de la realimentación. En el caso lineal, sus valores propios son los ceros.
+  \item \textbf{Estabilidad:} fase mínima con dinámica cero exponencialmente estable da estabilización local; para global hace falta ISS de $\eta$ respecto a $\xi$. Grado relativo uno y fase mínima débil equivalen a poder volver pasivo el sistema.
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item Diseñar los polos no fija la respuesta lejos del punto de operación (\cref{tr:fl-local}); con integrador no quiere decir robusto (\cref{tr:fl-integral}).
+  \item Exacta no es perfecta: la cancelación usa el modelo (\cref{tr:fl-robusta}); las propiedades geométricas pueden no ser robustas (\cref{tr:fl-geometria}).
+  \item Jacobiano no singular en todas partes no da un difeomorfismo global (\cref{tr:fl-difeo}).
+  \item El grado relativo puede no existir en un punto (\cref{tr:fl-nodefinido}) y depende de la salida (\cref{tr:fl-salida}).
+  \item Un escalón no es una referencia admisible (\cref{tr:fl-escalon}); la ley exacta tiene singularidades con sentido físico (\cref{tr:fl-singular}).
+  \item $y\to0$ no implica $x\to0$ (\cref{tr:fl-salida0}); la dinámica cero no la cambia el control, la cambia la salida (\cref{tr:fl-intrinseca}).
+  \item Dinámica cero globalmente estable no da estabilización global (\cref{tr:fl-global}); no hay que cancelar lo que ayuda (\cref{tr:fl-cancelar}).
+\end{itemize}
+\end{trampa}
+
+\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout9\_2 y las diapositivas de 2025)]
+(i) En el ejemplo de fase no mínima, $\dot\eta=\xi+\eta+\eta^3$; la versión anterior tenía $\xi+3\eta^2+\eta^3$. (ii) La transformación de la salida es $\bar h(z)=h(\Phi^{-1}(z))$, no $\bigl[\jac\Phi xh(x)\bigr]_{x=\Phi^{-1}(z)}$. (iii) ``Las \emph{zero dynamics} no son una propiedad intrínseca del sistema'' era engañoso: no dependen de las coordenadas ni de la realimentación; sí dependen de la salida (\cref{tr:fl-intrinseca}). (iv) En el ejemplo con $\phi_3=1+x_1-e^{x_2}$, la ecuación de $\eta$ lleva un signo menos: $\dot\eta=-(-1+\eta+e^{\xi_2})(1+\xi_2e^{\xi_2})$. (v) En el ejemplo de fase mínima, la entrada que anula la salida es $u=-a/b$, no $a/b$. (vi) La forma normal de van der Pol con $y=x_1^2+x_2$ tenía erratas ($2z_z^3$, la ecuación de $\dot x_2$ en vez de $\dot z_2$); la correcta está en el \cref{ej:fl-coordvdp}. (vii) Van der Pol se escribe como en el \cref{cap:orbitas}, $\mu(1-x_1^2)x_2$, y no $(1-\epsilon x_1^2)x_2$. (viii) Masa del levitador con una sola letra, $m$. (ix) Se agregaron la condición de rango del control integral, la prueba del teorema local, la necesidad de ISS para un resultado global, las trampas de diseño de Kokotović y Arcak, y el puente con la pasividad.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:fl-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\subsection*{Herramientas y grado relativo}
+
+\begin{problema}[un grado relativo que se pierde]\label{prob:fl-grado}
+Para $\dot x_1=-x_1+x_2^2$, $\dot x_2=x_3$, $\dot x_3=u$, $y=x_1$: (a) calcule $L_gh$, $L_gL_fh$ y $L_gL_f^2h$; (b) ¿cuál es el grado relativo en un punto con $x_2\neq0$? (c) ¿Y en el origen? (d) ¿Se puede aplicar la ley \eqref{eq:fl-ley} para estabilizar el origen?
+\end{problema}
+
+\begin{problema}[un cero en el semiplano derecho]\label{prob:fl-markov}
+Para $G(s)=\dfrac{1-s}{(s+1)^3}$: (a) calcule el grado relativo con los parámetros de Markov de una realización; (b) ¿qué signo tiene la respuesta al escalón para $t$ pequeño? ¿Y su valor final? (c) \etiquetaM{} Grafíquela. ¿Qué tiene que ver esto con la dinámica cero?
+\end{problema}
+
+\begin{problema}[¿difeomorfismos globales?]\label{prob:fl-difeo}
+Decida cuáles son difeomorfismos globales de $\R^2$: (a) $(x_1+x_2^3,\ x_2)$; (b) $(\sinh x_1,\ x_2+x_1)$; (c) $(x_1^3,\ x_2)$; (d) $(e^{x_1},\ x_2)$.
+\end{problema}
+
+\subsection*{Forma normal, dinámica cero y estabilidad}
+
+\begin{problema}[dónde se pone el sensor]\label{prob:fl-sensor}
+Para el doble integrador $\dot x_1=x_2$, $\dot x_2=u$ con la salida $y=x_1+c\,x_2$: (a) ¿cuál es el grado relativo si $c\neq0$? ¿Y si $c=0$? (b) Con $c\neq0$, calcule la dinámica cero. (c) ¿Para qué $c$ es de fase mínima? Compare con el cero de $G(s)$.
+\end{problema}
+
+\begin{problema}[asintótica pero no exponencial]\label{prob:fl-iss}
+Para $\dot x_1=-x_1^3+x_2$, $\dot x_2=x_1^2+u$, $y=x_2$: (a) calcule el grado relativo y la forma normal; (b) calcule la dinámica cero; (c) ¿se puede aplicar el \cref{thm:fl-local}? (d) Con $u=-x_1^2-k\,x_2$, $k>0$, ¿es el origen globalmente asintóticamente estable? (Pista: ISS.)
+\end{problema}
+
+\begin{problema}[van der Pol con otra salida]\label{prob:fl-vdpcero}
+Para van der Pol con $y=x_1^2+x_2$ (\cref{ej:fl-coordvdp}), suponga que se aplica la entrada $u^*$ que mantiene $y\equiv0$ desde una condición inicial en $Z^*$. (a) Resuelva la dinámica cero $\dot\eta=-\eta^2$ desde $\eta_0<0$. (b) ¿Qué le pasa a $x$? (c) ¿Es de fase mínima débil?
+\end{problema}
+
+\begin{problema}[global, gracias a ISS]\label{prob:fl-expiss}
+\etiquetaEstrella{} Para el sistema del \cref{ej:fl-formaexp}: (a) muestre que $1+\xi_2e^{\xi_2}\ge1-1/e$ para todo $\xi_2$; (b) concluya que $\dot\eta=-(-1+\eta+e^{\xi_2})(1+\xi_2e^{\xi_2})$ es ISS con entrada $\xi$; (c) diseñe una ley que estabilice globalmente el origen.
+\end{problema}
+
+\subsection*{Aplicaciones}
+
+\begin{problema}[cuán rápido se puede bajar la esfera]\label{prob:fl-filtro}
+\etiquetaM{} En el levitador, la referencia es un escalón de amplitud $\Delta$ pasado por $p^4/(s+p)^4$. (a) Muestre que la aceleración de la esfera cumple $\ddot y\le g-\frac km\dot y$: no puede caer más rápido que en caída libre. (b) Muestre que el máximo de $\ddot y_d$ es $c_4\,\Delta\,p^2$, con $c_4=\max_{\tau\ge0}\tfrac16(3\tau^2-\tau^3)e^{-\tau}$, y calcule $c_4$. (c) Estime el mayor $p$ para $\Delta=0.15$\,m y compruébelo con \cmd{C12\_Ej9\_LevitadorExacto.m}.
+\end{problema}
+
+\begin{problema}[seguimiento del péndulo]\label{prob:fl-pendulo}
+\etiquetaM{} Para el péndulo \eqref{eq:fl-pendulo} con $y=x_1$: (a) diseñe la ley de seguimiento de $y_d=\tfrac\pi2+\tfrac\pi4\sin t$ con polos en $-2$, $-2$; (b) simúlela con $\hat a=a$ y con $\hat a=8$; (c) agregue un integrador del error y repita. ¿Desaparece el error con $\hat a=8$? ¿Por qué no del todo?
+\end{problema}
+
+\begin{problema}[cancelar o no]\label{prob:fl-cancelar}
+\etiquetaEstrella{} Para $\dot x_1=x_2$, $\dot x_2=-x_1^3-x_2+u$: (a) diseñe una ley por linealización exacta que lleve el origen a $\ddot x_1+2\dot x_1+x_1=0$; (b) muestre que $u=-x_1-x_2$, que conserva el resorte $-x_1^3$, estabiliza globalmente el origen (busque una función de energía); (c) compare las dos leyes desde $x(0)=(3,0)$: control máximo y convergencia. ¿Qué pierde cada una?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:fl-grado}}
+(a) $L_gh=0$; $L_fh=-x_1+x_2^2$, $L_gL_fh=0$; $L_f^2h=x_1-x_2^2+2x_2x_3$ y $L_gL_f^2h=2x_2$. (b) $r=3$ donde $x_2\neq0$. (c) En el origen, $L_gL_f^2h(0)=0$ pero $L_gL_f^2h$ no es idénticamente nula cerca de $0$: no hay grado relativo (\cref{tr:fl-nodefinido}). (d) No: la ley divide por $2x_2$, que se anula justo en el equilibrio que se quiere estabilizar.
+
+\paragraph{Problema~\ref{prob:fl-markov}}
+(a) $CB=0$, $CAB=-1$: $r=2$. (b) Cerca de $t=0$, $y\approx CAB\,t^2/2=-t^2/2<0$, pero $y(\infty)=G(0)=1>0$: la respuesta empieza en la dirección equivocada (respuesta inversa). (c) El cero en $s=+1$ es el valor propio de la dinámica cero: el sistema es de fase no mínima, y la respuesta inversa es su huella en el tiempo.
+
+\paragraph{Problema~\ref{prob:fl-difeo}}
+(a) Sí: inversa $(z_1-z_2^3,\ z_2)$, suave. (b) Sí: $\sinh$ es biyectiva con inversa suave, y $x_2=z_2-\operatorname{arsinh}z_1$. (c) No: es biyectiva, pero su inversa $z_1^{1/3}$ no es diferenciable en $0$, y $\det\jac\Phi x=3x_1^2$ se anula en $x_1=0$. (d) No: no es sobreyectiva ($\Phi(\R^2)$ es el semiplano $z_1>0$); es un difeomorfismo de $\R^2$ en su imagen, pero no de $\R^2$ en $\R^2$.
+
+\paragraph{Problema~\ref{prob:fl-sensor}}
+(a) $L_gh=c$: $r=1$ si $c\neq0$ y $r=2$ si $c=0$. (b) Con $\xi=x_1+cx_2$ y $\eta=x_1$ ($L_g\eta=0$), $\dot\eta=x_2=(\xi-\eta)/c$, y la dinámica cero es $\dot\eta=-\eta/c$. (c) Fase mínima si y solo si $c>0$. $G(s)=(1+cs)/s^2$ tiene su cero en $s=-1/c$: en el semiplano izquierdo si y solo si $c>0$. Medir la posición \emph{adelantada} ($c>0$) da un sistema de fase mínima; medirla \emph{atrasada}, uno de fase no mínima.
+
+\paragraph{Problema~\ref{prob:fl-iss}}
+(a) $L_gh=1$: $r=1$. Con $\xi=x_2$ y $\eta=x_1$: $\dot\xi=\eta^2+u$, $\dot\eta=-\eta^3+\xi$. (b) $\dot\eta=-\eta^3$: asintóticamente (no exponencialmente) estable. (c) No: el teorema pide estabilidad exponencial (\cref{thm:fl-local} y el cuidado que lo sigue). (d) Sí. El lazo es $\dot\xi=-k\xi$, $\dot\eta=-\eta^3+\xi$, y $\dot\eta=-\eta^3+\xi$ es ISS respecto a $\xi$: con $V=\tfrac12\eta^2$, $\Vdot=-\eta^4+\eta\xi\le-\tfrac12\eta^4$ si $\abs\eta\ge(2\abs\xi)^{1/3}$. Por la \cref{prop:fl-global}, el origen es GAS. El teorema local no aplicaba; el resultado global sí.
+
+\paragraph{Problema~\ref{prob:fl-vdpcero}}
+(a) $\eta(t)=\eta_0/(1+\eta_0t)$, que escapa a $-\infty$ en $t=-1/\eta_0$. (b) $x_1=\eta\to-\infty$ y $x_2=-x_1^2\to-\infty$ en tiempo finito, con $y\equiv0$. (c) No: el origen de $\dot\eta=-\eta^2$ no es estable (desde $\eta_0<0$, por pequeño que sea, la solución se aleja).
+
+\paragraph{Problema~\ref{prob:fl-filtro}}
+(a) $\ddot y=\xi_3=g-\frac km\dot y-\frac{L_0a\,i^2}{2m(a+y)^2}$, y el último término es no negativo. (b) La respuesta al escalón de $1/(s+1)^4$ tiene derivada $\tau^3e^{-\tau}/6$ y segunda derivada $(3\tau^2-\tau^3)e^{-\tau}/6$, máxima en $\tau=3-\sqrt3$: $c_4=0.1306$. Con $\tau=pt$, $\ddot y_d=\Delta p^2\cdot(\dots)$. (c) $0.1306\cdot0.15\cdot p^2<g$ da $p<22.4$. En la simulación, con $p=22$ la corriente baja hasta $1.2$\,A y se recupera; con $p=23$ se anula.
+
+\paragraph{Problema~\ref{prob:fl-cancelar}}
+(a) $u=x_1^3+x_2+v$ con $v=-x_1-2x_2$, es decir $u=x_1^3-x_1-x_2$. (b) $u=-x_1-x_2$ da $\dot x_2=-x_1^3-x_1-2x_2$; con $V=\tfrac14x_1^4+\tfrac12x_1^2+\tfrac12x_2^2$ (agregue $\tfrac12x_1^2$ por el resorte lineal que introdujo la ley), $\Vdot=-2x_2^2\le0$, y LaSalle da GAS. (c) La cancelación pide $u(0)=24$ para \emph{quitar} un resorte que empujaba hacia el origen; la otra nunca pide más de $3$ en valor absoluto y llega antes cerca del origen ($\norm{x(2)}=0.74$ contra $1.46$), aunque al principio el resorte la lanza con más velocidad. Lo que pierde la segunda es la respuesta lineal exacta, la que se diseñó.
+
+\respuestaspausas

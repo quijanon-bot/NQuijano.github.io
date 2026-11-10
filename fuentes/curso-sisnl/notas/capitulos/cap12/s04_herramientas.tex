@@ -1,0 +1,96 @@
+%% ---------------------------------------------------------------------
+\section{Herramientas: derivadas de Lie y difeomorfismos}
+\label{sec:fl-herramientas}
+%% ---------------------------------------------------------------------
+
+\subsection{Derivadas de Lie}
+
+Un \clave{campo vectorial} suave $f:D\to\R^n$ asigna a cada punto $x$ un vector columna $f(x)=(f_1(x),\dots,f_n(x))$. Un \clave{campo de covectores} asigna a cada punto un vector \emph{fila} $\omega(x)=[\omega_1(x),\dots,\omega_n(x)]$. El ejemplo principal es la \clave{diferencial} de una función suave $\lambda:D\to\R$: el covector $d\lambda(x)=\jac\lambda x(x)$.
+
+\begin{definicion}[label=def:fl-lie]{Derivada de Lie}
+La derivada de Lie de $\lambda$ a lo largo de $f$ es la función
+\begin{equation}
+  L_f\lambda(x)=\jac\lambda x(x)\,f(x)=\sum_{i=1}^n\frac{\partial\lambda}{\partial x_i}(x)\,f_i(x)=\inner{d\lambda(x)}{f(x)} .
+  \label{eq:fl-lie}
+\end{equation}
+Las derivadas sucesivas y mixtas se definen recursivamente:
+\[
+  L_f^0\lambda=\lambda,\qquad L_f^k\lambda=L_f\bigl(L_f^{k-1}\lambda\bigr),\qquad L_gL_f\lambda=\jac{(L_f\lambda)}x\,g .
+\]
+\end{definicion}
+
+Geométricamente, $L_f\lambda$ es la proyección de $f$ sobre el gradiente de $\lambda$; si $f$ es tangente a las curvas de nivel de $\lambda$, $L_f\lambda=0$. Y a lo largo de una solución de $\dot x=f(x)$, $\tfrac{d}{dt}\lambda(x(t))=L_f\lambda(x(t))$: la derivada de Lie es la derivada en el tiempo \emph{sin resolver la ecuación}.
+
+\begin{ideaclave}
+Ya la usábamos sin nombrarla: para $\dot x=f(x)$, $\Vdot=L_fV$. Toda la teoría de Lyapunov es una colección de desigualdades sobre derivadas de Lie.
+\end{ideaclave}
+
+\begin{ejemplo}[label=ej:fl-lievdp]{Van der Pol y su energía}
+Para $\dot x_1=x_2$, $\dot x_2=-x_1+\mu(1-x_1^2)x_2$ y $\lambda=\tfrac12(x_1^2+x_2^2)$, calcule $L_f\lambda$ e interprete su signo.
+\solucion $L_f\lambda=x_1x_2+x_2\bigl(-x_1+\mu(1-x_1^2)x_2\bigr)=\mu(1-x_1^2)\,x_2^2$. Con $\mu>0$, es no negativa en la franja $\abs{x_1}<1$ y no positiva fuera: el oscilador inyecta energía cerca del origen y la disipa lejos. De ese equilibrio nace el ciclo límite del \cref{cap:orbitas} (\cref{fig:fl-lie}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_lie}
+\caption{Van der Pol con $\mu=1$. Izquierda: la franja $\abs{x_1}<1$ donde $L_f\lambda\ge0$, círculos de nivel de $\lambda$ y una solución que llega al ciclo. Derecha: $L_f\lambda$ calculada con la fórmula coincide con $d\lambda/dt$ medida sobre la solución.}
+\label{fig:fl-lie}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej4_DerivadasLie.m}{vdp}{Derivada de Lie: fórmula contra derivada medida}
+
+\subsection{Difeomorfismos}
+
+\begin{definicion}[label=def:fl-difeo]{Difeomorfismo}
+Una función $\Phi:D\to\R^n$, con $D\subset\R^n$ abierto, es un \clave{difeomorfismo} de $D$ en $\Phi(D)$ si es uno a uno, suave, y su inversa $\Phi^{-1}:\Phi(D)\to D$ también es suave. Es un \clave{difeomorfismo local} alrededor de $x^o$ si lo es en alguna vecindad de $x^o$, y un \clave{difeomorfismo global} si $D=\Phi(D)=\R^n$.
+\end{definicion}
+
+Un difeomorfismo es un cambio de coordenadas no lineal, como lo es una matriz invertible $T$ en $z=Tx$ para un sistema lineal. Reconocer uno local es fácil.
+
+\begin{teorema}[label=thm:fl-inversa]{Función inversa}
+Si $\Phi$ es suave en $D$ y el jacobiano $\jac\Phi x$ es no singular en $x^o\in D$, entonces $\Phi$ es un difeomorfismo local alrededor de $x^o$. Como las filas de $\jac\Phi x$ son los covectores $d\phi_1(x),\dots,d\phi_n(x)$, la condición equivale a que esos covectores sean linealmente independientes en $x^o$ (y entonces, por continuidad, en una vecindad).
+\end{teorema}
+
+\begin{trampa}[label=tr:fl-difeo]{``Jacobiano no singular en todo punto, difeomorfismo global''}
+\plausible{Si $\det\jac\Phi x\neq0$ en todo $\R^n$, el \cref{thm:fl-inversa} se aplica en todas partes, y $\Phi$ es un difeomorfismo global.}
+El teorema da un difeomorfismo \emph{alrededor de cada punto}, no uno en todo el espacio. Para $\Psi(x)=e^{x_1}(\cos x_2,\ \sin x_2)$, $\det\jac\Psi x=e^{2x_1}>0$ en todo $\R^2$, pero $\Psi(x_1,x_2+2\pi)=\Psi(x_1,x_2)$: no es uno a uno. La franja $\{0\le x_2<4\pi\}$ cubre el anillo dos veces (\cref{fig:fl-difeo}, derecha).
+\correcto{Para un difeomorfismo global hace falta algo más. El criterio de Hadamard: si $\Phi:\R^n\to\R^n$ es suave, su jacobiano es no singular en todo punto \emph{y} $\norm{\Phi(x)}\to\infty$ cuando $\norm x\to\infty$, entonces $\Phi$ es un difeomorfismo global. $\Psi$ falla la segunda condición: con $x_1\to-\infty$, $\Psi\to0$.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_difeo}
+\caption{Izquierda: la imagen de una rejilla bajo el difeomorfismo global $\Phi(x)=(x_1,\ x_2+x_1^3/2)$. Derecha: bajo $\Psi(x)=e^{x_1}(\cos x_2,\sin x_2)$, $x_2\in[0,2\pi)$ (continua) y $x_2\in[2\pi,4\pi)$ (discontinua) dan las mismas circunferencias.}
+\label{fig:fl-difeo}
+\end{figure}
+
+\video{V12_4_difeomorfismo}{Local en todo punto no es global}
+
+\codigorepo{cap12_linealizacion/C12_Ej5_Difeomorfismos.m}{local}{Jacobiano no singular, función no inyectiva}
+
+\subsection{Cambio de coordenadas}
+
+Sea $z=\Phi(x)$ un difeomorfismo en $D$. Por la regla de la cadena, $\dot z=\jac\Phi x\,\dot x$, y el sistema afín \eqref{eq:fl-afin} sigue siendo afín en las nuevas coordenadas:
+
+\begin{proposicion}[label=prop:fl-coordenadas]{El sistema en coordenadas nuevas}
+En $z=\Phi(x)=(\phi_1(x),\dots,\phi_n(x))$, el sistema \eqref{eq:fl-afin} se escribe $\dot z=\bar f(z)+\bar g(z)\,u$, $y=\bar h(z)$, en $\Phi(D)$, con
+\begin{equation}
+  \bar f(z)=\begin{bmatrix}L_f\phi_1(x)\\ \vdots\\ L_f\phi_n(x)\end{bmatrix}_{x=\Phi^{-1}(z)},\qquad
+  \bar g(z)=\begin{bmatrix}L_g\phi_1(x)\\ \vdots\\ L_g\phi_n(x)\end{bmatrix}_{x=\Phi^{-1}(z)},\qquad
+  \bar h(z)=h\bigl(\Phi^{-1}(z)\bigr) .
+  \label{eq:fl-coordenadas}
+\end{equation}
+\end{proposicion}
+
+Cada coordenada nueva evoluciona según su derivada de Lie: $\dot z_i=\dot\phi_i=L_f\phi_i+L_g\phi_i\,u$. El truco de todo lo que sigue es escoger las $\phi_i$ para que esas derivadas tengan una forma sencilla.
+
+\begin{ejemplo}[label=ej:fl-coordvdp]{Van der Pol en otras coordenadas}
+Escriba van der Pol (con entrada, $\dot x_2=-x_1+\mu(1-x_1^2)x_2+u$) en las coordenadas $z=(x_1^2+x_2,\ x_1)$.
+\solucion El jacobiano $\begin{bmatrix}2x_1&1\\1&0\end{bmatrix}$ tiene determinante $-1$ en todo punto, y la inversa es explícita: $x=\Phi^{-1}(z)=(z_2,\ z_1-z_2^2)$, así que $\Phi$ es un difeomorfismo global. Con \eqref{eq:fl-coordenadas}: $L_g\phi_1=1$, $L_g\phi_2=0$, $L_f\phi_2=x_2=z_1-z_2^2$ y $L_f\phi_1=2x_1x_2-x_1+\mu(1-x_1^2)x_2$. Luego
+\[
+  \dot z_1=2z_2(z_1-z_2^2)-z_2+\mu(1-z_2^2)(z_1-z_2^2)+u,\qquad \dot z_2=z_1-z_2^2 .
+\]
+La entrada aparece solo en $\dot z_1$. En la \cref{sec:fl-grado} veremos que no es casualidad.
+\end{ejemplo}
+
+\codigorepo{cap12_linealizacion/C12_Ej5_Difeomorfismos.m}{vdp}{La inversa del cambio de coordenadas}

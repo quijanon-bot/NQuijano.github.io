@@ -1,0 +1,119 @@
+%% ---------------------------------------------------------------------
+\section{Grado relativo}
+\label{sec:fl-grado}
+%% ---------------------------------------------------------------------
+
+\subsection{Derivar la salida hasta que aparezca la entrada}
+
+Derivemos la salida de \eqref{eq:fl-afin} a lo largo de las soluciones:
+\[
+  \dot y=\jac hx\bigl(f(x)+g(x)u\bigr)=L_fh(x)+L_gh(x)\,u .
+\]
+Si $L_gh\equiv0$ cerca del punto de interés, la entrada no aparece, $\dot y=L_fh(x)$, y podemos derivar otra vez:
+\[
+  \ddot y=L_f^2h(x)+L_gL_fh(x)\,u .
+\]
+Si también $L_gL_fh\equiv0$, seguimos. Si en la derivada $r$-ésima aparece por fin la entrada,
+\begin{equation}
+  y^{(r)}=L_f^rh(x)+L_gL_f^{r-1}h(x)\,u,\qquad L_gL_f^{r-1}h(x)\neq0 .
+  \label{eq:fl-yr}
+\end{equation}
+
+\begin{definicion}[label=def:fl-grado]{Grado relativo \citep[\S4.1]{Isi95}}
+El sistema \eqref{eq:fl-afin} tiene \clave{grado relativo} $r$ en $x^o$ si
+\begin{enumerate}
+  \item $L_gL_f^ih(x)=0$ para todo $x$ en una vecindad de $x^o$ y todo $i=0,1,\dots,r-2$, y
+  \item $L_gL_f^{r-1}h(x^o)\neq0$.
+\end{enumerate}
+\end{definicion}
+
+\begin{ideaclave}
+El grado relativo es el número de veces que hay que derivar la salida para que la entrada aparezca explícitamente. Entre $u$ y $y$ hay $r$ ``integradores'': la entrada afecta directamente a $y^{(r)}$, y a $y$ solo después de $r$ integraciones.
+\end{ideaclave}
+
+Observe que la condición 1 se pide en toda una \emph{vecindad}, y la 2 solo en el punto (por continuidad, vale entonces en una vecindad). El grado relativo depende de la salida $h$: es una propiedad del par planta--salida, no de la planta sola. Y no puede pasar de $n$ (\cref{lem:fl-independencia}).
+
+\begin{trampa}[label=tr:fl-nodefinido]{``Todo sistema tiene grado relativo en todo punto''}
+\plausible{Basta derivar $y$ hasta que aparezca $u$; en algún momento aparece, y ese es $r$.}
+El grado relativo puede \emph{no existir} en un punto. Ocurre cuando la primera función de la sucesión $L_gh,\ L_gL_fh,\ L_gL_f^2h,\dots$ que no es idénticamente nula cerca de $x^o$ se anula justo en $x^o$. El ejemplo mínimo: $\dot x=u$, $y=x^2$. Como $L_gh=2x$, el grado relativo es $1$ en todo $x\neq0$; en $x^o=0$, $L_gh(0)=0$ (falla la condición 2 con $r=1$) pero $L_gh$ no es idénticamente nula cerca de $0$ (falla la condición 1 con $r\ge2$). No hay grado relativo en el origen.
+\correcto{El conjunto de puntos donde hay grado relativo es abierto y denso~\citep{Isi95}, pero puede excluir justo el punto que interesa. En el levitador excluye $i=0$ (\cref{ej:fl-gradolev}), y eso tiene consecuencias físicas.}
+\end{trampa}
+
+\subsection{El caso lineal}
+
+\begin{proposicion}[label=prop:fl-gradolineal]{Grado relativo de un sistema lineal}
+Para $\dot x=Ax+Bu$, $y=Cx$ (es decir, $f=Ax$, $g=B$, $h=Cx$), $L_f^kh(x)=CA^kx$ y $L_gL_f^kh=CA^kB$. El grado relativo está definido en \emph{todo} punto y es el entero $r$ con
+\[
+  CA^kB=0\ \ (0\le k\le r-2),\qquad CA^{r-1}B\neq0 .
+\]
+Coincide con la diferencia entre el grado del denominador y el del numerador de $G(s)=C(sI-A)^{-1}B$.
+\end{proposicion}
+
+\begin{proof}
+Las fórmulas de las derivadas de Lie se obtienen por inducción: $L_f(CA^kx)=CA^k\,Ax$. Como $L_gL_f^kh$ es constante, las condiciones de la \cref{def:fl-grado} no dependen del punto. Para la última afirmación, $G(s)=\sum_{k\ge1}CA^{k-1}B\,s^{-k}$ para $\abs s$ grande, de modo que $G(s)=CA^{r-1}B\,s^{-r}+O(s^{-r-1})$: el primer término no nulo dice cuánto más grande es el grado del denominador.
+\end{proof}
+
+Los números $CA^{k-1}B$ son los \clave{parámetros de Markov}; no cambian con un cambio de base $z=Tx$. Hay una lectura en el tiempo: la respuesta al escalón es $y(t)=\sum_{k\ge1}CA^{k-1}B\,t^k/k!$, así que cerca de $t=0$, $y(t)\approx CA^{r-1}B\,t^r/r!$, y en escala log-log la pendiente es $r$ (\cref{fig:fl-gradolineal}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\linewidth]{cap12/f_grado_lineal}
+\caption{Respuestas al escalón cerca de $t=0$ en escala log-log: la pendiente es el grado relativo. La punteada es $t^r/r!$. El cero de $(s+2)/((s+1)(s+3))$ no cambia la pendiente: $r=1$.}
+\label{fig:fl-gradolineal}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej6_GradoRelativo.m}{markov}{Parámetros de Markov y pendiente de la respuesta al escalón}
+
+\subsection{Ejemplos no lineales}
+
+\begin{ejemplo}[label=ej:fl-gradovdp]{Van der Pol con dos salidas}
+Calcule el grado relativo de $\dot x_1=x_2$, $\dot x_2=-x_1+\mu(1-x_1^2)x_2+u$ con (a) $y=x_1$ y (b) $y=x_1^2+x_2$.
+\solucion (a) $L_gh=\jac{x_1}x\,g=[1\ \ 0]\,[0\ \ 1]\T=0$, $L_fh=x_2$ y $L_gL_fh=1$: $r=2=n$ en todo $\R^2$. (b) $L_gh=[2x_1\ \ 1]\,[0\ \ 1]\T=1$: $r=1<n$ en todo $\R^2$.
+\end{ejemplo}
+
+\begin{trampa}[label=tr:fl-salida]{``El grado relativo es del sistema''}
+\plausible{Van der Pol tiene grado relativo $2$.}
+La misma planta tiene $r=2$ con $y=x_1$ y $r=1$ con $y=x_1^2+x_2$. Lo mismo pasa con la dinámica cero (\cref{sec:fl-cero}).
+\correcto{El grado relativo es una propiedad del par (planta, salida). Cambiar lo que se mide, o lo que se quiere regular, cambia todo el análisis.}
+\end{trampa}
+
+\begin{ejemplo}[label=ej:fl-gradolev]{El levitador}
+Calcule el grado relativo del levitador \eqref{eq:fl-levitador} con $y=x_1$.
+\solucion Aquí $g(x)=\bigl(0,\,0,\,1/L(x_1)\bigr)$. Primero $L_gh=0$ y $L_fh=x_2$; luego $L_gL_fh=0$ y
+\[
+  L_f^2h=g-\frac km\,x_2-\frac{L_0a\,x_3^2}{2m(a+x_1)^2} ,
+\]
+la aceleración. Como esta depende de $x_3$,
+\begin{equation}
+  L_gL_f^2h(x)=-\frac{L_0\,a\,x_3}{m\,(a+x_1)^2\,L(x_1)} .
+  \label{eq:fl-blev}
+\end{equation}
+El grado relativo es $r=3=n$ en todo punto con $x_3\neq0$; en el equilibrio de $\bar y=0.05$, $L_gL_f^2h=-125.28$. En $x_3=0$ no está definido (\cref{fig:fl-inestable}, derecha).
+\end{ejemplo}
+
+\begin{pausa}
+Explique físicamente por qué el levitador pierde el grado relativo justo cuando la corriente es cero.
+\respuesta{La fuerza es $F\propto-i^2$, así que $\partial F/\partial i=0$ en $i=0$: un cambio pequeño de corriente, que es lo que el voltaje cambia primero, no cambia la fuerza a primer orden. La entrada pierde su efecto sobre la aceleración. Detrás está algo más elemental: el electroimán solo atrae, y con $i=0$ ni siquiera eso.}
+\end{pausa}
+
+\codigorepo{cap12_linealizacion/C12_Ej6_GradoRelativo.m}{levitador}{El grado relativo del levitador y su singularidad}
+
+\subsection{Por qué $r\le n$}
+
+\begin{lema}[label=lem:fl-independencia]{Independencia \citep[Lema~4.1.1]{Isi95}}
+Si el sistema tiene grado relativo $r$ en $x^o$, los covectores
+\[
+  dh(x),\ dL_fh(x),\ \dots,\ dL_f^{r-1}h(x)
+\]
+son linealmente independientes para todo $x$ en una vecindad de $x^o$. En particular, $r\le n$.
+\end{lema}
+
+\begin{proof}[Idea de la prueba]
+Con el corchete de Lie $[f,g]=\jac gxf-\jac fxg$ y sus iterados $\mathrm{ad}_f^jg=[f,\mathrm{ad}_f^{j-1}g]$, se prueba por inducción la identidad
+\[
+  L_{\mathrm{ad}_f^jg}L_f^ih(x)=\begin{cases}0,& i+j\le r-2,\\ (-1)^j\,L_gL_f^{r-1}h(x),& i+j=r-1,\end{cases}
+\]
+en una vecindad de $x^o$. Entonces la matriz $r\times r$ de entradas $\inner{dL_f^ih(x)}{\mathrm{ad}_f^jg(x)}$ es triangular respecto a la antidiagonal, con antidiagonal $\pm L_gL_f^{r-1}h\neq0$: es no singular. Si una combinación $\sum_ic_i\,dL_f^ih$ fuera cero, al aparearla con $g,\mathrm{ad}_fg,\dots$ daría un sistema lineal con esa matriz, y $c=0$.
+\end{proof}
+
+Por el \cref{thm:fl-inversa}, las $r$ funciones $h,L_fh,\dots,L_f^{r-1}h$ son candidatas a ser parte de un sistema de coordenadas. Faltan $n-r$: el análogo de completar una base en álgebra lineal.

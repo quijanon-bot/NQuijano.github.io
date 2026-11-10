@@ -267,7 +267,7 @@ window.MathJax = { tex: { macros: {
 <div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">cd</span> <span class="va">ruta</span><span class="op">/</span><span class="va">al</span><span class="op">/</span><span class="va">repositorio</span><span class="op">/</span><span class="va">codigo</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">iniciarCurso</span>              <span class="co">% agrega comun/ y todos los capítulos al path</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">C11_Ej1_MasaResorte</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">verificarCap11</span>            <span class="co">% comprueba los números del handout</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">verificarCap11</span>            <span class="co">% comprueba los números del capítulo (o verificarCap03, 05, 12)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Los scripts <code>C*_Ej*</code> no requieren <em>toolboxes</em> (y corren en GNU Octave); los <code>crearModelo_*.m</code> requieren Simulink y los videos, <code>VideoWriter</code>.</p>
 </section>
 <section id="organización" class="level2">
@@ -280,7 +280,9 @@ window.MathJax = { tex: { macros: {
 │   ├── respFrec.m            G(jw) sin toolboxes
 │   ├── esPR.m                prueba numérica PR / SPR (Khalil, Lema 6.1)
 │   ├── balanceEnergia.m      V - V(0) = int s - int d sobre una simulación
-│   └── jacobianoNumerico.m   jacobiano por diferencias centradas
+│   ├── jacobianoNumerico.m   jacobiano por diferencias centradas
+│   ├── derivadaLie.m         derivada de Lie numérica L_f lambda
+│   └── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
 ├── cap03_preliminares/
 │   ├── C3_Ej1 … C3_Ej10      métricas, normas, Lipschitz, Picard, escape, comparación
 │   ├── C3_Video_*            Picard y no unicidad
@@ -291,12 +293,18 @@ window.MathJax = { tex: { macros: {
 │   ├── crearModelo_VanDerPol VanDerPol.slx
 │   ├── modeloKuramoto.m, modeloNowak.m, indiceCurva.m
 │   └── verificarCap05.m      34 pruebas de los números del capítulo
-└── cap11_pasividad/
-    ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
-    ├── C11_Video_*           los cinco videos de la parte
-    ├── crearModelo_*         LazoPasivo.slx, AguaReplicador.slx, PenduloPD.slx
-    ├── modeloOsciladores.m, modeloAgua.m, energiaAgua.m, energiaAguaSL.m
-    └── verificarCap11.m      39 pruebas de los números del handout</code></pre>
+├── cap11_pasividad/
+│   ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
+│   ├── C11_Video_*           los cinco videos de la parte
+│   ├── crearModelo_*         LazoPasivo.slx, AguaReplicador.slx, PenduloPD.slx
+│   ├── modeloOsciladores.m, modeloAgua.m, energiaAgua.m, energiaAguaSL.m
+│   └── verificarCap11.m      39 pruebas de los números del handout
+└── cap12_linealizacion/
+    ├── C12_Ej1 … C12_Ej12    levitador (jacobiana, integral, exacta), péndulo, Lie, grado relativo, dinámica cero
+    ├── C12_Video_*           levitador, fase no mínima, dinámica cero, difeomorfismo
+    ├── crearModelo_LevitadorFL  LevitadorFL.slx
+    ├── parametrosLevitador.m, modeloLevitador.m, equilibrioLevitador.m, jacobianoLevitador.m, leyExactaLevitador.m
+    └── verificarCap12.m      37 pruebas de los números del capítulo</code></pre>
 </section>
 <section id="convenciones" class="level2">
 <h2 class="anchored" data-anchor-id="convenciones">Convenciones</h2>

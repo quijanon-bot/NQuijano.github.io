@@ -8,3 +8,4 @@ Ejecute una vez por sesión `iniciarCurso` (esta carpeta). Los `C*_Ej*` no requi
 - `cap11_pasividad/`: `C11_Ej1`…`C11_Ej14`, cinco videos `C11_Video_*`, modelos `crearModelo_LazoPasivo`, `crearModelo_Agua`, `crearModelo_Pendulo`, funciones `modeloOsciladores`, `modeloAgua`, `energiaAgua`, `energiaAguaSL`, y `verificarCap11` (39/39 en Octave 8.4).
 
 Convenciones: encabezado QUÉ HACE / OBSERVE / ESPERADO / EXPLORE; fragmentos para las notas entre `% [ini:nombre]` y `% [fin:nombre]`.
+- `cap12_linealizacion/`: `C12_Ej1`…`C12_Ej12`, cuatro videos `C12_Video_*`, `crearModelo_LevitadorFL`, funciones del levitador (`parametrosLevitador`, `modeloLevitador`, `equilibrioLevitador`, `jacobianoLevitador`, `leyExactaLevitador`) y `verificarCap12` (37/37 en Octave 8.4). En `comun/`: `ubicarPolos` (Ackermann, sin toolboxes) y `derivadaLie`.

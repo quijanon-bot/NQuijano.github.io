@@ -29,7 +29,7 @@ Este sitio acompaña el curso **Sistemas No Lineales**. Cada parte del curso tie
 <a class="parte" href="partes/09-variantes.html"><div class="num">9</div><div class="nom">Sistemas variantes en el tiempo</div><div class="sem">Semana 10</div><span class="estado migrar">por migrar</span></a>
 <a class="parte" href="partes/10-estabilidad-avanzada.html"><div class="num">10</div><div class="nom">Estabilidad avanzada: UUB, CLF e ISS</div><div class="sem">Semanas 11–12</div><span class="estado migrar">por migrar</span></a>
 <a class="parte piloto" href="partes/11-pasividad.html"><div class="num">11</div><div class="nom">Pasividad y disipatividad</div><div class="sem">Semana 13</div><span class="estado listo">piloto · completo</span></a>
-<a class="parte" href="partes/12-linealizacion.html"><div class="num">12</div><div class="nom">Linealización por retroalimentación</div><div class="sem">Semanas 14–15</div><span class="estado migrar">por migrar</span></a>
+<a class="parte" href="partes/12-linealizacion.html"><div class="num">12</div><div class="nom">Linealización por retroalimentación</div><div class="sem">Semanas 14–15</div><span class="estado listo">completo</span></a>
 </div>
 ```
 

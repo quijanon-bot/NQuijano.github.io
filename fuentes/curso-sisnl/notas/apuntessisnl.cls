@@ -53,7 +53,7 @@
 \RequirePackage[letterpaper,
   inner=2.0cm, textwidth=12.9cm,
   marginparsep=0.6cm, marginparwidth=4.8cm,
-  top=2.5cm, bottom=2.5cm, headsep=0.9cm, footskip=1.2cm]{geometry}
+  top=2.5cm, bottom=2.5cm, headheight=13pt, headsep=0.9cm, footskip=1.2cm]{geometry}
 \RequirePackage[strict]{changepage}
 \newlength{\snl@extra}
 \setlength{\snl@extra}{\dimexpr\marginparwidth+\marginparsep\relax}

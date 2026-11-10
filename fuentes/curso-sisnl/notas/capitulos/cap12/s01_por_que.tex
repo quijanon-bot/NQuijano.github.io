@@ -1,0 +1,66 @@
+%% ---------------------------------------------------------------------
+\section{Cancelar en vez de aproximar}
+\label{sec:fl-por-que}
+%% ---------------------------------------------------------------------
+
+Hasta aquí, cada herramienta de diseño del curso ha sido una \emph{función de energía}: una función de Lyapunov con $\Vdot<0$, una función de Lyapunov de control, una ganancia de ISS que acota lo que entra, un almacenamiento que cumple $\Vdot\le u\T y$. Este capítulo cambia de filosofía. La pregunta ahora es geométrica: ¿existe un \clave{cambio de coordenadas} y una \clave{realimentación} que conviertan el sistema no lineal en uno \emph{lineal}, de manera exacta y no aproximada? Si existen, todo lo que se sabe de control lineal (ubicación de polos, seguimiento, LQR) queda disponible.
+
+\notamargen{\textbf{Ruta de las clases.} Clase~1: \S\ref{sec:fl-jacobiana}--\ref{sec:fl-forma}. Clase~2: \S\ref{sec:fl-io}--\ref{sec:fl-estabilidad}. Las demostraciones de la \cref{sec:fl-grado} y la \cref{sec:fl-estabilidad} (lema de independencia y teorema local) se leen por cuenta propia.}
+
+La respuesta tiene tres partes, y las tres son el tema del capítulo. Primera: para la clase de sistemas \emph{afines en la entrada} hay un procedimiento (el grado relativo y la forma normal) que dice exactamente qué se puede linealizar. Segunda: casi siempre queda una parte del sistema que la realimentación vuelve \emph{invisible} desde la salida, la \clave{dinámica cero}, y de ella depende la estabilidad. Tercera: cancelar exige conocer el modelo; la cancelación exacta puede ser frágil, puede pedir esfuerzos infinitos y puede destruir no linealidades que ayudaban.
+
+\subsection{El problema de estabilización}
+
+Para un sistema $\dot x=f(x,u)$ con salida $y=h(x)$, el \clave{problema de estabilización por realimentación de estado} es encontrar una ley \emph{estática} $u=\gamma(x)$ tal que un equilibrio deseado sea asintóticamente estable para el lazo cerrado $\dot x=f\bigl(x,\gamma(x)\bigr)$. Si el equilibrio deseado no es el origen, sino un punto $\eq$, hace falta antes un valor de régimen $u^*$ con
+\begin{equation}
+  0=f(\eq,u^*) .
+  \label{eq:fl-regimen}
+\end{equation}
+Las tareas típicas de un controlador (estabilizar, seguir una referencia, rechazar perturbaciones, dar cierta respuesta transitoria, respetar límites de la señal de control) se plantean a partir de esta. El capítulo recorre tres caminos: (1) diseñar sobre la linealización jacobiana; (2) agregar acción integral para tolerar parámetros mal conocidos; (3) \emph{linealización por retroalimentación} (\emph{feedback linearization}): cancelar las no linealidades. En los tres se supone que el estado completo $x$ se mide.
+
+\subsection{El ejemplo que nos acompaña: un levitador magnético}
+
+Una esfera de material ferromagnético, de masa $m$, cuelga bajo un electroimán (\cref{fig:fl-levitador}). Con $y\ge0$ la distancia entre la esfera y el electroimán (medida hacia abajo), $k$ el coeficiente de fricción viscosa, $g$ la gravedad e $i$ la corriente de la bobina, la segunda ley de Newton da
+\[
+  m\ddot y=-k\dot y+mg+F(y,i) .
+\]
+La inductancia depende de la posición: es máxima con la esfera pegada y baja a $L_1$ cuando se aleja,
+\begin{equation}
+  L(y)=L_1+\frac{L_0}{1+y/a},
+  \qquad
+  E(y,i)=\tfrac12L(y)\,i^2,
+  \qquad
+  F(y,i)=\jac Ey=-\frac{L_0\,a\,i^2}{2(a+y)^2}<0 ,
+  \label{eq:fl-fuerza}
+\end{equation}
+con $L_0,L_1,a>0$. El signo de $F$ dice algo físico que será decisivo en la \cref{sec:fl-levitador}: el electroimán \emph{solo atrae}. Con el voltaje $u$ como entrada y el flujo $\phi_m=L(y)\,i$, la ley de Kirchhoff es $u=\dot\phi_m+Ri$, y $\dot\phi_m=L'(y)\dot y\,i+L(y)\,\dot\imath$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.5\linewidth]{cap12/t_levitador}
+\caption{Levitador magnético: la corriente $i$ crea una fuerza $F(y,i)$ que \emph{atrae} la esfera; el voltaje $u$ es la entrada y la posición $y$ (medida hacia abajo) es la salida.}
+\label{fig:fl-levitador}
+\end{figure}
+
+Con el estado $x=(x_1,x_2,x_3)=(y,\dot y,i)$, el modelo es
+\begin{equation}
+  \begin{aligned}
+    \dot x_1&=x_2\\
+    \dot x_2&=g-\frac km\,x_2-\frac{L_0\,a\,x_3^2}{2m(a+x_1)^2}\\
+    \dot x_3&=\frac{1}{L(x_1)}\Bigl(u-Rx_3+\frac{L_0\,a\,x_2\,x_3}{(a+x_1)^2}\Bigr)
+  \end{aligned}
+  \qquad\qquad y=x_1 .
+  \label{eq:fl-levitador}
+\end{equation}
+Usamos los valores de Khalil~\citep{Kha02}: $m=0.1$\,kg, $k=0.001$\,N\,s/m, $g=9.81$\,m/s$^2$, $a=0.05$\,m, $L_0=0.01$\,H, $L_1=0.02$\,H y $R=1$\,$\Omega$.
+
+\notamargen{\textbf{Notación.} El grado relativo se escribe $r$ (Khalil usa $\rho$). La inductancia $L(y)$ siempre lleva su argumento; la derivada de Lie $L_fh$ siempre lleva el subíndice del campo. Las componentes de un cambio de coordenadas se escriben $\phi_i$, con subíndice; sin subíndice, $\phi$ sigue siendo la solución de la \cref{sec:pm-existencia}. La fricción del levitador es $k$; las ganancias de diseño, $k_i$.}
+
+\begin{historia}[De Brockett a Kokotović]
+En 1978, Roger Brockett preguntó qué propiedades de un sistema no lineal sobreviven a un cambio de coordenadas y una realimentación, y mostró que algunos sistemas se vuelven lineales con esas dos operaciones~\citep{Bro78}. Jakubczyk y Respondek (1980) dieron las condiciones exactas para que un sistema sea linealizable \emph{en todo su estado}~\citep{JaRe80}, y Hunt, Su y Meyer (1983) llevaron la idea al control de vuelo de helicópteros~\citep{HSM83}. Isidori, Krener, Gori-Giorgi y Monaco (1981) construyeron la versión geométrica para el problema de entrada y salida~\citep{IKGM81}. Byrnes e Isidori, entre 1984 y 1991, definieron la \emph{dinámica cero} y probaron los resultados de estabilización de los sistemas de \emph{fase mínima}~\citep{ByIs88,ByIs91}, y con Willems los conectaron con la pasividad~\citep{BIW91}. En 2001, Kokotović y Arcak hicieron el balance desde el diseño: la cancelación exacta puede ser frágil y puede desperdiciar no linealidades útiles~\citep{KoAr01}. El libro de Isidori~\citep{Isi95} es la referencia de toda la teoría.
+\end{historia}
+
+\begin{pausa}
+Antes de seguir, apueste: si una ley de control hace que la salida $y(t)$ de un sistema converja a cero exponencialmente, con los polos que uno escoja, ¿converge a cero también el estado $x(t)$?
+\respuesta{No necesariamente. La ley puede volver una parte del estado invisible desde la salida, y esa parte puede ser inestable: en el ejemplo de la \cref{sec:fl-cero}, $y\to0$ como se diseñó mientras el estado escapa a infinito en tiempo finito. Lo que decide es la \emph{dinámica cero} (\cref{def:fl-cero}).}
+\end{pausa}

@@ -1,0 +1,94 @@
+%% ---------------------------------------------------------------------
+\section{Dos diseños sobre la linealización jacobiana}
+\label{sec:fl-jacobiana}
+%% ---------------------------------------------------------------------
+
+\subsection{Equilibrios e inestabilidad}
+
+Para sostener la esfera en $y=\bar y>0$ hace falta $\dot x=0$ con $x_1=\bar y$: de la primera ecuación de \eqref{eq:fl-levitador}, $x_2=0$; de la segunda, la fuerza magnética equilibra el peso; de la tercera, el voltaje solo cubre la caída en la resistencia:
+\begin{equation}
+  \eq(\bar y)=\Bigl(\bar y,\ 0,\ \sqrt{\tfrac{2gm}{L_0a}}\,(a+\bar y)\Bigr),
+  \qquad
+  u^*(\bar y)=R\,x_3^* .
+  \label{eq:fl-equilibrio}
+\end{equation}
+Hay un equilibrio por cada $\bar y$: la familia está parametrizada por la referencia. Con $\bar y=0.05$\,m, $x_3^*=u^*=6.2642$ (amperios y voltios). La linealización jacobiana en $\eq(\bar y)$ es $\dot x_\delta=A(\bar y)\,x_\delta+B(\bar y)\,u_\delta$, con $x_\delta=x-\eq$, $u_\delta=u-u^*$ y, escribiendo $D=L_1(a+\bar y)+L_0a$,
+\begin{equation}
+  A(\bar y)=\begin{bmatrix}0&1&0\\[2pt] \dfrac{2g}{a+\bar y}&-\dfrac km&-\dfrac{\sqrt{2gaL_0/m}}{a+\bar y}\\[8pt] 0&\dfrac{\sqrt{2gmaL_0}}{D}&-\dfrac{R(a+\bar y)}{D}\end{bmatrix},
+  \qquad
+  B(\bar y)=\begin{bmatrix}0\\0\\ \dfrac{a+\bar y}{D}\end{bmatrix}.
+  \label{eq:fl-AB}
+\end{equation}
+Con $\bar y=0.05$, los valores propios de $A$ son $13.641$, $-14.813$ y $-38.838$: por el método indirecto de Lyapunov, el equilibrio es \emph{inestable}. Y lo es para todo $\bar y$: la parte real del valor propio inestable baja con $\bar y$, pero nunca llega a cero (\cref{fig:fl-inestable}, izquierda). Note además que $A$ y $B$ \emph{dependen de} $\bar y$: una ganancia diseñada en un punto se aplica, en otro punto, a otra planta.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_levitador_inestable}
+\caption{Izquierda: partes reales de los valores propios de $A(\bar y)$; siempre hay uno positivo. Derecha: $b(x)=L_gL_f^2h(x)$ en función de la corriente para tres posiciones; se anula en $i=0$ (\cref{sec:fl-grado}). El punto es el equilibrio en $\bar y=0.05$.}
+\label{fig:fl-inestable}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej1_LevitadorJacobiano.m}{equilibrio}{Equilibrio y linealización jacobiana}
+
+\subsection{Método 1: realimentación de estados sobre la jacobiana}
+
+Si $(A,B)$ es controlable, se escoge $K$ con $A-BK$ Hurwitz y se aplica
+\begin{equation}
+  u=\underbrace{u^*}_{\text{prealimentación}}\ \underbrace{-\,K\,(x-\eq)}_{\text{realimentación}} .
+  \label{eq:fl-metodo1}
+\end{equation}
+El lazo cerrado no lineal tiene en $\eq$ la linealización $\dot x_\delta=(A-BK)x_\delta$, y el método indirecto de Lyapunov garantiza que $\eq$ es localmente exponencialmente estable. Con los polos en $-20$, $-25$ y $-30$ para $\bar y=0.05$, $K=[-237.17,\ -16.013,\ 0.87475]$.
+
+\begin{trampa}[label=tr:fl-local]{``Diseñé los polos; la respuesta es la que calculé''}
+\plausible{Con $A-BK$ Hurwitz, la esfera responde como el modelo lineal $\dot x_\delta=(A-BK)x_\delta$.}
+El método indirecto garantiza estabilidad \emph{local}: existe una vecindad de $\eq$ desde la que las soluciones convergen, pero el teorema no dice cuán grande es, ni cuánto se parece la respuesta a la lineal. Con el mismo $K$ y cuatro condiciones iniciales (\cref{fig:fl-jacobiana}): desde $y_0=0.045$ la diferencia con la predicción lineal es $2.8\times10^{-5}$\,m; desde $0.08$ y $0.01$, alrededor de $1$\,mm; desde $0.15$, $1.07$\,cm, con un voltaje de hasta $30$\,V.
+\correcto{El diseño lineal \emph{predice} la respuesta solo cerca de $\eq$. Para saber desde dónde converge se estima la región de atracción con una función de Lyapunov: $V=x_\delta\T Px_\delta$ con $P(A-BK)+(A-BK)\T P=-Q$ y un conjunto de nivel de $V$ contenido en la zona donde $\Vdot<0$ para la planta \emph{no lineal}.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_jacobiana}
+\caption{Mismo $K$ (diseñado en $\bar y=0.05$), cuatro condiciones iniciales con velocidad cero y la corriente de equilibrio. Izquierda: la planta (continua) y la predicción lineal (discontinua). Derecha: la diferencia crece con la distancia al punto de operación.}
+\label{fig:fl-jacobiana}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej1_LevitadorJacobiano.m}{comparacion}{La promesa lineal contra la planta}
+
+\subsection{Método 2: control integral}
+
+El método 1 necesita $u^*$, y $u^*$ sale del modelo. Si la masa real no es la del modelo, la prealimentación está mal y queda un error permanente. El remedio clásico es integrar el error de regulación. Para una planta con parámetros inciertos $w$, $\dot x=f(x,u,w)$, $y=h(x,w)$, y una referencia constante $\bar y$, se agrega el estado
+\begin{equation}
+  \dot\sigma=e=y-\bar y
+  \label{eq:fl-integrador}
+\end{equation}
+y se estabiliza el sistema aumentado $(x,\sigma)$ con $u=-K_1x-K_2\sigma$ (más un valor nominal, si se quiere). En cualquier equilibrio del lazo cerrado, $\dot\sigma=0$ obliga a $y=\bar y$, \emph{sea cual sea} $w$; el valor $\sigma^*$ se acomoda solo para producir el $u^*$ que la planta real necesita.
+
+\begin{proposicion}[label=prop:fl-integral]{Control integral vía linealización \citep[\S12.3]{Kha02}}
+Sean $A=\jacat fx{(\eq,u^*)}$, $B=\jacat fu{(\eq,u^*)}$, $C=\jacat hx{\eq}$, con $p$ salidas reguladas. Si $(A,B)$ es controlable y
+\begin{equation}
+  \rank\begin{bmatrix}A&B\\ C&0\end{bmatrix}=n+p ,
+  \label{eq:fl-rango}
+\end{equation}
+entonces el par aumentado $\Bigl(\begin{bmatrix}A&0\\ C&0\end{bmatrix},\begin{bmatrix}B\\0\end{bmatrix}\Bigr)$ es controlable, y existe $[K_1\ K_2]$ que ubica sus valores propios donde se quiera.
+\end{proposicion}
+
+\begin{proof}
+Por el criterio de Hautus, hay que ver que $[\,A_a-\lambda I\ \ B_a\,]$ tiene rango $n+p$ para todo $\lambda\in\C$. Para $\lambda\neq0$, sus filas son $\begin{bmatrix}A-\lambda I&0&B\\ C&-\lambda I&0\end{bmatrix}$; el bloque $-\lambda I$ es invertible y $[\,A-\lambda I\ \ B\,]$ tiene rango $n$ por la controlabilidad de $(A,B)$. Para $\lambda=0$, la matriz es $\begin{bmatrix}A&0&B\\ C&0&0\end{bmatrix}$, cuyo rango es el de \eqref{eq:fl-rango}.
+\end{proof}
+
+En una planta de una entrada y una salida, la condición \eqref{eq:fl-rango} dice que la linealización no tiene un cero en $s=0$: un cero en el origen bloquearía exactamente la señal constante que el integrador necesita. En el levitador el rango es $4$, y con los polos aumentados en $-15$, $-20$, $-25$ y $-30$ se obtiene $K_1=[-482.15,\ -24.992,\ 1.2498]$, $K_2=-1795.9$. En $t=0.5$\,s la masa real pasa de $0.10$ a $0.12$\,kg y los dos controladores siguen usando el modelo nominal (\cref{fig:fl-integral}): la realimentación de estados se queda con un error de $1.03$\,cm; con el integrador el error se anula y el voltaje se reajusta a $6.8621$\,V, exactamente $R\,x_3^*$ calculado con $m=0.12$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_integral}
+\caption{Una carga que el modelo no conoce: desde $t=0.5$\,s la masa es $0.12$\,kg. Izquierda: posición. Derecha: el voltaje; la línea punteada es el valor de equilibrio que exige la masa real.}
+\label{fig:fl-integral}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej2_ControlIntegral.m}{carga}{Realimentación de estados contra acción integral}
+
+\begin{trampa}[label=tr:fl-integral]{``Con integrador, el controlador es robusto''}
+\plausible{La acción integral elimina el error ante cualquier cambio de la planta.}
+La acción integral elimina el error \emph{de régimen} ante perturbaciones y parámetros \emph{constantes}, siempre que el lazo cerrado siga teniendo un equilibrio estable cerca del nuevo punto. El diseño se hizo con la linealización en el punto nominal: un cambio grande de la planta (otra masa, otro punto de operación) puede volver inestable el lazo, y el integrador no lo impide. Tampoco hace nada contra perturbaciones que varían en el tiempo más rápido que el lazo.
+\correcto{El integrador corrige errores constantes; la estabilidad del nuevo equilibrio hay que verificarla aparte (con la linealización en ese equilibrio, o con una función de Lyapunov).}
+\end{trampa}

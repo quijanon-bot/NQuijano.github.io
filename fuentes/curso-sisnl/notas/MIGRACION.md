@@ -13,6 +13,12 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 9. **Página web.** Copiar `sitio/partes/11-pasividad.qmd` como plantilla y agregar el capítulo a `NOMBRES` en `herramientas/pdf_por_capitulo.py`.
 10. **Numeración.** En `NotasSisNL.tex`, `\setcounter{chapter}{N-1}` antes del `\input` del capítulo N mientras los anteriores no estén migrados.
 
+## Pendientes del capítulo 12 (migrado el 9 de noviembre de 2026)
+
+- Correr en MATLAB `C12_Video_*` y `crearModelo_LevitadorFL` (los videos se probaron en Octave sin grabar; el modelo de Simulink no se pudo probar). Los scripts originales de las clases (`FL1_V*`, `FL2_V*`, carpeta `Present2026/FeedbackLinearization2026/matlab`) quedan como están.
+- Confirmar en Khalil (3.ª ed.): el levitador como ejercicio del cap. 1 y sus valores numéricos, §12.2–12.3, §13.2, Lema 4.7; y en Isidori (1995): Lema 4.1.1 y Prop. 4.1.3.
+- Verificar datos de Bro78 (páginas en las memorias de IFAC 1978), JaRe80 y HSM83.
+
 ## Pendientes de los capítulos 3 y 5 (migrados el 9 de noviembre de 2026)
 
 - Correr en MATLAB `C3_Video_*`, `C5_Video_*` y `crearModelo_VanDerPol` (probados solo en Octave o sin probar), copiar los `.mp4` a `sitio/videos/` y convertir en enlaces las filas de `videos.qmd` y de las páginas 03 y 05.

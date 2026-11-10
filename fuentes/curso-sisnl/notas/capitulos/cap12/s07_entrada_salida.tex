@@ -1,0 +1,85 @@
+%% ---------------------------------------------------------------------
+\section{Linealización entrada--salida}
+\label{sec:fl-io}
+%% ---------------------------------------------------------------------
+
+\subsection{La ley que linealiza}
+
+Si el sistema tiene grado relativo $r$ en $x^o$, $b(z^o)=L_gL_f^{r-1}h(x^o)\neq0$ y, por continuidad, $b\neq0$ en una vecindad. Ahí se puede despejar la entrada de \eqref{eq:fl-formanormal}:
+\begin{equation}
+  u=\frac{1}{b(z)}\bigl[-a(z)+v\bigr]
+  \qquad\text{es decir}\qquad
+  u=\frac{1}{L_gL_f^{r-1}h(x)}\Bigl[-L_f^rh(x)+v\Bigr] .
+  \label{eq:fl-ley}
+\end{equation}
+Es de la forma $u=\alpha(x)+\beta(x)v$, con $\alpha=-L_f^rh/L_gL_f^{r-1}h$ y $\beta=1/L_gL_f^{r-1}h$, y no hace falta calcular $\Phi^{-1}$ para aplicarla: basta evaluar derivadas de Lie en el estado medido. El lazo cerrado es
+\begin{equation}
+  \dot\xi=A_c\xi+B_cv,\qquad y=C_c\xi,\qquad \dot\eta=q(\xi,\eta),
+  \label{eq:fl-lazocerrado}
+\end{equation}
+y el mapa de $v$ a $y$ es una cadena de $r$ integradores: $G(s)=C_c(sI-A_c)^{-1}B_c=1/s^r$.
+
+\begin{ideaclave}
+La realimentación volvió $\eta$ \emph{no observable} desde $y$: la salida obedece $y^{(r)}=v$ sin importar lo que haga $\eta$. Que $y$ se comporte perfectamente no dice nada de $\eta$.
+\end{ideaclave}
+
+\subsection{El lazo externo}
+
+Sobre la cadena de integradores se diseña un controlador lineal.
+
+\begin{proposicion}[label=prop:fl-seguimiento]{Estabilización y seguimiento}
+Sean $k_1,\dots,k_r$ tales que $s^r+k_rs^{r-1}+\dots+k_2s+k_1$ es Hurwitz, y $K=[k_1\ \cdots\ k_r]$.
+\begin{enumerate}
+  \item (Estabilización.) Con $v=-K\xi$, $\dot\xi=(A_c-B_cK)\xi$ y $\xi\to0$ exponencialmente.
+  \item (Seguimiento.) Sea $y_d(t)$ una referencia con $r$ derivadas continuas, y $\bar y_d=(y_d,\dot y_d,\dots,y_d^{(r-1)})$. Con
+  \begin{equation}
+    v=y_d^{(r)}-K\bigl(\xi-\bar y_d\bigr),
+    \label{eq:fl-vseguimiento}
+  \end{equation}
+  el error $e=\xi-\bar y_d$ cumple $\dot e=(A_c-B_cK)e$, y $y(t)-y_d(t)\to0$ exponencialmente.
+\end{enumerate}
+\end{proposicion}
+
+\begin{proof}
+En 2, $\dot e_i=\xi_{i+1}-y_d^{(i)}=e_{i+1}$ para $i<r$, y $\dot e_r=v-y_d^{(r)}=-Ke$.
+\end{proof}
+
+La \cref{prop:fl-seguimiento} habla solo de $\xi$. Si además $\dot\eta=q(\xi,\eta)$ es ISS con $\xi$ como entrada y las derivadas de $y_d$ están acotadas, entonces $\eta$ también queda acotada y \emph{todas} las señales internas lo están~\citep{Arc18}. Sin esa hipótesis, la salida puede seguir la referencia mientras el estado interno diverge (\cref{sec:fl-cero}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap12/t_lazo_fl}
+\caption{Dos lazos. El interno (no lineal) cancela con $u=(v-a(z))/b(z)$ y deja de $v$ a $y$ una cadena de $r$ integradores; el externo (lineal) estabiliza o hace seguir la referencia.}
+\label{fig:fl-lazo}
+\end{figure}
+
+\begin{trampa}[label=tr:fl-escalon]{``Para seguir un escalón basta poner $y_d$ constante a trozos''}
+\plausible{La ley \eqref{eq:fl-vseguimiento} sigue cualquier referencia; un escalón es la más sencilla.}
+La ley pide $y_d,\dot y_d,\dots,y_d^{(r)}$, y un escalón no tiene derivadas en el instante del salto: con $r\ge1$ no es una referencia admisible. En la práctica, conectarlo directamente produce en $v$ (y en $u$) un salto proporcional a $k_r,\dots,k_1$ y al tamaño del escalón, que el actuador puede no tener, y que en el levitador lleva a la singularidad de la \cref{sec:fl-levitador}.
+\correcto{Se planifica una trayectoria suave: por ejemplo, se pasa el escalón por un filtro $p^{r+1}/(s+p)^{r+1}$, que entrega $y_d$ y sus derivadas hasta la $r$-ésima.}
+\end{trampa}
+
+\subsection{Si $r=n$: linealización entrada--estado}
+
+Si el grado relativo es $n$, no hay $\eta$: $\Phi(x)=(h,L_fh,\dots,L_f^{n-1}h)$ es el cambio de coordenadas completo, y la ley
+\[
+  u=\frac{1}{L_gL_f^{n-1}h(x)}\bigl[v-L_f^nh(x)\bigr]
+\]
+da el sistema lineal $\dot z=A_cz+B_cv$ de dimensión $n$. Es la linealización entrada--estado de la \cref{def:fl-problemas}; el levitador con $y=x_1$ es de esta clase.
+
+\begin{ejemplo}[label=ej:fl-vdpfl]{Van der Pol linealizado}
+Con $y=x_1$, van der Pol tiene $r=2=n$ (\cref{ej:fl-gradovdp}) y ya está en forma normal, con $a(x)=-x_1+\mu(1-x_1^2)x_2$ y $b=1$. La ley
+\[
+  u=x_1-\mu(1-x_1^2)x_2+v,\qquad v=-4x_1-4x_2,
+\]
+da $\ddot y+4\dot y+4y=0$ (polos en $-2$, $-2$). Como $\Phi$ es la identidad, el resultado es \emph{global}: el ciclo límite desaparece por construcción. Con $\mu=1$, el oscilador libre hasta $t=10$ y la ley conectada desde ahí, la salida sigue la predicción lineal con una diferencia menor que $10^{-9}$ (\cref{fig:fl-vdpfl}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_vdp_fl}
+\caption{Van der Pol libre (gris) hasta $t=10$; desde ahí, con la ley linealizante. La salida coincide con la solución de $\ddot y+4\dot y+4y=0$.}
+\label{fig:fl-vdpfl}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej8_VanDerPolFL.m}{ley}{Van der Pol: del ciclo límite a un sistema lineal}

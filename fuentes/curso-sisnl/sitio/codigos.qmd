@@ -11,7 +11,7 @@ Todos los códigos viven en la carpeta [`codigo/`](https://github.com/quijanon-b
 >> cd ruta/al/repositorio/codigo
 >> iniciarCurso              % agrega comun/ y todos los capítulos al path
 >> C11_Ej1_MasaResorte
->> verificarCap11            % comprueba los números del handout
+>> verificarCap11            % comprueba los números del capítulo (o verificarCap03, 05, 12)
 ```
 
 Los scripts `C*_Ej*` no requieren *toolboxes* (y corren en GNU Octave); los `crearModelo_*.m` requieren Simulink y los videos, `VideoWriter`.
@@ -27,7 +27,9 @@ codigo/
 │   ├── respFrec.m            G(jw) sin toolboxes
 │   ├── esPR.m                prueba numérica PR / SPR (Khalil, Lema 6.1)
 │   ├── balanceEnergia.m      V - V(0) = int s - int d sobre una simulación
-│   └── jacobianoNumerico.m   jacobiano por diferencias centradas
+│   ├── jacobianoNumerico.m   jacobiano por diferencias centradas
+│   ├── derivadaLie.m         derivada de Lie numérica L_f lambda
+│   └── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
 ├── cap03_preliminares/
 │   ├── C3_Ej1 … C3_Ej10      métricas, normas, Lipschitz, Picard, escape, comparación
 │   ├── C3_Video_*            Picard y no unicidad
@@ -38,12 +40,18 @@ codigo/
 │   ├── crearModelo_VanDerPol VanDerPol.slx
 │   ├── modeloKuramoto.m, modeloNowak.m, indiceCurva.m
 │   └── verificarCap05.m      34 pruebas de los números del capítulo
-└── cap11_pasividad/
-    ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
-    ├── C11_Video_*           los cinco videos de la parte
-    ├── crearModelo_*         LazoPasivo.slx, AguaReplicador.slx, PenduloPD.slx
-    ├── modeloOsciladores.m, modeloAgua.m, energiaAgua.m, energiaAguaSL.m
-    └── verificarCap11.m      39 pruebas de los números del handout
+├── cap11_pasividad/
+│   ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
+│   ├── C11_Video_*           los cinco videos de la parte
+│   ├── crearModelo_*         LazoPasivo.slx, AguaReplicador.slx, PenduloPD.slx
+│   ├── modeloOsciladores.m, modeloAgua.m, energiaAgua.m, energiaAguaSL.m
+│   └── verificarCap11.m      39 pruebas de los números del handout
+└── cap12_linealizacion/
+    ├── C12_Ej1 … C12_Ej12    levitador (jacobiana, integral, exacta), péndulo, Lie, grado relativo, dinámica cero
+    ├── C12_Video_*           levitador, fase no mínima, dinámica cero, difeomorfismo
+    ├── crearModelo_LevitadorFL  LevitadorFL.slx
+    ├── parametrosLevitador.m, modeloLevitador.m, equilibrioLevitador.m, jacobianoLevitador.m, leyExactaLevitador.m
+    └── verificarCap12.m      37 pruebas de los números del capítulo
 ```
 
 ## Convenciones

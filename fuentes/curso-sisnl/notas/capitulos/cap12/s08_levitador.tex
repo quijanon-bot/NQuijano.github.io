@@ -1,0 +1,82 @@
+%% ---------------------------------------------------------------------
+\section{El levitador, exacto}
+\label{sec:fl-levitador}
+%% ---------------------------------------------------------------------
+
+Con $y=x_1$ el levitador tiene $r=3=n$ donde $x_3\neq0$ (\cref{ej:fl-gradolev}). Las coordenadas son posición, velocidad y aceleración,
+\begin{equation}
+  \xi=\Phi(x)=\begin{bmatrix}x_1\\ x_2\\ g-\dfrac km\,x_2-\dfrac{L_0\,a\,x_3^2}{2m(a+x_1)^2}\end{bmatrix},
+  \label{eq:fl-philev}
+\end{equation}
+que es un difeomorfismo en $\{x_3>0\}$ (para $x_1$ y $x_2$ dados, $\xi_3$ es estrictamente decreciente en $x_3>0$). La ley es
+\begin{equation}
+  u=\frac{v-L_f^3h(x)}{L_gL_f^2h(x)},\qquad
+  v=y_d^{(3)}-k_1(\xi_1-y_d)-k_2(\xi_2-\dot y_d)-k_3(\xi_3-\ddot y_d),
+  \label{eq:fl-leylev}
+\end{equation}
+con $L_gL_f^2h$ de \eqref{eq:fl-blev} y, escribiendo $c=L_0a/(2m)$ y $\dot x_3=f_3(x)$ cuando $u=0$,
+\[
+  L_f^3h=\frac{2c\,x_3^2}{(a+x_1)^3}\,x_2-\frac km\,\xi_3-\frac{2c\,x_3}{(a+x_1)^2}\,f_3(x),
+  \qquad
+  f_3(x)=\frac{1}{L(x_1)}\Bigl(-Rx_3+\frac{L_0a\,x_2x_3}{(a+x_1)^2}\Bigr).
+\]
+Usamos $s^3+60s^2+1100s+6000=(s+10)(s+20)(s+30)$, es decir $K=[6000,\ 1100,\ 60]$. No hay dinámica interna: todo el estado es la salida y sus derivadas.
+
+\subsection{Seguimiento: exacta contra jacobiana}
+
+La referencia $y_d=0.08+0.03\sin(2\pi t)$\,m recorre de $5$ a $11$\,cm. La ley jacobiana usa la ganancia fija diseñada en $\bar y=0.05$ con la prealimentación $u^*(y_d(t))$ de \eqref{eq:fl-equilibrio}; la exacta usa \eqref{eq:fl-leylev}. Para $t>1$\,s, la jacobiana tiene un error de $2.36$\,cm, con desfase; la exacta, $2\times10^{-6}$\,m, que es el error numérico (\cref{fig:fl-seguimiento}). La linealización exacta conserva la respuesta diseñada en \emph{todo} el rango de operación; la jacobiana, solo cerca del punto de diseño.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_seguimiento}
+\caption{Seguimiento de $y_d=0.08+0.03\sin 2\pi t$. Izquierda: posiciones. Derecha: error en escala logarítmica; el de la ley exacta decae como $e^{-10t}$ hasta el piso numérico.}
+\label{fig:fl-seguimiento}
+\end{figure}
+
+\video{V12_1_levitador}{Dos levitadores siguen la misma referencia}
+
+\codigorepo{cap12_linealizacion/C12_Ej9_LevitadorExacto.m}{seguimiento}{Seguimiento con la ley exacta y con la jacobiana}
+
+\subsection{La singularidad}
+
+\begin{trampa}[label=tr:fl-singular]{``La ley exacta lleva la esfera a cualquier posición''}
+\plausible{Con \eqref{eq:fl-leylev} y $y_d$ constante, el lazo cerrado es lineal y estable: un escalón de $0.05$ a $0.2$\,m da una respuesta con polos en $-10$, $-20$ y $-30$.}
+Para caer $15$\,cm con esos polos, la esfera tendría que acelerar hacia abajo más que $g$, y el electroimán solo atrae: la única forma de acercarse es \emph{apagar} la corriente. La ley lo intenta: $i$ baja a $0.02$\,A en $20$\,ms. Pero $b(x)=L_gL_f^2h\propto x_3$, de modo que $b\to0$ y $u=(v-L_f^3h)/b$ explota (\cref{fig:fl-singularidad}, curvas rojas). La matemática ve lo que la física impone.
+\correcto{La ley solo vale donde existe el grado relativo, y la trayectoria tiene que quedarse allí. Se planifica una referencia alcanzable: el escalón pasado por $6^4/(s+6)^4$ da $y_d$ con $\ddot y_d\le0.705$\,m/s$^2<g$; la esfera llega a $0.19966$\,m en $t=2$\,s con una corriente que nunca baja de $6.15$\,A (curvas azules).}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_singularidad}
+\caption{Un escalón de $5$ a $20$\,cm (rojo) lleva la corriente a cero en $20$\,ms, donde $b(x)=0$; la misma maniobra con una referencia suave (azul) mantiene la corriente lejos de cero.}
+\label{fig:fl-singularidad}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej9_LevitadorExacto.m}{suave}{Una referencia suave evita la singularidad}
+
+\subsection{Error de modelo}
+
+Desde $t=0.5$\,s la masa real es $0.12$\,kg y la ley sigue cancelando con $m=0.10$. Sola, la ley exacta queda con un error permanente de $1.96$\,cm, \emph{peor} que el de la realimentación de estados sobre la jacobiana ($1.03$\,cm, \cref{sec:fl-jacobiana}): la cancelación de la gravedad estaba ``perfectamente'' calculada con la masa equivocada. El remedio es el mismo de la \cref{sec:fl-jacobiana}: se agrega $\dot\sigma=y-\bar y$ al comienzo de la cadena y se diseña sobre $(\sigma,\xi_1,\xi_2,\xi_3)$,
+\[
+  v=-k_0\,\sigma-k_1(\xi_1-\bar y)-k_2\,\xi_2-k_3\,\xi_3,
+\]
+con $s^4+k_3s^3+k_2s^2+k_1s+k_0=(s+10)(s+15)(s+20)(s+30)$, es decir $(k_3,k_2,k_1,k_0)=(75,\ 2000,\ 22500,\ 90000)$. El error se anula (\cref{fig:fl-robustez}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\linewidth]{cap12/f_robustez}
+\caption{Error de modelo: desde $t=0.5$\,s la masa es $0.12$\,kg. La ley exacta sola queda peor que la jacobiana; con integrador, el error se anula.}
+\label{fig:fl-robustez}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej9_LevitadorExacto.m}{robustez}{Exacta sola y exacta con integrador}
+
+\begin{trampa}[label=tr:fl-geometria]{``Las propiedades geométricas son robustas''}
+\plausible{El grado relativo y la forma normal son estructurales; un error pequeño de modelo no los cambia, así que el diseño basado en ellos es robusto.}
+El grado relativo puede cambiar con perturbaciones pequeñas del modelo (un término despreciado que lleva la entrada a una derivada anterior de la salida), y la cancelación usa los valores numéricos de $a(x)$ y $b(x)$, no solo su estructura. Kokotović y Arcak lo resumen así: las propiedades geométricas pueden no ser robustas, y hay que combinarlas con herramientas analíticas~\citep{KoAr01}.
+\correcto{Un diseño por linealización exacta se acompaña de un análisis de robustez (funciones de Lyapunov, ganancias, márgenes) y, para errores constantes, de acción integral.}
+\end{trampa}
+
+\begin{modelo}[LevitadorFL.slx]
+\cmd{crearModelo\_LevitadorFL.m} arma el lazo con un bloque \texttt{MATLAB Function} para la ley exacta (llama a \cmd{leyExactaLevitador.m}), otro para la planta y un filtro $p^4/(s+p)^4$ que genera la referencia y sus tres derivadas a partir de un escalón de $0.05$ a $0.12$\,m. Simula, compara con \texttt{ode45} y deja \texttt{mPlanta} como parámetro para ensayar el error de modelo.
+\end{modelo}

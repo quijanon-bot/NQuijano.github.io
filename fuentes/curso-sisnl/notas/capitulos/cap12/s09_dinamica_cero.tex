@@ -1,0 +1,128 @@
+%% ---------------------------------------------------------------------
+\section{Dinámica cero}
+\label{sec:fl-cero}
+%% ---------------------------------------------------------------------
+
+\subsection{Un ejemplo que se ve perfecto}
+
+\begin{ejemplo}[label=ej:fl-nominima]{La salida converge; el estado escapa}
+Para
+\begin{equation}
+  \dot x_1=x_1+x_2,\qquad \dot x_2=3x_1^2x_2+x_1+u,\qquad y=-x_1^3+x_2,
+  \label{eq:fl-nominima}
+\end{equation}
+diseñe una ley que lleve $y$ a cero exponencialmente y estudie qué pasa con $x$.
+\solucion $L_gh=\jac hx\,(0,1)\T=1$: el grado relativo es $r=1$ en todo $\R^2$. Tomamos $\xi=h(x)=-x_1^3+x_2$ y $\eta=x_1$, que cumple $L_g\eta=0$; el jacobiano $\begin{bmatrix}-3x_1^2&1\\1&0\end{bmatrix}$ tiene determinante $-1$, y $x_2=\xi+\eta^3$. Entonces
+\[
+  \dot\xi=L_fh+u=\eta-3\eta^3+u,\qquad
+  \dot\eta=x_1+x_2=\xi+\eta+\eta^3 .
+\]
+(La versión anterior de estas notas tenía $\dot\eta=\xi+3\eta^2+\eta^3$; lo correcto es lo de arriba.) Con $u=-\eta+3\eta^3+v$ y $v=-2\xi$, $\dot\xi=-2\xi$: la salida va a cero como $e^{-2t}$, como se diseñó. Pero $\eta$ obedece $\dot\eta=\xi+\eta+\eta^3$, y cuando $\xi\approx0$ queda $\dot\eta\approx\eta+\eta^3$, que escapa en tiempo finito. Desde $x(0)=(0.05,\ 0.6)$, la trayectoria llega a la curva $\{x_2=x_1^3\}$ (donde $y=0$), se desliza por ella y $\abs\eta$ alcanza $2.2$ en $t=1.394$, cuando $\abs y$ ya vale $0.037$ (\cref{fig:fl-nominima}); el control explota con ella.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_fase_no_minima}
+\caption{El sistema \eqref{eq:fl-nominima} con la ley linealizante. Izquierda: la trayectoria cae a $Z^*=\{x_2=x_1^3\}$ y se va por ella. Derecha: $y$ converge como se diseñó y $\eta=x_1$ escapa.}
+\label{fig:fl-nominima}
+\end{figure}
+
+\video{V12_2_fase_no_minima}{La salida converge, el estado escapa}
+
+\codigorepo{cap12_linealizacion/C12_Ej10_FaseNoMinima.m}{escape}{Linealización perfecta, estado que escapa}
+
+La realimentación hizo el conjunto $\{x:h(x)=L_fh(x)=\dots=L_f^{r-1}h(x)=0\}$ \emph{invariante y atractivo}. Lo que pasa dentro de él decide la estabilidad.
+
+\subsection{Anular la salida}
+
+Sea $x^o$ un equilibrio de $\dot x=f(x)$ con $h(x^o)=0$ y grado relativo $r<n$; en forma normal, $z^o=(0,\eta^o)$. La pregunta es: ¿qué pares (condición inicial, entrada) producen $y(t)\equiv0$?
+
+Si $y\equiv0$, también $\dot y\equiv\dots\equiv y^{(r-1)}\equiv0$: necesariamente $\xi(t)\equiv0$. Además, de \eqref{eq:fl-formanormal},
+\[
+  0=y^{(r)}=a(0,\eta)+b(0,\eta)\,u
+  \quad\Longrightarrow\quad
+  u^*(t)=-\frac{a\bigl(0,\eta(t)\bigr)}{b\bigl(0,\eta(t)\bigr)} ,
+\]
+que es la ley \eqref{eq:fl-ley} con $v=0$. Y lo que queda libre es $\eta$, que obedece
+\begin{equation}
+  \dot\eta=q(0,\eta),
+  \label{eq:fl-cero}
+\end{equation}
+desde un $\eta(0)$ \emph{cualquiera}.
+
+\begin{definicion}[label=def:fl-cero]{Dinámica cero y fase mínima \citep{ByIs88}}
+La ecuación \eqref{eq:fl-cero} es la \clave{dinámica cero} del sistema \eqref{eq:fl-afin} con respecto a la salida $y=h(x)$: la dinámica residual cuando la salida se \emph{fuerza} a ser idénticamente cero. Si $\eta^o$ es un equilibrio asintóticamente estable de \eqref{eq:fl-cero}, el sistema es de \clave{fase mínima}; si es inestable, de \clave{fase no mínima}; si es estable pero no asintóticamente estable, de \clave{fase mínima débil}.
+\end{definicion}
+
+En el \cref{ej:fl-nominima}, la dinámica cero es $\dot\eta=\eta+\eta^3$: fase no mínima.
+
+\subsection{En las coordenadas originales}
+
+La condición $y^{(i-1)}(t)=0$, $i=1,\dots,r$, es $L_f^{i-1}h\bigl(x(t)\bigr)=0$. El estado tiene que quedarse en
+\begin{equation}
+  Z^*=\bigl\{x\in\R^n:\ h(x)=L_fh(x)=\dots=L_f^{r-1}h(x)=0\bigr\},
+  \label{eq:fl-Zstar}
+\end{equation}
+que, por el \cref{lem:fl-independencia}, es una superficie (variedad) de dimensión $n-r$ cerca de $x^o$. La ley
+\[
+  u^*(x)=-\frac{L_f^rh(x)}{L_gL_f^{r-1}h(x)}
+\]
+hace $Z^*$ invariante, porque $\frac{d}{dt}L_f^{i-1}h=L_f^ih$ para $i<r$ y $\frac{d}{dt}L_f^{r-1}h=L_f^rh+L_gL_f^{r-1}h\,u^*=0$: en $Z^*$, todas las derivadas de las funciones que lo definen son cero.
+
+\begin{proposicion}[label=prop:fl-ceroorig]{La dinámica cero sin coordenadas}
+La dinámica cero es la restricción del campo $f^*(x)=f(x)+g(x)\,u^*(x)$ a la variedad $Z^*$. En particular, no depende de cuáles funciones complementarias $\phi_{r+1},\dots,\phi_n$ se escojan.
+\end{proposicion}
+
+\begin{trampa}[label=tr:fl-intrinseca]{``La dinámica cero no es una propiedad del sistema''}
+\plausible{La dinámica cero aparece porque escogimos una entrada particular, $u^*$; es una consecuencia del controlador, no del sistema.}
+Así lo decía la versión anterior de estas notas, y es engañoso. Para una terna $(f,g,h)$ dada, la dinámica cero \emph{no} depende de las coordenadas (\cref{prop:fl-ceroorig}) ni de la realimentación: si se aplica $u=\alpha(x)+\beta(x)v$ con $\beta\neq0$ y después se anula la salida, se llega a la misma variedad y a la misma dinámica. No se puede cambiar con control. Lo que sí la cambia es \emph{la salida}: van der Pol con $y=x_1$ no tiene dinámica cero ($r=n$); con $y=x_1^2+x_2$ ($r=1$, $\xi=x_1^2+x_2$, $\eta=x_1$) se tiene $\dot\eta=x_2=\xi-\eta^2$, y la dinámica cero es $\dot\eta=-\eta^2$, cuyo origen es estable solo desde un lado: no es de fase mínima.
+\correcto{La dinámica cero es una propiedad del par planta--salida, como los ceros de una función de transferencia. Kokotović y Arcak lo subrayan: ni el grado relativo ni la dinámica cero se pueden modificar con realimentación~\citep{KoAr01}.}
+\end{trampa}
+
+\subsection{El caso lineal: la dinámica cero son los ceros}
+
+\begin{ejemplo}[label=ej:fl-cerolineal]{Ceros de la función de transferencia}
+Para $\dot x_1=x_2$, $\dot x_2=\alpha x_3+u$, $\dot x_3=\beta x_3-u$, $y=x_1$, calcule la dinámica cero y compárela con la función de transferencia.
+\solucion $CB=0$ y $CAB=1$: $r=2$. Con $\eta=x_2+x_3$ ($L_g\eta=1-1=0$) y $x_3=\eta-\xi_2$,
+\[
+  \dot\eta=\alpha x_3+\beta x_3=(\alpha+\beta)(\eta-\xi_2),
+  \qquad\text{dinámica cero: }\ \dot\eta=(\alpha+\beta)\,\eta .
+\]
+Y $G(s)=\dfrac{s-(\alpha+\beta)}{s^2(s-\beta)}$: el \emph{cero} está en $s=\alpha+\beta$. El sistema es de fase mínima si y solo si $\alpha+\beta<0$, es decir, si el cero está en el semiplano izquierdo. Con la ley $u=-\alpha x_3+v$, $v=-4y-4\dot y$ y $x(0)=(1,0,0)$, la salida es \emph{idéntica} con $(\alpha,\beta)=(1,-2)$ y $(2,-1)$; con el cero en $s=+1$, el estado interno y el control crecen como $e^{t}$: $x_3(6)=179.3$ contra $-0.0096$ (\cref{fig:fl-ceros}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_ceros}
+\caption{La misma $y(t)$ con el cero en $s=-1$ (azul) y en $s=+1$ (rojo, discontinua). La diferencia está en lo que no se ve: $x_3$ y $u$ (escala logarítmica simétrica).}
+\label{fig:fl-ceros}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej11_DinamicaCero.m}{lineal}{La dinámica cero son los ceros}
+
+\begin{ideaclave}
+En un sistema lineal, la dinámica cero tiene como valores propios los ceros de $G(s)$. ``Fase mínima'' viene de ahí: con los ceros en el semiplano izquierdo, la fase de $G(\jw)$ es la mínima posible entre las funciones con la misma magnitud. La definición no lineal conserva el nombre y la consecuencia: lo que la salida no ve tiene que ser estable por sí mismo.
+\end{ideaclave}
+
+\begin{ejemplo}[label=ej:fl-cero3d]{Una superficie de dimensión dos}
+Con $n=3$ y $r=1$, $Z^*$ es una superficie. Construyamos el sistema en forma normal, ya con la ley linealizante y $v=-3\xi$:
+\[
+  \dot\xi=-3\xi,\qquad \dot\eta=\begin{bmatrix}s&-2\\2&s\end{bmatrix}\eta+\begin{bmatrix}\xi\\0\end{bmatrix},
+\]
+y volvamos a coordenadas $x=\bigl(\eta_1,\ \eta_2,\ \xi+0.3(\eta_1^2-\eta_2^2)\bigr)$, de modo que $Z^*=\{x_3=0.3(x_1^2-x_2^2)\}$ es una silla de montar. Toda trayectoria cae a $Z^*$ como $e^{-3t}$, y después \emph{solo} la dinámica cero decide: con $s=-0.25$ el estado gira hacia el origen ($\norm{\eta(14)}=0.039$); con $s=+0.12$, se aleja girando ($\norm{\eta(14)}=6.86$), aunque $\xi$ sea la misma en los dos casos (\cref{fig:fl-cero3d}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_dinamica_cero3d}
+\caption{La variedad $Z^*$ y una trayectoria que cae a ella. Con la dinámica cero estable (izquierda) llega al origen; con la inestable (derecha) se aleja por la superficie.}
+\label{fig:fl-cero3d}
+\end{figure}
+
+\video{V12_3_dinamica_cero}{Después de llegar a $Z^*$, solo manda la dinámica cero}
+
+\begin{trampa}[label=tr:fl-salida0]{``Si $y\to0$, el sistema está estabilizado''}
+\plausible{La ley lleva la salida a cero exponencialmente con los polos escogidos; el problema de control está resuelto.}
+La ley hace $Z^*$ atractivo, no el equilibrio. En un sistema de fase no mínima, el estado llega a $Z^*$ y se va por ella (\cref{ej:fl-nominima}): $y\to0$ mientras $x$ y $u$ explotan.
+\correcto{Antes de usar la ley \eqref{eq:fl-ley} hay que calcular la dinámica cero. Si es inestable, la linealización entrada--salida no sirve para estabilizar con esa salida; hay que escoger otra salida o usar otra herramienta.}
+\end{trampa}

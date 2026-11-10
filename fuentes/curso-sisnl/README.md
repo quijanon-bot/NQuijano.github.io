@@ -11,7 +11,7 @@ Versión **piloto** (noviembre de 2026), con el mismo esquema del repositorio de
 | `notas/` | Las notas en LaTeX: clase `apuntessisnl.cls` (derivada de `apuntescontrol.cls`), notación `notacion.sty`, `NotasSisNL.tex`, capítulos partidos en secciones, figuras, bibliografía |
 | `codigo/` | MATLAB y Simulink: `iniciarCurso.m`, funciones `comun/`, scripts por capítulo (`C11_Ej*`, `C11_Video_*`), modelos de Simulink construidos por código (`crearModelo_*`) y `verificarCap11.m` |
 | `sitio/` | Página web (Quarto): una página por parte del curso, notación, códigos, videos y el explorador interactivo de pasividad |
-| `herramientas/` | Python para regenerar las figuras y verificar los números (`capNN_figuras.py`, `capNN_numeros.py`, para los capítulos 3, 5 y 11), `tikz.sh` para los diagramas y `pdf_por_capitulo.py` para los PDF de cada parte |
+| `herramientas/` | Python para regenerar las figuras y verificar los números (`capNN_figuras.py`, `capNN_numeros.py`, para los capítulos 3, 5, 11 y 12), `tikz.sh` para los diagramas y `pdf_por_capitulo.py` para los PDF de cada parte |
 | `.github/workflows/` | Compila el PDF y publica el sitio en GitHub Pages en cada *push* |
 
 **Una sola fuente.** Los bloques de código de las notas y del sitio se leen directamente de `codigo/` (marcas `% [ini:nombre]` / `% [fin:nombre]`); la notación vive en `notas/notacion.sty` (y sus macros se repiten para MathJax en `sitio/recursos/macros.html`).
@@ -30,13 +30,16 @@ python3 herramientas/cap11_figuras.py
 python3 herramientas/cap11_numeros.py      # 72 verificaciones
 python3 herramientas/cap03_numeros.py      # 43 verificaciones
 python3 herramientas/cap05_numeros.py      # 59 verificaciones
+python3 herramientas/cap12_numeros.py      # 88 verificaciones
 python3 herramientas/pdf_por_capitulo.py notas/NotasSisNL.pdf sitio/pdf   # PDF por capítulo
 herramientas/tikz.sh cap11 t_feedback      # recompilar un diagrama TikZ
 ```
 
-En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap03` (33), `verificarCap05` (34) o `verificarCap11` (39).
+En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap03` (33), `verificarCap05` (34), `verificarCap11` (39) o `verificarCap12` (37).
 
 ## Estado de las pruebas (9 de noviembre de 2026)
+
+- Capítulo 12: `cap12_numeros.py` 88/88, `verificarCap12` 37/37 en Octave 8.4; los doce `C12_Ej*` y los cuatro `C12_Video_*` (sin grabar) corren en Octave. **Falta correr en MATLAB** los videos y `crearModelo_LevitadorFL`.
 
 - Capítulos 3 y 5: `cap03_numeros.py` 43/43, `cap05_numeros.py` 59/59, `verificarCap03` 33/33 y `verificarCap05` 34/34 en Octave 8.4. **Falta correr en MATLAB** los `C3_Video_*`, `C5_Video_*` y `crearModelo_VanDerPol`.
 

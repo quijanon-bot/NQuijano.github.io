@@ -1,0 +1,35 @@
+%% =====================================================================
+%%  Capítulo 12 -- Linealización por retroalimentación
+%%  Formato nuevo (noviembre de 2026). Integra: Handout9_2.tex (versión
+%%  anterior), las ecuaciones de las dos clases de 2026
+%%  (EcuacionesFL2026.tex, FeedbackLin1_2026 y FeedbackLin2_2026) y sus
+%%  scripts FL1_V*/FL2_V*, reescritos en codigo/cap12_linealizacion.
+%%  Correcciones respecto a las versiones anteriores: ver \S\ref{sec:fl-cierre}.
+%%  Números verificados con herramientas/cap12_numeros.py (88/88) y
+%%  codigo/cap12_linealizacion/verificarCap12.m (37/37 en Octave 8.4).
+%% =====================================================================
+
+\capitulo[cap:linealizacion]{Linealización por retroalimentación}
+  {Cuanto más rico y profundo es el conocimiento parece que se vuelve más contumaz la ignorancia.}
+  {Antonio Muñoz Molina}
+
+\begin{objetivos}[partes/12-linealizacion.html]
+  \item Diseñar un controlador sobre la linealización jacobiana, con y sin acción integral, y decir qué garantiza y qué no.
+  \item Calcular derivadas de Lie, reconocer un difeomorfismo local (y uno que no es global) y escribir un sistema afín en coordenadas nuevas.
+  \item Calcular el grado relativo de una salida, reconocer los puntos donde no está definido y llevar el sistema a la forma normal.
+  \item Diseñar la ley que linealiza el mapa de la entrada a la salida, y un lazo externo lineal para estabilizar y para seguir referencias.
+  \item Calcular la dinámica cero, decidir si un sistema es de fase mínima y concluir estabilidad local; saber qué más hace falta para un resultado global.
+  \item Reconocer los límites de la cancelación: singularidades, error de modelo, no linealidades que ayudan.
+\end{objetivos}
+
+\input{capitulos/cap12/s01_por_que}
+\input{capitulos/cap12/s02_jacobiana}
+\input{capitulos/cap12/s03_idea}
+\input{capitulos/cap12/s04_herramientas}
+\input{capitulos/cap12/s05_grado}
+\input{capitulos/cap12/s06_forma_normal}
+\input{capitulos/cap12/s07_entrada_salida}
+\input{capitulos/cap12/s08_levitador}
+\input{capitulos/cap12/s09_dinamica_cero}
+\input{capitulos/cap12/s10_estabilidad}
+\input{capitulos/cap12/s11_cierre}

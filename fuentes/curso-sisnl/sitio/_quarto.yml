@@ -8,6 +8,7 @@ project:
     - recursos/explorador-pasividad.js
     - recursos/explorador-fundamentos.js
     - recursos/explorador-ciclos.js
+    - recursos/explorador-linealizacion.js
 
 lang: es
 

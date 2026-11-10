@@ -1,0 +1,93 @@
+%% ---------------------------------------------------------------------
+\section{Coordenadas adaptadas a la salida y forma normal}
+\label{sec:fl-forma}
+%% ---------------------------------------------------------------------
+
+\begin{teorema}[label=thm:fl-coordenadas]{Coordenadas adaptadas \citep[Prop.~4.1.3]{Isi95}}
+Suponga que el sistema \eqref{eq:fl-afin} tiene grado relativo $r$ en $x^o$, y sean
+\[
+  \phi_1(x)=h(x),\quad \phi_2(x)=L_fh(x),\quad\dots,\quad \phi_r(x)=L_f^{r-1}h(x) .
+\]
+Si $r<n$, existen $n-r$ funciones suaves $\phi_{r+1},\dots,\phi_n$ tales que $\Phi=(\phi_1,\dots,\phi_n)$ tiene jacobiano no singular en $x^o$ (un difeomorfismo local alrededor de $x^o$). Además, siempre se pueden escoger de modo que
+\begin{equation}
+  L_g\phi_i(x)=0,\qquad i=r+1,\dots,n,
+  \label{eq:fl-Lgphi}
+\end{equation}
+en una vecindad de $x^o$.
+\end{teorema}
+
+La primera parte es completar una base, gracias al \cref{lem:fl-independencia}. La segunda dice algo más fino: las coordenadas que faltan se pueden escoger para que $u$ no las mueva. Encontrarlas exige resolver las ecuaciones en derivadas parciales $L_g\phi_i=\jac{\phi_i}xg=0$; en los ejemplos se adivinan, y no son únicas.
+
+\subsection{La forma normal}
+
+En las coordenadas del \cref{thm:fl-coordenadas}, separemos $z=\Phi(x)=(\xi,\eta)$:
+\begin{equation}
+  \xi=\begin{bmatrix}h(x)\\ L_fh(x)\\ \vdots\\ L_f^{r-1}h(x)\end{bmatrix}\in\R^r,
+  \qquad
+  \eta=\begin{bmatrix}\phi_{r+1}(x)\\ \vdots\\ \phi_n(x)\end{bmatrix}\in\R^{n-r}.
+  \label{eq:fl-xieta}
+\end{equation}
+Por la \cref{prop:fl-coordenadas}, $\dot\xi_i=L_f\phi_i+L_g\phi_i\,u$. Para $i<r$, $L_g\phi_i=L_gL_f^{i-1}h=0$ y $L_f\phi_i=L_f^ih=\phi_{i+1}$; para $i=r$ aparece la entrada; para las $\eta$, \eqref{eq:fl-Lgphi} elimina la entrada. El resultado es la \clave{forma normal}:
+\begin{equation}
+  \begin{aligned}
+    \dot\xi_1&=\xi_2,\quad\dots,\quad\dot\xi_{r-1}=\xi_r,\\
+    \dot\xi_r&=a(\xi,\eta)+b(\xi,\eta)\,u,\\
+    \dot\eta&=q(\xi,\eta),\\
+    y&=\xi_1,
+  \end{aligned}
+  \qquad\text{con}\qquad
+  \begin{aligned}
+    a(z)&=L_f^rh(x)\big|_{x=\Phi^{-1}(z)},\\
+    b(z)&=L_gL_f^{r-1}h(x)\big|_{x=\Phi^{-1}(z)},\\
+    q_i(z)&=L_f\phi_i(x)\big|_{x=\Phi^{-1}(z)} .
+  \end{aligned}
+  \label{eq:fl-formanormal}
+\end{equation}
+En forma compacta (forma de Brunovsky para la parte $\xi$),
+\begin{equation}
+  \dot\xi=A_c\xi+B_c\bigl[a(\xi,\eta)+b(\xi,\eta)u\bigr],\qquad y=C_c\xi,
+  \label{eq:fl-brunovsky}
+\end{equation}
+con $A_c$ la matriz $r\times r$ con unos sobre la diagonal y ceros en el resto, $B_c=(0,\dots,0,1)$ y $C_c=[1\ 0\ \cdots\ 0]$. Las primeras $r$ coordenadas \emph{son} la salida y sus derivadas: $\xi_1(t)=y(t)$, $\xi_2(t)=\dot y(t)$, \dots, $\xi_r(t)=y^{(r-1)}(t)$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap12/t_forma_normal}
+\caption{La forma normal: una cadena de $r$ integradores, con la entrada solo en la primera, y una dinámica interna $\eta$ que recibe $\xi$ pero no la entrada.}
+\label{fig:fl-formanormal}
+\end{figure}
+
+\notamargen{\textbf{Khalil y estas notas.} Khalil escribe $\rho$ para el grado relativo, $\dot\eta=f_0(\eta,\xi)$ para la dinámica interna y $\gamma(x)\bigl[u-\alpha(x)\bigr]$ para $a+bu$. Aquí seguimos a Isidori: $r$, $q$, $a$ y $b$.}
+
+\begin{ejemplo}[label=ej:fl-formaexp]{Una forma normal con $r=2<n=3$ \citep{Isi95}}
+Lleve a la forma normal
+\[
+  \dot x=\begin{bmatrix}-x_1\\ x_1x_2\\ x_2\end{bmatrix}+\begin{bmatrix}e^{x_2}\\ 1\\ 0\end{bmatrix}u,\qquad y=x_3 .
+\]
+\solucion $L_gh=0$, $L_fh=x_2$ y $L_gL_fh=1$: $r=2$ en todo $\R^3$. Tomamos $\xi_1=x_3$, $\xi_2=x_2$ y buscamos $\phi_3$ con $L_g\phi_3=e^{x_2}\partial_{x_1}\phi_3+\partial_{x_2}\phi_3=0$. Sirve $\phi_3=1+x_1-e^{x_2}$. El jacobiano de $\Phi=(x_3,\,x_2,\,1+x_1-e^{x_2})$ tiene determinante $-1$ y la inversa es explícita ($x_1=-1+\eta+e^{\xi_2}$, $x_2=\xi_2$, $x_3=\xi_1$): es un difeomorfismo global. Con $L_f^2h=x_1x_2$ y $L_f\phi_3=-x_1-e^{x_2}x_1x_2$,
+\[
+  \dot\xi_1=\xi_2,\qquad
+  \dot\xi_2=\bigl(-1+\eta+e^{\xi_2}\bigr)\xi_2+u,\qquad
+  \dot\eta=-\bigl(-1+\eta+e^{\xi_2}\bigr)\bigl(1+\xi_2e^{\xi_2}\bigr) .
+\]
+Note el signo de la última ecuación (la versión anterior de estas notas lo había perdido): con $\xi=0$ queda $\dot\eta=-\eta$.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:fl-formakhalil]{Otra, con un difeomorfismo global}
+Para
+\begin{equation}
+  \dot x=\begin{bmatrix}x_3-x_2^3\\ -x_2\\ x_1^2-x_3\end{bmatrix}+\begin{bmatrix}0\\-1\\1\end{bmatrix}u,\qquad y=x_1,
+  \label{eq:fl-ejkhalil}
+\end{equation}
+$L_gh=0$, $L_fh=x_3-x_2^3$ y $L_gL_fh=1+3x_2^2\neq0$: $r=2$ en todo $\R^3$. Con $\phi_3=x_2+x_3$ ($L_g\phi_3=-1+1=0$), $\Phi=(x_1,\ x_3-x_2^3,\ x_2+x_3)$ tiene $\det\jac\Phi x=-(1+3x_2^2)\neq0$, y es global: dado $z$, $x_2$ es la única raíz real de $x_2+x_2^3=z_3-z_2$. La forma normal es
+\[
+  \dot z_1=z_2,\qquad \dot z_2=a(z)+b(z)u,\qquad \dot z_3=z_1^2-z_3,
+\]
+con $a=L_f^2h=3x_2^3+x_1^2-x_3$ y $b=1+3x_2^2$ evaluadas en $x=\Phi^{-1}(z)$. Volveremos a este ejemplo en la \cref{sec:fl-estabilidad}.
+\end{ejemplo}
+
+\codigorepo{cap12_linealizacion/C12_Ej7_FormaNormal.m}{isidori}{La forma normal y el sistema original dan la misma solución}
+
+\begin{cuidado}[Las $\phi_i$ complementarias no son únicas]
+Cualquier función de $\phi_3$ que conserve el difeomorfismo sirve igual en el \cref{ej:fl-formaexp}. Lo que \emph{sí} es único es la dinámica que queda cuando la salida se anula (\cref{sec:fl-cero}): no depende de cuáles $\phi_i$ se escojan.
+\end{cuidado}

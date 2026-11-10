@@ -1,0 +1,67 @@
+%% ---------------------------------------------------------------------
+\section{La idea: cancelar}
+\label{sec:fl-idea}
+%% ---------------------------------------------------------------------
+
+\subsection{Un péndulo que se vuelve lineal}
+
+Considere el péndulo con un par de entrada,
+\begin{equation}
+  \dot x_1=x_2,\qquad \dot x_2=-a\sin x_1-b\,x_2+c\,u,
+  \label{eq:fl-pendulo}
+\end{equation}
+con $a=g/\ell$, $b=k/m$ y $c=1/(m\ell^2)$, y la meta de llevarlo a la posición invertida $x_1=\pi$. La no linealidad $-a\sin x_1$ entra en la misma ecuación que la entrada. Entonces se puede \emph{cancelar}:
+\begin{equation}
+  u=\frac ac\sin x_1+\frac1c\,v
+  \quad\Longrightarrow\quad
+  \dot x_1=x_2,\quad \dot x_2=-b\,x_2+v .
+  \label{eq:fl-cancelapendulo}
+\end{equation}
+El sistema de la nueva entrada $v$ al estado \emph{es} lineal, en todo el plano, no solo cerca de un punto. Con $v=-k_1(x_1-\pi)-k_2x_2$, el error $e=x_1-\pi$ cumple exactamente $\ddot e+(b+k_2)\dot e+k_1e=0$.
+
+Comparemos con el método 1. Para que la jacobiana en $(\pi,0)$ dé el mismo polinomio característico, $c\,u=-(a+k_1)(x_1-\pi)-k_2x_2$ (porque $-a\sin x_1\approx a(x_1-\pi)$ cerca de $\pi$). Con $a=10$, $b=1$, $c=10$, $k_1=4$, $k_2=3$ (polos en $-2$ y $-2$) y la condición inicial colgante $(0,0)$, la ley exacta reproduce la respuesta lineal diseñada con una diferencia de $10^{-11}$ (el error del integrador numérico); la jacobiana se separa hasta $1.42$\,rad, porque la condición inicial está lejos de donde la aproximación vale (\cref{fig:fl-pendulo}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap12/f_pendulo}
+\caption{Péndulo desde la posición colgante. Izquierda y centro: hacia $\pi$, la ley exacta coincide con el diseño lineal hasta la precisión numérica; la jacobiana no. Derecha: hacia $\pi/2$ con un modelo equivocado ($\hat a=8$ en vez de $a=10$) queda un error de $25.8\grados$.}
+\label{fig:fl-pendulo}
+\end{figure}
+
+\codigorepo{cap12_linealizacion/C12_Ej3_PenduloExacto.m}{disenos}{Exacta contra jacobiana}
+
+\begin{trampa}[label=tr:fl-robusta]{``Exacta quiere decir perfecta''}
+\plausible{La cancelación \eqref{eq:fl-cancelapendulo} hace el sistema lineal exactamente; luego el diseño es inmune a la no linealidad.}
+La cancelación es exacta solo si el modelo lo es. Si el controlador usa $\hat a$ en vez de $a$, queda el término $(\hat a-a)\sin x_1$ sin cancelar. Hacia $x_1=\pi/2$ con $\hat a=8$ y $a=10$, el equilibrio del lazo cumple $-2\sin x_1=4(x_1-\pi/2)$, es decir $x_1=1.1206$\,rad: un error de $-25.8\grados$ que no desaparece (\cref{fig:fl-pendulo}, derecha).
+\correcto{Linealización exacta no es lo mismo que robustez. Hace falta analizar el error de modelo (y casi siempre agregar acción integral, \cref{sec:fl-levitador}).}
+\end{trampa}
+
+\codigorepo{cap12_linealizacion/C12_Ej3_PenduloExacto.m}{robustez}{El mismo diseño con un modelo equivocado}
+
+\begin{pausa}
+Con el mismo error de modelo ($\hat a=8$), ¿por qué el péndulo llevado a $\pi$ \emph{no} queda con error permanente?
+\respuesta{Porque el término sin cancelar es $(\hat a-a)\sin x_1$, y $\sin\pi=0$: en el equilibrio deseado el error de modelo no produce fuerza. Afecta el transitorio, no el equilibrio. Hacia $\pi/2$, $\sin x_1\approx1$ y el término pesa todo lo que puede.}
+\end{pausa}
+
+\subsection{La clase de sistemas y los dos problemas}
+
+¿Cuándo se puede hacer algo parecido? El péndulo tenía una estructura especial: la no linealidad y la entrada estaban en la misma ecuación. En general, la herramienta funciona para sistemas \clave{afines en la entrada}, de una entrada y una salida,
+\begin{equation}
+  \dot x=f(x)+g(x)\,u,\qquad y=h(x),
+  \label{eq:fl-afin}
+\end{equation}
+con $x\in\R^n$, $u,y\in\R$, y $f,g:D\to\R^n$, $h:D\to\R$ \emph{suaves} (con derivadas parciales continuas de todo orden) en un dominio $D\subset\R^n$. El levitador, el péndulo y van der Pol están en esta clase; casi todos los sistemas mecánicos y electromecánicos con actuador de fuerza o de voltaje también.
+
+\begin{definicion}[label=def:fl-problemas]{Linealización por retroalimentación}
+Se busca una ley suave $u=\alpha(x)+\beta(x)\,v$, con $\beta(x)\neq0$, tal que el lazo cerrado
+\[
+  \dot x=f(x)+g(x)\alpha(x)+g(x)\beta(x)\,v,\qquad y=h(x),
+\]
+tenga una propiedad lineal. Hay dos problemas distintos:
+\begin{enumerate}
+  \item \clave{Linealización entrada--salida}: que el mapa de $v$ a $y$ sea lineal (puede quedar una dinámica interna, no lineal, que no se ve en $y$).
+  \item \clave{Linealización entrada--estado}: que exista un cambio de coordenadas $z=\Phi(x)$ en el que el lazo cerrado sea $\dot z=Az+Bv$ completo.
+\end{enumerate}
+\end{definicion}
+
+El péndulo \eqref{eq:fl-cancelapendulo} es linealizable entrada--estado sin cambiar de coordenadas. En general harán falta coordenadas nuevas, y para construirlas, tres herramientas de geometría diferencial.

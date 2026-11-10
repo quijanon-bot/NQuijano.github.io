@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,9 +21,8 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -64,17 +63,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64fae8b6b810ab41c64c8dc374c4eb1f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6ca0c397212994b6a3f632fc19759a7d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8705cd60dbacc0f1d4eaf3f69a6ba549.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-9aa73be96785c57c925dc1120f29cc4c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -89,7 +86,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -138,7 +135,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -156,15 +153,13 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Análisis de Sistemas de Control</span>
     </a>
@@ -240,6 +235,11 @@ window.Quarto = {
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://quijanon-bot.github.io/NQuijano.github.io/"> <i class="bi bi-house-door" role="img">
+</i> 
+<span class="menu-text">Nicanor Quijano</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control"> <i class="bi bi-github" role="img">
 </i> 
@@ -552,41 +552,213 @@ z_{ss}(t)=x_0\,|\Gma(\jw)|\,\sin\big(\omega t+\angle \Gma(\jw)\big).
 <h2 class="anchored" data-anchor-id="códigos-de-esta-parte">Códigos de esta parte</h2>
 <p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control/codigo/cap10_respuesta_frecuencial">repositorio</a>. Ejecute antes <code>iniciarCurso</code>. Cada script tiene un encabezado con <strong>qué hace</strong>, <strong>qué observar</strong>, los <strong>resultados esperados</strong> y una sugerencia para <strong>explorar</strong>.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Clase 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Clase 2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Clase 3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Clase 4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Pruebas</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Clase 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Clase 2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Clase 3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Clase 4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Pruebas</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p><strong>La senoide (handout §10.2).</strong> Simulación completa contra la predicción de estado estacionario.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-include="../../codigo/cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej1_RespuestaSenoidal.m" data-marca="senoide"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej1_RespuestaSenoidal.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb1" data-filename="cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej1_RespuestaSenoidal.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">G</span>   <span class="op">=</span> <span class="va">tf</span>(<span class="fl">1</span><span class="op">,</span> [<span class="fl">1</span> <span class="fl">10</span>])<span class="op">;</span>                 <span class="co">% G'(s) = 1/(s+10)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">w</span>   <span class="op">=</span> <span class="fl">1</span><span class="op">;</span>                             <span class="co">% frecuencia de la entrada (rad/s)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">Gjw</span> <span class="op">=</span> <span class="va">evalfr</span>(<span class="va">G</span><span class="op">,</span> <span class="fl">1j</span><span class="op">*</span><span class="va">w</span>)<span class="op">;</span>               <span class="co">% G'(jw): un número complejo</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">M</span>   <span class="op">=</span> <span class="va">abs</span>(<span class="va">Gjw</span>)                       <span class="co">% 0.0995  -&gt; la salida es ~10 veces menor</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">phi</span> <span class="op">=</span> <span class="va">rad2deg</span>(<span class="va">angle</span>(<span class="va">Gjw</span>))            <span class="co">% -5.71°  -&gt; y llega 5.71° tarde</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="va">t</span>   <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">0.001</span><span class="op">:</span><span class="fl">12</span><span class="op">;</span>   <span class="va">x</span> <span class="op">=</span> <span class="va">sin</span>(<span class="va">w</span><span class="op">*</span><span class="va">t</span>)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="va">z</span>   <span class="op">=</span> <span class="va">lsim</span>(<span class="va">G</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">t</span>)<span class="op">;</span>                 <span class="co">% simulación completa (transitorio + ee)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="va">zss</span> <span class="op">=</span> <span class="va">M</span><span class="op">*</span><span class="va">sin</span>(<span class="va">w</span><span class="op">*</span><span class="va">t</span> <span class="op">+</span> <span class="va">deg2rad</span>(<span class="va">phi</span>))<span class="op">;</span>     <span class="co">% solo el estado estacionario, ec. (10.3)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>El ejemplo <span class="math inline">\(s/(s+10)\)</span> (§10.5).</strong> Los tres factores con la función del curso <code>bodeAsintotico</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-include="../../codigo/cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej2_Asintotico_s_s10.m" data-marca="factores"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej2_Asintotico_s_s10.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb2" data-filename="cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej2_Asintotico_s_s10.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">tf</span>([<span class="fl">1</span> <span class="fl">0</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">10</span>])<span class="op">;</span>                         <span class="co">% G'(s) = s/(s+10)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">w</span> <span class="op">=</span> <span class="va">logspace</span>(<span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="fl">3</span><span class="op">,</span> <span class="fl">600</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>[<span class="va">m1</span><span class="op">,</span> <span class="va">f1</span>] <span class="op">=</span> <span class="va">bodeAsintotico</span>(<span class="va">w</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="fl">0</span>)<span class="op">;</span>          <span class="co">% factor 1: ganancia 1/10</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>[<span class="va">m2</span><span class="op">,</span> <span class="va">f2</span>] <span class="op">=</span> <span class="va">bodeAsintotico</span>(<span class="va">w</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="op">-</span><span class="fl">1</span>)<span class="op">;</span>           <span class="co">% factor 2: cero en el origen (N = -1)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>[<span class="va">m3</span><span class="op">,</span> <span class="va">f3</span>] <span class="op">=</span> <span class="va">bodeAsintotico</span>(<span class="va">w</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">0</span><span class="op">,</span> [<span class="fl">10</span> <span class="op">-</span><span class="fl">1</span>])<span class="op">;</span>   <span class="co">% factor 3: polo en -10</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>[<span class="va">mA</span><span class="op">,</span> <span class="va">fA</span>] <span class="op">=</span> <span class="va">bodeAsintotico</span>(<span class="va">w</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="op">-</span><span class="fl">1</span><span class="op">,</span> [<span class="fl">10</span> <span class="op">-</span><span class="fl">1</span>])<span class="op">;</span><span class="co">% la suma: todo junto</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>[<span class="va">mR</span><span class="op">,</span> <span class="va">fR</span>] <span class="op">=</span> <span class="va">bode</span>(<span class="va">G</span><span class="op">,</span> <span class="va">w</span>)<span class="op">;</span>  <span class="va">mR</span> <span class="op">=</span> <span class="fl">20</span><span class="op">*</span><span class="va">log10</span>(<span class="va">squeeze</span>(<span class="va">mR</span>))<span class="op">;</span>  <span class="va">fR</span> <span class="op">=</span> <span class="va">squeeze</span>(<span class="va">fR</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>La asíntota que engaña (§10.4).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-include="../../codigo/cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej3_SegundoOrden.m" data-marca="sorpresa"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej3_SegundoOrden.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb3" data-filename="cap10_respuesta_frecuencial/Clase1_RespuestaFrecuencial/C1_Ej3_SegundoOrden.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">G2</span> <span class="op">=</span> <span class="va">tf</span>(<span class="fl">1000</span><span class="op">,</span> <span class="va">conv</span>([<span class="fl">1</span> <span class="fl">1</span>]<span class="op">,</span> [<span class="fl">1</span> <span class="fl">4</span> <span class="fl">100</span>]))<span class="op">;</span>         <span class="co">% = 10/((s+1)(s^2/100 + 0.04 s + 1))</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">margenesTabla</span>(<span class="va">G2</span><span class="op">,</span> <span class="ss">'real'</span>)<span class="op">;</span>                     <span class="co">% PM = -45.5°, GM = -7.5 dB</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">T2</span> <span class="op">=</span> <span class="va">feedback</span>(<span class="va">G2</span><span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span>  <span class="va">pole</span>(<span class="va">T2</span>)                <span class="co">% dos polos con parte real &gt; 0</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p><strong>Márgenes (§10.7).</strong> Ojo con los nombres de <code>margin</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-include="../../codigo/cap10_respuesta_frecuencial/Clase2_Margenes/C2_Ej2_Margenes.m" data-marca="margenes"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase2_Margenes/C2_Ej2_Margenes.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb4" data-filename="cap10_respuesta_frecuencial/Clase2_Margenes/C2_Ej2_Margenes.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">zpk</span>([]<span class="op">,</span> [<span class="op">-</span><span class="fl">1</span> <span class="op">-</span><span class="fl">10</span> <span class="op">-</span><span class="fl">100</span>]<span class="op">,</span> <span class="fl">1e4</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>[<span class="va">Gm</span><span class="op">,</span> <span class="va">Pm</span><span class="op">,</span> <span class="va">Wcg</span><span class="op">,</span> <span class="va">Wcp</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="va">G</span>)<span class="op">;</span>          <span class="co">% OJO: Gm en VECES; Wcg = w_GM; Wcp = w_PM</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">GMdB</span> <span class="op">=</span> <span class="fl">20</span><span class="op">*</span><span class="va">log10</span>(<span class="va">Gm</span>)                      <span class="co">% 21.74 dB</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'GM = %.2f dB en w_GM = %.2f;  PM = %.2f° en w_PM = %.2f\n'</span><span class="op">,</span> <span class="va">GMdB</span><span class="op">,</span> <span class="va">Wcg</span><span class="op">,</span> <span class="va">Pm</span><span class="op">,</span> <span class="va">Wcp</span>)<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Rango de <span class="math inline">\(\Kc\)</span> con Routh-Hurwitz, sin Symbolic Toolbox.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-include="../../codigo/cap10_respuesta_frecuencial/Clase2_Margenes/C2_Ej3_RangoKc.m" data-marca="routh"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase2_Margenes/C2_Ej3_RangoKc.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb5" data-filename="cap10_respuesta_frecuencial/Clase2_Margenes/C2_Ej3_RangoKc.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">a2</span> <span class="op">=</span> <span class="fl">111</span><span class="op">;</span>  <span class="va">a1</span> <span class="op">=</span> <span class="fl">1110</span><span class="op">;</span>                      <span class="co">% s^3 + a2 s^2 + a1 s + (1000 + Kc)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">% Fila s^1: (a2*a1 - (1000+Kc))/a2 &gt; 0   y   fila s^0: 1000 + Kc &gt; 0</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">Kcr</span> <span class="op">=</span> <span class="va">a2</span><span class="op">*</span><span class="va">a1</span> <span class="op">-</span> <span class="fl">1000</span>                         <span class="co">% 122 210  -&gt;  -1000 &lt; Kc &lt; 122 210</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="va">wcr</span> <span class="op">=</span> <span class="va">sqrt</span>(<span class="va">a1</span>)                             <span class="co">% 33.32 rad/s (polinomio auxiliar a2 s^2 + 1000 + Kcr)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="va">Pcr</span> <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="va">wcr</span>                             <span class="co">% 0.189 s  (periodo crítico, Ziegler-Nichols)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>El sensor lento.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-include="../../codigo/cap10_respuesta_frecuencial/Clase2_Margenes/C2_Video_SensorMargenFase.m" data-marca="sensor"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase2_Margenes/C2_Video_SensorMargenFase.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb6" data-filename="cap10_respuesta_frecuencial/Clase2_Margenes/C2_Video_SensorMargenFase.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">zpk</span>([]<span class="op">,</span> [<span class="op">-</span><span class="fl">1</span> <span class="op">-</span><span class="fl">10</span> <span class="op">-</span><span class="fl">100</span>]<span class="op">,</span> <span class="fl">1e4</span>)<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">Pm</span><span class="op">,</span> <span class="op">~,</span> <span class="va">Wcp</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="va">G</span>)                      <span class="co">% 54.9°, 7.80 rad/s</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'\n   a     PM estimado   PM (margin)   GM (dB)   sobrepico\n'</span>)<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">a</span> <span class="op">=</span> [<span class="fl">50</span> <span class="fl">20</span> <span class="fl">10</span> <span class="fl">5</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">H</span> <span class="op">=</span> <span class="va">tf</span>(<span class="va">a</span><span class="op">,</span> [<span class="fl">1</span> <span class="va">a</span>])<span class="op">;</span>                            <span class="co">% sensor de primer orden</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    [<span class="va">Gm</span><span class="op">,</span> <span class="va">PmH</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="va">G</span><span class="op">*</span><span class="va">H</span>)<span class="op">;</span>                     <span class="co">% malla abierta: G'(s) = G(s) H(s)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">S</span> <span class="op">=</span> <span class="va">stepinfo</span>(<span class="va">feedback</span>(<span class="va">G</span><span class="op">,</span> <span class="va">H</span>))<span class="op">;</span>                <span class="co">% lazo cerrado: Y/R = G/(1+GH)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'%5g     %6.1f°       %6.1f°      %6.2f    %6.1f %%\n'</span><span class="op">,</span> <span class="op">...</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            <span class="va">a</span><span class="op">,</span> <span class="va">Pm</span> <span class="op">-</span> <span class="va">atand</span>(<span class="va">Wcp</span><span class="op">/</span><span class="va">a</span>)<span class="op">,</span> <span class="va">PmH</span><span class="op">,</span> <span class="fl">20</span><span class="op">*</span><span class="va">log10</span>(<span class="va">Gm</span>)<span class="op">,</span> <span class="va">S</span>.<span class="va">Overshoot</span>)<span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p><strong>Del PM al transitorio (§10.8).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" data-include="../../codigo/cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej1_PM_zeta.m" data-marca="receta"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej1_PM_zeta.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb7" data-filename="cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej1_PM_zeta.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">zpk</span>([]<span class="op">,</span> [<span class="fl">0</span> <span class="op">-</span><span class="fl">10</span>]<span class="op">,</span> <span class="fl">100</span>)<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">PM</span><span class="op">,</span> <span class="op">~,</span> <span class="va">wPM</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="va">G</span>)                          <span class="co">% 51.83° en 7.86 rad/s</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">zeta</span> <span class="op">=</span> <span class="va">zetaDePM</span>(<span class="va">PM</span>)                                  <span class="co">% 0.50  (inversa de pmDeZeta)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">wn</span>   <span class="op">=</span> <span class="va">wPM</span><span class="op">/</span><span class="va">sqrt</span>(<span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="va">zeta</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">sqrt</span>(<span class="fl">1</span> <span class="op">+</span> <span class="fl">4</span><span class="op">*</span><span class="va">zeta</span><span class="op">^</span><span class="fl">4</span>))      <span class="co">% 10</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="va">OS</span>   <span class="op">=</span> <span class="fl">100</span><span class="op">*</span><span class="va">exp</span>(<span class="op">-</span><span class="va">zeta</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="va">sqrt</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">zeta</span><span class="op">^</span><span class="fl">2</span>))            <span class="co">% 16.3 %</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="va">tp</span>   <span class="op">=</span> <span class="va">pi</span><span class="op">/</span>(<span class="va">wn</span><span class="op">*</span><span class="va">sqrt</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">zeta</span><span class="op">^</span><span class="fl">2</span>))                      <span class="co">% 0.363 s</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="va">ts</span>   <span class="op">=</span> <span class="fl">4</span><span class="op">/</span>(<span class="va">zeta</span><span class="op">*</span><span class="va">wn</span>)                                   <span class="co">% 0.8 s (criterio del 2 %)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="va">stepinfo</span>(<span class="va">feedback</span>(<span class="va">G</span><span class="op">,</span> <span class="fl">1</span>))                             <span class="co">% comprobación</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Ajuste de ganancia (§10.10).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-include="../../codigo/cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej3_AjusteGanancia.m" data-marca="ajuste"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej3_AjusteGanancia.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb8" data-filename="cap10_respuesta_frecuencial/Clase3_LazoCerrado/C3_Ej3_AjusteGanancia.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">G0</span>   <span class="op">=</span> <span class="va">zpk</span>([]<span class="op">,</span> [<span class="fl">0</span> <span class="op">-</span><span class="fl">20</span> <span class="op">-</span><span class="fl">100</span>]<span class="op">,</span> <span class="fl">1</span>)<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="va">zeta</span> <span class="op">=</span> <span class="va">zetaDeOS</span>(<span class="fl">0.20</span>)                                <span class="co">% 0.456</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="va">PMd</span>  <span class="op">=</span> <span class="va">pmDeZeta</span>(<span class="va">zeta</span>)                                <span class="co">% 48.15°</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="va">Fdes</span> <span class="op">=</span> <span class="op">-</span><span class="fl">180</span> <span class="op">+</span> <span class="va">PMd</span>                                    <span class="co">% -131.85°</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="va">wd</span>   <span class="op">=</span> <span class="va">fzero</span>(<span class="op">@</span>(<span class="va">w</span>) <span class="va">faseEn</span>(<span class="va">G0</span><span class="op">,</span> <span class="va">w</span>) <span class="op">-</span> <span class="va">Fdes</span><span class="op">,</span> [<span class="fl">1</span> <span class="fl">30</span>])      <span class="co">% 13.56 rad/s (la ganancia NO cambia la fase)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="va">Kc</span>   <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">G0</span><span class="op">,</span> <span class="fl">1j</span><span class="op">*</span><span class="va">wd</span>))                      <span class="co">% 33 056: |Kc G0(j wd)| = 1 = 0 dB</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <p><strong>Los siete pasos del adelanto como función (§10.11).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-include="../../codigo/cap10_respuesta_frecuencial/Clase4_Compensadores/disenoAdelanto.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase4_Compensadores/disenoAdelanto.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb9" data-filename="cap10_respuesta_frecuencial/Clase4_Compensadores/disenoAdelanto.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [<span class="va">Gc</span><span class="op">,</span> <span class="va">info</span>] <span class="op">=</span> <span class="va">disenoAdelanto</span>(<span class="va">Gp</span><span class="op">,</span> <span class="va">PMdes</span><span class="op">,</span> <span class="va">phiSeg</span><span class="op">,</span> <span class="va">estricto</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">% DISENOADELANTO  Compensador en adelanto por respuesta en frecuencia (notas, sección 10.11).</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">%   [Gc, info] = disenoAdelanto(Gp, PMdes, phiSeg, estricto)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">%   Gp       planta YA con la ganancia que cumple el error (paso 1 del procedimiento)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">%   PMdes    margen de fase deseado (grados)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   phiSeg   ángulo de seguridad inicial (5°-10°)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">%   estricto (opcional) true: aumenta phiSeg de 5° en 5° hasta que</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">%            phiSeg &gt;= fase(Gp, w_PM) - fase(Gp, w_M)  (verificación estricta)</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">%   Gc = alpha (s + wL)/(s + wH),   Gc(0) = 1  (no cambia el error)</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">%</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">%   Ejemplo (notas): Gp = zpk([], [0 -2], 40); [Gc, info] = disenoAdelanto(Gp, 45, 10)</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">%     -&gt; alpha = 4.03, wM = 8.85, wL = 4.41, wH = 17.76, PM = 49.8°</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">nargin</span> <span class="op">&lt;</span> <span class="fl">4</span><span class="op">,</span> <span class="va">estricto</span> <span class="op">=</span> <span class="va">false</span><span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">PM</span><span class="op">,</span> <span class="op">~,</span> <span class="va">wPM</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="va">Gp</span>)<span class="op">;</span>                            <span class="co">% paso 2</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> <span class="va">true</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="va">phiM</span> <span class="op">=</span> <span class="va">PMdes</span> <span class="op">-</span> <span class="va">PM</span> <span class="op">+</span> <span class="va">phiSeg</span><span class="op">;</span>                          <span class="co">% paso 3</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="va">phiM</span> <span class="op">&gt;=</span> <span class="fl">90</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">error</span>(<span class="ss">'disenoAdelanto:phiM'</span><span class="op">,</span> <span class="ss">'phi_M = %.1f° &gt;= 90°: use dos etapas o atraso-adelanto.'</span><span class="op">,</span> <span class="va">phiM</span>)<span class="op">;</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="va">alpha</span>    <span class="op">=</span> (<span class="fl">1</span> <span class="op">+</span> <span class="va">sind</span>(<span class="va">phiM</span>))<span class="op">/</span>(<span class="fl">1</span> <span class="op">-</span> <span class="va">sind</span>(<span class="va">phiM</span>))<span class="op">;</span>        <span class="co">% paso 4</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="va">objetivo</span> <span class="op">=</span> <span class="op">-</span><span class="fl">10</span><span class="op">*</span><span class="va">log10</span>(<span class="va">alpha</span>)<span class="op">;</span>                         <span class="co">% paso 5: |Gp(j wM)| = -10 log(alpha) dB</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="va">wM</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="op">@</span>(<span class="va">w</span>) <span class="fl">20</span><span class="op">*</span><span class="va">log10</span>(<span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">Gp</span><span class="op">,</span> <span class="fl">1j</span><span class="op">*</span><span class="va">w</span>))) <span class="op">-</span> <span class="va">objetivo</span><span class="op">,</span> [<span class="va">wPM</span><span class="op">,</span> <span class="fl">100</span><span class="op">*</span><span class="va">wPM</span>])<span class="op">;</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="va">perdida</span> <span class="op">=</span> <span class="va">faseEn</span>(<span class="va">Gp</span><span class="op">,</span> <span class="va">wPM</span>) <span class="op">-</span> <span class="va">faseEn</span>(<span class="va">Gp</span><span class="op">,</span> <span class="va">wM</span>)<span class="op">;</span>          <span class="co">% fase que la planta pierde al correr el cruce</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="op">~</span><span class="va">estricto</span> <span class="op">||</span> <span class="va">phiSeg</span> <span class="op">&gt;=</span> <span class="va">perdida</span><span class="op">,</span> <span class="kw">break</span><span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="va">phiSeg</span> <span class="op">=</span> <span class="va">phiSeg</span> <span class="op">+</span> <span class="fl">5</span><span class="op">;</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="va">wL</span> <span class="op">=</span> <span class="va">wM</span><span class="op">/</span><span class="va">sqrt</span>(<span class="va">alpha</span>)<span class="op">;</span>  <span class="va">wH</span> <span class="op">=</span> <span class="va">alpha</span><span class="op">*</span><span class="va">wL</span><span class="op">;</span>                     <span class="co">% paso 6</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="va">Gc</span> <span class="op">=</span> <span class="va">zpk</span>(<span class="op">-</span><span class="va">wL</span><span class="op">,</span> <span class="op">-</span><span class="va">wH</span><span class="op">,</span> <span class="va">alpha</span>)<span class="op">;</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">PMn</span><span class="op">,</span> <span class="op">~,</span> <span class="va">wPMn</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="va">Gc</span><span class="op">*</span><span class="va">Gp</span>)<span class="op">;</span>                       <span class="co">% paso 7: verificar</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="va">info</span> <span class="op">=</span> <span class="va">struct</span>(<span class="ss">'PM0'</span><span class="op">,</span> <span class="va">PM</span><span class="op">,</span> <span class="ss">'wPM0'</span><span class="op">,</span> <span class="va">wPM</span><span class="op">,</span> <span class="ss">'phiSeg'</span><span class="op">,</span> <span class="va">phiSeg</span><span class="op">,</span> <span class="ss">'phiM'</span><span class="op">,</span> <span class="va">phiM</span><span class="op">,</span> <span class="ss">'alpha'</span><span class="op">,</span> <span class="va">alpha</span><span class="op">,</span> <span class="op">...</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>              <span class="ss">'wM'</span><span class="op">,</span> <span class="va">wM</span><span class="op">,</span> <span class="ss">'wL'</span><span class="op">,</span> <span class="va">wL</span><span class="op">,</span> <span class="ss">'wH'</span><span class="op">,</span> <span class="va">wH</span><span class="op">,</span> <span class="ss">'PM'</span><span class="op">,</span> <span class="va">PMn</span><span class="op">,</span> <span class="ss">'wPM'</span><span class="op">,</span> <span class="va">wPMn</span><span class="op">,</span> <span class="ss">'perdidaFase'</span><span class="op">,</span> <span class="va">perdida</span>)<span class="op">;</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Atraso-adelanto.</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-include="../../codigo/cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej4_AtrasoAdelanto.m" data-marca="atrasoadelanto"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej4_AtrasoAdelanto.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb10" data-filename="cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej4_AtrasoAdelanto.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="va">Gp</span> <span class="op">=</span> <span class="va">zpk</span>([]<span class="op">,</span> [<span class="fl">0</span> <span class="op">-</span><span class="fl">1</span> <span class="op">-</span><span class="fl">2</span>]<span class="op">,</span> <span class="fl">20</span>)<span class="op">;</span>  <span class="va">margenesTabla</span>(<span class="va">Gp</span><span class="op">,</span> <span class="ss">'sin compensar'</span>)<span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="va">wc</span> <span class="op">=</span> <span class="fl">1.2</span><span class="op">;</span>                                          <span class="co">% nuevo cruce elegido (fase de Gp = -171.2°)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">fase_wc</span> <span class="op">=</span> <span class="va">faseEn</span>(<span class="va">Gp</span><span class="op">,</span> <span class="va">wc</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">% 1) Adelanto centrado en wc con alpha = 10 (aporta 54.9°)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="va">alpha</span> <span class="op">=</span> <span class="fl">10</span><span class="op">;</span>  <span class="va">phiM</span> <span class="op">=</span> <span class="va">asind</span>((<span class="va">alpha</span><span class="op">-</span><span class="fl">1</span>)<span class="op">/</span>(<span class="va">alpha</span><span class="op">+</span><span class="fl">1</span>))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="va">wL</span> <span class="op">=</span> <span class="va">wc</span><span class="op">/</span><span class="va">sqrt</span>(<span class="va">alpha</span>)<span class="op">;</span>  <span class="va">wH</span> <span class="op">=</span> <span class="va">wc</span><span class="op">*</span><span class="va">sqrt</span>(<span class="va">alpha</span>)<span class="op">;</span>         <span class="co">% 0.38 y 3.79</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="va">Clead</span> <span class="op">=</span> <span class="va">zpk</span>(<span class="op">-</span><span class="va">wL</span><span class="op">,</span> <span class="op">-</span><span class="va">wH</span><span class="op">,</span> <span class="va">alpha</span>)<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">% 2) Atraso que baja la magnitud en wc lo que sobra para que wc sea el cruce</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="va">MdB</span>  <span class="op">=</span> <span class="fl">20</span><span class="op">*</span><span class="va">log10</span>(<span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">Clead</span><span class="op">*</span><span class="va">Gp</span><span class="op">,</span> <span class="fl">1j</span><span class="op">*</span><span class="va">wc</span>)))      <span class="co">% 23.2 dB que debe quitar el atraso</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="va">beta</span> <span class="op">=</span> <span class="fl">10</span><span class="op">^</span>(<span class="va">MdB</span><span class="op">/</span><span class="fl">20</span>)<span class="op">;</span>  <span class="va">zl</span> <span class="op">=</span> <span class="va">wc</span><span class="op">/</span><span class="fl">10</span><span class="op">;</span>  <span class="va">pl</span> <span class="op">=</span> <span class="va">zl</span><span class="op">/</span><span class="va">beta</span><span class="op">;</span>    <span class="co">% 14.5, 0.12, 0.0083</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="va">Clag</span> <span class="op">=</span> <span class="va">zpk</span>(<span class="op">-</span><span class="va">zl</span><span class="op">,</span> <span class="op">-</span><span class="va">pl</span><span class="op">,</span> <span class="fl">1</span><span class="op">/</span><span class="va">beta</span>)<span class="op">;</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="va">Gc</span> <span class="op">=</span> <span class="va">minreal</span>(<span class="va">Clead</span><span class="op">*</span><span class="va">Clag</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="va">margenesTabla</span>(<span class="va">Gc</span><span class="op">*</span><span class="va">Gp</span><span class="op">,</span> <span class="ss">'atraso-adelanto'</span>)<span class="op">;</span>           <span class="co">% PM = 58.2°, GM = 13.2 dB</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="va">kv</span> <span class="op">=</span> <span class="va">dcgain</span>(<span class="va">minreal</span>(<span class="va">tf</span>(<span class="ss">'s'</span>)<span class="op">*</span><span class="va">Gc</span><span class="op">*</span><span class="va">Gp</span>))                <span class="co">% 10: el error no cambió</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>PID por moldeo del lazo (§10.12).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-include="../../codigo/cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej5_PID_Frecuencia.m" data-marca="moldeo"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej5_PID_Frecuencia.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb11" data-filename="cap10_respuesta_frecuencial/Clase4_Compensadores/C4_Ej5_PID_Frecuencia.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">wc</span> <span class="op">=</span> <span class="fl">20</span><span class="op">;</span>  <span class="va">PMdes</span> <span class="op">=</span> <span class="fl">50</span><span class="op">;</span>  <span class="va">N</span> <span class="op">=</span> <span class="fl">10</span><span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="va">Ti2</span> <span class="op">=</span> <span class="fl">10</span><span class="op">/</span><span class="va">wc</span><span class="op">;</span>                                        <span class="co">% cero del PI una década abajo de wc</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">PI</span>  <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">Ti2</span><span class="op">*</span><span class="va">s</span>)<span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="va">falta</span> <span class="op">=</span> <span class="op">-</span><span class="fl">180</span> <span class="op">+</span> <span class="va">PMdes</span> <span class="op">-</span> (<span class="va">faseEn</span>(<span class="va">Gp</span><span class="op">,</span> <span class="va">wc</span>) <span class="op">+</span> <span class="va">faseEn</span>(<span class="va">PI</span><span class="op">,</span> <span class="va">wc</span>))     <span class="co">% 37.6° que debe dar el PD</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="va">Td2</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="op">@</span>(<span class="va">Td</span>) <span class="va">atand</span>(<span class="va">wc</span><span class="op">*</span><span class="va">Td</span>) <span class="op">-</span> <span class="va">atand</span>(<span class="va">wc</span><span class="op">*</span><span class="va">Td</span><span class="op">/</span><span class="va">N</span>) <span class="op">-</span> <span class="va">falta</span><span class="op">,</span> [<span class="fl">1e-4</span> <span class="fl">5</span><span class="op">/</span><span class="va">wc</span>])   <span class="co">% 0.0465</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="va">C0</span>  <span class="op">=</span> <span class="va">PI</span><span class="op">*</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">Td2</span><span class="op">*</span><span class="va">s</span>)<span class="op">/</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">Td2</span><span class="op">*</span><span class="va">s</span><span class="op">/</span><span class="va">N</span>)<span class="op">;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="va">Kc2</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">C0</span><span class="op">*</span><span class="va">Gp</span><span class="op">,</span> <span class="fl">1j</span><span class="op">*</span><span class="va">wc</span>))                   <span class="co">% 33 427: |L(j wc)| = 1</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="va">Cls</span> <span class="op">=</span> <span class="va">Kc2</span><span class="op">*</span><span class="va">C0</span><span class="op">;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="va">margenesTabla</span>(<span class="va">Cls</span><span class="op">*</span><span class="va">Gp</span><span class="op">,</span> <span class="ss">'moldeo del lazo'</span>)<span class="op">;</span>           <span class="co">% PM = 50°, GM = 24.4 dB</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
 <p><code>verificarCap10</code> comprueba los números clave del capítulo. Córralo cada vez que modifique un código.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-include="../../codigo/cap10_respuesta_frecuencial/verificarCap10.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">% No se encontró ../../codigo/cap10_respuesta_frecuencial/verificarCap10.m</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb12" data-filename="cap10_respuesta_frecuencial/verificarCap10.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="va">verificarCap10</span>()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">% VERIFICARCAP10  Pruebas automáticas de los números del capítulo 10.</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">% Corre los cálculos clave de las notas y verifica cada resultado con una</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">% tolerancia. Úselo cada vez que MODIFIQUE un código: si algo deja de</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">% coincidir con las notas, aquí se ve de inmediato.</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">%   &gt;&gt; verificarCap10</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">% (Los mismos números se verificaron de forma independiente con</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">%  python-control en herramientas/cap10_numeros.py.)</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="va">raiz</span> <span class="op">=</span> <span class="va">fileparts</span>(<span class="va">mfilename</span>(<span class="ss">'fullpath'</span>))<span class="op">;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="va">addpath</span>(<span class="va">fullfile</span>(<span class="va">raiz</span><span class="op">,</span> <span class="ss">'..'</span><span class="op">,</span> <span class="ss">'comun'</span>)<span class="op">,</span> <span class="va">fullfile</span>(<span class="va">raiz</span><span class="op">,</span> <span class="ss">'Clase4_Compensadores'</span>))<span class="op">;</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="va">s</span> <span class="op">=</span> <span class="va">tf</span>(<span class="ss">'s'</span>)<span class="op">;</span>  <span class="va">fallas</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span>  <span class="va">n</span> <span class="op">=</span> <span class="fl">0</span><span class="op">;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span> <span class="va">revisar</span>(<span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">n</span> <span class="op">=</span> <span class="va">n</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="va">abs</span>(<span class="va">valor</span> <span class="op">-</span> <span class="va">esperado</span>) <span class="op">&lt;=</span> <span class="va">tol</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="ss">'  ok   %-36s %12.4f\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span>)<span class="op">;</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>            <span class="va">fprintf</span>(<span class="fl">2</span><span class="op">,</span> <span class="ss">'  FALLA %-35s %12.4f  (esperado %g +- %g)\n'</span><span class="op">,</span> <span class="va">nombre</span><span class="op">,</span> <span class="va">valor</span><span class="op">,</span> <span class="va">esperado</span><span class="op">,</span> <span class="va">tol</span>)<span class="op">;</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>            <span class="va">fallas</span> <span class="op">=</span> <span class="va">fallas</span> <span class="op">+</span> <span class="fl">1</span><span class="op">;</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">end</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">end</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'10.2  Respuesta senoidal\n'</span>)<span class="op">;</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>)<span class="op">;</span>  <span class="va">g</span> <span class="op">=</span> <span class="va">evalfr</span>(<span class="va">G</span><span class="op">,</span> <span class="fl">1j</span>)<span class="op">;</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'|1/(j+10)|'</span><span class="op">,</span> <span class="va">abs</span>(<span class="va">g</span>)<span class="op">,</span> <span class="fl">0.0995</span><span class="op">,</span> <span class="fl">5e-4</span>)<span class="op">;</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'fase (grados)'</span><span class="op">,</span> <span class="va">rad2deg</span>(<span class="va">angle</span>(<span class="va">g</span>))<span class="op">,</span> <span class="op">-</span><span class="fl">5.71</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'10.5  Ejemplo s/(s+10)\n'</span>)<span class="op">;</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="va">G</span> <span class="op">=</span> <span class="va">s</span><span class="op">/</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>)<span class="op">;</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'dB en w = 10'</span><span class="op">,</span> <span class="fl">20</span><span class="op">*</span><span class="va">log10</span>(<span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">G</span><span class="op">,</span> <span class="fl">10j</span>)))<span class="op">,</span> <span class="op">-</span><span class="fl">3.01</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'fase en w = 10'</span><span class="op">,</span> <span class="va">faseEn</span>(<span class="va">G</span><span class="op">,</span> <span class="fl">10</span>)<span class="op">,</span> <span class="fl">45</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'dB en w = 1'</span><span class="op">,</span> <span class="fl">20</span><span class="op">*</span><span class="va">log10</span>(<span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">G</span><span class="op">,</span> <span class="fl">1j</span>)))<span class="op">,</span> <span class="op">-</span><span class="fl">20.04</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'10.4  Ejemplo con resonancia\n'</span>)<span class="op">;</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>[<span class="va">Gm</span><span class="op">,</span> <span class="va">Pm</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="fl">1000</span><span class="op">/</span>((<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">^</span><span class="fl">2</span><span class="op">+</span><span class="fl">4</span><span class="op">*</span><span class="va">s</span><span class="op">+</span><span class="fl">100</span>)))<span class="op">;</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PM (inestable)'</span><span class="op">,</span> <span class="va">mod</span>(<span class="va">Pm</span> <span class="op">+</span> <span class="fl">180</span><span class="op">,</span> <span class="fl">360</span>) <span class="op">-</span> <span class="fl">180</span><span class="op">,</span> <span class="op">-</span><span class="fl">45.5</span><span class="op">,</span> <span class="fl">0.1</span>)<span class="op">;</span>   <span class="co">% mod: algunas versiones dan +314.5</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'GM dB (inestable)'</span><span class="op">,</span> <span class="fl">20</span><span class="op">*</span><span class="va">log10</span>(<span class="va">Gm</span>)<span class="op">,</span> <span class="op">-</span><span class="fl">7.5</span><span class="op">,</span> <span class="fl">0.1</span>)<span class="op">;</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'10.7  Márgenes y rango de Kc\n'</span>)<span class="op">;</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>[<span class="va">Gm</span><span class="op">,</span> <span class="va">Pm</span><span class="op">,</span> <span class="va">Wcg</span><span class="op">,</span> <span class="va">Wcp</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="fl">1e4</span><span class="op">/</span>((<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">100</span>)))<span class="op">;</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'GM (dB)'</span><span class="op">,</span> <span class="fl">20</span><span class="op">*</span><span class="va">log10</span>(<span class="va">Gm</span>)<span class="op">,</span> <span class="fl">21.74</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'w_GM'</span><span class="op">,</span> <span class="va">Wcg</span><span class="op">,</span> <span class="fl">33.32</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PM'</span><span class="op">,</span> <span class="va">Pm</span><span class="op">,</span> <span class="fl">54.90</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'w_PM'</span><span class="op">,</span> <span class="va">Wcp</span><span class="op">,</span> <span class="fl">7.80</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>[<span class="va">Gm</span><span class="op">,</span> <span class="op">~,</span> <span class="va">Wcg</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="fl">1000</span><span class="op">/</span>((<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">100</span>)))<span class="op">;</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Kcr = 1000*GM'</span><span class="op">,</span> <span class="fl">1000</span><span class="op">*</span><span class="va">Gm</span><span class="op">,</span> <span class="fl">122210</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Pcr'</span><span class="op">,</span> <span class="fl">2</span><span class="op">*</span><span class="va">pi</span><span class="op">/</span><span class="va">Wcg</span><span class="op">,</span> <span class="fl">0.1886</span><span class="op">,</span> <span class="fl">1e-4</span>)<span class="op">;</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">Pm</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="fl">1e4</span><span class="op">/</span>((<span class="va">s</span><span class="op">+</span><span class="fl">1</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">100</span>))<span class="op">*</span><span class="fl">20</span><span class="op">/</span>(<span class="va">s</span><span class="op">+</span><span class="fl">20</span>))<span class="op">;</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PM con sensor a = 20'</span><span class="op">,</span> <span class="va">Pm</span><span class="op">,</span> <span class="fl">36.4</span><span class="op">,</span> <span class="fl">0.1</span>)<span class="op">;</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'10.8  PM -&gt; zeta -&gt; transitorio\n'</span>)<span class="op">;</span></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">Pm</span><span class="op">,</span> <span class="op">~,</span> <span class="va">Wcp</span>] <span class="op">=</span> <span class="va">margin</span>(<span class="fl">100</span><span class="op">/</span>(<span class="va">s</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>)))<span class="op">;</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a><span class="va">z</span> <span class="op">=</span> <span class="va">zetaDePM</span>(<span class="va">Pm</span>)<span class="op">;</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'zeta'</span><span class="op">,</span> <span class="va">z</span><span class="op">,</span> <span class="fl">0.50</span><span class="op">,</span> <span class="fl">1e-3</span>)<span class="op">;</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'wn'</span><span class="op">,</span> <span class="va">Wcp</span><span class="op">/</span><span class="va">sqrt</span>(<span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="va">z</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">sqrt</span>(<span class="fl">1</span><span class="op">+</span><span class="fl">4</span><span class="op">*</span><span class="va">z</span><span class="op">^</span><span class="fl">4</span>))<span class="op">,</span> <span class="fl">10</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'w_BW'</span><span class="op">,</span> <span class="va">bandwidth</span>(<span class="va">feedback</span>(<span class="fl">100</span><span class="op">/</span>(<span class="va">s</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">10</span>))<span class="op">,</span> <span class="fl">1</span>))<span class="op">,</span> <span class="fl">12.72</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'PM(zeta = 0.707)'</span><span class="op">,</span> <span class="va">pmDeZeta</span>(<span class="fl">0.707</span>)<span class="op">,</span> <span class="fl">65.5</span><span class="op">,</span> <span class="fl">0.06</span>)<span class="op">;</span></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'10.10 Ajuste de ganancia\n'</span>)<span class="op">;</span></span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="va">G0</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span>(<span class="va">s</span><span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">20</span>)<span class="op">*</span>(<span class="va">s</span><span class="op">+</span><span class="fl">100</span>))<span class="op">;</span></span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a><span class="va">wd</span> <span class="op">=</span> <span class="va">fzero</span>(<span class="op">@</span>(<span class="va">w</span>) <span class="va">faseEn</span>(<span class="va">G0</span><span class="op">,</span> <span class="va">w</span>) <span class="op">+</span> <span class="fl">180</span> <span class="op">-</span> <span class="va">pmDeZeta</span>(<span class="va">zetaDeOS</span>(<span class="fl">0.2</span>))<span class="op">,</span> [<span class="fl">1</span> <span class="fl">30</span>])<span class="op">;</span></span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'w objetivo'</span><span class="op">,</span> <span class="va">wd</span><span class="op">,</span> <span class="fl">13.56</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'Kc'</span><span class="op">,</span> <span class="fl">1</span><span class="op">/</span><span class="va">abs</span>(<span class="va">evalfr</span>(<span class="va">G0</span><span class="op">,</span> <span class="fl">1j</span><span class="op">*</span><span class="va">wd</span>))<span class="op">,</span> <span class="fl">33056</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">;</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'10.11 Compensadores\n'</span>)<span class="op">;</span></span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a><span class="va">Gp</span> <span class="op">=</span> <span class="va">zpk</span>([]<span class="op">,</span> [<span class="fl">0</span> <span class="op">-</span><span class="fl">2</span>]<span class="op">,</span> <span class="fl">40</span>)<span class="op">;</span></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">il</span>] <span class="op">=</span> <span class="va">disenoAdelanto</span>(<span class="va">Gp</span><span class="op">,</span> <span class="fl">45</span><span class="op">,</span> <span class="fl">10</span>)<span class="op">;</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'adelanto alpha'</span><span class="op">,</span> <span class="va">il</span>.<span class="va">alpha</span><span class="op">,</span> <span class="fl">4.03</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'adelanto wM'</span><span class="op">,</span> <span class="va">il</span>.<span class="va">wM</span><span class="op">,</span> <span class="fl">8.85</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'adelanto PM'</span><span class="op">,</span> <span class="va">il</span>.<span class="va">PM</span><span class="op">,</span> <span class="fl">49.8</span><span class="op">,</span> <span class="fl">0.1</span>)<span class="op">;</span></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>[<span class="op">~,</span> <span class="va">ig</span>] <span class="op">=</span> <span class="va">disenoAtraso</span>(<span class="va">Gp</span><span class="op">,</span> <span class="fl">45</span><span class="op">,</span> <span class="fl">5</span>)<span class="op">;</span></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'atraso wdes'</span><span class="op">,</span> <span class="va">ig</span>.<span class="va">wdes</span><span class="op">,</span> <span class="fl">1.68</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'atraso alpha'</span><span class="op">,</span> <span class="va">ig</span>.<span class="va">alpha</span><span class="op">,</span> <span class="fl">9.13</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a><span class="va">revisar</span>(<span class="ss">'atraso PM'</span><span class="op">,</span> <span class="va">ig</span>.<span class="va">PM</span><span class="op">,</span> <span class="fl">44.8</span><span class="op">,</span> <span class="fl">0.1</span>)<span class="op">;</span></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'\n%d de %d verificaciones correctas.\n'</span><span class="op">,</span> <span class="va">n</span> <span class="op">-</span> <span class="va">fallas</span><span class="op">,</span> <span class="va">n</span>)<span class="op">;</span></span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> <span class="va">fallas</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">,</span> <span class="va">error</span>(<span class="ss">'verificarCap10:falla'</span><span class="op">,</span> <span class="ss">'%d verificaciones fallaron.'</span><span class="op">,</span> <span class="va">fallas</span>)<span class="op">;</span> <span class="kw">end</span></span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -678,243 +850,236 @@ En bajas frecuencias <span class="math inline">\(|\Gma(\jw)|\approx\ka/\omega^2\
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Volver arriba</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiado");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiado");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
         }
       }
       return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-control");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/quijanon-bot\.github\.io\/NQuijano\.github\.io\/curso-control");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
         }
       }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
     }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
     }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
         }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -922,166 +1087,190 @@ En bajas frecuencias <span class="math inline">\(|\Gma(\jw)|\approx\ka/\omega^2\
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Nicanor Quijano · Departamento de Ingeniería Eléctrica y Electrónica · Universidad de los Andes</p>
+<p><a href="https://quijanon-bot.github.io/NQuijano.github.io/">Nicanor Quijano</a> · Departamento de Ingeniería Eléctrica y Electrónica · Universidad de los Andes</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

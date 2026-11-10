@@ -1,0 +1,79 @@
+%% ---------------------------------------------------------------------
+\section{Estimar la región de atracción}
+\label{sec:ly-region}
+%% ---------------------------------------------------------------------
+
+Un controlador diseñado por linealización estabiliza \emph{localmente}; la pregunta práctica es qué tan lejos del punto de operación se puede arrancar. Calcular la región de atracción $\RA$ exactamente casi nunca es posible: su frontera está formada por soluciones (en van der Pol, por el ciclo límite; en el péndulo, por las separatrices de las sillas). Lo que sí se puede es \emph{estimarla por dentro}.
+
+\begin{proposicion}[label=prop:ly-estimacion]{Estimación con un conjunto de nivel}
+Sea $V$ una función $\Cont1$ definida positiva en $\D$ con $\Vdot<0$ en $\D\setminus\{0\}$. Si $\Nivel c=\{x:\ V(x)\le c\}$ (la componente conexa que contiene al origen) es acotado y está contenido en $\D$, entonces $\Nivel c\subset\RA$.
+\end{proposicion}
+
+La prueba es la del \cref{thm:ly-directo}: $\Nivel c$ es compacto y positivamente invariante, y dentro de él $\Vdot<0$ fuera del origen. La estimación es mejor mientras mayor sea $c$, y el mayor valor admisible es
+\begin{equation}
+  c^*=\min_{x\in\partial\D}V(x)\qquad\text{o, si }\D\text{ es la región donde }\Vdot<0,\qquad c^*=\min\bigl\{V(x):\ \Vdot(x)=0,\ x\neq0\bigr\} .
+  \label{eq:ly-cestrella}
+\end{equation}
+
+\begin{trampa}[label=tr:ly-region]{``$\Vdot<0$ en $\D$, luego $\D$ está en la región de atracción''}
+\plausible{Dentro de $\D$, $V$ decrece a lo largo de toda solución; una solución que arranca en $\D$ baja hacia el mínimo de $V$, que es el origen.}
+$V$ decrece \emph{mientras la solución está en $\D$}, pero nada impide que salga de $\D$ con $V$ todavía grande. En el péndulo con la $V$ del \cref{ej:ly-cruzado}, $\Vdot<0$ en $\D=\{\abs{x_1}<\pi\}$. La solución que arranca en $(1.5,\ 3)\in\D$ sale de $\D$ en $t=0.72$, cuando el péndulo pasa por la posición invertida, y termina en $(2\pi,0)$ (\cref{fig:ly-cruzado}). Ese punto tiene $V=6.69$: muy por encima de cualquier nivel contenido en $\D$.
+\correcto{Solo un \emph{conjunto de nivel} acotado contenido en $\D$ es una estimación válida (\cref{prop:ly-estimacion}): es invariante, y $\D$ no lo es.}
+\end{trampa}
+
+\begin{ejemplo}[label=ej:ly-cpendulo]{El mejor término cruzado}
+Para el péndulo con la $V$ \eqref{eq:ly-Vcruzado}, encuentre el mayor $c$ con $\Nivel c\subset\D=\{\abs{x_1}<\pi\}$ en función de $p_{12}$, y el $p_{12}$ que lo maximiza.
+\solucion La frontera de $\D$ son las rectas $x_1=\pm\pi$, donde $a(1-\cos x_1)=2a$. Sobre $x_1=\pi$,
+\[
+  V(\pi,x_2)=\tfrac12\bigl(b\,p_{12}\pi^2+2p_{12}\pi x_2+x_2^2\bigr)+2a ,
+\]
+mínimo en $x_2=-p_{12}\pi$ (y por simetría, en $x_2=p_{12}\pi$ sobre $x_1=-\pi$):
+\[
+  c^*(p_{12})=2a+\frac{\pi^2}{2}\,p_{12}\,(b-p_{12}) .
+\]
+Con la energía ($p_{12}=0$), $c^*=2a$: el nivel de la separatriz que pasa por la posición invertida. El máximo está en $p_{12}=b/2$, con $c^*=2a+\pi^2b^2/8=2.308$ para $a=1$, $b=0.5$. La función ``inclinada'' certifica \emph{más} que la energía (\cref{fig:ly-cruzado}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_cruzado}
+\caption{Péndulo con fricción ($a=1$, $b=0.5$). Izquierda: $\Nivel{c^*}$ de la energía (ámbar) y de la $V$ con $p_{12}=b/2$ (verde), ambos dentro de $\D$ (sombreado); la solución roja arranca en $\D$, sale y termina en $(2\pi,0)$. Derecha: $c^*(p_{12})$.}
+\label{fig:ly-cruzado}
+\end{figure}
+
+\codigorepo{cap07_lyapunov/C7_Ej6_TerminoCruzado.m}{cruzado}{El nivel certificado como función de $p_{12}$}
+\codigorepo{cap07_lyapunov/C7_Ej6_TerminoCruzado.m}{sale}{Una solución que arranca en $\D$ y sale de $\D$}
+
+\subsection{Van der Pol en tiempo invertido}
+
+Con el tiempo invertido, el oscilador de van der Pol (\cref{cap:orbitas}) con $\mu=1$ es
+\begin{equation}
+  \dot x_1=-x_2,\qquad \dot x_2=x_1+(x_1^2-1)\,x_2 .
+  \label{eq:ly-vdpinv}
+\end{equation}
+El ciclo límite, que era atractivo, ahora es repulsor, y el origen, que era inestable, ahora es asintóticamente estable: su región de atracción es exactamente el interior del ciclo. La linealización en el origen es la $A$ del \cref{ej:ly-ecuacion}, así que $V=x\T Px$ con $P=\bigl[\begin{smallmatrix}1.5&-0.5\\-0.5&1\end{smallmatrix}\bigr]$ es una función de Lyapunov local (\cref{cor:ly-indirecto}).
+
+\begin{ejemplo}[label=ej:ly-vdp]{Dos estimaciones de la región de atracción}
+Estime $\RA$ para \eqref{eq:ly-vdpinv} con $V=x\T Px$.
+\solucion La derivada es
+\[
+  \Vdot=-(x_1^2+x_2^2)-x_1^3x_2+2x_1^2x_2^2=-\norm x^2-x_1^2\,x_2\,(x_1-2x_2) .
+\]
+\emph{Con bolas} \citep[\S8.2]{Kha02}: $\abs{x_1}\le\norm x$, $\abs{x_1x_2}\le\tfrac12\norm x^2$ y $\abs{x_1-2x_2}\le\sqrt5\norm x$, así que $\Vdot\le-\norm x^2+\tfrac{\sqrt5}2\norm x^4<0$ si $\norm x^2<2/\sqrt5$. El mayor nivel dentro de esa bola tiene $c<\lmin(P)\cdot2/\sqrt5=0.618$.
+\emph{Con la tangencia} \eqref{eq:ly-cestrella}: sobre la recta $x=r(\cos\theta,\sin\theta)$, $\Vdot=-r^2+k(\theta)r^4$ con $k=-\cos^3\theta\sin\theta+2\cos^2\theta\sin^2\theta$, y se anula en $r^2=1/k(\theta)$ (si $k>0$). Minimizando $V$ sobre esos puntos se obtiene $c^*=2.30$, en $x\approx(-0.86,\ 0.75)$: una estimación $3.7$ veces más grande en área (\cref{fig:ly-region}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.62\linewidth]{cap07/f_region}
+\caption{Van der Pol en tiempo invertido. La región de atracción real es el interior del ciclo límite (negro). $\Nivel{c^*}$ (verde) toca la curva $\Vdot=0$ (roja); la estimación con bolas (ámbar) es mucho más conservadora.}
+\label{fig:ly-region}
+\end{figure}
+
+\video{V7_4_region_atraccion}{El nivel más grande que se puede certificar}
+\codigorepo{cap07_lyapunov/C7_Ej10_RegionAtraccion.m}{region}{$c^*$ por tangencia con $\{\Vdot=0\}$}
+
+\begin{pausa}
+La estimación $\Nivel{c^*}$ queda lejos del ciclo límite. ¿Se acercaría mucho con otra $Q$ en $A\T P+PA=-Q$?
+\respuesta{Poco. Con $Q=\operatorname{diag}(1,q)$ el área de $\Nivel{c^*}$ mejora apenas un par de por ciento en el mejor $q$. La limitación es la forma: una elipse no puede seguir la frontera del ciclo. Para estimaciones mejores hacen falta funciones no cuadráticas (gradiente variable, Zubov o sumas de cuadrados, capítulo~8).}
+\end{pausa}

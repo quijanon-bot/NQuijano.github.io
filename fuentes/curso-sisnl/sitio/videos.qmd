@@ -38,6 +38,17 @@ Los cuatro videos de las partes 1 y 2 ya están publicados: se generaron con `he
 
 Los videos de las partes 3 y 5 todavía no se han grabado: los scripts están listos y, cuando se graben, basta con copiar los `.mp4` a `sitio/videos/` y convertir el nombre en enlace.
 
+## Parte 7 · Estabilidad de Lyapunov
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V7_1_formas_cuadraticas}[V7.1 · Formas cuadráticas](videos/V7_1_formas_cuadraticas.mp4) | De elipses a franjas y a hipérbolas cuando un valor propio de $P$ cruza el cero. | `C7_Video_FormasCuadraticas.m` |
+| []{#V7_2_termino_cruzado}[V7.2 · Término cruzado](videos/V7_2_termino_cruzado.mp4) | El nivel certificado del péndulo crece con $p_{12}$; una solución arranca en $D$ y sale de $D$. | `C7_Video_TerminoCruzado.m` |
+| []{#V7_3_circulos_elipses}[V7.3 · Círculos y elipses](videos/V7_3_circulos_elipses.mp4) | $A$ Hurwitz con norma que crece: el círculo crece, la elipse de $P$ solo se encoge. | `C7_Video_CirculosElipses.m` |
+| []{#V7_4_region_atraccion}[V7.4 · Región de atracción](videos/V7_4_region_atraccion.mp4) | $\Omega_c$ crece hasta tocar $\{\dot V=0\}$ en van der Pol invertido. | `C7_Video_RegionAtraccion.m` |
+
+Los cuatro videos de la parte 7 están publicados: se generaron con `herramientas/cap07_videos.py` (Python, los mismos modelos y parámetros). Los `C7_Video_*` de MATLAB producen la misma animación para grabarla en su computador.
+
 ## Parte 11 · Pasividad
 
 | Video | Qué muestra | Script |

@@ -1,0 +1,165 @@
+%% ---------------------------------------------------------------------
+\section{Sistemas lineales y la ecuación de Lyapunov}
+\label{sec:ly-lineales}
+%% ---------------------------------------------------------------------
+
+\subsection{Estabilidad de $\dot x=Ax$}
+
+Para $\dot x=Ax$ la solución es $x(t)=e^{At}x_0$, y todo se lee en la forma de Jordan de $A$: cada bloque de orden $m$ asociado a $\lambda$ aporta términos $t^ke^{\lambda t}$ con $k<m$.
+
+\begin{teorema}[label=thm:ly-lineal]{Estabilidad de sistemas lineales \citep[Teo.~4.5]{Kha02}}
+El origen de $\dot x=Ax$ es estable si y solo si todos los valores propios de $A$ cumplen $\operatorname{Re}\lambda_i\le0$ y los que tienen $\operatorname{Re}\lambda_i=0$ tienen bloques de Jordan de orden uno. Equivalentemente, para cada $\lambda$ en el eje imaginario con multiplicidad algebraica $q$,
+\begin{equation}
+  \rank(A-\lambda I)=n-q .
+  \label{eq:ly-rango}
+\end{equation}
+El origen es asintóticamente estable si y solo si $A$ es Hurwitz; en ese caso es globalmente exponencialmente estable.
+\end{teorema}
+
+En un sistema lineal no hay diferencia entre local y global, ni entre asintótica y exponencial: la escala no importa. La condición sobre los bloques de Jordan, en cambio, sí importa, y es fácil de olvidar.
+
+\begin{trampa}[label=tr:ly-jordan]{``Si ningún valor propio está en el semiplano derecho, el sistema lineal es estable''}
+\plausible{Los modos con $\operatorname{Re}\lambda<0$ decaen y los de $\operatorname{Re}\lambda=0$ oscilan con amplitud constante; nada crece.}
+Conecte dos copias del oscilador $S$: $\dot x=Ax+Bu$, $y=Cx$, con $A=\bigl[\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\bigr]$, $B=\bigl[\begin{smallmatrix}0\\1\end{smallmatrix}\bigr]$, $C=[1\ \ 0]$. En \emph{paralelo}, $A_P=\operatorname{diag}(A,A)$; en \emph{serie} (la salida de la primera es la entrada de la segunda),
+\[
+  A_S=\begin{bmatrix}A&0\\BC&A\end{bmatrix}.
+\]
+Las dos tienen espectro $\{j,j,-j,-j\}$. Pero $\rank(A_P-jI)=2=n-q$, mientras que $\rank(A_S-jI)=3$: la serie tiene un bloque de Jordan de orden $2$. La salida $y_1=\cos t$ de la primera excita a la segunda justo en su frecuencia natural (resonancia), y $y_2(t)=\tfrac t2\sin t$ crece sin límite (\cref{fig:ly-jordan}).
+\correcto{Con valores propios en el eje imaginario hay que revisar la condición de rango \eqref{eq:ly-rango} (o los bloques de Jordan). En paralelo, además, $A_P+A_P\T=0$: $\norm x^2$ se conserva y es una función de Lyapunov; en serie no existe ninguna $P>0$ con $A_S\T P+PA_S\le0$, porque si existiera el origen sería estable.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{cap07/f_jordan}
+\caption{Dos osciladores idénticos en paralelo y en serie. Mismos valores propios; en serie, resonancia.}
+\label{fig:ly-jordan}
+\end{figure}
+
+\codigorepo{cap07_lyapunov/C7_Ej7_Jordan.m}{jordan}{Serie contra paralelo: rango y resonancia}
+
+\subsection{La ecuación de Lyapunov}
+
+Para $\dot x=Ax$ y una candidata cuadrática $V=x\T Px$,
+\[
+  \Vdot=\dot x\T Px+x\T P\dot x=x\T\bigl(A\T P+PA\bigr)x .
+\]
+En vez de escoger $P$ y revisar el signo de $A\T P+PA$, se puede escoger el signo de antemano: fijar $Q>0$ y resolver la \clave{ecuación de Lyapunov}
+\begin{equation}
+  A\T P+PA=-Q .
+  \label{eq:ly-ecuacion}
+\end{equation}
+Es lineal en $P$: $n(n+1)/2$ ecuaciones para las $n(n+1)/2$ incógnitas de una matriz simétrica.
+
+\begin{teorema}[label=thm:ly-ecuacion]{Ecuación de Lyapunov \citep[Teo.~4.6]{Kha02}}
+$A$ es Hurwitz si y solo si para cada $Q=Q\T>0$ existe $P=P\T>0$ que satisface \eqref{eq:ly-ecuacion}. En ese caso la solución es única y
+\begin{equation}
+  P=\int_0^\infty e^{A\T t}\,Q\,e^{At}\,\dif t .
+  \label{eq:ly-integral}
+\end{equation}
+\end{teorema}
+
+\begin{proof}
+($\Leftarrow$) Con $V=x\T Px$, $\lmin(P)\norm x^2\le V\le\lmax(P)\norm x^2$ y $\Vdot=-x\T Qx\le-\lmin(Q)\norm x^2$. El \cref{thm:ly-exp} con $a=2$ da estabilidad exponencial global, y por el \cref{thm:ly-lineal}, $A$ es Hurwitz.
+($\Rightarrow$) Si $A$ es Hurwitz, $\norm{e^{At}}\le ke^{-\lambda t}$ y la integral \eqref{eq:ly-integral} converge. Es simétrica y definida positiva: $x\T Px=\int_0^\infty\norm{Q^{1/2}e^{At}x}^2\dif t>0$ si $x\neq0$. Y cumple la ecuación:
+\[
+  A\T P+PA=\int_0^\infty\frac{d}{dt}\Bigl(e^{A\T t}Qe^{At}\Bigr)\dif t=\Bigl[e^{A\T t}Qe^{At}\Bigr]_0^\infty=-Q .
+\]
+Para la unicidad, si $P_1$ y $P_2$ son soluciones, $D=P_1-P_2$ cumple $A\T D+DA=0$, así que $\frac{d}{dt}\bigl(e^{A\T t}De^{At}\bigr)=0$ y $D=e^{A\T t}De^{At}\to0$.
+\end{proof}
+
+La fórmula \eqref{eq:ly-integral} da un significado a $P$: si $x(t)=e^{At}x_0$,
+\begin{equation}
+  x_0\T Px_0=\int_0^\infty x(t)\T Q\,x(t)\,\dif t .
+  \label{eq:ly-costo}
+\end{equation}
+$V(x)$ es el \emph{costo que falta por pagar} desde $x$, y $\Vdot=-x\T Qx$ dice que ese costo disminuye a la misma tasa a la que se paga (\cref{fig:ly-costo}). Los elipsoides de $P$ son curvas de \emph{isocosto}. Esta lectura reaparece en el control óptimo (LQR), donde $P$ es la solución de una ecuación de Riccati.
+
+\begin{ejemplo}[label=ej:ly-ecuacion]{Resolver la ecuación a mano}
+Resuelva $A\T P+PA=-I$ para $A=\begin{bmatrix}0&-1\\1&-1\end{bmatrix}$.
+\solucion Con $P=\bigl[\begin{smallmatrix}p_1&p_2\\p_2&p_3\end{smallmatrix}\bigr]$, $A\T P+PA=\begin{bmatrix}2p_2&-p_1+p_3-p_2\\-p_1+p_3-p_2&-2p_2-2p_3\end{bmatrix}=\begin{bmatrix}-1&0\\0&-1\end{bmatrix}$. La primera ecuación da $p_2=-\tfrac12$; la tercera, $p_3=1$; la segunda, $p_1=p_3-p_2=\tfrac32$:
+\[
+  P=\begin{bmatrix}1.5&-0.5\\-0.5&1\end{bmatrix},\qquad \Delta_1=1.5>0,\quad \Delta_2=1.25>0 .
+\]
+$P>0$, luego $A$ es Hurwitz (sus valores propios son $-\tfrac12\pm j\tfrac{\sqrt3}2$). Desde $x_0=(1.2,\ 1)$, $\int_0^\infty\norm{x(t)}^2\dif t=x_0\T Px_0=1.96$. Esta $A$ es la linealización de van der Pol en tiempo invertido, y la misma $P$ se usa en la \cref{sec:ly-region}.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_costo}
+\caption{$P$ como costo. Izquierda: $V(x(t))$ (lo que falta) más el costo acumulado (lo pagado) es constante, igual a $x_0\T Px_0$. Derecha: para $60$ direcciones $d$, el punto $d/\sqrt{d\T Pd}$ (de costo $1$) cae sobre la elipse $x\T Px=1$.}
+\label{fig:ly-costo}
+\end{figure}
+
+\codigorepo{cap07_lyapunov/C7_Ej8_EcuacionLyapunov.m}{lyap}{Ecuación de Lyapunov, integral y costo}
+
+\begin{cuidado}[La $P$ de MATLAB]
+\cmd{lyap(A,Q)} de la Control System Toolbox resuelve $AX+XA\T+Q=0$, que no es \eqref{eq:ly-ecuacion}. La $P$ del curso es \cmd{lyap(A',Q)}. Los códigos del curso usan \cmd{ecuacionLyapunov(A,Q)} (en \texttt{comun/}), que sigue la convención de Khalil y no requiere toolboxes.
+\end{cuidado}
+
+\begin{trampa}[label=tr:ly-normal]{``Si $A$ es Hurwitz, la norma $\norm{x(t)}$ decrece''}
+\plausible{Todos los modos decaen exponencialmente; la suma de cosas que decaen, decae.}
+La suma de cosas que decaen puede crecer un rato. Con $A=\bigl[\begin{smallmatrix}-1&10\\0&-2\end{smallmatrix}\bigr]$ (valores propios $-1$ y $-2$) y $x_0=(0,1)$, $x_1(t)=10(e^{-t}-e^{-2t})$, y $\norm{x(\ln2)}=2.51$: la norma crece de $1$ a $2.5$ antes de decaer. La razón es que $\frac{d}{dt}\norm x^2=x\T(A+A\T)x$ y $A+A\T$ es indefinida (valores propios $-13.05$ y $7.05$): hay un cono de direcciones donde la norma crece. La $P$ de $A\T P+PA=-I$ define una métrica en la que el sistema sí se contrae siempre (\cref{fig:ly-nonormal}). La cota del \cref{thm:ly-exp}, $\norm{x(t)}\le\sqrt{\lmax/\lmin}\,\norm{x_0}e^{-t/(2\lmax)}=7.24\,\norm{x_0}e^{-0.056t}$, es válida pero muy conservadora.
+\correcto{$A$ Hurwitz da $\norm{x(t)}\le k\norm{x_0}e^{-\lambda t}$ con $k\ge1$, y $k$ puede ser grande. La norma euclidiana es una función de Lyapunov solo si $A+A\T<0$; en general hay que construir la métrica con la ecuación de Lyapunov.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_no_normal}
+\caption{$A=[-1\ 10;\ 0\ -2]$ desde $(0,1)$. Izquierda: círculos por $x(t)$ (rojo) y elipses de $P$ (verde) en tres instantes; en la región sombreada $A+A\T$ hace crecer la norma. Derecha: la norma crece, $V$ no.}
+\label{fig:ly-nonormal}
+\end{figure}
+
+\video{V7_3_circulos_elipses}{La métrica en la que el sistema se contrae}
+\codigorepo{cap07_lyapunov/C7_Ej8_EcuacionLyapunov.m}{nonormal}{Hurwitz con norma que crece}
+
+\subsection{Lo que la ecuación detecta}
+
+El \cref{thm:ly-ecuacion} habla de una solución \emph{definida positiva}. La ecuación \eqref{eq:ly-ecuacion} puede tener solución aunque $A$ no sea Hurwitz: tiene solución única si y solo si $\lambda_i+\lambda_j\neq0$ para todo par de valores propios de $A$ (los valores propios del operador $P\mapsto A\T P+PA$ son exactamente las sumas $\lambda_i+\lambda_j$).
+
+\begin{trampa}[label=tr:ly-solucion]{``Si la ecuación de Lyapunov tiene solución, $A$ es Hurwitz''}
+\plausible{El teorema dice que $A$ es Hurwitz si y solo si la ecuación tiene solución.}
+El teorema dice ``solución \emph{definida positiva}''. Con $A(\mu)=\bigl[\begin{smallmatrix}-1&2\\0&\mu\end{smallmatrix}\bigr]$ y $Q=I$: para $\mu<0$, $P>0$ (y $p_{22}\to\infty$ cuando $\mu\to0^-$); en $\mu=0$ y $\mu=1$ no hay solución única ($2\mu=0$ y $-1+\mu=0$); para $\mu>0$, $\mu\neq1$, sí hay solución, pero $P$ tiene exactamente un valor propio negativo: tantos como valores propios inestables de $A$ (\cref{fig:ly-inercia}). Esa $P$ indefinida no es inútil: en el cono $\{x\T Px<0\}$, $W=-x\T Px$ crece, y es la función que usa el teorema de inestabilidad de Chetaev (capítulo~9).
+\correcto{$A$ es Hurwitz si y solo si la solución (para algún $Q>0$, y entonces para todos) es \emph{definida positiva}. La inercia de $P$ cuenta los valores propios inestables~\citep{KeBr23}.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{cap07/f_inercia}
+\caption{Valores propios de la solución de $A(\mu)\T P+PA(\mu)=-I$ (escala logarítmica con signo). En $\mu=0$ y $\mu=1$ no hay solución única.}
+\label{fig:ly-inercia}
+\end{figure}
+
+\codigorepo{cap07_lyapunov/C7_Ej9_InerciaObservabilidad.m}{inercia}{La ecuación como detector de inestabilidad}
+
+\paragraph{Relajar $Q$.} A veces la $V$ natural (la energía) da $\Vdot=-x\T C\T Cx$, con $Q=C\T C$ solo semidefinida. El teorema siguiente dice cuándo basta.
+
+\begin{teorema}[label=thm:ly-observable]{Ecuación de Lyapunov con $Q=C\T C$ \citep{Arc18}}
+Si $(A,C)$ es observable, $A$ es Hurwitz si y solo si existe $P>0$ con $A\T P+PA=-C\T C$.
+\end{teorema}
+
+La observabilidad es indispensable. Dos masas unitarias unidas a las paredes por resortes $k_1=k_2=1$ y entre sí por un resorte $\kappa$, con un amortiguador $b=0.3$ \emph{solo en la masa~1}: con $x=(q_1,v_1,q_2,v_2)$ y $V$ la energía, $\Vdot=-b\,v_1^2=-x\T C\T Cx$ con $C=[0\ \sqrt b\ 0\ 0]$. Con $\kappa=0.4$, $(A,C)$ es observable (rango $4$) y $A$ es Hurwitz. Con $\kappa=0$, el rango de observabilidad es $2$: la masa~2 oscila para siempre, $P>0$ y $Q\ge0$ siguen valiendo, y $A$ no es Hurwitz (\cref{fig:ly-masas}). La disipación ``no ve'' a la masa~2. El subespacio no observable es justamente el conjunto donde una solución puede quedarse con $\Vdot=0$; esa es la idea del principio de invarianza del capítulo~8.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_masas}
+\caption{Dos masas con un amortiguador en la masa~1, desde $q_1=q_2=1$. Sin acoplamiento la disipación no alcanza a la masa~2.}
+\label{fig:ly-masas}
+\end{figure}
+
+\codigorepo{cap07_lyapunov/C7_Ej9_InerciaObservabilidad.m}{masas}{Observabilidad: la disipación que no ve una masa}
+
+\subsection{La prueba del método indirecto}
+
+\begin{corolario}[label=cor:ly-indirecto]{Parte~1 del \cref{thm:ly-indirecto}}
+Si $A=\jacat fx{0}$ es Hurwitz, el origen de \eqref{eq:ly-sistema} es exponencialmente estable, y $V=x\T Px$, con $A\T P+PA=-Q$, es una función de Lyapunov local.
+\end{corolario}
+
+\begin{proof}
+Escriba $f(x)=Ax+g(x)$ como en \eqref{eq:ly-linealizacion}. Entonces
+\[
+  \Vdot=x\T(A\T P+PA)x+2x\T Pg(x)\le-\lmin(Q)\norm x^2+2\lmax(P)\norm x\,\norm{g(x)} .
+\]
+Como $\norm{g(x)}/\norm x\to0$, existe $r>0$ tal que $\norm{g(x)}\le\gamma\norm x$ en $\norm x<r$, con $\gamma=\lmin(Q)/(4\lmax(P))$. Ahí $\Vdot\le-\tfrac12\lmin(Q)\norm x^2$, y el \cref{thm:ly-exp} (con $a=2$) da estabilidad exponencial.
+\end{proof}
+
+La prueba hace algo más que probar: produce una $V$ explícita para el sistema no lineal, y con ella se puede estimar la región de atracción. Es lo que hace la próxima sección.

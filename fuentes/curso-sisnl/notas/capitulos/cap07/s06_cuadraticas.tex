@@ -1,0 +1,93 @@
+%% ---------------------------------------------------------------------
+\section{Formas cuadráticas}
+\label{sec:ly-cuadraticas}
+%% ---------------------------------------------------------------------
+
+Las candidatas más usadas son las \clave{formas cuadráticas}
+\[
+  V(x)=x\T Px=\sum_{i,j}p_{ij}x_ix_j,\qquad P=P\T\in\R^{n\times n}.
+\]
+Que $P$ sea simétrica no es una restricción: si no lo es, $x\T Px=x\T\tfrac12(P+P\T)x$, y solo cuenta la parte simétrica. Una matriz simétrica tiene valores propios reales y vectores propios ortonormales, $P=U\Lambda U\T$, y en las coordenadas $z=U\T x$ la forma es $\sum\lambda_iz_i^2$. De ahí sale todo:
+\begin{equation}
+  \lmin(P)\norm x^2\le x\T Px\le\lmax(P)\norm x^2\qquad\text{para todo }x .
+  \label{eq:ly-rayleigh}
+\end{equation}
+
+\begin{definicion}[label=def:ly-pd]{Matrices definidas}
+$P=P\T$ es \clave{definida positiva} ($P>0$) si $x\T Px>0$ para todo $x\neq0$, y \clave{semidefinida positiva} ($P\ge0$) si $x\T Px\ge0$ para todo $x$. Equivalentemente, $P>0$ si y solo si todos sus valores propios son positivos, y $P\ge0$ si y solo si todos son no negativos. $P$ es definida (semidefinida) negativa si $-P$ es definida (semidefinida) positiva, e \clave{indefinida} si tiene valores propios positivos y negativos.
+\end{definicion}
+
+Si $P>0$, los conjuntos de nivel $\{x\T Px=c\}$ son elipsoides con ejes en las direcciones de los vectores propios y semiejes $\sqrt{c/\lambda_i}$. Cuando un valor propio baja a cero, su semieje se va al infinito y el elipsoide se abre en un cilindro (dos rectas paralelas en el plano); si se vuelve negativo, los niveles son hiperboloides (\cref{fig:ly-formas}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_formas}
+\caption{Niveles de $x\T Px$ con los mismos vectores propios (líneas punteadas) y $\lambda_1=2$: $\lambda_2=0.5$, $0$ y $-0.8$. En azul, niveles positivos; en rojo, negativos; la línea discontinua es el cono $x\T Px=0$.}
+\label{fig:ly-formas}
+\end{figure}
+
+\video{V7_1_formas_cuadraticas}{De elipses a hipérbolas}
+
+Sin calcular valores propios, el signo se puede leer en los \clave{menores principales}. Los \emph{líderes} son los determinantes de las submatrices superiores izquierdas, $\Delta_1=p_{11}$, $\Delta_2=\det\bigl[\begin{smallmatrix}p_{11}&p_{12}\\p_{21}&p_{22}\end{smallmatrix}\bigr]$, \dots, $\Delta_n=\det P$; los menores principales (a secas) son los determinantes de las submatrices que se obtienen quitando las mismas filas y columnas, y hay $2^n-1$.
+
+\begin{teorema}[label=thm:ly-sylvester]{Criterio de Sylvester}
+Sea $P=P\T$.
+\begin{enumerate}
+  \item $P>0$ si y solo si $\Delta_k>0$ para $k=1,\dots,n$.
+  \item $P<0$ si y solo si $(-1)^k\Delta_k>0$ para $k=1,\dots,n$ (signos alternados, empezando en negativo).
+  \item $P\ge0$ si y solo si \emph{todos} los menores principales son $\ge0$.
+\end{enumerate}
+\end{teorema}
+
+\begin{trampa}[label=tr:ly-sylvester]{``Menores líderes $\ge0$, luego $P\ge0$''}
+\plausible{Sylvester dice que menores líderes positivos dan $P>0$; por continuidad, menores líderes no negativos deberían dar $P\ge0$.}
+La continuidad no funciona así. $P=\operatorname{diag}(0,-1)$ tiene $\Delta_1=0$ y $\Delta_2=0$, y $x\T Px=-x_2^2$: es semidefinida \emph{negativa}. El menor principal que delata el problema es $p_{22}=-1$, que no es líder. La tabla de clasificación de la versión anterior de estas notas tenía este error en las filas de las semidefinidas.
+\correcto{Para las semidefinidas hay que revisar \emph{todos} los menores principales (parte~3 del \cref{thm:ly-sylvester}) o, mejor, los valores propios.}
+\end{trampa}
+
+\begin{ejemplo}[label=ej:ly-Pa]{Una forma con un parámetro}
+¿Para qué valores de $a$ es $V=ax_1^2+2x_1x_3+ax_2^2+4x_2x_3+ax_3^2$ definida positiva? ¿Semidefinida?
+\solucion $V=x\T Px$ con $P=\begin{bmatrix}a&0&1\\0&a&2\\1&2&a\end{bmatrix}$. Sus menores líderes son $\Delta_1=a$, $\Delta_2=a^2$ y $\Delta_3=a(a^2-5)$, todos positivos si y solo si $a>\sqrt5$: entonces $P>0$. Para $a=\sqrt5$, $\Delta_3=0$ y los menores líderes no deciden si $P\ge0$ (\cref{tr:ly-sylvester}). Los valores propios lo resuelven de una vez: el polinomio característico es $(\lambda-a)\bigl((\lambda-a)^2-5\bigr)$, así que $\lambda\in\{a,\ a-\sqrt5,\ a+\sqrt5\}$. $P>0$ si $a>\sqrt5$; $P\ge0$ si $a\ge\sqrt5$; $P<0$ si $a<-\sqrt5$; $P\le0$ si $a\le-\sqrt5$; indefinida si $\abs a<\sqrt5$.
+\end{ejemplo}
+
+\codigorepo{cap07_lyapunov/C7_Ej5_Cuadraticas.m}{sylvester}{Menores líderes y valores propios de $P(a)$}
+
+\subsection{Inclinar la energía: el péndulo con fricción}
+
+La energía del péndulo dio $\Vdot=-bx_2^2$, que se anula en todo el eje $x_2=0$ (\cref{ej:ly-pendenergia}). Un término cruzado $p_{12}x_1x_2$ puede arreglarlo: cerca del eje $x_2=0$, su derivada aporta $p_{12}x_1\dot x_2\approx-a\,p_{12}x_1^2$, que es negativa. Esta es la construcción de Khalil~\citep[\S4.1]{Kha02}.
+
+\begin{ejemplo}[label=ej:ly-cruzado]{Una función de Lyapunov estricta para el péndulo}
+Pruebe que el origen de \eqref{eq:ly-pendulo} con $b>0$ es asintóticamente estable usando
+\begin{equation}
+  V(x)=\tfrac12x\T\begin{bmatrix}b\,p_{12}&p_{12}\\p_{12}&1\end{bmatrix}x+a(1-\cos x_1),\qquad 0<p_{12}<b .
+  \label{eq:ly-Vcruzado}
+\end{equation}
+\solucion La matriz es definida positiva si $b\,p_{12}>0$ y $b\,p_{12}-p_{12}^2>0$, es decir, $0<p_{12}<b$; el término $a(1-\cos x_1)$ es no negativo, así que $V$ es definida positiva en $\R^2$. Su derivada es
+\[
+  \Vdot=(b\,p_{12}x_1+p_{12}x_2+a\sin x_1)\,x_2+(p_{12}x_1+x_2)(-a\sin x_1-b\,x_2)=-a\,p_{12}\,x_1\sin x_1-(b-p_{12})\,x_2^2 .
+\]
+En $\D=\{\abs{x_1}<\pi\}\times\R$, $x_1\sin x_1>0$ si $x_1\neq0$, y $b-p_{12}>0$: $\Vdot<0$ en $\D\setminus\{0\}$. Por el \cref{thm:ly-directo}, el origen es asintóticamente estable. La energía ($p_{12}=0$) es el caso límite, y por eso solo daba estabilidad.
+\end{ejemplo}
+
+\video{V7_2_termino_cruzado}{Inclinar la energía del péndulo}
+
+\begin{pausa}
+En el \cref{ej:ly-cruzado}, ¿por qué no se puede tomar $p_{12}=b$ para tener ``el máximo de término cruzado''?
+\respuesta{Con $p_{12}=b$, $\det P=b^2-b^2=0$: $P$ es solo semidefinida, y $\Vdot=-ab\,x_1\sin x_1$ se anula en todo el eje $x_1=0$. Se pierde lo que se quería ganar. El valor $p_{12}=b/2$ es el que da la mejor estimación de la región de atracción (\cref{sec:ly-region}).}
+\end{pausa}
+
+\subsection{Una prueba local que se queda corta}
+
+\begin{ejemplo}[label=ej:ly-local]{Acotar el término no lineal}
+Estudie el origen de $\dot x_1=-x_1+x_1x_2$, $\dot x_2=-x_2$ con $V=\tfrac12(x_1^2+x_2^2)$.
+\solucion $\Vdot=-x_1^2+x_1^2x_2-x_2^2$. El término cúbico tiene signo indefinido; en la bola $\norm x<r$, $\abs{x_1^2x_2}\le r\abs{x_1}\abs{x_2}$, y
+\[
+  \Vdot\le-\begin{bmatrix}\abs{x_1}&\abs{x_2}\end{bmatrix}\begin{bmatrix}1&-r/2\\-r/2&1\end{bmatrix}\begin{bmatrix}\abs{x_1}\\\abs{x_2}\end{bmatrix} ,
+\]
+que es negativa fuera del origen si la matriz es definida positiva: $1-r^2/4>0$, es decir, $r<2$. El origen es asintóticamente estable, y la bola de radio $2$ (un conjunto de nivel de $V$) está en la región de atracción.
+\end{ejemplo}
+
+\begin{pausa}
+En el \cref{ej:ly-local}, resuelva la ecuación explícitamente. ¿Es la estimación $\norm x<2$ buena?
+\respuesta{$x_2(t)=x_2(0)e^{-t}$ y $x_1(t)=x_1(0)\exp\bigl(-t+x_2(0)(1-e^{-t})\bigr)\to0$ para toda condición inicial: el origen es \emph{globalmente} asintóticamente estable. La $V$ cuadrática certifica solo una bola: desde $(0.5,3)$, fuera de ella, la solución también converge, después de que $x_1$ sube de $0.5$ a $0.5\,e^{2-\ln3}=1.23$ (en $t=\ln3$). La conclusión local es una limitación de la función escogida, no del sistema.}
+\end{pausa}

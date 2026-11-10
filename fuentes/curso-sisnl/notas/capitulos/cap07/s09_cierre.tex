@@ -1,0 +1,125 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:ly-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{Definiciones:} estable es un reto $\varepsilon$--$\delta$ (quedarse cerca); asintóticamente estable es estable \emph{y} convergente; exponencial es una cota $k\norm{x_0}e^{-\lambda t}$, que ya incluye la estabilidad. Converger no basta, y asintótica no implica exponencial.
+  \item \textbf{Método indirecto:} $A$ Hurwitz da estabilidad exponencial local; un valor propio con parte real positiva da inestabilidad; valores propios en el eje imaginario: no decide.
+  \item \textbf{Método directo:} $V$ definida positiva con $\Vdot=\nabla V\cdot f\le0$ da estabilidad; $\Vdot<0$ fuera del origen, estabilidad asintótica. Son condiciones suficientes: una candidata que falla no dice nada del equilibrio.
+  \item \textbf{Global:} hace falta $V$ radialmente no acotada (Barbashin--Krasovskii). \textbf{Exponencial:} $k_1\norm x^a\le V\le k_2\norm x^a$ y $\Vdot\le-k_3\norm x^a$ dan la tasa $k_3/(ak_2)$.
+  \item \textbf{Formas cuadráticas:} el signo lo dan los valores propios; Sylvester con menores líderes solo para las definidas. Un término cruzado puede volver estricta una función que no lo era.
+  \item \textbf{Lineales:} estable si $\operatorname{Re}\lambda\le0$ y los bloques de Jordan del eje imaginario son de orden uno. $A$ Hurwitz si y solo si $A\T P+PA=-Q$ tiene solución $P>0$; $x_0\T Px_0$ es el costo $\int x\T Qx$. La $P$ de MATLAB es \cmd{lyap(A',Q)}.
+  \item \textbf{Región de atracción:} se estima con conjuntos de nivel acotados dentro de la región donde $\Vdot<0$; el mejor nivel toca $\{\Vdot=0\}$ o la frontera del dominio.
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item Inestable no es ``se va a infinito'' (\cref{tr:ly-escape}); converger no es ser estable (\cref{tr:ly-convergencia}).
+  \item Valores propios en el eje imaginario: la jacobiana no decide (\cref{tr:ly-imaginario}); en sistemas lineales, mire los bloques de Jordan (\cref{tr:ly-jordan}).
+  \item No encontrar $V$ no prueba nada (\cref{tr:ly-suficiente}); $\Vdot\le0$ da solo estabilidad (\cref{tr:ly-semidef}).
+  \item $\Vdot<0$ en todo el espacio no da estabilidad global sin $V$ radialmente no acotada (\cref{tr:ly-radial}).
+  \item Menores líderes $\ge0$ no dan $P\ge0$ (\cref{tr:ly-sylvester}).
+  \item Hurwitz no quiere decir que la norma decrezca (\cref{tr:ly-normal}); que la ecuación de Lyapunov tenga solución no quiere decir Hurwitz (\cref{tr:ly-solucion}).
+  \item La región donde $\Vdot<0$ no es una estimación de la región de atracción; un conjunto de nivel dentro de ella sí (\cref{tr:ly-region}).
+\end{itemize}
+\end{trampa}
+
+\begin{modelo}[PenduloLyapunov.slx]
+\cmd{crearModelo\_PenduloLyapunov.m} arma el péndulo con fricción con dos integradores y bloques \texttt{Fcn}, y agrega cuatro ``medidores'': la energía, la $V$ con término cruzado \eqref{eq:ly-Vcruzado} y sus derivadas a lo largo de las soluciones. Simula, compara con \texttt{ode45} y deja $a$, $b$, $p_{12}$ y $x_0$ en el workspace para ensayar: vea cómo $\Vdot_E$ se anula en cada extremo de la oscilación y $\Vdot_P$ no.
+\end{modelo}
+
+\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout7 y las diapositivas de 2026)]
+(i) ``Positiva definida (semi) si y solo si todos los valores propios son positivos (negativos)'' debe decir ``(no negativos)''. (ii) La tabla de clasificación daba $P\ge0$ con menores principales \emph{líderes} $\ge0$: es falso (\cref{tr:ly-sylvester}); en la misma tabla, ``indefinida: algunos $\lambda_i<0$ y otros negativos'' debe decir ``otros positivos''. (iii) En el ejemplo $\dot x_1=-x_1+x_1x_2$, $\dot x_2=-x_2$: el signo es $\Vdot=-x_1^2+x_1^2x_2-x_2^2$, el dominio es $\norm x<r$ (no $\le r^2$) y falta la condición $r<2$; además el sistema es globalmente asintóticamente estable (\cref{ej:ly-local}). (iv) En $\dot x=-g(x)$, $V\in\Cont1$, no $\Cont{-1}$. (v) En el ejemplo de Jordan, el último elemento de la diagonal de $J_P$ es $-j$, y $\omega=1$\,rad/s. (vi) La relajación $Q=C\T C$ necesita observabilidad (\cref{thm:ly-observable}); sin ella la implicación falla. (vii) El teorema de cotas exponenciales no es el de Barbashin--Krasovskii, y la tasa es $\norm{x(t)}\le(k_2/k_1)^{1/a}\norm{x_0}e^{-k_3t/(ak_2)}$. (viii) ``Laypunov''. (ix) Se agregaron: convergencia sin estabilidad, la condición de rango para el eje imaginario, $P$ como costo, la trampa de \cmd{lyap}, la no normalidad, la inercia de la ecuación, la prueba del método indirecto y la estimación de la región de atracción por tangencia. El epígrafe de la versión anterior se cambió por uno de las diapositivas de 2026.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:ly-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\subsection*{Definiciones y método indirecto}
+
+\begin{problema}[estable de un lado]\label{prob:ly-unlado}
+Para $\dot x=-x^2$: (a) resuelva la ecuación; (b) ¿convergen a $0$ las soluciones con $x_0>0$? ¿Y con $x_0<0$? (c) ¿Es el origen estable? (d) ¿Qué dice la linealización?
+\end{problema}
+
+\begin{problema}[un pozo y dos sillas]\label{prob:ly-duffing}
+Para $\dot x_1=x_2$, $\dot x_2=-x_1+x_1^3-x_2$: (a) encuentre los equilibrios y clasifíquelos con el método indirecto; (b) muestre que $V=\tfrac12x_1^2-\tfrac14x_1^4+\tfrac12x_2^2$ cumple $\Vdot=-x_2^2$; (c) ¿qué concluye del \cref{thm:ly-directo} con esta $V$? (d) Estime la región de atracción del origen con un conjunto de nivel de $V$.
+\end{problema}
+
+\begin{problema}[cuando los dos métodos se callan]\label{prob:ly-callan}
+Para $\dot x_1=x_2$, $\dot x_2=-x_1^3-x_2$: (a) ¿qué dice el método indirecto? (b) Encuentre una $V$ con $\Vdot\le0$ (pista: la energía de un resorte cúbico). (c) ¿Qué concluye? ¿Qué le falta para concluir estabilidad asintótica?
+\end{problema}
+
+\subsection*{Método directo, global y formas cuadráticas}
+
+\begin{problema}[global]\label{prob:ly-global}
+Para $\dot x_1=-x_1-x_2$, $\dot x_2=x_1-x_2^3$: (a) pruebe que el origen es globalmente asintóticamente estable; (b) ¿es localmente exponencialmente estable? (c) ¿Puede usar el \cref{thm:ly-exp} con $V=\tfrac12\norm x^2$ para concluir estabilidad exponencial \emph{global}?
+\end{problema}
+
+\begin{problema}[clasificar]\label{prob:ly-clasificar}
+Clasifique: (a) $\bigl[\begin{smallmatrix}1&2\\2&1\end{smallmatrix}\bigr]$; (b) $\Bigl[\begin{smallmatrix}2&-1&0\\-1&2&-1\\0&-1&2\end{smallmatrix}\Bigr]$; (c) $\Bigl[\begin{smallmatrix}0&0&0\\0&1&0\\0&0&-1\end{smallmatrix}\Bigr]$ (calcule primero sus menores líderes); (d) $V=x_1^2+4x_1x_2+5x_2^2$.
+\end{problema}
+
+\subsection*{Sistemas lineales y región de atracción}
+
+\begin{problema}[la ecuación a mano]\label{prob:ly-mano}
+Para $A=\bigl[\begin{smallmatrix}0&1\\-2&-3\end{smallmatrix}\bigr]$: (a) resuelva $A\T P+PA=-I$ a mano; (b) verifique que $P>0$; (c) calcule $\int_0^\infty\norm{x(t)}^2\dif t$ desde $x_0=(1,0)$ sin resolver la ecuación diferencial; (d) \etiquetaM{} compruébelo con \cmd{ecuacionLyapunov} y con \cmd{lyap}. ¿Qué argumento hay que darle a \cmd{lyap}?
+\end{problema}
+
+\begin{problema}[cuándo la norma sirve]\label{prob:ly-norma}
+Para $A=\bigl[\begin{smallmatrix}-1&k\\0&-2\end{smallmatrix}\bigr]$: (a) ¿para qué $k$ es $\norm x^2$ una función de Lyapunov estricta? (b) Para $k$ fuera de ese rango, encuentre una condición inicial desde la que $\norm{x(t)}$ crece al principio. (c) ¿Cambia la estabilidad con $k$?
+\end{problema}
+
+\begin{problema}[la mejor estimación posible]\label{prob:ly-unidim}
+Para $\dot x=-x+x^3$: (a) encuentre la región de atracción exacta del origen; (b) estímela con $V=\tfrac12x^2$ y el mayor nivel admisible. ¿Qué tan buena es la estimación?
+\end{problema}
+
+\begin{problema}[tangencia con otro término cruzado]\label{prob:ly-tangencia}
+\etiquetaM{} En el péndulo con fricción ($a=1$, $b=0.5$) y la $V$ \eqref{eq:ly-Vcruzado}: (a) calcule $c^*(p_{12})$ para $p_{12}=0.1$, $0.25$ y $0.4$, y dónde toca $\Nivel{c^*}$ la frontera de $\D$; (b) simule desde un punto de $\Nivel{c^*}$ cercano a la frontera y desde uno de $\D$ fuera de $\Nivel{c^*}$; (c) con \cmd{crearModelo\_PenduloLyapunov.m}, grafique $V$ y $\Vdot$ para las dos soluciones.
+\end{problema}
+
+\begin{problema}[una cota para $P$]\label{prob:ly-cota}
+\etiquetaEstrella{} Sea $A$ Hurwitz y $P>0$ la solución de $A\T P+PA=-Q$. Muestre que $\lmin(P)\ge\lmin(Q)/(2\norm A)$. (Pista: evalúe la ecuación en un vector propio de $P$ asociado a $\lmin(P)$.) Si se reemplaza $A$ por $\alpha A$ ($\alpha>0$), ¿cómo cambia $P$? ¿Es consistente con la cota?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:ly-unlado}}
+(a) $x(t)=x_0/(1+x_0t)$. (b) Si $x_0>0$, $x(t)\to0$. Si $x_0<0$, $x(t)\to-\infty$ en $t=-1/x_0$. (c) No: para cualquier $\delta$, la condición inicial $-\delta/2$ escapa. Que la mitad de las soluciones converja no basta. (d) $\dot x=0$: no decide.
+
+\paragraph{Problema~\ref{prob:ly-duffing}}
+(a) $(0,0)$: jacobiana $\bigl[\begin{smallmatrix}0&1\\-1&-1\end{smallmatrix}\bigr]$, Hurwitz: exponencialmente estable. $(\pm1,0)$: $\bigl[\begin{smallmatrix}0&1\\2&-1\end{smallmatrix}\bigr]$, $\lambda=1,-2$: sillas. (b) $\Vdot=(x_1-x_1^3)x_2+x_2(-x_1+x_1^3-x_2)=-x_2^2$. (c) $V$ es definida positiva en $\abs{x_1}<\sqrt2$ y $\Vdot\le0$: estabilidad (la asintótica la da el método indirecto, o LaSalle). (d) En las sillas $V=\tfrac14$; para $c<\tfrac14$, la componente de $\{V\le c\}$ que contiene al origen está en $\abs{x_1}<1$ y es acotada. Con $\Vdot\le0$ solamente, la \cref{prop:ly-estimacion} no aplica tal cual; con LaSalle (capítulo~8) se concluye que $\{V<\tfrac14\}\cap\{\abs{x_1}<1\}$ está en la región de atracción.
+
+\paragraph{Problema~\ref{prob:ly-callan}}
+(a) Jacobiana $\bigl[\begin{smallmatrix}0&1\\0&-1\end{smallmatrix}\bigr]$, $\lambda=0,-1$: no decide. (b) $V=\tfrac14x_1^4+\tfrac12x_2^2$, $\Vdot=x_1^3x_2+x_2(-x_1^3-x_2)=-x_2^2$. (c) Estabilidad (global, porque $V$ es radialmente no acotada y $\Vdot\le0$ deja las soluciones acotadas). Falta mostrar que ninguna solución se queda en $\{x_2=0\}$ fuera del origen: si $x_2\equiv0$, $\dot x_2=-x_1^3=0$, luego $x_1=0$. Ese es el argumento de LaSalle.
+
+\paragraph{Problema~\ref{prob:ly-global}}
+(a) $V=\tfrac12(x_1^2+x_2^2)$: $\Vdot=-x_1^2-x_1x_2+x_1x_2-x_2^4=-x_1^2-x_2^4<0$ si $x\neq0$, y $V$ es radialmente no acotada: globalmente asintóticamente estable. (b) Sí: la jacobiana $\bigl[\begin{smallmatrix}-1&-1\\1&0\end{smallmatrix}\bigr]$ es Hurwitz. (c) No, y ni siquiera localmente: sobre el eje $x_2$, $\Vdot=-x_2^4$, que no admite una cota $-k_3\norm x^2$ cerca del origen. La estabilidad exponencial local viene de \emph{otra} función, la $x\T Px$ de la jacobiana (\cref{cor:ly-indirecto}). Una misma $V$ puede probar la estabilidad global y no la exponencial.
+
+\paragraph{Problema~\ref{prob:ly-clasificar}}
+(a) $\Delta_2=-3<0$: indefinida ($\lambda=3,-1$). (b) $\Delta=(2,3,4)$: definida positiva. (c) Menores líderes $0,0,0$: no deciden; $p_{22}=1>0$ y $p_{33}=-1<0$: indefinida (\cref{tr:ly-sylvester}). (d) $P=\bigl[\begin{smallmatrix}1&2\\2&5\end{smallmatrix}\bigr]$, $\Delta=(1,1)$: definida positiva; $V=(x_1+2x_2)^2+x_2^2$.
+
+\paragraph{Problema~\ref{prob:ly-mano}}
+(a) $A\T P+PA=\bigl[\begin{smallmatrix}-4p_2&p_1-3p_2-2p_3\\ \cdot&2p_2-6p_3\end{smallmatrix}\bigr]=-I$ da $p_2=\tfrac14$, $p_3=\tfrac14$, $p_1=\tfrac54$. (b) $\Delta_1=\tfrac54$, $\Delta_2=\tfrac5{16}-\tfrac1{16}=\tfrac14>0$. (c) $x_0\T Px_0=p_1=\tfrac54$. (d) \cmd{lyap(A',eye(2))}; \cmd{lyap(A,eye(2))} da la solución de $AX+XA\T=-I$, que es otra matriz.
+
+\paragraph{Problema~\ref{prob:ly-norma}}
+(a) $\frac{d}{dt}\norm x^2=x\T(A+A\T)x$ con $A+A\T=\bigl[\begin{smallmatrix}-2&k\\k&-4\end{smallmatrix}\bigr]$, definida negativa si y solo si $8-k^2>0$: $\abs k<2\sqrt2$. (b) Si $\abs k>2\sqrt2$, tome $x_0$ con $x_0\T(A+A\T)x_0>0$, por ejemplo $x_0=(1,1)$ si $k>3$: $-2+2k-4>0$. (c) No: los valores propios son $-1$ y $-2$ para todo $k$. Lo que cambia es el transitorio (y la constante $k$ de la cota exponencial).
+
+\paragraph{Problema~\ref{prob:ly-unidim}}
+(a) Equilibrios en $0$ y $\pm1$; $\dot x<0$ en $(0,1)$ y $\dot x>0$ en $(-1,0)$: $\RA=(-1,1)$. (b) $\Vdot=-x^2+x^4<0$ en $0<\abs x<1$; el mayor nivel dentro es $c<\tfrac12$, es decir, $\abs x<1$: la estimación es exacta. En una dimensión los conjuntos de nivel no tienen forma que escoger.
+
+\paragraph{Problema~\ref{prob:ly-tangencia}}
+(a) $c^*=2+\tfrac{\pi^2}2p_{12}(0.5-p_{12})$: $2.197$, $2.308$ y $2.197$, con tangencia en $(\pi,-p_{12}\pi)$ y $(-\pi,p_{12}\pi)$. (b) La primera solución converge al origen; la segunda puede converger o dar la vuelta (por ejemplo, desde $(1.5,3)$ termina en $(2\pi,0)$, \cref{tr:ly-region}). (c) $\Vdot<0$ mientras la solución está en $\D$; la que sale de $\D$ tiene $\Vdot>0$ al cruzar $x_1=\pi$ (allí $x_1\sin x_1<0$).
+
+\paragraph{Problema~\ref{prob:ly-cota}}
+Sea $Pv=\lmin v$ con $\norm v=1$. Entonces $v\T(A\T P+PA)v=2\lmin\,v\T Av$, y $\lmin(Q)\le v\T Qv=-2\lmin(P)\,v\T Av\le2\lmin(P)\norm A$. Con $\alpha A$, la solución es $P/\alpha$ (sustituya en la ecuación), y la cota pasa a $\lmin(Q)/(2\alpha\norm A)$: las dos escalan igual. Un sistema más rápido acumula menos costo, y su $P$ es más pequeña.
+
+\respuestaspausas

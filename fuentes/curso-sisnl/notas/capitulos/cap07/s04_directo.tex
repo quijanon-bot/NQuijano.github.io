@@ -1,0 +1,117 @@
+%% ---------------------------------------------------------------------
+\section{El método directo: una energía sin resolver la ecuación}
+\label{sec:ly-directo}
+%% ---------------------------------------------------------------------
+
+\subsection{La idea, con la energía del péndulo}
+
+La energía mecánica del péndulo \eqref{eq:ly-pendulo} (por unidad de $m\ell^2$) es
+\begin{equation}
+  E(x)=a(1-\cos x_1)+\tfrac12x_2^2 ,
+  \label{eq:ly-energia}
+\end{equation}
+potencial más cinética, con $E(0)=0$ y $E(x)>0$ en $0<\norm x$, $\abs{x_1}<2\pi$. A lo largo de una solución, por la regla de la cadena,
+\[
+  \frac{d}{dt}E\bigl(x(t)\bigr)=\jac E{x_1}\dot x_1+\jac E{x_2}\dot x_2=a\sin x_1\,x_2+x_2\bigl(-a\sin x_1-b\,x_2\bigr)=-b\,x_2^2 .
+\]
+El cálculo no usó ninguna solución: solo la ecuación. Sin fricción, $E$ se conserva y cada solución se queda en su conjunto de nivel $\{E=c\}$, una curva cerrada alrededor del origen si $c<2a$. Con fricción, $E$ no puede crecer: una solución que arranca dentro de $\{E\le c\}$ no sale de ahí. Lyapunov convirtió esta observación en un método para \emph{cualquier} función $V$, tenga o no sentido físico.
+
+\begin{definicion}[label=def:ly-definida]{Funciones definidas y semidefinidas}
+Sea $V:\D\to\R$ continua, con $0\in\D$ y $V(0)=0$. $V$ es \clave{definida positiva} en $\D$ si $V(x)>0$ para todo $x\in\D\setminus\{0\}$, y \clave{semidefinida positiva} si $V(x)\ge0$ en $\D$. Es \clave{definida} (\clave{semidefinida}) \clave{negativa} si $-V$ es definida (semidefinida) positiva.
+\end{definicion}
+
+Si $V$ es $\Cont1$, su \clave{derivada a lo largo de las soluciones} de \eqref{eq:ly-sistema} es
+\begin{equation}
+  \Vdot(x)=\jac Vx\,f(x)=\sum_{i=1}^n\jac V{x_i}f_i(x)=\inner{\nabla V(x)}{f(x)} ,
+  \label{eq:ly-vdot}
+\end{equation}
+la derivada de Lie $L_fV$ del \cref{cap:linealizacion}. Es una función de $x$, no de $t$: si $x(t)$ es una solución, $\frac{d}{dt}V(x(t))=\Vdot(x(t))$. Geométricamente, $\Vdot<0$ dice que $f$ apunta hacia adentro de los conjuntos de nivel de $V$.
+
+\subsection{El teorema}
+
+\begin{teorema}[label=thm:ly-directo]{Método directo de Lyapunov \citep[Teo.~4.1]{Kha02}}
+Sea $x=0$ un equilibrio de \eqref{eq:ly-sistema} y $V:\D\to\R$ una función $\Cont1$ definida positiva en $\D$.
+\begin{enumerate}
+  \item Si $\Vdot(x)\le0$ en $\D$, el origen es estable.
+  \item Si $\Vdot(x)<0$ en $\D\setminus\{0\}$, el origen es asintóticamente estable.
+\end{enumerate}
+\end{teorema}
+
+Una $V$ definida positiva es una \clave{función candidata}; si además $\Vdot\le0$ es una \clave{función de Lyapunov}, y si $\Vdot<0$ fuera del origen, una función de Lyapunov \clave{estricta}.
+
+\begin{proof}
+\emph{Estabilidad.} Dado $\varepsilon>0$, tome $r\in(0,\varepsilon]$ con $\Bola r=\{\norm x\le r\}\subset\D$ (\cref{fig:ly-prueba}). La esfera $\{\norm x=r\}$ es compacta y $V$ es continua y positiva en ella, así que
+\[
+  \alpha=\min_{\norm x=r}V(x)>0 .
+\]
+Escoja $0<\beta<\alpha$ y sea $\Omega_\beta=\{x\in\Bola r:\ V(x)\le\beta\}$. Este conjunto está en el \emph{interior} de $\Bola r$: un punto de $\Omega_\beta$ en la esfera tendría $V\ge\alpha>\beta$. Y es \emph{positivamente invariante}: si $x(0)\in\Omega_\beta$, como $\Vdot\le0$, $V(x(t))\le V(x(0))\le\beta$ mientras la solución esté en $\Bola r$, y para salir de $\Bola r$ tendría que cruzar la esfera, donde $V\ge\alpha$. Por lo tanto la solución existe para todo $t\ge0$ (está en un compacto, \cref{thm:pm-compacto}) y se queda en $\Omega_\beta\subset\Bola r$. Finalmente, como $V$ es continua y $V(0)=0$, existe $\delta>0$ con $V(x)<\beta$ si $\norm x<\delta$. Entonces
+\[
+  \norm{x(0)}<\delta\ \Longrightarrow\ x(0)\in\Omega_\beta\ \Longrightarrow\ x(t)\in\Omega_\beta\subset\Bola r\ \Longrightarrow\ \norm{x(t)}\le r\le\varepsilon .
+\]
+
+\emph{Estabilidad asintótica.} Ya se tiene estabilidad; falta $x(t)\to0$ si $x(0)\in\Omega_\beta$. La función $t\mapsto V(x(t))$ es decreciente y acotada por debajo por $0$, así que tiene un límite $c\ge0$. Si $c>0$, por continuidad existe $d>0$ con $\Bola d\subset\Omega_c$, y la solución nunca entra a $\Bola d$ (ahí $V<c$). En el compacto $\{d\le\norm x\le r\}$, $\Vdot$ alcanza un máximo $-\gamma<0$, y
+\[
+  V\bigl(x(t)\bigr)=V\bigl(x(0)\bigr)+\int_0^t\Vdot\bigl(x(\tau)\bigr)\,\dif\tau\le V\bigl(x(0)\bigr)-\gamma t ,
+\]
+que es negativo para $t$ grande: contradicción. Luego $c=0$, y como $V$ es definida positiva, $x(t)\to0$ (si no, habría una sucesión $t_k\to\infty$ con $\norm{x(t_k)}\ge d'>0$ y $V(x(t_k))\ge\min_{d'\le\norm x\le r}V>0$).
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{cap07/t_prueba_lyapunov}
+\caption{Los conjuntos de la prueba del \cref{thm:ly-directo}. Lo que arranca en $B_\delta$ arranca en $\Omega_\beta$, y $\Omega_\beta$ no se puede abandonar.}
+\label{fig:ly-prueba}
+\end{figure}
+
+\begin{ideaclave}
+El teorema convierte una pregunta sobre \emph{todas las soluciones} (que no conocemos) en una desigualdad sobre \emph{una función} (que escogemos). El precio es que hay que encontrar la función: no hay receta general, y el método solo da condiciones \emph{suficientes}.
+\end{ideaclave}
+
+\subsection{Ejemplos}
+
+\begin{ejemplo}[label=ej:ly-pendenergia]{El péndulo con la energía}
+Use $V=E$ \eqref{eq:ly-energia} en $\D=\{\abs{x_1}<\pi\}\times\R$.
+\solucion $V$ es definida positiva en $\D$ y $\Vdot=-b\,x_2^2$. Sin fricción, $\Vdot\equiv0$: el origen es estable. Con fricción, $\Vdot\le0$, pero se anula en todo el eje $x_2=0$, no solo en el origen: el \cref{thm:ly-directo} da \emph{solo estabilidad}. La \cref{fig:ly-energia} muestra por qué: $V(x(t))$ decrece con escalones, y se detiene cada vez que el péndulo llega a un extremo de su oscilación ($x_2=0$). Sabemos (por la simulación y por el \cref{thm:ly-indirecto}) que el origen es asintóticamente estable; para probarlo con la energía hace falta el principio de invarianza de LaSalle (capítulo~8). La \cref{sec:ly-cuadraticas} da otra salida: modificar $V$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_energia}
+\caption{Péndulo con fricción desde $(2.5,0)$. La energía decrece, pero se detiene en los instantes (líneas rojas) en que $x_2=0$: $\Vdot=-bx_2^2$ es solo semidefinida negativa.}
+\label{fig:ly-energia}
+\end{figure}
+
+\codigorepo{cap07_lyapunov/C7_Ej3_Energia.m}{energia}{La energía del péndulo a lo largo de las soluciones}
+
+\begin{ejemplo}[label=ej:ly-cubicoV]{Donde la linealización se calló}
+Pruebe que el origen de $\dot x=-x^3$ es asintóticamente estable.
+\solucion Con $V=\tfrac12x^2$, $\Vdot=x\cdot(-x^3)=-x^4<0$ si $x\neq0$. Por el \cref{thm:ly-directo}, el origen es asintóticamente estable, aunque la linealización $\dot x=0$ no decidía nada (\cref{ej:ly-cubico}).
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:ly-gx]{Un sistema gradiente en la recta}
+Sea $\dot x=-g(x)$ con $g$ continua, $g(0)=0$ y $x\,g(x)>0$ para $x\neq0$ en $(-c,c)$.
+\solucion Tome $V(x)=\int_0^xg(s)\,\dif s$, que es $\Cont1$ y definida positiva en $(-c,c)$ (el integrando tiene el signo de $x$). Entonces $\Vdot=g(x)\cdot(-g(x))=-g(x)^2<0$ si $x\neq0$: el origen es asintóticamente estable. Por ejemplo, $g(x)=\sin x+x^3$ da $V=1-\cos x+x^4/4$.
+\end{ejemplo}
+
+\codigorepo{cap07_lyapunov/C7_Ej3_Energia.m}{gx}{$\dot x=-g(x)$ con $V=\int_0^xg$}
+
+\begin{trampa}[label=tr:ly-suficiente]{``No encontré una función de Lyapunov, luego el equilibrio no es estable''}
+\plausible{El teorema de Lyapunov es la herramienta para probar estabilidad; si no se puede usar, la estabilidad no se puede probar y el equilibrio debe ser inestable.}
+El \cref{thm:ly-directo} da condiciones \emph{suficientes}. Una candidata que falla (con $\Vdot$ que cambia de signo) no dice nada sobre el equilibrio: dice algo sobre la candidata. La energía del péndulo con fricción ``falla'' en probar estabilidad asintótica, y el origen es asintóticamente estable. Los teoremas recíprocos (capítulo~9) garantizan que, si el equilibrio es asintóticamente estable, \emph{existe} una función de Lyapunov; no dicen cómo encontrarla.
+\correcto{Una candidata que falla se cambia por otra. La inestabilidad se prueba con sus propios teoremas (Chetaev), o con el \cref{thm:ly-indirecto} si algún valor propio tiene parte real positiva.}
+\end{trampa}
+
+\begin{trampa}[label=tr:ly-semidef]{``$\Vdot\le0$ y $\Vdot=0$ solo en algunos puntos: asintóticamente estable''}
+\plausible{Si $V$ casi siempre decrece, en algún momento tiene que llegar a cero.}
+El \cref{thm:ly-directo} con $\Vdot\le0$ da estabilidad y nada más. La frase es cierta en el péndulo con fricción, pero por una razón que el teorema no usa: ninguna solución puede \emph{quedarse} en el eje $x_2=0$ fuera del origen. En el péndulo sin fricción, con $V=E+x_2^4$ (también definida positiva), $\Vdot=4x_2^3(-a\sin x_1)$ cambia de signo; y con $V=E$, $\Vdot\equiv0$ y no hay convergencia.
+\correcto{Para pasar de $\Vdot\le0$ a estabilidad asintótica hay que estudiar qué soluciones pueden permanecer en $\{\Vdot=0\}$: es el principio de invarianza de LaSalle (capítulo~8).}
+\end{trampa}
+
+\begin{cuidado}[Lyapunov habla del origen]
+El \cref{thm:ly-directo} decide sobre el equilibrio en el que $V$ tiene su mínimo. Para estudiar otro equilibrio $\eq$, se traslada primero ($z=x-\eq$) o se usa una $V$ con mínimo en $\eq$. Si hay varios equilibrios, cada uno es una pregunta distinta.
+\end{cuidado}
+
+\begin{pausa}
+Para $\dot x_1=x_2$, $\dot x_2=-x_1-x_2^3$, ¿qué concluye con $V=\tfrac12(x_1^2+x_2^2)$? ¿Y con el método indirecto?
+\respuesta{$\Vdot=x_1x_2+x_2(-x_1-x_2^3)=-x_2^4\le0$: solo estabilidad (se anula en el eje $x_2=0$). La jacobiana tiene $\lambda=\pm j$: el método indirecto no concluye nada. Con LaSalle (capítulo~8) se prueba que el origen es globalmente asintóticamente estable.}
+\end{pausa}

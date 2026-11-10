@@ -19,7 +19,15 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 - Confirmar en Khalil (3.ª ed.) la sección del diodo túnel (§1.2.2) y la notación del capítulo 1.
 - Verificar datos bibliográficos de Poi1881 (continuación en 1882, 1885 y 1886), And29, Duf18, San64 y Bro83 (páginas en el libro de Birkhäuser).
 - Las fotos de Malthus, Verhulst, Poincaré, Lyapunov y Newton del Handout1 (y las de la colección personal) no se pasaron a las notas; si se quieren, van en `notas/figuras/cap01/` con su crédito.
-- El capítulo 1 cita los capítulos 4 y 6--10 por número (aún no migrados); al migrarlos, cambiar "capítulo~7" por `\cref{cap:lyapunov}`, etc.
+- El capítulo 1 cita los capítulos 4, 6 y 8--10 por número (aún no migrados); al migrarlos, cambiar "capítulo~8" por `\cref{cap:invarianza}`, etc. (Las citas al capítulo 7 ya usan `\cref{cap:lyapunov}`.)
+
+## Pendientes del capítulo 7 (migrado el 10 de noviembre de 2026)
+
+- Fuentes: Handout7.tex (definiciones, métodos indirecto y directo, global, cuadráticas, lineales, región de atracción), diapositivas `Present2026/Lyapunov2026` y los scripts `Codigos/LyapLin/L01`--`L08` con su `GuionClase.md`, reescritos como `C7_Ej*`. LaSalle, gradiente variable, Krasovskii y Zubov quedan para el capítulo 8; variantes en el tiempo, funciones de comparación, recíprocos y Chetaev, para el 9; UUB, CLF, Barbalat e ISS, para el 10. El capítulo 7 los cita por número ("capítulo~8"); al migrarlos, cambiar por `\cref`.
+- Correr en MATLAB `crearModelo_PenduloLyapunov` (Simulink no estaba disponible) y, si se quiere la versión de MATLAB, grabar los `C7_Video_*`; los MP4 publicados son los de `herramientas/cap07_videos.py`.
+- Confirmar en Khalil (3.ª ed.): Def. 4.1, Teoremas 4.1, 4.2, 4.5, 4.6, 4.7 y 4.10, Corolario 4.3, el ejemplo de la $V$ no radialmente no acotada y el del péndulo con término cruzado (§4.1), y la estimación con bolas de van der Pol (§8.2).
+- Verificar datos de Vin57 (agregada) y de Lya92 (las páginas de la traducción de 1992 son 531--773, no 531--534).
+- El epígrafe del Handout7 (Le Tellier) se cambió por el de Juan Esteban Constaín que abre las diapositivas de 2026.
 
 ## Pendientes del capítulo 12 (migrado el 9 de noviembre de 2026)
 

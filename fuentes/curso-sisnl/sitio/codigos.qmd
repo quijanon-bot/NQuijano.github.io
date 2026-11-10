@@ -11,7 +11,7 @@ Todos los códigos viven en la carpeta [`codigo/`](https://github.com/quijanon-b
 >> cd ruta/al/repositorio/codigo
 >> iniciarCurso              % agrega comun/ y todos los capítulos al path
 >> C11_Ej1_MasaResorte
->> verificarCap11            % comprueba los números del capítulo (o verificarCap01, 02, 03, 05, 12)
+>> verificarCap11            % comprueba los números del capítulo (o verificarCap01, 02, 03, 05, 07, 12)
 ```
 
 Los scripts `C*_Ej*` no requieren *toolboxes* (y corren en GNU Octave); los `crearModelo_*.m` requieren Simulink y los videos, `VideoWriter`.
@@ -30,6 +30,7 @@ codigo/
 │   ├── jacobianoNumerico.m   jacobiano por diferencias centradas
 │   ├── derivadaLie.m         derivada de Lie numérica L_f lambda
 │   ├── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
+│   ├── ecuacionLyapunov.m    A'P + PA = -Q (convención del curso), sin toolboxes
 │   └── lineaFase.m           línea de fase de x' = f(x), clasificación por el signo de f
 ├── cap01_introduccion/
 │   ├── C1_Ej1 … C1_Ej9       superposición, logística, panorama, energía, reescalamiento, control
@@ -52,6 +53,11 @@ codigo/
 │   ├── crearModelo_VanDerPol VanDerPol.slx
 │   ├── modeloKuramoto.m, modeloNowak.m, indiceCurva.m
 │   └── verificarCap05.m      34 pruebas de los números del capítulo
+├── cap07_lyapunov/
+│   ├── C7_Ej1 … C7_Ej10      péndulo, convergencia sin estabilidad, jacobiana, energía, global, Sylvester, término cruzado, Jordan, ecuación de Lyapunov, región de atracción
+│   ├── C7_Video_*            formas cuadráticas, término cruzado, círculos y elipses, región de atracción
+│   ├── crearModelo_PenduloLyapunov  PenduloLyapunov.slx
+│   └── verificarCap07.m      34 pruebas de los números del capítulo
 ├── cap11_pasividad/
 │   ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
 │   ├── C11_Video_*           los cinco videos de la parte

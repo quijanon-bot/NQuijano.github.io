@@ -1,0 +1,35 @@
+%% =====================================================================
+%%  Capítulo 7 -- Estabilidad de Lyapunov
+%%  Formato nuevo (noviembre de 2026). Integra: Handout7.tex (versión anterior,
+%%  secciones de definiciones, métodos indirecto y directo, resultados globales,
+%%  formas cuadráticas, sistemas lineales y región de atracción), las diapositivas
+%%  Lyapunov2026 y los scripts de Codigos/LyapLin (L01-L08) con su guion de clase,
+%%  reescritos en codigo/cap07_lyapunov. LaSalle y la construcción de funciones de
+%%  Lyapunov quedan para el capítulo 8; los sistemas variantes en el tiempo, para el 9.
+%%  Correcciones respecto a las versiones anteriores: ver \S\ref{sec:ly-cierre}.
+%%  Números verificados con herramientas/cap07_numeros.py (78/78) y
+%%  codigo/cap07_lyapunov/verificarCap07.m (34/34 en Octave 8.4).
+%% =====================================================================
+
+\capitulo[cap:lyapunov]{Estabilidad de Lyapunov}
+  {Esperamos dichosos el bus de la victoria, que aquí siempre conduce al abismo y la derrota.}
+  {Juan Esteban Constaín}
+
+\begin{objetivos}[partes/07-lyapunov.html]
+  \item Escribir las definiciones de estabilidad, estabilidad asintótica y exponencial (locales y globales), y reconocer con ejemplos por qué ninguna sobra.
+  \item Usar el método indirecto: decidir la estabilidad local con la jacobiana, y reconocer cuándo no decide nada.
+  \item Usar el método directo: proponer una función candidata, calcular $\Vdot$ sin resolver la ecuación y sacar la conclusión correcta (y no más).
+  \item Distinguir lo local de lo global: funciones radialmente no acotadas, el teorema de Barbashin--Krasovskii y las cotas exponenciales.
+  \item Clasificar formas cuadráticas y usar la ecuación de Lyapunov $A\T P+PA=-Q$ para sistemas lineales: qué dice, qué no dice y cómo se resuelve.
+  \item Estimar la región de atracción con conjuntos de nivel, y no con regiones donde $\Vdot<0$.
+\end{objetivos}
+
+\input{capitulos/cap07/s01_por_que}
+\input{capitulos/cap07/s02_definiciones}
+\input{capitulos/cap07/s03_indirecto}
+\input{capitulos/cap07/s04_directo}
+\input{capitulos/cap07/s05_global}
+\input{capitulos/cap07/s06_cuadraticas}
+\input{capitulos/cap07/s07_lineales}
+\input{capitulos/cap07/s08_region}
+\input{capitulos/cap07/s09_cierre}

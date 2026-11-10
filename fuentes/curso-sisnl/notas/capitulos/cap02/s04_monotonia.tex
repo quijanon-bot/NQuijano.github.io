@@ -43,7 +43,7 @@ A lo largo de una solución,
 \[
   \frac{\dif}{\dif t}V\bigl(x(t)\bigr)=V'(x)\,\dot x=-f(x)^2\le0 ,
 \]
-con igualdad solo en los equilibrios. La partícula siempre ``baja'' por la gráfica de $V$, como una bolita en un medio muy viscoso: los mínimos locales de $V$ son los equilibrios estables y los máximos, los inestables. Para $\dot x=\sin x$, $V(x)=\cos x-1$ (\cref{fig:un-potencial}). En el capítulo~7 el papel de $V$ lo hará una \clave{función de Lyapunov}: una función que decrece a lo largo de las soluciones aunque el sistema no sea un gradiente.
+con igualdad solo en los equilibrios. La partícula siempre ``baja'' por la gráfica de $V$, como una bolita en un medio muy viscoso: los mínimos locales de $V$ son los equilibrios estables y los máximos, los inestables. Para $\dot x=\sin x$, $V(x)=\cos x-1$ (\cref{fig:un-potencial}). En el \cref{cap:lyapunov} el papel de $V$ lo hará una \clave{función de Lyapunov}: una función que decrece a lo largo de las soluciones aunque el sistema no sea un gradiente.
 
 \begin{figure}[ht]
 \centering
@@ -56,5 +56,5 @@ con igualdad solo en los equilibrios. La partícula siempre ``baja'' por la grá
 
 \begin{pausa}
 ¿Todo sistema escalar $\dot x=f(x)$ con $f$ continua tiene un potencial? ¿Y todo sistema en $\R^2$?
-\respuesta{En $\R$ sí: $V=-\int f$ siempre existe. En $\R^2$ no: $\dot x=-\nabla V$ exige que el campo sea un gradiente, y un campo con rotación (como $\dot x_1=-x_2$, $\dot x_2=x_1$) no lo es. Por eso en dimensión mayor hay que \emph{buscar} una función que decrezca: es el problema de construir funciones de Lyapunov (capítulos~7 y~8).}
+\respuesta{En $\R$ sí: $V=-\int f$ siempre existe. En $\R^2$ no: $\dot x=-\nabla V$ exige que el campo sea un gradiente, y un campo con rotación (como $\dot x_1=-x_2$, $\dot x_2=x_1$) no lo es. Por eso en dimensión mayor hay que \emph{buscar} una función que decrezca: es el problema de construir funciones de Lyapunov (capítulos~\ref{cap:lyapunov} y~8).}
 \end{pausa}

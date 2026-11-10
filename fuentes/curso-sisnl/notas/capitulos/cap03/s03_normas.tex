@@ -144,7 +144,7 @@ Calcule $\norm A_1$, $\norm A_\infty$ y $\norm A_2$ para $A=\begin{bmatrix}1&2\\
 \begin{trampa}[label=tr:pm-radio]{La norma 2 no es el mayor valor propio}
 \plausible{$\norm A_2=\max_i\abs{\lambda_i(A)}$: la amplificación máxima la da el valor propio más grande.}
 Solo es cierto si $A$ es normal ($A\T A=AA\T$), por ejemplo simétrica. En general $\rho(A)\le\norm A$ para \emph{cualquier} norma inducida (si $Av=\lambda v$, entonces $\abs\lambda\norm v=\norm{Av}\le\norm A\norm v$), pero la desigualdad puede ser estricta y enorme. $N=\begin{bmatrix}0&1\\0&0\end{bmatrix}$ tiene $\rho(N)=0$ y $\norm N_2=1$.
-\correcto{Use $\norm A_2=\sqrt{\lmax(A\T A)}$, el mayor valor singular. La diferencia importa en estabilidad: una matriz Hurwitz puede amplificar mucho antes de decaer ($\norm{e^{At}}$ crece transitoriamente si $A$ no es normal), y las funciones de Lyapunov cuadráticas del capítulo~7 son la manera correcta de manejarlo.}
+\correcto{Use $\norm A_2=\sqrt{\lmax(A\T A)}$, el mayor valor singular. La diferencia importa en estabilidad: una matriz Hurwitz puede amplificar mucho antes de decaer ($\norm{e^{At}}$ crece transitoriamente si $A$ no es normal), y las funciones de Lyapunov cuadráticas del \cref{cap:lyapunov} son la manera correcta de manejarlo.}
 \end{trampa}
 
 \codigorepo{cap03_preliminares/C3_Ej3_NormasMatrices.m}{espectral}{Radio espectral y norma 2}

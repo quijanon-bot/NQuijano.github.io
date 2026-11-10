@@ -1,0 +1,120 @@
+%% ---------------------------------------------------------------------
+\section{Estable, asintóticamente estable, exponencialmente estable}
+\label{sec:ly-definiciones}
+%% ---------------------------------------------------------------------
+
+\subsection{Las definiciones}
+
+\begin{definicion}[label=def:ly-estabilidad]{Estabilidad en el sentido de Lyapunov \citep[Def.~4.1]{Kha02}}
+El equilibrio $x=0$ de \eqref{eq:ly-sistema} es
+\begin{itemize}
+  \item \clave{estable} si para cada $\varepsilon>0$ existe $\delta=\delta(\varepsilon)>0$ tal que
+  \[
+    \norm{x(0)}<\delta\ \Longrightarrow\ \norm{x(t)}<\varepsilon\quad\text{para todo }t\ge0 ;
+  \]
+  \item \clave{inestable} si no es estable;
+  \item \clave{asintóticamente estable} si es estable y además existe $\delta_0>0$ tal que
+  \[
+    \norm{x(0)}<\delta_0\ \Longrightarrow\ \lim_{t\to\infty}x(t)=0 .
+  \]
+\end{itemize}
+\end{definicion}
+
+La definición de estabilidad es un \emph{reto}: el adversario escoge una tolerancia $\varepsilon$, por pequeña que sea, y hay que responder con una vecindad $\delta$ de condiciones iniciales cuyas soluciones nunca salen de la bola de radio $\varepsilon$ (\cref{fig:ly-epsilon}). La inestabilidad es la negación: \emph{existe} un $\varepsilon$ para el que ninguna $\delta$ funciona; es decir, hay soluciones que arrancan tan cerca como se quiera y aun así llegan a distancia $\varepsilon$. La estabilidad asintótica agrega \emph{atractividad}: las soluciones cercanas no solo se quedan cerca, también llegan.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/t_epsilon_delta}
+\caption{Las tres situaciones de la \cref{def:ly-estabilidad}. La bola azul tiene radio $\varepsilon$ (la tolerancia); la punteada verde, radio $\delta$ (la respuesta).}
+\label{fig:ly-epsilon}
+\end{figure}
+
+\notamargen{En la literatura se escribe a veces SISL (\emph{stable in the sense of Lyapunov}), AS, GAS, ES y GES. Aquí se usan las palabras completas, salvo en tablas y figuras.}
+
+\begin{trampa}[label=tr:ly-escape]{``Inestable quiere decir que las soluciones se van a infinito''}
+\plausible{Un equilibrio inestable expulsa las soluciones; si no vuelven, se van lejos, y lejos es infinito.}
+La inestabilidad es una afirmación \emph{local}: basta con que las soluciones que arrancan cerca salgan de \emph{una} bola de radio $\varepsilon$. El origen de van der Pol (\cref{cap:orbitas}) es inestable, y todas sus soluciones son acotadas: las que arrancan cerca del origen salen de él y se acercan al ciclo límite.
+\correcto{Inestable significa ``no estable''. Que las soluciones sean acotadas o no es otra pregunta.}
+\end{trampa}
+
+\subsection{El péndulo, otra vez}
+
+El péndulo con fricción viscosa, con $x_1$ el ángulo medido desde la posición colgante y $x_2=\dot x_1$, es
+\begin{equation}
+  \dot x_1=x_2,\qquad \dot x_2=-a\sin x_1-b\,x_2,\qquad a=\frac g\ell>0,\quad b=\frac km\ge0 .
+  \label{eq:ly-pendulo}
+\end{equation}
+Sus equilibrios son $(n\pi,0)$, $n\in\mathbb Z$; los pares corresponden a la posición colgante y los impares a la invertida. Los ejemplos numéricos usan $a=1$ y $b=0.5$.
+
+\begin{ejemplo}[label=ej:ly-pendulos]{Tres comportamientos en un mismo modelo}
+Clasifique el origen y el equilibrio $(\pi,0)$ de \eqref{eq:ly-pendulo}, con $b=0$ y con $b>0$.
+\solucion Sin fricción ($b=0$) las soluciones cerca del origen son órbitas cerradas alrededor de él (\cref{fig:ly-pendulos}, izquierda): la que arranca en $(0.3,0)$ oscila con amplitud $0.3$ para siempre. Dado $\varepsilon$, basta escoger $\delta$ para que la órbita que pasa por la bola de radio $\delta$ quede dentro de la de radio $\varepsilon$: el origen es \emph{estable}, pero \emph{no} asintóticamente estable. Con fricción, la misma condición inicial da una espiral que llega al origen ($\norm{x(40)}=1.6\times10^{-5}$): \emph{asintóticamente estable}. El equilibrio invertido $(\pi,0)$ es inestable en los dos casos: cualquier perturbación, por pequeña que sea, hace caer el péndulo. Las tres afirmaciones se probarán, no solo se verán, en las secciones siguientes.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_pendulos}
+\caption{Péndulo \eqref{eq:ly-pendulo} con $a=1$: sin fricción (izquierda) y con $b=0.5$ (derecha). Las curvas grises son niveles de la energía. Puntos negros: equilibrios colgantes; blancos: invertidos.}
+\label{fig:ly-pendulos}
+\end{figure}
+
+\codigorepo{cap07_lyapunov/C7_Ej1_Definiciones.m}{pendulo}{Péndulo con y sin fricción: energía y convergencia}
+
+\subsection{Región de atracción y estabilidad global}
+
+\begin{definicion}[label=def:ly-region]{Región de atracción y estabilidad global}
+Si el origen es asintóticamente estable, su \clave{región de atracción} es
+\[
+  \RA=\Bigl\{x_0\in\D:\ \flujo{t}{x_0}\ \text{está definida para todo }t\ge0\ \text{y}\ \lim_{t\to\infty}\flujo{t}{x_0}=0\Bigr\}.
+\]
+El origen es \clave{globalmente asintóticamente estable} si $\RA=\R^n$.
+\end{definicion}
+
+Un sistema con más de un equilibrio no puede tener uno globalmente asintóticamente estable: cada equilibrio es su propia solución, y no converge a otro. El origen del péndulo con fricción es asintóticamente estable, pero no global: las soluciones que dan una vuelta completa terminan en $(2\pi,0)$, que es la misma posición física pero otro punto del plano de estado (\cref{fig:ly-pendulos}, derecha).
+
+\begin{trampa}[label=tr:ly-convergencia]{``Si todas las soluciones convergen al equilibrio, es asintóticamente estable''}
+\plausible{La estabilidad asintótica es estabilidad más convergencia; si todo converge, lo primero debe venir de regalo.}
+No viene de regalo. En coordenadas polares, considere
+\[
+  \dot r=r(1-r),\qquad \dot\theta=\sin^2\tfrac\theta2 .
+\]
+El radio va a $1$ desde cualquier $r_0>0$, y $\theta$ crece hasta $2\pi$, que es otra vez el ángulo $0$: todas las soluciones (salvo el origen) convergen a $x=(1,0)$. Pero una solución que arranca en $(1,0)$ con $\theta_0=0.1$, muy cerca del equilibrio, da la vuelta completa al círculo antes de volver, y se aleja hasta distancia $2$ (\cref{fig:ly-polar}). Para $\varepsilon<2$ no hay $\delta$ que sirva: el equilibrio es atractivo e \emph{inestable}. El primer ejemplo de este fenómeno con una ecuación diferencial en el plano (y un único equilibrio) es de Vinograd (1957)~\citep{Vin57}; por eso la definición de estabilidad asintótica exige las dos cosas.
+\correcto{Atractividad y estabilidad son independientes. Para afirmar estabilidad asintótica hay que probar ambas (el teorema de Lyapunov de la \cref{sec:ly-directo} lo hace de una vez).}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap07/f_polar}
+\caption{Convergencia sin estabilidad. Izquierda: tres soluciones de $\dot r=r(1-r)$, $\dot\theta=\sin^2(\theta/2)$. Derecha: distancia a $(1,0)$ de la que arranca en $\theta_0=0.1$.}
+\label{fig:ly-polar}
+\end{figure}
+
+\codigorepo{cap07_lyapunov/C7_Ej1_Definiciones.m}{polar}{Converger no es ser estable}
+
+\subsection{Estabilidad exponencial}
+
+La estabilidad asintótica no dice \emph{qué tan rápido} se converge. Para el control eso importa (tiempos de establecimiento, robustez), y la propiedad que lo cuantifica es la siguiente.
+
+\begin{definicion}[label=def:ly-exponencial]{Estabilidad exponencial \citep{Kha02}}
+El origen de \eqref{eq:ly-sistema} es \clave{exponencialmente estable} si existen constantes $c,k,\lambda>0$ tales que
+\begin{equation}
+  \norm{x(0)}<c\ \Longrightarrow\ \norm{x(t)}\le k\,\norm{x(0)}\,e^{-\lambda t}\quad\text{para todo }t\ge0 ,
+  \label{eq:ly-exponencial}
+\end{equation}
+y \clave{globalmente exponencialmente estable} si \eqref{eq:ly-exponencial} vale para toda condición inicial.
+\end{definicion}
+
+\begin{proposicion}[label=prop:ly-expas]{Exponencial implica asintótica}
+Si el origen es exponencialmente estable, es asintóticamente estable.
+\end{proposicion}
+
+\begin{proof}
+La convergencia es inmediata de \eqref{eq:ly-exponencial}. Para la estabilidad, dado $\varepsilon>0$, tome $\delta=\min\{c,\ \varepsilon/k\}$. Si $\norm{x(0)}<\delta$, entonces $\norm{x(t)}\le k\norm{x(0)}e^{-\lambda t}<k\delta\le\varepsilon$ para todo $t\ge0$.
+\end{proof}
+
+\begin{pausa}
+La \cref{def:ly-estabilidad} de estabilidad asintótica exige ``estable \emph{y} convergente''. ¿Por qué la \cref{def:ly-exponencial} no exige también que el origen sea estable?
+\respuesta{Porque la cota \eqref{eq:ly-exponencial} ya controla todo el transitorio, no solo el límite: la solución nunca se aleja más de $k$ veces su distancia inicial. Esa es exactamente la estabilidad, con $\delta=\varepsilon/k$ (\cref{prop:ly-expas}). La convergencia sola no controla el transitorio (\cref{tr:ly-convergencia}); la cota exponencial sí.}
+\end{pausa}
+
+Lo contrario es falso: $\dot x=-x^3$ tiene el origen asintóticamente estable (lo probaremos en la \cref{sec:ly-directo}), pero desde $x_0=1$ la solución es $x(t)=1/\sqrt{1+2t}$, que decae como $t^{-1/2}$: más lento que cualquier exponencial (\cref{fig:ly-indirecto}, derecha).

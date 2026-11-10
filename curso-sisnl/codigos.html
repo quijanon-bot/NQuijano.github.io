@@ -267,7 +267,7 @@ window.MathJax = { tex: { macros: {
 <div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">cd</span> <span class="va">ruta</span><span class="op">/</span><span class="va">al</span><span class="op">/</span><span class="va">repositorio</span><span class="op">/</span><span class="va">codigo</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">iniciarCurso</span>              <span class="co">% agrega comun/ y todos los capítulos al path</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">C11_Ej1_MasaResorte</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">verificarCap11</span>            <span class="co">% comprueba los números del capítulo (o verificarCap01, 02, 03, 05, 12)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="va">verificarCap11</span>            <span class="co">% comprueba los números del capítulo (o verificarCap01, 02, 03, 05, 07, 12)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Los scripts <code>C*_Ej*</code> no requieren <em>toolboxes</em> (y corren en GNU Octave); los <code>crearModelo_*.m</code> requieren Simulink y los videos, <code>VideoWriter</code>.</p>
 </section>
 <section id="organización" class="level2">
@@ -283,6 +283,7 @@ window.MathJax = { tex: { macros: {
 │   ├── jacobianoNumerico.m   jacobiano por diferencias centradas
 │   ├── derivadaLie.m         derivada de Lie numérica L_f lambda
 │   ├── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
+│   ├── ecuacionLyapunov.m    A'P + PA = -Q (convención del curso), sin toolboxes
 │   └── lineaFase.m           línea de fase de x' = f(x), clasificación por el signo de f
 ├── cap01_introduccion/
 │   ├── C1_Ej1 … C1_Ej9       superposición, logística, panorama, energía, reescalamiento, control
@@ -305,6 +306,11 @@ window.MathJax = { tex: { macros: {
 │   ├── crearModelo_VanDerPol VanDerPol.slx
 │   ├── modeloKuramoto.m, modeloNowak.m, indiceCurva.m
 │   └── verificarCap05.m      34 pruebas de los números del capítulo
+├── cap07_lyapunov/
+│   ├── C7_Ej1 … C7_Ej10      péndulo, convergencia sin estabilidad, jacobiana, energía, global, Sylvester, término cruzado, Jordan, ecuación de Lyapunov, región de atracción
+│   ├── C7_Video_*            formas cuadráticas, término cruzado, círculos y elipses, región de atracción
+│   ├── crearModelo_PenduloLyapunov  PenduloLyapunov.slx
+│   └── verificarCap07.m      34 pruebas de los números del capítulo
 ├── cap11_pasividad/
 │   ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
 │   ├── C11_Video_*           los cinco videos de la parte

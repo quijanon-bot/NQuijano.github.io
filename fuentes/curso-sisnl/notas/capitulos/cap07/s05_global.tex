@@ -1,0 +1,89 @@
+%% ---------------------------------------------------------------------
+\section{De local a global, y qué tan rápido}
+\label{sec:ly-global}
+%% ---------------------------------------------------------------------
+
+\subsection{Funciones radialmente no acotadas}
+
+La prueba del \cref{thm:ly-directo} usó conjuntos de nivel \emph{acotados} dentro de $\D$. Para una conclusión global se necesita que \emph{todos} los conjuntos de nivel sean acotados, de modo que cualquier condición inicial quede atrapada en uno de ellos.
+
+\begin{definicion}[label=def:ly-radial]{Función radialmente no acotada}
+$V:\R^n\to\R$ es \clave{radialmente no acotada} si $V(x)\to\infty$ cuando $\norm x\to\infty$.
+\end{definicion}
+
+Si $V$ es continua y radialmente no acotada, cada conjunto $\Nivel c=\{V(x)\le c\}$ es acotado (y cerrado): si no, tendría puntos con $\norm x$ arbitrariamente grande, donde $V>c$.
+
+\begin{teorema}[label=thm:ly-bk]{Barbashin--Krasovskii \citep{BaKr52}, \citep[Teo.~4.2]{Kha02}}
+Sea $x=0$ un equilibrio de \eqref{eq:ly-sistema} con $\D=\R^n$, y $V:\R^n\to\R$ una función $\Cont1$, definida positiva, radialmente no acotada y con $\Vdot(x)<0$ para todo $x\neq0$. Entonces el origen es globalmente asintóticamente estable.
+\end{teorema}
+
+\begin{proof}
+Dado $x_0\in\R^n$, sea $c=V(x_0)$. El conjunto $\Nivel c$ es compacto (por ser radialmente no acotada) y positivamente invariante (porque $\Vdot\le0$). La segunda parte de la prueba del \cref{thm:ly-directo}, hecha con $\Nivel c$ en lugar de $\Omega_\beta$, muestra que $x(t)\to0$. Como $x_0$ es arbitrario y el origen es estable, es globalmente asintóticamente estable.
+\end{proof}
+
+\begin{ejemplo}[label=ej:ly-global]{Una prueba global}
+Pruebe que el origen de $\dot x_1=-x_1^3+x_2$, $\dot x_2=-x_1-x_2$ es globalmente asintóticamente estable.
+\solucion Con $V=\tfrac12(x_1^2+x_2^2)$ (radialmente no acotada),
+\[
+  \Vdot=x_1(-x_1^3+x_2)+x_2(-x_1-x_2)=-x_1^4-x_2^2<0\quad\text{si }x\neq0 .
+\]
+Los términos cruzados $x_1x_2$ se cancelan: es la razón para escoger los mismos pesos en $V$. Por el \cref{thm:ly-bk}, el origen es globalmente asintóticamente estable.
+\end{ejemplo}
+
+\begin{trampa}[label=tr:ly-radial]{``$\Vdot<0$ en todo $\R^n\setminus\{0\}$ basta para la estabilidad global''}
+\plausible{Si $V$ decrece en todas partes, todas las soluciones bajan de nivel en nivel hasta el mínimo, que es el origen.}
+Considere el ejemplo de Khalil \citep[\S4.1]{Kha02}
+\[
+  \dot x_1=-\frac{6x_1}{(1+x_1^2)^2}+2x_2,\qquad \dot x_2=-\frac{2(x_1+x_2)}{(1+x_1^2)^2},\qquad V=\frac{x_1^2}{1+x_1^2}+x_2^2 .
+\]
+$V$ es definida positiva y $\Vdot=-\dfrac{12x_1^2}{(1+x_1^2)^4}-\dfrac{4x_2^2}{(1+x_1^2)^2}<0$ para todo $x\neq0$. Y sin embargo, desde $(2,2)$, $x_1(t)\to\infty$ (vale más de $700$ en $t=200$) mientras $x_2\to1.91$ (\cref{fig:ly-noacotada}). La solución sí baja de nivel en nivel, pero los niveles $\{V=c\}$ con $c\ge1$ no son curvas cerradas: sobre el eje $x_2=0$, $V<1$ siempre. La solución se escapa ``por el costado'' de un nivel abierto.
+\correcto{Para concluir estabilidad global, $V$ tiene que ser radialmente no acotada (\cref{thm:ly-bk}). Sin esa hipótesis, la conclusión es local, y $\{V<1\}$ es una estimación válida de la región de atracción (\cref{sec:ly-region}).}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{cap07/f_no_acotada}
+\caption{Niveles de $V=x_1^2/(1+x_1^2)+x_2^2$. El de $c=1$ (ámbar) separa los niveles cerrados de los abiertos. Las soluciones azules ($V(x_0)<1$) convergen; las rojas se van, con $\Vdot<0$ todo el tiempo.}
+\label{fig:ly-noacotada}
+\end{figure}
+
+\codigorepo{cap07_lyapunov/C7_Ej4_Global.m}{noacotada}{$\Vdot<0$ en todas partes y aun así no hay estabilidad global}
+
+\begin{pausa}
+En el ejemplo de la trampa, ¿convergen las soluciones con $V(x_0)<1$? Justifique sin simular.
+\respuesta{Sí. Para $c<1$, $\{V\le c\}$ es acotado: $x_2^2\le c$ y $x_1^2\le c/(1-c)$. Es compacto, positivamente invariante y $\Vdot<0$ fuera del origen, así que el argumento de la prueba del \cref{thm:ly-directo} da convergencia. $\{V<1\}$ está en la región de atracción.}
+\end{pausa}
+
+\subsection{Estabilidad exponencial con una función de Lyapunov}
+
+\begin{teorema}[label=thm:ly-exp]{Estabilidad exponencial \citep[Teo.~4.10]{Kha02}}
+Sea $V:\D\to\R$ una función $\Cont1$ y $k_1,k_2,k_3,a>0$ constantes tales que, en $\D$,
+\begin{equation}
+  k_1\norm x^a\le V(x)\le k_2\norm x^a,\qquad \Vdot(x)\le-k_3\norm x^a .
+  \label{eq:ly-cotasexp}
+\end{equation}
+Entonces el origen es exponencialmente estable, y para $x(0)$ en un conjunto de nivel de $V$ contenido en $\D$,
+\begin{equation}
+  \norm{x(t)}\le\Bigl(\frac{k_2}{k_1}\Bigr)^{1/a}\norm{x(0)}\,e^{-\frac{k_3}{a\,k_2}t} .
+  \label{eq:ly-tasa}
+\end{equation}
+Si \eqref{eq:ly-cotasexp} vale en todo $\R^n$, el origen es globalmente exponencialmente estable.
+\end{teorema}
+
+\begin{proof}
+De la cota superior, $\norm x^a\ge V/k_2$, así que $\Vdot\le-\frac{k_3}{k_2}V$. Por el lema de comparación (\cref{sec:pm-comparacion}), $V(x(t))\le V(x(0))\,e^{-k_3t/k_2}$. Con las dos cotas de \eqref{eq:ly-cotasexp},
+\[
+  \norm{x(t)}\le\Bigl(\frac{V(x(t))}{k_1}\Bigr)^{1/a}\le\Bigl(\frac{k_2\norm{x(0)}^ae^{-k_3t/k_2}}{k_1}\Bigr)^{1/a},
+\]
+que es \eqref{eq:ly-tasa}.
+\end{proof}
+
+\begin{ejemplo}[label=ej:ly-gesx3]{Una cota explícita}
+Para $\dot x=-x-x^3$ con $V=\tfrac12x^2$: $k_1=k_2=\tfrac12$, $a=2$ y $\Vdot=-x^2-x^4\le-x^2$, así que $k_3=1$. El \cref{thm:ly-exp} da $\abs{x(t)}\le\abs{x(0)}e^{-t}$ para toda condición inicial: el origen es globalmente exponencialmente estable. Desde $x(0)=3$, la cota da $x(1)\le3/e=1.104$; el valor real es $0.372$ (el término $-x^3$ ayuda mucho cuando $\abs x$ es grande).
+\end{ejemplo}
+
+\codigorepo{cap07_lyapunov/C7_Ej4_Global.m}{exponencial}{La cota exponencial de $\dot x=-x-x^3$}
+
+\begin{cuidado}[Nombres]
+El \cref{thm:ly-bk} (estabilidad asintótica global con $V$ radialmente no acotada) es el de Barbashin y Krasovskii. El \cref{thm:ly-exp} (cotas de potencia) es otro resultado, y no lleva ese nombre; la versión anterior de estas notas los confundía.
+\end{cuidado}

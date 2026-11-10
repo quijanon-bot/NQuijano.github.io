@@ -43,10 +43,13 @@ website:
       - href: videos.qmd
         text: Videos
     right:
+      - icon: house-door
+        text: Nicanor Quijano
+        href: https://quijanon-bot.github.io/NQuijano.github.io/
       - icon: github
         href: https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-control
   page-footer:
-    left: "Nicanor Quijano · Departamento de Ingeniería Eléctrica y Electrónica · Universidad de los Andes"
+    left: "[Nicanor Quijano](https://quijanon-bot.github.io/NQuijano.github.io/) · Departamento de Ingeniería Eléctrica y Electrónica · Universidad de los Andes"
     right: "Hecho con [Quarto](https://quarto.org)"
 
 filters:

@@ -1,0 +1,44 @@
+# Publica en GitHub Pages solo el sitio ya construido (index.html, curso-sisnl/ y
+# curso-control/). La carpeta fuentes/ (LaTeX, MATLAB, Quarto) no se publica.
+# Requiere: Settings -> Pages -> Source = "GitHub Actions".
+name: Publicar sitio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'curso-sisnl/**'
+      - 'curso-control/**'
+      - '.github/workflows/publicar-sitio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Armar la carpeta publicada
+        run: |
+          mkdir _publicar
+          cp index.html .nojekyll _publicar/
+          cp -r curso-sisnl curso-control _publicar/
+          du -sh _publicar
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _publicar
+      - id: despliegue
+        uses: actions/deploy-pages@v4

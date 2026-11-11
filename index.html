@@ -40,6 +40,8 @@
   .enlaces a { color: #fff; text-decoration: none; font-size: .86rem; font-weight: 700; border: 1px solid rgba(255,255,255,.35);
                border-radius: 999px; padding: .28rem .85rem; background: rgba(255,255,255,.06); transition: background .15s; }
   .enlaces a:hover { background: rgba(255,255,255,.18); }
+  .enlaces a.cv { background: var(--ambar); border-color: var(--ambar); color: var(--noche); }
+  .enlaces a.cv:hover { background: #f0b45a; }
   @media (max-width: 680px) {
     header .dentro { grid-template-columns: 1fr; text-align: center; gap: 1.2rem; }
     header .foto { margin: 0 auto; width: 150px; height: 150px; }
@@ -166,6 +168,7 @@
       <p><b>Full Professor</b>, Department of Electrical and Electronics Engineering</p>
       <p><b>Director</b>, Research Group in Control and Automation Systems (GIAP)</p>
       <nav class="enlaces" aria-label="Profiles">
+        <a class="cv" href="assets/CV_Nicanor_Quijano.pdf" download>⤓ CV (PDF)</a>
         <a href="mailto:nquijano@uniandes.edu.co">✉ nquijano@uniandes.edu.co</a>
         <a href="https://scholar.google.com/citations?user=xu0jdYAAAAAJ">Google Scholar</a>
         <a href="https://orcid.org/0000-0002-8688-3195">ORCID</a>
@@ -370,7 +373,8 @@
     <h2>Publications</h2>
     <p>More than 130 peer-reviewed publications and more than 5,000 citations. Lists are in reverse chronological order,
       with the same labels as in my CV. For the complete and updated record see my
-      <a href="https://scholar.google.com/citations?user=xu0jdYAAAAAJ">Google Scholar profile</a>.</p>
+      <a href="https://scholar.google.com/citations?user=xu0jdYAAAAAJ">Google Scholar profile</a>
+      or download my <a href="assets/CV_Nicanor_Quijano.pdf" download>CV (PDF)</a>.</p>
 <!-- PUBLICACIONES:INICIO -->
 <div class="pub-barra">
   <input type="search" id="pub-filtro" placeholder="Filter by title, co-author, venue or year…" aria-label="Filter publications">

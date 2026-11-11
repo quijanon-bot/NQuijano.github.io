@@ -28,6 +28,16 @@ Los cuatro videos de las partes 1 y 2 ya están publicados: se generaron con `he
 | []{#V3_1_picard}V3.1 · Picard | Las iteraciones de Picard se acercan a la solución. | `C3_Video_Picard.m` |
 | []{#V3_2_no_unicidad}V3.2 · No unicidad | La familia de soluciones de $\dot x=x^{1/3}$ desde $x(0)=0$. | `C3_Video_NoUnicidad.m` |
 
+## Parte 4 · Sistemas bidimensionales
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V4_1_traza_determinante}[V4.1 · Traza y determinante](videos/V4_1_traza_determinante.mp4) | Un punto recorre el plano $(\tau,\delta)$ y el retrato pasa por sillas, nodos, focos y centros. | `C4_Video_TrazaDeterminante.m` |
+| []{#V4_2_cuencas_duffing}[V4.2 · Cuencas de Duffing](videos/V4_2_cuencas_duffing.mp4) | $W^s$ y $W^u$ de la silla crecen y separan las cuencas de los dos pozos. | `C4_Video_CuencasDuffing.m` |
+| []{#V4_3_variedad_central}[V4.3 · Variedad central](videos/V4_3_variedad_central.mp4) | Caer rápido sobre $z\approx ay^2$, moverse despacio sobre ella. | `C4_Video_VariedadCentral.m` |
+
+Los tres videos de la parte 4 están publicados: se generaron con `herramientas/cap04_videos.py` (los mismos modelos y parámetros que los `C4_Video_*`).
+
 ## Parte 5 · Órbitas, osciladores y ciclos límite
 
 | Video | Qué muestra | Script |

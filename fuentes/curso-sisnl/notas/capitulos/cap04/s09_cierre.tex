@@ -1,0 +1,124 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:bi-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{Plano de fase:} el campo $f(x)$ en una malla, las trayectorias tangentes a él y las nulclinas ($f_1=0$: campo vertical; $f_2=0$: horizontal). Los equilibrios son los cruces de una nulclina de $x_1$ con una de $x_2$. El retrato no muestra el tiempo.
+  \item \textbf{Lineales:} $x(t)=e^{At}x_0$ es la única solución. Con vectores propios, $x=Pz$ desacopla el sistema; cada estado mezcla todos los modos $e^{\lambda_it}$.
+  \item \textbf{Clasificación en $\R^2$} ($\delta=\det A$, $\tau=\tr A$): silla si $\delta<0$; nodo si $\delta>0$ y $\tau^2\ge4\delta$; foco si $\tau^2<4\delta$ y $\tau\neq0$; centro si $\delta>0$ y $\tau=0$. El signo de $\tau$ da la estabilidad; el de $a_{21}$, el sentido de giro. Los nodos llegan por la dirección lenta.
+  \item \textbf{Robustez:} nodos, focos y sillas sobreviven a perturbaciones pequeñas; centros, nodos degenerados y valores propios nulos, no.
+  \item \textbf{Hartman--Grobman:} si $\eq$ es hiperbólico, el retrato no lineal cerca de $\eq$ es el lineal deformado por un homeomorfismo. Si no es hiperbólico, la linealización no decide.
+  \item \textbf{Variedades:} $W^s$ y $W^u$ de una silla son curvas tangentes a $E^s$ y $E^u$; $W^s$ separa cuencas de atracción. Se calculan con la ecuación de invariancia o integrando hacia atrás.
+  \item \textbf{Variedad central:} con valores propios nulos y los demás estables, la estabilidad se decide en el sistema reducido $\dot y=A_1y+g_1(y,h(y))$, con $h$ aproximada por la ecuación de invariancia.
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item Un cruce de dos ramas de la misma nulclina no es un equilibrio (\cref{tr:bi-nulclinas}); las trayectorias no llegan a un equilibrio en tiempo finito (\cref{tr:bi-llega}).
+  \item El signo de $a_{ii}$ no decide la estabilidad de $x_i$ (\cref{tr:bi-diagonal}).
+  \item Los nodos se alcanzan por la dirección lenta (\cref{tr:bi-rapida}); el sentido de giro se lee en $a_{21}$, no en la forma de Jordan (\cref{tr:bi-giro}).
+  \item Hartman--Grobman no distingue nodos de focos (\cref{tr:bi-hgfoco}); un centro lineal no es un centro no lineal (\cref{tr:bi-centro}).
+  \item Duffing sin forzamiento no es caótico (\cref{tr:bi-caos}).
+  \item $E^s$ no es $W^s$ (\cref{tr:bi-variedad}); $E^c$ no es la variedad central y $z=0$ no es $z=h(y)$ (\cref{tr:bi-zcero}); la variedad central puede no ser única (\cref{tr:bi-unica}).
+\end{itemize}
+\end{trampa}
+
+\begin{modelo}[DiodoTunel2D.slx]
+\cmd{crearModelo\_DiodoTunel2D.m} arma el circuito \eqref{eq:bi-diodo} con dos integradores y un bloque \texttt{Fcn} para la característica $h(v)$, con el tiempo en ns. Simula desde $(v_C,i_L)=(0.4,0)$ y $(0.4,0.3)$, que terminan en equilibrios distintos aunque empiezan con el mismo voltaje, y compara con \texttt{ode45}. Deje $E$, $R$, $L$, $C$ y $x_0$ en el workspace y busque la frontera entre las cuencas.
+\end{modelo}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior (Handout3 y las diapositivas SisBidim)]
+(i) La solución del ejemplo $\dot x_1=-x_1-3x_2$, $\dot x_2=2x_2$ es $x_1=x_1(0)e^{-t}+x_2(0)(e^{-t}-e^{2t})$, no $(e^{-t}-e^{-2t})$. (ii) En la linealización faltaba el factor $(x-\eq)$: $f(x)\approx Df(\eq)(x-\eq)$. (iii) En el caso de valores propios reales distintos, $J=P^{-1}AP$ (no $PAP^{-1}$) y $\dot z_2=\lambda_2z_2$. (iv) ``Cuando un valor propio es cero el origen es un equilibrio aislado'': es al revés, hay una recta de equilibrios. (v) En el foco: $\phi=\tan^{-1}(z_2/z_1)$, y ``si $\alpha=0$ la trayectoria tiende al origen'' es falso (es un centro). (vi) El ejemplo ``sin equilibrios'' con $\alpha>0$: hace falta $\alpha>1$. (vii) ``Duffing sin amortiguamiento tiene comportamiento caótico'': es integrable (\cref{tr:bi-caos}); con $\delta>0$, $(\pm1,0)$ son focos solo si $\delta<2\sqrt2$. La empresa de Duffing era la Ölwerke Stern-Sonneborn (Ossag), y fue Max Planck, no Plank. (viii) La prueba de la proposición de equilibrios aislados tenía la desigualdad al revés ($\norm{x-\eq}>\delta$) y mezclaba el caso variante en el tiempo; se reescribió. (ix) Hartman--Grobman: el homeomorfismo no es único, como decía la versión anterior, y no distingue nodos de focos. (x) En el ejemplo $\dot x_2=-x_1-\varepsilon x_1^2x_2$, con $\varepsilon>0$ el origen es asintóticamente estable (LaSalle), no solo estable. (xi) La prueba de la reducción a la variedad central no usa ``funciones tipo Kampke'' sino una función de Lyapunov, y el teorema necesita que no haya valores propios con parte real positiva. (xii) El teorema fundamental: se eliminó el paso $A^{-1}A$ (que suponía $A$ invertible) y el ``teorema de Moore''. (xiii) Se agregaron: nulclinas, el tiempo de llegada, el sentido de giro, la clasificación completa y su prueba, la robustez de los retratos, el diodo túnel de segundo orden, las variedades estable e inestable, las cuencas de Duffing, la no unicidad de la variedad central y el término de orden cuatro de $h$.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:bi-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\subsection*{Plano de fase y sistemas lineales}
+
+\begin{problema}[conejos y ovejas]\label{prob:bi-competencia}
+Dos especies compiten por el mismo pasto: $\dot x_1=x_1(3-x_1-2x_2)$, $\dot x_2=x_2(2-x_1-x_2)$, con $x_1,x_2\ge0$ \citep[\S6.4]{Str15}. (a) Dibuje las nulclinas. (b) Halle los cuatro equilibrios y clasifíquelos. (c) Existe un equilibrio de coexistencia: ¿coexisten las especies?
+\end{problema}
+
+\begin{problema}[la exponencial a mano]\label{prob:bi-exponencial}
+(a) Calcule $e^{At}$ con la serie para $A=\bigl[\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr]$. (b) Use (a) para calcular $e^{Jt}$ con $J=\bigl[\begin{smallmatrix}\lambda&1\\0&\lambda\end{smallmatrix}\bigr]$. ¿Por qué se puede separar $e^{(\lambda I+N)t}=e^{\lambda t}e^{Nt}$? (c) Compare con la solución del nodo impropio.
+\end{problema}
+
+\begin{problema}[clasificar]\label{prob:bi-clasificar}
+Clasifique el origen y, si gira, diga en qué sentido: (a) $\bigl[\begin{smallmatrix}1&2\\3&4\end{smallmatrix}\bigr]$; (b) $\bigl[\begin{smallmatrix}-2&1\\-1&-2\end{smallmatrix}\bigr]$; (c) $\bigl[\begin{smallmatrix}2&1\\-1&0\end{smallmatrix}\bigr]$; (d) $\bigl[\begin{smallmatrix}1&-2\\1&-1\end{smallmatrix}\bigr]$.
+\end{problema}
+
+\begin{problema}[por dónde llega]\label{prob:bi-lenta}
+Para $A=\bigl[\begin{smallmatrix}-3&1\\0&-1\end{smallmatrix}\bigr]$: (a) halle los vectores propios; (b) ¿en qué dirección llegan al origen casi todas las trayectorias? (c) ¿Cuáles no? (d) \etiquetaM{} Verifíquelo con \cmd{retratoFase}.
+\end{problema}
+
+\subsection*{Linealización}
+
+\begin{problema}[el péndulo, otra vez]\label{prob:bi-pendulo}
+Para $\dot x_1=x_2$, $\dot x_2=-\sin x_1-bx_2$: (a) clasifique los equilibrios $(k\pi,0)$ para $b=0.5$; (b) ¿para qué $b>0$ es el origen un nodo? (c) Con $b=0$, ¿qué dice Hartman--Grobman del origen? ¿Qué dice la energía $E=1-\cos x_1+\tfrac12x_2^2$?
+\end{problema}
+
+\begin{problema}[un centro que no lo es]\label{prob:bi-hopf}
+Para $\dot x_1=\mu x_1-x_2-x_1(x_1^2+x_2^2)$, $\dot x_2=x_1+\mu x_2-x_2(x_1^2+x_2^2)$: (a) clasifique el origen por linealización para $\mu<0$, $\mu=0$ y $\mu>0$; (b) pase a polares y estudie $\dot r$; (c) ¿qué es el origen cuando $\mu=0$? ¿Qué aparece cuando $\mu>0$? (Este es el anuncio de los capítulos~5 y~6.)
+\end{problema}
+
+\begin{problema}[la variedad inestable]\label{prob:bi-inestable}
+Para $\dot x_1=x_1$, $\dot x_2=-x_2+x_1^2$: (a) clasifique el origen; (b) halle $W^s$ y $W^u$; (c) ¿llega al origen hacia atrás en el tiempo la solución que empieza en $(1,0)$?
+\end{problema}
+
+\subsection*{Variedad central y simulación}
+
+\begin{problema}[cuando el primer término se anula]\label{prob:bi-central}
+Para $\dot y=ay^3+yz$, $\dot z=-z+y^2$: (a) halle $h(y)$ hasta orden cuatro; (b) escriba el sistema reducido; (c) clasifique el origen para $a<-1$, $a>-1$ y $a=-1$. En el último caso, ¿es suficiente el término cúbico?
+\end{problema}
+
+\begin{problema}[la frontera de las cuencas]\label{prob:bi-cuenca}
+\etiquetaM{} Con \cmd{crearModelo\_DiodoTunel2D.m}: (a) simule desde $(0.4,i_L(0))$ para $i_L(0)=0,\ 0.1,\ 0.2,\ 0.3$\,mA; (b) encuentre con bisección el valor de $i_L(0)$ donde cambia el equilibrio final; (c) compare con la variedad estable de $Q_2$ que dibuja \cmd{C4\_Ej10\_DiodoTunel}.
+\end{problema}
+
+\begin{problema}[la dirección lenta, en general]\label{prob:bi-tangente}
+\etiquetaEstrella{} Sea $A\in\R^{2\times2}$ con valores propios $\lambda_1<\lambda_2<0$ y vectores propios $v_1$, $v_2$. Muestre que si $x_0$ no está en la recta generada por $v_1$, entonces $x(t)/\norm{x(t)}\to\pm v_2/\norm{v_2}$. ¿Qué pasa con $x(t)/\norm{x(t)}$ en un foco?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:bi-competencia}}
+(a) Nulclinas de $x_1$: $x_1=0$ y $x_1+2x_2=3$; de $x_2$: $x_2=0$ y $x_1+x_2=2$. (b) $(0,0)$: $\diag(3,2)$, nodo inestable. $(0,2)$: $\bigl[\begin{smallmatrix}-1&0\\-2&-2\end{smallmatrix}\bigr]$, nodo estable. $(3,0)$: $\bigl[\begin{smallmatrix}-3&-6\\0&-1\end{smallmatrix}\bigr]$, nodo estable. $(1,1)$: $\bigl[\begin{smallmatrix}-1&-2\\-1&-1\end{smallmatrix}\bigr]$, $\delta=-1$: silla. (c) No: el equilibrio de coexistencia es una silla, y casi todas las condiciones iniciales terminan en $(3,0)$ o en $(0,2)$; la variedad estable de $(1,1)$ separa las dos cuencas. Que exista un equilibrio no quiere decir que se observe.
+
+\paragraph{Problema~\ref{prob:bi-exponencial}}
+(a) $A^2=0$, así que $e^{At}=I+At=\bigl[\begin{smallmatrix}1&t\\0&1\end{smallmatrix}\bigr]$. (b) $J=\lambda I+N$ con $N=A$, y $\lambda I$ conmuta con $N$: $e^{Jt}=e^{\lambda t}\bigl[\begin{smallmatrix}1&t\\0&1\end{smallmatrix}\bigr]$. (c) $z_1=(z_1(0)+z_2(0)t)e^{\lambda t}$, $z_2=z_2(0)e^{\lambda t}$: el factor $t$ es el que hace dar media vuelta a las trayectorias del nodo impropio.
+
+\paragraph{Problema~\ref{prob:bi-clasificar}}
+(a) $\delta=-2$: silla. (b) $\tau=-4$, $\delta=5$, $\tau^2-4\delta=-4$: foco estable, $\lambda=-2\pm j$; $a_{21}=-1$: horario. (c) $\tau=2$, $\delta=1$, $\tau^2=4\delta$: valor propio doble $1$ con un solo vector propio, $(-1,1)$: nodo impropio inestable (no es una estrella porque $A\neq I$). (d) $\tau=0$, $\delta=1$: centro, $\lambda=\pm j$; $a_{21}=1$: antihorario.
+
+\paragraph{Problema~\ref{prob:bi-lenta}}
+(a) $\lambda=-3$: $v_1=(1,0)$; $\lambda=-1$: $v_2=(1,2)$. (b) Tangentes a $(1,2)$, la dirección lenta. (c) Las que empiezan sobre el eje $x_1$ (la recta de $v_1$), que llegan por él.
+
+\paragraph{Problema~\ref{prob:bi-pendulo}}
+(a) $k$ par: $\lambda^2+0.5\lambda+1=0$, foco estable; $k$ impar: $\lambda^2+0.5\lambda-1=0$, silla. (b) $\tau=-b$, $\delta=1$: nodo si $b^2\ge4$, es decir, $b\ge2$. (c) Con $b=0$ la linealización es un centro y Hartman--Grobman no dice nada. Pero $\dot E=\sin x_1\,x_2+x_2(-\sin x_1)=0$: las trayectorias viven en curvas de nivel de $E$, que cerca del origen son curvas cerradas (el origen es un mínimo estricto de $E$). Es un centro no lineal, y lo decidió una cantidad conservada, no la linealización.
+
+\paragraph{Problema~\ref{prob:bi-hopf}}
+(a) Jacobiana $\bigl[\begin{smallmatrix}\mu&-1\\1&\mu\end{smallmatrix}\bigr]$: foco estable si $\mu<0$, centro si $\mu=0$, foco inestable si $\mu>0$. (b) $\dot r=\mu r-r^3$, $\dot\theta=1$. (c) Con $\mu=0$, $\dot r=-r^3$: el origen es asintóticamente estable aunque la linealización sea un centro. Con $\mu>0$, $\dot r=0$ en $r=\sqrt\mu$: aparece un ciclo límite estable (bifurcación de Hopf).
+
+\paragraph{Problema~\ref{prob:bi-inestable}}
+(a) $\diag(1,-1)$: silla, $E^u$ el eje $x_1$, $E^s$ el eje $x_2$. (b) El eje $x_2$ es invariante y allí $\dot x_2=-x_2$: $W^s$ es el eje $x_2$. Para $W^u$, $x_2=cx_1^2$ con $2c=-c+1$: $c=\tfrac13$, $W^u=\{x_2=\tfrac13x_1^2\}$. (c) No: $(1,0)$ está en $E^u$ pero no en $W^u$. La solución es $x_2(t)=\tfrac13(e^{2t}-e^{-t})$, que hacia atrás se va a $-\infty$.
+
+\paragraph{Problema~\ref{prob:bi-central}}
+(a) La ecuación es $h'(y)(ay^3+yh)+h-y^2=0$. Con $h=y^2+h_4y^4$: $2y(ay^3+y^3)+h_4y^4=0$, $h_4=-2(a+1)$. (b) $\dot y=(a+1)y^3-2(a+1)y^5+\cdots$. (c) $a<-1$: asintóticamente estable; $a>-1$: inestable. Con $a=-1$ el término cúbico se anula, y no basta: hay que mirar más órdenes. Aquí todos se anulan, porque $h=y^2$ es \emph{exacta} (compruébelo) y el sistema reducido es $\dot y=-y^3+y\cdot y^2=0$: el origen es estable pero no asintóticamente estable.
+
+\paragraph{Problema~\ref{prob:bi-cuenca}}
+Desde $(0.4,0)$ y $(0.4,0.1)$ el circuito termina en $Q_1$; desde $(0.4,0.2)$ y $(0.4,0.3)$, en $Q_3$. La bisección da $i_L(0)\approx0.189$\,mA, el punto donde la recta $v_C=0.4$ corta la variedad estable de $Q_2$.
+
+\paragraph{Problema~\ref{prob:bi-tangente}}
+Escriba $x_0=c_1v_1+c_2v_2$ con $c_2\neq0$. Entonces $x(t)=e^{\lambda_2t}\bigl(c_1e^{(\lambda_1-\lambda_2)t}v_1+c_2v_2\bigr)$ y, como $\lambda_1-\lambda_2<0$, el paréntesis tiende a $c_2v_2$: la dirección tiende a $\sgn(c_2)\,v_2/\norm{v_2}$. En un foco, $x(t)/\norm{x(t)}$ gira sin parar y no tiene límite.
+
+\respuestaspausas

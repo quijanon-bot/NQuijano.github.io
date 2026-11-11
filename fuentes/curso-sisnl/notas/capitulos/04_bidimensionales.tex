@@ -1,0 +1,37 @@
+%% =====================================================================
+%%  Capítulo 4 -- Sistemas bidimensionales: el plano de fase
+%%  Formato nuevo (noviembre de 2026). Integra: Handout3.tex (versión anterior:
+%%  plano de fase, diagonalización, teorema fundamental, linealización, los tres
+%%  casos de Jordan, Duffing, equilibrios aislados, Hartman--Grobman y variedad
+%%  central), las diapositivas SisBidim (2026), el cuaderno Planos_de_fase_Python
+%%  de la clase del 19 de agosto y los scripts EjemploIntroSisBidim.m y
+%%  CodigosVariosHandout3.m, reescritos en codigo/cap04_bidimensionales.
+%%  Se agregaron: nulclinas, la clasificación completa traza--determinante,
+%%  el diodo túnel de segundo orden y las variedades estable e inestable
+%%  (clase del 31 de agosto). Correcciones: ver \S\ref{sec:bi-cierre}.
+%%  Números verificados con herramientas/cap04_numeros.py (93/93) y
+%%  codigo/cap04_bidimensionales/verificarCap04.m (38/38 en Octave 10.3).
+%% =====================================================================
+
+\capitulo[cap:bidimensionales]{Sistemas bidimensionales: el plano de fase}
+  {Porque se sabe: siempre es más sencillo precisar dónde se está, pero la cosa se complica cuando se trata de detallar lo que se es.}
+  {Rodrigo Fresán}
+
+\begin{objetivos}[partes/04-bidimensionales.html]
+  \item Dibujar e interpretar el plano de fase de un sistema de segundo orden: campo vectorial, trayectorias, nulclinas y equilibrios, sin resolver la ecuación.
+  \item Resolver $\dot x=Ax$ con la exponencial de matriz y con un cambio de coordenadas, y probar que la solución es única.
+  \item Clasificar el origen de $\dot x=Ax$ en $\R^2$ (nodo, silla, foco, centro y los casos degenerados) con la traza y el determinante, y saber cuáles de esos retratos sobreviven a una perturbación.
+  \item Linealizar en un equilibrio y usar el teorema de Hartman--Grobman con sus hipótesis: qué garantiza, qué no garantiza y cuándo no dice nada.
+  \item Reconocer las variedades estable e inestable de una silla y usarlas como fronteras entre cuencas de atracción.
+  \item Reducir un sistema a su variedad central para decidir la estabilidad cuando la linealización tiene valores propios en el eje imaginario.
+\end{objetivos}
+
+\input{capitulos/cap04/s01_por_que}
+\input{capitulos/cap04/s02_plano}
+\input{capitulos/cap04/s03_lineales}
+\input{capitulos/cap04/s04_clasificacion}
+\input{capitulos/cap04/s05_linealizacion}
+\input{capitulos/cap04/s06_ejemplos}
+\input{capitulos/cap04/s07_variedades}
+\input{capitulos/cap04/s08_central}
+\input{capitulos/cap04/s09_cierre}

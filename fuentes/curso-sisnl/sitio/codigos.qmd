@@ -31,7 +31,9 @@ codigo/
 │   ├── derivadaLie.m         derivada de Lie numérica L_f lambda
 │   ├── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
 │   ├── ecuacionLyapunov.m    A'P + PA = -Q (convención del curso), sin toolboxes
-│   └── lineaFase.m           línea de fase de x' = f(x), clasificación por el signo de f
+│   ├── lineaFase.m           línea de fase de x' = f(x), clasificación por el signo de f
+│   ├── retratoFase.m         retrato de fase de x' = f(x) en el plano (campo, trayectorias, equilibrios)
+│   └── clasificarEquilibrio.m  tipo del origen de x' = Ax en R^2 por traza y determinante
 ├── cap01_introduccion/
 │   ├── C1_Ej1 … C1_Ej9       superposición, logística, panorama, energía, reescalamiento, control
 │   ├── C1_Video_*            Lorenz y mapa logístico
@@ -47,6 +49,12 @@ codigo/
 │   ├── C3_Ej1 … C3_Ej10      métricas, normas, Lipschitz, Picard, escape, comparación
 │   ├── C3_Video_*            Picard y no unicidad
 │   └── verificarCap03.m      33 pruebas de los números del capítulo
+├── cap04_bidimensionales/
+│   ├── C4_Ej1 … C4_Ej12      campo, nulclinas, exponencial, galería, traza-determinante, robustez, linealización, centro falso, Duffing, diodo túnel, variedades, variedad central
+│   ├── C4_Video_*            traza-determinante, cuencas de Duffing, variedad central
+│   ├── crearModelo_DiodoTunel2D  DiodoTunel2D.slx
+│   ├── variedadSilla.m       ramas de W^s y W^u de una silla
+│   └── verificarCap04.m      38 pruebas de los números del capítulo
 ├── cap05_orbitas_ciclos/
 │   ├── C5_Ej1 … C5_Ej11      Duffing, van der Pol, fase, Kuramoto, índice, PB, Lotka–Volterra, Nowak
 │   ├── C5_Video_*            Kuramoto, índice y van der Pol

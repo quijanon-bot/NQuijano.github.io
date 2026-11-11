@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-6ca0c397212994b6a3f632fc19759a7d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-3589997b9d3b394437034903eb3c3288.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-db75d47dca11e65f57750a85bb0935e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -289,7 +289,9 @@ window.MathJax = { tex: { macros: {
 │   ├── derivadaLie.m         derivada de Lie numérica L_f lambda
 │   ├── ubicarPolos.m         ubicación de polos (Ackermann), sin toolboxes
 │   ├── ecuacionLyapunov.m    A'P + PA = -Q (convención del curso), sin toolboxes
-│   └── lineaFase.m           línea de fase de x' = f(x), clasificación por el signo de f
+│   ├── lineaFase.m           línea de fase de x' = f(x), clasificación por el signo de f
+│   ├── retratoFase.m         retrato de fase de x' = f(x) en el plano (campo, trayectorias, equilibrios)
+│   └── clasificarEquilibrio.m  tipo del origen de x' = Ax en R^2 por traza y determinante
 ├── cap01_introduccion/
 │   ├── C1_Ej1 … C1_Ej9       superposición, logística, panorama, energía, reescalamiento, control
 │   ├── C1_Video_*            Lorenz y mapa logístico
@@ -305,6 +307,12 @@ window.MathJax = { tex: { macros: {
 │   ├── C3_Ej1 … C3_Ej10      métricas, normas, Lipschitz, Picard, escape, comparación
 │   ├── C3_Video_*            Picard y no unicidad
 │   └── verificarCap03.m      33 pruebas de los números del capítulo
+├── cap04_bidimensionales/
+│   ├── C4_Ej1 … C4_Ej12      campo, nulclinas, exponencial, galería, traza-determinante, robustez, linealización, centro falso, Duffing, diodo túnel, variedades, variedad central
+│   ├── C4_Video_*            traza-determinante, cuencas de Duffing, variedad central
+│   ├── crearModelo_DiodoTunel2D  DiodoTunel2D.slx
+│   ├── variedadSilla.m       ramas de W^s y W^u de una silla
+│   └── verificarCap04.m      38 pruebas de los números del capítulo
 ├── cap05_orbitas_ciclos/
 │   ├── C5_Ej1 … C5_Ej11      Duffing, van der Pol, fase, Kuramoto, índice, PB, Lotka–Volterra, Nowak
 │   ├── C5_Video_*            Kuramoto, índice y van der Pol

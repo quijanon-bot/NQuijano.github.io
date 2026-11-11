@@ -1,0 +1,105 @@
+%% ---------------------------------------------------------------------
+\section{Sistemas lineales: la exponencial de una matriz}
+\label{sec:bi-lineales}
+%% ---------------------------------------------------------------------
+
+Cerca de un equilibrio, un sistema no lineal se parece (a veces) a uno lineal, así que primero hay que entender por completo
+\begin{equation}
+  \dot x=Ax,\qquad x(0)=x_0,\qquad A\in\R^{n\times n} .
+  \label{eq:bi-lineal}
+\end{equation}
+La sección vale para cualquier $n$; la siguiente se especializa en $n=2$.
+
+\subsection{La exponencial y el teorema fundamental}
+
+Para una matriz cuadrada se define, como para los números,
+\begin{equation}
+  e^{At}=\sum_{k=0}^{\infty}\frac{A^kt^k}{k!}=I+At+\frac{A^2t^2}{2!}+\cdots
+  \label{eq:bi-exponencial}
+\end{equation}
+La serie converge para toda $t$ porque cada término está acotado en norma por $\norm A^k\abs t^k/k!$, y $\sum\norm A^k\abs t^k/k!=e^{\norm A\abs t}<\infty$ (\cref{def:pm-inducida}). Más aún, converge \emph{uniformemente} en cada intervalo $\abs t\le T$, y lo mismo vale para la serie de las derivadas término a término.
+
+\begin{lema}[label=lem:bi-derivada]{Derivada de la exponencial}
+Para toda $t\in\R$, $\dfrac{\dif}{\dif t}e^{At}=Ae^{At}=e^{At}A$.
+\end{lema}
+
+\begin{demostracion}
+Derivando término a término, lo que se permite porque la serie de las derivadas converge uniformemente en $\abs t\le T$,
+\[
+  \frac{\dif}{\dif t}\sum_{k=0}^{\infty}\frac{A^kt^k}{k!}=\sum_{k=1}^{\infty}\frac{A^kt^{k-1}}{(k-1)!}=A\sum_{j=0}^{\infty}\frac{A^jt^j}{j!}=Ae^{At} .
+\]
+Como $A$ conmuta con cada potencia $A^j$, también se puede sacar por la derecha: $Ae^{At}=e^{At}A$.
+\end{demostracion}
+
+\begin{teorema}[label=thm:bi-fundamental]{Teorema fundamental de los sistemas lineales}
+Para cada $x_0\in\R^n$, el problema \eqref{eq:bi-lineal} tiene una única solución, definida para todo $t\in\R$:
+\[
+  x(t)=e^{At}x_0 .
+\]
+\end{teorema}
+
+\begin{demostracion}
+\emph{Es solución:} por el \cref{lem:bi-derivada}, $\dot x=Ae^{At}x_0=Ax(t)$, y $x(0)=Ix_0=x_0$.
+\emph{Es la única:} sea $x(t)$ cualquier solución y $y(t)=e^{-At}x(t)$. Entonces
+\[
+  \dot y=-Ae^{-At}x+e^{-At}\dot x=-e^{-At}Ax+e^{-At}Ax=0 ,
+\]
+donde se usó que $e^{-At}$ conmuta con $A$. Luego $y$ es constante, $y(t)=y(0)=x_0$, y como $e^{At}e^{-At}=I$ (las dos conmutan), $x(t)=e^{At}y(t)=e^{At}x_0$.
+\end{demostracion}
+
+\notamargen{La unicidad también sale del \cref{thm:pm-local}, porque $f(x)=Ax$ es globalmente Lipschitz con constante $\norm A$; la prueba directa no necesita ese teorema.}
+
+\begin{pausa}
+¿Es cierto que $e^{At}$ es la matriz de las exponenciales $e^{a_{ij}t}$? ¿Y que $e^{(A+B)t}=e^{At}e^{Bt}$?
+\respuesta{Lo primero solo si $A$ es diagonal: para $A=\bigl[\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr]$, $e^{At}=I+At=\bigl[\begin{smallmatrix}1&t\\0&1\end{smallmatrix}\bigr]$, y no $\bigl[\begin{smallmatrix}1&e^t\\1&1\end{smallmatrix}\bigr]$. Lo segundo solo si $AB=BA$; en general es falso, y en la prueba anterior hizo falta que $A$ conmute consigo misma.}
+\end{pausa}
+
+\subsection{Diagonalizar: cambiar a las coordenadas propias}
+
+Calcular la serie no es práctico. El atajo es un cambio de coordenadas $x=Pz$ con $P$ invertible: si $\dot x=Ax$, entonces
+\[
+  \dot z=P^{-1}\dot x=P^{-1}APz ,
+\]
+y se escoge $P$ para que $P^{-1}AP$ sea lo más simple posible.
+
+\begin{teorema}[label=thm:bi-diagonal]{Diagonalización \citep[\S1.2]{Per01}}
+Si los valores propios $\lambda_1,\dots,\lambda_n$ de $A\in\R^{n\times n}$ son reales y distintos, cualquier conjunto de vectores propios correspondientes $v_1,\dots,v_n$ es una base de $\R^n$, la matriz $P=[v_1\ \cdots\ v_n]$ es invertible y
+\[
+  P^{-1}AP=\diag(\lambda_1,\dots,\lambda_n) .
+\]
+En consecuencia, $e^{At}=P\,\diag(e^{\lambda_1t},\dots,e^{\lambda_nt})\,P^{-1}$.
+\end{teorema}
+
+En las coordenadas $z$ el sistema se \emph{desacopla}: $\dot z_i=\lambda_iz_i$, $z_i(t)=z_i(0)e^{\lambda_it}$. Cada coordenada propia tiene su propio valor propio, y la solución en $x$ es una mezcla de esas exponenciales.
+
+\begin{ejemplo}[label=ej:bi-diagonal]{Una matriz triangular}
+Resuelva $\dot x_1=-x_1-3x_2$, $\dot x_2=2x_2$ por diagonalización.
+\solucion $A=\bigl[\begin{smallmatrix}-1&-3\\0&2\end{smallmatrix}\bigr]$ es triangular, así que sus valores propios son $-1$ y $2$. Para $\lambda_1=-1$, $(A+I)v=0$ da $v_1=(1,0)$; para $\lambda_2=2$, $(A-2I)v=0$ da $-3v_{(1)}-3v_{(2)}=0$, $v_2=(-1,1)$. Con $P=\bigl[\begin{smallmatrix}1&-1\\0&1\end{smallmatrix}\bigr]$, $P^{-1}=\bigl[\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr]$ y $P^{-1}AP=\diag(-1,2)$. En coordenadas propias, $z_1(t)=z_1(0)e^{-t}$ y $z_2(t)=z_2(0)e^{2t}$. Volviendo a $x$,
+\[
+  e^{At}=\begin{bmatrix}e^{-t}&e^{-t}-e^{2t}\\0&e^{2t}\end{bmatrix},\qquad
+  x_1(t)=x_1(0)e^{-t}+x_2(0)\bigl(e^{-t}-e^{2t}\bigr),\qquad x_2(t)=x_2(0)e^{2t}.
+\]
+(Compruebe: $\dot x_1+x_1=-3x_2(0)e^{2t}=-3x_2$.)
+\end{ejemplo}
+
+\codigorepo{cap04_bidimensionales/C4_Ej3_Exponencial.m}{diagonal}{\cmd{eig}, el cambio de coordenadas y la comparación con \cmd{expm}}
+
+\begin{trampa}[label=tr:bi-diagonal]{``$\dot x_1=-x_1-3x_2$: como el coeficiente de $x_1$ es negativo, $x_1$ decae''}
+\plausible{Si se ignora el acople, $\dot x_1=-x_1$ y $x_1(t)=x_1(0)e^{-t}$.}
+El acople no se puede ignorar: $x_1(t)$ contiene el término $-x_2(0)e^{2t}$, que crece. Desde $x_0=(1,1)$, $x_1(t)=2e^{-t}-e^{2t}$ se anula en $t=\tfrac13\ln2\approx0.23$ y después se va a $-\infty$. Los elementos de la diagonal de $A$ no son sus valores propios (salvo si $A$ es triangular, como aquí, y aun así no dicen qué valor propio aparece en qué estado).
+\correcto{La estabilidad de $\dot x=Ax$ la deciden los valores propios de $A$, y cada estado es, en general, una combinación de \emph{todos} los modos $e^{\lambda_it}$.}
+\end{trampa}
+
+\subsection{Subespacios estable, inestable y central}
+
+Los vectores propios dicen además por dónde entran y salen las trayectorias. Si $v$ es un vector propio de $\lambda$ real, la recta $\{cv\}$ es \emph{invariante}: la solución que empieza en $x_0=cv$ es $ce^{\lambda t}v$, y se queda en la recta. Para valores propios complejos o repetidos se usan, respectivamente, las partes real e imaginaria de los vectores propios y los vectores propios generalizados, y se agrupan así.
+
+\begin{definicion}[label=def:bi-subespacios]{Subespacios estable, inestable y central \citep[\S1.9]{Per01}}
+Sea $\{w_1,\dots,w_n\}$ una base de $\R^n$ formada por vectores propios generalizados de $A$ (para cada par complejo, sus partes real e imaginaria). Los subespacios
+\[
+  E^s=\operatorname{gen}\{w_j:\Re\lambda_j<0\},\qquad E^u=\operatorname{gen}\{w_j:\Re\lambda_j>0\},\qquad E^c=\operatorname{gen}\{w_j:\Re\lambda_j=0\}
+\]
+son el \clave{subespacio estable}, el \clave{inestable} y el \clave{central}. Son invariantes bajo $e^{At}$ y $\R^n=E^s\oplus E^u\oplus E^c$.
+\end{definicion}
+
+Las soluciones que empiezan en $E^s$ tienden al origen, las de $E^u$ tienden al origen hacia atrás en el tiempo, y las de $E^c$ ni crecen ni decaen exponencialmente. En el \cref{ej:bi-diagonal}, $E^s$ es el eje $x_1$ y $E^u$ la recta generada por $(-1,1)$: solo las condiciones iniciales sobre el eje $x_1$ ($x_2(0)=0$) llevan al origen. La \cref{sec:bi-variedades} muestra qué queda de $E^s$ y $E^u$ cuando el sistema no es lineal.

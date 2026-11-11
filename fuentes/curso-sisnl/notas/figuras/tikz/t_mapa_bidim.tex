@@ -1,0 +1,15 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}[node distance=6mm and 8mm]
+ \node[bloque=snlnoche,minimum width=56mm] (q) {¿Qué hacen las trayectorias de\\ $\dot x=f(x)$, $x\in\mathbb R^2$, cerca de un equilibrio $x^*$?};
+ \node[bloque=snlazul,below=8mm of q,minimum width=56mm] (lin) {\textbf{Linealizar:} $A=\partial f/\partial x\,(x^*)$\\ y clasificar $\dot z=Az$ con $\operatorname{tr}A$ y $\det A$};
+ \node[bloque=snlverde,below left=10mm and -14mm of lin,minimum width=50mm,align=left,font=\footnotesize] (hip) {\textbf{Hiperbólico} ($\operatorname{Re}\lambda_i\neq0$)\\ nodo, foco o silla:\\ Hartman--Grobman: el retrato no lineal\\ es el lineal, deformado continuamente};
+ \node[bloque=snlcoral,below right=10mm and -14mm of lin,minimum width=50mm,align=left,font=\footnotesize] (nohip) {\textbf{No hiperbólico} (algún $\operatorname{Re}\lambda_i=0$)\\ centro, valor propio cero:\\ la linealización \textbf{no decide};\\ deciden los términos de orden superior};
+ \node[bloque=snlverde,below=7mm of hip,minimum width=50mm,font=\footnotesize] (var) {Variedades estable e inestable\\ de la silla: separan las cuencas};
+ \node[bloque=snlcoral,below=7mm of nohip,minimum width=50mm,font=\footnotesize] (cen) {Variedad central: reducir a una\\ ecuación escalar (cap.~2) y decidir};
+ \draw[flecha] (q) -- (lin); \draw[flecha] (lin) -- (hip); \draw[flecha] (lin) -- (nohip);
+ \draw[flecha] (hip) -- (var); \draw[flecha] (nohip) -- (cen);
+ \node[nota,below=4mm of $(var.south)!0.5!(cen.south)$] {Lejos de los equilibrios: órbitas y ciclos límite (cap.~5). Sin linealizar: Lyapunov (cap.~7).};
+\end{tikzpicture}
+\end{document}

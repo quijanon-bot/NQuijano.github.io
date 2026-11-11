@@ -2,7 +2,7 @@
 
 Curso IELE 4311, Departamento de Ingeniería Eléctrica y Electrónica, Universidad de los Andes. Nicanor Quijano.
 
-Versión **piloto** (noviembre de 2026), con el mismo esquema del repositorio del curso de Control (`curso-control`). Están completos en el formato nuevo los capítulos 1, 2, 3, 5, 7, 11 (el piloto) y 12; los demás están listados en el sitio y se migran siguiendo `notas/MIGRACION.md`.
+Versión **piloto** (noviembre de 2026), con el mismo esquema del repositorio del curso de Control (`curso-control`). Están completos en el formato nuevo los capítulos 1, 2, 3, 4, 5, 7, 11 (el piloto) y 12; los demás están listados en el sitio y se migran siguiendo `notas/MIGRACION.md`.
 
 ## Qué hay aquí
 
@@ -11,7 +11,7 @@ Versión **piloto** (noviembre de 2026), con el mismo esquema del repositorio de
 | `notas/` | Las notas en LaTeX: clase `apuntessisnl.cls` (derivada de `apuntescontrol.cls`), notación `notacion.sty`, `NotasSisNL.tex`, capítulos partidos en secciones, figuras, bibliografía |
 | `codigo/` | MATLAB y Simulink: `iniciarCurso.m`, funciones `comun/`, scripts por capítulo (`C11_Ej*`, `C11_Video_*`), modelos de Simulink construidos por código (`crearModelo_*`) y `verificarCap11.m` |
 | `sitio/` | Página web (Quarto): una página por parte del curso, notación, códigos, videos y el explorador interactivo de pasividad |
-| `herramientas/` | Python para regenerar las figuras y verificar los números (`capNN_figuras.py`, `capNN_numeros.py`, para los capítulos 1, 2, 3, 5, 7, 11 y 12), `tikz.sh` para los diagramas y `pdf_por_capitulo.py` para los PDF de cada parte |
+| `herramientas/` | Python para regenerar las figuras y verificar los números (`capNN_figuras.py`, `capNN_numeros.py`, para los capítulos 1, 2, 3, 4, 5, 7, 11 y 12), `tikz.sh` para los diagramas y `pdf_por_capitulo.py` para los PDF de cada parte |
 | `.github/workflows/` | Compila el PDF y publica el sitio en GitHub Pages en cada *push* |
 
 **Una sola fuente.** Los bloques de código de las notas y del sitio se leen directamente de `codigo/` (marcas `% [ini:nombre]` / `% [fin:nombre]`); la notación vive en `notas/notacion.sty` (y sus macros se repiten para MathJax en `sitio/recursos/macros.html`).
@@ -34,15 +34,19 @@ python3 herramientas/cap12_numeros.py      # 88 verificaciones
 python3 herramientas/cap01_numeros.py      # 36 verificaciones
 python3 herramientas/cap02_numeros.py      # 42 verificaciones
 python3 herramientas/cap07_numeros.py      # 78 verificaciones
+python3 herramientas/cap04_numeros.py      # 93 verificaciones
 python3 herramientas/cap01_02_videos.py    # videos MP4 de las partes 1 y 2 (requiere ffmpeg)
 python3 herramientas/cap07_videos.py       # videos MP4 de la parte 7
+python3 herramientas/cap04_videos.py       # videos MP4 de la parte 4
 python3 herramientas/pdf_por_capitulo.py notas/NotasSisNL.pdf sitio/pdf   # PDF por capítulo
 herramientas/tikz.sh cap11 t_feedback      # recompilar un diagrama TikZ
 ```
 
-En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01` (34), `verificarCap02` (37), `verificarCap03` (33), `verificarCap05` (34), `verificarCap07` (34), `verificarCap11` (39) o `verificarCap12` (37).
+En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01` (34), `verificarCap02` (37), `verificarCap03` (33), `verificarCap04` (38), `verificarCap05` (34), `verificarCap07` (34), `verificarCap11` (39) o `verificarCap12` (37).
 
-## Estado de las pruebas (10 de noviembre de 2026)
+## Estado de las pruebas (11 de noviembre de 2026)
+
+- Capítulo 4: `cap04_numeros.py` 93/93, `verificarCap04` 38/38 en Octave 10.3; los doce `C4_Ej*` corren en Octave y los tres `C4_Video_*` se probaron sin grabar. Los videos publicados en el sitio se generaron con `herramientas/cap04_videos.py`. **Falta correr en MATLAB** `crearModelo_DiodoTunel2D` (Simulink).
 
 - Capítulos 1 y 2: `cap01_numeros.py` 36/36, `cap02_numeros.py` 42/42, `verificarCap01` 34/34 y `verificarCap02` 37/37 en Octave 8.4; los dieciocho `C1_Ej*`/`C2_Ej*` y los cuatro `C1_Video_*`/`C2_Video_*` (sin grabar) corren en Octave. Los videos publicados en el sitio se generaron con `herramientas/cap01_02_videos.py`. **Falta correr en MATLAB** `crearModelo_EstructuraVariable` y `crearModelo_DiodoTunel` (Simulink).
 

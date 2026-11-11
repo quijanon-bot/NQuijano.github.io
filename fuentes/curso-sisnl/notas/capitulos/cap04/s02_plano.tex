@@ -1,0 +1,89 @@
+%% ---------------------------------------------------------------------
+\section{El plano de fase}
+\label{sec:bi-plano}
+%% ---------------------------------------------------------------------
+
+La ecuación \eqref{eq:bi-sistema} asigna a cada punto $x$ del plano el vector $f(x)$: es un \clave{campo vectorial}. Una solución es una curva que en cada punto es tangente al campo, y se recorre con la velocidad que el campo indica.
+
+\begin{definicion}[label=def:bi-plano]{Trayectoria, retrato y plano de fase}
+La curva $\{\flujo t{x_0}: t\ge0\}$ (o $t\in\R$, si la solución existe para todo tiempo) es la \clave{trayectoria} u \clave{órbita} de \eqref{eq:bi-sistema} que pasa por $x_0$. El plano $x_1$--$x_2$ donde se dibujan es el \clave{plano de fase} (o plano de estado), y un dibujo con el campo y un conjunto representativo de trayectorias es un \clave{retrato de fase}.
+\end{definicion}
+
+El retrato se arma a mano en dos pasos. Primero se dibuja $f(x)$ en una malla de puntos: es la operación de \cmd{quiver} en \matlab. Por ejemplo, para
+\begin{equation}
+  \dot x_1=2x_1x_2,\qquad \dot x_2=x_1x_2 ,
+  \label{eq:bi-ejcampo}
+\end{equation}
+en el punto $(1,2)$ el campo vale $f(1,2)=(4,2)$: la flecha sale de $(1,2)$ y apunta hacia $(5,4)$. Después se trazan trayectorias tangentes a las flechas. Si las flechas se dibujan con su largo real, $\norm{f(x)}$, las de las zonas rápidas tapan todo; casi siempre conviene \emph{normalizarlas} y leer solo la dirección.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_campo}
+\caption{Izquierda: el campo \eqref{eq:bi-ejcampo}, con flechas normalizadas. Las trayectorias son rectas paralelas a $(2,1)$ y los dos ejes están hechos de equilibrios. Derecha: la masa--resorte \eqref{eq:bi-resorte}: elipses alrededor del origen.}
+\label{fig:bi-campo}
+\end{figure}
+
+\codigorepo{cap04_bidimensionales/C4_Ej1_CampoVectorial.m}{campo}{El campo vectorial con \cmd{quiver} y algunas trayectorias}
+
+\begin{pausa}
+En \eqref{eq:bi-ejcampo}, ¿por qué las trayectorias son rectas? ¿Hacia dónde se mueve un punto de la recta que pasa por $(1,2)$, y hasta dónde llega?
+\respuesta{Porque $\frac{\dif}{\dif t}(x_1-2x_2)=2x_1x_2-2x_1x_2=0$: cada solución se queda en una recta $x_1-2x_2=c$. Sobre la recta $x_1-2x_2=-3$ que pasa por $(1,2)$, el producto $x_1x_2$ es positivo para $x_1>0$, así que el punto se aleja en la dirección $(2,1)$ (y escapa en tiempo finito, porque la velocidad crece cuadráticamente). Hacia atrás en el tiempo se acerca al equilibrio $(0,\tfrac32)$ sobre el eje $x_2$. Todos los puntos de los ejes son equilibrios: \emph{no} están aislados (\cref{sec:bi-linealizacion}).}
+\end{pausa}
+
+\subsection{Un ejemplo con física: la masa y el resorte}
+
+Una masa $m$ colgada de un resorte lineal de constante $k$, sin fricción, cumple $m\ddot x+kx=0$. Con $x_1=x$ (posición) y $x_2=\dot x$ (velocidad),
+\begin{equation}
+  \dot x_1=x_2,\qquad \dot x_2=-\omega^2x_1,\qquad \omega^2=k/m .
+  \label{eq:bi-resorte}
+\end{equation}
+Antes de resolver, se lee el campo por partes. Sobre el eje $x_1$ ($x_2=0$) el campo es $(0,-\omega^2x_1)$: vertical, hacia abajo si $x_1>0$ y hacia arriba si $x_1<0$, más largo cuanto más lejos del origen. Sobre el eje $x_2$ ($x_1=0$) es $(x_2,0)$: horizontal, hacia la derecha arriba y hacia la izquierda abajo. Juntando las dos cosas, el flujo gira \emph{en el sentido de las agujas del reloj}. Para saber si la vuelta se cierra basta una cuenta:
+\[
+  \frac{\dif}{\dif t}\bigl(\omega^2x_1^2+x_2^2\bigr)=2\omega^2x_1x_2+2x_2(-\omega^2x_1)=0 .
+\]
+Las trayectorias son las elipses $\omega^2x_1^2+x_2^2=c$: \clave{órbitas cerradas}, una para cada nivel de energía, y el origen es un equilibrio rodeado por ellas (\cref{fig:bi-campo}). Físicamente, sin fricción la energía $\tfrac12kx^2+\tfrac12m\dot x^2$ se conserva y la masa oscila para siempre con una amplitud que fija la condición inicial.
+
+\subsection{Nulclinas: dónde el campo es vertical u horizontal}
+
+Cuando la cuenta anterior no es posible, el retrato se organiza con las curvas donde una de las componentes del campo se anula.
+
+\begin{definicion}[label=def:bi-nulclina]{Nulclinas}
+La \clave{nulclina} de $x_1$ es el conjunto $\{x: f_1(x)=0\}$; sobre ella el campo es vertical. La de $x_2$ es $\{x: f_2(x)=0\}$; sobre ella el campo es horizontal. Los equilibrios son exactamente las intersecciones de una nulclina de $x_1$ con una de $x_2$.
+\end{definicion}
+
+Las nulclinas parten el plano en regiones donde los signos de $\dot x_1$ y $\dot x_2$ no cambian: en cada región el flujo va hacia uno de los cuatro cuadrantes (noreste, noroeste, \ldots), y eso ya da la forma gruesa del retrato.
+
+\begin{ejemplo}[label=ej:bi-nulclinas]{El sistema de la clase del 19 de agosto}
+Dibuje las nulclinas de
+\begin{equation}
+  \dot x_1=-x_1+x_1x_2,\qquad \dot x_2=x_1+x_2-2x_1x_2 ,
+  \label{eq:bi-cuaderno}
+\end{equation}
+halle los equilibrios y describa el flujo en cada región.
+\solucion $f_1=x_1(x_2-1)=0$ da dos rectas: $x_1=0$ y $x_2=1$. $f_2=0$ da $x_2(1-2x_1)=-x_1$, es decir, la hipérbola $x_2=x_1/(2x_1-1)$, con asíntotas $x_1=\tfrac12$ y $x_2=\tfrac12$. Las intersecciones son $(0,0)$ (con $x_1=0$) y $(1,1)$ (con $x_2=1$). En la región $x_1>1$, $x_2>1$ se tiene $\dot x_1>0$ y $\dot x_2<0$: el flujo va hacia el sureste. Rodeando $(1,1)$ los signos rotan, y el flujo gira alrededor de ese equilibrio; la \cref{sec:bi-linealizacion} dirá si se acerca en espiral o se aleja. El eje $x_2$ es invariante (si $x_1=0$, $\dot x_1=0$) y sobre él $\dot x_2=x_2$: el flujo se aleja del origen. Cerca del origen las trayectorias llegan en la dirección $(2,-1)$ y se van a lo largo del eje $x_2$ (\cref{fig:bi-nulclinas}); la \cref{sec:bi-linealizacion} explica de dónde sale esa dirección.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{cap04/f_nulclinas}
+\caption{Nulclinas de \eqref{eq:bi-cuaderno}: de $x_1$ en coral (rectas $x_1=0$ y $x_2=1$), de $x_2$ en ámbar (la hipérbola). Los equilibrios están en las intersecciones de colores distintos.}
+\label{fig:bi-nulclinas}
+\end{figure}
+
+\codigorepo{cap04_bidimensionales/C4_Ej2_Nulclinas.m}{nulclinas}{Nulclinas, equilibrios y retrato con la función \cmd{retratoFase} del curso}
+
+\begin{trampa}[label=tr:bi-nulclinas]{``Dos nulclinas que se cruzan marcan un equilibrio''}
+\plausible{En un equilibrio el campo es cero, y las nulclinas son justamente donde el campo se anula.}
+Cada nulclina anula \emph{una} componente. El cruce de dos ramas de la \emph{misma} nulclina (en el ejemplo, las rectas $x_1=0$ y $x_2=1$ se cortan en $(0,1)$) no es un equilibrio: allí $f_1=0$, pero $f_2(0,1)=1\neq0$.
+\correcto{Un equilibrio es un cruce de la nulclina de $x_1$ con la de $x_2$. Use colores distintos para las dos al dibujarlas.}
+\end{trampa}
+
+\subsection{Lo que el plano de fase no muestra}
+
+El retrato elimina el tiempo: muestra \emph{por dónde} pasan las soluciones, no \emph{cuándo}. Dos sistemas con el mismo retrato pueden recorrerlo a velocidades muy distintas; si se multiplica $f$ por una función positiva, las trayectorias no cambian y los tiempos sí. Para el análisis cualitativo es justo lo que se quiere: rara vez importa cuánto tarda el sistema en llegar a un equilibrio, sino si llega y desde dónde.
+
+\begin{trampa}[label=tr:bi-llega]{``La trayectoria llega al equilibrio''}
+\plausible{En el retrato de un nodo estable las curvas terminan en el origen.}
+Si $f$ es localmente Lipschitz, ninguna solución que empieza fuera de un equilibrio lo alcanza en tiempo finito: si $\flujo T{x_0}=\eq$, la solución que se queda en $\eq$ y la que llega a él pasarían por el mismo punto en $t=T$, contra la unicidad (hacia atrás en el tiempo). En $\dot x=-x$ la distancia se divide por $e$ cada unidad de tiempo, y nunca se anula. Sin Lipschitz sí puede pasar: $\dot x=-\sqrt{\abs x}$ llega a $0$ desde $x_0=1$ en $t=2$.
+\correcto{Las trayectorias \emph{tienden} al equilibrio cuando $t\to\infty$. Las curvas del retrato que ``terminan'' en el equilibrio lo hacen en el límite.}
+\end{trampa}

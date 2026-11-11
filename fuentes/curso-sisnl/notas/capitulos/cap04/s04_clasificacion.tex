@@ -1,0 +1,142 @@
+%% ---------------------------------------------------------------------
+\section{Los retratos de fase lineales en el plano}
+\label{sec:bi-clasificacion}
+%% ---------------------------------------------------------------------
+
+En $\R^2$ toda matriz real es semejante a una de tres \clave{formas de Jordan reales}: existe $P$ invertible con $P^{-1}AP=J$ y
+\begin{equation}
+  J_1=\begin{bmatrix}\lambda_1&0\\0&\lambda_2\end{bmatrix},\qquad
+  J_2=\begin{bmatrix}\lambda&1\\0&\lambda\end{bmatrix},\qquad
+  J_3=\begin{bmatrix}\alpha&-\beta\\\beta&\alpha\end{bmatrix}\ (\beta>0) .
+  \label{eq:bi-jordan}
+\end{equation}
+$J_1$ corresponde a valores propios reales con dos vectores propios independientes (distintos, o iguales con $A=\lambda I$); $J_2$, a un valor propio real doble con un solo vector propio; $J_3$, al par complejo $\alpha\pm j\beta$. Como $x=Pz$ es una deformación lineal del plano (estira, rota, refleja), el retrato en $x$ es el retrato en $z$ visto a través de $P$: rectas van a rectas y el origen al origen. Por eso basta estudiar las tres formas. Supondremos $\det A\neq0$ hasta el final de la sección.
+
+\subsection{Valores propios reales distintos: nodos y sillas}
+
+Con $J_1$, $z_1(t)=z_1(0)e^{\lambda_1t}$ y $z_2(t)=z_2(0)e^{\lambda_2t}$. Eliminando $t$ (si $z_1(0)\neq0$),
+\begin{equation}
+  z_2=c\,\abs{z_1}^{\lambda_2/\lambda_1},\qquad c=\frac{z_2(0)}{\abs{z_1(0)}^{\lambda_2/\lambda_1}} .
+  \label{eq:bi-nodo}
+\end{equation}
+\begin{itemize}
+  \item $\lambda_1,\lambda_2<0$: \clave{nodo estable}. El exponente $\lambda_2/\lambda_1$ es positivo y las curvas son ``parábolas'' que llegan al origen. Si $\abs{\lambda_1}>\abs{\lambda_2}$ ($z_1$ es la coordenada rápida), $\lambda_2/\lambda_1<1$ y las curvas llegan \emph{tangentes al eje $z_2$}: primero desaparece la componente rápida y la trayectoria termina a lo largo de la dirección \emph{lenta}.
+  \item $\lambda_1,\lambda_2>0$: \clave{nodo inestable}. Las mismas curvas, recorridas hacia afuera; salen tangentes a la dirección lenta (la de menor $\lambda$).
+  \item $\lambda_1<0<\lambda_2$: \clave{silla}. El exponente es negativo y las curvas son ``hipérbolas''. Solo las condiciones iniciales sobre $E^s$ (el eje $z_1$) llegan al origen; todas las demás terminan escapando a lo largo de $E^u$.
+\end{itemize}
+Si $\lambda_1=\lambda_2=\lambda$ y $A=\lambda I$, todas las rectas por el origen son invariantes: el retrato es una \clave{estrella} (nodo propio).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_retratos}
+\caption{Los retratos lineales en las coordenadas propias. Arriba: nodo estable ($\lambda=-6,-2$), silla ($-1,2$), estrella ($-1,-1$). Abajo: nodo impropio ($J_2$, $\lambda=-1$), foco estable ($-0.5\pm2j$), centro ($\pm2j$). En azul, los subespacios propios.}
+\label{fig:bi-retratos}
+\end{figure}
+
+\codigorepo{cap04_bidimensionales/C4_Ej4_Galeria.m}{galeria}{Los seis retratos de la \cref{fig:bi-retratos}}
+
+\begin{trampa}[label=tr:bi-rapida]{``En un nodo, las trayectorias llegan por la dirección rápida''}
+\plausible{La dirección rápida es la que más atrae, así que debería dominar la llegada.}
+Es al revés. Con $\lambda_1=-6$ y $\lambda_2=-2$, la componente $z_1$ decae como $e^{-6t}$ y la $z_2$ como $e^{-2t}$: cuando la trayectoria está cerca del origen, lo que queda es $z_2$. En \eqref{eq:bi-nodo} el exponente es $\tfrac13$ y $z_2\propto\abs{z_1}^{1/3}$, una curva tangente al eje $z_2$ en el origen.
+\correcto{Las trayectorias de un nodo estable llegan tangentes al vector propio \emph{lento} (el de $\abs\lambda$ menor), salvo las que empiezan sobre el vector propio rápido.}
+\end{trampa}
+
+\subsection{Un valor propio doble con un solo vector propio}
+
+Con $J_2$ (es decir, $A\neq\lambda I$ con $\lambda$ doble), $\dot z_1=\lambda z_1+z_2$, $\dot z_2=\lambda z_2$, de modo que
+\[
+  z_2(t)=z_2(0)e^{\lambda t},\qquad z_1(t)=\bigl(z_1(0)+z_2(0)\,t\bigr)e^{\lambda t} .
+\]
+Eliminando $t=\frac1\lambda\ln\frac{z_2}{z_2(0)}$,
+\[
+  z_1=z_2\left(\frac{z_1(0)}{z_2(0)}+\frac1\lambda\ln\frac{z_2}{z_2(0)}\right) .
+\]
+Hay una sola recta invariante (el eje $z_1$, generado por el vector propio), y todas las trayectorias llegan tangentes a ella, después de dar media vuelta: es un \clave{nodo impropio} (o degenerado), estable si $\lambda<0$ e inestable si $\lambda>0$. Se lo puede ver como el caso límite entre un nodo y un foco.
+
+\subsection{Valores propios complejos: focos y centros}
+
+Si $\lambda=\alpha+j\beta$ ($\beta>0$) tiene vector propio $v=a+jb$, con $P=[a\ \ -b]$ se obtiene $J_3$ (compruébelo multiplicando $AP$). En coordenadas polares, $z_1=r\cos\theta$, $z_2=r\sin\theta$,
+\[
+  \dot z_1=\alpha z_1-\beta z_2,\quad \dot z_2=\beta z_1+\alpha z_2
+  \quad\Longrightarrow\quad
+  \dot r=\alpha r,\qquad \dot\theta=\beta .
+\]
+El ángulo crece a tasa constante y el radio cambia como $e^{\alpha t}$:
+\begin{itemize}
+  \item $\alpha<0$: \clave{foco estable} (espirales que entran).
+  \item $\alpha>0$: \clave{foco inestable} (espirales que salen).
+  \item $\alpha=0$: \clave{centro}. Ni entran ni salen: el origen queda rodeado por órbitas cerradas (círculos en $z$, elipses en $x$), como la masa--resorte.
+\end{itemize}
+
+\begin{trampa}[label=tr:bi-giro]{``El foco gira en sentido antihorario porque $\dot\theta=\beta>0$''}
+\plausible{En las coordenadas de Jordan, $\dot\theta=\beta>0$.}
+Eso vale en $z$. El cambio $x=Pz$ puede incluir una reflexión ($\det P<0$), y entonces invierte el sentido. La masa--resorte \eqref{eq:bi-resorte} tiene $\beta=\omega>0$ y gira en sentido horario en el plano $x$.
+\correcto{El sentido de giro en el plano $x$ se lee directamente en $A$: en el punto $(1,0)$ la velocidad es $(a_{11},a_{21})$. Si $a_{21}>0$ el giro es antihorario; si $a_{21}<0$, horario. (Con valores propios complejos, $a_{21}\neq0$ siempre.)}
+\end{trampa}
+
+\subsection{Traza y determinante}
+
+No hace falta calcular $J$: la traza $\tau=\tr A=\lambda_1+\lambda_2$ y el determinante $\delta=\det A=\lambda_1\lambda_2$ bastan, porque los valores propios son
+\[
+  \lambda=\frac{\tau\pm\sqrt{\tau^2-4\delta}}{2} .
+\]
+
+\begin{teorema}[label=thm:bi-trazadet]{Clasificación por traza y determinante \citep[\S1.5]{Per01}}
+Sea $A\in\R^{2\times2}$ con $\delta=\det A\neq0$ y $\tau=\tr A$. El origen es el único equilibrio de $\dot x=Ax$, y es
+\begin{enumerate}
+  \item una \textbf{silla} si $\delta<0$;
+  \item un \textbf{nodo} si $\delta>0$ y $\tau^2-4\delta\ge0$ (estrella o impropio si $\tau^2=4\delta$), estable si $\tau<0$ e inestable si $\tau>0$;
+  \item un \textbf{foco} si $\delta>0$, $\tau^2-4\delta<0$ y $\tau\neq0$, estable si $\tau<0$ e inestable si $\tau>0$;
+  \item un \textbf{centro} si $\delta>0$ y $\tau=0$.
+\end{enumerate}
+\end{teorema}
+
+\begin{demostracion}
+Como $\delta\neq0$, $Ax=0$ solo si $x=0$. (1) $\lambda_1\lambda_2=\delta<0$: dos valores propios reales de signo opuesto. (2) Reales (discriminante $\ge0$) con producto positivo: del mismo signo, el de su suma $\tau$; además $\tau^2\ge4\delta>0$ garantiza $\tau\neq0$. (3) Complejos con parte real $\alpha=\tau/2\neq0$. (4) Complejos con parte real nula, $\lambda=\pm j\sqrt\delta$.
+\end{demostracion}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap04/f_traza_det}
+\caption{El plano traza--determinante. La parábola $\tau^2=4\delta$ separa nodos y focos; el semieje $\tau=0$, $\delta>0$ son los centros. Los retratos de las fronteras (centros, estrellas, nodos impropios, $\delta=0$) no son robustos.}
+\label{fig:bi-trazadet}
+\end{figure}
+
+\video{V4_1_traza_determinante}{Un punto recorre el plano traza--determinante}
+\codigorepo{cap04_bidimensionales/C4_Ej5_TrazaDeterminante.m}{clasificar}{La función \cmd{clasificarEquilibrio} del curso}
+
+\begin{ejemplo}[label=ej:bi-barrido]{Un parámetro que recorre todos los casos}
+Para $\dot x_1=ax_1$, $\dot x_2=-x_2$, describa el retrato cuando $a$ va de $-\infty$ a $\infty$.
+\solucion $x_1=x_1(0)e^{at}$, $x_2=x_2(0)e^{-t}$; $\tau=a-1$, $\delta=-a$. Si $a<-1$: nodo estable, con $x_2$ como dirección lenta (las curvas llegan tangentes al eje $x_2$). Si $a=-1$: estrella. Si $-1<a<0$: nodo estable con $x_1$ como dirección lenta (llegan tangentes al eje $x_1$). Si $a=0$: $\delta=0$, todo el eje $x_1$ está hecho de equilibrios y las trayectorias son rectas verticales que bajan hacia él. Si $a>0$: silla. El paso por $a=0$ es una bifurcación (\cref{fig:bi-barrido}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_barrido}
+\caption{$\dot x_1=ax_1$, $\dot x_2=-x_2$ para $a=-4$, $-1$, $-0.3$, $0$ y $1$. En $a=-1$ la dirección lenta cambia de eje; en $a=0$ aparece una recta de equilibrios.}
+\label{fig:bi-barrido}
+\end{figure}
+
+\subsection{Qué retratos sobreviven a una perturbación}
+
+Los coeficientes de un modelo nunca se conocen exactamente. Si se cambia $A$ por $A+\Delta A$ con $\norm{\Delta A}$ pequeño, los valores propios se mueven poco (dependen continuamente de los elementos de la matriz~\citep{GoVa83}). Entonces:
+\begin{itemize}
+  \item un valor propio con parte real negativa (positiva) la conserva: \alerta{nodos, focos y sillas se conservan}. Son retratos \clave{estructuralmente estables};
+  \item un par $\pm j\beta$ puede moverse a cualquiera de los dos semiplanos: \alerta{un centro se vuelve foco estable o inestable} con una perturbación arbitrariamente pequeña ($A+\varepsilon I$ tiene $\Re\lambda=\varepsilon$);
+  \item un valor propio doble se puede partir en dos reales o en un par complejo: \alerta{un nodo impropio o una estrella se vuelve nodo o foco} (del mismo tipo de estabilidad). Por ejemplo, $\bigl[\begin{smallmatrix}-1&1\\-\varepsilon&-1\end{smallmatrix}\bigr]$ tiene $\lambda=-1\pm j\sqrt\varepsilon$;
+  \item un valor propio cero se vuelve positivo o negativo, y la recta de equilibrios desaparece.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_estructural}
+\caption{Izquierda: un centro y dos perturbaciones de tamaño $0.05$. Derecha: un nodo impropio y la perturbación $\varepsilon=0.05$ que lo vuelve foco. La estabilidad se conserva en el segundo caso, no en el primero.}
+\label{fig:bi-estructural}
+\end{figure}
+
+\codigorepo{cap04_bidimensionales/C4_Ej6_Estructural.m}{perturbar}{Perturbar un centro y un nodo impropio}
+
+\begin{pausa}
+¿Es cierto que todo sistema plano tiene al menos un equilibrio? Piense en $\dot x_1=\alpha+\sin(x_1+x_2)+x_1$, $\dot x_2=\alpha+\sin(x_1+x_2)-x_1$.
+\respuesta{No. Restando las dos ecuaciones, un equilibrio necesita $x_1=0$, y entonces $\sin x_2=-\alpha$. Si $\alpha>1$ no hay solución: el sistema no tiene equilibrios (con $\alpha\le1$ sí los tiene, infinitos). Los sistemas lineales siempre tienen al origen; los no lineales, no necesariamente.}
+\end{pausa}

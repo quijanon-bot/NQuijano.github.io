@@ -43,7 +43,7 @@ El \clave{jacobiano} de $f:\R^n\to\R^m$ es la matriz $m\times n$ de sus derivada
 Para una función escalar $h:\R^n\to\R$ el jacobiano es un vector \emph{fila}, $\jac hx\in\R^{1\times n}$, y el \clave{gradiente} es su transpuesta, $\nabla h(x)=\bigl(\jac hx\bigr)\T\in\R^n$.
 \end{definicion}
 
-El jacobiano es la mejor aproximación lineal de $f$ cerca de un punto: $f(x_0+\delta)=f(x_0)+\jacat fx{x_0}\delta+o(\norm\delta)$. Es la matriz que se calcula para linealizar en un equilibrio (capítulo~4). El gradiente apunta en la dirección de máximo crecimiento de $h$; la derivada de $h$ a lo largo de las soluciones de $\dot x=f(x)$ es $\dot h=\jac hx\,f(x)=\nabla h(x)\T f(x)$, la cuenta que repetiremos con cada función de Lyapunov.
+El jacobiano es la mejor aproximación lineal de $f$ cerca de un punto: $f(x_0+\delta)=f(x_0)+\jacat fx{x_0}\delta+o(\norm\delta)$. Es la matriz que se calcula para linealizar en un equilibrio (\cref{cap:bidimensionales}). El gradiente apunta en la dirección de máximo crecimiento de $h$; la derivada de $h$ a lo largo de las soluciones de $\dot x=f(x)$ es $\dot h=\jac hx\,f(x)=\nabla h(x)\T f(x)$, la cuenta que repetiremos con cada función de Lyapunov.
 
 \begin{ejemplo}[label=ej:pm-jacobiano]{Calcular un jacobiano}
 Calcule el jacobiano de $f(x)=\begin{bmatrix}x_1^2+x_2x_3\\ x_1x_2+\sin x_3\\ \ee^{x_1}+x_2^2-x_3\end{bmatrix}$ y diga sus dimensiones.

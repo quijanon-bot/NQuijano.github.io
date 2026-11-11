@@ -13,6 +13,16 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 9. **Página web.** Copiar `sitio/partes/11-pasividad.qmd` como plantilla y agregar el capítulo a `NOMBRES` en `herramientas/pdf_por_capitulo.py`.
 10. **Numeración.** En `NotasSisNL.tex`, `\setcounter{chapter}{N-1}` antes del `\input` del capítulo N mientras los anteriores no estén migrados.
 
+## Pendientes del capítulo 4 (migrado el 11 de noviembre de 2026)
+
+- Fuentes: Handout3.tex (2023), diapositivas `Present2026/SisBidim.pptx`, el cuaderno `Planos_de_fase_Python.ipynb` (clase del 19 de agosto) y los scripts `EjemploIntroSisBidim.m` y `CodigosVariosHandout3.m`, reescritos como `C4_Ej*`. Se agregaron nulclinas, la clasificación traza--determinante completa, el diodo túnel de segundo orden, las variedades estable e inestable (clase del 31 de agosto) y la no unicidad de la variedad central. Las bifurcaciones en 2-D quedan para el capítulo 6.
+- Correr en MATLAB `crearModelo_DiodoTunel2D` (Simulink no estaba disponible) y, si se quiere la versión de MATLAB, grabar los `C4_Video_*`; los MP4 publicados son los de `herramientas/cap04_videos.py`. `C4_Video_TrazaDeterminante` es lento en Octave (324 cuadros); en MATLAB no debería haber problema.
+- Confirmar en Khalil (3.ª ed.): §1.2.2 (diodo túnel con $L=5\,\mu$H), Teoremas 8.1, 8.2 y 8.3 (variedad central). En Perko (3.ª ed.): §1.2, §1.5, §1.9, §2.7 y §2.8.
+- Verificar los datos bibliográficos nuevos: Per01, Gro59 (Doklady 128, 880--881), Har60 (Proc. AMS 11, 610--620), Har60b (Bol. Soc. Mat. Mexicana 5, 220--241), Car81, Pli64 (Izv. 28, 1297--1324) y Kel67 (JDE 3, 546--570).
+- Datos biográficos de Duffing: tomados de Kovacic y Brennan (KoBr11, cap. 1). Se quitaron "Max Plank" y "la Shell"; si se quiere conservar la relación de Ossag con la Shell (Rhenania-Ossag), confirmarla en esa fuente.
+- La foto de Duffing de las diapositivas no se pasó a las notas; si se quiere, va en `notas/figuras/cap04/` con su crédito.
+- Los capítulos 2, 3, 5 y 7 ya citan este capítulo con `\cref{cap:bidimensionales}`.
+
 ## Pendientes de los capítulos 1 y 2 (migrados el 10 de noviembre de 2026)
 
 - Correr en MATLAB `crearModelo_EstructuraVariable` y `crearModelo_DiodoTunel` (Simulink no estaba disponible) y grabar, si se quiere la versión de MATLAB, los `C1_Video_*` y `C2_Video_*`; los MP4 publicados son los de `herramientas/cap01_02_videos.py`.

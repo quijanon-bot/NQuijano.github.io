@@ -1,0 +1,81 @@
+%% ---------------------------------------------------------------------
+\section{La variedad central}
+\label{sec:bi-central}
+%% ---------------------------------------------------------------------
+
+Queda el caso que Hartman--Grobman deja abierto: la linealización tiene valores propios en el eje imaginario. Si además tiene alguno con parte real positiva, el equilibrio es inestable y no hay nada más que decidir (\cref{thm:ly-indirecto}). El caso difícil es entonces: \alerta{$k$ valores propios con parte real nula y los otros $m=n-k$ con parte real negativa}. La idea es que las direcciones estables se ``apagan'' exponencialmente rápido, y lo que decide la estabilidad pasa en una variedad de dimensión $k$, tangente a $E^c$, donde la dinámica es lenta.
+
+Con un cambio de coordenadas lineal que lleve $A$ a la forma diagonal por bloques, el sistema queda
+\begin{equation}
+  \dot y=A_1y+g_1(y,z),\qquad \dot z=A_2z+g_2(y,z),\qquad y\in\R^k,\ z\in\R^m,
+  \label{eq:bi-central}
+\end{equation}
+donde los valores propios de $A_1$ tienen parte real nula, $A_2$ es Hurwitz, y $g_1,g_2$ son de clase $\Cont2$ y se anulan con sus primeras derivadas en el origen.
+
+\begin{teorema}[label=thm:bi-central]{Variedad central \citep[Teoremas~8.1 y~8.2]{Kha02}, \citep{Car81}}
+\begin{enumerate}
+  \item \emph{Existencia.} Existe una función $h$, definida cerca de $y=0$, con $h(0)=0$ y $\jac hy(0)=0$, tal que la superficie $z=h(y)$ es invariante para \eqref{eq:bi-central}: es una \clave{variedad central}.
+  \item \emph{Reducción.} La dinámica sobre ella está dada por el \clave{sistema reducido}
+  \begin{equation}
+    \dot y=A_1y+g_1\bigl(y,h(y)\bigr) .
+    \label{eq:bi-reducido}
+  \end{equation}
+  Si el origen de \eqref{eq:bi-reducido} es asintóticamente estable (estable, inestable), el origen de \eqref{eq:bi-central} también lo es.
+\end{enumerate}
+\end{teorema}
+
+\notamargen{La prueba de la parte 2 usa una función de Lyapunov que combina la del sistema reducido con la parte estable $z-h(y)$; es la técnica del \cref{cap:lyapunov}. Ver \citet[\S8.1]{Kha02}.}
+
+Para encontrar $h$ se usa la invariancia, igual que con la variedad estable: la derivada de $z-h(y)$ a lo largo de las soluciones debe anularse sobre $z=h(y)$, es decir,
+\begin{equation}
+  \jac hy(y)\Bigl[A_1y+g_1\bigl(y,h(y)\bigr)\Bigr]-A_2h(y)-g_2\bigl(y,h(y)\bigr)=0 .
+  \label{eq:bi-pde}
+\end{equation}
+Casi nunca se puede resolver exactamente, pero basta aproximar: si una función $\phi$ con $\phi(0)=0$, $\phi'(0)=0$ satisface \eqref{eq:bi-pde} hasta términos de orden $\norm y^p$, entonces $h(y)=\phi(y)+O(\norm y^p)$ \citep[Teorema~8.3]{Kha02}. Con $y$ escalar se propone $h(y)=h_2y^2+h_3y^3+\cdots$ y se igualan coeficientes.
+
+\begin{ejemplo}[label=ej:bi-central]{El ejemplo de siempre}
+Determine la estabilidad del origen de $\dot y=yz$, $\dot z=-z+ay^2$, con $a\neq0$.
+\solucion La linealización es $\diag(0,-1)$: un valor propio cero, que la linealización no decide. El sistema ya está en la forma \eqref{eq:bi-central} con $A_1=0$, $A_2=-1$, $g_1=yz$, $g_2=ay^2$. La ecuación \eqref{eq:bi-pde} es
+\[
+  h'(y)\,y\,h(y)+h(y)-ay^2=0 .
+\]
+Con $h=h_2y^2+h_4y^4+O(y^6)$ (solo potencias pares, por la simetría $y\to-y$): el coeficiente de $y^2$ da $h_2-a=0$; el de $y^4$, $2h_2^2+h_4=0$. Luego $h(y)=ay^2-2a^2y^4+O(y^6)$ y el sistema reducido es
+\[
+  \dot y=y\,h(y)=ay^3-2a^2y^5+O(y^7) .
+\]
+Si $a<0$, el origen del sistema reducido es asintóticamente estable (como $\dot y=-y^3$), y por el \cref{thm:bi-central} también el del sistema completo; si $a>0$, ambos son inestables. Basta el primer término; el segundo no cambia la conclusión.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_central}
+\caption{El \cref{ej:bi-central}. Las trayectorias (azul) caen rápido sobre la variedad central $z\approx ay^2$ (verde) y después se mueven despacio sobre ella: hacia el origen si $a=-1$, hacia afuera si $a=1$. La recta $z=0$ ($E^c$, gris) no es invariante.}
+\label{fig:bi-central}
+\end{figure}
+
+\video{V4_3_variedad_central}{Caer rápido, moverse despacio}
+\codigorepo{cap04_bidimensionales/C4_Ej12_VariedadCentral.m}{central}{Coeficientes de $h$ con la ecuación de invariancia y comparación con la simulación}
+
+\begin{trampa}[label=tr:bi-zcero]{``$z$ es la variable rápida y estable: se reemplaza por $z=0$''}
+\plausible{$z$ decae como $e^{-t}$, así que después de un transitorio $z\approx0$ y queda $\dot y\approx0$.}
+Con $z=0$ el sistema reducido sería $\dot y=0$, para cualquier $a$, y no se podría distinguir el caso estable del inestable. $z$ no tiende a $0$: tiende a $h(y)=ay^2+\cdots$, que es pequeño pero no nulo, y ese término de segundo orden, multiplicado por $y$, es justo el que decide. $E^c$ (la recta $z=0$) no es invariante; la variedad central sí.
+\correcto{Se reemplaza $z$ por $h(y)$, calculada con la ecuación de invariancia hasta el orden que decida la estabilidad del sistema reducido.}
+\end{trampa}
+
+\begin{pausa}
+Con $a=0$ el sistema es $\dot y=yz$, $\dot z=-z$. ¿Cuál es la variedad central y qué concluye el \cref{thm:bi-central}? Compruébelo con la solución exacta.
+\respuesta{$z=0$ es invariante y tangente a $E^c$: $h=0$, y el sistema reducido es $\dot y=0$. Su origen es estable pero no asintóticamente estable, y el teorema da lo mismo para el sistema completo. En efecto, $z=z_0e^{-t}$ y $y=y_0\exp\bigl(z_0(1-e^{-t})\bigr)\to y_0e^{z_0}$: las soluciones se quedan cerca, pero no vuelven al origen.}
+\end{pausa}
+
+\begin{trampa}[label=tr:bi-unica]{``La variedad central es única''}
+\plausible{Se calcula resolviendo una ecuación, y la serie de $h$ queda determinada coeficiente por coeficiente.}
+Para $\dot y=y^2$, $\dot z=-z$, las trayectorias cumplen $\dif z/\dif y=-z/y^2$, es decir, $z=c\,e^{1/y}$. Para $y<0$, $e^{1/y}\to0$ más rápido que cualquier potencia de $y$ cuando $y\to0^-$. Cada curva ``$z=ce^{1/y}$ si $y<0$, $z=0$ si $y\ge0$'' es invariante, tangente a $E^c$ y de clase $\Cont\infty$: hay infinitas variedades centrales, y todas tienen la misma serie de Taylor (cero) en el origen (\cref{fig:bi-unica}).
+\correcto{La variedad central puede no ser única, pero todas coinciden hasta todos los órdenes en el origen, y el \cref{thm:bi-central} da la misma conclusión con cualquiera de ellas.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\linewidth]{cap04/f_unica}
+\caption{$\dot y=y^2$, $\dot z=-z$: para $y<0$, cada trayectoria $z=ce^{1/y}$ llega al origen tangente al eje $y$ y se puede continuar con $z=0$ para $y\ge0$. Todas son variedades centrales.}
+\label{fig:bi-unica}
+\end{figure}

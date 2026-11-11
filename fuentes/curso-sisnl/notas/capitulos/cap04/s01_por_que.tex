@@ -1,0 +1,33 @@
+%% ---------------------------------------------------------------------
+\section{¿Por qué un capítulo para dos dimensiones?}
+\label{sec:bi-porque}
+%% ---------------------------------------------------------------------
+
+En el \cref{cap:unidimensionales} el estado vivía en una recta, y una recta deja pocas opciones: las soluciones de $\dot x=f(x)$ son monótonas, van hacia un equilibrio o hacia infinito, y no pueden oscilar. Basta agregar una dimensión para que todo eso cambie. En el plano las trayectorias pueden girar alrededor de un equilibrio, acercarse por una dirección y alejarse por otra, o cerrarse sobre sí mismas. Los sistemas de este capítulo son
+\begin{equation}
+  \dot x_1=f_1(x_1,x_2),\qquad \dot x_2=f_2(x_1,x_2),\qquad\text{es decir,}\qquad \dot x=f(x),\quad x\in\R^2 ,
+  \label{eq:bi-sistema}
+\end{equation}
+\emph{invariantes en el tiempo} ($f$ no depende de $t$) y sin entradas, con $f$ localmente Lipschitz, para que por cada condición inicial pase una sola solución (\cref{thm:pm-local}). Escribimos $\flujo t{x_0}$ para la solución que en $t=0$ pasa por $x_0$.
+
+La pregunta del capítulo es local: \alerta{¿qué hacen las trayectorias cerca de un equilibrio?} La estrategia es la de siempre en ingeniería, linealizar, pero con la pregunta que casi nunca se hace en los cursos de control lineal: ¿cuándo dice la linealización la verdad sobre el sistema no lineal? La respuesta es el teorema de Hartman--Grobman, y sus excepciones (los equilibrios no hiperbólicos) son tan importantes como el teorema. Para ellas el capítulo cierra con la variedad central, que reduce el problema a una ecuación escalar como las del \cref{cap:unidimensionales}.
+
+\notamargen{\textbf{Ruta de las clases.} Semana~2 (12 de agosto): \S\ref{sec:bi-plano}--\ref{sec:bi-clasificacion}. Semana~5 (31 de agosto), después de los fundamentos matemáticos: \S\ref{sec:bi-linealizacion}--\ref{sec:bi-central}. La prueba del teorema fundamental (\S\ref{sec:bi-lineales}) se lee por cuenta propia.}
+
+Lo que pasa \emph{lejos} de los equilibrios (órbitas cerradas, ciclos límite, Poincaré--Bendixson) es el tema del \cref{cap:orbitas}, y la estabilidad sin linealizar, con funciones de Lyapunov, el del \cref{cap:lyapunov}. La \cref{fig:bi-mapa} muestra cómo encajan las piezas.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap04/t_mapa_bidim}
+\caption{Mapa del capítulo. La linealización decide en los equilibrios hiperbólicos; en los demás, deciden los términos que la linealización desprecia.}
+\label{fig:bi-mapa}
+\end{figure}
+
+\begin{historia}[La geometría antes que las fórmulas]
+Henri Poincaré, en su memoria de 1881 sobre las curvas definidas por ecuaciones diferenciales~\citep{Poi1881}, cambió la pregunta: en lugar de buscar la fórmula de la solución, que casi nunca existe, estudió la \emph{forma} del conjunto de todas las soluciones. Los nombres de este capítulo son suyos: \emph{nœud} (nodo), \emph{col} (silla), \emph{foyer} (foco) y \emph{centre}. Que esa forma cerca de un equilibrio hiperbólico es la de la linealización lo probaron, de manera independiente, David Grobman en Moscú (1959) y Philip Hartman en Baltimore (1960)~\citep{Gro59,Har60}. La variedad central, para los casos que ellos dejan por fuera, viene de Pliss (1964) y Kelley (1967)~\citep{Pli64,Kel67}, y Carr la convirtió en una herramienta de cálculo~\citep{Car81}.
+\end{historia}
+
+\begin{pausa}
+Antes de empezar, apueste: dos trayectorias distintas de \eqref{eq:bi-sistema}, ¿se pueden cruzar en el plano? ¿Y una trayectoria consigo misma?
+\respuesta{Dos trayectorias distintas no se pueden cruzar ni tocar: en el punto común pasarían dos soluciones con la misma condición inicial, contra la unicidad. Una trayectoria sí puede volver a pasar por el mismo punto, pero entonces repite exactamente su recorrido: es una órbita cerrada (una solución periódica). Pueden, eso sí, \emph{acercarse} tanto como se quiera, por ejemplo las dos que llegan a un mismo equilibrio.}
+\end{pausa}

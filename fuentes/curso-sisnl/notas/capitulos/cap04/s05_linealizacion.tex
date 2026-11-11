@@ -1,0 +1,122 @@
+%% ---------------------------------------------------------------------
+\section{Linealización y el teorema de Hartman--Grobman}
+\label{sec:bi-linealizacion}
+%% ---------------------------------------------------------------------
+
+Sea $\eq$ un equilibrio de \eqref{eq:bi-sistema}, $f(\eq)=0$, con $f$ de clase $\Cont1$. Con la variable de desviación $e=x-\eq$, el desarrollo de Taylor de primer orden (\cref{def:pm-jacobiano}) da
+\begin{equation}
+  \dot e=f(\eq+e)=\underbrace{f(\eq)}_{=0}+Ae+g(e),\qquad
+  A=\jacat fx{x=\eq}=\begin{bmatrix}\partial f_1/\partial x_1&\partial f_1/\partial x_2\\[2pt]\partial f_2/\partial x_1&\partial f_2/\partial x_2\end{bmatrix}_{x=\eq},
+  \label{eq:bi-linealizacion}
+\end{equation}
+donde el resto cumple $\norm{g(e)}/\norm e\to0$ cuando $e\to0$. La \clave{linealización} en $\eq$ es $\dot e=Ae$. La pregunta es cuándo el retrato de $\dot e=Ae$, que la \cref{sec:bi-clasificacion} sabe dibujar, describe al de $\dot x=f(x)$ cerca de $\eq$.
+
+\subsection{Equilibrios aislados}
+
+\begin{definicion}[label=def:bi-aislado]{Equilibrio aislado}
+Un equilibrio $\eq$ es \clave{aislado} si existe $r>0$ tal que no hay otro equilibrio en la bola $\norm{x-\eq}<r$.
+\end{definicion}
+
+\begin{proposicion}[label=prop:bi-aislado]{Jacobiana invertible implica equilibrio aislado}
+Si $f\in\Cont1$, $f(\eq)=0$ y $A=\jacat fx{\eq}$ es invertible, entonces $\eq$ es un equilibrio aislado.
+\end{proposicion}
+
+\begin{demostracion}
+Como $A$ es invertible, $m=\min_{\norm v=1}\norm{Av}>0$ (el mínimo de una función continua y positiva sobre un compacto), y $\norm{Ae}\ge m\norm e$ para todo $e$. Por la definición de derivada, existe $r>0$ tal que $\norm{g(e)}\le\tfrac m2\norm e$ si $\norm e<r$. Entonces, para $0<\norm e<r$,
+\[
+  \norm{f(\eq+e)}=\norm{Ae+g(e)}\ge m\norm e-\tfrac m2\norm e=\tfrac m2\norm e>0 ,
+\]
+y $\eq+e$ no es un equilibrio.
+\end{demostracion}
+
+El recíproco es falso: $\dot x=x^3$ tiene un equilibrio aislado en $0$ y $f'(0)=0$. Y si la jacobiana es singular puede haber una curva entera de equilibrios, como los ejes de \eqref{eq:bi-ejcampo}. La hipótesis que importa para el retrato no es solo $\det A\neq0$ sino una más fuerte.
+
+\begin{definicion}[label=def:bi-hiperbolico]{Equilibrio hiperbólico}
+El equilibrio $\eq$ es \clave{hiperbólico} si ningún valor propio de $A=\jacat fx{\eq}$ tiene parte real nula. En $\R^2$: nodos, focos y sillas son hiperbólicos; centros y equilibrios con un valor propio cero no lo son.
+\end{definicion}
+
+\subsection{El teorema}
+
+\begin{teorema}[label=thm:bi-hg]{Hartman--Grobman \citep{Gro59,Har60}, \citep[\S2.8]{Per01}}
+Sea $f\in\Cont1(\D)$ y $\eq\in\D$ un equilibrio \emph{hiperbólico} de $\dot x=f(x)$, con $A=\jacat fx{\eq}$. Existen vecindades $U$ de $\eq$ y $V$ del origen y un homeomorfismo $h:U\to V$ (una biyección continua con inversa continua) tal que
+\[
+  h\bigl(\flujo t{x_0}\bigr)=e^{At}h(x_0)
+\]
+para todo $x_0\in U$ y todo $t$ con $\flujo t{x_0}\in U$. Es decir, $h$ lleva las trayectorias del sistema no lineal en trayectorias de la linealización, conservando el sentido del tiempo.
+\end{teorema}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_hartman}
+\caption{Hartman--Grobman en la silla de Duffing (\S\ref{sec:bi-ejemplos}). Izquierda: cerca del equilibrio las trayectorias no lineales (azul) se parecen a las de la linealización (gris), con las separatrices curvadas. Derecha: lejos del equilibrio la semejanza se pierde; el teorema no dice nada allí.}
+\label{fig:bi-hartman}
+\end{figure}
+
+\paragraph{Qué dice y qué no dice.}
+\begin{enumerate}
+  \item Es \emph{local}: no dice qué tan grande es $U$, ni nada de lo que pasa fuera de ella.
+  \item $h$ es continua pero, en general, no diferenciable, y no es única. Se puede deformar el plano cerca del equilibrio, pero no se puede calcular $h$ en la práctica. Lo que da el teorema es una certeza cualitativa: las trayectorias no lineales tienen la misma \emph{topología} que las lineales.
+  \item Una consecuencia es el método indirecto de Lyapunov (\cref{thm:ly-indirecto}): si $A$ es Hurwitz, $\eq$ es asintóticamente estable; si algún valor propio tiene parte real positiva, es inestable.
+  \item Si $\eq$ \emph{no} es hiperbólico, el teorema no dice nada. No dice ``entonces el retrato es otro''; dice ``no sé''.
+\end{enumerate}
+
+\begin{trampa}[label=tr:bi-hgfoco]{``Hartman--Grobman dice si el equilibrio no lineal es un nodo o un foco''}
+\plausible{El teorema dice que el retrato no lineal ``es'' el de la linealización.}
+Lo es \emph{salvo homeomorfismo}, y un homeomorfismo puede enderezar espirales: un nodo estable y un foco estable son topológicamente equivalentes entre sí (los dos son ``todo llega al punto''). Hartman--Grobman, por sí solo, distingue atractor, repulsor y silla, no más. Que las trayectorias no lineales giren alrededor de un foco lineal (y no lleguen tangentes a una dirección en un nodo) es cierto, pero viene de un resultado más fino: en el plano, si $f\in\Cont2$, la conjugación puede tomarse de clase $\Cont1$~\citep{Har60b}, y un difeomorfismo sí conserva esa distinción.
+\correcto{Para la estabilidad y el número de direcciones que entran y salen, basta Hartman--Grobman. Para decir ``nodo'' o ``foco'' del sistema no lineal, se necesita $f\in\Cont2$ y el resultado de Hartman para el plano. En la práctica (y en este curso) se usa el nombre de la linealización.}
+\end{trampa}
+
+\subsection{Ejemplos}
+
+\begin{ejemplo}[label=ej:bi-cuadernoeq]{Los equilibrios del sistema de la clase}
+Clasifique los equilibrios de \eqref{eq:bi-cuaderno}.
+\solucion $A(x)=\bigl[\begin{smallmatrix}x_2-1&x_1\\1-2x_2&1-2x_1\end{smallmatrix}\bigr]$. En $(0,0)$, $A=\bigl[\begin{smallmatrix}-1&0\\1&1\end{smallmatrix}\bigr]$ con $\delta=-1<0$: silla, con $E^s$ generado por $(2,-1)$ y $E^u$ por $(0,1)$ (la dirección que se vio en el \cref{ej:bi-nulclinas}). En $(1,1)$, $A=\bigl[\begin{smallmatrix}0&1\\-1&-1\end{smallmatrix}\bigr]$ con $\tau=-1$, $\delta=1$ y $\tau^2-4\delta=-3<0$: foco estable, $\lambda=-\tfrac12\pm j\tfrac{\sqrt3}2$, y gira en sentido horario ($a_{21}=-1$). Ambos son hiperbólicos: el retrato no lineal tiene, cerca de cada uno, esa forma.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:bi-tres]{Tres equilibrios (diapositivas 2026)}
+Halle y clasifique los equilibrios de
+\begin{equation}
+  \dot x_1=x_1+x_1x_2,\qquad \dot x_2=-x_2+x_2^2+x_1x_2-x_1^3 .
+  \label{eq:bi-tres}
+\end{equation}
+\solucion $f_1=x_1(1+x_2)=0$. Si $x_1=0$: $x_2(x_2-1)=0$, equilibrios $(0,0)$ y $(0,1)$. Si $x_2=-1$: $2-x_1-x_1^3=0$, cuya única raíz real es $x_1=1$; equilibrio $(1,-1)$. La jacobiana es $A(x)=\bigl[\begin{smallmatrix}1+x_2&x_1\\x_2-3x_1^2&-1+2x_2+x_1\end{smallmatrix}\bigr]$:
+\begin{itemize}
+  \item $(0,0)$: $\diag(1,-1)$, silla.
+  \item $(0,1)$: $\bigl[\begin{smallmatrix}2&0\\1&1\end{smallmatrix}\bigr]$, $\lambda=2,1$: nodo inestable.
+  \item $(1,-1)$: $\bigl[\begin{smallmatrix}0&1\\-4&-2\end{smallmatrix}\bigr]$, $\tau=-2$, $\delta=4$: foco estable, $\lambda=-1\pm j\sqrt3$.
+\end{itemize}
+Los tres son hiperbólicos (\cref{fig:bi-tres}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap04/f_tres}
+\caption{Retrato de \eqref{eq:bi-tres}. Cerca de cada equilibrio el retrato es el de su linealización; lejos, las trayectorias que salen del nodo $(0,1)$ se reparten entre el foco y el infinito.}
+\label{fig:bi-tres}
+\end{figure}
+
+\codigorepo{cap04_bidimensionales/C4_Ej7_Linealizacion.m}{tres}{Equilibrios con \cmd{fsolve}, jacobianas y clasificación}
+
+\begin{ejemplo}[label=ej:bi-epsilon]{Cuando la linealización es un centro}
+Estudie el origen de $\dot x_1=x_2$, $\dot x_2=-x_1-\varepsilon x_1^2x_2$.
+\solucion La jacobiana en el origen es $\bigl[\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\bigr]$, $\lambda=\pm j$, para \emph{cualquier} $\varepsilon$: un centro, no hiperbólico, y Hartman--Grobman calla. Con $V=x_1^2+x_2^2$,
+\[
+  \Vdot=2x_1x_2+2x_2(-x_1-\varepsilon x_1^2x_2)=-2\varepsilon x_1^2x_2^2 .
+\]
+Si $\varepsilon>0$, $V$ no crece: las trayectorias no se alejan, y de hecho se acercan en espiral al origen (desde $r=0.5$ llegan a $r\approx0.23$ en $t=60$, lentamente). Si $\varepsilon<0$, $V$ no decrece y las trayectorias se alejan. El término cúbico, que la linealización desprecia, decide (\cref{fig:bi-epsilon}). Para concluir estabilidad asintótica cuando $\varepsilon>0$ falta un argumento, porque $\Vdot$ se anula en los ejes: es el principio de invarianza de LaSalle (capítulo~8).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_epsilon}
+\caption{La misma linealización (un centro) y tres retratos no lineales distintos: $\varepsilon=1$ (espiral lenta hacia adentro), $\varepsilon=0$ (centro de verdad) y $\varepsilon=-1$ (espiral hacia afuera).}
+\label{fig:bi-epsilon}
+\end{figure}
+
+\codigorepo{cap04_bidimensionales/C4_Ej8_Centro.m}{epsilon}{El centro lineal y lo que hace el término cúbico}
+
+\begin{trampa}[label=tr:bi-centro]{``La linealización es un centro: el sistema no lineal oscila alrededor del equilibrio''}
+\plausible{Cerca del equilibrio el sistema se parece a su linealización, y la linealización tiene órbitas cerradas.}
+El parecido solo está garantizado si el equilibrio es hiperbólico, y un centro no lo es. En el \cref{ej:bi-epsilon} la misma linealización corresponde a un equilibrio asintóticamente estable, a un centro y a uno inestable, según el signo de $\varepsilon$. Lo mismo pasa en una dimensión: $\dot x=-x^3$ y $\dot x=x^3$ tienen la linealización $\dot x=0$ y se comportan al revés.
+\correcto{Si la linealización tiene valores propios con parte real nula, el retrato no lineal lo deciden los términos de orden superior. Hay que usar una función de Lyapunov (\cref{cap:lyapunov}), la variedad central (\cref{sec:bi-central}) o una cantidad conservada (\cref{cap:orbitas}).}
+\end{trampa}

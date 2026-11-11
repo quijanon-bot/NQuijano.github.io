@@ -1,0 +1,68 @@
+%% ---------------------------------------------------------------------
+\section{Variedades estable e inestable}
+\label{sec:bi-variedades}
+%% ---------------------------------------------------------------------
+
+En una silla lineal, $E^s$ es la única recta de condiciones iniciales que llegan al origen. En una silla no lineal, ¿qué conjunto juega ese papel? No puede ser una recta en general, pero Hartman--Grobman sugiere que es la imagen deformada de una: una curva.
+
+\begin{definicion}[label=def:bi-variedades]{Variedades estable e inestable}
+Para un equilibrio $\eq$ de $\dot x=f(x)$, la \clave{variedad estable} y la \clave{inestable} son
+\[
+  W^s(\eq)=\bigl\{x_0:\ \flujo t{x_0}\to\eq\ \text{cuando}\ t\to+\infty\bigr\},\qquad
+  W^u(\eq)=\bigl\{x_0:\ \flujo t{x_0}\to\eq\ \text{cuando}\ t\to-\infty\bigr\}.
+\]
+Las versiones \emph{locales} $W^s_{\mathrm{loc}}$ y $W^u_{\mathrm{loc}}$ exigen además que la solución se quede en una vecindad pequeña de $\eq$.
+\end{definicion}
+
+\begin{teorema}[label=thm:bi-variedadestable]{Variedad estable \citep[\S2.7]{Per01}}
+Sea $f\in\Cont k$ ($k\ge1$) y $\eq$ un equilibrio hiperbólico. Entonces $W^s_{\mathrm{loc}}(\eq)$ y $W^u_{\mathrm{loc}}(\eq)$ son variedades de clase $\Cont k$, de dimensiones $\dim E^s$ y $\dim E^u$, \emph{tangentes} en $\eq$ a $E^s$ y $E^u$ (los subespacios de la linealización trasladados a $\eq$). Son invariantes, y $W^s$, $W^u$ se obtienen de las locales siguiendo el flujo hacia atrás y hacia adelante.
+\end{teorema}
+
+En el plano, para una silla, $W^s$ y $W^u$ son curvas que pasan por el equilibrio: las cuatro ramas que salen de él se llaman \clave{separatrices}.
+
+\begin{ejemplo}[label=ej:bi-variedad]{Una variedad estable que se puede escribir}
+Halle $W^s$ y $W^u$ del origen de $\dot x_1=-x_1$, $\dot x_2=x_2+x_1^2$.
+\solucion La linealización es $\diag(-1,1)$: silla, con $E^s$ el eje $x_1$ y $E^u$ el eje $x_2$. El eje $x_2$ es invariante ($x_1=0\Rightarrow\dot x_1=0$) y sobre él $\dot x_2=x_2$: $W^u$ es el eje $x_2$. Para $W^s$ se busca una curva invariante $x_2=h(x_1)$ tangente al eje $x_1$. Invariancia significa que la derivada de $x_2-h(x_1)$ a lo largo de las soluciones se anula sobre la curva:
+\[
+  \dot x_2-h'(x_1)\dot x_1=h(x_1)+x_1^2+x_1h'(x_1)=0 .
+\]
+Con $h=cx_1^2$: $c+1+2c=0$, $c=-\tfrac13$. Entonces $W^s=\{x_2=-\tfrac13x_1^2\}$, una parábola tangente a $E^s$ en el origen. La solución explícita lo confirma: $x_1=x_1(0)e^{-t}$ y
+\[
+  x_2(t)=\Bigl(x_2(0)+\tfrac13x_1(0)^2\Bigr)e^{t}-\tfrac13x_1(0)^2e^{-2t},
+\]
+que tiende a $0$ si y solo si el paréntesis es cero.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.75\linewidth]{cap04/f_variedad}
+\caption{El \cref{ej:bi-variedad}. $W^s$ (verde) es una parábola tangente al eje $x_1$ ($E^s$, gris punteado). La solución que arranca en $(1,0)\in E^s$ no llega al origen: sube y escapa.}
+\label{fig:bi-variedad}
+\end{figure}
+
+\begin{trampa}[label=tr:bi-variedad]{``Las condiciones iniciales sobre $E^s$ llegan a la silla''}
+\plausible{Para la linealización es cierto, y cerca del equilibrio el sistema se parece a la linealización.}
+En el \cref{ej:bi-variedad}, $E^s$ es el eje $x_1$, y la solución desde $(1,0)$ tiene $x_2(t)=\tfrac13(e^t-e^{-2t})\to\infty$. La variedad estable es solo \emph{tangente} a $E^s$ en el equilibrio; lejos de él (y en este ejemplo, en cualquier punto distinto del origen) se separa de la recta.
+\correcto{$W^s$ es una curva tangente a $E^s$ en $\eq$. Para usarla hay que calcularla: con una serie, como en el ejemplo, o numéricamente, integrando hacia atrás en el tiempo desde puntos muy cercanos a $\eq$ sobre $E^s$.}
+\end{trampa}
+
+\subsection{Las separatrices como fronteras}
+
+La variedad estable de una silla no la puede cruzar ninguna trayectoria (estaría sobre ella), y las condiciones iniciales a un lado y al otro se separan cerca de la silla, siguiendo las dos ramas de $W^u$. Por eso \alerta{$W^s$ de una silla suele ser la frontera entre dos cuencas de atracción}.
+
+En Duffing \eqref{eq:bi-duffing}, $W^u$ del origen tiene dos ramas: una cae en espiral a $(1,0)$ y la otra a $(-1,0)$. $W^s$ también tiene dos ramas, que vienen del infinito enrollándose: las condiciones iniciales entre ellas pertenecen a una u otra cuenca en franjas alternas (\cref{fig:bi-duffing}). Con energía grande la viga pasa varias veces sobre la barrera antes de quedar atrapada, y un cambio pequeño en la condición inicial cambia el pozo final. Las franjas son cada vez más delgadas lejos del origen, pero el sistema no es caótico: las fronteras son curvas suaves.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap04/f_duffing}
+\caption{Duffing con $\delta=0.5$. Izquierda: cuencas de $(1,0)$ (azul) y $(-1,0)$ (coral), separadas por $W^s$ del origen (negro); en verde, $W^u$. Derecha: $x_1(t)$ desde $(1.5,0)$ y desde $(2,0)$: la segunda tiene energía para pasar la barrera y termina en el otro pozo.}
+\label{fig:bi-duffing}
+\end{figure}
+
+\video{V4_2_cuencas_duffing}{La variedad estable crece y dibuja las cuencas}
+\codigorepo{cap04_bidimensionales/C4_Ej11_Variedades.m}{variedad}{$W^s$ y $W^u$ integrando hacia atrás y hacia adelante desde la silla}
+
+\begin{pausa}
+¿Por qué se integra \emph{hacia atrás} en el tiempo para dibujar $W^s$?
+\respuesta{Porque hacia adelante $W^s$ es repulsora en la dirección transversal: un error numérico de $10^{-12}$ crece como $e^{\lambda_ut}$ y la solución se despega de la curva. Hacia atrás en el tiempo, $W^s$ se vuelve atractora en la dirección transversal ($W^s$ del sistema original es $W^u$ del sistema con el tiempo invertido) y los errores se amortiguan.}
+\end{pausa}

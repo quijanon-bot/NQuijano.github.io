@@ -1,5 +1,5 @@
-# Publica en GitHub Pages solo el sitio ya construido (index.html, curso-sisnl/ y
-# curso-control/). La carpeta fuentes/ (LaTeX, MATLAB, Quarto) no se publica.
+# Publica en GitHub Pages solo el sitio ya construido (index.html, assets/,
+# curso-sisnl/ y curso-control/). La carpeta fuentes/ (LaTeX, MATLAB, Quarto) no se publica.
 # Requiere: Settings -> Pages -> Source = "GitHub Actions".
 name: Publicar sitio
 
@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'assets/**'
       - 'curso-sisnl/**'
       - 'curso-control/**'
       - '.github/workflows/publicar-sitio.yml'
@@ -34,7 +35,7 @@ jobs:
         run: |
           mkdir _publicar
           cp index.html .nojekyll _publicar/
-          cp -r curso-sisnl curso-control _publicar/
+          cp -r assets curso-sisnl curso-control _publicar/
           du -sh _publicar
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

@@ -30,4 +30,14 @@ La pestaña *Publications* se genera desde la hoja de vida, para que las dos lis
 2. Correr `python3 fuentes/pagina-principal/generar_publicaciones.py RUTA/CV_NQS.tex index.html`.
 3. Hacer commit de `index.html`.
 
+### Enlaces y carátulas
+
+`fuentes/pagina-principal/enlaces.json` asocia el título de una publicación con su enlace (DOI, página de la editorial o PDF) y, si se quiere, con una carátula guardada en `assets/`. Las publicaciones que aparecen ahí quedan con el título subrayado y enlazado; las que tienen `"portada"` muestran la carátula al lado. Ejemplo:
+
+```json
+{"titulo": "Título exacto como en la hoja de vida", "url": "https://doi.org/10.xxxx/yyyy"}
+```
+
+El generador aplica estos enlaces cada vez que corre. Para aplicarlos sin la hoja de vida: `python3 fuentes/pagina-principal/generar_publicaciones.py --enlaces index.html`.
+
 El resto de la página principal (formación, cargos, premios, proyectos, charlas) se edita directamente en `index.html`.

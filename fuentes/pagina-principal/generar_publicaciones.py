@@ -10,10 +10,20 @@ Uso:
 
 Así la lista publicada es siempre la misma de la hoja de vida: se agrega el
 artículo en el .tex, se corre este script y se hace commit de index.html.
+
+Enlaces y carátulas: `enlaces.json` (en esta misma carpeta) asocia el título
+de cada publicación con su enlace (DOI, página de la editorial o PDF). Si una
+publicación aparece ahí, su título queda subrayado y lleva a ese enlace; si
+además tiene "portada", se muestra la carátula al lado. Para actualizar solo los
+enlaces, sin la hoja de vida, se puede correr:
+    python3 fuentes/pagina-principal/generar_publicaciones.py --enlaces index.html
 """
 import html
+import json
+import os
 import re
 import sys
+import unicodedata
 import urllib.parse
 
 INICIO = "<!-- PUBLICACIONES:INICIO -->"
@@ -112,6 +122,46 @@ def titulo(item_html):
     return re.sub(r"<[^>]+>", "", m.group(1)) if m else ""
 
 
+ENLACES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "enlaces.json")
+
+
+def clave(t):
+    """Título normalizado para buscarlo en enlaces.json."""
+    t = html.unescape(re.sub(r"<[^>]+>", "", t))
+    t = "".join(c for c in unicodedata.normalize("NFD", t) if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]+", " ", t.lower()).strip()
+
+
+def leer_enlaces():
+    if not os.path.exists(ENLACES):
+        return {}
+    datos = json.load(open(ENLACES, encoding="utf-8"))
+    return {clave(d["titulo"]): d for d in datos}
+
+
+def enlazar(item_html, enlaces):
+    """Subraya el título (lo vuelve enlace) y agrega la carátula si la hay."""
+    t = titulo(item_html)
+    d = enlaces.get(clave(t)) if t else None
+    if not d:
+        return item_html, ""
+    url = html.escape(d["url"], quote=True)
+    a = f'<a class="pub-titulo" href="{url}" target="_blank" rel="noopener">'
+    m = re.search("“(.*?)”", item_html)
+    if m:
+        ini, fin = m.span(1)
+    else:
+        m = re.search(r"<i>(.*?)</i>", item_html)
+        ini, fin = m.span(1)
+    item_html = item_html[:ini] + a + item_html[ini:fin] + "</a>" + item_html[fin:]
+    portada = ""
+    if d.get("portada"):
+        portada = (f'<a class="portada" href="{url}" target="_blank" rel="noopener" tabindex="-1">'
+                   f'<img src="{html.escape(d["portada"], quote=True)}" alt="Cover of {html.escape(t, quote=True)}" '
+                   f'loading="lazy"></a>')
+    return item_html, portada
+
+
 def leer_cv(ruta):
     tex = quitar_comentarios(open(ruta, encoding="utf-8").read())
     inicio = tex.index("\\section{Publications}")
@@ -134,6 +184,7 @@ def leer_cv(ruta):
 
 
 def generar(secciones, nota):
+    enlaces = leer_enlaces()
     total = sum(len(i) for _, i in secciones)
     out = [INICIO]
     out.append('<div class="pub-barra">')
@@ -152,13 +203,15 @@ def generar(secciones, nota):
         for k, item in enumerate(items, 1):
             h = abreviar_autores(tex_a_html(item))
             t = titulo(h)
+            h, portada = enlazar(h, enlaces)
             a = anio(item)
             enlace = ""
             if t and "In preparation" not in h:
                 q = urllib.parse.quote_plus(t)
                 enlace = (f' <a class="scholar" href="https://scholar.google.com/scholar?q={q}" '
                           f'target="_blank" rel="noopener" title="Find on Google Scholar">Scholar ↗</a>')
-            out.append(f'  <li data-anio="{a}"><span class="etiqueta">[{pref}{k}]</span> {h}{enlace}</li>')
+            clase = ' class="con-portada"' if portada else ""
+            out.append(f'  <li data-anio="{a}"{clase}>{portada}<span class="etiqueta">[{pref}{k}]</span> {h}{enlace}</li>')
         out.append('</ol>')
     if nota:
         out.append('<h3 class="pub-sec" id="pub-national">National conference proceedings</h3>')
@@ -167,7 +220,31 @@ def generar(secciones, nota):
     return "\n".join(out), total
 
 
+def solo_enlaces(pagina):
+    """Vuelve a aplicar enlaces.json sobre la lista ya publicada en index.html."""
+    enlaces = leer_enlaces()
+    texto = open(pagina, encoding="utf-8").read()
+    patron = re.compile(r'(  <li data-anio="\d*")(?: class="con-portada")?>(?:<a class="portada".*?</a>)?'
+                        r'(<span class="etiqueta">\[\w+\]</span> )(.*?)(<a class="scholar".*?</a>)?</li>')
+    n = 0
+
+    def rep(m):
+        nonlocal n
+        h = re.sub(r'<a class="pub-titulo"[^>]*>(.*?)</a>', r"\1", m.group(3))
+        h, portada = enlazar(h.rstrip(), enlaces)
+        if "pub-titulo" in h:
+            n += 1
+        clase = ' class="con-portada"' if portada else ""
+        espacio = " " if m.group(4) else ""
+        return f'{m.group(1)}{clase}>{portada}{m.group(2)}{h}{espacio}{m.group(4) or ""}</li>'
+    nuevo = patron.sub(rep, texto)
+    open(pagina, "w", encoding="utf-8").write(nuevo)
+    print(f"{n} publicaciones con enlace")
+
+
 def main():
+    if len(sys.argv) == 3 and sys.argv[1] == "--enlaces":
+        return solo_enlaces(sys.argv[2])
     if len(sys.argv) != 3:
         sys.exit(__doc__)
     cv, pagina = sys.argv[1], sys.argv[2]

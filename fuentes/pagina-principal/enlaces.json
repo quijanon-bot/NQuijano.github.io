@@ -1,0 +1,17 @@
+[
+ {
+  "titulo": "Generalized Nash Equilibrium Seeking in Population Games: Applications in the Control of Large-Scale Multi-agent Systems",
+  "url": "https://link.springer.com/book/10.1007/978-3-032-06081-5",
+  "portada": "assets/portada_gne_population_games.jpg"
+ },
+ {
+  "titulo": "Energy Systems Integration for Multi-Energy Systems: From Operation to Planning in the Green Energy Context",
+  "url": "https://link.springer.com/book/10.1007/978-3-031-69015-0",
+  "portada": "assets/portada_energy_systems_integration.jpg"
+ },
+ {
+  "titulo": "Ciudades sostenibles: Un enfoque de modelaje urbano integrado para el análisis de política en Colombia",
+  "url": "https://electricayelectronica.uniandes.edu.co/sites/default/files/proyectos/ebook_ciudades_sostenibles_uniandes.pdf",
+  "portada": "assets/portada_ciudades_sostenibles.jpg"
+ }
+]

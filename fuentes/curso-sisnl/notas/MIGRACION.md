@@ -13,6 +13,16 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 9. **Página web.** Copiar `sitio/partes/11-pasividad.qmd` como plantilla y agregar el capítulo a `NOMBRES` en `herramientas/pdf_por_capitulo.py`.
 10. **Numeración.** En `NotasSisNL.tex`, `\setcounter{chapter}{N-1}` antes del `\input` del capítulo N mientras los anteriores no estén migrados.
 
+## Pendientes del capítulo 10 (migrado el 13 de noviembre de 2026)
+
+- Fuentes: `AdvancedStab_Notas2026.tex` (octubre de 2026, que ya corregía Handout7 y las diapositivas), las diapositivas `Present2026/AdvancedStab_2026_v4.pptx` (epígrafe de Daniel Kehlmann; la v4 pone CLF e ISS primero y UUB en un apéndice), `Ecuaciones_LaTeXiT_AdvancedStab.tex` y los scripts `MATLAB_AdvancedStab/AS01`--`AS15`, reescritos como `C10_Ej*`. Las notas siguen el orden de los temas (UUB, conversos, CLF, Barbalat, ISS, interconexiones), no el de la v4.
+- **Los teoremas conversos quedaron en este capítulo**, no en el 9 como decía la planeación anterior. `cap07/s04_directo.tex` ya cita `\cref{sec:av-conversos}`. Cuando se migre el capítulo 9, no repetirlos: citar este capítulo.
+- Funciones de comparación, estabilidad uniforme y LaSalle--Yoshizawa son del capítulo 9 (por migrar): aquí se recuerdan en §10.1 y §10.5. Al migrar el 9, cambiar "capítulo~9" por `\cref` y quitar las repeticiones que sobren. El 8 (LaSalle) se cita como "capítulo~8".
+- Correcciones nuevas respecto a las notas de octubre: el pico de la cascada $\dot x_1=-x_1+x_1x_2^2$ desde $(1,3)$ es $18.2=e^{4-\ln3}$ (no 18.1); con $k-L_gV$ y $w\equiv1$, $x$ se asienta en el equilibrio $0.4887$.
+- Correr en MATLAB `crearModelo_RedisenoISS` (Simulink no estaba disponible; el bloque MATLAB Function de Sontag se programa por código y puede requerir ajuste) y, si se quiere la versión de MATLAB, grabar los `C10_Video_*`; los MP4 publicados son los de `herramientas/cap10_videos.py`.
+- Confirmar en Khalil (3.ª ed.): Def. 4.6, Teo. 4.14, 4.16, 4.18, 4.19, Def. 4.7, Lemas 4.6, 4.7, 8.2, 9.1 y Teo. 8.4. En Kellett--Braun: ec. (2.51), Teo. 2.31, 2.32, §2.5.1, Teo. 7.4, 7.9, Ej. 9.2, ec. (9.10), §9.2 y §9.6. En Slotine--Li: Lema 4.3 y Ej. 4.13.
+- Verificar los datos bibliográficos nuevos: Mas56, Bar59 (volumen y páginas) y JTP94.
+
 ## Pendientes del capítulo 6 (migrado el 13 de noviembre de 2026)
 
 - Fuentes: Handout5.tex (2023), diapositivas `Present2026/Bifurcaciones2026.pptx` y sus complementos `Bifurcaciones2D_Complementos.pptx` (hiperbolicidad y las dos rutas, receta de cinco pasos, fantasma, interruptor genético, genericidad, Hopf completo, histéresis de ciclos), y los scripts `bif_*.m`, `BifEj*.m`, `CodigosVariosHand5.m` y `Bifurcaciones80min_LiveScript.m`, reescritos como `C6_Ej*`. Se agregaron: la proposición de la función implícita, las condiciones de la silla-nodo, la horquilla escondida (variedad central con parámetro), el coeficiente de Lyapunov con `primerLyapunov`, el retardo con rampa lenta, las bifurcaciones de período infinito y homoclínica, el teorema de la divergencia para el multiplicador y el mapa de Poincaré numérico de van der Pol (`mapaPoincare`).

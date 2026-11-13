@@ -35,7 +35,8 @@ codigo/
 │   ├── retratoFase.m         retrato de fase de x' = f(x) en el plano (campo, trayectorias, equilibrios)
 │   ├── clasificarEquilibrio.m  tipo del origen de x' = Ax en R^2 por traza y determinante
 │   ├── primerLyapunov.m      primer coeficiente de Lyapunov l1 de una bifurcación de Hopf
-│   └── mapaPoincare.m        primer retorno a una sección transversal (evento de ode45)
+│   ├── mapaPoincare.m        primer retorno a una sección transversal (evento de ode45)
+│   └── leySontag.m           fórmula universal de Sontag (una o varias entradas, con kappa)
 ├── cap01_introduccion/
 │   ├── C1_Ej1 … C1_Ej9       superposición, logística, panorama, energía, reescalamiento, control
 │   ├── C1_Video_*            Lorenz y mapa logístico
@@ -73,6 +74,11 @@ codigo/
 │   ├── C7_Video_*            formas cuadráticas, término cruzado, círculos y elipses, región de atracción
 │   ├── crearModelo_PenduloLyapunov  PenduloLyapunov.slx
 │   └── verificarCap07.m      34 pruebas de los números del capítulo
+├── cap10_avanzada/
+│   ├── C10_Ej1 … C10_Ej15    UUB escalar, conjuntos de nivel y resorte, energía futura, estable sin V(x), robustez, Sontag (lineal, cos, control pequeño), Barbalat, adaptativo, contraejemplos ISS, ganancia ISS, rediseño, cascadas, pequeña ganancia
+│   ├── C10_Video_*           banda UUB, bola no invariante, energía futura, rediseño ISS
+│   ├── crearModelo_RedisenoISS  RedisenoISS.slx
+│   └── verificarCap10.m      46 pruebas de los números del capítulo
 ├── cap11_pasividad/
 │   ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
 │   ├── C11_Video_*           los cinco videos de la parte

@@ -1,0 +1,147 @@
+%% ---------------------------------------------------------------------
+\section{Funciones de control de Lyapunov y fórmula de Sontag}
+\label{sec:av-clf}
+%% ---------------------------------------------------------------------
+
+En el análisis, $f$ está dada y se busca una $V$ con $\Vdot<0$. En el diseño se invierte el orden: \alerta{primero se escoge la ``energía'' $V$ y después la entrada que la hace bajar en cada punto}. Se considera un sistema invariante en el tiempo con entrada,
+\[
+  \dot x=f(x,u),\qquad x\in\R^n,\ u\in\R^m,\qquad f(0,0)=0,
+\]
+y se busca $u=k(x)$ que haga al origen de $\dot x=f(x,k(x))$ GAS imponiendo $\jac Vx f(x,k(x))\le-W(x)$ con $W$ definida positiva. Si en algún $x\neq0$ \emph{ninguna} $u$ logra $\Vdot<0$, esa $V$ no sirve para diseñar.
+
+\begin{definicion}[label=def:av-clf]{Función de control de Lyapunov \citep{Ars83,Son83}}
+$V:\R^n\to[0,\infty)$ de clase $\Cont1$, definida positiva y radialmente no acotada, es una \clave{función de control de Lyapunov (CLF)} para $\dot x=f(x,u)$ si
+\[
+  \inf_u\Bigl\{\jac Vx(x)\,f(x,u)\Bigr\}<0\qquad\forall\,x\neq0 .
+\]
+\end{definicion}
+
+\begin{trampa}[label=tr:av-noclf]{``Si el sistema es estabilizable, cualquier $V$ cuadrática es CLF''}
+\plausible{El doble integrador se estabiliza con $u=-x_1-x_2$; la energía $V=\tfrac12(x_1^2+x_2^2)$ debería servir para diseñar.}
+Con $\dot x_1=x_2$, $\dot x_2=u$, $\Vdot=x_1x_2+x_2u=x_2(x_1+u)$. En los puntos $x_2=0$, $x_1\neq0$, $\Vdot=0$ \emph{para toda} $u$: $V$ no es CLF.
+\correcto{La culpa es de $V$, no del sistema. Con $V=x\T Px$, $P=\bigl[\begin{smallmatrix}p&q\\q&r\end{smallmatrix}\bigr]>0$, en el conjunto $\Lie gV=0$ (es decir, $x_2=-qx_1/r$) se tiene $\Lie fV=-2q(pr-q^2)x_1^2/r^2$, negativa para $x_1\neq0$ si y solo si $q>0$: cualquier $P>0$ con término cruzado positivo es CLF.}
+\end{trampa}
+
+\subsection{El caso afín en el control}
+
+Para $\dot x=f(x)+g(x)u$ con $f(0)=0$, la derivada de $V$ es afín en $u$:
+\[
+  \Vdot=\underbrace{\jac Vxf(x)}_{\ell_f(x)=\Lie fV}+\underbrace{\jac Vxg(x)}_{\ell_g(x)=\Lie gV}u .
+\]
+Si $\ell_g(x)\neq0$, el ínfimo sobre $u$ es $-\infty$. El único riesgo está donde $\ell_g(x)=0$, y allí $\Vdot=\ell_f(x)$ no depende de $u$. Por lo tanto, $V$ es CLF si y solo si
+\begin{equation}
+  \ell_g(x)=0\ \implica\ \ell_f(x)<0\qquad\forall\,x\neq0 .
+  \label{eq:av-clfafin}
+\end{equation}
+Geométricamente, $\ell_g=0$ significa $\nabla V\perp g$: el control empuja \emph{tangente} al conjunto de nivel y no puede bajar $V$; ahí la deriva tiene que hacer el trabajo sola.
+
+\begin{teorema}[label=thm:av-artstein]{Artstein \citep{Ars83}; versión global y fórmula: \citet{Son89}}
+Sea $\dot x=f(x)+g(x)u$ con $f,g$ suaves y $f(0)=0$. Existe una realimentación $k$ \emph{continua en $\R^n$ y suave en $\R^n\setminus\{0\}$} que hace al origen GAS si y solo si existe $V$ suave, definida positiva y radialmente no acotada con
+\begin{enumerate}
+  \item (CLF) la condición \eqref{eq:av-clfafin};
+  \item (\clave{propiedad de control pequeño}) para todo $\varepsilon>0$ existe $\delta>0$ tal que, si $0<\norm x<\delta$, hay un $u$ con $\norm u<\varepsilon$ y $\ell_f(x)+\ell_g(x)u<0$.
+\end{enumerate}
+\end{teorema}
+
+La dirección ``$\Leftarrow$'' es constructiva: la da la fórmula de Sontag. La dirección ``$\Rightarrow$'' aplica un teorema converso al lazo cerrado (uno de los usos modulares de la \S\ref{sec:av-conversos}). La propiedad de control pequeño es exactamente lo que da la continuidad en el origen.
+
+\begin{proposicion}[label=prop:av-sontag]{Fórmula universal de Sontag \citep{Son89}}
+Si $V$ es una CLF para $\dot x=f(x)+g(x)u$, $u\in\R$, la realimentación
+\begin{equation}
+  k(x)=\begin{cases}-\dfrac{\ell_f(x)+\sqrt{\ell_f(x)^2+\ell_g(x)^4}}{\ell_g(x)}, & \ell_g(x)\neq0,\\[8pt] 0, & \ell_g(x)=0,\end{cases}
+  \label{eq:av-sontag}
+\end{equation}
+da $\Vdot=-W(x)$ con $W=\sqrt{\ell_f^2+\ell_g^4}>0$ para todo $x\neq0$, es suave en $\R^n\setminus\{0\}$ y es continua en el origen si y solo si $V$ tiene la propiedad de control pequeño.
+\end{proposicion}
+
+\begin{demostracion}
+\emph{Decrecimiento.} Si $\ell_g\neq0$, $\Vdot=\ell_f-\bigl(\ell_f+\sqrt{\ell_f^2+\ell_g^4}\bigr)=-\sqrt{\ell_f^2+\ell_g^4}$. Si $\ell_g=0$, $k=0$ y $\Vdot=\ell_f=-\abs{\ell_f}$ por \eqref{eq:av-clfafin}.
+\emph{Suavidad lejos del origen.} Se escribe $k=-\varphi(\ell_f,\ell_g^2)\,\ell_g$ con $\varphi(a,p)=(a+\sqrt{a^2+p^2})/p$ y $\varphi(a,0)=0$ si $a<0$. $\varphi$ es la raíz de $p\varphi^2-2a\varphi-p=0$, cuya derivada respecto a $\varphi$ vale $2\sqrt{a^2+p^2}>0$ en $S=\{p>0\text{ o }a<0\}$; por la función implícita, $\varphi$ es analítica en $S$, y la condición CLF dice que $(\ell_f,\ell_g^2)\in S$ para $x\neq0$.
+\emph{Continuidad en el origen.} Si $k$ es continua, $u=k(x)$ da la propiedad de control pequeño. Recíprocamente, para $0<\norm x<\delta$ con $\ell_g\neq0$: si $\ell_f\ge0$ hay $\abs u<\varepsilon$ con $\ell_f<\abs{\ell_g}\varepsilon$, y $\abs k\le(2\ell_f+\ell_g^2)/\abs{\ell_g}<2\varepsilon+\abs{\ell_g}$; si $\ell_f<0$, $\abs k\le\ell_g^2/\abs{\ell_g}=\abs{\ell_g}$. Como $\nabla V(0)=0$, $\ell_g(x)\to0$ y $\limsup_{x\to0}\abs{k(x)}\le2\varepsilon$ para todo $\varepsilon$.
+\end{demostracion}
+
+\begin{trampa}[label=tr:av-cuarta]{``Basta con $\ell_g^2$ dentro de la raíz''}
+\plausible{La fórmula funcionaría igual con $\sqrt{\ell_f^2+\ell_g^2}$: también da $\Vdot<0$.}
+Da $\Vdot<0$, pero no una ley continua. En un punto con $\ell_f=0$ y $\ell_g\to0$, la variante da $k\approx-\abs{\ell_g}/\ell_g=-\sgn(\ell_g)$, que salta de $-1$ a $+1$; con $\ell_g^4$, $k\approx-\ell_g^2/\ell_g=-\ell_g\to0$.
+\correcto{El exponente 4 hace que dentro de la raíz aparezca $p^2=(\ell_g^2)^2$, con $p=\ell_g^2$ suave. Con $\ell_g^2$ aparecería $p=\abs{\ell_g}$, que no es suave donde $\ell_g=0$.}
+\end{trampa}
+
+Con varias entradas, $\ell_g$ es un vector fila y la fórmula se escribe \citep[ec.~(9.10)]{KeBr23}
+\begin{equation}
+  k(x)=-\biggl(\kappa+\frac{\ell_f+\sqrt{\ell_f^2+\norm{\ell_g}^4}}{\norm{\ell_g}^2}\biggr)\ell_g\T,\qquad\kappa\ge0,
+  \label{eq:av-sontagvec}
+\end{equation}
+con $k=0$ donde $\ell_g=0$. El término $-\kappa\ell_g\T$ agrega $-\kappa\norm{\ell_g}^2$ a $\Vdot$ y, como se verá en la \S\ref{sec:av-iss}, da robustez frente a errores aditivos en el actuador.
+
+\subsection{Anatomía: ¿cuánto control gasta?}
+
+La fórmula se lee en tres regímenes. Donde $\ell_g=0$, $k=0$: la deriva baja $V$ sola. Si $\ell_f<0$ (la deriva ayuda) y $\abs{\ell_g}$ es pequeño, $k\approx-\ell_g^3/(2\abs{\ell_f})$: el control casi no actúa. Si $\ell_f>0$ (la deriva estorba), $k\approx-2\ell_f/\ell_g$: cancela la deriva y la invierte. \alerta{Sontag no gasta control donde la planta ya hace el trabajo}; la linealización exacta del \cref{cap:linealizacion} cancela toda la deriva, útil o no.
+
+\begin{ejemplo}[label=ej:av-sontaglineal]{Planta lineal escalar}
+Aplique la fórmula a $\dot x=f_0x+g_0u$ con $V=\tfrac12x^2$.
+\solucion $\ell_f=f_0x^2$, $\ell_g=g_0x$ y
+\[
+  k(x)=-\frac{f_0+\sqrt{f_0^2+g_0^4}}{g_0}\,x,\qquad\dot x=-\sqrt{f_0^2+g_0^4}\,x .
+\]
+Con $f_0=g_0=1$, $k=-(1+\sqrt2)x=-2.414x$ y, desde $x(0)=2$, $u(0)=-4.83$. (Sin control, $u\equiv1$ daría $x(10)=3e^{10}-1=6.6\times10^4$.) Si $g_0\to0$ con $f_0>0$, la ganancia $\approx-2f_0/g_0\to-\infty$: un actuador débil debe empujar fuerte. Si $f_0<0$, la ganancia $\approx-g_0^3/(2\abs{f_0})\to0$: el control no se molesta.
+\end{ejemplo}
+
+\begin{trampa}[label=tr:av-escala]{``Universal significa sin perillas''}
+\plausible{La fórmula no tiene parámetros: dada la CLF, la ley está determinada.}
+Con $\tilde V=cV$, $\tilde\ell_f=c\ell_f$, $\tilde\ell_g=c\ell_g$ y $\tilde k=-(\ell_f+\sqrt{\ell_f^2+c^2\ell_g^4})/\ell_g\neq k$: $\ell_f^2$ y $\ell_g^4$ no tienen las mismas unidades.
+\correcto{La escala de $V$ (o de $u$) es un parámetro de sintonía. ``Universal'' significa que sirve para cualquier CLF, no que no tenga perillas.}
+\end{trampa}
+
+\begin{ejemplo}[label=ej:av-sontagcos]{$\dot x=\cos x-x^3+u$}
+Diseñe con Sontag y compare con la linealización exacta desde $x(0)=2$.
+\solucion \emph{Primero:} $f(0)=\cos0=1\neq0$. Con $u=0$ el origen no es equilibrio, y la fórmula presupone $f(0)=0$; aplicada a ciegas con $V=\tfrac12x^2$ da una ley discontinua. Hay que separar lo que no se anula. Con $u=-\cos x+u_s$ (se cancela $\cos x$), $\dot x=-x^3+u_s$, $\ell_f=-x^4$, $\ell_g=x$ y
+\[
+  u_s=x^3-x\sqrt{x^4+1},\qquad\dot x=-x\sqrt{x^4+1} .
+\]
+(Otra opción legítima: $u=-1+v$, que solo compensa el valor $\cos0$, y Sontag sobre $\dot x=\cos x-1-x^3+v$.) La linealización exacta $u_{FL}=-\cos x+x^3-x$ da $\dot x=-x$. Desde $x(0)=2$, $u_{FL}(0)=6.42$ y $u_S(0)=-\cos2+8-2\sqrt{17}=0.17$: $u_{FL}$ cancela el término $-x^3$, que ayudaba; Sontag casi lo conserva. Y $u(t)\to-\cos0=-1$, no a cero (\cref{fig:av-sontag}).
+\end{ejemplo}
+
+\begin{trampa}[label=tr:av-regimen]{``Si el estado llega a cero, el control también''}
+\plausible{En el equilibrio no hay nada que corregir, así que $u\to0$.}
+En el \cref{ej:av-sontagcos}, $u(t)\to-1$: mantener $x=0$ exige compensar permanentemente la ``fuerza'' $\cos0=1$.
+\correcto{Si $f(0)\neq0$, el control en régimen es el $u^*$ que hace del origen un equilibrio, $f(0)+g(0)u^*=0$. (En la gráfica de las diapositivas anteriores $u(t)$ arrancaba en $\approx-20$ y tendía a $0$: el diagrama de \simulink{} no implementaba la fórmula.)}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_sontag}
+\caption{Izquierda y centro: el \cref{ej:av-sontagcos}, $x(t)$ y $u(t)$ con Sontag (azul) y con linealización exacta (coral) desde $x(0)=2$; Sontag arranca con $u=0.17$ y la linealización con $6.42$; ambas tienden a $u^*=-1$. Derecha: el \cref{ej:av-controlpequeno}, $\abs{u(t)}$ crece sin cota mientras $x(t)\to0$.}
+\label{fig:av-sontag}
+\end{figure}
+
+\codigorepo{cap10_avanzada/C10_Ej6_SontagLineal.m}{lineal}{La fórmula de Sontag en la planta escalar}
+\codigorepo{cap10_avanzada/C10_Ej7_SontagCos.m}{sontag}{Sontag contra linealización exacta en $\dot x=\cos x-x^3+u$}
+
+\begin{modelo}[RedisenoISS.slx]
+\cmd{crearModelo\_RedisenoISS.m} arma el lazo $\dot x=x+(x^2+1)(k(x)+w)$ con un selector entre tres leyes (cancelación exacta, cancelación con amortiguamiento $-\Lie gV$ y Sontag con $\kappa$) y un escalón de perturbación $w$ en el actuador. Se usa en este capítulo dos veces: aquí para comparar el esfuerzo de control y en la \S\ref{sec:av-iss} para ver cuál ley sobrevive a la perturbación.
+\end{modelo}
+
+\begin{ejemplo}[label=ej:av-controlpequeno]{Cuando falla la propiedad de control pequeño}
+Estudie $\dot x=x+x^2u$ con $V=\tfrac12x^2$.
+\solucion $\ell_f=x^2$, $\ell_g=x^3$ se anula solo en $0$: $V$ es CLF, y
+\[
+  k(x)=-\frac{1+\sqrt{1+x^8}}{x},\qquad\dot x=-x\sqrt{1+x^8} .
+\]
+El origen del lazo cerrado es GAS, pero $\abs{u(t)}\to\infty$ mientras $x(t)\to0$: desde $x(0)=1$, $x(8)\approx e^{-8}$ y $\abs{u(8)}=6249$. Cerca del origen el control actúa con ganancia $x^2$ y, para vencer a la deriva $x$, hace falta $\abs u\gtrsim1/\abs x$. Por el \cref{thm:av-artstein} no existe \emph{ninguna} realimentación continua: si $\abs k\le U$ en $\Bola\delta$, para $0<x<\min\{\delta,1/U\}$ se tiene $\dot x=x(1+xk)\ge x(1-xU)>0$ y la trayectoria se aleja.
+\end{ejemplo}
+
+\codigorepo{cap10_avanzada/C10_Ej8_ControlPequeno.m}{pequeno}{$x(t)\to0$ con $\abs{u(t)}\to\infty$}
+
+\begin{ejemplo}[label=ej:av-mano]{Diseño a mano contra Sontag}
+Para $\dot x=x^3+x^2u$ (\emph{no} el ejemplo anterior), compare $u=-(1+c_1)x$ con la fórmula.
+\solucion Con $V=\tfrac12x^2$, $\ell_f=x^4$, $\ell_g=x^3$. A mano: imponiendo $\Vdot=-c_1x^4$ sale $u=-(1+c_1)x$ y $\dot x=-c_1x^3$. Sontag: $k=-x(1+\sqrt{1+x^4})$ y $W=x^4\sqrt{1+x^4}$. Las dos leyes son continuas (aquí sí hay control pequeño). Cerca del origen $W\approx x^4$ y la linealización de Sontag es $-2x$: coincide con el diseño a mano con $c_1=1$. Lejos del origen Sontag usa más esfuerzo ($\abs k\ge2\abs x$) y obtiene más decrecimiento. ``Sontag requiere más esfuerzo'' solo es cierto frente al diseño con $c_1\le1$; Sontag no es la mejor ley, es una ley que no exige más ingenio una vez se tiene la CLF.
+\end{ejemplo}
+
+\subsection{Conexión con Brockett}
+
+El integrador no holonómico $\dot x_1=u_1$, $\dot x_2=u_2$, $\dot x_3=x_1u_2-x_2u_1$ es controlable, pero no cumple la condición de \citet{Bro83}: $(x,u)\mapsto f(x,u)$ no cubre un vecindario del origen, porque para obtener $f=(0,0,\varepsilon)$ hace falta $u_1=u_2=0$, y entonces la tercera componente es $0$. No existe realimentación continua invariante en el tiempo que lo estabilice (Brockett lo probó para leyes $\Cont1$; Zabczyk y Coron lo extendieron a leyes continuas). Por \eqref{eq:av-sontagvec} y el \cref{thm:av-artstein}, \alerta{no existe una CLF suave con control pequeño}. Las salidas son realimentaciones variantes en el tiempo, discontinuas o CLF no suaves \citep[\S9.6]{KeBr23}.
+
+\begin{pausa}
+Para $\dot x=x-x^3+u$, ¿qué hace la ley de Sontag con $V=\tfrac12x^2$ cuando $\abs x$ es grande? Compárela con la ley $u=-2x+x^3$.
+\respuesta{$\ell_f=x^2-x^4$, $\ell_g=x$ y $k=-x\bigl((1-x^2)+\sqrt{(1-x^2)^2+1}\bigr)$. Con $s=x^2-1$ el paréntesis vale $-s+\sqrt{s^2+1}\approx1/(2s)$, así que $k\approx-x/(2(x^2-1))\to0$ (en $x=10$, $k\approx-10/198$): Sontag conserva el término $-x^3$. La ley $u=-2x+x^3$ cancela $-x^3$, la no linealidad útil, y gasta $\approx x^3$.}
+\end{pausa}

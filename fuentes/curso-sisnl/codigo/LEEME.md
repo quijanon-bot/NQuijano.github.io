@@ -10,6 +10,7 @@ Ejecute una vez por sesión `iniciarCurso` (esta carpeta). Los `C*_Ej*` no requi
 - `cap05_orbitas_ciclos/`: `C5_Ej1`…`C5_Ej11`, tres videos `C5_Video_*`, `crearModelo_VanDerPol`, funciones `modeloKuramoto`, `modeloNowak`, `indiceCurva` y `verificarCap05` (34/34 en Octave 8.4).
 - `cap06_bifurcaciones/`: `C6_Ej1`…`C6_Ej12`, cuatro videos `C6_Video_*`, `crearModelo_InterruptorGenetico` y `verificarCap06` (42/42 en Octave 8.4). En `comun/`: `primerLyapunov` (coeficiente l1 de una Hopf, con la fórmula de Guckenheimer y Holmes y derivadas numéricas) y `mapaPoincare` (primer retorno a una sección, con un evento de ode45).
 - `cap07_lyapunov/`: `C7_Ej1`…`C7_Ej10`, cuatro videos `C7_Video_*`, `crearModelo_PenduloLyapunov` y `verificarCap07` (34/34 en Octave 8.4). En `comun/`: `ecuacionLyapunov` (A'P + PA = -Q, sin toolboxes; la P del curso es `lyap(A',Q)`, no `lyap(A,Q)`).
+- `cap10_avanzada/`: `C10_Ej1`…`C10_Ej15`, cuatro videos `C10_Video_*`, `crearModelo_RedisenoISS` y `verificarCap10` (46/46 en Octave 8.4). En `comun/`: `leySontag` (fórmula universal de Sontag, una o varias entradas, con el amortiguamiento kappa).
 - `cap11_pasividad/`: `C11_Ej1`…`C11_Ej14`, cinco videos `C11_Video_*`, modelos `crearModelo_LazoPasivo`, `crearModelo_Agua`, `crearModelo_Pendulo`, funciones `modeloOsciladores`, `modeloAgua`, `energiaAgua`, `energiaAguaSL`, y `verificarCap11` (39/39 en Octave 8.4).
 
 Convenciones: encabezado QUÉ HACE / OBSERVE / ESPERADO / EXPLORE; fragmentos para las notas entre `% [ini:nombre]` y `% [fin:nombre]`.

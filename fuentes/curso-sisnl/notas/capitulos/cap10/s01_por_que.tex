@@ -1,0 +1,66 @@
+%% ---------------------------------------------------------------------
+\section{Cinco preguntas que la estabilidad asintótica no responde}
+\label{sec:av-porque}
+%% ---------------------------------------------------------------------
+
+El \cref{cap:lyapunov} y el capítulo~9 respondieron una pregunta: si $\dot x=f(t,x)$ tiene un equilibrio en el origen, ¿las soluciones se quedan cerca y llegan a él? En ingeniería esa pregunta casi nunca es la única. Este capítulo responde otras cinco:
+\begin{enumerate}
+  \item \textbf{Sin equilibrio} (una perturbación que no se apaga), ¿qué se puede garantizar? $\to$ acotamiento último uniforme (UUB), \S\ref{sec:av-uub}.
+  \item Si no encuentro una función de Lyapunov, ¿es porque no existe? $\to$ teoremas conversos, \S\ref{sec:av-conversos}.
+  \item \textbf{Diseño:} ¿cómo escojo la entrada $u$ usando una $V$? $\to$ funciones de control de Lyapunov y fórmula de Sontag, \S\ref{sec:av-clf}.
+  \item Si $\Vdot\le0$ en un sistema \textbf{variante en el tiempo}, ¿qué converge? $\to$ lema de Barbalat, \S\ref{sec:av-barbalat}.
+  \item Con entradas: ¿entrada acotada da estado acotado? ¿Y al interconectar dos sistemas? $\to$ estabilidad entrada--estado (ISS) y pequeña ganancia, \S\ref{sec:av-iss}--\ref{sec:av-inter}.
+\end{enumerate}
+
+Hay un hilo que une las respuestas, y conviene decirlo desde el principio: \alerta{casi todas son variaciones del mismo argumento de conjuntos de nivel}. Si $V$ decrece fuera de un conjunto, las trayectorias quedan atrapadas en el menor conjunto de nivel de $V$ que contiene a ese conjunto. Con esa sola idea se prueban el teorema de UUB, el de funciones ISS-Lyapunov y, con un paso más, el de cascadas (\cref{fig:av-mapa}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap10/t_mapa_avanzada}
+\caption{Mapa del capítulo. El argumento de conjuntos de nivel da UUB, ISS y cascadas; los conversos garantizan que las funciones que se suponen existen; las CLF pasan del análisis al diseño; Barbalat cubre lo que LaSalle no puede en sistemas variantes en el tiempo.}
+\label{fig:av-mapa}
+\end{figure}
+
+\notamargen{\textbf{Ruta de las clases.} Semana~11 (21 de octubre): UUB, \S\ref{sec:av-uub}. Semana~12 (26 y 28 de octubre): conversos de apoyo, CLF y Sontag, Barbalat, ISS e interconexiones, \S\ref{sec:av-conversos}--\ref{sec:av-inter}. El 28 de octubre la clase se concentró en CLF e ISS; las demás secciones se leen por cuenta propia.}
+
+\begin{ideaclave}
+\textbf{``Existe $u$'' contra ``para todo $w$''.} La letra de la entrada cambia de papel en el capítulo. En las CLF (\S\ref{sec:av-clf}), $u$ es un \emph{control que se diseña}, y la pregunta es si \emph{existe} un $u$ que haga bajar a $V$. En ISS (\S\ref{sec:av-iss}), $w$ es una \emph{entrada exógena} que no se controla (perturbación, error de actuador), y la pregunta es si el estado queda acotado \emph{para toda} $w$ acotada. En las interconexiones (\S\ref{sec:av-inter}), la entrada de un subsistema es el estado del otro. Se escribe $u$ para lo que se diseña y $w$ para lo que se sufre, como en las convenciones del curso; \citet{Kha02} escribe $u$ en los dos casos.
+\end{ideaclave}
+
+\subsection*{Lo que se usa de los capítulos anteriores}
+
+Cuatro herramientas aparecen en todo el capítulo. Las funciones de comparación y la estabilidad uniforme se estudian en el capítulo~9; aquí se recuerda lo indispensable.
+
+\begin{definicion}[label=def:av-comparacion]{Funciones de comparación}
+$\alpha:[0,r)\to[0,\infty)$ es de \clave{clase $\K$} si es continua, estrictamente creciente y $\alpha(0)=0$; es de \clave{clase $\Kinf$} si además $r=\infty$ y $\alpha(s)\to\infty$ cuando $s\to\infty$. $\beta:[0,r)\times[0,\infty)\to[0,\infty)$ es de \clave{clase $\KL$} si $\beta(\cdot,s)\in\K$ para cada $s$ y $\beta(r,\cdot)$ es decreciente con $\beta(r,s)\to0$ cuando $s\to\infty$.
+\end{definicion}
+
+\begin{enumerate}
+  \item[H1.] \textbf{Sándwich.} Si $V(t,x)$ es continua y $W_1(x)\le V(t,x)\le W_2(x)$ con $W_1,W_2$ definidas positivas en $\Bola r$, hay $\alpha_1,\alpha_2\in\K$ con $\alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x)$; si $V$ es radialmente no acotada y el dominio es $\R^n$, se pueden tomar en $\Kinf$. Para $V=x\T Px$, $\lmin(P)\norm x^2\le V\le\lmax(P)\norm x^2$. Como $\alpha_1\le\alpha_2$,
+  \begin{equation}
+    \alpha_1^{-1}\bigl(\alpha_2(\mu)\bigr)\ge\mu\qquad\text{para todo }\mu>0 .
+    \label{eq:av-a1a2}
+  \end{equation}
+  \item[H2.] \textbf{Conjuntos de nivel entre dos bolas fijas.} Con $\Nivel{t,c}=\{x:V(t,x)\le c\}$,
+  \begin{equation}
+    \Bola{\alpha_2^{-1}(c)}\subset\Nivel{t,c}\subset\Bola{\alpha_1^{-1}(c)}\qquad\text{para todo }t .
+    \label{eq:av-inclusiones}
+  \end{equation}
+  El conjunto de nivel puede cambiar con $t$, pero queda encerrado entre dos bolas que no cambian: es la razón técnica de la uniformidad respecto a $t_0$.
+  \item[H3.] \textbf{Comparación} (\cref{lem:pm-comparacion}). Si $\dot v\le-\alpha(v)$ con $\alpha\in\K$ localmente Lipschitz, entonces $v(t)\le\sigma(v(t_0),t-t_0)$ con $\sigma\in\KL$, la solución de $\dot y=-\alpha(y)$.
+  \item[H4.] \textbf{Young.} Para $p,q>1$ con $1/p+1/q=1$ y $\lambda>0$,
+  \begin{equation}
+    \abs{yz}\le\frac{\lambda^p}{p}\abs y^p+\frac1{q\lambda^q}\abs z^q ;
+    \label{eq:av-young}
+  \end{equation}
+  con $p=q=2$ y $\lambda=1$, $\abs{yz}\le\tfrac12y^2+\tfrac12z^2$.
+\end{enumerate}
+
+\begin{historia}[De la estabilidad al diseño robusto]
+La idea de que la estabilidad implica la existencia de una función de Lyapunov es de Massera (1949 y 1956)~\citep{Mas56} y de Kurzweil; las versiones que se usan hoy están en \citet[\S4.7]{Kha02} y en \citet[cap.~2]{KeBr23}. Artstein mostró en 1983 que la existencia de una realimentación continua equivale a la de una función de control de Lyapunov~\citep{Ars83}, y Sontag dio en 1989 la fórmula explícita~\citep{Son89}. El mismo año, Sontag propuso la estabilidad entrada--estado~\citep{Son89a}, que con la caracterización de Sontag y Wang~\citep{SoWa95} y el teorema de pequeña ganancia de Jiang, Teel y Praly~\citep{JTP94} cambió la manera de diseñar controladores no lineales. Barbălat publicó su lema en 1959~\citep{Bar59}, en un artículo sobre sistemas de ecuaciones diferenciales no lineales.
+\end{historia}
+
+\begin{pausa}
+Antes de seguir, prediga: (1) si $\Vdot<0$ en todo punto fuera de una bola $\Bola\mu$, ¿las trayectorias terminan dentro de $\Bola\mu$? (2) Si el origen de $\dot x=f(x)$ es estable, ¿existe siempre una $V(x)$, sin $t$, con $\Vdot\le0$? (3) Si $u=k(x)$ estabiliza globalmente, ¿una perturbación pequeña y acotada en $u$ deja el estado acotado? (4) Si $\dot x_2=f_2(x_2)$ y $\dot x_1=f_1(x_1,0)$ tienen el origen GAS, ¿la cascada $\dot x_1=f_1(x_1,x_2)$, $\dot x_2=f_2(x_2)$ es GAS?
+\respuesta{Las cuatro respuestas son \emph{no}, por razones distintas. (1) Terminan en el menor conjunto de nivel de $V$ que contiene a $\Bola\mu$, que puede sobresalir de la bola (\cref{tr:av-cota}). (2) Hay sistemas invariantes en el tiempo estables sin ninguna $V(x)$ continua (\cref{ej:av-sinV}). (3) Una ley que cancela exactamente puede dejar escapar el estado en tiempo finito con un error de actuador arbitrariamente pequeño (\cref{ej:av-rediseno}). (4) $\dot x_1=-x_1+x_1^2x_2$, $\dot x_2=-x_2$ escapa en tiempo finito si $x_1(0)x_2(0)>2$ (\cref{ej:av-cascada}).}
+\end{pausa}

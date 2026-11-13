@@ -1,0 +1,121 @@
+%% ---------------------------------------------------------------------
+\section{Estabilidad entrada--estado}
+\label{sec:av-iss}
+%% ---------------------------------------------------------------------
+
+En esta sección la entrada es \emph{exógena}: no se diseña, se sufre, y se escribe $w$. Para $\dot x=Ax+Bw$ con $A$ Hurwitz y $\norm{e^{As}}\le ke^{-\lambda s}$, la variación de constantes da
+\begin{equation}
+  \norm{x(t)}\le\underbrace{ke^{-\lambda(t-t_0)}\norm{x(t_0)}}_{\in\KL}+\underbrace{\frac{k\norm B}{\lambda}\sup_{t_0\le\tau\le t}\norm{w(\tau)}}_{\in\K} :
+  \label{eq:av-isslineal}
+\end{equation}
+el efecto de la condición inicial se olvida, y el de la entrada es proporcional a su tamaño. En sistemas lineales, ``GES con entrada cero'' implica ``entrada acotada, estado acotado''. En no lineales, no.
+
+\begin{ejemplo}[label=ej:av-riccati]{GES con $w=0$ y escape con $w=1$}
+Estudie $\dot x=-3x+(1+2x^2)w$ con $w\equiv1$ y $x(0)=2$.
+\solucion Con $w=0$ el origen es GES. Con $w\equiv1$ la ecuación es de Riccati y factoriza: $\dot x=2x^2-3x+1=(2x-1)(x-1)$. Por fracciones parciales, $\frac{x-1}{2x-1}=\frac{e^t}{3}$ y
+\[
+  x(t)=\frac{3-e^t}{3-2e^t} ,
+\]
+cuyo denominador se anula en $t_e=\ln\tfrac32=0.405$: \alerta{escape en tiempo finito con una entrada constante de tamaño $1$}. (Handout~7 tenía $3-e^{-t}$ en el numerador.) Más simple aún: $\dot x=-x+xw$ con $w\equiv c>1$ crece exponencialmente.
+\end{ejemplo}
+
+\begin{definicion}[label=def:av-iss]{ISS \citep{Son89a}; \citep[Def.~4.7]{Kha02}}
+$\dot x=f(t,x,w)$, con $f$ continua a trozos en $t$ y localmente Lipschitz en $(x,w)$, es \clave{estable entrada--estado (ISS)} si existen $\beta\in\KL$ y $\gamma\in\K$ tales que, para toda condición inicial y toda entrada $w$ continua a trozos y acotada, la solución existe para todo $t\ge t_0$ y
+\begin{equation}
+  \norm{x(t)}\le\beta\bigl(\norm{x(t_0)},t-t_0\bigr)+\gamma\Bigl(\sup_{t_0\le\tau\le t}\norm{w(\tau)}\Bigr)\qquad\forall\,t\ge t_0\ge0 .
+  \label{eq:av-iss}
+\end{equation}
+\end{definicion}
+
+$\beta$ es el \emph{transitorio}, la memoria de la condición inicial; $\gamma$ es la \clave{ganancia ISS}, cuánto estado compra una entrada de tamaño dado, y no tiene por qué ser lineal. La versión con $\max\{\hat\beta,\hat\gamma\}$ es equivalente, porque $a+b\le\max\{2a,2b\}\le2a+2b$. El supremo es \emph{causal}. Y la definición pide que la solución exista para todo $t$: el \cref{ej:av-riccati} muestra que eso no es gratis.
+
+\begin{proposicion}[label=prop:av-issconsec]{Tres consecuencias de ISS}
+Si $\dot x=f(t,x,w)$ es ISS: (1) con $w\equiv0$ el origen es GUAS; (2) si $w$ es acotada, $\limsup\norm{x(t)}\le\gamma(\norm w_\infty)$ y las soluciones son GUUB con cualquier cota $b>\gamma(\norm w_\infty)$; (3) si $w(t)\to0$, entonces $x(t)\to0$.
+\end{proposicion}
+
+\begin{demostracion}
+(1) y (2) se leen en \eqref{eq:av-iss}. (3) \emph{Reiniciar el reloj:} dado $\varepsilon$, sea $T_1$ con $\gamma(\norm{w(t)})\le\varepsilon/2$ para $t\ge T_1$. Como la definición vale para todo $t_0$, desde $T_1$, $\norm{x(t)}\le\beta(\norm{x(T_1)},t-T_1)+\varepsilon/2$, y basta esperar a que el primer término baje de $\varepsilon/2$ \citep[Lec.~14]{Arc18}.
+\end{demostracion}
+
+\begin{teorema}[label=thm:av-isslyap]{Funciones ISS-Lyapunov \citep[Teorema~4.19]{Kha02}}
+Sea $V:[0,\infty)\times\R^n\to\R$ de clase $\Cont1$ con
+\[
+  \alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x),\qquad\norm x\ge\rho(\norm w)\implica\jac Vt+\jac Vxf(t,x,w)\le-W_3(x),
+\]
+$\alpha_1,\alpha_2\in\Kinf$, $\rho\in\K$ y $W_3$ continua y definida positiva. Entonces el sistema es ISS con
+\begin{equation}
+  \gamma=\alpha_1^{-1}\circ\alpha_2\circ\rho .
+  \label{eq:av-gananciaiss}
+\end{equation}
+\end{teorema}
+
+\begin{demostracion}
+\alerta{Es el teorema de UUB disfrazado.} Fije $w$ y $t$, y sea $\bar w=\sup_{[t_0,t]}\norm w$. Para esa entrada, $\dot x=f(s,x,w(s))$ es un sistema variante en el tiempo \emph{sin entrada}, con $\Vdot\le-W_3$ para $\norm x\ge\mu=\rho(\bar w)$: es la hipótesis del \cref{thm:av-uub} en forma global. Luego $\norm{x(s)}\le\max\{\beta(\norm{x(t_0)},s-t_0),\ \alpha_1^{-1}(\alpha_2(\rho(\bar w)))\}$. La $\beta$ del \cref{thm:av-uub} se construyó con $\alpha_1,\alpha_2,\alpha_3$ y no depende de $\mu$: es la misma para todas las entradas.
+\end{demostracion}
+
+ISS es UUB con un radio que depende de la entrada, y la \cref{tr:av-cota} reaparece: la ganancia no es $\rho$ sino $\alpha_1^{-1}\circ\alpha_2\circ\rho\ge\rho$. (Handout~7 pedía $\rho\in\Kinf$ y $W_3\in\K$; bastan $\rho\in\K$ y $W_3$ definida positiva.)
+
+\begin{teorema}[label=thm:av-sontagwang]{Sontag--Wang \citep{SoWa95}; \citep[Teorema~7.4]{KeBr23}}
+$\dot x=f(x,w)$ es ISS si y solo si existen $V\in\Cont1$ y $\alpha_1,\alpha_2,\alpha_3,\chi\in\Kinf$ con $\alpha_1(\norm x)\le V(x)\le\alpha_2(\norm x)$ y $\norm x\ge\chi(\norm w)\implica\nabla V\cdot f(x,w)\le-\alpha_3(\norm x)$. Equivalentemente (\clave{forma disipativa}), existen $\alpha_3,\sigma\in\Kinf$ con
+\begin{equation}
+  \nabla V(x)\cdot f(x,w)\le-\alpha_3(\norm x)+\sigma(\norm w) .
+  \label{eq:av-issdisip}
+\end{equation}
+\end{teorema}
+
+En la forma disipativa, $V$ es un almacenamiento que se disipa a ritmo $\alpha_3$ y en el que la entrada solo puede inyectar $\sigma(\norm w)$: es la antesala del \cref{cap:pasividad}. De la forma disipativa a la de implicación hay un paso: si $\norm x\ge\alpha_3^{-1}(2\sigma(\norm w))$, $\Vdot\le-\tfrac12\alpha_3(\norm x)$. Lo difícil es ``ISS $\implica$ existe $V$'', que es un converso.
+
+\begin{ejemplo}[label=ej:av-issej]{Dos funciones ISS-Lyapunov}
+Muestre que (a) $\dot x=-x^3+w$ y (b) $\dot x=-x-2x^3+(1+x^2)w^2$ son ISS y calcule sus ganancias.
+\solucion (a) Con $V=\tfrac12x^2$ y $0<\theta<1$, $\Vdot=-(1-\theta)x^4-\theta x^4+xw\le-(1-\theta)x^4$ si $\abs x\ge(\abs w/\theta)^{1/3}$. Como $\alpha_1=\alpha_2$, $\gamma(r)=(r/\theta)^{1/3}$; con $\theta=\tfrac12$, $\gamma(0.5)=1$. La ganancia no es lineal: entradas pequeñas producen estados relativamente grandes ($r^{1/3}\gg r$ si $r\ll1$), el precio de no tener parte lineal en la disipación. Con $w=0.5\sin2t$, $\limsup\abs x$ queda por debajo de $1$.
+(b) Si $\abs x\ge w^2$, $x(1+x^2)w^2\le\abs x(1+x^2)\abs x=x^2+x^4$ y $\Vdot\le-x^4$: $\rho(r)=r^2=\gamma(r)$. (Handout~7 partía de ``$u^2\le x$''; debe ser $w^2\le\abs x$, porque si $x<0$ la otra desigualdad es imposible.)
+\end{ejemplo}
+
+\codigorepo{cap10_avanzada/C10_Ej11_ISScontraejemplos.m}{contra}{GES con entrada cero y escape con entrada acotada}
+\codigorepo{cap10_avanzada/C10_Ej12_ISSenvolvente.m}{envolvente}{La envolvente $\beta+\gamma$ y el $\limsup$ simulado}
+
+Un atajo útil \citep[Lema~4.6]{Kha02}: si $f(t,x,w)$ es $\Cont1$ y \emph{globalmente} Lipschitz en $(x,w)$ y el origen de $\dot x=f(t,x,0)$ es GES, el sistema es ISS. La prueba es la del \cref{lem:av-robustez}: el converso da $\norm{\partial V/\partial x}\le c_4\norm x$ y $\Vdot\le-c_3\norm x^2+c_4L\norm x\norm w$. Sin Lipschitz global no hay atajo: el término $2x^2w$ del \cref{ej:av-riccati} lo rompe. Para la familia $\dot x=-x^r+x^sw$, con $r$ impar y $s\ge0$ enteros, hay una regla limpia: \alerta{es ISS si y solo si $r>s$} \citep[Lec.~14]{Arc18}; la disipación debe crecer más rápido que el acoplamiento con la entrada. (Si $s\ge r$, con $w\equiv c>1$ y $x(0)$ grande, $\dot x=x^r(cx^{s-r}-1)>0$.)
+
+\subsection{Estabilizar no es robustecer}
+
+\begin{ejemplo}[label=ej:av-rediseno]{Cancelación exacta frente a amortiguamiento \citep[Ej.~9.2]{KeBr23}}
+Para $\dot x=x+(x^2+1)u$, la ley $k(x)=-2x/(x^2+1)$ da $\dot x=-x$: GES. ¿Qué pasa con un error aditivo en el actuador, $u=k(x)+w$?
+\solucion El lazo queda $\dot x=-x+(x^2+1)w$, que no es ISS. Con $w\equiv1$ y $x(0)=0$, $\dot x=x^2-x+1\ge\tfrac34$ y
+\[
+  t_e=\int_0^\infty\frac{\dif x}{x^2-x+1}=\frac{4\pi}{3\sqrt3}=2.42 :
+\]
+\alerta{se escapa incluso partiendo del equilibrio}. Con $w\equiv\varepsilon\in(0,\tfrac12]$, $\varepsilon x^2-x+\varepsilon=0$ tiene raíces $x_\pm=(1\pm\sqrt{1-4\varepsilon^2})/(2\varepsilon)$; con $\varepsilon=0.1$, $x_-=0.101$ y $x_+=9.90$. Desde $x(0)=0$ la solución converge a $x_-$, pero desde cualquier $x(0)>x_+\approx1/\varepsilon$ escapa: \emph{por pequeña que sea la perturbación, hay condiciones iniciales que escapan}.
+\emph{Rediseño.} Con $V_1=\tfrac12x^2$, $\Lie g{V_1}=x(x^2+1)$ y $k_1=k-\Lie g{V_1}$:
+\[
+  \dot x=-x-x(x^2+1)^2+(x^2+1)w,\qquad\Vdot_1\le-x^2-\tfrac12x^2(x^2+1)^2+\tfrac12w^2 ,
+\]
+por Young, que es la forma disipativa \eqref{eq:av-issdisip}: el lazo rediseñado es ISS. Con $w\equiv1$ y $x(0)=0$, $x(t)$ se asienta en el equilibrio $0.4887$ (\cref{fig:av-rediseno}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_rediseno}
+\caption{El \cref{ej:av-rediseno} con $w\equiv1$ desde $x(0)=0$. La ley de cancelación exacta (coral) escapa en $t=2.42$; la ley con amortiguamiento $-\Lie gV$ (azul) se asienta en $x=0.4887$. A la derecha, el lazo cancelado con $w\equiv0.1$: $x_-=0.101$ atrae, y las condiciones iniciales por encima de $x_+=9.90$ escapan.}
+\label{fig:av-rediseno}
+\end{figure}
+
+\codigorepo{cap10_avanzada/C10_Ej13_RedisenoISS.m}{rediseno}{Cancelación exacta contra amortiguamiento $-\Lie gV$}
+
+\video{V10_4_rediseno_iss}{Estabilizar no es robustecer}
+
+El procedimiento general \citep[\S9.2]{KeBr23}: si $k$ estabiliza con función de Lyapunov $V$ (que existe por un converso), entonces $u=k(x)-\Lie gV(x)$ es ISS respecto a errores aditivos en el actuador, porque
+\[
+  \Vdot=\Lie fV+\Lie gV\,k-(\Lie gV)^2+\Lie gV\,w\le-\alpha(\norm x)-\tfrac12(\Lie gV)^2+\tfrac12w^2 .
+\]
+Es el \emph{amortiguamiento no lineal} (control de Jurdjevic--Quinn~\citep{JuQu78}), el mismo término que el $\kappa$ de \eqref{eq:av-sontagvec}. Con Sontag y $\kappa>0$, $\Vdot\le-W(x)-\frac\kappa2\norm{\ell_g}^2+\frac1{2\kappa}\norm w^2$, que es ISS \emph{siempre que} $W\ge\alpha_3(\norm x)$ con $\alpha_3\in\Kinf$; esa condición hay que verificarla en cada caso.
+
+\begin{trampa}[label=tr:av-robustecer]{``Si el lazo es GES, aguanta perturbaciones pequeñas''}
+\plausible{Un lazo cerrado exponencialmente estable tiene margen: una perturbación pequeña solo lo desplaza un poco.}
+Eso es cierto localmente (y globalmente si todo es globalmente Lipschitz). En el \cref{ej:av-rediseno} el lazo es GES y lineal, pero la perturbación entra multiplicada por $x^2+1$: lejos del origen ``pequeña'' deja de serlo.
+\correcto{La cancelación exacta deja el lazo frágil. Robustecer es una exigencia de diseño aparte, y se logra dominando el término cruzado con $-\Lie gV$.}
+\end{trampa}
+
+\begin{pausa}
+Muestre que $V_2=\tfrac12\ln(1+x^2)$ también es una función ISS-Lyapunov para $\dot x=-x-x(x^2+1)+(x^2+1)w$. ¿Qué ventaja tiene sobre $V_1$?
+\respuesta{$\nabla V_2=x/(1+x^2)$, así que $\Lie g{V_2}=x$ y $\Vdot_2=-\frac{x^2}{1+x^2}-x^2+xw\le-\frac{x^2}{1+x^2}-\frac12x^2+\frac12w^2$. $V_2$ es de clase $\Kinf$ en $\abs x$, luego es ISS-Lyapunov. Con $V_2$ el amortiguamiento que hace falta es $-x$, no $-x(x^2+1)$: la escala de $V$ cambia cuánto control se gasta, como en la \cref{tr:av-escala}.}
+\end{pausa}

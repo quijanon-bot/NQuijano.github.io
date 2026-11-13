@@ -180,7 +180,7 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="./partes/10-estabilidad-avanzada.html">
- <span class="dropdown-text">10. Estabilidad avanzada: UUB, CLF e ISS</span></a>
+ <span class="dropdown-text">10. Más allá de la estabilidad asintótica</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./partes/11-pasividad.html">
@@ -239,6 +239,7 @@ window.Quarto = {
   <li><a href="#parte-5-órbitas-osciladores-y-ciclos-límite" id="toc-parte-5-órbitas-osciladores-y-ciclos-límite" class="nav-link" data-scroll-target="#parte-5-órbitas-osciladores-y-ciclos-límite">Parte 5 · Órbitas, osciladores y ciclos límite</a></li>
   <li><a href="#parte-6-bifurcaciones" id="toc-parte-6-bifurcaciones" class="nav-link" data-scroll-target="#parte-6-bifurcaciones">Parte 6 · Bifurcaciones</a></li>
   <li><a href="#parte-7-estabilidad-de-lyapunov" id="toc-parte-7-estabilidad-de-lyapunov" class="nav-link" data-scroll-target="#parte-7-estabilidad-de-lyapunov">Parte 7 · Estabilidad de Lyapunov</a></li>
+  <li><a href="#parte-10-más-allá-de-la-estabilidad-asintótica" id="toc-parte-10-más-allá-de-la-estabilidad-asintótica" class="nav-link" data-scroll-target="#parte-10-más-allá-de-la-estabilidad-asintótica">Parte 10 · Más allá de la estabilidad asintótica</a></li>
   <li><a href="#parte-11-pasividad" id="toc-parte-11-pasividad" class="nav-link" data-scroll-target="#parte-11-pasividad">Parte 11 · Pasividad</a></li>
   <li><a href="#parte-12-linealización-por-retroalimentación" id="toc-parte-12-linealización-por-retroalimentación" class="nav-link" data-scroll-target="#parte-12-linealización-por-retroalimentación">Parte 12 · Linealización por retroalimentación</a></li>
   </ul>
@@ -480,6 +481,41 @@ window.Quarto = {
 </tbody>
 </table>
 <p>Los cuatro videos de la parte 7 están publicados: se generaron con <code>herramientas/cap07_videos.py</code> (Python, los mismos modelos y parámetros). Los <code>C7_Video_*</code> de MATLAB producen la misma animación para grabarla en su computador.</p>
+</section>
+<section id="parte-10-más-allá-de-la-estabilidad-asintótica" class="level2">
+<h2 class="anchored" data-anchor-id="parte-10-más-allá-de-la-estabilidad-asintótica">Parte 10 · Más allá de la estabilidad asintótica</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Video</th>
+<th style="text-align: left;">Qué muestra</th>
+<th style="text-align: left;">Script</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span id="V10_1_banda_uub"></span><a href="videos/V10_1_banda_uub.mp4">V10.1 · Banda UUB</a></td>
+<td style="text-align: left;">La cota última baja hacia <span class="math inline">\(\delta\)</span> y el tiempo de espera crece sin cota.</td>
+<td style="text-align: left;"><code>C10_Video_BandaUUB.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span id="V10_2_bola_no_invariante"></span><a href="videos/V10_2_bola_no_invariante.mp4">V10.2 · La bola no es invariante</a></td>
+<td style="text-align: left;">La trayectoria sale de <span class="math inline">\(B_\mu\)</span> y nunca sale de <span class="math inline">\(\Omega_\eta\)</span>.</td>
+<td style="text-align: left;"><code>C10_Video_BolaNoInvariante.m</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span id="V10_3_energia_futura"></span><a href="videos/V10_3_energia_futura.mp4">V10.3 · Energía futura</a></td>
+<td style="text-align: left;"><span class="math inline">\(V(x(t))=\int_t^\infty\|x\|^2\)</span> y su pendiente <span class="math inline">\(-\|x(t)\|^2\)</span>.</td>
+<td style="text-align: left;"><code>C10_Video_EnergiaFutura.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span id="V10_4_rediseno_iss"></span><a href="videos/V10_4_rediseno_iss.mp4">V10.4 · Estabilizar no es robustecer</a></td>
+<td style="text-align: left;">Al crecer el error del actuador, la cancelación escapa y el amortiguamiento no.</td>
+<td style="text-align: left;"><code>C10_Video_RedisenoISS.m</code></td>
+</tr>
+</tbody>
+</table>
+<p>Los cuatro videos de la parte 10 están publicados: se generaron con <code>herramientas/cap10_videos.py</code> (los mismos modelos y parámetros que los <code>C10_Video_*</code>).</p>
 </section>
 <section id="parte-11-pasividad" class="level2">
 <h2 class="anchored" data-anchor-id="parte-11-pasividad">Parte 11 · Pasividad</h2>

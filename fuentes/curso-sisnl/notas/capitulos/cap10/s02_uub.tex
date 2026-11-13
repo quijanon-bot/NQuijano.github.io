@@ -1,0 +1,162 @@
+%% ---------------------------------------------------------------------
+\section{Acotamiento y acotamiento último uniforme}
+\label{sec:av-uub}
+%% ---------------------------------------------------------------------
+
+Toda la teoría de estabilidad vista hasta ahora presupone un \emph{equilibrio}: $f(t,0)=0$ para todo $t$. En la práctica hay al menos tres situaciones en que ese punto no existe:
+\begin{enumerate}
+  \item \textbf{Perturbación persistente.} En $\dot x=f(x)+w(t)$ con $w\not\equiv0$, el origen deja de ser equilibrio aunque $f(0)=0$.
+  \item \textbf{Error de modelado.} Lo que un controlador no cancela aparece como un término $\Delta(t,e)$ en la dinámica del error, que se sabe acotado pero no que se anule en $e=0$.
+  \item \textbf{Control práctico.} Con ruido, cuantización o fricción seca, pedir $e(t)\to0$ es irreal; lo que se especifica es $\norm{e(t)}\le b$ después de un transitorio.
+\end{enumerate}
+La pregunta ya no es si $x(t)\to0$, sino dos cosas más modestas: ¿la solución queda \emph{acotada}, con una cota que no dependa de $t_0$? ¿Termina dentro de una \emph{bola fija}, después de un tiempo que tampoco depende de $t_0$?
+
+\begin{ejemplo}[label=ej:av-escalar]{Un ejemplo que se puede resolver}
+Estudie $\dot x=-x+\delta\sin t$ con $x(t_0)=a$ y $a>\delta>0$.
+\solucion No hay equilibrio: $f(t,0)=\delta\sin t\neq0$. Pero la ecuación es lineal y, por variación de constantes,
+\[
+  x(t)=e^{-(t-t_0)}a+\delta\int_{t_0}^te^{-(t-\tau)}\sin\tau\,\dif\tau .
+\]
+\emph{Una cota uniforme.} Con $\abs{\sin\tau}\le1$ dentro de la integral,
+\[
+  \abs{x(t)}\le e^{-(t-t_0)}a+\delta\bigl(1-e^{-(t-t_0)}\bigr),
+\]
+una combinación convexa de $a$ y $\delta$, luego $\abs{x(t)}\le a$ para todo $t\ge t_0$, con una cota que no depende de $t_0$.
+\emph{Una cota última.} Para cualquier $b$ con $\delta<b<a$, la combinación convexa queda por debajo de $b$ desde
+\[
+  t-t_0\ \ge\ T(a,b)=\ln\frac{a-\delta}{b-\delta} .
+\]
+$T$ depende del tamaño inicial y de la cota pedida, nunca de $t_0$. Cuando $b\downarrow\delta$, $T\to\infty$: se puede pedir una cota tan cercana a $\delta$ como se quiera, pero se paga con espera. Con $a=14$, $b=1.05$ y $\delta=1$, $T=\ln260=5.56$.
+\emph{La cota real.} La solución particular es $\frac\delta2(\sin t-\cos t)=\frac{\delta}{\sqrt2}\sin(t-\frac\pi4)$, de amplitud $\delta/\sqrt2<\delta$. La precisión se perdió al reemplazar $\sin\tau$ por $\abs{\sin\tau}\le1$: la cota $\delta$ es la de la peor perturbación de amplitud $\delta$ (una constante $\pm\delta$), no la de una senoidal (\cref{fig:av-escalar}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_uub_escalar}
+\caption{$\dot x=-x+\sin t$ desde $x(0)\in\{4,2,-4\}$. La envolvente (coral) es la cota $e^{-t}a+\delta(1-e^{-t})$ con $a=4$; desde $T(4,1.5)=\ln6=1.79$ las soluciones quedan en la banda $\abs x\le1.5$ (verde). Las punteadas marcan la amplitud real $\delta/\sqrt2$. A la derecha, el precio de afinar la cota: $T(a,b)$ crece sin cota cuando $b\to\delta$.}
+\label{fig:av-escalar}
+\end{figure}
+
+\codigorepo{cap10_avanzada/C10_Ej1_UUBescalar.m}{escalar}{La solución cerrada, la envolvente y el tiempo de espera $T(a,b)$}
+
+\video{V10_1_banda_uub}{Afinar la cota última cuesta tiempo}
+
+Se considera $\dot x=f(t,x)$ con $f$ continua a trozos en $t$ y localmente Lipschitz en $x$, \emph{sin} suponer $f(t,0)=0$.
+
+\begin{definicion}[label=def:av-uub]{UB y UUB \citep[Def.~4.6]{Kha02}}
+Las soluciones son \clave{uniformemente acotadas (UB)} si existe $c>0$, independiente de $t_0\ge0$, y para cada $a\in(0,c)$ existe $\beta(a)>0$, independiente de $t_0$, tal que
+\[
+  \norm{x(t_0)}\le a\implica\norm{x(t)}\le\beta\qquad\forall\,t\ge t_0 .
+\]
+Son \clave{uniformemente últimamente acotadas (UUB) con cota última $b$} si existen $b,c>0$, independientes de $t_0$, y para cada $a\in(0,c)$ existe $T(a,b)\ge0$, independiente de $t_0$, tal que
+\[
+  \norm{x(t_0)}\le a\implica\norm{x(t)}\le b\qquad\forall\,t\ge t_0+T .
+\]
+Son \emph{globalmente} UB o UUB si las propiedades valen para $a$ arbitrariamente grande. Si el sistema es invariante en el tiempo se omite ``uniformemente''.
+\end{definicion}
+
+Hay que leer el papel de cada constante: $c$ delimita las condiciones iniciales permitidas; en UB la cota $\beta(a)$ crece con $a$ (quien empieza lejos puede pasearse lejos); en UUB la cota $b$ es fija y lo único que crece con $a$ es la espera $T(a,b)$. ``Uniforme'' significa lo mismo que en el capítulo~9: las constantes no dependen de $t_0$.
+
+\begin{trampa}[label=tr:av-noestable]{``UUB es estabilidad con otra cota''}
+\plausible{En la estabilidad hay una cota $\varepsilon$ y aquí una cota $b$: es la misma idea.}
+En la estabilidad, para \emph{todo} $\varepsilon>0$ hay un $\delta(\varepsilon)$. En UUB la cota no se puede pedir tan pequeña como se quiera: hay un valor por debajo del cual ninguna $b$ funciona (en el \cref{ej:av-escalar}, ninguna $b<\delta/\sqrt2$ sirve para $w=\delta\sin t$, y ninguna $b\le\delta$ se puede garantizar solo con $\abs w\le\delta$).
+\correcto{La cota última es un dato del problema, no un parámetro libre. Si las hipótesis del teorema de UUB valen para todo $\mu>0$, la cota tiende a cero con $\mu$ y se recupera la estabilidad asintótica uniforme: UUB es ``UAS hasta una bola''.}
+\end{trampa}
+
+\subsection{El argumento de los dos conjuntos de nivel}
+
+Repetimos el \cref{ej:av-escalar} con $V(x)=\tfrac12x^2$, \emph{sin usar la solución}. A lo largo de las trayectorias,
+\[
+  \Vdot=-x^2+\delta x\sin t\le-x^2+\delta\abs x=-\abs x\bigl(\abs x-\delta\bigr),
+\]
+que no es negativa cerca del origen, pero sí fuera de la bola $\abs x\le\delta$.
+
+\emph{Paso 1, acotamiento.} Para $c>\delta^2/2$, en la frontera de $\Nivel c=\{V\le c\}$ se tiene $\abs x=\sqrt{2c}>\delta$ y $\Vdot<0$. Una trayectoria que quisiera salir de $\Nivel c$ tendría que cruzar la frontera con $\Vdot\ge0$: $\Nivel c$ es \clave{positivamente invariante}. Con $c=a^2/2$, $\abs{x(t)}\le a$ para todo $t\ge t_0$.
+
+\emph{Paso 2, acotamiento último.} Para $\delta^2/2<\varepsilon<c$, en la \clave{corona} $\Lambda=\{\varepsilon\le V\le c\}$ se tiene $\abs x\ge s=\sqrt{2\varepsilon}>\delta$ y $\Vdot\le-(s^2-\delta s)=-k<0$. Mientras la trayectoria esté en $\Lambda$, $V$ baja por lo menos a ritmo $k$, así que sale de la corona antes de
+\begin{equation}
+  T\le\frac{c-\varepsilon}{k}=\frac{c-\varepsilon}{2\varepsilon-\delta\sqrt{2\varepsilon}},
+  \label{eq:av-Tlyap}
+\end{equation}
+y entra a $\Nivel\varepsilon$, que también es invariante. La cota última $\sqrt{2\varepsilon}$ puede acercarse a $\delta$ tanto como se quiera, y otra vez $T\to\infty$. No se usó la solución: solo $V$ y la cota de $\Vdot$. Esto es lo que se generaliza.
+
+\begin{trampa}[label=tr:av-T]{``El argumento de Lyapunov da el tiempo de espera''}
+\plausible{\eqref{eq:av-Tlyap} da un $T$ explícito, que debe ser el tiempo que tarda la solución en llegar.}
+Da una cota superior, y muy pesimista. Con $a=14$, $\delta=1$ y $b=1.05$: la solución exacta llega en $\ln260=5.56$; \eqref{eq:av-Tlyap} da $c=98$, $\varepsilon=0.551$, $k=b^2-\delta b=0.0525$ y $T\le1856$. El argumento supone que $V$ baja siempre al ritmo mínimo $k$, que es el del borde interior de la corona.
+\correcto{La garantía de Lyapunov es cualitativamente correcta y cuantitativamente conservadora. Sirve para todas las perturbaciones con $\abs w\le\delta$, no para una en particular.}
+\end{trampa}
+
+\subsection{El teorema y su geometría}
+
+En $\R^n$ y con $V(t,x)$, las hipótesis son $\alpha_1(\norm x)\le V\le\alpha_2(\norm x)$ y $\Vdot\le-W_3(x)$ para $\norm x\ge\mu$. La región donde no se sabe nada de $\Vdot$ es la bola $\Bola\mu$, pero las trayectorias no quedan atrapadas en bolas sino en conjuntos de nivel de $V$. El menor que contiene a $\Bola\mu$ es $\Nivel{t,\eta}$ con $\eta=\alpha_2(\mu)$, y por \eqref{eq:av-inclusiones}
+\begin{equation}
+  \Bola\mu\ \subset\ \Nivel{t,\eta}\ \subset\ \Bola{\alpha_1^{-1}(\eta)} .
+  \label{eq:av-cadena}
+\end{equation}
+
+\begin{teorema}[label=thm:av-uub]{Acotamiento último \citep[Teorema~4.18]{Kha02}}
+Sea $D\subset\R^n$ un dominio que contiene al origen y $V:[0,\infty)\times D\to\R$ de clase $\Cont1$ con
+\[
+  \alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x),\qquad \jac Vt+\jac Vxf(t,x)\le-W_3(x)\quad\forall\,\norm x\ge\mu>0,
+\]
+$\alpha_1,\alpha_2\in\K$ y $W_3$ continua y definida positiva. Sea $r>0$ con $\Bola r\subset D$ y $\mu<\alpha_2^{-1}(\alpha_1(r))$. Entonces existe $\beta\in\KL$ y, para cada condición inicial con $\norm{x(t_0)}\le\alpha_2^{-1}(\alpha_1(r))$, existe $T\ge0$ (que depende de $x(t_0)$ y de $\mu$, no de $t_0$) tal que
+\begin{align}
+  \norm{x(t)}&\le\beta\bigl(\norm{x(t_0)},t-t_0\bigr), && t_0\le t\le t_0+T, \label{eq:av-transitorio}\\
+  \norm{x(t)}&\le\alpha_1^{-1}\bigl(\alpha_2(\mu)\bigr), && t\ge t_0+T. \label{eq:av-ultima}
+\end{align}
+Si $D=\R^n$ y $\alpha_1\in\Kinf$, valen para toda condición inicial y todo $\mu$.
+\end{teorema}
+
+\begin{demostracion}
+(a) Con $c=\alpha_1(r)$, $\Nivel{t,c}\subset\Bola r\subset D$, y la condición inicial está en $\Nivel{t_0,c}$. (b) Con $\eta=\alpha_2(\mu)<c$, en la corona $\{\eta\le V\le c\}$ se tiene $\norm x\ge\mu$, luego $\Vdot\le-W_3(x)$. (c) En las fronteras $V=c$ y $V=\eta$, $\Vdot<0$: los dos conjuntos son positivamente invariantes y la solución existe para todo $t$. (d) $W_3$ tiene un mínimo $k>0$ en el compacto $\{\mu\le\norm x\le r\}$, así que la trayectoria entra a $\Nivel{t,\eta}$ antes de $T=(V(t_0,x(t_0))-\eta)/k$ y no sale; por \eqref{eq:av-cadena} vale \eqref{eq:av-ultima}. (e) Con $W_3\ge\alpha_3(\norm x)$, en la corona $\Vdot\le-\alpha_3(\alpha_2^{-1}(V))$, y el lema de comparación da $V\le\sigma(V(t_0),t-t_0)$, de donde $\beta(s,\tau)=\alpha_1^{-1}(\sigma(\alpha_2(s),\tau))$. Como las $\alpha_i$ no dependen de $t$, nada depende de $t_0$. (f) Si $\alpha_1\in\Kinf$, $r$ se puede tomar tan grande como haga falta.
+\end{demostracion}
+
+Cada hipótesis tiene su razón: $\mu<\alpha_2^{-1}(\alpha_1(r))$ garantiza que el conjunto trampa quepa donde $V$ está definida; la restricción sobre $x(t_0)$ pone la condición inicial en un conjunto de nivel dentro de $\Bola r$; que las $\alpha_i$ no dependan de $t$ da la uniformidad.
+
+\begin{trampa}[label=tr:av-cota]{``La cota última es $\mu$''}
+\plausible{Fuera de $\Bola\mu$ la función $V$ decrece, así que las trayectorias terminan en $\Bola\mu$.}
+Solo se sabe que $V$ decrece \emph{fuera} de $\Bola\mu$; lo que no se abandona es un \emph{conjunto de nivel} de $V$, y el menor que contiene a $\Bola\mu$ llega hasta $\norm x=\alpha_1^{-1}(\alpha_2(\mu))\ge\mu$, por \eqref{eq:av-a1a2}. $\Bola\mu$ no tiene por qué ser invariante: dentro de ella no hay información sobre $\Vdot$.
+\correcto{La cota garantizada es $b=\alpha_1^{-1}(\alpha_2(\mu))$, igual a $\mu$ solo si $V$ es ``redonda'' a esa escala ($\alpha_1(\mu)=\alpha_2(\mu)$, como con $V=\tfrac12\norm x^2$). El comportamiento real puede quedar por encima de $\mu$ o muy por debajo.}
+\end{trampa}
+
+\begin{ejemplo}[label=ej:av-oscilador]{La bola no es invariante}
+Para el oscilador poco amortiguado $\dot x=Ax+Bw$, $A=\bigl[\begin{smallmatrix}0&1\\-4&-0.2\end{smallmatrix}\bigr]$, $B=\bigl[\begin{smallmatrix}0\\1\end{smallmatrix}\bigr]$, $\abs w\le0.2$, encuentre $\mu$ y la cota última con $V=x\T Px$, $A\T P+PA=-I$.
+\solucion La ecuación de Lyapunov da $P=\bigl[\begin{smallmatrix}12.525&0.125\\0.125&3.125\end{smallmatrix}\bigr]$, con $\lmin=3.123$, $\lmax=12.527$ y $\norm{PB}=3.127$. Entonces $\Vdot=-\norm x^2+2x\T PBw\le-\norm x^2+2\norm{PB}\,0.2\norm x$ y, separando una fracción $\theta\in(0,1)$,
+\[
+  \Vdot\le-(1-\theta)\norm x^2\qquad\forall\,\norm x\ge\mu=\frac{2\norm{PB}\cdot0.2}{\theta}.
+\]
+Con $\theta=\tfrac12$, $\mu=2.50$ y $b=\mu\sqrt{\lmax/\lmin}=5.01$ (con $\theta=0.9$, $\mu=1.39$). Una trayectoria que nace en $(2.45,0)$, dentro de $\Bola\mu$, con $w=0.2\sin1.3t$, sube hasta $\norm x=4.50$ y nunca sale de $\Nivel\eta$ (\cref{fig:av-conjuntos}). La excursión ocurre \emph{incluso con $w\equiv0$}: el oscilador sigue una elipse casi conservativa de semiejes $2.45$ y $\approx4.9$. El problema es la excentricidad de los conjuntos de nivel ($\lmax/\lmin\approx4$), no la perturbación.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_conjuntos}
+\caption{Izquierda: el \cref{ej:av-oscilador}. $\Bola\mu$ (coral), $\Nivel\eta$ (azul) y $\Bola b$ (verde); la trayectoria (negra) nace dentro de $\Bola\mu$, sale de ella y nunca abandona $\Nivel\eta$. Derecha: el resorte endurecido del \cref{ej:av-resorte}, $\norm{x(t)}$ con $w=0.3\cos t$ frente a $\mu=0.745$ y la cota garantizada $b=1.30$.}
+\label{fig:av-conjuntos}
+\end{figure}
+
+\codigorepo{cap10_avanzada/C10_Ej2_Conjuntos.m}{conjuntos}{$P$, $\mu$ y $b$ del oscilador, y la trayectoria que sale de $\Bola\mu$ sin salir de $\Nivel\eta$}
+
+\video{V10_2_bola_no_invariante}{La bola no es invariante; el conjunto de nivel sí}
+
+\begin{ejemplo}[label=ej:av-resorte]{Resorte endurecido forzado \citep[Ejemplo~4.23]{Kha02}}
+Para $\dot x_1=x_2$, $\dot x_2=-(1+x_1^2)x_1-x_2+w(t)$, $\abs{w}\le M$, encuentre una cota última.
+\solucion Con $w=0$ el origen es GAS. Se prueba $V=x\T Px+\tfrac12x_1^4$ (el término cuártico es la energía del resorte endurecido). Al derivar aparecen términos cruzados $x_1x_2$ y $x_1^3x_2$ sin signo; se anulan con $p_{22}=1$ y $p_{11}=p_{12}+1$, y con $p_{12}=\tfrac12$ queda $P=\bigl[\begin{smallmatrix}3/2&1/2\\1/2&1\end{smallmatrix}\bigr]$ y
+\[
+  \Vdot=-x_1^2-x_2^2-x_1^4+(x_1+2x_2)\,w\le-\norm x^2+\sqrt5\,M\norm x\le-(1-\theta)\norm x^2\quad\text{si }\norm x\ge\mu=\frac{\sqrt5M}{\theta}.
+\]
+Con $\lambda(P)=(5\mp\sqrt5)/4$, $\alpha_1=0.691\norm x^2$ y $\alpha_2=1.809\norm x^2+\tfrac12\norm x^4$: el resultado es global, con
+\[
+  b=\alpha_1^{-1}\bigl(\alpha_2(\mu)\bigr)=\sqrt{\frac{\lmax\mu^2+\mu^4/2}{\lmin}} .
+\]
+Con $M=0.3$ y $\theta=0.9$: $\mu=0.745$ y $b=1.30$. La simulación con $w=0.3\cos t$ da $\limsup\norm{x(t)}=0.30$ (con $w=0.3\cos2t$, $0.17$; con $w\equiv0.3$, $0.28$). La cadena $0.30<\mu<b$ resume las dos trampas: $\mu$ no es lo que se garantiza, y lo que se garantiza es conservador.
+\end{ejemplo}
+
+\codigorepo{cap10_avanzada/C10_Ej2_Conjuntos.m}{resorte}{El resorte endurecido: $\mu$, $b$ y el $\limsup$ simulado para tres perturbaciones}
+
+Dos corolarios se usan a menudo. Con las mismas cotas sobre $V$: si $\Vdot\le0$ para $\norm x\ge\mu$, las soluciones que nacen en $\Nivel{t_0,\eta}$, $\eta\ge\alpha_2(\mu)$, cumplen $\norm{x(t)}\le\alpha_1^{-1}(\eta)$ (UB); si $\Vdot\le-W(x)$ con $W>0$ para $\norm x>\mu$, son UUB con $\limsup\norm{x(t)}\le\alpha_1^{-1}(\alpha_2(\mu))$. En los dos hay que decir \emph{para qué condiciones iniciales} valen; en el caso local, sin esa restricción, son falsos.
+
+\begin{pausa}
+Para $\dot x=\delta\sin t$, ¿son las soluciones UB? ¿UUB? ¿Qué hipótesis del \cref{thm:av-uub} falla?
+\respuesta{$x(t)=x(t_0)+\delta(\cos t_0-\cos t)$, así que $\abs{x(t)}\le\abs{x(t_0)}+2\delta$: son UB. No son UUB: una solución que empieza lejos se queda lejos. Con $V=\tfrac12x^2$, $\Vdot=\delta x\sin t$ no tiene signo en ninguna región, y no existe $W_3$ con $\Vdot\le-W_3$ fuera de una bola: el sistema no tiene disipación.}
+\end{pausa}

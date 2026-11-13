@@ -1,0 +1,135 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:av-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{UUB:} sin equilibrio se garantiza ``llegar a una bola y quedarse'', con constantes independientes de $t_0$. La herramienta es el argumento de los dos conjuntos de nivel, y la cota última es $\alpha_1^{-1}(\alpha_2(\mu))$, no $\mu$.
+  \item \textbf{Conversos:} la estabilidad implica que $V$ existe, pero no la construye. Su valor está en las propiedades cuantitativas ($c_4$, la cota uniforme $\alpha_3$) que permiten probar robustez. ``Solo estable'' puede exigir una $V(t,x)$ aunque el sistema sea invariante en el tiempo.
+  \item \textbf{CLF y Sontag:} con una CLF, una fórmula universal da la ley de control; la continuidad en el origen equivale a la propiedad de control pequeño (Artstein). La fórmula no gasta control donde la deriva ayuda, y la escala de $V$ es una perilla.
+  \item \textbf{Barbalat:} $\Vdot\le0$ y $\ddot V$ acotada implican $\Vdot\to0$. La conclusión es parcial y vive en el eje del tiempo; sirve donde LaSalle no aplica, en sistemas variantes en el tiempo.
+  \item \textbf{ISS:} es UUB con un radio que depende de la entrada, con ganancia $\alpha_1^{-1}\circ\alpha_2\circ\rho$. Estabilizar no es robustecer: la cancelación exacta se arregla con amortiguamiento $-\Lie gV$.
+  \item \textbf{Interconexiones:} las cascadas ISS se componen; GAS más GAS no basta. Las retroalimentaciones necesitan pequeña ganancia, que es suficiente pero no necesaria.
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item UUB no es estabilidad con otra cota (\cref{tr:av-noestable}); la cota última no es $\mu$ (\cref{tr:av-cota}); el $T$ de Lyapunov es una cota pesimista (\cref{tr:av-T}).
+  \item El converso no es constructivo (\cref{tr:av-converso}).
+  \item Una $V$ puede no ser CLF aunque el sistema sea estabilizable (\cref{tr:av-noclf}); el exponente 4 no es decorativo (\cref{tr:av-cuarta}); ``universal'' no es ``sin perillas'' (\cref{tr:av-escala}); si $f(0)\neq0$, el control en régimen no es cero (\cref{tr:av-regimen}).
+  \item $\int W<\infty$ no implica $W\to0$ (\cref{tr:av-integral}); Barbalat no da estabilidad asintótica (\cref{tr:av-barbalat}).
+  \item ``Existe $u$'' (CLF) no es ``para todo $w$'' (ISS); un lazo GES puede no aguantar perturbaciones pequeñas (\cref{tr:av-robustecer}).
+  \item GAS más GAS no da GAS en cascada (\cref{ej:av-cascada}), pero no toda cascada no ISS escapa (\cref{tr:av-cascadaerr}).
+\end{itemize}
+\end{trampa}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior (Handout7 y las diapositivas de estabilidad avanzada)]
+(i) La cota última del \cref{thm:av-uub} es $\alpha_1^{-1}(\alpha_2(\mu))$ y la igualdad con $\mu$ exige $\alpha_1(\mu)=\alpha_2(\mu)$, no $\alpha_1=\alpha_2$; el comportamiento $\KL$ vale hasta que la trayectoria entra en $\Nivel\eta$, no ``mientras $\norm x\ge\mu$''. (ii) En los corolarios UB/UUB aparecía $\Bola{\alpha^{-1}(\eta)}$ por $\Bola{\alpha_1^{-1}(\eta)}$, faltaba el conjunto de condiciones iniciales y la hipótesis se escribía ``$\dot V(x(t))\le-W_3(x)$'' en lugar de $\partial V/\partial t+(\partial V/\partial x)f\le-W_3(x)$. (iii) El converso para UAS da $\Vdot\le-\alpha_3(\norm x)$, una cota uniforme, no solo $\Vdot<0$. (iv) Teorema de Artstein: el nombre es Artstein (no ``Arstein''), y faltaban la no acotación radial y la regularidad de $k$. (v) Fórmula de Sontag: $W(x)=\sqrt{\ell_f^2+\ell_g^4}$, no ``$W(x)\sqrt{\cdots}$''; el término $-\kappa(\Lie gV)^2$ está en $\Vdot$, mientras en la ley de control el término es $-\kappa\Lie gV$; la versión vectorial \eqref{eq:av-sontagvec} hace falta para Brockett, donde $u\in\R^2$, y la extensión a leyes continuas es de Zabczyk y Coron. (vi) La gráfica de $u(t)$ del ejemplo $\cos x-x^3+u$ arrancaba en $\approx-20$ y tendía a $0$; con la ley correcta arranca en $0.17$ y tiende a $-1$. (vii) La diapositiva del diseño a mano no decía el sistema: es $\dot x=x^3+x^2u$, no $\dot x=x+x^2u$; ``Sontag requiere más esfuerzo'' solo vale frente a $c_1\le1$. (viii) Lema tipo Lyapunov: la continuidad uniforme es de la señal $t\mapsto\Vdot(t,x(t))$. En Kellett--Braun, Barbalat es el Lema~A.12 (el~A.4 es la desigualdad de Young). (ix) ISS lineal: $\lambda>0$, la integral relevante es $\int e^{-\lambda(t-\tau)}\dif\tau$ y faltaba $\norm B$. El contraejemplo de Riccati tiene numerador $3-e^t$, no $3-e^{-t}$. (x) Teorema ISS-Lyapunov: bastan $\rho\in\K$ y $W_3$ definida positiva, y las cotas de $V$ se llaman $\alpha_1,\alpha_2$ (no $\gamma_1,\gamma_2$, que chocan con la ganancia). En el ejemplo $\dot x=-x-2x^3+(1+x^2)w^2$ la condición es $w^2\le\abs x$, no $u^2\le x$. (xi) La regla de Arcak solo da la dirección ``si''; la recíproca se agregó. (xii) La cascada $\dot x_1=-x_1+x_1x_2^2$ \emph{no} escapa (\cref{tr:av-cascadaerr}). (xiii) La proposición ISS más ISS es de Sontag (Teorema~7.9 de Kellett--Braun); el Lema~4.7 de Khalil es el corolario GUAS más ISS. En la $V$ compuesta con $a=1$ había un signo duplicado. (xiv) La predicción~3 se respondía con $w\equiv1$, que no es pequeña; ahora se responde con $w\equiv\varepsilon$ y el umbral $x_+\approx1/\varepsilon$. (xv) Notación: entrada exógena $w$ y control $u$; $\ell_f,\ell_g$ en lugar de $a,b$ (que chocaban con el radio inicial y la cota última); $k,\lambda$ y la ventana $h$ en el converso; $\nu$ para la cota de la perturbación; $h,\psi$ para señales; ``invariante en el tiempo'' en lugar de ``autónomo''. (xvi) Los conversos, que la planeación anterior asignaba al capítulo~9, quedaron en este capítulo.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:av-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\subsection*{Acotamiento último}
+
+\begin{problema}[cuándo la cota es $\mu$]\label{prob:av-cubica}
+Para $\dot x=-x^3+\delta\sin t$: (a) con $V=\tfrac12x^2$, encuentre $\mu$ y la cota última garantizada; (b) ¿por qué aquí $b=\mu$ y en el \cref{ej:av-oscilador} no? (c) \etiquetaM{} con $\delta=0.5$, compare la cota con el $\limsup$ simulado.
+\end{problema}
+
+\begin{problema}[cuánto se espera]\label{prob:av-esperaresorte}
+Para el resorte del \cref{ej:av-resorte} con $M=0.3$, $\theta=0.9$ y $x(t_0)=(2,0)$: (a) calcule $c=V(x(t_0))$, $\eta=\alpha_2(\mu)$ y el ritmo mínimo $k$ en la corona; (b) acote el tiempo de espera $T$; (c) \etiquetaM{} compare con el tiempo que tarda la simulación en entrar a $\Nivel\eta$.
+\end{problema}
+
+\begin{problema}[acotado sin cota última]\label{prob:av-integrador}
+Para $\dot x=\delta\sin t$: (a) muestre que las soluciones son UB; (b) muestre que no son UUB; (c) ¿qué hipótesis del \cref{thm:av-uub} falla y por qué no se puede arreglar cambiando $V$?
+\end{problema}
+
+\subsection*{Conversos y CLF}
+
+\begin{problema}[un margen garantizado]\label{prob:av-margen}
+Para $A=\bigl[\begin{smallmatrix}0&1\\-2&-3\end{smallmatrix}\bigr]$: (a) resuelva $A\T P+PA=-I$; (b) calcule el margen $\nu^*$ del \cref{lem:av-robustez}; (c) encuentre una perturbación lineal $g_p$ con $\norm{g_p}\le\nu\norm x$ que desestabilice el sistema. ¿Para qué $\nu$ lo logra? ¿Es mayor que $\nu^*$?
+\end{problema}
+
+\begin{problema}[arreglar la $V$]\label{prob:av-dobleintegrador}
+Para el doble integrador $\dot x_1=x_2$, $\dot x_2=u$: (a) muestre que $V=x_1^2+x_1x_2+x_2^2$ es CLF; (b) escriba la ley de Sontag y estudie $k(sx)/s$ cuando $s\to0^+$; (c) ¿tiene el lazo cerrado una linealización en el origen?
+\end{problema}
+
+\begin{problema}[conservar lo útil]\label{prob:av-conservar}
+Para $\dot x=x-x^3+u$: (a) escriba la ley de Sontag con $V=\tfrac12x^2$; (b) \etiquetaM{} desde $x(0)=3$, compare el esfuerzo $\int_0^{10}u^2\dif t$ con el de $u=-2x+x^3$; (c) ¿cuál converge más rápido? ¿Cómo puede la ley que gasta menos converger más rápido?
+\end{problema}
+
+\subsection*{Barbalat}
+
+\begin{problema}[control adaptativo por modelo de referencia]\label{prob:av-mrac}
+Planta $\dot y=a^*y+u$ con $a^*$ desconocido; modelo $\dot y_m=-ay_m+r(t)$, $a>0$, $r$ acotada; ley $u=-k(t)y+r$ y adaptación $\dot k=ey$, con $e=y-y_m$. (a) Con $k^*=a^*+a$ y $\tilde k=k-k^*$, muestre que $\dot e=-ae-\tilde ky$; (b) con $V=\tfrac12e^2+\tfrac12\tilde k^2$, pruebe que $e\to0$; (c) ¿converge $k$ a $k^*$?
+\end{problema}
+
+\begin{problema}[cuando falta la continuidad uniforme]\label{prob:av-sint2}
+Sea $h(t)=\sin(t^2)/t$. (a) Muestre que $h\to0$; (b) muestre que $\dot h\not\to0$; (c) ¿qué hipótesis de la forma de derivada del \cref{lem:av-barbalat} falla?
+\end{problema}
+
+\subsection*{ISS e interconexiones}
+
+\begin{problema}[ISS o no]\label{prob:av-issono}
+Decida si son ISS y, cuando lo sean, dé una ganancia: (a) $\dot x=-x+x^2w$; (b) $\dot x=-x^3+x^2w$; (c) $\dot x=-x+w/(1+x^2)$; (d) $\dot x=-x^3+x^3w$.
+\end{problema}
+
+\begin{problema}[Sontag robusto]\label{prob:av-sontagkappa}
+\etiquetaM{} Para la planta $\dot x=x+(x^2+1)u$ con $V=\tfrac12x^2$: (a) escriba la ley de Sontag con $\kappa=1$; (b) muestre que el lazo es ISS respecto a un error aditivo $w$ en el actuador; (c) con \cmd{crearModelo\_RedisenoISS.m} y $w\equiv1$, compare con la cancelación exacta y con $k-\Lie gV$.
+\end{problema}
+
+\begin{problema}[ganancia de una cascada]\label{prob:av-gananciacascada}
+Para $\dot x_1=-x_1^3+x_2$, $\dot x_2=-x_2+w$: (a) dé las ganancias ISS de cada subsistema; (b) con $\gamma_1(p+q)\le\gamma_1(2p)+\gamma_1(2q)$, dé una ganancia de la cascada respecto a $\abs{x_1}+\abs{x_2}$.
+\end{problema}
+
+\begin{problema}[una pequeña ganancia no lineal]\label{prob:av-pgnolineal}
+\etiquetaEstrella{} Para $\dot x_1=-x_1+x_2^{1/3}$, $\dot x_2=-x_2+cx_1^3$ con $c>0$: (a) dé $\gamma_1$ y $\gamma_2$; (b) ¿para qué $c$ se cumple $\gamma_1\circ\gamma_2(r)<r$ para todo $r>0$? (c) Encuentre los equilibrios y explique por qué la respuesta de (b) no puede mejorarse.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:av-cubica}}
+(a) $\Vdot\le-x^4+\delta\abs x<0$ si $\abs x>\delta^{1/3}$; con $\theta$, $\mu=(\delta/\theta)^{1/3}$, y como $\alpha_1=\alpha_2=\tfrac12r^2$, $b=\mu$: cualquier $b>\delta^{1/3}$ es cota última. (b) Porque $V$ es ``redonda'': sus conjuntos de nivel son bolas. En el oscilador, $\lmax/\lmin\approx4$. (c) Con $\delta=0.5$, $\delta^{1/3}=0.794$; la simulación da $\limsup\abs x=0.49$: la senoidal no es la peor perturbación de amplitud $0.5$.
+
+\paragraph{Problema~\ref{prob:av-esperaresorte}}
+(a) $c=\tfrac32\cdot4+\tfrac12\cdot16=14$; $\mu=0.745$, $\eta=1.809\mu^2+\tfrac12\mu^4=1.16$; $k=(1-\theta)\mu^2=0.056$. (b) $T\le(c-\eta)/k=231$. (c) La simulación entra a $\Nivel\eta$ en $t\approx2.1$ con $w=0.3\cos t$ (entre $1.7$ y $2.5$ con $w\equiv\pm0.3$): la cota usa el ritmo del borde interior de la corona durante todo el recorrido (\cref{tr:av-T}).
+
+\paragraph{Problema~\ref{prob:av-integrador}}
+(a) $x(t)=x(t_0)+\delta(\cos t_0-\cos t)$, así que $\abs{x(t)}\le\abs{x(t_0)}+2\delta$. (b) Quien empieza en $x(t_0)=100$ se queda cerca de $100$. (c) No hay $W_3$ con $\Vdot\le-W_3$ fuera de una bola. Ninguna $V$ lo arregla: si existiera, el teorema daría UUB, que es falso. El sistema no tiene disipación.
+
+\paragraph{Problema~\ref{prob:av-margen}}
+(a) $P=\bigl[\begin{smallmatrix}1.25&0.25\\0.25&0.25\end{smallmatrix}\bigr]$. (b) $\lmax=1.309$, $c_4=2.618$ y $\nu^*=0.382$. (c) Con $g_p=\nu[0;\,x_1]$, la matriz $\bigl[\begin{smallmatrix}0&1\\-2+\nu&-3\end{smallmatrix}\bigr]$ deja de ser Hurwitz en $\nu=2$. Es mucho mayor que $\nu^*$: la garantía cubre todas las perturbaciones de ese tamaño, incluidas las variantes en el tiempo y no lineales.
+
+\paragraph{Problema~\ref{prob:av-dobleintegrador}}
+(a) Es $V=x\T Px$ con $q=\tfrac12>0$: por la \cref{tr:av-noclf}, es CLF. Explícitamente, $\ell_g=x_1+2x_2$ y en $x_2=-x_1/2$, $\ell_f=(2x_1+x_2)x_2=-\tfrac34x_1^2<0$. (b) $k=-(\ell_f+\sqrt{\ell_f^2+\ell_g^4})/\ell_g$ con $\ell_f=(2x_1+x_2)x_2$ cuadrático y $\ell_g$ lineal: $k(sx)/s\to-(\ell_f+\abs{\ell_f})/\ell_g$, que vale $-2\ell_f/\ell_g$ donde la deriva estorba y $0$ donde ayuda. (c) La pregunta es la trampa: el límite es continuo y homogéneo de grado uno, pero no lineal en $x$, así que la ley es continua (hay control pequeño) y \emph{no} es diferenciable en el origen. No hay polos que calcular. Una ley de Sontag puede ser continua sin ser $\Cont1$, aunque $V$, $f$ y $g$ sean polinomios.
+
+\paragraph{Problema~\ref{prob:av-conservar}}
+(a) $k=-x\bigl((1-x^2)+\sqrt{(1-x^2)^2+1}\bigr)$. (b) Sontag arranca con $u(0)=-0.19$ y gasta $\int u^2=1.46$; la ley que cancela arranca con $u(0)=21$ y gasta $58.5$. (c) Sontag también es más rápido: el lazo es $\dot x=-x\sqrt{(1-x^2)^2+1}$, con ritmo $\ge1$ en todo punto ($\sqrt2$ cerca del origen), y llega a $\abs x<0.01$ en $t=4.0$ contra $5.7$. No hay paradoja: la ley que cancela paga para quitar el término $-x^3$, que ayudaba, y luego impone un ritmo $1$; Sontag deja que $-x^3$ trabaje lejos del origen y solo empuja donde la deriva estorba.
+
+\paragraph{Problema~\ref{prob:av-mrac}}
+(a) $\dot e=a^*y-ky+r+ay_m-r=-ae-\tilde ky$. (b) $\Vdot=-ae^2-\tilde key+\tilde key=-ae^2\le0$: $e$ y $\tilde k$ acotadas; $y_m$ acotada porque $a>0$ y $r$ acotada; $y=e+y_m$ acotada; $\dot e$ acotada; $\ddot V=-2ae\dot e$ acotada; por Barbalat, $e\to0$. (c) No necesariamente: solo si $y$ es persistentemente excitante. Con $r\equiv0$ e $y\to0$, $k$ se congela en cualquier valor.
+
+\paragraph{Problema~\ref{prob:av-sint2}}
+(a) $\abs h\le1/t$. (b) $\dot h=2\cos(t^2)-\sin(t^2)/t^2$ oscila con amplitud cercana a $2$. (c) La continuidad uniforme de $\dot h$: su derivada contiene $-4t\sin(t^2)$, que no está acotada.
+
+\paragraph{Problema~\ref{prob:av-issono}}
+(a) No ($r=1<s=2$): con $w\equiv c$ y $x(0)>1/c$, $\dot x=x(cx-1)>0$ y escapa. (b) Sí ($r=3>s=2$): $\abs x\ge\abs w/\theta$ da $\Vdot\le-(1-\theta)x^4$, con $\gamma(r)=r/\theta$. (c) Sí: $\Vdot\le-x^2+\abs x\abs w$ y $\gamma(r)=r/\theta$; el factor $1/(1+x^2)\le1$ hace que la entrada entre a lo sumo linealmente. (d) No ($r=s=3$): con $w\equiv2$, $\dot x=x^3$ escapa.
+
+\paragraph{Problema~\ref{prob:av-sontagkappa}}
+(a) $\ell_f=x^2$, $\ell_g=x(x^2+1)$ y $k=-\bigl(1+\frac{x^2+\sqrt{x^4+x^4(x^2+1)^4}}{x^2(x^2+1)^2}\bigr)x(x^2+1)$. (b) $\Vdot\le-W-\tfrac12\ell_g^2+\tfrac12w^2$ con $W=x^2\sqrt{1+(x^2+1)^4}\ge\sqrt2x^2$, que es de clase $\Kinf$: ISS. (c) La cancelación escapa en $2.42$; las otras dos quedan acotadas ($k-\Lie gV$ se asienta en $0.4887$ y Sontag con $\kappa=1$ en $0.386$).
+
+\paragraph{Problema~\ref{prob:av-gananciacascada}}
+(a) $\gamma_1(r)=(r/\theta)^{1/3}$ (como $\dot x=-x^3+w$) y $\gamma_2(r)=r$. (b) $\abs{x_1}+\abs{x_2}$ queda, a la larga, por debajo de $\gamma_1(\gamma_2(r))+\gamma_2(r)$, y con la desigualdad del enunciado aplicada a los transitorios, $\gamma(r)=(2r/\theta)^{1/3}+r$.
+
+\paragraph{Problema~\ref{prob:av-pgnolineal}}
+(a) $\gamma_1(r)=r^{1/3}$ y $\gamma_2(r)=cr^3$ (los dos subsistemas son lineales estables con entradas $x_2^{1/3}$ y $cx_1^3$). (b) $\gamma_1(\gamma_2(r))=c^{1/3}r<r$ si y solo si $c<1$. (c) Los equilibrios cumplen $x_1=(cx_1^3)^{1/3}=c^{1/3}x_1$: con $c\neq1$ solo el origen; con $c=1$, todo punto de la curva $x_2=x_1^3$ es equilibrio, y el origen no es AS. La condición no se puede mejorar en $c=1$.
+
+\respuestaspausas

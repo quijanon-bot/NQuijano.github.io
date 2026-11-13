@@ -1,0 +1,35 @@
+%% =====================================================================
+%%  Capítulo 10 -- Más allá de la estabilidad asintótica: UUB, conversos,
+%%  CLF, Barbalat e ISS
+%%  Formato nuevo (noviembre de 2026). Integra: AdvancedStab_Notas2026.tex
+%%  (notas de octubre de 2026, que ya corregían Handout7 y las diapositivas),
+%%  las diapositivas AdvancedStab_2026_v4 (clase del 28 de octubre, "CLF e
+%%  ISS, con conversos y Barbalat como apoyo"), las ecuaciones de LaTeXiT y
+%%  los scripts MATLAB_AdvancedStab/AS01--AS15, reescritos en
+%%  codigo/cap10_avanzada. Las funciones de comparación, la estabilidad
+%%  uniforme y LaSalle--Yoshizawa son del capítulo 9 (por migrar): aquí se
+%%  recuerda lo indispensable. Correcciones: ver \S\ref{sec:av-cierre}.
+%%  Números verificados con herramientas/cap10_numeros.py y
+%%  codigo/cap10_avanzada/verificarCap10.m.
+%% =====================================================================
+
+\capitulo[cap:avanzada]{Más allá de la estabilidad asintótica: UUB, conversos, CLF, Barbalat e ISS}
+  {Corren tiempos raros. El arte siempre está fuera de lugar. Siempre es innecesario cuando surge. Y después, al mirar atrás, resulta que era lo único importante.}
+  {Daniel Kehlmann}
+
+\begin{objetivos}[partes/10-estabilidad-avanzada.html]
+  \item Garantizar acotamiento y acotamiento último uniforme (UB, UUB) cuando no hay equilibrio, con el argumento de los dos conjuntos de nivel, y calcular la cota última que de verdad garantiza el teorema.
+  \item Explicar qué entrega un teorema converso de Lyapunov según la hipótesis (exponencial, asintótica, solo estable) y usar sus cotas para probar robustez frente a perturbaciones.
+  \item Decidir si una función es de control de Lyapunov, diseñar con la fórmula universal de Sontag y reconocer cuándo no existe una realimentación continua (Artstein, control pequeño, Brockett).
+  \item Usar el lema de Barbalat en sistemas variantes en el tiempo, verificando la continuidad uniforme con una derivada acotada, y saber qué concluye y qué no.
+  \item Probar estabilidad entrada--estado con funciones ISS-Lyapunov, robustecer un diseño con amortiguamiento $\Lie gV$ y analizar cascadas y retroalimentaciones con la condición de pequeña ganancia.
+\end{objetivos}
+
+\input{capitulos/cap10/s01_por_que}
+\input{capitulos/cap10/s02_uub}
+\input{capitulos/cap10/s03_conversos}
+\input{capitulos/cap10/s04_clf}
+\input{capitulos/cap10/s05_barbalat}
+\input{capitulos/cap10/s06_iss}
+\input{capitulos/cap10/s07_interconexion}
+\input{capitulos/cap10/s08_cierre}

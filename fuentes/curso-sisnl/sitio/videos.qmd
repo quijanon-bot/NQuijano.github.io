@@ -70,6 +70,17 @@ Los cuatro videos de la parte 6 están publicados: se generaron con `herramienta
 
 Los cuatro videos de la parte 7 están publicados: se generaron con `herramientas/cap07_videos.py` (Python, los mismos modelos y parámetros). Los `C7_Video_*` de MATLAB producen la misma animación para grabarla en su computador.
 
+## Parte 10 · Más allá de la estabilidad asintótica
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V10_1_banda_uub}[V10.1 · Banda UUB](videos/V10_1_banda_uub.mp4) | La cota última baja hacia $\delta$ y el tiempo de espera crece sin cota. | `C10_Video_BandaUUB.m` |
+| []{#V10_2_bola_no_invariante}[V10.2 · La bola no es invariante](videos/V10_2_bola_no_invariante.mp4) | La trayectoria sale de $B_\mu$ y nunca sale de $\Omega_\eta$. | `C10_Video_BolaNoInvariante.m` |
+| []{#V10_3_energia_futura}[V10.3 · Energía futura](videos/V10_3_energia_futura.mp4) | $V(x(t))=\int_t^\infty\|x\|^2$ y su pendiente $-\|x(t)\|^2$. | `C10_Video_EnergiaFutura.m` |
+| []{#V10_4_rediseno_iss}[V10.4 · Estabilizar no es robustecer](videos/V10_4_rediseno_iss.mp4) | Al crecer el error del actuador, la cancelación escapa y el amortiguamiento no. | `C10_Video_RedisenoISS.m` |
+
+Los cuatro videos de la parte 10 están publicados: se generaron con `herramientas/cap10_videos.py` (los mismos modelos y parámetros que los `C10_Video_*`).
+
 ## Parte 11 · Pasividad
 
 | Video | Qué muestra | Script |

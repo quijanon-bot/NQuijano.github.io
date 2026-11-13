@@ -1,0 +1,147 @@
+%% ---------------------------------------------------------------------
+\section{Teoremas conversos de Lyapunov}
+\label{sec:av-conversos}
+%% ---------------------------------------------------------------------
+
+El teorema directo de Lyapunov dice: \emph{si existe $V$, hay estabilidad}. Un teorema converso dice lo contrario: \emph{si hay estabilidad de cierto tipo, existe una $V$ con ciertas propiedades}. Tiene tres usos, en este orden de importancia práctica:
+\begin{enumerate}
+  \item \textbf{No buscar en vano.} Si el origen es UAS, alguna $V$ existe: si no la encuentro, el problema es mi candidata, no el sistema.
+  \item \textbf{Robustez.} La $V$ que garantiza el converso tiene propiedades \emph{cuantitativas}, como $\norm{\partial V/\partial x}\le c_4\norm x$, que permiten probar que la estabilidad sobrevive a perturbaciones (\cref{lem:av-robustez}).
+  \item \textbf{Diseño modular.} En CLF, \emph{backstepping} o ISS se supone ``un subsistema ya estabilizado, con su función de Lyapunov''. El converso garantiza que esa función existe; el rediseño ISS de la \S\ref{sec:av-iss} lo invoca explícitamente.
+\end{enumerate}
+
+\begin{trampa}[label=tr:av-converso]{``El converso me da la $V$''}
+\plausible{Si el teorema garantiza que $V$ existe, su demostración me dice cómo calcularla.}
+Las demostraciones construyen $V$ \emph{integrando las soluciones del sistema}, que es justamente lo que se quería evitar al usar Lyapunov. Salvo en el caso lineal, la $V$ existe pero no se puede escribir. \citet[\S2.5]{KeBr23} lo dicen sin rodeos: la prueba no ofrece un punto de partida para construir una función de Lyapunov.
+\correcto{El converso sirve para razonar (qué propiedades tiene $V$, qué robustez implican), no para calcular. Para calcular siguen haciendo falta ingenio, energía física, el gradiente variable o la ecuación de Lyapunov de la linealización.}
+\end{trampa}
+
+\subsection{La energía futura}
+
+El caso lineal muestra la idea de todas las pruebas: \clave{$V(x)$ es la energía futura total de la solución que parte de $x$}.
+
+\begin{ejemplo}[label=ej:av-energia]{La ecuación de Lyapunov aparece sola}
+Para $\dot x=Ax$ con $A$ Hurwitz, sea $\sol(\tau;x)=e^{A\tau}x$ la solución que parte de $x$ y
+\[
+  V(x)=\int_0^\infty\norm{\sol(\tau;x)}^2\dif\tau=x\T\Bigl(\int_0^\infty e^{A\T\tau}e^{A\tau}\dif\tau\Bigr)x=x\T Px .
+\]
+Muestre que $\Vdot=-\norm x^2$ y calcule $P$ para $A=\bigl[\begin{smallmatrix}0&1\\-1&-1\end{smallmatrix}\bigr]$.
+\solucion La integral converge porque $\norm{e^{A\tau}}\le ke^{-\lambda\tau}$. Por la propiedad de semigrupo, $\sol(\tau;x(t))=x(t+\tau)$, y a lo largo de una trayectoria
+\[
+  V\bigl(x(t)\bigr)=\int_t^\infty\norm{x(s)}^2\dif s\quad\implica\quad\frac{\dif}{\dif t}V\bigl(x(t)\bigr)=-\norm{x(t)}^2 :
+\]
+al avanzar en el tiempo, la energía futura solo pierde el presente. Como también $\frac{\dif}{\dif t}x\T Px=x\T(A\T P+PA)x$, igualando para todo $x$ resulta $A\T P+PA=-I$: la ecuación de Lyapunov del \cref{thm:ly-ecuacion} es la condición de que la energía futura se pierda al ritmo $\norm x^2$. Con $P=\bigl[\begin{smallmatrix}p&q\\q&r\end{smallmatrix}\bigr]$ la ecuación da $-2q=-1$, $p-q-r=0$, $2(q-r)=-1$, de donde
+\[
+  P=\begin{bmatrix}1.5&0.5\\0.5&1\end{bmatrix},\qquad V(1,0.5)=2.25 ,
+\]
+que es exactamente el área bajo $\norm{\sol(\tau;x)}^2$ desde $x=(1,0.5)$ (\cref{fig:av-energia}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_energia_futura}
+\caption{La función de Lyapunov como energía futura. Izquierda: $\norm{\sol(\tau;x_0)}^2$ desde $x_0=(1,0.5)$; el área sombreada vale $V(x_0)=x_0\T Px_0=2.25$. Derecha: $V(x(t))=\int_t^\infty\norm{x}^2$ sobre la trayectoria; su pendiente es $-\norm{x(t)}^2$.}
+\label{fig:av-energia}
+\end{figure}
+
+\codigorepo{cap10_avanzada/C10_Ej3_EnergiaFutura.m}{energia}{La integral de la energía futura contra $x\T Px$ con \cmd{lyap}}
+
+\video{V10_3_energia_futura}{La energía futura se gasta en el presente}
+
+\subsection{El converso exponencial}
+
+\begin{teorema}[label=thm:av-converso]{Converso exponencial \citep[Teorema~4.14]{Kha02}}
+Sea $f:[0,\infty)\times D\to\R^n$ de clase $\Cont1$, $D=\Bola r$, con $\norm{\partial f/\partial x}\le L$ en $D$ uniformemente en $t$ y $f(t,0)=0$. Sean $k,\lambda,r_0>0$ con $r_0<r/k$. Si
+\[
+  \norm{x(t)}\le k\norm{x(t_0)}e^{-\lambda(t-t_0)}\qquad\forall\,x(t_0)\in\Bola{r_0},\ t\ge t_0\ge0,
+\]
+existen $V:[0,\infty)\times\Bola{r_0}\to\R$ y constantes $c_1,\dots,c_4>0$ tales que
+\begin{align}
+  &c_1\norm x^2\le V(t,x)\le c_2\norm x^2, \label{eq:av-conv1}\\
+  &\jac Vt+\jac Vxf(t,x)\le-c_3\norm x^2, \label{eq:av-conv2}\\
+  &\Bigl\|\jac Vx\Bigr\|\le c_4\norm x . \label{eq:av-conv3}
+\end{align}
+Si $r=\infty$ y el origen es GES, todo vale en $\R^n$. Si $f$ no depende de $t$, $V$ tampoco.
+\end{teorema}
+
+La prueba toma la energía futura en una \emph{ventana finita} de longitud $h>0$,
+\begin{equation}
+  V(t,x)=\int_t^{t+h}\sol\T(\tau;t,x)\,\sol(\tau;t,x)\,\dif\tau ,
+  \label{eq:av-Vconverso}
+\end{equation}
+y cada constante sale de una hipótesis distinta:
+\begin{itemize}
+  \item $c_2$, de la cota exponencial: $V\le k^2\norm x^2\int_0^he^{-2\lambda s}\dif s$, así que $c_2=k^2(1-e^{-2\lambda h})/(2\lambda)$.
+  \item $c_1$, de la cota del jacobiano: con $\norm{f}\le L\norm x$, la solución \emph{no decae demasiado rápido}, $\norm{\sol(\tau)}\ge\norm xe^{-L(\tau-t)}$ (Gronwall, \cref{lem:pm-gronwall}), y $c_1=(1-e^{-2Lh})/(2L)$.
+  \item $c_3$, de que la ventana es finita: $\frac{\dif}{\dif t}V=\norm{x(t+h)}^2-\norm{x(t)}^2\le-(1-k^2e^{-2\lambda h})\norm{x(t)}^2$; con $h=\ln(2k^2)/(2\lambda)$, $c_3=\tfrac12$.
+  \item $c_4$, la novedad: la sensibilidad $\partial\sol/\partial x$ cumple la ecuación variacional y $\norm{\partial\sol/\partial x}\le e^{L(\tau-t)}$, así que $\norm{\partial V/\partial x}\le2k\norm x\int_0^he^{(L-\lambda)s}\dif s=c_4\norm x$. Con ventana infinita esta integral divergería si $L\ge\lambda$: por eso la ventana es finita.
+\end{itemize}
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}p{3.4cm}p{6.6cm}p{2.6cm}@{}}
+\toprule
+Hipótesis sobre el origen & Se garantiza una $V$ con\ldots & Referencia\\
+\midrule
+ES (local), $f\in\Cont1$, jacobiano acotado & $c_1\norm x^2\le V\le c_2\norm x^2$, $\Vdot\le-c_3\norm x^2$, $\norm{\partial V/\partial x}\le c_4\norm x$ en $\Bola{r_0}$ & \cite[Teo.~4.14]{Kha02}\\
+GES, invariante en el tiempo & lo mismo, en $\R^n$, con $V(x)$ & \cite[Teo.~2.32]{KeBr23}\\
+UAS (local), $f\in\Cont1$, jacobiano acotado & $\alpha_1\le V\le\alpha_2$, $\Vdot\le-\alpha_3(\norm x)$, $\norm{\partial V/\partial x}\le\alpha_4(\norm x)$, $\alpha_i\in\K$ & \cite{Mas56}; \cite[Teo.~4.16]{Kha02}\\
+UGAS & $V$ suave, $\alpha_1,\alpha_2\in\Kinf$, $\Vdot\le-\rho(\norm x)$; $V(x)$ si $f$ es invariante en el tiempo & \cite[Teo.~2.31]{KeBr23}\\
+Solo estable & $V(t,x)$ definida positiva con $\Vdot\le0$; en general \textbf{no} se puede quitar la $t$ & \cite[\S2.5.1]{KeBr23}\\
+\bottomrule
+\end{tabular}
+\caption{Qué entrega cada teorema converso.}
+\label{tab:av-conversos}
+\end{table}
+
+La fila UAS dice más que ``$\Vdot<0$'': da una cota \emph{uniforme} $\Vdot\le-\alpha_3(\norm x)$ del ritmo de decrecimiento. Esa uniformidad es la que da robustez frente a perturbaciones persistentes: sin ella no se podría aplicar el \cref{thm:av-uub} al sistema perturbado.
+
+\begin{ejemplo}[label=ej:av-sinV]{Estable, invariante en el tiempo y sin $V(x)$ \citep[ec.~(2.51)]{KeBr23}}
+Para
+\[
+  \dot x_1=x_2,\qquad\dot x_2=\sin^2\!\Bigl(\frac{\pi}{x_1^2+x_2^2}\Bigr)x_2-x_1 ,
+\]
+con $f(0)=0$, muestre que el origen es estable y que no existe una $V(x)$ continua, definida positiva, con $\Vdot\le0$.
+\solucion \emph{Órbitas periódicas.} Sobre los círculos $\Gamma_n=\{\norm x^2=1/n\}$ el seno se anula y el campo es $(x_2,-x_1)$, tangente al círculo: cada $\Gamma_n$ es una órbita periódica (radios $1$, $1/\sqrt2=0.707$, $1/\sqrt3=0.577$,\ldots).
+\emph{Entre órbitas la norma crece:} $\frac{\dif}{\dif t}\tfrac12\norm x^2=\sin^2(\pi/\norm x^2)\,x_2^2\ge0$, y las trayectorias espiralan hacia la órbita exterior.
+\emph{Estable, no AS.} Las $\Gamma_n$ son barreras: dado $\varepsilon$, se toma $1/\sqrt n<\varepsilon$ y $\delta=1/\sqrt{n+1}$. Hay órbitas periódicas arbitrariamente cerca del origen, así que no es AS.
+\emph{No hay $V(x)$.} Si existiera: (i) $V$ es constante sobre cada $\Gamma_n$ (si bajara en un tramo, al dar la vuelta $V(x(T))<V(x(0))=V(x(T))$); (ii) una espiral va de $\Gamma_{n+1}$ (en el pasado) a $\Gamma_n$ (en el futuro) sin que $V$ crezca, luego $V|_{\Gamma_n}\le V|_{\Gamma_{n+1}}$; (iii) encadenando y por continuidad, $V|_{\Gamma_1}\le V|_{\Gamma_2}\le\cdots\to V(0)=0$, que contradice $V>0$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.75\linewidth]{cap10/f_sinV}
+\caption{El \cref{ej:av-sinV}: órbitas periódicas $\Gamma_1,\Gamma_2,\Gamma_3$ (azul) y una trayectoria que espirala de $\Gamma_3$ hacia $\Gamma_2$. El origen es estable, pero ninguna $V(x)$ continua decrece a lo largo de todas las trayectorias.}
+\label{fig:av-sinV}
+\end{figure}
+
+\codigorepo{cap10_avanzada/C10_Ej4_EstableSinV.m}{sinV}{Las órbitas $\Gamma_n$ y las espirales que las conectan}
+
+Para sistemas invariantes en el tiempo, ``AS implica que existe $V(x)$'' es el teorema de Massera, pero ``estable implica que existe $V(x)$'' es falso: el converso para estabilidad simple necesita, en general, una $V(t,x)$ que dependa del tiempo \emph{aunque el sistema no dependa de él}. (El campo no es Lipschitz en el origen, pero las soluciones siguen siendo únicas: $\frac{\dif}{\dif t}\norm x^2\le2\norm x^2$ y la solución que nace en $0$ se queda en $0$.)
+
+\subsection{Robustez frente a perturbaciones que se anulan}
+
+\begin{lema}[label=lem:av-robustez]{Perturbaciones que se anulan \citep[Lema~9.1]{Kha02}}
+Si el origen de $\dot x=f(t,x)$ es exponencialmente estable, $V$ es la función del \cref{thm:av-converso} y la perturbación cumple
+\[
+  \norm{g_p(t,x)}\le\nu\norm x\qquad\text{con}\qquad\nu<\frac{c_3}{c_4},
+\]
+el origen de $\dot x=f(t,x)+g_p(t,x)$ es exponencialmente estable (GES si todo vale globalmente).
+\end{lema}
+
+\begin{demostracion}
+A lo largo del sistema perturbado,
+$\Vdot\le-c_3\norm x^2+\bigl\|\jac Vx\bigr\|\norm{g_p}\le-(c_3-c_4\nu)\norm x^2\le-\frac{c_3-c_4\nu}{c_2}V$. Sin \eqref{eq:av-conv3} no habría forma de acotar el término cruzado $\jac Vxg_p$, porque de $g_p$ solo se conoce el tamaño.
+\end{demostracion}
+
+\begin{ejemplo}[label=ej:av-robustez]{El margen garantizado no es el margen real}
+Para $A=\bigl[\begin{smallmatrix}0&1\\-1&-1\end{smallmatrix}\bigr]$ y la $P$ del \cref{ej:av-energia}, ¿qué perturbaciones tolera el sistema?
+\solucion Con $V=x\T Px$: $c_3=1$ y $\partial V/\partial x=2x\T P$, así que $c_4=2\lmax(P)=2\cdot1.809=3.62$. El \cref{lem:av-robustez} garantiza estabilidad para $\nu<1/3.62=0.276$. Para la perturbación particular $g_p=\nu\,[0;\ x_1]$ el sistema es lineal con matriz $\bigl[\begin{smallmatrix}0&1\\-1+\nu&-1\end{smallmatrix}\bigr]$, Hurwitz si y solo si $\nu<1$. La garantía es menor porque cubre \emph{toda} $g_p$ con $\norm{g_p}\le\nu\norm x$, incluidas perturbaciones no lineales y variantes en el tiempo, mucho más dañinas que esta. La simulación con $\nu=0.27$, $0.9$ y $1.05$ da convergencia, convergencia lenta y divergencia.
+\end{ejemplo}
+
+\codigorepo{cap10_avanzada/C10_Ej5_Robustez.m}{robustez}{El margen $\nu^*=c_3/c_4$ contra el margen real de una perturbación particular}
+
+\begin{pausa}
+Para $\dot x=-x^3$, ¿existe $V$ con $c_1x^2\le V\le c_2x^2$ y $\Vdot\le-c_3x^2$? ¿Qué falla si se intenta la energía futura $\int_0^\infty\sol^2\dif\tau$?
+\respuesta{No existe: si existiera, $\Vdot\le-(c_3/c_2)V$ y el origen sería exponencialmente estable, pero $\abs{x(t)}=\abs{x_0}/\sqrt{1+2x_0^2t}$ decae como $1/\sqrt t$. La energía futura diverge: $\int_0^\infty x^2/(1+2x^2\tau)\dif\tau=\tfrac12\ln(1+2x^2\tau)\big|_0^\infty=\infty$. No contradice a Massera: su construcción pondera la integral con una función $G(\norm\sol)$ que se aplana cerca de cero lo suficiente para que converja.}
+\end{pausa}

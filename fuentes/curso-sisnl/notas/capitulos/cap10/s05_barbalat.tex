@@ -1,0 +1,97 @@
+%% ---------------------------------------------------------------------
+\section{El lema de Barbalat}
+\label{sec:av-barbalat}
+%% ---------------------------------------------------------------------
+
+Esta sección cambia de escenario: \alerta{el lema de Barbalat es un resultado sobre funciones de una variable real (señales), no sobre ecuaciones diferenciales}. Se aplica a la señal $t\mapsto V(t,x(t))$, o a $t\mapsto W(x(t))$, sobre una solución fija. La hipótesis vive en el espacio de estados; la conclusión, en el eje del tiempo.
+
+La situación típica es $\Vdot(t,x)\le-W(x)\le0$ con $W$ solo semidefinida positiva. En un sistema invariante en el tiempo se usaría LaSalle (capítulo~8). En uno variante en el tiempo, en general no: el conjunto $\omega$-límite de una solución de $\dot x=f(t,x)$ no tiene por qué ser invariante, porque ``las reglas del juego'' cambian con $t$. Lo que sí es gratis: si $V$ está acotada por debajo y no crece a lo largo de la solución, converge a un límite $V_\infty$, e integrando
+\begin{equation}
+  \int_{t_0}^\infty W\bigl(x(t)\bigr)\dif t\le V\bigl(t_0,x(t_0)\bigr)-V_\infty<\infty .
+  \label{eq:av-integral}
+\end{equation}
+
+\begin{trampa}[label=tr:av-integral]{``La integral es finita, luego $W(x(t))\to0$''}
+\plausible{Si el área bajo una curva no negativa es finita, la curva tiene que irse a cero.}
+Una función no negativa puede tener integral finita sin tender a cero: basta con pulsos cada vez más angostos. Con pulsos triangulares centrados en $t=k$, de altura $k$ y base $1/k^3$, el área total es $\sum_k\frac1{2k^2}=\pi^2/12$, pero $\psi(k)=k\to\infty$ (\cref{fig:av-pulsos}).
+\correcto{Falta una hipótesis de regularidad: la continuidad uniforme. Los pulsos tienen pendientes $\pm2k^4$, no acotadas.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_pulsos}
+\caption{Tres trampas sobre señales. Izquierda: pulsos de área total $\pi^2/12$ con alturas que crecen sin cota. Centro: $h=\sin(\ln t)$ tiene $\dot h\to0$ pero no converge. Derecha: $h=e^{-t}\sin(e^{2t})\to0$ pero $\dot h$ no está acotada.}
+\label{fig:av-pulsos}
+\end{figure}
+
+Las otras dos trampas de la figura: $\dot h\to0$ no implica que $h$ converja ($h=\sin(\ln t)$ oscila entre $\pm1$ cada vez más despacio), y $h$ convergente no implica $\dot h\to0$ ($h=e^{-t}\sin(e^{2t})$: la amplitud se apaga, pero la frecuencia crece más rápido).
+
+\begin{definicion}[label=def:av-unifcont]{Continuidad uniforme}
+$\psi:[0,\infty)\to\R$ es \clave{uniformemente continua} si para todo $\varepsilon>0$ existe $\delta(\varepsilon)>0$, \emph{el mismo para todo $t$}, tal que $\abs{t_1-t_2}<\delta\implica\abs{\psi(t_1)-\psi(t_2)}<\varepsilon$.
+\end{definicion}
+
+En la práctica casi siempre se verifica así: \alerta{si $\abs{\dot\psi(t)}\le L$ para todo $t$, entonces $\psi$ es uniformemente continua} (valor medio, $\delta=\varepsilon/L$). $\sin t$, $e^{-t}$ y $\arctan t$ lo son; $\sin(t^2)$ no (entre $t_n=\sqrt{2\pi n}$ y $s_n=\sqrt{2\pi n+\pi/2}$ la distancia tiende a cero y los valores difieren en $1$); los pulsos tampoco. Es la misma idea de ``uniforme'' de todo el capítulo: una constante que no depende del instante (\cref{def:pm-unifcont}).
+
+\begin{lema}[label=lem:av-barbalat]{Barbălat \citep{Bar59}; \citep[Lema~8.2]{Kha02}}
+\textbf{Forma integral.} Si $\psi$ es uniformemente continua y $\lim_{t\to\infty}\int_0^t\psi(\tau)\dif\tau$ existe y es finito, entonces $\psi(t)\to0$.
+
+\textbf{Forma de derivada.} Si $h$ tiene límite finito cuando $t\to\infty$ y $\dot h$ es uniformemente continua, entonces $\dot h(t)\to0$. En particular, basta con que $\ddot h$ exista y esté acotada.
+\end{lema}
+
+\begin{demostracion}
+Si $\psi\not\to0$, hay $\varepsilon>0$ y $t_k\to\infty$ con $\abs{\psi(t_k)}\ge\varepsilon$. Con $\delta=\delta(\varepsilon/2)$, en $[t_k,t_k+\delta]$ se tiene $\abs{\psi}>\varepsilon/2$ y $\psi$ no cambia de signo, así que $\bigl|\int_{t_k}^{t_k+\delta}\psi\bigr|\ge\varepsilon\delta/2$ para todo $k$. Pero si $\int_0^t\psi$ converge, el criterio de Cauchy exige que esas integrales tiendan a cero. La clave es que $\delta$ es \emph{el mismo} para todo $k$: sin continuidad uniforme, los intervalos podrían encogerse, como en los pulsos. La forma de derivada es la integral con $\psi=\dot h$.
+\end{demostracion}
+
+\begin{teorema}[label=thm:av-ly]{LaSalle--Yoshizawa \citep[Teorema~8.4]{Kha02}}
+Sea $\dot x=f(t,x)$ con $f$ continua a trozos en $t$, localmente Lipschitz en $x$ uniformemente en $t$, y $f(t,0)=0$. Si $V\in\Cont1$ cumple $\alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x)$ y $\Vdot\le-W(x)\le0$ en $[0,\infty)\times\Bola r$, con $W$ continua, entonces para $\norm{x(t_0)}<\alpha_2^{-1}(\alpha_1(r))$ las soluciones están acotadas y $W(x(t))\to0$.
+\end{teorema}
+
+\begin{demostracion}
+(i) $V$ no crece, luego $x(t)$ se queda en un compacto $\Bola\rho\subset\Bola r$. (ii) Vale \eqref{eq:av-integral}. (iii) En $\Bola\rho$, $\norm{f}\le L\rho$: $x(t)$ es Lipschitz en $t$; $W$ es uniformemente continua en el compacto; la composición $t\mapsto W(x(t))$ es uniformemente continua. (iv) Barbalat, forma integral.
+\end{demostracion}
+
+\begin{lema}[label=lem:av-tipolyap]{Lema tipo Lyapunov \citep[Lema~4.3]{SlLi91}}
+Sea $x(t)$ una solución y $v(t)=V(t,x(t))$. Si (1) $V$ está acotada por debajo, (2) $\dot v(t)\le0$ y (3) la \emph{señal} $t\mapsto\Vdot(t,x(t))$ es uniformemente continua, entonces $\Vdot(t,x(t))\to0$.
+\end{lema}
+
+\begin{receta}[Análisis tipo Lyapunov con Barbalat]
+\begin{enumerate}
+  \item Mostrar $\Vdot\le0$. Las variables en las que $V$ es definida positiva quedan acotadas.
+  \item Calcular $\ddot V$ (la derivada de la señal $\dot v$) y mostrar que está acotada con las cotas del paso~1.
+  \item Concluir $\Vdot\to0$ y traducirlo a las variables de estado.
+\end{enumerate}
+\end{receta}
+
+\begin{trampa}[label=tr:av-barbalat]{``Barbalat da estabilidad asintótica''}
+\plausible{Si $\Vdot\to0$ y $\Vdot=-2e^2$, entonces el estado converge al origen.}
+El lema no pide $V$ definida positiva (basta acotada por debajo) y por eso la conclusión es \emph{parcial}: $\Vdot\to0$, no $x\to0$. No da estabilidad ni uniformidad: solo la convergencia de una señal.
+\correcto{Barbalat dice qué señales convergen. Para las demás variables hace falta información adicional, como la excitación persistente del \cref{ej:av-adaptativo}. Y ``$\Vdot(t,x)$ uniformemente continua en $t$'' (como decían Handout~7 y las diapositivas) debe leerse como una propiedad de la señal $t\mapsto\Vdot(t,x(t))$, no de la función de dos variables.}
+\end{trampa}
+
+\begin{ejemplo}[label=ej:av-adaptativo]{Control adaptativo \citep[Ej.~4.13]{SlLi91}}
+El error de seguimiento $e$ y el error de parámetro $\theta$ cumplen
+\[
+  \dot e=-e+\theta\,\omega(t),\qquad\dot\theta=-e\,\omega(t),\qquad\abs{\omega(t)}\le\bar\omega .
+\]
+¿Qué se puede concluir?
+\solucion El sistema es variante en el tiempo (por $\omega$): LaSalle no aplica.
+\emph{Paso 1.} Con $V=e^2+\theta^2$, $\Vdot=2e(-e+\theta\omega)+2\theta(-e\omega)=-2e^2\le0$. El término cruzado se cancela exactamente: \emph{para eso} se diseñó la ley $\dot\theta=-e\omega$. Así, $e$ y $\theta$ están acotadas.
+\emph{Paso 2.} $\ddot V=-4e(-e+\theta\omega)$ está acotada.
+\emph{Paso 3.} Por el \cref{lem:av-tipolyap}, $\Vdot=-2e^2\to0$: $e(t)\to0$.
+\emph{¿Y $\theta$?} Solo se sabe que está acotada. Con $\omega=\sin t$ (excitación persistente), $\theta\to0$; con $\omega=e^{-0.3t}$, desde $(1,1)$, $\theta\to-0.11$: la regresión deja de ``ver'' el parámetro (\cref{fig:av-adaptativo}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap10/f_adaptativo}
+\caption{El \cref{ej:av-adaptativo} desde $(e,\theta)=(1,1)$. En los dos casos $e\to0$, como garantiza Barbalat. Con $\omega=\sin t$, también $\theta\to0$; con $\omega=e^{-0.3t}$, $\theta$ se congela en $-0.11$.}
+\label{fig:av-adaptativo}
+\end{figure}
+
+\codigorepo{cap10_avanzada/C10_Ej9_Barbalat.m}{pulsos}{Las tres trampas sobre señales}
+\codigorepo{cap10_avanzada/C10_Ej10_Adaptativo.m}{adaptativo}{El error converge; el parámetro solo si hay excitación persistente}
+
+\begin{pausa}
+Con $\omega=\sin t$, ¿por qué $\theta\to0$? Use Barbalat dos veces.
+\respuesta{$e\to0$ y $\ddot e=-\dot e+\dot\theta\omega+\theta\dot\omega$ está acotada (porque $\dot\omega=\cos t$ lo está), así que Barbalat aplicado a $e$ da $\dot e\to0$. De la ecuación de $e$, $\theta(t)\omega(t)=\dot e+e\to0$. Además $\dot\theta=-e\omega\to0$: $\theta$ varía cada vez más despacio. Una función que varía cada vez más despacio y cuyo producto con $\sin t$ tiende a cero no puede quedarse lejos de cero, porque en cada periodo $\sin t$ visita el valor $1$.}
+\end{pausa}

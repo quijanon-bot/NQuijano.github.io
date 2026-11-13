@@ -48,6 +48,17 @@ Los tres videos de la parte 4 están publicados: se generaron con `herramientas/
 
 Los videos de las partes 3 y 5 todavía no se han grabado: los scripts están listos y, cuando se graben, basta con copiar los `.mp4` a `sitio/videos/` y convertir el nombre en enlace.
 
+## Parte 6 · Bifurcaciones
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V6_1_cuello_botella}[V6.1 · Cuello de botella](videos/V6_1_cuello_botella.mp4) | El fantasma de la silla-nodo: la pausa crece como $\pi/\sqrt{|\mu|}$. | `C6_Video_CuelloBotella.m` |
+| []{#V6_2_hopf}[V6.2 · Nace un ciclo](videos/V6_2_hopf.mp4) | Los valores propios cruzan el eje imaginario y aparece el ciclo del circuito. | `C6_Video_Hopf.m` |
+| []{#V6_3_histeresis_ciclos}[V6.3 · Histéresis de ciclos](videos/V6_3_histeresis_ciclos.mp4) | Rampa lenta de $\mu$: el salto llega tarde y el regreso ocurre en $-1/4$. | `C6_Video_Histeresis.m` |
+| []{#V6_4_poincare}[V6.4 · Sucesión de Poincaré](videos/V6_4_poincare.mp4) | Los cruces de van der Pol con $\Sigma$ y la telaraña del mapa. | `C6_Video_Poincare.m` |
+
+Los cuatro videos de la parte 6 están publicados: se generaron con `herramientas/cap06_videos.py` (los mismos modelos y parámetros que los `C6_Video_*`).
+
 ## Parte 7 · Estabilidad de Lyapunov
 
 | Video | Qué muestra | Script |

@@ -1,0 +1,130 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:bf-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{Qué se rompe:} una bifurcación local es una pérdida de hiperbolicidad. Si la jacobiana es invertible, el equilibrio se continúa suavemente con $\mu$ y conserva su tipo. En $\R^2$ hay dos rutas: $\delta\to0$ (silla-nodo, transcrítica, horquilla) y $\tau\to0$ con $\delta>0$ (Hopf).
+  \item \textbf{Receta:} equilibrios, jacobiano, cruce, \emph{transversalidad} y \emph{no degeneración}. Sin los dos últimos pasos no se sabe qué bifurcación hay.
+  \item \textbf{Silla-nodo:} $\dot x=\mu\pm x^2$; dos equilibrios chocan y desaparecen. Es genérica. Del lado sin equilibrios queda un fantasma que demora las soluciones un tiempo $\sim1/\sqrt{\abs{\mu-\mu_c}}$; del otro, la recuperación se vuelve lenta.
+  \item \textbf{Transcrítica y horquilla:} intercambio de estabilidad y aparición de pares simétricos. No son genéricas: las protegen un equilibrio que existe para todo $\mu$ o una simetría. Supercrítica es segura; subcrítica es peligrosa y, con términos de orden superior, produce histéresis.
+  \item \textbf{En el plano,} la Ruta~1 ocurre sobre la variedad central, donde vale el catálogo de la recta; hay que reducir sobre $W^c$, no sobre un eje.
+  \item \textbf{Hopf:} un par complejo cruza el eje imaginario con $\alpha'\neq0$ y nace un ciclo de amplitud $\propto\sqrt{\abs{\mu-\mu_c}}$ y período $\to2\pi/\omega_0$. El signo de $\ell_1$ decide: negativo, supercrítica (ciclo estable); positivo, subcrítica (ciclo inestable, salto e histéresis).
+  \item \textbf{Ciclos:} los ciclos también nacen y mueren lejos de los equilibrios (silla-nodo de ciclos, SNIC, homoclínica), sin que lo anuncie ningún valor propio.
+  \item \textbf{Mapa de Poincaré:} órbitas periódicas son puntos fijos de $P$; el ciclo es estable si $\abs{P'(q^*)}<1$. En el plano, $P'(q^*)=\exp\int_0^T\nabla\cdot f\,\dif t$, y no depende de la sección.
+\end{enumerate}
+\end{parallevar}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item $\det J=0$ es necesario, no suficiente (\cref{tr:bf-det}); con $\delta=0$ la traza no decide la estabilidad (\cref{tr:bf-traza}).
+  \item Sin equilibrio no significa sin demora: el fantasma (\cref{tr:bf-fantasma}).
+  \item La subcrítica no lleva a las ramas $\pm\sqrt{-\mu}$ (\cref{tr:bf-subcritica}); transcrítica y horquilla no son genéricas (\cref{tr:bf-generica}).
+  \item Se reduce sobre la variedad central, no poniendo $x_2=0$ (\cref{tr:bf-proyectar}).
+  \item Una silla-nodo con otro atractor no es reversible: histéresis (\cref{tr:bf-reversible}); con una rampa, el salto llega tarde (\cref{tr:bf-retardo}).
+  \item En el valor crítico de Hopf no hay un centro (\cref{tr:bf-centro}); el período es $2\pi/\omega_0$ solo en el límite (\cref{tr:bf-periodo}).
+  \item La silla-nodo de ciclos no es la catástrofe de cielo azul (\cref{tr:bf-cielo}).
+  \item El tiempo de retorno no es constante (\cref{tr:bf-retorno}); $P'=1$ no es un centro (\cref{tr:bf-uno}).
+\end{itemize}
+\end{trampa}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior (Handout5 y las diapositivas de bifurcaciones)]
+(i) Horquilla subcrítica en 2-D: los equilibrios para $\mu<0$ son $(\pm\sqrt{-\mu},0)$, no $(\pm\sqrt\mu,0)$, y la viñeta ``en $\mu=0$ \dots{} aparecen dos nuevos nodos estables'' estaba copiada del caso supercrítico (\cref{sec:bf-plano}). (ii) ``$\eq(\mu)$ es suave siempre y cuando la jacobiana no tenga valores propios nulos'': es una condición suficiente (función implícita), no necesaria, y un valor propio nulo no hace por sí solo que una bifurcación sea peligrosa (\cref{prop:bf-implicita}, \cref{tr:bf-det}). (iii) Interruptor genético: el origen es un nodo estable para todo $a,b>0$, también si $a=b$ (valor propio doble, pero estable); el umbral entre los dos estados es la variedad estable de la silla; las tasas son de \emph{degradación}. (iv) El teorema de Hopf estaba enunciado solo para la forma polar y con la hipótesis ``$f(r)>0$ para $\mu>0$''; se reemplazó por la \cref{prop:bf-radial} ($g$ creciente) y se agregó el enunciado completo con transversalidad y el coeficiente $\ell_1$ (\cref{thm:bf-hopf}). (v) El ejemplo llamado ``Hopf subcrítica'' y repetido como ``Blue Sky Catastrophe'' no es una Hopf (el origen es inestable a ambos lados) sino una silla-nodo de ciclos, y la catástrofe de cielo azul es otra cosa (\cref{tr:bf-cielo}). Además, en las ecuaciones cartesianas faltaba el cuadrado: con $(1-x_1^2-x_2^2)$ en lugar de $(1-x_1^2-x_2^2)^2$ la ecuación radial es $\dot r=r((1-r^2)\cos\mu-\sin\mu)$, con un solo ciclo. (vi) La horquilla subcrítica con término quíntico: ``existe un punto $\mu_s$ en el cual al aumentar $x$ el sistema se vuelve estable'' se reemplazó por las sillas-nodo exactas en $\mu=-\tfrac14$ y el ciclo de histéresis. (vii) Se unificó el parámetro ($\mu$; la versión anterior mezclaba $r$ y $\mu$ en la horquilla). (viii) Mapas de Poincaré: ``el tiempo entre retornos es constante'' es falso en general (\cref{tr:bf-retorno}); ``son más útiles para sistemas no autónomos'' se precisó como el mapa estroboscópico de los sistemas forzados periódicamente; se resolvió el ejemplo que estaba pendiente (\cref{ej:bf-mapa2}). (ix) Estabilidad estructural: el teorema citado requiere que el flujo cruce transversalmente la frontera de $D$, se debe a Andronov y Pontryagin en el disco y a Peixoto en superficies compactas, y la hiperbolicidad incluye a las órbitas periódicas (\cref{thm:bf-peixoto}). (x) Atribuciones: la bifurcación de Hopf es de Eberhard Hopf (1942), con antecedentes de Poincaré y Andronov; el teorema del índice es de Heinz Hopf. ``Poicaré'' por Poincaré. (xi) Se agregaron: la proposición de la función implícita, la receta de cinco pasos, las condiciones de la silla-nodo, el fantasma y la lentitud crítica, las bifurcaciones imperfectas, la horquilla escondida, el coeficiente de Lyapunov, el retardo con rampa lenta, las bifurcaciones de período infinito y homoclínica, el teorema de la divergencia para el multiplicador y el mapa de Poincaré numérico de van der Pol.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:bf-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\subsection*{En la recta}
+
+\begin{problema}[ponerle nombre]\label{prob:bf-clasificar}
+Encuentre los valores de bifurcación, dibuje el diagrama y diga de qué tipo es cada bifurcación: (a) $\dot x=1+\mu x+x^2$; (b) $\dot x=\mu x-\ln(1+x)$, con $x>-1$; (c) $\dot x=\mu x-\dfrac{x}{1+x^2}$. En (c), compare con la forma normal de la horquilla \emph{antes} de calcular.
+\end{problema}
+
+\begin{problema}[cuánto dura el colapso]\label{prob:bf-colapso}
+Para la cosecha $\dot x=x(1-x)-h$: (a) con $h=0.26$, calcule el tiempo que tarda la población en pasar de $x=1$ a $x=0$; (b) repita con $h=0.3$; (c) \etiquetaM{} grafique ese tiempo contra $h-\tfrac14$ en escala log--log. ¿Qué pendiente espera? ¿Por qué una cosecha ``apenas'' excesiva es la más engañosa?
+\end{problema}
+
+\begin{problema}[una columna imperfecta]\label{prob:bf-columna}
+Un modelo de la columna con una imperfección pequeña es $\dot x=\mu x-x^3+h$, $h>0$. (a) Muestre que para $\mu<3(h/2)^{2/3}$ hay un solo equilibrio. (b) ¿Hacia qué lado se pandea la columna al aumentar $\mu$ lentamente desde $\mu=-1$? (c) ¿Puede la columna terminar pandeada hacia el otro lado? ¿Cómo?
+\end{problema}
+
+\subsection*{En el plano}
+
+\begin{problema}[otro interruptor]\label{prob:bf-griffith}
+En el interruptor genético \eqref{eq:bf-griffith} con $b=0.5$: (a) halle $a_c$; (b) con $a=0.8$, halle los tres equilibrios y clasifíquelos; (c) un estudiante dice que con $a=0.8$ el gen siempre termina encendido porque ``el nodo alto es estable''. ¿Qué le falta?
+\end{problema}
+
+\begin{problema}[Hopf a mano]\label{prob:bf-hopfmano}
+Para $\dot x_1=\mu x_1-x_2+ax_1^3$, $\dot x_2=x_1+\mu x_2$: (a) verifique las hipótesis 1 y 2 del \cref{thm:bf-hopf} en $\mu=0$; (b) calcule $\ell_1$ en función de $a$; (c) ¿para qué $a$ es supercrítica? Prediga el radio del ciclo; (d) ¿qué pasa con $a=0$?
+\end{problema}
+
+\begin{problema}[la paradoja del enriquecimiento, otra vez]\label{prob:bf-rm}
+En el modelo de Rosenzweig--MacArthur \eqref{eq:oc-rm} con $\beta=2$, $\gamma=1$: (a) muestre que en el equilibrio de coexistencia $\tau=(K-3)/(2K)$ y $\delta=(K-1)/(2K)$; (b) verifique la transversalidad en $K=3$ y calcule $\omega_0$ y el período del ciclo al nacer; (c) \etiquetaM{} con \cmd{primerLyapunov} decida si la Hopf es supercrítica o subcrítica. ¿Es consistente con la simulación del \cref{cap:orbitas}?
+\end{problema}
+
+\begin{problema}[dónde se apaga la oscilación]\label{prob:bf-quintica}
+Para $\dot r=r(\mu+cr^2-r^4)$, $\dot\theta=1$, con $c>0$: (a) encuentre la silla-nodo de ciclos; (b) ¿en qué intervalo de $\mu$ es biestable el sistema? (c) ¿Qué pasa con ese intervalo cuando $c\to0^+$? ¿Y si $c<0$?
+\end{problema}
+
+\subsection*{Mapas de Poincaré}
+
+\begin{problema}[dos ciclos]\label{prob:bf-dosciclos}
+Para $\dot r=-r(1-r)(2-r)$, $\dot\theta=1$: (a) encuentre los ciclos; (b) muestre que, para una ecuación $\dot r=g(r)$, $\dot\theta=1$, el multiplicador de un ciclo $r^*$ es $e^{2\pi g'(r^*)}$, y compárelo con el \cref{thm:bf-divergencia}; (c) clasifique los ciclos. ¿Qué pasa con las trayectorias que arrancan entre ellos?
+\end{problema}
+
+\begin{problema}[el circuito con el mapa]\label{prob:bf-mapacircuito}
+\etiquetaM{} Adapte \cmd{C6\_Ej12\_PoincareVanDerPol} al circuito \eqref{eq:bf-circuito} con $\mu=0.1$ y $\mu=0.5$. (a) Encuentre el punto fijo y el multiplicador. (b) Compárelos con lo que predice la forma normal de Hopf, $P'\approx e^{-2\pi\mu}$. ¿Para cuál $\mu$ es mejor la predicción? ¿Por qué?
+\end{problema}
+
+\begin{problema}[el retardo del interruptor]\label{prob:bf-retardo}
+\etiquetaM{} Con \cmd{crearModelo\_InterruptorGenetico.m} ($b=0.35$), haga subir $a$ desde $1$ con velocidad $\varepsilon=10^{-3}$, $1.25\times10^{-4}$ y $1.56\times10^{-5}$, y mida en qué valor de $a$ cae $x$ por debajo de $0.7$. (a) ¿Se apaga el gen en $a_c=1.4286$? (b) ¿Cómo cambia el retardo $a-a_c$ cuando $\varepsilon$ se divide por $8$?
+\end{problema}
+
+\begin{problema}[sin duplicación de período en el plano]\label{prob:bf-plano}
+\etiquetaEstrella{} (a) Muestre que el mapa de Poincaré de un sistema plano es creciente. (b) Deduzca que el multiplicador de un ciclo es positivo y que $P$ no puede tener puntos de período dos ($P^2(q)=q$ con $P(q)\neq q$). (c) ¿Qué bifurcación de ciclos que existe en $\R^3$ queda descartada en el plano?
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:bf-clasificar}}
+(a) $f=0$ tiene raíz doble cuando $\mu^2=4$: hay sillas-nodo en $\mu=2$ ($\eq=-1$) y $\mu=-2$ ($\eq=1$); hay dos equilibrios si $\abs\mu>2$ y ninguno si $\abs\mu<2$. (b) $x=0$ es equilibrio para todo $\mu$, con $f_x(0)=\mu-1$: transcrítica en $\mu=1$; la otra rama, $\mu x=\ln(1+x)$, pasa por el origen con $\eq\approx2(1-\mu)$. (c) $f$ es impar y $x=0$ es equilibrio: el tipo es de horquilla, en $\mu=1$ ($f_x(0)=\mu-1$). Los equilibrios no nulos cumplen $1+x^2=1/\mu$, así que existen para $0<\mu<1$, del lado en que el origen es estable, y allí $f_x=2\mu(1-\mu)>0$: son inestables. Es una horquilla \emph{subcrítica}, aunque $-x/(1+x^2)$ ``se parece'' a $-x+x^3$: la trampa es que el signo de $x^3$ en la expansión, $+x^3$, es el que decide.
+
+\paragraph{Problema~\ref{prob:bf-colapso}}
+(a) $x(1-x)-0.26=-\bigl(0.01+(x-\tfrac12)^2\bigr)$, y $T=\int_0^1\dif x/\bigl(0.01+(x-\tfrac12)^2\bigr)=20\arctan5=27.47$. (b) Con $a=\sqrt{0.05}$, $T=(2/a)\arctan(0.5/a)=10.29$. (c) Pendiente $-\tfrac12$ cerca de $h=\tfrac14$. Con una cosecha apenas excesiva, la población se queda muchos años cerca de $x=\tfrac12$ (el fantasma) y parece sostenible, hasta que colapsa.
+
+\paragraph{Problema~\ref{prob:bf-columna}}
+(a) La cúbica $\mu x-x^3+h$ tiene tres raíces reales si y solo si su discriminante $4\mu^3-27h^2$ es positivo, es decir, $\mu>3(h/2)^{2/3}$. (b) Hacia $x>0$: el único equilibrio, para $\mu$ pequeño, es positivo y se continúa sin bifurcar (es la rama continua de la \cref{fig:bf-imperfectas}). (c) Sí, pero no por el cambio lento de $\mu$: la rama negativa nace en una silla-nodo aislada en $\mu=3(h/2)^{2/3}$, y para llegar a ella hay que empujar la columna a través de la variedad estable de la silla.
+
+\paragraph{Problema~\ref{prob:bf-griffith}}
+(a) $a_c=1/(2b)=1$. (b) $\eq_\pm=(1\pm\sqrt{1-0.16})/0.8$, es decir, $2$ y $0.5$, además del origen. $\tau=-1.3$; en $x=2$, $\delta=2\cdot3/25=0.24>0$ y $\tau^2-4\delta=0.73>0$: nodo estable; en $x=0.5$, $\delta=-0.24$: silla; el origen, nodo estable. (c) Le falta el otro atractor: el origen también es estable, y el estado final depende de qué lado de la variedad estable de la silla esté la condición inicial. Un gen que empieza apagado se queda apagado.
+
+\paragraph{Problema~\ref{prob:bf-hopfmano}}
+(a) $J=\bigl[\begin{smallmatrix}\mu&-1\\1&\mu\end{smallmatrix}\bigr]$, $\lambda=\mu\pm j$: $\alpha(0)=0$, $\omega_0=1$, $\alpha'=1$. (b) Ya está en la forma pedida con $F=au^3$, $G=0$: $\ell_1=6a/16=3a/8$. (c) Supercrítica si $a<0$, con $r^2\approx-\mu/\ell_1=8\mu/(3\abs a)$. (d) Con $a=0$ el sistema es lineal: en $\mu=0$ hay una familia de órbitas cerradas (un centro) y para $\mu\neq0$ ninguna. No hay ciclo límite: la hipótesis de no degeneración falla, y el teorema no se puede aplicar.
+
+\paragraph{Problema~\ref{prob:bf-rm}}
+(a) Con $v^*=1$ y $p^*=2-2/K$, la jacobiana es $\bigl[\begin{smallmatrix}(K-3)/(2K)&-1/2\\(K-1)/K&0\end{smallmatrix}\bigr]$. (b) $\dif\tau/\dif K=1/6$ en $K=3$, así que $\alpha'=1/12\neq0$; $\omega_0=\sqrt\delta=1/\sqrt3$ y el período al nacer es $2\pi\sqrt3=10.88$. (c) $\ell_1<0$: supercrítica. Con las coordenadas que usa \cmd{primerLyapunov}, $\ell_1=-1/24\approx-0.042$; la magnitud depende de la escala de las coordenadas, el signo no. El ciclo existe para $K>3$, es estable y crece desde cero, como en la simulación con $K=5$ del \cref{cap:orbitas}.
+
+\paragraph{Problema~\ref{prob:bf-quintica}}
+(a) Los ciclos cumplen $\mu=r^4-cr^2$, que tiene su mínimo en $r^2=c/2$: silla-nodo de ciclos en $\mu=-c^2/4$. (b) $-c^2/4<\mu<0$. (c) Cuando $c\to0^+$ el intervalo se cierra y la Hopf pasa de subcrítica a supercrítica: es una bifurcación de codimensión dos (Bautin), donde $\ell_1=0$. Con $c<0$ la Hopf es supercrítica y no hay biestabilidad.
+
+\paragraph{Problema~\ref{prob:bf-dosciclos}}
+(a) $r=1$ y $r=2$. (b) Linealizando $\dot r=g(r)$ alrededor de $r^*$, $\delta r(2\pi)=e^{2\pi g'(r^*)}\delta r(0)$. La divergencia en polares es $g'(r)+g(r)/r$, que sobre el ciclo vale $g'(r^*)$; integrada durante $2\pi$ da lo mismo. (c) $g(r)=-2r+3r^2-r^3$: $g'(1)=1$ (multiplicador $e^{2\pi}$, inestable) y $g'(2)=-2$ (multiplicador $e^{-4\pi}$, estable). Entre los dos ciclos $\dot r>0$: las trayectorias se alejan del interior y se acercan al exterior.
+
+\paragraph{Problema~\ref{prob:bf-mapacircuito}}
+Con $\mu=0.1$: $q^*=0.3650$ y $P'=0.5331$, contra $e^{-0.2\pi}=0.5335$. Con $\mu=0.5$: $q^*=0.8068$ y $P'=0.0392$, contra $0.0432$. La predicción es mejor con $\mu=0.1$ porque la forma normal es una aproximación de orden tres válida cerca del valor crítico.
+
+\paragraph{Problema~\ref{prob:bf-retardo}}
+(a) No: con $\varepsilon=10^{-3}$ el gen cae en $a\approx a_c+0.059$; con $1.25\times10^{-4}$, en $a_c+0.017$; con $1.56\times10^{-5}$, en $a_c+0.0045$. El estado se demora en el fantasma de la silla-nodo mientras $a$ sigue subiendo. (b) Se divide por algo menos de $4$ ($3.5$ y $3.7$), y la razón se acerca a $4=8^{2/3}$: el retardo de una silla-nodo con rampa lenta escala como $\varepsilon^{2/3}$.
+
+\paragraph{Problema~\ref{prob:bf-plano}}
+(a) Si $q_1<q_2$ en $\Sigma$, las trayectorias que arrancan en ellos no se pueden cruzar, así que sus siguientes cruces con $\Sigma$ conservan el orden. (b) $P$ creciente implica $P'\ge0$, y como $P'(q^*)$ es una exponencial, $P'>0$. Si $P(q)>q$, entonces $P^2(q)>P(q)>q$ (y al revés): las sucesiones de Poincaré son monótonas y no pueden volver a $q$ en dos pasos. (c) La duplicación de período, que necesita un multiplicador que pase por $-1$. Por eso en el plano no hay cascadas de duplicación ni caos (Poincaré--Bendixson).
+
+\respuestaspausas

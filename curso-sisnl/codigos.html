@@ -291,7 +291,9 @@ window.MathJax = { tex: { macros: {
 │   ├── ecuacionLyapunov.m    A'P + PA = -Q (convención del curso), sin toolboxes
 │   ├── lineaFase.m           línea de fase de x' = f(x), clasificación por el signo de f
 │   ├── retratoFase.m         retrato de fase de x' = f(x) en el plano (campo, trayectorias, equilibrios)
-│   └── clasificarEquilibrio.m  tipo del origen de x' = Ax en R^2 por traza y determinante
+│   ├── clasificarEquilibrio.m  tipo del origen de x' = Ax en R^2 por traza y determinante
+│   ├── primerLyapunov.m      primer coeficiente de Lyapunov l1 de una bifurcación de Hopf
+│   └── mapaPoincare.m        primer retorno a una sección transversal (evento de ode45)
 ├── cap01_introduccion/
 │   ├── C1_Ej1 … C1_Ej9       superposición, logística, panorama, energía, reescalamiento, control
 │   ├── C1_Video_*            Lorenz y mapa logístico
@@ -319,6 +321,11 @@ window.MathJax = { tex: { macros: {
 │   ├── crearModelo_VanDerPol VanDerPol.slx
 │   ├── modeloKuramoto.m, modeloNowak.m, indiceCurva.m
 │   └── verificarCap05.m      34 pruebas de los números del capítulo
+├── cap06_bifurcaciones/
+│   ├── C6_Ej1 … C6_Ej12      silla-nodo, fantasma, láser, horquillas, imperfectas, silla-nodo 2-D, horquilla escondida, interruptor genético, Hopf (circuito, l1), histéresis de ciclos, mapas de Poincaré, van der Pol
+│   ├── C6_Video_*            cuello de botella, Hopf, histéresis de ciclos, sucesión de Poincaré
+│   ├── crearModelo_InterruptorGenetico  InterruptorGenetico.slx
+│   └── verificarCap06.m      42 pruebas de los números del capítulo
 ├── cap07_lyapunov/
 │   ├── C7_Ej1 … C7_Ej10      péndulo, convergencia sin estabilidad, jacobiana, energía, global, Sylvester, término cruzado, Jordan, ecuación de Lyapunov, región de atracción
 │   ├── C7_Video_*            formas cuadráticas, término cruzado, círculos y elipses, región de atracción

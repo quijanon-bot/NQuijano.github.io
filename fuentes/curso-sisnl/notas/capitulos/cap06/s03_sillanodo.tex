@@ -1,0 +1,82 @@
+%% ---------------------------------------------------------------------
+\section{La bifurcación silla-nodo}
+\label{sec:bf-sillanodo}
+%% ---------------------------------------------------------------------
+
+Empezamos en la recta, $\dot x=f(x,\mu)$ con $x\in\R$, donde la jacobiana es el número $f_x=\partial f/\partial x$ y la única ruta es que $f_x$ pase por cero. La \clave{bifurcación silla-nodo} es el mecanismo básico por el que se crean o se destruyen equilibrios: al variar el parámetro, dos equilibrios se acercan, chocan y desaparecen.
+
+\begin{ejemplo}[label=ej:bf-sn]{La forma normal $\dot x=\mu+x^2$}
+Describa el flujo de $\dot x=\mu+x^2$ para $\mu<0$, $\mu=0$ y $\mu>0$, y dibuje el diagrama de bifurcación.
+\solucion La gráfica de $f$ es una parábola que sube con $\mu$ (\cref{fig:bf-sn}, izquierda). Para $\mu<0$ corta el eje en $\eq=\pm\sqrt{-\mu}$; como $f_x(\eq)=2\eq$, el equilibrio $-\sqrt{-\mu}$ es estable y $+\sqrt{-\mu}$ inestable. En $\mu=0$ los dos se funden en $\eq=0$, que es \emph{semiestable}: $\dot x=x^2\ge0$ atrae desde la izquierda y repele hacia la derecha. Para $\mu>0$, $\dot x>0$ en toda la recta: no hay equilibrios y toda solución crece (y escapa en tiempo finito, como en el \cref{ej:un-escape}). En el diagrama (\cref{fig:bf-sn}, derecha) los equilibrios forman la parábola $\mu=-x^2$, con la rama inferior estable (línea continua) y la superior inestable (discontinua).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_sillanodo}
+\caption{$\dot x=\mu+x^2$. Izquierda: el campo para tres valores de $\mu$, con la línea de fase debajo (círculo lleno: estable; vacío: inestable; medio lleno: semiestable). Derecha: el diagrama de bifurcación, con el parámetro en el eje horizontal y el estado en el vertical, que es la convención.}
+\label{fig:bf-sn}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej1_SillaNodo.m}{sillanodo}{Líneas de fase y diagrama de bifurcación de la silla-nodo}
+
+Con $\dot x=\mu-x^2$ ocurre lo mismo en el otro sentido: al \emph{aumentar} $\mu$ por encima de cero aparecen de la nada dos equilibrios, $\pm\sqrt\mu$. Abraham y Shaw la llamaron ``bifurcación de cielo azul'' \citep[\S3.1]{Str15}, porque los equilibrios aparecen ``out of the clear blue sky''. Es la misma silla-nodo recorrida al revés; no la confunda con la catástrofe de cielo azul de la \cref{sec:bf-ciclos}, que es otra cosa.
+
+\subsection*{¿Por qué siempre una parábola?}
+
+Toda silla-nodo, vista de cerca, se parece a la forma normal. Supongamos que en $(\eq_0,\mu_0)$ se cumple $f=0$ y $f_x=0$. Expandiendo en serie de Taylor alrededor de ese punto,
+\[
+  \dot x=\underbrace{f}_{=0}+\underbrace{f_x}_{=0}\,(x-\eq_0)+f_\mu\,(\mu-\mu_0)+\tfrac12f_{xx}\,(x-\eq_0)^2+\cdots ,
+\]
+y si los dos coeficientes que quedan no se anulan, los términos que siguen son pequeños frente a ellos.
+
+\begin{teorema}[label=thm:bf-sn]{Silla-nodo en la recta \citep[\S3.1]{Str15}, \citep[\S3.2]{Kuz04}}
+Sea $f$ suave con $f(\eq_0,\mu_0)=0$ y $f_x(\eq_0,\mu_0)=0$. Si además
+\[
+  a=f_\mu(\eq_0,\mu_0)\neq0\quad\text{(transversalidad)},\qquad b=\tfrac12f_{xx}(\eq_0,\mu_0)\neq0\quad\text{(no degeneración)},
+\]
+entonces cerca de $(\eq_0,\mu_0)$ el sistema es topológicamente equivalente a $\dot y=a(\mu-\mu_0)+by^2$: hay dos equilibrios hiperbólicos de un lado de $\mu_0$ (donde $a(\mu-\mu_0)/b<0$), uno estable y otro inestable, que se funden en $\mu_0$ y desaparecen del otro lado.
+\end{teorema}
+
+\begin{ejemplo}[label=ej:bf-cosecha]{La pesca que colapsa}
+En el \cref{ej:un-cosecha} la población con cosecha constante era $\dot x=x(1-x)-h$. Verifique las condiciones del \cref{thm:bf-sn} y escriba la forma normal.
+\solucion $f=x-x^2-h$; $f_x=1-2x=0$ en $\eq_0=\tfrac12$, y $f(\tfrac12,h)=0$ da $h_0=\tfrac14$. Además $f_h=-1\neq0$ y $\tfrac12f_{xx}=-1\neq0$. Aquí la expansión es exacta, porque $f$ es cuadrática:
+\[
+  \dot x=\Bigl(\tfrac14-h\Bigr)-\Bigl(x-\tfrac12\Bigr)^2 .
+\]
+Para $h<\tfrac14$ hay dos equilibrios, $\tfrac12\pm\sqrt{\tfrac14-h}$ (el mayor estable); en $h=\tfrac14$ chocan, y para $h>\tfrac14$ la población se extingue desde cualquier condición inicial.
+\end{ejemplo}
+
+El diodo túnel del \cref{cap:unidimensionales} tiene dos sillas-nodo, una en cada extremo del intervalo de $E$ con tres equilibrios, y entre las dos producen la histéresis de la \cref{fig:un-histeresis}. Los dos fenómenos que siguen, el fantasma y la lentitud crítica, también están en ese circuito.
+
+\subsection*{El fantasma de un equilibrio}
+
+Del lado de la silla-nodo en que no hay equilibrios, el campo sigue siendo pequeño donde estaban: la parábola casi toca el eje. Las soluciones pasan por allí, pero despacio, y tardan mucho en cruzar ese \clave{cuello de botella}. Para $\dot x=-(m+x^2)$, con $m=-\mu>0$, el tiempo para atravesar toda la recta es
+\begin{equation}
+  T(m)=\int_{-\infty}^{\infty}\frac{\dif x}{m+x^2}=\frac{\pi}{\sqrt m} ,
+  \label{eq:bf-fantasma}
+\end{equation}
+y casi todo ese tiempo se gasta cerca de $x=0$, donde estaba el equilibrio (\cref{fig:bf-fantasma}). Con $m=0.01$ la solución tarda $2\arctan(10)/0.1=29.42$ unidades de tiempo solo en ir de $x=1$ a $x=-1$. Es el \clave{fantasma} de la silla-nodo: no hay equilibrio, pero el sistema se comporta durante un rato largo como si lo hubiera.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_fantasma}
+\caption{El fantasma. Izquierda: $\dot x=\mu-x^2$ desde $x(0)=4$ para cuatro valores de $\mu<0$; cuanto más cerca de $\mu=0$, más larga la pausa cerca de $x=0$. Derecha: el tiempo de tránsito de $x=1$ a $x=-1$, simulado (puntos) y la ley $\pi/\sqrt{\abs\mu}$ (recta de pendiente $-\tfrac12$ en escala log--log).}
+\label{fig:bf-fantasma}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej2_Fantasma.m}{fantasma}{El tiempo de tránsito por el cuello de botella contra la ley $\pi/\sqrt{\abs\mu}$}
+
+\video{V6_1_cuello_botella}{El fantasma de la silla-nodo}
+
+\begin{trampa}[label=tr:bf-fantasma]{``Ya no hay equilibrio: el estado pasa de largo''}
+\plausible{Para $\mu$ apenas al otro lado del valor crítico no hay equilibrio, así que la solución no tiene dónde detenerse y atraviesa la región sin demora.}
+La solución no se detiene, pero tarda un tiempo que crece como $1/\sqrt{\abs{\mu-\mu_c}}$, sin cota. En una simulación corta, o en una medición, el sistema parece estar en reposo, y se puede confundir el cuello de botella con un equilibrio. Lo mismo pasa en el oscilador no uniforme del \cref{cap:orbitas}: su período \eqref{eq:oc-periodo} crece como $1/\sqrt{\omega-a}$ porque la fase pasa por el fantasma de una silla-nodo en el círculo.
+\correcto{La divergencia $1/\sqrt{\abs{\mu-\mu_c}}$ del tiempo de tránsito es la firma de una silla-nodo cercana, y es una predicción cuantitativa que se puede verificar con una simulación (\cref{fig:bf-fantasma}).}
+\end{trampa}
+
+Del otro lado ocurre algo parecido. Para $\dot x=\mu-x^2$ con $\mu>0$, el equilibrio estable $\sqrt\mu$ tiene $f_x=-2\sqrt\mu$: la constante de tiempo de la recuperación ante una perturbación es $1/(2\sqrt\mu)$, que vale $0.5$ con $\mu=1$ y $5$ con $\mu=0.01$. Al acercarse a la silla-nodo el sistema se vuelve cada vez más lento para recuperarse. Esa \clave{lentitud crítica} se usa como señal de alerta temprana de transiciones abruptas en ecología, clima y redes eléctricas: la autocorrelación y la varianza de las fluctuaciones crecen antes de que el equilibrio desaparezca~\citep{SBBB09}.
+
+\begin{pausa}
+Para $\dot x=\mu-x^2$ con $\mu<0$, ¿es $\pi/\sqrt{\abs\mu}$ el tiempo que tarda una solución en ir de $x=+\infty$ a $x=-\infty$? ¿Tiene sentido que sea finito?
+\respuesta{Sí: \eqref{eq:bf-fantasma} es la integral sobre toda la recta, y es finita porque lejos del origen $\abs{\dot x}\approx x^2$, que crece tan rápido que la solución ``llega del infinito'' y ``se va al infinito'' en tiempo finito (es el escape en tiempo finito del \cref{cap:unidimensionales}, hacia atrás y hacia adelante). Casi todo el tiempo se gasta cerca del fantasma: con $\abs\mu=0.01$, de los $31.42$ que dura todo el tránsito, $29.42$ se gastan entre $x=1$ y $x=-1$.}
+\end{pausa}

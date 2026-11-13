@@ -1,0 +1,112 @@
+%% ---------------------------------------------------------------------
+\section{Bifurcaciones de equilibrios en el plano}
+\label{sec:bf-plano}
+%% ---------------------------------------------------------------------
+
+\subsection{Por qué el catálogo de la recta sirve en el plano}
+
+En la Ruta~1 un valor propio pasa por cero y el otro, digamos, se queda negativo. Es exactamente la situación de la variedad central (\cref{thm:bi-central}): la dirección estable se ``apaga'' exponencialmente rápido y la dinámica que decide ocurre sobre una curva invariante $W^c$, donde es escalar. Para incluir el parámetro se usa un truco: se agrega la ecuación $\dot\mu=0$. El sistema aumentado $(x,\mu)$ tiene un valor propio nulo más (el de $\mu$), y su variedad central tiene dimensión dos: es una superficie $x_s=h(x_c,\mu)$ sobre la que vive una ecuación escalar con parámetro, $\dot x_c=g(x_c,\mu)$ \citep[\S3.2]{GuHo83}. A esa ecuación se le aplica el catálogo de las secciones anteriores.
+
+\begin{ideaclave}
+Una bifurcación de la Ruta~1 en el plano es una bifurcación de la recta que ocurre sobre la variedad central, mientras la otra dirección contrae. Por eso las formas normales en el plano se escriben desacopladas, con $\dot x_2=-x_2$: allí $W^c$ es exactamente el eje $x_1$. En un sistema real $W^c$ es una curva que hay que calcular; el catálogo sigue valiendo, pero los coeficientes cambian.
+\end{ideaclave}
+
+\subsection{La silla-nodo en el plano}
+
+La forma normal es
+\begin{equation}
+  \dot x_1=\mu-x_1^2,\qquad \dot x_2=-x_2 ,\qquad J=\begin{bmatrix}-2x_1&0\\0&-1\end{bmatrix} .
+  \label{eq:bf-sn2}
+\end{equation}
+Para $\mu>0$ hay dos equilibrios, $(\pm\sqrt\mu,0)$. En $(\sqrt\mu,0)$, $\tau=-2\sqrt\mu-1$ y $\delta=2\sqrt\mu>0$: nodo estable. En $(-\sqrt\mu,0)$, $\delta=-2\sqrt\mu<0$: silla. Al bajar $\mu$, el nodo y la silla se acercan sobre el eje $x_1$, chocan en $\mu=0$ y desaparecen; de ahí el nombre ``silla-nodo'' (\cref{fig:bf-sn2}). En el plano traza--determinante, los dos puntos $(\tau,\delta)$ llegan a $(-1,0)$ desde lados opuestos del eje $\delta=0$: es el cruce de la Ruta~1 (\cref{fig:bf-rutas}). El valor propio que va a cero, $\lambda_1=-2\sqrt\mu$, es el de la dirección $x_1$; el otro se queda en $-1$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_sillanodo2d}
+\caption{Silla-nodo en el plano, \eqref{eq:bf-sn2}, para $\mu=-1$, $0$ y $1$, con las nulclinas de $x_1$ (verde) y de $x_2$ (ámbar). Para $\mu<0$ las trayectorias se frenan cerca del origen, donde está el fantasma, y siguen de largo.}
+\label{fig:bf-sn2}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej6_SillaNodo2D.m}{sillanodo2d}{Retratos de fase y el recorrido de $(\tau,\delta)$ de cada rama}
+
+\begin{trampa}[label=tr:bf-traza]{``En $\mu=0$, $\tau=-1<0$: el origen es estable''}
+\plausible{La traza es negativa y el determinante no es negativo; por la clasificación del \cref{cap:bidimensionales}, el origen es estable.}
+En $\mu=0$ el determinante es \emph{cero}: hay un valor propio nulo, el equilibrio no es hiperbólico y la linealización no decide (\cref{thm:bi-hg}). El retrato linealizado, $\dot x_1=0$, $\dot x_2=-x_2$, es una recta de equilibrios, cualitativamente falso. Sobre la variedad central, $\dot x_1=-x_1^2$: desde cualquier $x_1(0)<0$ la solución escapa a $-\infty$. El origen es inestable.
+\correcto{Con $\delta=0$ la traza no dice nada sobre la estabilidad. Se reduce a la variedad central y se mira el primer término no lineal.}
+\end{trampa}
+
+La transcrítica y las horquillas en el plano se escriben igual: $\dot x_1=\mu x_1-x_1^2$ (o $\mu x_1\mp x_1^3$), $\dot x_2=-x_2$. En la transcrítica, el origen pasa de nodo estable a silla y $(\mu,0)$ de silla a nodo estable. En la horquilla supercrítica, para $\mu>0$ el origen es una silla y $(\pm\sqrt\mu,0)$ dos nodos estables. En la subcrítica, $\dot x_1=\mu x_1+x_1^3$, para $\mu<0$ hay tres equilibrios, $(0,0)$ y $(\pm\sqrt{-\mu},0)$: el origen es un nodo estable y los otros dos son sillas, cuyas variedades estables limitan la cuenca del origen; al subir $\mu$ las dos sillas se funden con el origen y para $\mu>0$ solo queda el origen, convertido en silla.
+
+\begin{ejemplo}[label=ej:bf-escondida]{Una horquilla escondida}
+Estudie el origen de $\dot x_1=\mu x_1-x_1x_2$, $\dot x_2=-x_2+x_1^2$ para $\mu$ cerca de cero.
+\solucion La jacobiana en el origen es $\diag(\mu,-1)$: nodo estable si $\mu<0$, silla si $\mu>0$, y en $\mu=0$ un valor propio nulo. ¿Qué bifurcación es? Si se ``proyecta'' sobre el eje $x_1$ poniendo $x_2=0$, queda $\dot x_1=\mu x_1$, que no decide nada en $\mu=0$. Hay que usar la variedad central. Con $\mu=0$, la ecuación de invariancia \eqref{eq:bi-pde} para $x_2=h(x_1)=c_2x_1^2+c_4x_1^4+\cdots$ es
+\[
+  h'(x_1)\bigl(-x_1h(x_1)\bigr)=-h(x_1)+x_1^2 ,
+\]
+y da $c_2=1$, $c_4=2$. Sobre la variedad central, $\dot x_1=\mu x_1-x_1h(x_1)\approx\mu x_1-x_1^3$: una \alerta{horquilla supercrítica}. En este ejemplo se confirma con los equilibrios exactos: $\dot x_1=0$ con $x_1\neq0$ da $x_2=\mu$, y $\dot x_2=0$ da $x_1^2=x_2=\mu$; para $\mu>0$ aparecen $(\pm\sqrt\mu,\mu)$, con $\tau=-1$ y $\delta=2\mu>0$: estables. Nótese que los equilibrios nuevos no están sobre el eje $x_1$ sino sobre la parábola $x_2=x_1^2$, que es la variedad central. La simetría $(x_1,x_2)\mapsto(-x_1,x_2)$ del sistema es la que protege la horquilla.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_escondida}
+\caption{La horquilla escondida del \cref{ej:bf-escondida} con $\mu=0.1$: el origen es una silla y las trayectorias caen sobre la parábola $x_2\approx x_1^2$ (verde) antes de llegar a $(\pm\sqrt\mu,\mu)$. A la derecha, el diagrama de bifurcación de $x_1^*$.}
+\label{fig:bf-escondida}
+\end{figure}
+
+\begin{trampa}[label=tr:bf-proyectar]{``Para reducir, se pone $x_2=0$''}
+\plausible{$x_2$ es la variable rápida y estable, así que se puede suponer que ya llegó a cero y estudiar $\dot x_1$ sola.}
+Es la misma trampa del \cref{cap:bidimensionales} (\cref{tr:bi-zcero}), ahora con un parámetro: con $x_2=0$ se pierde el término $-x_1^3$, que es el que decide el tipo de bifurcación. $x_2$ no tiende a cero; tiende a $h(x_1)\approx x_1^2$. En las formas normales desacopladas proyectar sobre el eje da la respuesta correcta, pero por construcción, no por método.
+\correcto{Se reduce a la variedad central, $x_2=h(x_1,\mu)$, calculada con la ecuación de invariancia hasta el orden que decida.}
+\end{trampa}
+
+\subsection{Un ejemplo completo: el interruptor genético}
+
+\begin{ejemplo}[label=ej:bf-griffith]{El interruptor genético de Griffith}
+En un modelo de control genético, la actividad de un gen es inducida por dos copias de la proteína que el mismo gen produce: es un lazo de realimentación positiva~\citep{Gri68}, \citep[Ejemplo~8.1.2]{Str15}. Con $x$ y $y$ proporcionales a las concentraciones de la proteína y del ARN mensajero,
+\begin{equation}
+  \dot x=-ax+y,\qquad \dot y=\frac{x^2}{1+x^2}-by ,\qquad a,b>0,
+  \label{eq:bf-griffith}
+\end{equation}
+donde $a$ y $b$ son las tasas de degradación. Muestre que hay tres equilibrios si y solo si $a<a_c$, encuentre $a_c$, muestre que en $a=a_c$ dos de ellos chocan en una silla-nodo e interprete el resultado.
+\solucion \emph{Paso 1, equilibrios.} Las nulclinas son la recta $y=ax$ ($\dot x=0$) y la sigmoide $y=x^2/\bigl(b(1+x^2)\bigr)$ ($\dot y=0$). Igualando, $x\bigl[ab(1+x^2)-x\bigr]=0$. Siempre está $\eq=0$; los demás cumplen $abx^2-x+ab=0$:
+\[
+  \eq_\pm=\frac{1\pm\sqrt{1-4a^2b^2}}{2ab} ,
+\]
+reales y distintos si y solo si $4a^2b^2<1$, es decir, $a<a_c=\dfrac1{2b}$. En $a=a_c$ coinciden en $\eq=1/(2a_cb)=1$, \emph{sea cual sea} $b$. Geométricamente, la recta es tangente a la sigmoide (\cref{fig:bf-griffith}, izquierda).
+
+\emph{Paso 2, jacobiano.}
+\[
+  J=\begin{bmatrix}-a&1\\ \dfrac{2x}{(1+x^2)^2}&-b\end{bmatrix},\qquad \tau=-(a+b)<0,\qquad \delta=ab-\frac{2x}{(1+x^2)^2} .
+\]
+En los equilibrios no nulos, $ab=x/(1+x^2)$, y queda $\delta=\dfrac{x(x^2-1)}{(1+x^2)^2}$.
+
+\emph{Paso 3, el cruce.} $\delta=0$ en $x=1$, que es justo donde chocan los equilibrios en $a=a_c$: Ruta~1 con $\tau<0$. El equilibrio intermedio ($0<\eq_-<1$) tiene $\delta<0$: es una \alerta{silla}. El alto ($\eq_+>1$) tiene $0<\delta<ab$, así que $\tau^2-4\delta>(a+b)^2-4ab=(a-b)^2\ge0$: es un \alerta{nodo estable}. El origen tiene valores propios $-a$ y $-b$: siempre es un nodo estable.
+
+\emph{Pasos 4 y 5.} Al aumentar $a$, el producto $ab$ que fija los equilibrios cambia con velocidad no nula, y las dos raíces de una cuadrática se funden con una tangencia simple (la sigmoide tiene curvatura no nula en $x=1$): es una silla-nodo. Con $b=0.35$, $a_c=1.4286$; con $a=1$ los equilibrios son $0$, $0.4084$ (silla) y $2.4488$ (nodo).
+
+\emph{Interpretación.} Para $a<a_c$ el gen tiene dos estados estables: \emph{apagado} ($\eq=0$) y \emph{encendido} ($\eq_+$), separados por un umbral, que es la variedad estable de la silla. La célula ``recuerda'' en cuál está: es un \clave{interruptor biestable}, un mecanismo de memoria celular. Pero solo existe si la proteína y el mensajero se degradan despacio, $ab<\tfrac12$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_griffith}
+\caption{El interruptor genético con $b=0.35$. Izquierda: la sigmoide $y=x^2/\bigl(b(1+x^2)\bigr)$ y la recta $y=ax$ para $a<a_c$ (tres cortes), $a=a_c$ (tangente en $x=1$) y $a>a_c$ (solo el origen). Centro: retrato de fase con $a=1$; la variedad estable de la silla separa las cuencas del gen apagado y encendido. Derecha: diagrama de bifurcación, con el ciclo de histéresis.}
+\label{fig:bf-griffith}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej7_Genetico.m}{genetico}{Equilibrios, tipo y valor crítico del interruptor genético}
+
+\begin{trampa}[label=tr:bf-reversible]{``Si $a$ vuelve a bajar, el gen se vuelve a encender''}
+\plausible{Para $a<a_c$ el estado encendido existe; al regresar $a$ a un valor donde existía, la célula debería regresar a él.}
+Al subir $a$ por encima de $a_c$ el estado encendido desaparece y la célula cae al apagado. Al bajar $a$ de nuevo, el equilibrio alto reaparece, pero la célula ya está en la cuenca del origen, que es estable para todo $a$, y allí se queda. Con $b=0.35$: con $a=1.3$ el gen encendido sigue encendido; con $a=1.6$ se apaga; de vuelta en $a=1.3$ sigue apagado.
+\correcto{Una silla-nodo con otro atractor del otro lado produce histéresis: el estado depende de la historia del parámetro, no solo de su valor actual. Para encender el gen otra vez hay que sacarlo de la cuenca del origen, por ejemplo con un pulso de proteína que cruce la variedad estable de la silla.}
+\end{trampa}
+
+\begin{modelo}[InterruptorGenetico.slx]
+\cmd{crearModelo\_InterruptorGenetico.m} arma \eqref{eq:bf-griffith} con dos integradores y un bloque \texttt{Fcn} para la sigmoide, y hace variar $a$ lentamente con una rampa que sube de $1$ a $1.8$ y vuelve a bajar. La gráfica de $x$ contra $a$ recorre el ciclo de histéresis de la \cref{fig:bf-griffith}: el gen se apaga en $a\approx a_c$ y no se vuelve a encender.
+\end{modelo}
+
+\begin{pausa}
+Calcule $a_c$ para el interruptor genético por dos caminos independientes: como el valor donde se anula el discriminante de la cuadrática, y como el valor donde $\delta=0$ sobre la rama de equilibrios. ¿Por qué coinciden?
+\respuesta{Por el discriminante: $1-4a^2b^2=0$ da $a_c=1/(2b)$. Por el determinante: $\delta=0$ en $x=1$, y $x=1$ es equilibrio si $ab(1+1)=1$, es decir, $a=1/(2b)$. Coinciden porque las dos condiciones dicen lo mismo: el equilibrio es una raíz doble de $f(x,a)=0$, y una raíz doble es exactamente un punto donde $f=0$ y $\partial f/\partial x=0$ (en el plano, $\det J=0$). Es la \cref{prop:bf-implicita} leída al revés.}
+\end{pausa}

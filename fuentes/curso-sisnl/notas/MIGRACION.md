@@ -13,6 +13,15 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 9. **Página web.** Copiar `sitio/partes/11-pasividad.qmd` como plantilla y agregar el capítulo a `NOMBRES` en `herramientas/pdf_por_capitulo.py`.
 10. **Numeración.** En `NotasSisNL.tex`, `\setcounter{chapter}{N-1}` antes del `\input` del capítulo N mientras los anteriores no estén migrados.
 
+## Pendientes del capítulo 6 (migrado el 13 de noviembre de 2026)
+
+- Fuentes: Handout5.tex (2023), diapositivas `Present2026/Bifurcaciones2026.pptx` y sus complementos `Bifurcaciones2D_Complementos.pptx` (hiperbolicidad y las dos rutas, receta de cinco pasos, fantasma, interruptor genético, genericidad, Hopf completo, histéresis de ciclos), y los scripts `bif_*.m`, `BifEj*.m`, `CodigosVariosHand5.m` y `Bifurcaciones80min_LiveScript.m`, reescritos como `C6_Ej*`. Se agregaron: la proposición de la función implícita, las condiciones de la silla-nodo, la horquilla escondida (variedad central con parámetro), el coeficiente de Lyapunov con `primerLyapunov`, el retardo con rampa lenta, las bifurcaciones de período infinito y homoclínica, el teorema de la divergencia para el multiplicador y el mapa de Poincaré numérico de van der Pol (`mapaPoincare`).
+- Correr en MATLAB `crearModelo_InterruptorGenetico` (Simulink no estaba disponible) y, si se quiere la versión de MATLAB, grabar los `C6_Video_*`; los MP4 publicados son los de `herramientas/cap06_videos.py`.
+- Confirmar en Khalil (3.ª ed.): §2.7 (bifurcaciones, terminología segura/peligrosa). En Strogatz (2.ª ed.): §3.0--3.4, §8.4, Ejemplo 8.1.2 (interruptor genético) y Ejemplo 8.7.1 (mapa de Poincaré). En Perko (3.ª ed.): §3.4, Teorema 2 (multiplicador por la divergencia) y §4.3 (Andronov--Pontryagin y Peixoto). En Guckenheimer y Holmes: ec. (3.4.11) para $\ell_1$. En Jordan y Smith (4.ª ed.): §13.2 y la Fig. 13.2. En Sastry: cap. 7 (el ejemplo de la silla-nodo de ciclos).
+- Verificar los datos bibliográficos nuevos: Poi1885, Hop42, AnPo37, Pei62, Gri68 (Strogatz cita Griffith 1971; confirmar cuál es la fuente del modelo), Kuz04, GuHo83, SBBB09, TuSh95 y JoSm07.
+- La foto y el video de la viga que se pandea (Strogatz) y el video de YouTube de la lámina 3 no se pasaron a las notas.
+- Los capítulos 1, 2, 4, 5 y 7 ya citan este capítulo con `\cref{cap:bifurcaciones}`.
+
 ## Pendientes del capítulo 4 (migrado el 11 de noviembre de 2026)
 
 - Fuentes: Handout3.tex (2023), diapositivas `Present2026/SisBidim.pptx`, el cuaderno `Planos_de_fase_Python.ipynb` (clase del 19 de agosto) y los scripts `EjemploIntroSisBidim.m` y `CodigosVariosHandout3.m`, reescritos como `C4_Ej*`. Se agregaron nulclinas, la clasificación traza--determinante completa, el diodo túnel de segundo orden, las variedades estable e inestable (clase del 31 de agosto) y la no unicidad de la variedad central. Las bifurcaciones en 2-D quedan para el capítulo 6.

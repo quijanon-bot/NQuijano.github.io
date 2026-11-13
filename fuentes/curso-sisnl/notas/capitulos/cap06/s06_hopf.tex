@@ -1,0 +1,149 @@
+%% ---------------------------------------------------------------------
+\section{La bifurcación de Hopf}
+\label{sec:bf-hopf}
+%% ---------------------------------------------------------------------
+
+Hasta aquí un nodo perdía la estabilidad porque un valor propio real pasaba por cero. ¿Qué pasa cuando un \emph{foco} estable pierde la estabilidad, es decir, cuando un par de valores propios complejos conjugados cruza el eje imaginario (Ruta~2)? Ningún equilibrio se crea ni se destruye: $\delta>0$ durante todo el cruce, así que la \cref{prop:bf-implicita} garantiza que el equilibrio sigue ahí, solo y suave en $\mu$. Lo que nace es una \alerta{oscilación}.
+
+\begin{ejemplo}[label=ej:bf-circuito]{Un circuito con un resistor que depende de la temperatura}
+Un circuito $LC$ con un resistor no lineal cuya característica $i=f_\mu(v)$ depende de un parámetro $\mu$ (la temperatura, por ejemplo) tiene, en variables adimensionales, la forma de Liénard
+\begin{equation}
+  \dot x_1=x_2-f_\mu(x_1),\qquad \dot x_2=-x_1,\qquad f_\mu(x_1)=x_1^3-\mu x_1 ,
+  \label{eq:bf-circuito}
+\end{equation}
+con $\mu\in[-1,1]$. Con $\mu=1$ es el oscilador de van der Pol del \cref{cap:orbitas}. Estudie el origen al variar $\mu$.
+\solucion El único equilibrio es el origen, con
+\[
+  J=\begin{bmatrix}\mu&1\\-1&0\end{bmatrix},\qquad \tau=\mu,\quad \delta=1,\quad \lambda_{1,2}=\tfrac12\bigl(\mu\pm\sqrt{\mu^2-4}\bigr) .
+\]
+Como $\tau^2-4\delta=\mu^2-4<0$ en $[-1,1]$: para $\mu<0$ es un foco estable, para $\mu>0$ un foco inestable, y en $\mu=0$ la linealización es un centro y \emph{no decide}. El par cruza el eje imaginario en $\pm j$ con velocidad $\dif(\Re\lambda)/\dif\mu=\tfrac12\neq0$. Físicamente: para $\mu<0$ el resistor disipa y todo decae al origen; para $\mu>0$ el resistor es activo cerca del origen (resistencia negativa, $f_\mu'(0)=-\mu<0$) y las oscilaciones pequeñas crecen. Pero lejos del origen el término $x_1^3$ vuelve a disipar, y las oscilaciones se estabilizan en un \alerta{ciclo límite} cuya amplitud crece desde cero con $\mu$ (\cref{fig:bf-circuito}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_circuito}
+\caption{El circuito \eqref{eq:bf-circuito}. Arriba: retratos para $\mu=-0.5$, $0$, $0.5$ y $1$. Abajo, izquierda: la amplitud del ciclo (máximo de $x_1$) contra $\mu$ en escala log--log, con la predicción $2\sqrt{\mu/3}$ de pendiente $\tfrac12$. Abajo, derecha: el período, que vale $2\pi$ solo en el límite $\mu\to0^+$ y llega a $6.663$ en $\mu=1$.}
+\label{fig:bf-circuito}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej8_HopfCircuito.m}{circuito}{Amplitud y período del ciclo del circuito contra $\mu$}
+
+\subsection{La forma normal}
+
+La forma más simple de ver qué pasa es un sistema que en coordenadas polares se desacopla:
+\begin{equation}
+  \dot x_1=\mu x_1-x_2-x_1(x_1^2+x_2^2),\quad \dot x_2=x_1+\mu x_2-x_2(x_1^2+x_2^2)
+  \quad\Longleftrightarrow\quad
+  \dot r=r(\mu-r^2),\quad \dot\theta=1 .
+  \label{eq:bf-hopfnormal}
+\end{equation}
+La jacobiana en el origen es $\bigl[\begin{smallmatrix}\mu&-1\\1&\mu\end{smallmatrix}\bigr]$, con $\lambda=\mu\pm j$. La ecuación radial es una horquilla supercrítica en $r\ge0$: para $\mu\le0$, $\dot r<0$ para todo $r>0$ y el origen es asintóticamente estable; para $\mu>0$ el origen es inestable y $r=\sqrt\mu$ es estable (si $0<r<\sqrt\mu$, $\dot r>0$; si $r>\sqrt\mu$, $\dot r<0$). En el plano: \alerta{una espiral estable se convierte en una espiral inestable rodeada por un ciclo límite estable} de radio $\sqrt\mu$. Es la \clave{bifurcación de Hopf supercrítica}.
+
+Con el signo cambiado, $\dot r=r(\mu+r^2)$, la jacobiana es idéntica, pero para $\mu<0$ el origen estable está rodeado por un ciclo \emph{inestable} de radio $\sqrt{-\mu}$, que es el borde de su cuenca; el ciclo se contrae, se funde con el origen en $\mu=0$, y para $\mu>0$ las soluciones escapan. Es la \clave{Hopf subcrítica} (\cref{fig:bf-supersub}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_supersub}
+\caption{La misma linealización, destinos opuestos. Izquierda: supercrítica, $\dot r=r(\mu-r^2)$; el ciclo estable nace con amplitud $\sqrt\mu$. Derecha: subcrítica, $\dot r=r(\mu+r^2)$; el ciclo inestable (umbral de seguridad) se contrae hasta el origen y para $\mu>0$ la trayectoria escapa.}
+\label{fig:bf-supersub}
+\end{figure}
+
+\video{V6_2_hopf}{Nace un ciclo límite}
+
+\subsection{El teorema}
+
+El circuito no está en coordenadas polares, y su ciclo no es un círculo. Lo que dice que la forma normal es representativa es el teorema de Hopf.
+
+\begin{teorema}[label=thm:bf-hopf]{Poincaré--Andronov--Hopf \citep{Hop42}, \citep[\S3.4]{GuHo83}, \citep[\S2.7]{Kha02}}
+Sea $\dot x=f(x,\mu)$, $x\in\R^2$, suave, con un equilibrio $\eq(\mu)$ cuya jacobiana tiene valores propios $\alpha(\mu)\pm j\omega(\mu)$. Supongamos que en $\mu=\mu_c$:
+\begin{enumerate}
+  \item $\alpha(\mu_c)=0$ y $\omega(\mu_c)=\omega_0>0$ (un par cruza el eje imaginario; no es un cero doble);
+  \item \emph{transversalidad:} $\alpha'(\mu_c)\neq0$;
+  \item \emph{no degeneración:} el \clave{primer coeficiente de Lyapunov} $\ell_1$ (definido abajo) no es cero.
+\end{enumerate}
+Entonces de $\eq(\mu_c)$ nace una familia de órbitas periódicas, del lado de $\mu_c$ donde $\alpha'(\mu_c)(\mu-\mu_c)/\ell_1<0$, con amplitud proporcional a $\sqrt{\abs{\mu-\mu_c}}$ y período que tiende a $2\pi/\omega_0$ cuando $\mu\to\mu_c$. Si $\ell_1<0$ el ciclo es estable y la bifurcación es supercrítica; si $\ell_1>0$ es inestable y la bifurcación es subcrítica.
+\end{teorema}
+
+\notamargen{En la forma normal $\dot r=\alpha'\,(\mu-\mu_c)\,r+\ell_1r^3$, que es la del teorema hasta orden tres, el radio del ciclo es $r^2=-\alpha'(\mu-\mu_c)/\ell_1$. De ahí salen la ley de la raíz y la condición sobre el lado.}
+
+Para calcular $\ell_1$, se lleva el sistema (con $\mu=\mu_c$ y el equilibrio en el origen) a la forma
+\[
+  \dot u=-\omega_0v+F(u,v),\qquad \dot v=\omega_0u+G(u,v),
+\]
+con $F$ y $G$ de orden dos o más. Entonces \citep[ec.~(3.4.11)]{GuHo83}
+\begin{equation}
+\begin{aligned}
+  \ell_1&=\tfrac1{16}\bigl(F_{uuu}+F_{uvv}+G_{uuv}+G_{vvv}\bigr)\\
+  &\quad+\tfrac1{16\omega_0}\bigl(F_{uv}(F_{uu}+F_{vv})-G_{uv}(G_{uu}+G_{vv})-F_{uu}G_{uu}+F_{vv}G_{vv}\bigr),
+\end{aligned}
+  \label{eq:bf-l1}
+\end{equation}
+con las derivadas evaluadas en el origen. Para la forma normal \eqref{eq:bf-hopfnormal}, $F=-u(u^2+v^2)$, $G=-v(u^2+v^2)$ y $\ell_1=\tfrac1{16}(-6-2-2-6)=-1$.
+
+\begin{ejemplo}[label=ej:bf-l1circuito]{¿Supercrítica o subcrítica?}
+Decida el tipo de la bifurcación del circuito \eqref{eq:bf-circuito} y prediga la amplitud del ciclo para $\mu$ pequeño.
+\solucion En $\mu=0$: $\dot x_1=x_2-x_1^3$, $\dot x_2=-x_1$. Con $u=x_1$, $v=-x_2$: $\dot u=-v-u^3$, $\dot v=u$, que es la forma pedida con $\omega_0=1$, $F=-u^3$ y $G=0$. Solo sobrevive $F_{uuu}=-6$: $\ell_1=-\tfrac6{16}=-\tfrac38<0$, \alerta{supercrítica}. Con $\alpha'=\tfrac12$, el radio es $r^2\approx\tfrac12\mu/\tfrac38=\tfrac43\mu$: amplitud $2\sqrt{\mu/3}$. Con $\mu=0.1$ predice $0.3651$; la simulación da $0.3652$. Con $\mu=1$ predice $1.155$ contra $1.160$: la ley de la raíz es asintótica, pero aquí funciona bien incluso lejos. Es la amplitud que da el método de promedios para van der Pol.
+\end{ejemplo}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej9_HopfSuperSub.m}{lyapunov}{El primer coeficiente de Lyapunov con derivadas numéricas}
+
+En la práctica, sin fórmulas, la distinción se hace con una simulación: se toma $\mu$ un poco más allá del valor crítico y se arranca muy cerca del equilibrio. Si el estado se estaciona en un ciclo cuya amplitud crece como la raíz del exceso de $\mu$, la bifurcación es supercrítica; si se escapa, subcrítica. Para confirmar la subcrítica, se toma $\mu$ un poco antes del valor crítico y se integra \emph{hacia atrás} en el tiempo desde cerca del equilibrio: el ciclo inestable se vuelve atractor y aparece.
+
+\begin{trampa}[label=tr:bf-centro]{``En $\mu=\mu_c$ la linealización es un centro: hay órbitas cerradas''}
+\plausible{En $\mu=0$ la jacobiana de \eqref{eq:bf-hopfnormal} es $\bigl[\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr]$, con valores propios $\pm j$. Es un centro, así que el sistema oscila alrededor del origen.}
+Sin hiperbolicidad no hay Hartman--Grobman (\cref{tr:bi-centro}). Con $\mu=0$ la ecuación radial es $\dot r=-r^3$, que se integra exactamente: $r(t)=r_0/\sqrt{1+2r_0^2t}$. El origen es asintóticamente estable; desde $r_0=1$, $r(100)=1/\sqrt{201}=0.0705$. Pero el decaimiento es algebraico, como $1/\sqrt t$, no exponencial. No es ni un centro ni un foco exponencial; en la subcrítica, $\dot r=r^3$, es inestable.
+\correcto{En el valor crítico deciden los términos cúbicos, es decir, $\ell_1$. Y cerca de él, la convergencia (o la divergencia) es lenta, lo que hace engañosas las simulaciones cortas.}
+\end{trampa}
+
+\begin{pausa}
+Con $\mu=0$ en la forma normal supercrítica, ¿certifica $V=\tfrac12(x_1^2+x_2^2)$ la estabilidad asintótica del origen? ¿Certifica estabilidad exponencial?
+\respuesta{$\dot V=r\dot r=-r^4=-(x_1^2+x_2^2)^2$, que es definida negativa: por el teorema de Lyapunov del \cref{cap:lyapunov}, el origen es asintóticamente estable, incluso globalmente porque $V$ es radialmente no acotada. Pero no exponencialmente: para eso haría falta $\dot V\le-cV$ cerca del origen, y $-r^4\le-\tfrac c2r^2$ falla para $r$ pequeño. Es consistente con $r(t)\sim1/\sqrt{2t}$.}
+\end{pausa}
+
+\begin{trampa}[label=tr:bf-periodo]{``El período del ciclo es $2\pi/\omega_0$''}
+\plausible{El teorema de Hopf dice que el período es $2\pi/\omega_0$; en el circuito, $\omega_0=1$ y el período debería ser $2\pi$.}
+El teorema dice que el período \emph{tiende} a $2\pi/\omega_0$ cuando $\mu\to\mu_c$. Lejos de $\mu_c$ cambia: en el circuito vale $6.287$ con $\mu=0.1$ y $6.663$ con $\mu=1$ (\cref{fig:bf-circuito}). En otros sistemas puede ser menor: un período medido de $5.9$ contra $2\pi/\omega_0=6.28$ no indica necesariamente un error de simulación.
+\correcto{$T\to2\pi/\omega_0$ y la amplitud $\propto\sqrt{\abs{\mu-\mu_c}}$ son leyes asintóticas, válidas cerca de $\mu_c$. Se verifican en una gráfica log--log, no con un solo valor.}
+\end{trampa}
+
+Una versión del teorema que no necesita $\ell_1$, pero sí que la forma polar sea conocida, es la siguiente.
+
+\begin{proposicion}[label=prop:bf-radial]{Ciclos de una ecuación radial}
+Sea $\dot x_1=\mu x_1+x_2-x_1\,g(r)$, $\dot x_2=-x_1+\mu x_2-x_2\,g(r)$, con $r=\sqrt{x_1^2+x_2^2}$, $g$ de clase $\Cont1$, $g(0)=0$ y $g'(r)>0$ para $r>0$. Entonces: para $\mu<0$ el origen es un foco estable; para $\mu=0$ es asintóticamente estable, pero no exponencialmente; para $0<\mu<\sup g$ hay un único ciclo límite, el círculo $r=g^{-1}(\mu)$, que es estable y cuyo radio crece desde $0$ con $\mu$.
+\end{proposicion}
+
+\begin{demostracion}
+En polares, $\dot r=r(\mu-g(r))$ y $\dot\theta=-1$. Para $\mu\le0$, $\mu-g(r)<0$ si $r>0$. Para $\mu>0$, $\mu-g(r)$ es positiva para $r<g^{-1}(\mu)$ y negativa después, porque $g$ es creciente: los círculos $r=c$ con $c<g^{-1}(\mu)$ se cruzan hacia afuera y los de radio mayor hacia adentro.
+\end{demostracion}
+
+\notamargen{La versión anterior de estas notas pedía ``$f(r)>0$ para $\mu>0$''; lo que hace falta es que $g$ sea creciente en $r$, para que el ciclo sea único y crezca con $\mu$.}
+
+\subsection{Histéresis: la Hopf subcrítica en un sistema real}
+
+En la subcrítica, ¿adónde va el estado cuando se escapa? En un sistema físico, términos de orden superior detienen el crecimiento. El modelo mínimo es
+\begin{equation}
+  \dot r=r\bigl(\mu+r^2-r^4\bigr),\qquad \dot\theta=1 .
+  \label{eq:bf-histeresis}
+\end{equation}
+Los ciclos son las raíces de $\mu=r^4-r^2$, y un ciclo $r^*$ es estable si $\frac{\dif}{\dif r}\bigl(\mu+r^2-r^4\bigr)=2r^*-4r^{*3}<0$, es decir, si $r^*>1/\sqrt2$. Hay \emph{dos} bifurcaciones (\cref{fig:bf-histeresis}): en $\mu=0$, una Hopf subcrítica (el ciclo inestable se contrae hasta el origen); en $\mu=-\tfrac14$, $r=1/\sqrt2$, el ciclo estable y el inestable chocan y desaparecen: una \clave{silla-nodo de ciclos}, que se estudia en la \cref{sec:bf-ciclos}. Entre las dos, $-\tfrac14<\mu<0$, el sistema es \alerta{biestable}: el origen y el ciclo grande ($r=0.9420$ con $\mu=-0.1$) son estables.
+
+Si $\mu$ sube despacio desde $-0.4$, el sistema se queda en reposo hasta pasar $\mu=0$ y salta a un ciclo de amplitud finita ($r\approx1$). Para apagar la oscilación no basta con regresar a $\mu=0$: hay que bajar hasta $-\tfrac14$. Es el esquema del \emph{flameo} (flutter) aeroelástico de un ala, del bombeo (surge) en compresores y de ciertas oscilaciones en sistemas de potencia: el sistema salta a una oscilación grande y no vuelve solo.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_histeresis}
+\caption{\eqref{eq:bf-histeresis}. Izquierda: diagrama de bifurcación (ciclos estables en verde, inestables en coral, el origen en negro). Derecha: una rampa lenta de $\mu$, de $-0.4$ a $0.1$ y de vuelta. Al subir, el salto llega con retardo ($\mu\approx0.05$); al bajar, el ciclo se apaga en $\mu\approx-\tfrac14$.}
+\label{fig:bf-histeresis}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej10_Histeresis.m}{rampa}{Rampa lenta de $\mu$ en la Hopf subcrítica con término quíntico}
+
+\video{V6_3_histeresis_ciclos}{Salto y regreso: la histéresis de ciclos}
+
+\begin{trampa}[label=tr:bf-retardo]{``Con una rampa lenta, el salto ocurre exactamente en $\mu=\mu_c$''}
+\plausible{Si $\mu$ cambia muy despacio, el sistema está siempre casi en equilibrio y debe dejar el origen justo cuando este se vuelve inestable.}
+Mientras $\mu<0$ el estado se acerca muchísimo al origen ($r$ decae exponencialmente), y cuando $\mu$ pasa a positivo necesita un tiempo largo para crecer desde ese valor diminuto. En la simulación de la \cref{fig:bf-histeresis} (rampa de $1.7\times10^{-4}$ por unidad de tiempo, con un piso de ruido de $10^{-6}$), el salto ocurre en $\mu\approx0.048$, no en $0$. Es el \clave{retardo de la bifurcación}: cuanto menos ruido, mayor el retardo. Al bajar, en cambio, el ciclo grande sí se apaga cerca de $-\tfrac14$ (en $-0.258$).
+\correcto{Con un parámetro que cambia en el tiempo, el diagrama de bifurcación (que es estático) da los valores límite de una rampa infinitamente lenta \emph{y} con perturbaciones; el retardo depende de la velocidad de la rampa y del nivel de ruido.}
+\end{trampa}
+
+\notamargen{El modelo de Rosenzweig--MacArthur del \cref{cap:orbitas} (\cref{sec:oc-lotka}) tiene una Hopf en $K_H=3$: es la paradoja del enriquecimiento. El modelo de Nowak (\cref{sec:oc-nowak}), otra. Con el \cref{thm:bf-hopf} se puede decidir de qué tipo son (\cref{prob:bf-rm}).}

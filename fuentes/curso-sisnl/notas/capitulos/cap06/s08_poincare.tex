@@ -1,0 +1,106 @@
+%% ---------------------------------------------------------------------
+\section{Mapas de Poincaré}
+\label{sec:bf-poincare}
+%% ---------------------------------------------------------------------
+
+¿Cómo se decide si un ciclo límite es estable, o se detecta una silla-nodo de ciclos, si no hay coordenadas polares que desacoplen el sistema? La idea de Poincaré es convertir el problema de una órbita periódica en el de un \emph{punto fijo} de un mapa: se mira el flujo solo cuando cruza una curva.
+
+Sea $\gamma$ una órbita periódica de $\dot x=f(x)$, $x\in\R^2$, y $p\in\gamma$. Sea $\Sigma$ un segmento de curva que pasa por $p$ y que el flujo cruza \alerta{transversalmente} (el campo no es tangente a $\Sigma$ en ningún punto). Una trayectoria que arranca en $q\in\Sigma$, cerca de $p$, da una vuelta cerca de $\gamma$ y vuelve a cruzar $\Sigma$ en un punto $P(q)$ (\cref{fig:bf-seccion}).
+
+\begin{definicion}[label=def:bf-poincare]{Mapa de Poincaré}
+Con $\gamma$, $p$ y $\Sigma$ como arriba, y $U\subset\Sigma$ una vecindad de $p$ en $\Sigma$, el \clave{mapa de Poincaré} (o de primer retorno) es $P:U\to\Sigma$, $P(q)=\flujo{\tau(q)}q$, donde $\tau(q)>0$ es el primer instante en que la solución que arranca en $q$ vuelve a cruzar $\Sigma$ en el mismo sentido. $\tau(q)$ es el \clave{tiempo de retorno}. La sucesión $q,\ P(q),\ P^2(q),\dots$ es una \clave{sucesión de Poincaré}.
+\end{definicion}
+
+\notamargen{Que el retorno exista y que $P$ sea suave cerca de $p$ se sigue de la dependencia continua de las soluciones respecto a la condición inicial (\cref{cap:preliminares}) y del teorema de la función implícita aplicado a la ecuación ``$\flujo tq\in\Sigma$''. Lejos de $p$ el retorno puede no existir.}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap06/f_seccion}
+\caption{Izquierda: la sección $\Sigma$ y la sucesión de Poincaré $A_0,A_1,A_2,\dots$ que converge al punto $B$ donde el ciclo estable corta a $\Sigma$. Derecha: la misma sucesión vista como iteración del mapa $P$ (diagrama de telaraña): de cada punto se sube a la gráfica de $P$ y se pasa horizontalmente a la diagonal.}
+\label{fig:bf-seccion}
+\end{figure}
+
+Tres hechos convierten el mapa en una herramienta:
+\begin{enumerate}
+  \item \emph{Puntos fijos son órbitas periódicas.} Si $P(q^*)=q^*$, la solución que arranca en $q^*$ vuelve a $q^*$ en el tiempo $\tau(q^*)$: es periódica. Y cada órbita periódica que cruza $\Sigma$ da un punto fijo.
+  \item \emph{El mapa es un sistema en tiempo discreto}, $q_{k+1}=P(q_k)$, y su estabilidad se decide igual que la de un equilibrio, pero con el círculo unitario en lugar del eje imaginario: si $\abs{P'(q^*)}<1$ el punto fijo es asintóticamente estable; si $\abs{P'(q^*)}>1$, inestable; si $\abs{P'(q^*)}=1$, la linealización no decide. El número $P'(q^*)$ es el \clave{multiplicador} del ciclo.
+  \item \emph{La estabilidad del punto fijo es la del ciclo.} Si $q^*$ es asintóticamente estable para $P$, el ciclo $\gamma$ atrae a las trayectorias cercanas (es orbitalmente asintóticamente estable, en el sentido de la \cref{tr:oc-orbital}), y si es inestable, $\gamma$ también lo es.
+\end{enumerate}
+En el plano, $\Sigma$ es unidimensional y $P'$ es un número; además $P$ es creciente (dos trayectorias no se cruzan), así que el multiplicador es positivo. Una silla-nodo de ciclos es una silla-nodo del mapa: dos puntos fijos que chocan con $P'(q^*)=1$.
+
+\begin{ejemplo}[label=ej:bf-mapa1]{Un mapa que se calcula exactamente}
+Para $\dot x_1=x_2-x_1(x_1^2+x_2^2-1)$, $\dot x_2=-x_1-x_2(x_1^2+x_2^2-1)$, con $\Sigma$ el semieje $x_1>0$, calcule el mapa de Poincaré, muestre que hay una sola órbita periódica y clasifíquela \citep[Ejemplo~8.7.1]{Str15}.
+\solucion En polares, $\dot r=r(1-r^2)$ y $\dot\theta=-1$: toda trayectoria vuelve a $\Sigma$ exactamente después de $\tau=2\pi$. Separando variables,
+\[
+  \int_{r_0}^{r}\Bigl[\frac1s+\frac{s}{1-s^2}\Bigr]\dif s=t
+  \quad\Longrightarrow\quad
+  \frac1{r(t)^2}-1=\Bigl(\frac1{r_0^2}-1\Bigr)e^{-2t},
+\]
+y con $t=2\pi$,
+\[
+  P(r_0)=\Bigl[1+\Bigl(\frac1{r_0^2}-1\Bigr)e^{-4\pi}\Bigr]^{-1/2} .
+\]
+El único punto fijo positivo es $r_0=1$ (si $P(r_0)=r_0$, entonces $(r_0^{-2}-1)(e^{-4\pi}-1)=0$). Derivando, $P'(1)=e^{-4\pi}\approx3.49\times10^{-6}<1$: el círculo unitario es un ciclo límite estable, y la distancia al ciclo se reduce en un factor de casi trescientos mil por vuelta.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:bf-mapa2]{Un ciclo que nace en una Hopf, visto con el mapa}
+Para $\dot x_1=\mu x_1+x_2-x_1\sqrt{x_1^2+x_2^2}$, $\dot x_2=-x_1+\mu x_2-x_2\sqrt{x_1^2+x_2^2}$, con $\mu>0$ y $\Sigma$ el semieje $x_1>0$, obtenga $P$ y estudie la sucesión que arranca en $r_0<\mu$ \citep[\S13.2]{JoSm07}.
+\solucion Es la \cref{prop:bf-radial} con $g(r)=r$: en polares, $\dot r=r(\mu-r)$ y $\dot\theta=-1$. La ecuación radial es logística, con solución $r(t)=\mu r_0/\bigl(r_0+(\mu-r_0)e^{-\mu t}\bigr)$, y el retorno ocurre en $2\pi$:
+\[
+  P(r_0)=\frac{\mu r_0}{r_0+(\mu-r_0)e^{-2\pi\mu}} ,\qquad P(\mu)=\mu,\qquad P'(\mu)=e^{-2\pi\mu} .
+\]
+Con $\mu=0.2$, $P'(\mu)=e^{-0.4\pi}=0.2846$: la sucesión de Poincaré se acerca a $r=\mu$ desde adentro, monótonamente, y la distancia se multiplica por $0.28$ en cada vuelta (\cref{fig:bf-seccion}, derecha). Cuando $\mu\to0^+$, $P'(\mu)\to1$: el ciclo que nace en la Hopf es apenas atractor. Es la versión discreta de la convergencia lenta de la \cref{tr:bf-centro}.
+\end{ejemplo}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej11_MapaPoincare.m}{mapa}{El mapa del \cref{ej:bf-mapa2}: fórmula contra simulación, y la telaraña}
+
+\subsection{El multiplicador sin resolver la ecuación}
+
+En los dos ejemplos el mapa salió de una solución explícita. En general no hay tal cosa, pero en el plano el multiplicador se puede calcular sin conocer $P$.
+
+\begin{teorema}[label=thm:bf-divergencia]{El multiplicador en el plano \citep[\S3.4, Teorema~2]{Per01}}
+Sea $\gamma(t)$ una órbita periódica de período $T$ de $\dot x=f(x)$, $f\in\Cont1(\R^2)$. Entonces, para cualquier sección transversal,
+\[
+  P'(q^*)=\exp\Bigl(\int_0^T\nabla\cdot f\bigl(\gamma(t)\bigr)\,\dif t\Bigr),\qquad \nabla\cdot f=\frac{\partial f_1}{\partial x_1}+\frac{\partial f_2}{\partial x_2} .
+\]
+En particular, $\gamma$ es estable si $\int_0^T\nabla\cdot f\,\dif t<0$ e inestable si es $>0$.
+\end{teorema}
+
+\notamargen{La divergencia mide cómo cambia el área de una nube de condiciones iniciales (\cref{thm:oc-bendixson} usa la misma cantidad). A lo largo del ciclo, una dirección (la tangente) no se contrae ni se expande; lo que se acumula es el cambio en la otra, que es el multiplicador. Es un caso particular de la teoría de Floquet.}
+
+En el \cref{ej:bf-mapa2}, $\nabla\cdot f=2\mu-3r$, que sobre el ciclo $r=\mu$ vale $-\mu$; integrando durante $T=2\pi$, $P'(\mu)=e^{-2\pi\mu}$, como antes. Lo valioso es que también funciona cuando solo se tiene el ciclo numérico.
+
+\begin{ejemplo}[label=ej:bf-vdp]{El mapa de Poincaré de van der Pol}
+Para el circuito \eqref{eq:bf-circuito} con $\mu=1$ (van der Pol) y $\Sigma=\{x_2=0,\ x_1>0\}$, calcule numéricamente el punto fijo y el multiplicador.
+\solucion Sobre $\Sigma$, $\dot x_2=-x_1<0$: el flujo cruza transversalmente, hacia abajo. Se integra desde $(q,0)$ hasta el siguiente cruce de $x_2=0$ hacia abajo (con un evento de \texttt{ode45}), y eso define $P(q)$. Una búsqueda de raíces de $P(q)-q$ da $q^*=1.1081$ (no es el máximo de $x_1$ sobre el ciclo, que es $1.160$ y ocurre fuera de $\Sigma$), con tiempo de retorno $6.663$, el período. Con diferencias finitas, $P'(q^*)=8.60\times10^{-4}$, que coincide con $\exp\int_0^T(1-3x_1^2)\,\dif t$ calculado a lo largo del ciclo: el ciclo de van der Pol es muy atractor. Y el tiempo de retorno cambia con $q$: desde $q=0.5$ y desde $q=2.5$ no es el mismo.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_vdp_poincare}
+\caption{El mapa de Poincaré de van der Pol ($\mu=1$) en $\Sigma=\{x_2=0,\ x_1>0\}$. Izquierda: tres trayectorias y sus cruces con $\Sigma$. Centro: la gráfica de $P$ (casi plana cerca del punto fijo: $P'(q^*)\approx10^{-3}$) y la telaraña desde $q=0.2$. Derecha: el tiempo de retorno $\tau(q)$, que no es constante.}
+\label{fig:bf-vdp}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej12_PoincareVanDerPol.m}{vdp}{Mapa de Poincaré numérico de van der Pol y su multiplicador por dos caminos}
+
+\video{V6_4_poincare}{La sucesión de Poincaré de van der Pol}
+
+\begin{trampa}[label=tr:bf-retorno]{``El tiempo entre retornos es constante''}
+\plausible{En los dos ejemplos el retorno ocurre siempre en $2\pi$, y como el sistema es invariante en el tiempo, el tiempo de una vuelta debería ser siempre el mismo.}
+Que el sistema sea invariante en el tiempo quiere decir que el instante en que se \emph{empieza} no importa, no que todas las vueltas duren lo mismo. En los ejemplos el tiempo de retorno es constante porque $\dot\theta$ no depende de $r$. En van der Pol depende de $q$, y en general $\tau(q)$ es una función, igual al período solo en el punto fijo.
+\correcto{$P(q)=\flujo{\tau(q)}q$ con $\tau$ que depende de $q$. Para calcular $P$ numéricamente se usa un evento que detecte el cruce de $\Sigma$, no un tiempo fijo.}
+\end{trampa}
+
+\begin{trampa}[label=tr:bf-uno]{``$P'(q^*)=1$: el ciclo es neutral, como un centro''}
+\plausible{Si el multiplicador es $1$, las trayectorias vecinas no se acercan ni se alejan, así que el ciclo está rodeado de órbitas cerradas.}
+$P'(q^*)=1$ es el caso en que la linealización del mapa no decide, igual que un valor propio nulo. En el ciclo semiestable de \eqref{eq:bf-pliegue} con $\mu=0$ el multiplicador es $1$ (sobre $r=1$, $\partial\dot r/\partial r=0$), y el ciclo atrae desde adentro y repele hacia afuera. Y en el \cref{ej:bf-mapa2}, $P'(\mu)\to1$ cuando el ciclo nace. Deciden los términos de orden superior de $P$.
+\correcto{$\abs{P'(q^*)}=1$ marca un ciclo no hiperbólico: el candidato a una bifurcación de ciclos. Para clasificarlo hay que mirar $P''$ (o más).}
+\end{trampa}
+
+Los mapas de Poincaré son aún más útiles en sistemas forzados periódicamente, $\dot x=f(t,x)$ con $f(t+T,x)=f(t,x)$: allí el plano de fase no sirve (las trayectorias se cruzan, porque el campo cambia con el tiempo), pero el \clave{mapa estroboscópico} $x(kT)\mapsto x\bigl((k+1)T\bigr)$ es un mapa invariante en el tiempo. Una solución periódica del sistema forzado es un punto fijo del mapa, y el caos del Duffing forzado (\cref{tr:bi-caos}) se ve como una nube de puntos con estructura fractal. Otra técnica para estudiar la estabilidad de órbitas periódicas, la de Floquet, linealiza el sistema a lo largo del ciclo y estudia la matriz de transición resultante \citep[cap.~7]{Sas99}; en el plano, el \cref{thm:bf-divergencia} es su resultado principal.
+
+\begin{pausa}
+En la \cref{fig:bf-seccion}, si se hubiera escogido otra sección $\Sigma'$, el punto fijo sería otro, $B'$. ¿Cambia el multiplicador?
+\respuesta{No. El punto fijo depende de la sección (es donde $\Sigma'$ corta al ciclo), pero el multiplicador no: el \cref{thm:bf-divergencia} lo expresa con una integral sobre el ciclo completo, que no depende de dónde se corte. Más en general, los mapas de dos secciones distintas son conjugados por el flujo entre ellas, y los mapas conjugados tienen la misma derivada en el punto fijo.}
+\end{pausa}

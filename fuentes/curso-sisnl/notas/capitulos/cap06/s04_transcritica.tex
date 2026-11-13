@@ -1,0 +1,92 @@
+%% ---------------------------------------------------------------------
+\section{Transcrítica y horquilla, y por qué son frágiles}
+\label{sec:bf-transcritica}
+%% ---------------------------------------------------------------------
+
+\subsection{Intercambio de estabilidad: la transcrítica}
+
+Hay modelos en los que un equilibrio existe para todo valor del parámetro: el número de fotones en un láser, una población o una concentración nula siguen siéndolo pase lo que pase. Ese equilibrio no puede desaparecer en una silla-nodo, pero sí puede cambiar de estabilidad. La forma normal es
+\begin{equation}
+  \dot x=\mu x-x^2 .
+  \label{eq:bf-tc}
+\end{equation}
+Sus equilibrios son $\eq=0$ y $\eq=\mu$, con $f_x(0)=\mu$ y $f_x(\mu)=-\mu$. Para $\mu<0$ el origen es estable y $\mu$ inestable; para $\mu>0$ es al revés. Las dos ramas se cruzan en $\mu=0$ e \alerta{intercambian su estabilidad} (\cref{fig:bf-tc}): es la \clave{bifurcación transcrítica}. A diferencia de la silla-nodo, ningún equilibrio desaparece.
+
+\begin{ejemplo}[label=ej:bf-laser]{El umbral de un láser}
+En un láser de estado sólido, una fuente externa ``bombea'' los átomos a un estado excitado; cada fotón que pasa estimula a un átomo excitado a emitir otro (ganancia), y los fotones escapan por los espejos (pérdida). Con $n(t)$ el número de fotones, $N(t)$ el de átomos excitados, $G>0$ la ganancia y $k>0$ la tasa de pérdida, $\dot n=GnN-kn$. Cada emisión devuelve un átomo a su estado base, así que $N$ baja con $n$: en un modelo simplificado, $N=N_0-\alpha n$, con $N_0$ el número de átomos excitados por el bombeo cuando no hay acción láser \citep[\S3.3]{Str15}. Encuentre el umbral del láser.
+\solucion Reemplazando,
+\[
+  \dot n=(GN_0-k)\,n-\alpha G\,n^2 ,
+\]
+que es \eqref{eq:bf-tc} con parámetro $GN_0-k$ y un cambio de escala. $n=0$ es equilibrio para todo $N_0$, con $f_n(0)=GN_0-k$. Si $N_0<k/G$, el origen es estable: no hay emisión estimulada y el dispositivo es una lámpara. En $N_0=k/G$ hay una transcrítica, y para $N_0>k/G$ el origen es inestable y aparece el equilibrio estable $n^*=(GN_0-k)/(\alpha G)>0$: el láser emite. $N_0=k/G$ es el \clave{umbral del láser}. El otro equilibrio, $n^*<0$ para $N_0<k/G$, no tiene sentido físico, pero su existencia es la que obliga a la transcrítica.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_transcritica}
+\caption{Izquierda: $\dot x=\mu x-x^2$, con las dos ramas que se cruzan e intercambian la estabilidad. Derecha: el umbral del láser, $n^*$ contra el bombeo $N_0$ (con $G=k=1$, $\alpha=\tfrac12$); la rama negativa es la que no tiene sentido físico.}
+\label{fig:bf-tc}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej3_Transcritica.m}{laser}{El láser: número de fotones en régimen permanente contra el bombeo}
+
+\subsection{Simetría: las horquillas}
+
+Cuando el problema tiene una simetría izquierda--derecha, como la columna que puede pandearse hacia cualquiera de los dos lados, los equilibrios aparecen y desaparecen en pares simétricos. La forma normal de la \clave{horquilla supercrítica} es
+\begin{equation}
+  \dot x=\mu x-x^3 ,
+  \label{eq:bf-pf}
+\end{equation}
+que no cambia al reemplazar $x$ por $-x$: esa invariancia es la expresión matemática de la simetría. Para $\mu<0$ el origen es el único equilibrio y es estable; para $\mu>0$ es inestable y aparecen dos equilibrios estables, $\pm\sqrt\mu$, con $f_x(\pm\sqrt\mu)=-2\mu$ (\cref{fig:bf-pf}, izquierda). En $\mu=0$ el origen es estable pero no exponencialmente: $\dot x=-x^3$ decae como $1/\sqrt t$.
+
+Si el término cúbico desestabiliza, $\dot x=\mu x+x^3$, se tiene la \clave{horquilla subcrítica}: los equilibrios $\pm\sqrt{-\mu}$ existen para $\mu<0$ y son \emph{inestables} ($f_x=-2\mu>0$); son el borde de la cuenca del origen, $(-\sqrt{-\mu},\sqrt{-\mu})$, que se encoge y desaparece en $\mu=0$. Para $\mu>0$ todas las soluciones con $x_0\neq0$ escapan, en tiempo finito en esta forma normal truncada. En un sistema físico algo detiene el crecimiento; el modelo más simple agrega un término quíntico estabilizante:
+\begin{equation}
+  \dot x=\mu x+x^3-x^5 .
+  \label{eq:bf-quintica}
+\end{equation}
+Sus equilibrios no nulos cumplen $x^2=\tfrac12\bigl(1\pm\sqrt{1+4\mu}\bigr)$, y hay dos sillas-nodo simétricas en $\mu=-\tfrac14$, $x=\pm1/\sqrt2$ (\cref{fig:bf-pf}, derecha). Para $-\tfrac14<\mu<0$ coexisten tres estados estables: el origen y las dos ramas grandes. Si $\mu$ sube desde valores negativos, el estado se queda en el origen hasta $\mu=0$ y allí \alerta{salta} a una rama grande; si después $\mu$ baja, se queda en la rama grande hasta $\mu=-\tfrac14$ y solo entonces cae al origen. Es una \clave{histéresis}, la misma del diodo túnel. Con $\mu=-0.1$, la rama estable está en $x=0.9420$ y la inestable en $x=0.3357$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_horquillas}
+\caption{Izquierda: horquilla supercrítica $\dot x=\mu x-x^3$. Centro: subcrítica $\dot x=\mu x+x^3$; las ramas inestables limitan la cuenca del origen. Derecha: subcrítica con término quíntico \eqref{eq:bf-quintica}; las flechas recorren el ciclo de histéresis entre $\mu=-\tfrac14$ y $\mu=0$.}
+\label{fig:bf-pf}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej4_Horquillas.m}{quintica}{Barrido lento de $\mu$ en la horquilla subcrítica con término quíntico: el ciclo de histéresis}
+
+\begin{trampa}[label=tr:bf-subcritica]{``Pasado $\mu=0$, el estado se va a la rama $\pm\sqrt{-\mu}$''}
+\plausible{En la supercrítica, al cruzar $\mu=0$ el estado pasa del origen a una de las ramas que nacen; en la subcrítica debe pasar algo parecido.}
+En la subcrítica las ramas $\pm\sqrt{-\mu}$ existen del \emph{otro} lado ($\mu<0$), son inestables y se funden con el origen justo en $\mu=0$. Pasado ese valor no queda ningún atractor cerca: el estado se va lejos, al infinito en la forma normal o a otra rama (la quíntica) en un sistema con más términos. Y no regresa al bajar $\mu$ un poco.
+\correcto{Supercrítica: el atractor cambia continuamente con $\mu$ (bifurcación \clave{segura} o \emph{suave}). Subcrítica: el atractor desaparece y el estado salta a otro lejano (bifurcación \clave{peligrosa} o \emph{dura}), casi siempre con histéresis \citep[\S2.7]{Kha02}.}
+\end{trampa}
+
+\subsection{Cuáles sobreviven a una perturbación}
+
+Los modelos nunca son exactos. ¿Qué pasa si al campo se le suma una constante pequeña $\varepsilon$, que representa una imperfección? La \cref{fig:bf-imperfectas} lo muestra:
+\begin{itemize}
+  \item \emph{Silla-nodo:} $\dot x=\mu-x^2+\varepsilon$ es la misma bifurcación, corrida a $\mu=-\varepsilon$. Sobrevive.
+  \item \emph{Transcrítica:} $\dot x=\mu x-x^2+\varepsilon$ tiene equilibrios $x=\tfrac12\bigl(\mu\pm\sqrt{\mu^2+4\varepsilon}\bigr)$. Si $\varepsilon>0$ el discriminante es siempre positivo y las dos ramas ya no se tocan; si $\varepsilon<0$ se convierte en dos sillas-nodo, en $\mu=\pm2\sqrt{-\varepsilon}$ ($\pm0.69$ con $\varepsilon=-0.12$). Se deshace.
+  \item \emph{Horquilla:} $\dot x=\mu x-x^3+h$ se parte en una rama continua y una silla-nodo aislada, en $\mu=3(h/2)^{2/3}$ ($0.4072$ con $h=0.1$). Se deshace.
+\end{itemize}
+Solo la silla-nodo (y, en el plano, la de Hopf) es \clave{genérica}: aparece en una familia de un parámetro cualquiera y sobrevive a perturbaciones. La transcrítica y la horquilla necesitan una estructura del modelo que \emph{prohíba} la perturbación que las destruiría: la transcrítica, que $x=0$ sea un equilibrio para todo $\mu$ (por eso aparece en poblaciones, concentraciones y fotones, donde el cero es físico); la horquilla, la simetría $x\mapsto-x$. Una columna real nunca es perfectamente recta, y por eso se pandea siempre hacia el mismo lado, el de su imperfección.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_imperfectas}
+\caption{Bifurcaciones imperfectas. Gris: sin perturbación. La silla-nodo solo se corre; la transcrítica se separa en dos ramas que no se tocan ($\varepsilon>0$) o en dos sillas-nodo ($\varepsilon<0$); la horquilla se parte en una rama continua y una silla-nodo aislada.}
+\label{fig:bf-imperfectas}
+\end{figure}
+
+\codigorepo{cap06_bifurcaciones/C6_Ej5_Imperfectas.m}{imperfecta}{Las tres bifurcaciones con una imperfección $\varepsilon$}
+
+\begin{trampa}[label=tr:bf-generica]{``La transcrítica y la horquilla son tan comunes como la silla-nodo''}
+\plausible{Las tres aparecen en el mismo catálogo, con formas normales igual de simples.}
+Las formas normales son simples porque ya traen la estructura: $\dot x=\mu x-x^2$ deja fijo el cero y $\dot x=\mu x-x^3$ es impar. Sin esa estructura, una perturbación arbitraria las convierte en sillas-nodo o en ramas que no se cruzan.
+\correcto{Antes de nombrar una transcrítica o una horquilla, identifique qué propiedad del modelo la protege: un equilibrio que existe para todo $\mu$, o una simetría. Si no la encuentra, lo que tiene es (casi seguro) una silla-nodo o una imperfección.}
+\end{trampa}
+
+\begin{pausa}
+En el modelo del láser, ¿por qué la bifurcación es transcrítica y no silla-nodo? ¿Qué pasaría si hubiera un poco de emisión espontánea, $\dot n=(GN_0-k)n-\alpha Gn^2+\varepsilon$ con $\varepsilon>0$ pequeño?
+\respuesta{Porque $n=0$ es equilibrio para todo $N_0$: sin fotones no hay emisión estimulada. Con emisión espontánea, $n=0$ deja de ser equilibrio ($\dot n=\varepsilon>0$), la transcrítica se deshace en dos ramas separadas, y el umbral deja de ser nítido: la potencia de salida crece de manera suave, aunque rápida, alrededor de $N_0=k/G$. Es lo que se mide en un láser real.}
+\end{pausa}

@@ -237,6 +237,7 @@ window.Quarto = {
   <li><a href="#parte-3-fundamentos-matemáticos" id="toc-parte-3-fundamentos-matemáticos" class="nav-link" data-scroll-target="#parte-3-fundamentos-matemáticos">Parte 3 · Fundamentos matemáticos</a></li>
   <li><a href="#parte-4-sistemas-bidimensionales" id="toc-parte-4-sistemas-bidimensionales" class="nav-link" data-scroll-target="#parte-4-sistemas-bidimensionales">Parte 4 · Sistemas bidimensionales</a></li>
   <li><a href="#parte-5-órbitas-osciladores-y-ciclos-límite" id="toc-parte-5-órbitas-osciladores-y-ciclos-límite" class="nav-link" data-scroll-target="#parte-5-órbitas-osciladores-y-ciclos-límite">Parte 5 · Órbitas, osciladores y ciclos límite</a></li>
+  <li><a href="#parte-6-bifurcaciones" id="toc-parte-6-bifurcaciones" class="nav-link" data-scroll-target="#parte-6-bifurcaciones">Parte 6 · Bifurcaciones</a></li>
   <li><a href="#parte-7-estabilidad-de-lyapunov" id="toc-parte-7-estabilidad-de-lyapunov" class="nav-link" data-scroll-target="#parte-7-estabilidad-de-lyapunov">Parte 7 · Estabilidad de Lyapunov</a></li>
   <li><a href="#parte-11-pasividad" id="toc-parte-11-pasividad" class="nav-link" data-scroll-target="#parte-11-pasividad">Parte 11 · Pasividad</a></li>
   <li><a href="#parte-12-linealización-por-retroalimentación" id="toc-parte-12-linealización-por-retroalimentación" class="nav-link" data-scroll-target="#parte-12-linealización-por-retroalimentación">Parte 12 · Linealización por retroalimentación</a></li>
@@ -409,6 +410,41 @@ window.Quarto = {
 </tbody>
 </table>
 <p>Los videos de las partes 3 y 5 todavía no se han grabado: los scripts están listos y, cuando se graben, basta con copiar los <code>.mp4</code> a <code>sitio/videos/</code> y convertir el nombre en enlace.</p>
+</section>
+<section id="parte-6-bifurcaciones" class="level2">
+<h2 class="anchored" data-anchor-id="parte-6-bifurcaciones">Parte 6 · Bifurcaciones</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Video</th>
+<th style="text-align: left;">Qué muestra</th>
+<th style="text-align: left;">Script</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span id="V6_1_cuello_botella"></span><a href="videos/V6_1_cuello_botella.mp4">V6.1 · Cuello de botella</a></td>
+<td style="text-align: left;">El fantasma de la silla-nodo: la pausa crece como <span class="math inline">\(\pi/\sqrt{|\mu|}\)</span>.</td>
+<td style="text-align: left;"><code>C6_Video_CuelloBotella.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span id="V6_2_hopf"></span><a href="videos/V6_2_hopf.mp4">V6.2 · Nace un ciclo</a></td>
+<td style="text-align: left;">Los valores propios cruzan el eje imaginario y aparece el ciclo del circuito.</td>
+<td style="text-align: left;"><code>C6_Video_Hopf.m</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span id="V6_3_histeresis_ciclos"></span><a href="videos/V6_3_histeresis_ciclos.mp4">V6.3 · Histéresis de ciclos</a></td>
+<td style="text-align: left;">Rampa lenta de <span class="math inline">\(\mu\)</span>: el salto llega tarde y el regreso ocurre en <span class="math inline">\(-1/4\)</span>.</td>
+<td style="text-align: left;"><code>C6_Video_Histeresis.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span id="V6_4_poincare"></span><a href="videos/V6_4_poincare.mp4">V6.4 · Sucesión de Poincaré</a></td>
+<td style="text-align: left;">Los cruces de van der Pol con <span class="math inline">\(\Sigma\)</span> y la telaraña del mapa.</td>
+<td style="text-align: left;"><code>C6_Video_Poincare.m</code></td>
+</tr>
+</tbody>
+</table>
+<p>Los cuatro videos de la parte 6 están publicados: se generaron con <code>herramientas/cap06_videos.py</code> (los mismos modelos y parámetros que los <code>C6_Video_*</code>).</p>
 </section>
 <section id="parte-7-estabilidad-de-lyapunov" class="level2">
 <h2 class="anchored" data-anchor-id="parte-7-estabilidad-de-lyapunov">Parte 7 · Estabilidad de Lyapunov</h2>

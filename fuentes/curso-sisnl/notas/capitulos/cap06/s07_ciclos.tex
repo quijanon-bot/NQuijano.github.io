@@ -1,0 +1,68 @@
+%% ---------------------------------------------------------------------
+\section{Bifurcaciones de órbitas periódicas}
+\label{sec:bf-ciclos}
+%% ---------------------------------------------------------------------
+
+Los ciclos límite también nacen y mueren, y no siempre en un equilibrio. Ya vimos uno: en \eqref{eq:bf-histeresis}, en $\mu=-\tfrac14$, un ciclo estable y uno inestable chocan y desaparecen lejos de cualquier equilibrio. Esas bifurcaciones \alerta{no se ven en los valores propios de ningún jacobiano}: el origen sigue siendo un foco estable a ambos lados de $\mu=-\tfrac14$. Para estudiarlas se necesita el mapa de Poincaré de la \cref{sec:bf-poincare}. Aquí describimos las tres más comunes en el plano \citep[\S8.4]{Str15}.
+
+\subsection{Silla-nodo de ciclos}
+
+Es la versión para ciclos de la silla-nodo: dos ciclos, uno estable y otro inestable, se acercan, se funden en un ciclo semiestable y desaparecen. Un ejemplo con todo explícito es \citep[cap.~7]{Sas99}
+\begin{equation}
+\begin{aligned}
+  \dot x_1&=-x_1\sin\mu-x_2\cos\mu+(1-x_1^2-x_2^2)^2\,(x_1\cos\mu-x_2\sin\mu),\\
+  \dot x_2&=\phantom{-}x_1\cos\mu-x_2\sin\mu+(1-x_1^2-x_2^2)^2\,(x_1\sin\mu+x_2\cos\mu),
+\end{aligned}
+\label{eq:bf-pliegue}
+\end{equation}
+que en polares es
+\[
+  \dot r=r\bigl((1-r^2)^2\cos\mu-\sin\mu\bigr),\qquad \dot\theta=(1-r^2)^2\sin\mu+\cos\mu .
+\]
+Para $\mu$ pequeño, $\dot\theta\approx1$. Si $\mu<0$, $\dot r>0$ para todo $r>0$: el origen es inestable y todas las soluciones se van al infinito. En $\mu=0$, $\dot r=r(1-r^2)^2\ge0$ y aparece un ciclo semiestable $r=1$ (atrae desde adentro, repele hacia afuera). Si $0<\mu<\pi/4$, los ciclos son las raíces de $(1-r^2)^2=\tan\mu$:
+\[
+  r=\sqrt{1\pm\sqrt{\tan\mu}} ,
+\]
+que con $\mu=0.1$ son $0.8266$ (estable) y $1.1475$ (inestable). Recorrida hacia $\mu$ decreciente, el ciclo estable choca con el inestable en $\mu=0$ y desaparece, y el estado, que estaba oscilando con amplitud finita, \alerta{se va al infinito} (\cref{fig:bf-pliegue}). Es una bifurcación peligrosa, y de nuevo no la anuncia ningún valor propio: el origen es un foco inestable a ambos lados.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap06/f_pliegue}
+\caption{La silla-nodo de ciclos \eqref{eq:bf-pliegue}. Izquierda: $\dot r$ contra $r$ para $\mu=-0.1$, $0$ y $0.1$. Centro: retrato con $\mu=0.1$, el ciclo estable (verde) dentro del inestable (coral). Derecha: diagrama de bifurcación de los radios.}
+\label{fig:bf-pliegue}
+\end{figure}
+
+\begin{trampa}[label=tr:bf-cielo]{``Esta es la catástrofe de cielo azul''}
+\plausible{Las diapositivas y la versión anterior de las notas llaman así a \eqref{eq:bf-pliegue}: un ciclo aparece ``de la nada'' al aumentar $\mu$.}
+Lo que ocurre en \eqref{eq:bf-pliegue} es una silla-nodo de ciclos (también llamada \emph{pliegue} de ciclos): los dos ciclos nacen juntos, con radio finito, de un ciclo semiestable. La \clave{catástrofe de cielo azul} es otra cosa, descubierta por Turaev y Shilnikov en 1995~\citep{TuSh95}: una órbita periódica cuyo período y longitud crecen sin cota al acercarse al valor crítico, y que desaparece sin chocar con nada. No puede ocurrir en el plano; necesita al menos tres dimensiones. Y la ``bifurcación de cielo azul'' de Abraham y Shaw es la silla-nodo de \emph{equilibrios} (\cref{sec:bf-sillanodo}).
+\correcto{En el plano, un ciclo que aparece con amplitud finita al lado de otro es una silla-nodo de ciclos. Los nombres con ``cielo azul'' son tres cosas distintas; conviene evitarlos o decir cuál se usa.}
+\end{trampa}
+
+\subsection{Período infinito y homoclínica}
+
+En las otras dos, el período del ciclo crece sin cota al acercarse al valor crítico.
+\begin{itemize}
+  \item \textbf{Silla-nodo en un ciclo invariante} (SNIC, o bifurcación de período infinito). Una silla-nodo de equilibrios ocurre \emph{sobre} el ciclo. Es el oscilador no uniforme $\dot\theta=\omega-a\sin\theta$ del \cref{cap:orbitas}: para $a<\omega$ la fase da vueltas con período $2\pi/\sqrt{\omega^2-a^2}$ (\eqref{eq:oc-periodo}; $10.06$ con $\omega=2$, $a=1.9$), en $a=\omega$ aparece un equilibrio semiestable sobre el círculo y la oscilación se detiene. El período diverge como $1/\sqrt{\omega-a}$: la firma del fantasma de la \cref{sec:bf-sillanodo}, ahora en cada vuelta. La amplitud, en cambio, no se anula.
+  \item \textbf{Homoclínica.} El ciclo crece hasta tocar una silla y se convierte en una órbita que sale de la silla y vuelve a ella (una conexión entre sillas, como las que prohíbe el \cref{thm:bf-peixoto}). El período diverge como $\abs{\ln\abs{\mu-\mu_c}}$, más despacio que en la SNIC.
+\end{itemize}
+
+\begin{ideaclave}
+Cómo se apaga una oscilación, según lo que se mida al acercarse a $\mu_c$:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{bifurcación} & \textbf{amplitud} & \textbf{período}\\
+\midrule
+Hopf supercrítica & $\to0$ como $\sqrt{\abs{\mu-\mu_c}}$ & $\to2\pi/\omega_0$\\
+silla-nodo de ciclos & salto desde un valor finito & finito\\
+SNIC (período infinito) & finita & $\sim1/\sqrt{\abs{\mu-\mu_c}}$\\
+homoclínica & finita & $\sim\abs{\ln\abs{\mu-\mu_c}}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{ideaclave}
+
+\begin{pausa}
+En una simulación, una oscilación desaparece al cambiar un parámetro. Su amplitud no tiende a cero pero su período crece mucho justo antes. ¿Qué bifurcación descarta inmediatamente? ¿Cómo distinguiría entre las dos que quedan?
+\respuesta{Descarta la Hopf supercrítica (la amplitud iría a cero con período finito) y la silla-nodo de ciclos (el período queda finito). Quedan la SNIC y la homoclínica. Se distinguen por la ley de crecimiento del período: graficando $T$ contra $\ln\abs{\mu-\mu_c}$ (recta para la homoclínica) y $\log T$ contra $\log\abs{\mu-\mu_c}$ (pendiente $-\tfrac12$ para la SNIC). También por la forma del ciclo justo antes: en la SNIC aparece un punto donde el estado ``se detiene'' (el fantasma), en la homoclínica una esquina, la silla.}
+\end{pausa}

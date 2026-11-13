@@ -1,0 +1,50 @@
+%% ---------------------------------------------------------------------
+\section{Qué es exactamente lo que se rompe}
+\label{sec:bf-hiperbolicidad}
+%% ---------------------------------------------------------------------
+
+Sea $\eq_0$ un equilibrio de \eqref{eq:bf-familia} para $\mu=\mu_0$. ¿Sigue habiendo un equilibrio cerca de $\eq_0$ cuando $\mu$ se mueve un poco? La respuesta la da el teorema de la función implícita aplicado a $f(x,\mu)=0$.
+
+\begin{proposicion}[label=prop:bf-implicita]{Los equilibrios hiperbólicos se continúan}
+Si $f$ es de clase $\Cont1$ y $\jacat fx{(\eq_0,\mu_0)}$ es invertible (ningún valor propio nulo), existe una única función suave $\eq(\mu)$, definida para $\mu$ cerca de $\mu_0$, con $\eq(\mu_0)=\eq_0$ y $f(\eq(\mu),\mu)=0$. Si además $\eq_0$ es hiperbólico, $\eq(\mu)$ lo es para $\mu$ cerca de $\mu_0$ y conserva su tipo (mismo número de valores propios con parte real positiva y negativa).
+\end{proposicion}
+
+\begin{demostracion}
+La primera parte es el teorema de la función implícita. Para la segunda: los valores propios de $\jacat fx{(\eq(\mu),\mu)}$ dependen continuamente de $\mu$, así que ninguno puede pasar de un semiplano al otro sin tocar el eje imaginario, lo que no ocurre cerca de $\mu_0$ porque en $\mu_0$ están a una distancia positiva de él. Con Hartman--Grobman (\cref{thm:bi-hg}), el retrato local no cambia.
+\end{demostracion}
+
+La consecuencia es que, cerca de un equilibrio, el retrato solo puede cambiar de forma en un valor $\mu_c$ en el que el equilibrio \alerta{deja de ser hiperbólico}: algún valor propio de la jacobiana toca el eje imaginario. Eso es, por definición, una \clave{bifurcación local}. En $\R^2$, con $\tau=\tr J$ y $\delta=\det J$ (\cref{thm:bi-trazadet}), solo hay dos maneras de tocar el eje imaginario:
+\begin{description}
+  \item[Ruta 1] Un valor propio real pasa por cero: $\delta(\mu)\to0$. Por aquí ocurren las bifurcaciones silla-nodo, transcrítica y de horquilla.
+  \item[Ruta 2] Un par complejo conjugado cruza el eje: $\tau(\mu)\to0$ con $\delta>0$. Por aquí ocurre, y solo ella, la bifurcación de Hopf.
+\end{description}
+Buscar bifurcaciones locales en el plano es, entonces, seguir el punto $(\tau(\mu),\delta(\mu))$ de cada equilibrio en el plano traza--determinante y ver cuándo cruza el eje $\delta=0$ o la semirrecta $\{\tau=0,\ \delta>0\}$ (\cref{fig:bf-rutas}). No hace falta reconocer formas normales de memoria.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap06/f_rutas}
+\caption{El plano traza--determinante del \cref{cap:bidimensionales}, leído como mapa de bifurcaciones. La Ruta~1 cruza el eje $\delta=0$ (un valor propio real pasa por cero); la Ruta~2 cruza la semirrecta $\tau=0$, $\delta>0$ (un par complejo cruza el eje imaginario). Los caminos son los de la silla-nodo de la \cref{sec:bf-plano} y del circuito de la \cref{sec:bf-hopf}.}
+\label{fig:bf-rutas}
+\end{figure}
+
+\begin{receta}[Cinco pasos para encontrar y clasificar una bifurcación]
+\begin{enumerate}
+  \item \textbf{Equilibrios en función de $\mu$.} Resolver $f(\eq,\mu)=0$; contar cuántos hay y para qué $\mu$ aparecen o desaparecen.
+  \item \textbf{Jacobiano en cada rama.} $J(\mu)=\jacat fx{(\eq(\mu),\mu)}$ y sus invariantes $\tau(\mu)$, $\delta(\mu)$.
+  \item \textbf{Cruce.} Resolver $\delta(\mu)=0$ (Ruta~1) o $\tau(\mu)=0$ con $\delta>0$ (Ruta~2). Eso da $\mu_c$.
+  \item \textbf{Transversalidad.} Verificar que el cruce es limpio: el valor propio que cruza lo hace con velocidad no nula, $\dif\lambda/\dif\mu\neq0$ (Ruta~1, en la forma de la \cref{sec:bf-sillanodo}) o $\dif(\Re\lambda)/\dif\mu\neq0$ (Ruta~2).
+  \item \textbf{No degeneración.} El primer término no lineal que no se anula decide el tipo: cuadrático, silla-nodo; cúbico con simetría, horquilla; en Hopf, el signo del primer coeficiente de Lyapunov.
+\end{enumerate}
+Con los pasos 1 a 3 se sabe que ``hay algo en $\mu_c$''. Sin el 4 y el 5 no se sabe \emph{qué} hay, ni si el sistema queda a salvo o se va lejos. Casi todos los errores de este tema consisten en nombrar la bifurcación por el parecido del dibujo y saltarse esos dos pasos.
+\end{receta}
+
+\begin{trampa}[label=tr:bf-det]{``$\det J=0$ en $\mu_c$: hay una bifurcación''}
+\plausible{La \cref{prop:bf-implicita} dice que sin valor propio nulo no hay bifurcación; entonces con valor propio nulo sí la hay.}
+La proposición da una condición \emph{necesaria}, no suficiente. En $\dot x=\mu-x^3$, en $(x,\mu)=(0,0)$ la derivada $f_x=-3x^2$ se anula. Sin embargo, para todo $\mu$ hay un único equilibrio, $\eq=\mu^{1/3}$, que es siempre asintóticamente estable (para $\mu\neq0$, $f_x(\eq)=-3\mu^{2/3}<0$; para $\mu=0$, $\dot x=-x^3$). Los retratos para $\mu<0$, $\mu=0$ y $\mu>0$ son todos ``un punto que atrae'': topológicamente iguales. Falló el paso 4: $f_\mu=1\neq0$ pero el término $f_{xx}$ es cero, y el $f_{xxx}$ no basta para crear o destruir equilibrios sin simetría.
+\correcto{$\delta(\mu_c)=0$ (o $\tau(\mu_c)=0$ con $\delta>0$) es necesario para una bifurcación local de un equilibrio. Para afirmar que la hay, y de qué tipo, se verifican la transversalidad y la no degeneración.}
+\end{trampa}
+
+\begin{pausa}
+En $\R^3$, ¿cuántas ``rutas'' hay para perder la hiperbolicidad con un solo parámetro?
+\respuesta{Las mismas dos: con un parámetro, lo genérico es que un valor propio real pase por cero o que un par complejo cruce el eje imaginario; los demás valores propios, en general, se quedan lejos. Que pasen dos cosas a la vez (por ejemplo, un cero doble) requiere ajustar dos parámetros: son bifurcaciones de codimensión dos (Bogdanov--Takens, cúspide), fuera del alcance de este curso \citep{Kuz04}. Lo que sí cambia en $\R^3$ es lo que puede pasar con las órbitas periódicas: además de las bifurcaciones de la \cref{sec:bf-ciclos}, aparece la duplicación de período, una de las rutas al caos.}
+\end{pausa}

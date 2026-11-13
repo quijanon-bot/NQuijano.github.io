@@ -1,0 +1,40 @@
+%% =====================================================================
+%%  Capítulo 6 -- Bifurcaciones
+%%  Formato nuevo (noviembre de 2026). Integra: Handout5.tex (versión anterior:
+%%  estabilidad estructural, bifurcaciones 1-D y 2-D, Hopf, "blue sky" y mapas
+%%  de Poincaré), las diapositivas Bifurcaciones2026 y sus complementos
+%%  pedagógicos (Bifurcaciones2D_Complementos: hiperbolicidad y las dos rutas,
+%%  receta de cinco pasos, el fantasma, el interruptor genético, genericidad,
+%%  Hopf completo, histéresis de ciclos, preguntas discriminantes) y los
+%%  scripts bif_*.m, BifEj*.m y Bifurcaciones80min_LiveScript.m, reescritos
+%%  en codigo/cap06_bifurcaciones.
+%%  Se agregaron: la condición de la función implícita, las condiciones de
+%%  Sotomayor, la horquilla escondida (variedad central con parámetro), el
+%%  coeficiente de Lyapunov, el retardo de la bifurcación con rampa lenta,
+%%  la fórmula de la divergencia para el multiplicador y el mapa de Poincaré
+%%  numérico de van der Pol. Correcciones: ver \S\ref{sec:bf-cierre}.
+%%  Números verificados con herramientas/cap06_numeros.py (125/125) y
+%%  codigo/cap06_bifurcaciones/verificarCap06.m (42/42 en Octave 8.4).
+%% =====================================================================
+
+\capitulo[cap:bifurcaciones]{Bifurcaciones}
+  {Otra consecuencia es que se está impulsando que la educación sea vista como una capacitación que solo conduce al trabajo, y no como un medio que conduce al pensamiento crítico y a la transformación.}
+  {Junot Díaz}
+
+\begin{objetivos}[partes/06-bifurcaciones.html]
+  \item Explicar qué es una bifurcación local como pérdida de hiperbolicidad, y reconocer en el plano traza--determinante las dos maneras en que puede ocurrir en $\R^2$.
+  \item Analizar las bifurcaciones silla-nodo, transcrítica y de horquilla (supercrítica y subcrítica) con líneas de fase y diagramas de bifurcación, y decidir cuáles sobreviven a una perturbación del modelo.
+  \item Seguir una receta de cinco pasos (equilibrios, jacobiano, cruce, transversalidad y no degeneración) para encontrar y clasificar bifurcaciones en sistemas planos, reduciendo a la variedad central cuando haga falta.
+  \item Enunciar el teorema de Hopf con todas sus hipótesis, distinguir la bifurcación supercrítica de la subcrítica con el primer coeficiente de Lyapunov o con una simulación, y explicar la histéresis que produce una subcrítica.
+  \item Construir el mapa de Poincaré de una órbita periódica, calcular su multiplicador (analíticamente o con la divergencia) y decidir con él la estabilidad del ciclo.
+\end{objetivos}
+
+\input{capitulos/cap06/s01_por_que}
+\input{capitulos/cap06/s02_hiperbolicidad}
+\input{capitulos/cap06/s03_sillanodo}
+\input{capitulos/cap06/s04_transcritica}
+\input{capitulos/cap06/s05_plano}
+\input{capitulos/cap06/s06_hopf}
+\input{capitulos/cap06/s07_ciclos}
+\input{capitulos/cap06/s08_poincare}
+\input{capitulos/cap06/s09_cierre}

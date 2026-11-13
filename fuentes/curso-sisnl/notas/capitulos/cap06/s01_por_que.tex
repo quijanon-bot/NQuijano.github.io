@@ -1,0 +1,59 @@
+%% ---------------------------------------------------------------------
+\section{¿Qué cambia cuando cambia un parámetro?}
+\label{sec:bf-porque}
+%% ---------------------------------------------------------------------
+
+Hasta aquí los parámetros de cada modelo estaban fijos, y la pregunta era qué hacen las trayectorias. Pero en ingeniería los parámetros se mueven: la temperatura cambia la característica de un resistor, una carga crece sobre una columna, un gen se degrada más rápido, la potencia que se bombea a un láser sube. Casi siempre un cambio pequeño de parámetro produce un cambio pequeño en el retrato de fase: los equilibrios se corren un poco y conservan su tipo. Este capítulo trata de las excepciones, los valores del parámetro donde un cambio arbitrariamente pequeño cambia la \emph{forma} del retrato: aparecen o desaparecen equilibrios, uno estable se vuelve inestable, nace una oscilación.
+
+El ejemplo clásico es una columna vertical con un peso encima \citep[\S3.0]{Str15}. Con poco peso la columna está recta, y si se la empuja vuelve a quedar recta. Al aumentar el peso nada cambia\dots{} hasta una carga crítica, a partir de la cual la posición recta deja de ser estable y la columna se pandea hacia un lado o hacia el otro. Nada en el modelo cambió de manera abrupta; solo un parámetro cruzó un valor. A ese fenómeno lo llamaremos bifurcación (de horquilla, en este caso, porque el estado recto se divide en dos ramas simétricas).
+
+Consideramos familias de sistemas
+\begin{equation}
+  \dot x=f(x,\mu),\qquad x\in\R^n,\quad \mu\in\R ,
+  \label{eq:bf-familia}
+\end{equation}
+\emph{invariantes en el tiempo} y con $f$ suave en $(x,\mu)$; $\mu$ es el \clave{parámetro de bifurcación}. Para decir con precisión qué significa ``cambiar la forma del retrato'' necesitamos comparar retratos.
+
+\begin{definicion}[label=def:bf-equivalencia]{Equivalencia topológica y estabilidad estructural}
+Dos sistemas $\dot x=f(x)$ y $\dot x=g(x)$ son \clave{topológicamente equivalentes} en una región si hay un homeomorfismo (una deformación continua con inversa continua) que lleva las trayectorias de uno a las del otro conservando el sentido del tiempo. Un campo $f$ es \clave{estructuralmente estable} si todo campo $g$ suficientemente cercano a $f$ (cerca en $f$ y en sus primeras derivadas) es topológicamente equivalente a $f$.
+\end{definicion}
+
+\notamargen{Es la misma noción de ``igual forma'' del teorema de Hartman--Grobman (\cref{thm:bi-hg}), pero ahora global y aplicada a la familia de todos los campos cercanos, no a la linealización.}
+
+El oscilador de Lotka--Volterra (\cref{sec:oc-lotka}) es el ejemplo típico de un campo estructuralmente \emph{inestable}: sus órbitas cerradas forman una familia continua alrededor de un centro, y cualquier perturbación que agregue un poco de fricción o de competencia intraespecífica las destruye. Andronov y Pontryagin caracterizaron en 1937 los campos estructuralmente estables en el disco, y Peixoto extendió el resultado a superficies compactas en 1962~\citep{AnPo37,Pei62}.
+
+\begin{teorema}[label=thm:bf-peixoto]{Andronov--Pontryagin \citep[\S4.3]{Per01}}
+Sea $f\in\Cont1$ en una región $D\subset\R^2$ cerrada y acotada, cuya frontera es una curva suave que el flujo cruza transversalmente (hacia adentro). Entonces $f$ es estructuralmente estable en $D$ si y solo si
+\begin{enumerate}
+  \item tiene un número finito de equilibrios y de órbitas periódicas, y todos son \alerta{hiperbólicos};
+  \item no hay trayectorias que conecten dos sillas (ni una silla consigo misma).
+\end{enumerate}
+\end{teorema}
+
+\notamargen{En el disco no hace falta una tercera condición que sí aparece en el teorema de Peixoto para superficies (que los únicos conjuntos límite sean equilibrios y órbitas periódicas): en el plano la garantiza el teorema de Poincaré--Bendixson (\cref{thm:oc-pb}).}
+
+Una órbita periódica es hiperbólica si su multiplicador (la derivada de su mapa de Poincaré, \cref{sec:bf-poincare}) no tiene valor absoluto~$1$. El teorema dice dónde mirar: un retrato del plano solo puede cambiar de forma cuando un equilibrio o una órbita periódica \emph{pierden la hiperbolicidad}, o cuando aparece una conexión entre sillas. Las dos primeras situaciones son locales y ocupan casi todo el capítulo; la tercera es global y se menciona en la \cref{sec:bf-ciclos}.
+
+\begin{definicion}[label=def:bf-bifurcacion]{Bifurcación}
+El valor $\mu_c$ es un \clave{valor de bifurcación} de \eqref{eq:bf-familia} si $f(\cdot,\mu_c)$ no es estructuralmente estable: hay valores de $\mu$ arbitrariamente cercanos a $\mu_c$ cuyos retratos no son topológicamente equivalentes al de $\mu_c$. El cambio cualitativo que ocurre al cruzar $\mu_c$ es una \clave{bifurcación}. La gráfica de los equilibrios (o de la amplitud de las órbitas periódicas) en función de $\mu$, con su estabilidad, es el \clave{diagrama de bifurcación}.
+\end{definicion}
+
+La \cref{fig:bf-mapa} muestra el recorrido del capítulo. Empezamos en la recta, donde todo se ve (\S\ref{sec:bf-sillanodo}--\ref{sec:bf-transcritica}); pasamos al plano usando la variedad central del \cref{cap:bidimensionales}, que muestra por qué el catálogo de la recta sirve también allí (\S\ref{sec:bf-plano}); vemos la única bifurcación genuinamente bidimensional de un equilibrio, la de Hopf (\S\ref{sec:bf-hopf}), y terminamos con las bifurcaciones de las órbitas periódicas y la herramienta para estudiarlas: el mapa de Poincaré (\S\ref{sec:bf-ciclos}--\ref{sec:bf-poincare}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap06/t_mapa_bif}
+\caption{Mapa del capítulo. Una bifurcación local es una pérdida de hiperbolicidad; en $\R^2$ hay dos maneras de perderla, y la no linealidad decide qué pasa después.}
+\label{fig:bf-mapa}
+\end{figure}
+
+\notamargen{\textbf{Ruta de las clases.} Semana~2 (10 de agosto): bifurcaciones en la recta, \S\ref{sec:bf-hiperbolicidad}--\ref{sec:bf-transcritica}. Semana~6 (9 de septiembre): introducción a los mapas de Poincaré. Semana~7 (14 de septiembre): bifurcaciones en el plano y Hopf, \S\ref{sec:bf-plano}--\ref{sec:bf-ciclos}; (16 de septiembre): mapas de Poincaré, \S\ref{sec:bf-poincare}.}
+
+\begin{historia}[Una palabra de Poincaré, un teorema de otro Hopf]
+El término \emph{bifurcación} lo introdujo Henri Poincaré en 1885, en su memoria sobre las figuras de equilibrio de una masa fluida en rotación~\citep{Poi1885}: al aumentar la velocidad de giro, la familia de elipsoides de equilibrio se \emph{divide} en dos. El pandeo de la columna es aún más viejo: Euler calculó la carga crítica en 1744. La bifurcación que lleva el nombre de Hopf la estudió Poincaré para sistemas planos, Andronov la usó en los años treinta para explicar cómo nacen las oscilaciones en los circuitos de radio~\citep{And29}, y Eberhard Hopf la probó en 1942 en dimensión arbitraria~\citep{Hop42}. Por eso Arnold y la escuela rusa la llaman de Andronov--Hopf. Cuidado con el nombre: el Hopf del teorema del índice del \cref{cap:orbitas} es Heinz Hopf~\citep{Hop35}, un topólogo; el de las bifurcaciones es Eberhard, un analista. No eran parientes.
+\end{historia}
+
+\begin{pausa}
+Antes de seguir, apueste: un sistema lineal $\dot x=A(\mu)x$, cuyos coeficientes dependen de $\mu$, ¿puede tener bifurcaciones? ¿Puede nacer en él un ciclo límite?
+\respuesta{Sí puede cambiar de forma: si un valor propio de $A(\mu)$ cruza el eje imaginario, el origen pasa, por ejemplo, de nodo estable a silla, o de foco estable a foco inestable, y en el cruce aparece una recta de equilibrios o un centro. Pero no puede nacer un ciclo límite: en un sistema lineal, si hay una órbita cerrada hay una familia continua de ellas (\cref{prop:oc-lineal}), y ninguna es aislada. Las bifurcaciones lineales son, además, degeneradas: en el valor crítico no queda claro qué pasa, y son los términos no lineales los que deciden. Eso es este capítulo.}
+\end{pausa}

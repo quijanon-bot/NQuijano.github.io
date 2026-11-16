@@ -71,7 +71,7 @@ El teorema convierte una pregunta sobre \emph{todas las soluciones} (que no cono
 
 \begin{ejemplo}[label=ej:ly-pendenergia]{El péndulo con la energía}
 Use $V=E$ \eqref{eq:ly-energia} en $\D=\{\abs{x_1}<\pi\}\times\R$.
-\solucion $V$ es definida positiva en $\D$ y $\Vdot=-b\,x_2^2$. Sin fricción, $\Vdot\equiv0$: el origen es estable. Con fricción, $\Vdot\le0$, pero se anula en todo el eje $x_2=0$, no solo en el origen: el \cref{thm:ly-directo} da \emph{solo estabilidad}. La \cref{fig:ly-energia} muestra por qué: $V(x(t))$ decrece con escalones, y se detiene cada vez que el péndulo llega a un extremo de su oscilación ($x_2=0$). Sabemos (por la simulación y por el \cref{thm:ly-indirecto}) que el origen es asintóticamente estable; para probarlo con la energía hace falta el principio de invarianza de LaSalle (capítulo~8). La \cref{sec:ly-cuadraticas} da otra salida: modificar $V$.
+\solucion $V$ es definida positiva en $\D$ y $\Vdot=-b\,x_2^2$. Sin fricción, $\Vdot\equiv0$: el origen es estable. Con fricción, $\Vdot\le0$, pero se anula en todo el eje $x_2=0$, no solo en el origen: el \cref{thm:ly-directo} da \emph{solo estabilidad}. La \cref{fig:ly-energia} muestra por qué: $V(x(t))$ decrece con escalones, y se detiene cada vez que el péndulo llega a un extremo de su oscilación ($x_2=0$). Sabemos (por la simulación y por el \cref{thm:ly-indirecto}) que el origen es asintóticamente estable; para probarlo con la energía hace falta el principio de invarianza de LaSalle (\cref{ej:iv-pendulo}). La \cref{sec:ly-cuadraticas} da otra salida: modificar $V$.
 \end{ejemplo}
 
 \begin{figure}[ht]
@@ -104,7 +104,7 @@ El \cref{thm:ly-directo} da condiciones \emph{suficientes}. Una candidata que fa
 \begin{trampa}[label=tr:ly-semidef]{``$\Vdot\le0$ y $\Vdot=0$ solo en algunos puntos: asintóticamente estable''}
 \plausible{Si $V$ casi siempre decrece, en algún momento tiene que llegar a cero.}
 El \cref{thm:ly-directo} con $\Vdot\le0$ da estabilidad y nada más. La frase es cierta en el péndulo con fricción, pero por una razón que el teorema no usa: ninguna solución puede \emph{quedarse} en el eje $x_2=0$ fuera del origen. En el péndulo sin fricción, con $V=E+x_2^4$ (también definida positiva), $\Vdot=4x_2^3(-a\sin x_1)$ cambia de signo; y con $V=E$, $\Vdot\equiv0$ y no hay convergencia.
-\correcto{Para pasar de $\Vdot\le0$ a estabilidad asintótica hay que estudiar qué soluciones pueden permanecer en $\{\Vdot=0\}$: es el principio de invarianza de LaSalle (capítulo~8).}
+\correcto{Para pasar de $\Vdot\le0$ a estabilidad asintótica hay que estudiar qué soluciones pueden permanecer en $\{\Vdot=0\}$: es el principio de invarianza de LaSalle (\cref{sec:iv-lasalle}).}
 \end{trampa}
 
 \begin{cuidado}[Lyapunov habla del origen]
@@ -113,5 +113,5 @@ El \cref{thm:ly-directo} decide sobre el equilibrio en el que $V$ tiene su míni
 
 \begin{pausa}
 Para $\dot x_1=x_2$, $\dot x_2=-x_1-x_2^3$, ¿qué concluye con $V=\tfrac12(x_1^2+x_2^2)$? ¿Y con el método indirecto?
-\respuesta{$\Vdot=x_1x_2+x_2(-x_1-x_2^3)=-x_2^4\le0$: solo estabilidad (se anula en el eje $x_2=0$). La jacobiana tiene $\lambda=\pm j$: el método indirecto no concluye nada. Con LaSalle (capítulo~8) se prueba que el origen es globalmente asintóticamente estable.}
+\respuesta{$\Vdot=x_1x_2+x_2(-x_1-x_2^3)=-x_2^4\le0$: solo estabilidad (se anula en el eje $x_2=0$). La jacobiana tiene $\lambda=\pm j$: el método indirecto no concluye nada. Con LaSalle (\cref{cor:iv-gas}) se prueba que el origen es globalmente asintóticamente estable.}
 \end{pausa}

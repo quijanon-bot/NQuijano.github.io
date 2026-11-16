@@ -1,0 +1,87 @@
+%% ---------------------------------------------------------------------
+\section{El método de Krasovskii}
+\label{sec:iv-krasovskii}
+%% ---------------------------------------------------------------------
+
+La idea de Krasovskii es medir la ``energía'' no del estado sino de la \clave{velocidad}. Con $z=f(x)$, a lo largo de las soluciones
+\[
+  \dot z=\jac fx(x)\,\dot x=J(x)\,z,\qquad J(x)=\jac fx(x) .
+\]
+La velocidad obedece un sistema ``lineal'' con una matriz $J(x(t))$ que cambia con el tiempo. Si una forma cuadrática $z\T Pz$ decrece para \emph{todas} las matrices $J(x)$ que pueden aparecer, la velocidad se apaga y el sistema se detiene; si además el único lugar donde $f=0$ es el origen, se detiene allí.\notamargen{Para $f(x)=Ax$, $J=A$ y la condición del teorema es $A\T P+PA\le-R$: la ecuación de Lyapunov. La candidata es $V=x\T A\T PA\,x$.}
+
+\begin{teorema}[label=thm:iv-krasovskii]{Krasovskii \citep{Kra63}, \citep[ejercicios del cap.~4]{Kha02}}
+Sea $x=0$ un equilibrio de $\dot x=f(x)$, con $f:\D\to\R^n$ de clase $\Cont1$ y $\D$ un dominio \clave{convexo} que contiene al origen. Si existen $P=P\T>0$ y $R=R\T>0$ con
+\begin{equation}
+  J(x)\T P+PJ(x)\le-R\qquad\text{para todo }x\in\D,
+  \label{eq:iv-krasovskii}
+\end{equation}
+entonces: (i) el origen es el \clave{único equilibrio} en $\D$; (ii) el origen es asintóticamente estable, con función de Lyapunov $V(x)=f(x)\T Pf(x)$; (iii) si $\D=\R^n$, es globalmente asintóticamente estable.
+\end{teorema}
+
+\begin{demostracion}
+(i) Como $\D$ es convexo, el segmento $\{\sigma x:\ \sigma\in[0,1]\}$ está en $\D$, y $f(x)=\int_0^1J(\sigma x)\,x\dif\sigma$. Entonces
+\[
+  x\T Pf(x)=\int_0^1x\T PJ(\sigma x)\,x\dif\sigma=\tfrac12\int_0^1x\T\bigl(PJ(\sigma x)+J(\sigma x)\T P\bigr)x\dif\sigma\le-\tfrac12\,x\T Rx .
+\]
+Por Cauchy--Schwarz, $\lmax(P)\norm x\norm{f(x)}\ge\tfrac12\lmin(R)\norm x^2$, es decir
+\[
+  \norm{f(x)}\ge\kappa\norm x,\qquad \kappa=\frac{\lmin(R)}{2\lmax(P)}>0 ;
+\]
+en particular $f(x)\neq0$ si $x\neq0$. (ii) $V=f\T Pf\ge\lmin(P)\kappa^2\norm x^2$ es definida positiva, y
+\[
+  \Vdot=\dot z\T Pz+z\T P\dot z=f\T\bigl(J\T P+PJ\bigr)f\le-f\T Rf\le-\lmin(R)\,\kappa^2\norm x^2<0 .
+\]
+(iii) Si $\D=\R^n$, la cota $V\ge\lmin(P)\kappa^2\norm x^2$ muestra que $V$ es radialmente no acotada \emph{automáticamente}, y se aplica el \cref{thm:ly-bk}.
+\end{demostracion}
+
+Tres observaciones. En $x=0$ la condición dice que $J(0)\T P+PJ(0)<0$, es decir, que la linealización es Hurwitz; el valor del método está en que la condición se pide \alerta{de manera uniforme en $\D$}, y eso da una región y, si $\D=\R^n$, un resultado global. La convexidad (basta que $\D$ sea estrellado respecto al origen) se usa solo en (i); sin ella, $V=\norm f_P^2$ puede anularse en otro equilibrio dentro de $\D$. Y las cotas de la prueba dan estabilidad \emph{exponencial}: cerca del origen $V\le\lmax(P)L^2\norm x^2$, con $L$ la constante de Lipschitz de $f$, y se aplica el \cref{thm:ly-exp}.
+
+\begin{ejemplo}[label=ej:iv-k1]{El ejercicio del handout, resuelto}
+Pruebe que el origen de $\dot x_1=-3x_1+x_2$, $\dot x_2=x_1-x_2-x_2^3$ es globalmente asintóticamente estable.
+\solucion La jacobiana $J(x)=\bigl[\begin{smallmatrix}-3&1\\1&-1-3x_2^2\end{smallmatrix}\bigr]$ es simétrica, así que con $P=I$, $J\T P+PJ=2J$. Con $R=I$ hay que verificar $2J+I\le0$:
+\[
+  -(2J+I)=\begin{bmatrix}5&-2\\-2&1+6x_2^2\end{bmatrix},
+\]
+con menores principales $5>0$ y $5(1+6x_2^2)-4=1+30x_2^2>0$: es definida positiva para \emph{todo} $x\in\R^2$. Por el \cref{thm:iv-krasovskii} con $\D=\R^2$, el origen es globalmente asintóticamente estable, con
+\[
+  V(x)=\norm{f(x)}^2=(-3x_1+x_2)^2+(x_1-x_2-x_2^3)^2,\qquad \Vdot=2f\T Jf\le-\norm f^2 .
+\]
+Los niveles de $V$ no son elipses: el término cúbico los deforma (\cref{fig:iv-krasovskii}, izquierda). En el plano de velocidades $z=f(x)$, todas las soluciones se acercan al origen con $\norm{z(t)}$ decreciente (derecha).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_krasovskii}
+\caption{\Cref{ej:iv-k1}. Izquierda: niveles de $V=\norm{f(x)}^2$ y soluciones desde un círculo de radio $2.2$. Derecha: las mismas soluciones en el plano de velocidades $z=f(x)$; los círculos grises son niveles de $\norm z$.}
+\label{fig:iv-krasovskii}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej12_Krasovskii.m}{k1}{La condición \eqref{eq:iv-krasovskii} en una malla y el plano de velocidades}
+
+\begin{trampa}[label=tr:iv-PI]{``Krasovskii con $P=I$ falla, luego el origen no es asintóticamente estable''}
+\plausible{$P=I$ es la elección natural; si no funciona, el sistema no cumple la condición.}
+La condición es suficiente, y la elección de $P$ importa. Para el oscilador amortiguado $\dot x_1=x_2$, $\dot x_2=-x_1-x_2$, que es globalmente asintóticamente estable, con $P=I$ se tiene $J+J\T=\diag(0,-2)$: no existe $R>0$ con $J+J\T\le-R$. Con $P=\bigl[\begin{smallmatrix}1.5&0.5\\0.5&1\end{smallmatrix}\bigr]$, la solución de $A\T P+PA=-I$, la condición se cumple con $R=I$.
+\correcto{Un fracaso con un $P$ particular no dice nada sobre la estabilidad. En sistemas lineales, el $P$ correcto sale de la ecuación de Lyapunov; en no lineales, se busca (a veces con desigualdades matriciales lineales).}
+\end{trampa}
+
+\codigorepo{cap08_invarianza/C8_Ej12_Krasovskii.m}{matrizP}{$P=I$ contra el $P$ de la ecuación de Lyapunov}
+
+\begin{ejemplo}[label=ej:iv-k2]{$V=\norm f^2$ se anula en \emph{todos} los equilibrios}
+Para $\dot x_1=-x_1+x_1^3$, $\dot x_2=-x_2$, con equilibrios en el origen (nodo estable) y en $(\pm1,0)$ (sillas) y región de atracción exacta $\{\abs{x_1}<1\}$, aplique Krasovskii con $P=I$.
+\solucion $J+J\T=\diag(-2+6x_1^2,\ -2)$. En el dominio convexo $\D_r=\{\abs{x_1}<r\}$ con $r<1/\sqrt3$, la condición vale con $R=(2-6r^2)I>0$; en $\abs{x_1}=1/\sqrt3$ se pierde. En $\D_r$ el teorema da estabilidad asintótica con $V=(x_1-x_1^3)^2+x_2^2$. El mínimo de $V$ sobre $\abs{x_1}=r$ es $(r-r^3)^2$, que tiende a $4/27=0.148$ cuando $r\to1/\sqrt3$: para todo $c<4/27$, la componente de $\{V\le c\}$ que contiene al origen está en algún $\D_r$ y es un estimado válido.
+\end{ejemplo}
+
+\begin{trampa}[label=tr:iv-normaf]{``$V=\norm{f}^2$ es pequeña, luego el estado está cerca del origen''}
+\plausible{$V$ es definida positiva y mide la distancia al equilibrio.}
+$V(\pm1,0)=0$: $\{V\le c\}$ tiene \emph{tres} componentes, una alrededor de cada equilibrio (\cref{fig:iv-krasovskii-trampa}). El punto $(1.05,0)$ tiene $V=0.0116<0.12$ y escapa ($x_1=10$ en $t=1.18$). Fuera de $\D$, $V=\norm f^2$ no distingue un equilibrio estable de uno inestable: solo mide qué tan rápido se mueve el estado.
+\correcto{$V=f\T Pf$ es definida positiva \emph{en $\D$}, donde el origen es el único equilibrio. El estimado es la componente del origen, y solo mientras esté dentro de $\D$.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{cap08/f_krasovskii_trampa}
+\caption{\Cref{ej:iv-k2}. Azul: la componente válida de $\{V\le c\}$ ($c=0.12$). Gris: las componentes alrededor de las sillas. Punteadas: $\abs{x_1}=1/\sqrt3$, el límite de los dominios $\D_r$. Coral: $\abs{x_1}=1$, la frontera de la región de atracción. La solución verde converge aunque está fuera del estimado; la coral escapa.}
+\label{fig:iv-krasovskii-trampa}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej13_KrasovskiiTrampa.m}{k2}{$\norm f^2$ en las sillas y el estimado válido}

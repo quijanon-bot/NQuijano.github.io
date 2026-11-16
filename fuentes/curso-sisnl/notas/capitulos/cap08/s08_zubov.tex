@@ -1,0 +1,109 @@
+%% ---------------------------------------------------------------------
+\section{La ecuación de Zubov: la región de atracción exacta}
+\label{sec:iv-zubov}
+%% ---------------------------------------------------------------------
+
+El gradiente variable y Krasovskii dan \emph{estimados} conservadores de la región de atracción. Zubov cambia la pregunta: en lugar de buscar una $V$ cualquiera, impone la forma exacta de $\Vdot$ con una ecuación en derivadas parciales. Si la ecuación se resuelve con la condición de frontera adecuada, se obtiene la región de atracción \clave{exacta}.
+
+\begin{teorema}[label=thm:iv-zubov]{Zubov \citep{Zub64}, \citep[\S8.2]{Kha02}}
+Sea $x=0$ un equilibrio de $\dot x=f(x)$, con $f$ localmente Lipschitz, y $\D\subset\R^n$ un conjunto \clave{abierto} que contiene al origen. Suponga que existen $V:\D\to\R$ de clase $\Cont1$ y $h:\R^n\to\R$ continua tales que
+\begin{enumerate}
+  \item[(a)] $V(0)=0$ y $0<V(x)<1$ para $x\in\D\setminus\{0\}$;
+  \item[(b)] $h(0)=0$ y $h(x)>0$ para $x\neq0$;
+  \item[(c)] $V(x)\to1$ cuando $x\to\partial\D$, o cuando $\norm x\to\infty$ con $x\in\D$;
+  \item[(d)] se cumple la \clave{ecuación de Zubov}
+  \begin{equation}
+    \jac Vx(x)\,f(x)=-h(x)\bigl(1-V(x)\bigr),\qquad x\in\D .
+    \label{eq:iv-zubov}
+  \end{equation}
+\end{enumerate}
+Entonces el origen es asintóticamente estable y \alerta{$\D$ es exactamente su región de atracción}. Si $\D=\R^n$, es globalmente asintóticamente estable.
+\end{teorema}
+
+\paragraph{La forma más fácil de leerlo.} Con $W=-\ln(1-V)$, que va de $\D$ en $[0,\infty)$, la ecuación de Zubov es
+\begin{equation}
+  \dot W=\frac{\Vdot}{1-V}=-h(x),\qquad W(x)\to\infty\ \text{ cuando }x\to\partial\D\ \text{ o }\ \norm x\to\infty .
+  \label{eq:iv-W}
+\end{equation}
+$W$ es una función de Lyapunov que \alerta{explota exactamente en la frontera de la región de atracción}; la transformación $V=1-e^{-W}$ solo comprime $[0,\infty)$ en $[0,1)$.
+
+\begin{demostracion}[Esbozo]
+(i) \emph{Estabilidad asintótica}: $V$ es definida positiva en $\D$ y $\Vdot=-h(1-V)<0$ en $\D\setminus\{0\}$. (ii) \emph{$\D\subset\RA$}: si $x_0\in\D$, $W(x(t))\le W(x_0)<\infty$ mientras la solución esté en $\D$; como $W\to\infty$ en $\partial\D$ y en el infinito, la solución no puede alcanzar la frontera ni escapar, $\{W\le W(x_0)\}$ es compacto y $\dot W=-h<0$ fuera del origen: $x(t)\to0$. (iii) \emph{$\RA\subset\D$}: si $x_0\notin\D$ y $x(t)\to0$, la solución entra a $\D$ en algún $t_1$; yendo hacia atrás desde $t_1$, toca $\partial\D$ en algún $t_0<t_1$. Pero en $(t_0,t_1]$, $W(x(t))=W(x(t_1))+\int_t^{t_1}h(x(s))\dif s$ permanece acotada, mientras que $W\to\infty$ al acercarse a $\partial\D$: contradicción.
+\end{demostracion}
+
+\paragraph{Cómo se construye $V$.} Integrando $\dot W=-h$ a lo largo de la solución que sale de $x_0$ (método de las características),
+\begin{equation}
+  W(x_0)=\int_0^\infty h\bigl(\flujo t{x_0}\bigr)\dif t,\qquad V(x_0)=1-e^{-W(x_0)} .
+  \label{eq:iv-caracteristicas}
+\end{equation}
+$W$ es finita exactamente cuando la solución converge al origen lo bastante rápido, es decir, en la región de atracción. Cerca del origen, con $h=x\T Qx$ y $A=J(0)$, se tiene $W(x)\approx x\T Px$ con $A\T P+PA=-Q$: \alerta{Zubov contiene a la ecuación de Lyapunov como su aproximación lineal}. Y $W$ con $h=\norm x^2$ es la ``energía futura'' del converso de la \cref{sec:av-conversos}.
+
+\begin{ejemplo}[label=ej:iv-z1]{Zubov en la recta}
+Para $\dot x=-x+x^3$ (equilibrios $0$ estable y $\pm1$ inestables, $\RA=(-1,1)$), resuelva la ecuación de Zubov con $h=2x^2$.
+\solucion $V'(x)(-x+x^3)=-2x^2(1-V)$ es separable:
+\[
+  \frac{\dif V}{1-V}=\frac{2x^2}{x-x^3}\dif x=\frac{2x}{1-x^2}\dif x\implica-\ln(1-V)=-\ln(1-x^2) .
+\]
+Luego $V=x^2$ y $W=-\ln(1-x^2)$. $V<1$ exactamente en $(-1,1)$ y $V\to1$ en $\pm1$: el teorema entrega la región de atracción exacta (\cref{fig:iv-zubov1d}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\linewidth]{cap08/f_zubov1d}
+\caption{\Cref{ej:iv-z1}. Izquierda: $f(x)=-x+x^3$. Derecha: la solución de Zubov $V=x^2$ y $W=-\ln(1-V)$, que explota en la frontera $\pm1$ de la región de atracción.}
+\label{fig:iv-zubov1d}
+\end{figure}
+
+\begin{ejemplo}[label=ej:iv-z2]{Una región de atracción no acotada}
+Encuentre la región de atracción del origen de $\dot x_1=-x_1+2x_1^2x_2$, $\dot x_2=-x_2$ y certifíquela con Zubov.
+\solucion \emph{Identificar la región.} La cantidad $w=x_1x_2$ cumple
+\[
+  \dot w=\dot x_1x_2+x_1\dot x_2=-2w+2w^2=-2w(1-w) .
+\]
+Si $w(0)<1$, $w\to0$ y luego $x\to0$; la curva $w=1$ es invariante, y si $w(0)>1$, $w$ explota. La candidata es $\D=\{x_1x_2<1\}$, acotada por la hipérbola.
+\emph{Solución de Zubov.} Proponga $W=\tfrac12x_2^2+\dfrac{x_1^2}{2(1-w)}$. Con $\dot x_1=-x_1(1-2w)$,
+\[
+  \jac W{x_1}\dot x_1=\Bigl(\frac{x_1}{1-w}+\frac{x_1w}{2(1-w)^2}\Bigr)\bigl(-x_1(1-2w)\bigr),\qquad
+  \jac W{x_2}\dot x_2=-x_2^2-\frac{x_1^2w}{2(1-w)^2} .
+\]
+Al sumar, los términos en $x_1^2$ se agrupan como
+\[
+  -x_1^2\Bigl[\frac{1-2w}{1-w}+\frac{w(1-2w)+w}{2(1-w)^2}\Bigr]=-x_1^2\Bigl[\frac{1-2w}{1-w}+\frac w{1-w}\Bigr]=-x_1^2 ,
+\]
+y $\dot W=-(x_1^2+x_2^2)=-h(x)$. $W\to\infty$ cuando $x_1x_2\to1^-$ y cuando $\norm x\to\infty$ dentro de $\D$: con $V=1-e^{-W}$ se cumplen todas las hipótesis del \cref{thm:iv-zubov}, y $\RA=\{x_1x_2<1\}$. Desde $(1.9,0.5)$ ($w=0.95$) la solución converge; desde $(2.1,0.5)$ ($w=1.05$) escapa en tiempo finito (\cref{fig:iv-zubov-hiperbola}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.68\linewidth]{cap08/f_zubov_hiperbola}
+\caption{\Cref{ej:iv-z2}. Niveles $V=0.25$, $0.5$, $0.75$, $0.9$ y $0.99$ (azul); en gris, el exterior de la región de atracción; en coral, $x_1x_2=1$. Las soluciones negras empiezan dentro; la coral punteada, desde $(2.1,0.5)$, fuera.}
+\label{fig:iv-zubov-hiperbola}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej14_Zubov.m}{z2}{El residuo de la ecuación de Zubov en una malla y los niveles $V\to1$}
+
+\begin{ejemplo}[label=ej:iv-z3]{Zubov numérico: van der Pol en tiempo invertido}
+Para \eqref{eq:ly-vdpinv}, $\dot x_1=-x_2$, $\dot x_2=x_1+(x_1^2-1)x_2$, la frontera de la región de atracción es el ciclo límite inestable. Calcule la función de Zubov numéricamente y compárela con el mejor estimado cuadrático del \cref{ej:ly-vdp}.
+\solucion No hay solución cerrada de \eqref{eq:iv-zubov}, pero con $h=\norm x^2$ se calcula \eqref{eq:iv-caracteristicas} simulando desde cada punto de una malla, con $W=\infty$ si la solución no converge. Cerca del origen, $W(0.1,0)=0.0150$, que coincide con $x\T Px$ para la $P=\bigl[\begin{smallmatrix}1.5&-0.5\\-0.5&1\end{smallmatrix}\bigr]$ del capítulo~7; en $(1,0)$, $W=1.60$ contra $x\T Px=1.5$; en $(1.9,0)$, cerca del ciclo, $W=11.2$; en $(2.1,0)$, fuera, $W=\infty$. La región de atracción (el interior del ciclo) tiene área $13.7$; la mejor elipse $x\T Px\le2.30$ tiene área $6.46$, el 47\,\%. Los niveles de Zubov llenan toda la región hasta el ciclo (\cref{fig:iv-zubov-vdp}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_zubov_vdp}
+\caption{\Cref{ej:iv-z3}. Izquierda: niveles $V=0.5$, $0.9$, $0.99$ y $0.999$ de la función de Zubov calculada en una malla (azul), el ciclo límite (coral) y el mejor estimado cuadrático (verde). Derecha: $V(x)$ en la malla; en blanco, los puntos con $W=\infty$.}
+\label{fig:iv-zubov-vdp}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej15_ZubovVanDerPol.m}{zubov}{$W(x_0)=\int_0^\infty\norm{\flujo t{x_0}}^2\dif t$ en una malla}
+
+\video{V8_4_zubov_vdp}{Los niveles de Zubov llenan la región hasta el ciclo}
+
+\begin{trampa}[label=tr:iv-frontera]{``$V$ resuelve la ecuación de Zubov en $\D$, luego $\D$ es la región de atracción''}
+\plausible{La ecuación \eqref{eq:iv-zubov} es la condición del teorema, y $V$ la cumple.}
+Falta la condición de frontera (c): $V\to1$ en \emph{toda} $\partial\D$ y en el infinito. Una solución de la EDP que no tiende a $1$ en parte de la frontera solo certifica que esa parte \emph{no} es frontera de $\RA$. Por ejemplo, en el \cref{ej:iv-z2}, $V=1-e^{-W}$ resuelve la ecuación en cualquier $\D'=\{x_1x_2<1,\ \norm x<5\}$, pero en el círculo $\norm x=5$ no tiende a $1$, y $\D'$ no es la región de atracción.
+\correcto{La EDP fija $V$ en el interior; la condición de frontera es la que identifica la región.}
+\end{trampa}
+
+\begin{profundiza}[Qué da Zubov y qué no]
+\emph{Sí}: caracteriza la región de atracción exacta, y diferentes $h$ producen diferentes $V$ pero el mismo conjunto $\{V<1\}$. \emph{No}: rara vez se resuelve en forma cerrada; calcular $W$ numéricamente equivale a simular desde cada punto, así que su valor es conceptual y como certificado, más que como atajo computacional. Zubov mismo propuso desarrollos en series; hoy se buscan funciones polinomiales con \emph{sumas de cuadrados} (SOS), que convierten ``$V\ge0$'' y ``$-\Vdot\ge0$'' en problemas de programación semidefinida~\citep{Par00}. Es la versión moderna de las dos preguntas de este capítulo: encontrar $V$ y certificar una región.
+\end{profundiza}

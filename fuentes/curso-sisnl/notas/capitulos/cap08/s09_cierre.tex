@@ -1,0 +1,144 @@
+%% ---------------------------------------------------------------------
+\section{Para llevar}
+\label{sec:iv-cierre}
+%% ---------------------------------------------------------------------
+
+\begin{parallevar}
+\begin{enumerate}
+  \item \textbf{Invarianza:} un conjunto invariante está hecho de soluciones completas; un conjunto de nivel con $\Vdot\le0$ es solo positivamente invariante, y el que sirve es la \emph{componente conexa} que contiene la condición inicial.
+  \item \textbf{LaSalle:} con $\Omega$ compacto y positivamente invariante y $\Vdot\le0$ en $\Omega$, toda solución tiende a $M$, el mayor conjunto invariante en $E=\{\Vdot=0\}$. La prueba es la cadena $\omegalim{x_0}\subset M\subset E\subset\Omega$. $V$ no tiene que ser definida positiva.
+  \item \textbf{$M$ se calcula con la prueba de permanencia:} derivar las restricciones que definen $E$ hasta que obliguen a la solución a algo conocido. Para sistemas lineales es la prueba de observabilidad.
+  \item \textbf{LaSalle da convergencia a un conjunto}, no a un punto, y no da estabilidad. Los corolarios de Barbashin y Krasovskii la recuperan pidiendo $V$ definida positiva (y radialmente no acotada para el resultado global).
+  \item \textbf{Construir $V$:} el gradiente variable fija $\nabla V$ y deja parámetros para optimizar el estimado; Krasovskii fija $V=f\T Pf$ y da un resultado global con una sola condición matricial; Zubov fija $\Vdot$ y da la región de atracción exacta, casi siempre solo numéricamente.
+\end{enumerate}
+\end{parallevar}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{2.4cm}p{4.4cm}p{5.0cm}@{}}
+\toprule
+& Fortaleza & Debilidad \\
+\midrule
+Gradiente variable & sistemático; parámetros libres para mejorar el estimado & la forma de $g$ hay que adivinarla; el álgebra crece rápido con $n$ \\
+Krasovskii & una sola condición matricial; estabilidad global de un golpe & muy exigente (uniforme en $\D$); $V=\norm f_P^2$ no distingue equilibrios \\
+Zubov & región de atracción exacta & EDP sin solución cerrada en general \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
+\begin{itemize}
+  \item $\{V\le c\}$ no es lo mismo que su componente del origen (\cref{tr:iv-subnivel,tr:iv-componente}).
+  \item $E$ no es $M$ (\cref{tr:iv-EM}); revisar solo los equilibrios de $E$ no basta (\cref{tr:iv-equilibrios}); pasar por $S$ no es permanecer en $S$ (\cref{tr:iv-pasar}).
+  \item Global sin radialidad es falso (\cref{tr:ly-radial}); convergencia a $M$ no es convergencia a un punto (\cref{tr:iv-punto}) ni estabilidad (\cref{tr:iv-estabilidad}).
+  \item LaSalle es para sistemas invariantes en el tiempo; con $\dot x=f(t,x)$ se usan Barbalat o LaSalle--Yoshizawa.
+  \item Hay que exhibir $\Omega$ compacto y positivamente invariante antes de concluir.
+  \item Un estimado no es la región (\cref{tr:iv-estimado}); la elección limpia no es la óptima (\cref{tr:iv-limpia}); un $g$ no simétrico no es un gradiente (\cref{tr:iv-simetria}).
+  \item Krasovskii con un $P$ que falla no dice nada (\cref{tr:iv-PI}); $\norm f^2$ se anula en todos los equilibrios (\cref{tr:iv-normaf}); Zubov sin condición de frontera no certifica nada (\cref{tr:iv-frontera}).
+\end{itemize}
+\end{trampa}
+
+\begin{profundiza}[Correcciones respecto a la versión anterior (LaSalle\_Invarianza.tex, Construccion\_Lyapunov.tex y Handout7)]
+(i) El teorema de LaSalle pedía ``$\Omega$ compacto e \emph{invariante}''; lo correcto, y lo que se usa con los conjuntos de nivel, es \emph{positivamente} invariante. (ii) El corolario global omitía que $V$ debe ser radialmente no acotada. (iii) ``La única trayectoria que está en $S$'' se cambió por ``ninguna solución distinta de $x\equiv0$ puede permanecer idénticamente en $S$''. (iv) En el gradiente variable, la condición de simetría del ejemplo decía $\partial g_1/\partial x_1=\partial g_2/\partial x_1$; es $\partial g_1/\partial x_2=\partial g_2/\partial x_1$. (v) Krasovskii: ``la solución $x(t)=0$ es única'' se cambió por ``el origen es el único equilibrio en $\D$'', con $\D$ convexo, y se agregó la prueba de que $f\T Pf$ es definida positiva y, si $\D=\R^n$, radialmente no acotada. (vi) Zubov: $V:\D\to\R$ y $h:\R^n\to\R$ (no $\R^n$); $\D$ abierto (no ``acotado'', que era incompatible con la versión global), y la conclusión es que $\D$ \emph{es} la región de atracción, no solo que está contenida en ella. (vii) El ejemplo de la $V$ no radialmente no acotada, que estaba repetido, ahora se cita del capítulo~7, y el ejemplo del gradiente variable para el péndulo se presenta como la deducción de la $V$ del \cref{ej:ly-cruzado} (con $c^*=2.308$ para $b=0.5$). (viii) El mejor $a_{11}$ del \cref{ej:iv-g1} es $1.48$ (área $37.4$), no ``cerca de $1.5$''. (ix) La trampa de sistemas variantes en el tiempo remitía a ``más adelante en este capítulo (lámina 147)''; LaSalle--Yoshizawa está en el capítulo~9 y Barbalat en el \cref{cap:avanzada}. (x) Notación: invariante en el tiempo en lugar de autónomo; $\Nivel c$ es siempre una componente conexa; $\flujo t{x_0}$ para las soluciones; Lotka--Volterra con la notación del \cref{cap:orbitas}; el ejemplo de observabilidad usa las dos masas del \cref{cap:lyapunov}.
+\end{profundiza}
+
+%% ---------------------------------------------------------------------
+\section{Problemas}
+\label{sec:iv-problemas}
+%% ---------------------------------------------------------------------
+
+Los problemas marcados con \etiquetaM{} requieren \matlab/\simulink; los marcados con \etiquetaEstrella{} son de profundización. Cada uno tiene una trampa: búsquela antes de dar la respuesta.
+
+\subsection*{Invarianza y LaSalle}
+
+\begin{problema}[sistemas de Liénard]\label{prob:iv-lienard}
+Para $\dot x_1=x_2$, $\dot x_2=-g(x_1)-k(x_2)$ con $g,k$ continuas, $sg(s)>0$ y $sk(s)>0$ para $s\neq0$: (a) con $V=\int_0^{x_1}g(s)\dif s+\tfrac12x_2^2$, calcule $\Vdot$; (b) pruebe que el origen es asintóticamente estable; (c) ¿qué condición sobre $g$ da estabilidad asintótica global? (d) ¿Qué falla con $g(s)=s/(1+s^2)^2$?
+\end{problema}
+
+\begin{problema}[un sistema gradiente]\label{prob:iv-gradiente}
+Sea $\dot x=-\nabla U(x)$ con $U=\tfrac14(x_1^2-1)^2+\tfrac12x_2^2$. (a) Con $V=U$, muestre que toda solución converge al conjunto $\{(0,0),(\pm1,0)\}$; (b) ¿converge a un punto? (c) ¿Cuáles equilibrios son estables? (d) ¿Converge toda solución a un mínimo de $U$?
+\end{problema}
+
+\begin{problema}[el péndulo en el cilindro]\label{prob:iv-cilindro}
+Formalice la observación de la \cref{sec:iv-lasalle}: muestre que toda solución del péndulo con fricción converge a $(0,0)$ o a $(\pi,0)$, módulo $2\pi$. ¿Por qué no se puede trabajar con $\{V\le c\}\subset\R^2$?
+\end{problema}
+
+\begin{problema}[un circuito con zona muerta]\label{prob:iv-rlc}
+Considere $L\,\dot\imath=-v_C-\psi(i)$, $C\,\dot v_C=i$, con $\psi(i)=0$ si $\abs i\le\delta$ y $\psi(i)=R\,(i-\delta\sgn i)$ si $\abs i>\delta$. (a) Con $V=\tfrac L2i^2+\tfrac C2v_C^2$, muestre que $\Vdot=-i\,\psi(i)\le0$; (b) calcule $E$ y $M$, y muestre que $M=\{V\le L\delta^2/2\}$; (c) ¿qué se puede concluir? ¿Se descarga completamente el circuito?
+\end{problema}
+
+\begin{problema}[el amortiguador en la otra masa]\label{prob:iv-masas}
+\etiquetaM{} Para las dos masas del \cref{ej:iv-observable}: (a) con $\kappa=0$, calcule $\ker\mathcal O$ y verifique que coincide con $M$; (b) mueva el amortiguador a la masa~2 y repita; (c) con $\kappa=0.4$, ¿cambia la estabilidad si el amortiguador está en una u otra masa?
+\end{problema}
+
+\begin{problema}[el límite del parámetro adaptativo]\label{prob:iv-adaptativo}
+\etiquetaM{} Ejecute \cmd{C8\_Ej5\_Adaptativo.m} con otras condiciones iniciales y compare $k(T)$ con \eqref{eq:iv-kinf}. (a) ¿Qué pasa con la fórmula si $y_0=0$? (b) Construya el modelo con \cmd{crearModelo\_AdaptativoLaSalle.m} y verifique que $k_\infty$ no depende de la constante $b$ del análisis.
+\end{problema}
+
+\subsection*{Construcción de funciones de Lyapunov}
+
+\begin{problema}[gradiente variable y Zubov sobre el mismo sistema]\label{prob:iv-slotine}
+Para $\dot x_1=-2x_1$, $\dot x_2=-2x_2+2x_1x_2^2$~\citep{SlLi91}: (a) con $g=(x_1,x_2)$, muestre que $\Vdot=-2x_1^2-2x_2^2(1-x_1x_2)$ y que el estimado es $x_1^2+x_2^2<2$; (b) con $w=x_1x_2$, muestre que la región de atracción exacta es $\{x_1x_2<2\}$; (c) encuentre una solución de Zubov inspirada en el \cref{ej:iv-z2}. ¿Es globalmente asintóticamente estable el origen, ya que $V$ es radialmente no acotada?
+\end{problema}
+
+\begin{problema}[el mejor término cruzado, otra vez]\label{prob:iv-pendulo}
+En el \cref{ej:iv-g2}, verifique que $c^*(k)$ es máximo en $k=b/2$ y compare el estimado con el que da LaSalle con la energía ($c<2$). ¿Cuál es más grande? ¿Cuál exige un argumento adicional?
+\end{problema}
+
+\begin{problema}[Krasovskii global]\label{prob:iv-krasovskii}
+Muestre con $P=I$ que el origen de $\dot x_1=-6x_1+2x_2$, $\dot x_2=2x_1-6x_2-2x_2^3$ es globalmente asintóticamente estable. ¿Hace falta verificar que $V$ es radialmente no acotada?
+\end{problema}
+
+\begin{problema}[escoger $P$]\label{prob:iv-escogerP}
+Para $\dot x_1=x_2$, $\dot x_2=-x_1-x_2$: (a) muestre que Krasovskii con $P=I$ falla; (b) encuentre un $P$ con el que funcione; (c) escriba la $V$ que resulta.
+\end{problema}
+
+\begin{problema}[Zubov en la recta, con una región no acotada]\label{prob:iv-zubov1d}
+Para $\dot x=-x+x^2$ con $h=2x^2$, encuentre $W$ y $V$. Verifique que $V\to1$ cuando $x\to1^-$ y cuando $x\to-\infty$, y concluya que la región de atracción es $(-\infty,1)$.
+\end{problema}
+
+\begin{problema}[el mismo conjunto con otra $V$]\label{prob:iv-zubovh}
+\etiquetaM{} Modifique \cmd{C8\_Ej15\_ZubovVanDerPol.m} con $h=2x_1^2+x_2^2$. Compare los niveles de $V$ con los de $h=\norm x^2$ y verifique que $\{V<1\}$ no cambia.
+\end{problema}
+
+%% ---------------------------------------------------------------------
+\section{Soluciones seleccionadas}
+%% ---------------------------------------------------------------------
+
+\paragraph{Problema~\ref{prob:iv-lienard}}
+(a) $\Vdot=g(x_1)x_2+x_2(-g(x_1)-k(x_2))=-x_2k(x_2)\le0$. (b) $V$ es definida positiva cerca del origen y $S=\{x_2=0\}$; $x_2\equiv0$ obliga $g(x_1)\equiv0$, es decir $x_1\equiv0$: por el \cref{cor:iv-as}, asintóticamente estable. (c) Si $\int_0^sg\to\infty$ cuando $\abs s\to\infty$, $V$ es radialmente no acotada y el \cref{cor:iv-gas} da el resultado global. (d) $\int_0^sg=\tfrac12\bigl(1-1/(1+s^2)\bigr)<\tfrac12$: $V$ no es radialmente no acotada y la conclusión es local, con $\{V<\tfrac12\}$ como estimado. La trampa es concluir global solo porque $\Vdot\le0$ en todo $\R^2$.
+
+\paragraph{Problema~\ref{prob:iv-gradiente}}
+(a) $\dot U=-\norm{\nabla U}^2\le0$; $U$ es radialmente no acotada, así que los $\{U\le c\}$ son compactos; $E=\{\nabla U=0\}$ son los tres equilibrios, y $M=E$. (b) Sí: los equilibrios son aislados y $\omegalim{x_0}$ es conexo (\cref{lem:oc-omega}), así que es uno solo. (c) $(\pm1,0)$ son mínimos de $U$ y estables; $(0,0)$ es una silla (hessiana $\diag(-1,1)$), inestable. (d) No: las soluciones que nacen en el eje $x_1=0$, la variedad estable de la silla, convergen a $(0,0)$.
+
+\paragraph{Problema~\ref{prob:iv-cilindro}}
+En $\mathbb S^1\times\R$, $V=a(1-\cos x_1)+\tfrac12x_2^2$ es continua y $\{V\le c\}$ es compacto para todo $c$; $E=\{x_2=0\}$ y la permanencia da $\sin x_1\equiv0$: $M=\{(0,0),(\pi,0)\}$. Como los dos puntos son aislados y $\omegalim{x_0}$ es conexo, cada solución converge a uno de ellos. En $\R^2$, $\{V\le c\}$ no es acotado para ningún $c>0$ y no hay compacto que usar.
+
+\paragraph{Problema~\ref{prob:iv-rlc}}
+(a) $\Vdot=Li\dot\imath+Cv_C\dot v_C=-iv_C-i\psi(i)+v_Ci=-i\psi(i)\le0$. (b) $E=\{\abs i\le\delta\}$. En $E$, $\psi=0$ y el circuito es un $LC$ sin pérdidas: $V$ es constante y la corriente oscila con amplitud $\sqrt{2V/L}$. Una solución se queda en $E$ si y solo si esa amplitud es $\le\delta$, es decir $V\le L\delta^2/2$. (c) Las soluciones tienden a $M$: la energía converge a algún valor $\le L\delta^2/2$, y el circuito sigue oscilando. No se descarga: la zona muerta deja una oscilación residual.
+
+\paragraph{Problema~\ref{prob:iv-masas}}
+(a) $\ker\mathcal O=\{q_1=v_1=0\}$, que es invariante (la masa~2 desacoplada) y es $M$. (b) Por simetría, $\ker\mathcal O=\{q_2=v_2=0\}$: la masa~1 oscila. (c) No: con $\kappa\neq0$ el par es observable en los dos casos y $A$ es Hurwitz.
+
+\paragraph{Problema~\ref{prob:iv-adaptativo}}
+(a) Si $y_0=0$, la solución es el equilibrio $(0,k_0)$ y $k_\infty=k_0$; la fórmula da $a+\abs{k_0-a}$, que coincide solo si $k_0\ge a$. (b) $b$ no aparece en el modelo: el lazo solo tiene $a$, $\gamma$ y la condición inicial.
+
+\paragraph{Problema~\ref{prob:iv-slotine}}
+(a) $\Vdot=-2x_1^2+x_2(-2x_2+2x_1x_2^2)=-2x_1^2-2x_2^2(1-x_1x_2)$; como $x_1x_2\le\tfrac12\norm x^2$, $\Vdot<0$ si $\norm x^2<2$, y el mayor nivel dentro es $\norm x^2<2$. (b) $\dot w=-2x_1x_2+x_1(-2x_2+2x_1x_2^2)=-2w(2-w)$: si $w(0)<2$, $w\to0$ y $x\to0$; si $w(0)>2$, $w$ explota. (c) $W=\tfrac12x_1^2+\dfrac{x_2^2}{2(1-w/2)}$ cumple $\dot W=-2\norm x^2$ y $W\to\infty$ cuando $w\to2^-$. (d) No es global: que $V$ sea radialmente no acotada no basta si $\Vdot$ no es negativa en todo $\R^2$ (desde $(3,1)$, $w=3$, la solución escapa).
+
+\paragraph{Problema~\ref{prob:iv-pendulo}}
+$\frac{\dif c^*}{\dif k}=\frac{\pi^2}2(b-2k)=0$ en $k=b/2$, con $c^*=2+\pi^2b^2/8$ ($2.308$ con $b=0.5$). LaSalle con la energía certifica los niveles $c<2$; la $V$ inclinada, niveles de otra función, con un área mayor. LaSalle necesita la prueba de permanencia; la $V$ estricta no.
+
+\paragraph{Problema~\ref{prob:iv-krasovskii}}
+$J=\bigl[\begin{smallmatrix}-6&2\\2&-6-6x_2^2\end{smallmatrix}\bigr]$ es simétrica y $-(2J+I)=\bigl[\begin{smallmatrix}11&-4\\-4&11+12x_2^2\end{smallmatrix}\bigr]$, con determinante $105+132x_2^2>0$: definida positiva en todo $\R^2$. No hace falta verificar la radialidad: el \cref{thm:iv-krasovskii} la da automáticamente ($V\ge\lmin(P)\kappa^2\norm x^2$).
+
+\paragraph{Problema~\ref{prob:iv-escogerP}}
+(a) $J+J\T=\diag(0,-2)$, que no es $\le-R$ para ningún $R>0$. (b) $P=\bigl[\begin{smallmatrix}1.5&0.5\\0.5&1\end{smallmatrix}\bigr]$, solución de $A\T P+PA=-I$. (c) $V=x\T A\T PA\,x=x_1^2+x_1x_2+1.5\,x_2^2$.
+
+\paragraph{Problema~\ref{prob:iv-zubov1d}}
+$\frac{\dif W}{\dif x}(-x+x^2)=-2x^2$ da $W'=\frac{2x}{1-x}$ y $W=-2x-2\ln(1-x)$, con $V=1-(1-x)^2e^{2x}$. $W'$ tiene el signo de $x$ en $x<1$, así que $W\ge W(0)=0$. Cuando $x\to1^-$, $\ln(1-x)\to-\infty$ y $V\to1$; cuando $x\to-\infty$, $(1-x)^2e^{2x}\to0$ y $V\to1$ (con $x=-5$, $V=1-36e^{-10}=0.998$). $\RA=(-\infty,1)$, no acotada.
+
+\paragraph{Problema~\ref{prob:iv-zubovh}}
+Los niveles intermedios cambian de forma (pesan más la dirección $x_1$), pero $W=\infty$ exactamente en los mismos puntos de la malla: $\{V<1\}$ es el interior del ciclo con cualquier $h$ definida positiva.
+
+\respuestaspausas

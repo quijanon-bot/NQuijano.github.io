@@ -70,6 +70,17 @@ Los cuatro videos de la parte 6 están publicados: se generaron con `herramienta
 
 Los cuatro videos de la parte 7 están publicados: se generaron con `herramientas/cap07_videos.py` (Python, los mismos modelos y parámetros). Los `C7_Video_*` de MATLAB producen la misma animación para grabarla en su computador.
 
+## Parte 8 · Principio de invarianza y construcción de funciones de Lyapunov
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V8_1_pendulo_lasalle}[V8.1 · Pasar por E no es quedarse en E](videos/V8_1_pendulo_lasalle.mp4) | El péndulo cruza el eje $x_2=0$ (donde $\dot V=0$) y $V$ sigue bajando. | `C8_Video_PenduloLaSalle.m` |
+| []{#V8_2_ciclo_sombrero}[V8.2 · Rodar por el sombrero](videos/V8_2_ciclo_sombrero.mp4) | Con $V=\frac14(r^2-1)^2$, que no es definida positiva, las soluciones bajan al ciclo límite. | `C8_Video_CicloSombrero.m` |
+| []{#V8_3_gradiente_barrido}[V8.3 · Barrido del gradiente variable](videos/V8_3_gradiente_barrido.mp4) | El estimado crece, colapsa y tiene su máximo en $a_{11}\approx1.48$, no en la elección limpia $a_{11}=2$. | `C8_Video_GradienteBarrido.m` |
+| []{#V8_4_zubov_vdp}[V8.4 · Zubov llena la región](videos/V8_4_zubov_vdp.mp4) | Los niveles $\{V\le c\}$ de Zubov llegan hasta el ciclo límite; la mejor elipse cubre el 47 %. | `C8_Video_ZubovVanDerPol.m` |
+
+Los cuatro videos de la parte 8 están publicados: se generaron con `herramientas/cap08_videos.py` (los mismos modelos y parámetros que los `C8_Video_*`).
+
 ## Parte 10 · Más allá de la estabilidad asintótica
 
 | Video | Qué muestra | Script |

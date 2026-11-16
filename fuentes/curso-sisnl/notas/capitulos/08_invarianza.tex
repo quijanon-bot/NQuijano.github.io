@@ -1,0 +1,35 @@
+%% =====================================================================
+%%  Capítulo 8 -- Principio de invarianza y construcción de funciones de Lyapunov
+%%  Formato nuevo (noviembre de 2026). Integra: LaSalle/LaSalle_Invarianza.tex y
+%%  Construccion/Construccion_Lyapunov.tex (paquetes de octubre de 2026 para
+%%  Handout7, que acompañaban las láminas 97--108 de Lyapunov2026) y los scripts
+%%  Codigos/LaSalle/lasalle_*.m y Codigos/GradienteZubov/construccion_*.m,
+%%  reescritos en codigo/cap08_invarianza. Lo que ya está en el capítulo 7
+%%  (Barbashin--Krasovskii, la trampa radial, el término cruzado del péndulo,
+%%  la ecuación de Lyapunov con Q = C'C, la estimación cuadrática de van der Pol)
+%%  se cita y no se repite. Correcciones: ver \S\ref{sec:iv-cierre}.
+%%  Números verificados con herramientas/cap08_numeros.py y
+%%  codigo/cap08_invarianza/verificarCap08.m.
+%% =====================================================================
+
+\capitulo[cap:invarianza]{Principio de invarianza y construcción de funciones de Lyapunov}
+  {El tiempo es un río que me arrebata, pero yo soy el río.}
+  {Jorge Luis Borges}
+
+\begin{objetivos}[partes/08-invarianza.html]
+  \item Distinguir conjuntos invariantes de positivamente invariantes, construir un conjunto compacto y positivamente invariante con una componente de un conjunto de nivel, y usar las propiedades del conjunto $\omega$-límite.
+  \item Enunciar y probar el principio de invarianza de LaSalle, calcular $E$ y su mayor subconjunto invariante $M$ con la prueba de permanencia, y concluir exactamente lo que el teorema permite (y no más).
+  \item Reconocer qué puede ser $M$ (un punto, un ciclo límite, una recta de equilibrios, un subespacio no observable) y por qué la convergencia a $M$ no da por sí sola convergencia a un punto ni estabilidad.
+  \item Estimar la región de atracción con conjuntos de nivel cuando $\Vdot$ es solo semidefinida.
+  \item Construir funciones de Lyapunov con el gradiente variable y con el método de Krasovskii, y caracterizar la región de atracción exacta con la ecuación de Zubov.
+\end{objetivos}
+
+\input{capitulos/cap08/s01_por_que}
+\input{capitulos/cap08/s02_invariantes}
+\input{capitulos/cap08/s03_lasalle}
+\input{capitulos/cap08/s04_ejemplos}
+\input{capitulos/cap08/s05_region}
+\input{capitulos/cap08/s06_gradiente}
+\input{capitulos/cap08/s07_krasovskii}
+\input{capitulos/cap08/s08_zubov}
+\input{capitulos/cap08/s09_cierre}

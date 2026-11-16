@@ -1,0 +1,147 @@
+%% ---------------------------------------------------------------------
+\section{Construir $V$: el método del gradiente variable}
+\label{sec:iv-gradiente}
+%% ---------------------------------------------------------------------
+
+Los teoremas de Lyapunov y el principio de invarianza dicen qué hacer \emph{una vez que se tiene} una función $V$. Los teoremas conversos (\cref{sec:av-conversos}) garantizan que, si el origen es asintóticamente estable, una tal $V$ existe, pero no dicen cómo encontrarla. En sistemas físicos la energía es la primera candidata. Cuando no hay energía evidente, o cuando la energía solo da $\Vdot\le0$, hacen falta métodos sistemáticos. Se verán tres, y cada uno \emph{fija} algo distinto y deja libre el resto:
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{2.6cm}p{3.6cm}p{5.4cm}@{}}
+\toprule
+Método & Qué se fija & Qué se obtiene \\
+\midrule
+Gradiente variable & la forma de $\nabla V$ & $V$ y un estimado de $\RA$, con parámetros libres para mejorarlo \\
+Krasovskii & $V=f\T Pf$ & una condición sobre la jacobiana; estabilidad global si vale en $\R^n$ \\
+Zubov & la forma de $\Vdot$ (una EDP) & la región de atracción \emph{exacta} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+La idea del gradiente variable es no adivinar $V$, sino su \clave{gradiente} $g(x)=\nabla V(x)$, porque $\Vdot$ depende de $V$ solo a través de él: $\Vdot(x)=g(x)\T f(x)$. Se propone $g$ con coeficientes libres, se escogen para que $g\T f$ sea definida negativa (o semidefinida) y al final se recupera $V$ integrando. El punto delicado es que no cualquier campo $g$ es un gradiente.
+
+\begin{lema}[label=lem:iv-gradiente]{Condición de gradiente}
+Sea $g:\D\to\R^n$ de clase $\Cont1$ en un dominio $\D$ convexo (o estrellado respecto al origen). Existe $V$ con $\nabla V=g$ si y solo si la jacobiana de $g$ es simétrica:
+\[
+  \jac{g_i}{x_j}=\jac{g_j}{x_i},\qquad i,j=1,\dots,n .
+\]
+En ese caso $V(x)=\int_0^1g(\sigma x)\T x\dif\sigma$, la integral de línea $\int_0^xg\T\dif y$ no depende del camino, y se puede integrar a lo largo de los ejes:
+\[
+  V(x)=\int_0^{x_1}g_1(y_1,0,\dots,0)\dif y_1+\int_0^{x_2}g_2(x_1,y_2,0,\dots,0)\dif y_2+\cdots+\int_0^{x_n}g_n(x_1,\dots,x_{n-1},y_n)\dif y_n .
+\]
+\end{lema}
+
+La necesidad es la igualdad de las derivadas cruzadas de $V$ (teorema de Schwarz); la suficiencia en un dominio estrellado es el lema de Poincaré.
+
+\begin{trampa}[label=tr:iv-simetria]{``Integré $g$ por los ejes, luego $\nabla V=g$''}
+\plausible{La fórmula del lema da una función; su gradiente debe ser el $g$ con el que se construyó.}
+Si $g$ no es simétrico, la integral por los ejes produce \emph{alguna} función, pero su gradiente no es $g$, y la cuenta $\Vdot=g\T f$ es falsa. Con $g=(x_1,\ x_1+x_2)$, $\partial g_1/\partial x_2=0\neq1=\partial g_2/\partial x_1$. Integrando por los ejes, $V=\tfrac12x_1^2+x_1x_2+\tfrac12x_2^2=\tfrac12(x_1+x_2)^2$, cuyo gradiente es $(x_1+x_2,\ x_1+x_2)\neq g$; además $V$ ni siquiera es definida positiva.
+\correcto{Primero se impone la simetría y después se integra.}
+\end{trampa}
+
+\begin{receta}[El gradiente variable (Schultz y Gibson)]
+\begin{enumerate}
+  \item Proponer $g(x)$ con componentes $g_i=a_{i1}x_1+\cdots+a_{in}x_n$, con $a_{ij}$ constantes o funciones de $x$.
+  \item Calcular $\Vdot=g\T f$.
+  \item Escoger los $a_{ij}$ para que $\Vdot$ sea definida negativa (típicamente, anulando términos cruzados sin signo).
+  \item Imponer la simetría $\partial g_i/\partial x_j=\partial g_j/\partial x_i$.
+  \item Integrar para obtener $V$ y verificar que sea definida positiva; si no lo es, volver al paso~3.
+  \item Estimar la región de atracción con la \cref{prop:iv-estimacion}.
+\end{enumerate}
+\end{receta}
+
+\begin{ejemplo}[label=ej:iv-g1]{El ejercicio del handout, resuelto}
+Estudie el origen de
+\begin{equation}
+  \dot x_1=x_2,\qquad \dot x_2=-(x_1+x_2)-\sin(x_1+x_2) .
+  \label{eq:iv-g1}
+\end{equation}
+\solucion El único equilibrio es el origen: $x_2=0$ y $x_1+\sin x_1=0$ obligan $x_1=0$.
+\emph{Pasos 1 y 4.} Con $g=(a_{11}x_1+a_{12}x_2,\ a_{21}x_1+a_{22}x_2)$ y coeficientes constantes, la simetría pide $a_{12}=a_{21}$. Multiplicar $g$ por una constante positiva solo escala $V$; se toma $a_{12}=a_{21}=a_{22}=1$ y queda un parámetro libre: $g=(a_{11}x_1+x_2,\ x_1+x_2)$.
+\emph{Paso 2.} Con $y=x_1+x_2$,
+\[
+  \Vdot=(a_{11}x_1+x_2)\,x_2+y\,(-y-\sin y)=(a_{11}-2)\,x_1x_2-x_1^2-y\sin y .
+\]
+\emph{Paso 3.} El término $x_1x_2$ no tiene signo; se anula con $a_{11}=2$, y $\Vdot=-x_1^2-y\sin y$. Como $y\sin y>0$ si $0<\abs y<\pi$, $\Vdot$ es \clave{definida negativa en la franja} $\{\abs{x_1+x_2}<\pi\}$.
+\emph{Paso 5.} Integrando por los ejes,
+\[
+  V=\int_0^{x_1}2y_1\dif y_1+\int_0^{x_2}(x_1+y_2)\dif y_2=x_1^2+x_1x_2+\tfrac12x_2^2=\tfrac12\bigl(x_1^2+(x_1+x_2)^2\bigr),
+\]
+definida positiva y radialmente no acotada. El origen es asintóticamente estable.
+\emph{Paso 6.} En las coordenadas $(x_1,y)$, $V=\tfrac12(x_1^2+y^2)$ tiene niveles circulares, y $\Vdot\ge0$ solo es posible con $\abs y\ge\pi$. El mínimo de $V$ sobre $\abs y=\pi$ es $\pi^2/2$, en $x_1=0$: $c^*=\pi^2/2$ y
+\[
+  \bigl\{x:\ x_1^2+(x_1+x_2)^2<\pi^2\bigr\}\subset\RA ,
+\]
+una elipse de área $\pi^3=31.0$ (la transformación $(x_1,x_2)\mapsto(x_1,y)$ tiene determinante $1$).
+\emph{¿Es global?} Con esta $V$ no se puede concluir: en las bandas $\pi<\abs y<2\pi$ con $x_1$ pequeño, $\Vdot>0$ (zonas coral de la \cref{fig:iv-gradiente}). Sin embargo, las $49$ soluciones de prueba desde una malla de $[-12,12]^2$ convergen, incluso las que arrancan lejos del estimado.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_gradiente}
+\caption{\Cref{ej:iv-g1}. Izquierda ($a_{11}=2$): en coral, la región donde $\Vdot>0$; punteadas, $x_1+x_2=\pm\pi$; en azul, la frontera del estimado; soluciones negras (dentro) y grises (fuera), todas convergen. Derecha: área del estimado $\Nivel{c^*}$ en función de $a_{11}$.}
+\label{fig:iv-gradiente}
+\end{figure}
+
+\paragraph{¿Por qué $a_{11}=2$?} Con $a_{11}$ libre, $V=\tfrac{a_{11}}2x_1^2+x_1x_2+\tfrac12x_2^2$ es definida positiva si y solo si $a_{11}>1$. Cerca del origen, con $y\sin y\approx y^2$, la parte cuadrática de $\Vdot$ es
+\[
+  -2x_1^2+(a_{11}-4)\,x_1x_2-x_2^2 ,
+\]
+definida negativa si y solo si $(a_{11}-4)^2<8$, es decir $a_{11}\in(4-2\sqrt2,\ 4+2\sqrt2)\approx(1.17,\ 6.83)$. \emph{Cualquier} $a_{11}$ en ese intervalo prueba la estabilidad asintótica local. La elección $a_{11}=2$ es la que hace el álgebra más limpia, no la mejor: el mayor estimado está en $a_{11}\approx1.48$, con área $37.4$ contra $31.0$ (\cref{fig:iv-gradiente,fig:iv-barrido}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_barrido}
+\caption{Barrido de $a_{11}$ en el \cref{ej:iv-g1}. En coral, la región donde $\Vdot>0$; en azul, la frontera del mayor $\{V\le c\}$ que no la toca. Con $a_{11}=1.1$ el estimado colapsa: $\Vdot$ no es definida negativa cerca del origen.}
+\label{fig:iv-barrido}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej10_GradienteVariable.m}{g1}{$V$, $\Vdot$ y el estimado con $a_{11}=2$}
+\codigorepo{cap08_invarianza/C8_Ej10_GradienteVariable.m}{barrido}{El área del estimado como función de $a_{11}$}
+
+\video{V8_3_gradiente_barrido}{Mover $a_{11}$ y ver crecer (y colapsar) el estimado}
+
+\begin{trampa}[label=tr:iv-limpia]{``La elección que anula el término cruzado es la mejor''}
+\plausible{Con $a_{11}=2$ desaparece el término sin signo y $\Vdot$ queda lo más negativa posible.}
+Escoger los parámetros para que $\Vdot$ ``se vea bonita'' es una heurística algebraica, no un criterio de optimalidad. Con $a_{11}=1.48$ queda un término cruzado en $\Vdot$ y el estimado es un 20\,\% más grande.
+\correcto{Si el objetivo es el mayor estimado de la región de atracción, hay que optimizar sobre los parámetros libres, en la práctica numéricamente (\cmd{C8\_Ej10}).}
+\end{trampa}
+
+\subsection{De dónde salió la función inclinada del péndulo}
+
+En el \cref{ej:ly-cruzado} se \emph{propuso} una $V$ con un término cruzado para el péndulo con fricción, y resultó estricta. El gradiente variable la \emph{deduce}.
+
+\begin{ejemplo}[label=ej:iv-g2]{El gradiente variable encuentra la $V$ del capítulo~7}
+Para $\dot x_1=x_2$, $\dot x_2=-\sin x_1-b\,x_2$ ($b>0$), busque una $V$ con $\Vdot$ definida negativa.
+\solucion \emph{Pasos 1 a 4.} Proponga $g_2=k\,x_1+x_2$, con $k$ por determinar. La simetría pide $\partial g_1/\partial x_2=\partial g_2/\partial x_1=k$, así que $g_1=\varphi(x_1)+k\,x_2$ para alguna $\varphi$. Entonces
+\[
+  \Vdot=\bigl(\varphi(x_1)+k\,x_2\bigr)x_2+(k\,x_1+x_2)(-\sin x_1-b\,x_2)=\bigl(\varphi(x_1)-\sin x_1-kb\,x_1\bigr)x_2+(k-b)\,x_2^2-k\,x_1\sin x_1 .
+\]
+El primer término es lineal en $x_2$, sin signo; se anula con $\varphi(x_1)=\sin x_1+kb\,x_1$, y queda
+\[
+  \Vdot=-k\,x_1\sin x_1-(b-k)\,x_2^2 ,
+\]
+definida negativa en $\{\abs{x_1}<\pi\}$ si $0<k<b$.
+\emph{Paso 5.} Integrando,
+\[
+  V=(1-\cos x_1)+\tfrac12\bigl(kb\,x_1^2+2k\,x_1x_2+x_2^2\bigr),
+\]
+que es \eqref{eq:ly-Vcruzado} con $a=1$ y $p_{12}=k$. La forma cuadrática es definida positiva si y solo si $kb-k^2>0$: la misma condición $k<b$. Con $k\to0$ se recupera la energía.
+\emph{Paso 6.} El mínimo de $V$ sobre $\abs{x_1}=\pi$ es $c^*(k)=2+\frac{\pi^2}2k(b-k)$, máximo en $k=b/2$; con $b=0.5$, $c^*=2.308$, el valor del \cref{ej:ly-cpendulo}.
+\end{ejemplo}
+
+El término cruzado ``inclina'' los niveles de $V$ (\cref{fig:iv-gradiente-pendulo}). Por eso $\Vdot$ es negativa también sobre el eje $x_2=0$, donde la energía se quedaba quieta, y basta el método directo, sin LaSalle. Tener una $V$ \emph{estricta} importa: los argumentos de robustez del \cref{cap:avanzada} (conversos, UUB, ISS) necesitan $\Vdot\le-\alpha_3(\norm x)$, no solo $\Vdot\le0$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_gradiente_pendulo}
+\caption{\Cref{ej:iv-g2} con $b=0.5$ y $k=b/2$. Izquierda: niveles de la energía (gris, punteados) y de la $V$ del gradiente variable (azul, inclinados); en verde, $\Nivel{c^*}$, que toca $\abs{x_1}=\pi$. Derecha: a lo largo de la misma solución, la energía baja con escalones y $V$ decrece estrictamente.}
+\label{fig:iv-gradiente-pendulo}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej11_GradientePendulo.m}{pendulo}{Energía contra $V$ estricta y $c^*(k)$}
+
+\begin{pausa}
+¿Qué pasa en el \cref{ej:iv-g2} si se propone $g_2=k\,x_1+x_2$ con $k>b$?
+\respuesta{$\Vdot=-kx_1\sin x_1+(k-b)x_2^2$ deja de ser semidefinida negativa (es positiva sobre el eje $x_1=0$), y además la forma cuadrática de $V$ deja de ser definida positiva ($kb-k^2<0$). Las dos condiciones fallan a la vez: no hay $V$ útil con esa forma.}
+\end{pausa}

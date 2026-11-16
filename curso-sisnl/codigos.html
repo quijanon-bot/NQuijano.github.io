@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-3589997b9d3b394437034903eb3c3288.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-6ca0c397212994b6a3f632fc19759a7d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-db75d47dca11e65f57750a85bb0935e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -294,7 +294,8 @@ window.MathJax = { tex: { macros: {
 │   ├── clasificarEquilibrio.m  tipo del origen de x' = Ax en R^2 por traza y determinante
 │   ├── primerLyapunov.m      primer coeficiente de Lyapunov l1 de una bifurcación de Hopf
 │   ├── mapaPoincare.m        primer retorno a una sección transversal (evento de ode45)
-│   └── leySontag.m           fórmula universal de Sontag (una o varias entradas, con kappa)
+│   ├── leySontag.m           fórmula universal de Sontag (una o varias entradas, con kappa)
+│   └── nivelCritico.m        c* = min V donde Vdot &gt;= 0, en una malla (estimado de la región de atracción)
 ├── cap01_introduccion/
 │   ├── C1_Ej1 … C1_Ej9       superposición, logística, panorama, energía, reescalamiento, control
 │   ├── C1_Video_*            Lorenz y mapa logístico
@@ -332,6 +333,12 @@ window.MathJax = { tex: { macros: {
 │   ├── C7_Video_*            formas cuadráticas, término cruzado, círculos y elipses, región de atracción
 │   ├── crearModelo_PenduloLyapunov  PenduloLyapunov.slx
 │   └── verificarCap07.m      34 pruebas de los números del capítulo
+├── cap08_invarianza/
+│   ├── C8_Ej1 … C8_Ej15      conjuntos límite, péndulo y permanencia, resorte duro y blando, ciclo con V no d.p., adaptativo, observabilidad, Lotka–Volterra, atractivo inestable, región con Vdot &lt;= 0, gradiente variable (y barrido), péndulo inclinado, Krasovskii (y trampa), Zubov (cerrado y numérico)
+│   ├── C8_Video_*            péndulo y E, ciclo y sombrero, barrido del gradiente, Zubov en van der Pol
+│   ├── crearModelo_AdaptativoLaSalle  AdaptativoLaSalle.slx
+│   ├── zubovMalla.m          W = int h(phi_t(x0)) dt en una malla (método de las características)
+│   └── verificarCap08.m      39 pruebas de los números del capítulo
 ├── cap10_avanzada/
 │   ├── C10_Ej1 … C10_Ej15    UUB escalar, conjuntos de nivel y resorte, energía futura, estable sin V(x), robustez, Sontag (lineal, cos, control pequeño), Barbalat, adaptativo, contraejemplos ISS, ganancia ISS, rediseño, cascadas, pequeña ganancia
 │   ├── C10_Video_*           banda UUB, bola no invariante, energía futura, rediseño ISS

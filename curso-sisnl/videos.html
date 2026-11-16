@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,7 +34,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-3589997b9d3b394437034903eb3c3288.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-6ca0c397212994b6a3f632fc19759a7d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-db75d47dca11e65f57750a85bb0935e3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -239,6 +239,7 @@ window.Quarto = {
   <li><a href="#parte-5-órbitas-osciladores-y-ciclos-límite" id="toc-parte-5-órbitas-osciladores-y-ciclos-límite" class="nav-link" data-scroll-target="#parte-5-órbitas-osciladores-y-ciclos-límite">Parte 5 · Órbitas, osciladores y ciclos límite</a></li>
   <li><a href="#parte-6-bifurcaciones" id="toc-parte-6-bifurcaciones" class="nav-link" data-scroll-target="#parte-6-bifurcaciones">Parte 6 · Bifurcaciones</a></li>
   <li><a href="#parte-7-estabilidad-de-lyapunov" id="toc-parte-7-estabilidad-de-lyapunov" class="nav-link" data-scroll-target="#parte-7-estabilidad-de-lyapunov">Parte 7 · Estabilidad de Lyapunov</a></li>
+  <li><a href="#parte-8-principio-de-invarianza-y-construcción-de-funciones-de-lyapunov" id="toc-parte-8-principio-de-invarianza-y-construcción-de-funciones-de-lyapunov" class="nav-link" data-scroll-target="#parte-8-principio-de-invarianza-y-construcción-de-funciones-de-lyapunov">Parte 8 · Principio de invarianza y construcción de funciones de Lyapunov</a></li>
   <li><a href="#parte-10-más-allá-de-la-estabilidad-asintótica" id="toc-parte-10-más-allá-de-la-estabilidad-asintótica" class="nav-link" data-scroll-target="#parte-10-más-allá-de-la-estabilidad-asintótica">Parte 10 · Más allá de la estabilidad asintótica</a></li>
   <li><a href="#parte-11-pasividad" id="toc-parte-11-pasividad" class="nav-link" data-scroll-target="#parte-11-pasividad">Parte 11 · Pasividad</a></li>
   <li><a href="#parte-12-linealización-por-retroalimentación" id="toc-parte-12-linealización-por-retroalimentación" class="nav-link" data-scroll-target="#parte-12-linealización-por-retroalimentación">Parte 12 · Linealización por retroalimentación</a></li>
@@ -481,6 +482,41 @@ window.Quarto = {
 </tbody>
 </table>
 <p>Los cuatro videos de la parte 7 están publicados: se generaron con <code>herramientas/cap07_videos.py</code> (Python, los mismos modelos y parámetros). Los <code>C7_Video_*</code> de MATLAB producen la misma animación para grabarla en su computador.</p>
+</section>
+<section id="parte-8-principio-de-invarianza-y-construcción-de-funciones-de-lyapunov" class="level2">
+<h2 class="anchored" data-anchor-id="parte-8-principio-de-invarianza-y-construcción-de-funciones-de-lyapunov">Parte 8 · Principio de invarianza y construcción de funciones de Lyapunov</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Video</th>
+<th style="text-align: left;">Qué muestra</th>
+<th style="text-align: left;">Script</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span id="V8_1_pendulo_lasalle"></span><a href="videos/V8_1_pendulo_lasalle.mp4">V8.1 · Pasar por E no es quedarse en E</a></td>
+<td style="text-align: left;">El péndulo cruza el eje <span class="math inline">\(x_2=0\)</span> (donde <span class="math inline">\(\dot V=0\)</span>) y <span class="math inline">\(V\)</span> sigue bajando.</td>
+<td style="text-align: left;"><code>C8_Video_PenduloLaSalle.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span id="V8_2_ciclo_sombrero"></span><a href="videos/V8_2_ciclo_sombrero.mp4">V8.2 · Rodar por el sombrero</a></td>
+<td style="text-align: left;">Con <span class="math inline">\(V=\frac14(r^2-1)^2\)</span>, que no es definida positiva, las soluciones bajan al ciclo límite.</td>
+<td style="text-align: left;"><code>C8_Video_CicloSombrero.m</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span id="V8_3_gradiente_barrido"></span><a href="videos/V8_3_gradiente_barrido.mp4">V8.3 · Barrido del gradiente variable</a></td>
+<td style="text-align: left;">El estimado crece, colapsa y tiene su máximo en <span class="math inline">\(a_{11}\approx1.48\)</span>, no en la elección limpia <span class="math inline">\(a_{11}=2\)</span>.</td>
+<td style="text-align: left;"><code>C8_Video_GradienteBarrido.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span id="V8_4_zubov_vdp"></span><a href="videos/V8_4_zubov_vdp.mp4">V8.4 · Zubov llena la región</a></td>
+<td style="text-align: left;">Los niveles <span class="math inline">\(\{V\le c\}\)</span> de Zubov llegan hasta el ciclo límite; la mejor elipse cubre el 47 %.</td>
+<td style="text-align: left;"><code>C8_Video_ZubovVanDerPol.m</code></td>
+</tr>
+</tbody>
+</table>
+<p>Los cuatro videos de la parte 8 están publicados: se generaron con <code>herramientas/cap08_videos.py</code> (los mismos modelos y parámetros que los <code>C8_Video_*</code>).</p>
 </section>
 <section id="parte-10-más-allá-de-la-estabilidad-asintótica" class="level2">
 <h2 class="anchored" data-anchor-id="parte-10-más-allá-de-la-estabilidad-asintótica">Parte 10 · Más allá de la estabilidad asintótica</h2>

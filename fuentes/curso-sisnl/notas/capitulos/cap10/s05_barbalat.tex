@@ -5,7 +5,7 @@
 
 Esta sección cambia de escenario: \alerta{el lema de Barbalat es un resultado sobre funciones de una variable real (señales), no sobre ecuaciones diferenciales}. Se aplica a la señal $t\mapsto V(t,x(t))$, o a $t\mapsto W(x(t))$, sobre una solución fija. La hipótesis vive en el espacio de estados; la conclusión, en el eje del tiempo.
 
-La situación típica es $\Vdot(t,x)\le-W(x)\le0$ con $W$ solo semidefinida positiva. En un sistema invariante en el tiempo se usaría LaSalle (capítulo~8). En uno variante en el tiempo, en general no: el conjunto $\omega$-límite de una solución de $\dot x=f(t,x)$ no tiene por qué ser invariante, porque ``las reglas del juego'' cambian con $t$. Lo que sí es gratis: si $V$ está acotada por debajo y no crece a lo largo de la solución, converge a un límite $V_\infty$, e integrando
+La situación típica es $\Vdot(t,x)\le-W(x)\le0$ con $W$ solo semidefinida positiva. En un sistema invariante en el tiempo se usaría LaSalle (\cref{thm:iv-lasalle}). En uno variante en el tiempo, en general no: el conjunto $\omega$-límite de una solución de $\dot x=f(t,x)$ no tiene por qué ser invariante, porque ``las reglas del juego'' cambian con $t$. Lo que sí es gratis: si $V$ está acotada por debajo y no crece a lo largo de la solución, converge a un límite $V_\infty$, e integrando
 \begin{equation}
   \int_{t_0}^\infty W\bigl(x(t)\bigr)\dif t\le V\bigl(t_0,x(t_0)\bigr)-V_\infty<\infty .
   \label{eq:av-integral}

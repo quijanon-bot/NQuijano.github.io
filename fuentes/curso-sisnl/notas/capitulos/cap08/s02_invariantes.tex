@@ -1,0 +1,66 @@
+%% ---------------------------------------------------------------------
+\section{Conjuntos invariantes y conjuntos límite}
+\label{sec:iv-invariantes}
+%% ---------------------------------------------------------------------
+
+En todo el capítulo se considera el sistema invariante en el tiempo
+\begin{equation}
+  \dot x=f(x),\qquad f:\D\to\R^n\ \text{localmente Lipschitz},
+  \label{eq:iv-sistema}
+\end{equation}
+con $\D\subset\R^n$ un dominio (abierto y conexo), y se escribe $\flujo t{x_0}$ para la solución que en $t=0$ pasa por $x_0$, como en el \cref{cap:orbitas}. Para $V:\D\to\R$ de clase $\Cont1$, $\Vdot(x)=\jac Vx(x)\,f(x)$.
+
+\subsection{Invariante y positivamente invariante}
+
+\begin{definicion}[label=def:iv-invariante]{Conjuntos invariantes \citep[\S4.2]{Kha02}}
+Un conjunto $M\subset\D$ es \clave{invariante} respecto a \eqref{eq:iv-sistema} si
+\[
+  x_0\in M\implica\flujo t{x_0}\in M\qquad\text{para todo }t\in\R ,
+\]
+y es \clave{positivamente invariante} si la implicación vale para todo $t\ge0$.
+\end{definicion}
+
+La diferencia importa: \alerta{invariante quiere decir que el conjunto está hecho de trayectorias completas, hacia el futuro y hacia el pasado}. Un equilibrio, una órbita periódica y una órbita homoclínica con su silla son invariantes, y la unión de conjuntos invariantes es invariante. En cambio, un conjunto de nivel $\{V\le c\}$ con $\Vdot\le0$ es, en general, solo positivamente invariante: hacia atrás en el tiempo la energía del péndulo crece y la solución sale del conjunto. Ya se vio un ejemplo en la recta: en la dinámica halcón--paloma, el intervalo $[0,1]$ es invariante porque sus extremos son equilibrios (\cref{sec:un-halcon}).
+
+\begin{lema}[label=lem:iv-subnivel]{Componentes de un conjunto de nivel}
+Sea $V:\D\to\R$ de clase $\Cont1$ con $\Vdot(x)\le0$ en $\D$. Si $\Nivel c$ es una componente conexa de $\{x\in\D:\ V(x)\le c\}$, acotada y con $\overline{\Nivel c}\subset\D$, entonces $\Nivel c$ es compacta y positivamente invariante.
+\end{lema}
+
+\begin{demostracion}
+Sea $x_0\in\Nivel c$ y $[0,t^*)$ el intervalo maximal en el que $\flujo t{x_0}\in\D$. Allí $V(\flujo t{x_0})\le V(x_0)\le c$, así que la solución permanece en $\{V\le c\}$; como $t\mapsto\flujo t{x_0}$ es continua y $\flujo0{x_0}\in\Nivel c$, permanece en la \emph{misma} componente conexa (una curva continua no salta de una componente a otra). Como $\Nivel c$ es acotada y $\overline{\Nivel c}\subset\D$, la solución no puede salir de $\D$ ni escapar en tiempo finito (\cref{cap:preliminares}): $t^*=\infty$. Por último, $\Nivel c$ es cerrada en $\D$ y su clausura está en $\D$, luego es cerrada en $\R^n$; con la acotación, es compacta.
+\end{demostracion}
+
+\begin{trampa}[label=tr:iv-subnivel]{``$\{V\le c\}$ es acotado y todo punto con $V(x_0)\le c$ está en $\Nivel c$''}
+\plausible{$V$ es definida positiva cerca del origen, así que sus conjuntos de nivel pequeños son ``bolitas'' alrededor del origen.}
+Para el péndulo \eqref{eq:iv-pendulo}, $\{x\in\R^2:\ V(x)\le c\}$ \emph{nunca} es acotado, por pequeño que sea $c>0$: como $V$ es periódica en $x_1$, contiene una isla alrededor de cada $(2k\pi,0)$ (zonas grises de la \cref{fig:iv-pendulo}). Un punto con $V(x_0)<c$ en otra isla no está en $\Nivel c$, y en el \cref{ej:iv-duffing} un punto así escapa a infinito.
+\correcto{Se toma la \emph{componente conexa} de $\{V\le c\}$ que contiene al origen (para el péndulo con $c<2a$, la que está en $\abs{x_1}<\pi$). \citet[\S4.1]{Kha02} evita el problema con $\Omega_\beta=\{x\in\Bola r:\ V(x)\le\beta\}$ y $\beta<\min_{\norm x=r}V(x)$.}
+\end{trampa}
+
+\subsection{Conjuntos límite}
+
+El conjunto $\omega$-límite se definió en el \cref{cap:orbitas} (\cref{def:oc-omega}): $p\in\omegalim{x_0}$ si existe $t_k\to\infty$ con $\flujo{t_k}{x_0}\to p$. Para LaSalle hace falta, además, el lenguaje de convergencia a un conjunto: $\flujo t{x_0}$ \clave{tiende a} $M$ si
+\[
+  \lim_{t\to\infty}\dist\bigl(\flujo t{x_0},M\bigr)=0,\qquad \dist(p,M)=\inf_{q\in M}\norm{p-q} .
+\]
+El \cref{lem:oc-omega} dice que si la solución es \emph{acotada} y se queda en $\D$ con su clausura, $\omegalim{x_0}$ es no vacío, compacto, conexo e \alerta{invariante}, y la solución tiende a él. La invarianza es la propiedad que hace funcionar el teorema de LaSalle. Vale la pena ver de dónde sale: si $\flujo{t_k}{x_0}\to p$ y $\tau$ es fijo, la dependencia continua de las soluciones respecto a la condición inicial en el intervalo compacto $[0,\tau]$ (\cref{cap:preliminares}) da $\flujo{t_k+\tau}{x_0}=\flujo\tau{\flujo{t_k}{x_0}}\to\flujo\tau p$, así que $\flujo\tau p\in\omegalim{x_0}$. La solución que pasa por un punto límite se queda entre los puntos límite.
+
+\begin{ejemplo}[label=ej:iv-limite]{Tres conjuntos límite}
+Encuentre $\omegalim{x_0}$ para (a) el oscilador amortiguado $\dot x_1=x_2$, $\dot x_2=-x_1-0.4x_2$; (b) van der Pol con $\mu=1$ desde $x_0=(0.1,0)$; (c) $\dot x_1=0.5$, $\dot x_2=-x_2$.
+\solucion (a) La solución converge al origen: $\omegalim{x_0}=\{0\}$. (b) La solución se acerca al ciclo límite $\Gamma$ (\cref{cap:orbitas}), de amplitud $2.009$ en $x_1$, pero $x_1(t)$ sigue oscilando entre $\pm2.009$: $\lim_{t\to\infty}\flujo t{x_0}$ no existe, y sin embargo $\omegalim{x_0}=\Gamma$. Las muestras $\flujo n{x_0}$, $n=1,2,\dots$, se acumulan sobre todo el ciclo (\cref{fig:iv-limite}, centro). (c) $x_2\to0$, pero $x_1=x_1(0)+0.5t\to\infty$: no hay ninguna sucesión convergente y $\omegalim{x_0}=\emptyset$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_limite}
+\caption{Tres conjuntos $\omega$-límite. (a) Un punto. (b) Van der Pol: las muestras $\flujo n{x_0}$ (color según $n$) se acumulan sobre el ciclo (coral), y la solución tiende al \emph{conjunto} sin tender a ningún punto. (c) Sin acotación no hay conjunto límite.}
+\label{fig:iv-limite}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej1_ConjuntosLimite.m}{limite}{Muestras $\flujo n{x_0}$ y los tres conjuntos límite}
+
+El panel (b) explica por qué LaSalle habla de convergencia a un \emph{conjunto}; el panel (c), por qué la compacidad es indispensable.
+
+\begin{pausa}
+Para $\dot r=r(1-r^2)$, $\dot\theta=1$, ¿cuál es $\omegalim{x_0}$ si $x_0=0$? ¿Y si $x_0\neq0$? ¿Cuál es el $\alpha$-límite de un $x_0$ con $0<\norm{x_0}<1$?
+\respuesta{$\omegalim0=\{0\}$ (es un equilibrio). Si $x_0\neq0$, $r(t)\to1$ y $\omegalim{x_0}$ es el círculo unitario. Hacia atrás, si $0<r_0<1$, $r(t)\to0$ cuando $t\to-\infty$: $\alphalim{x_0}=\{0\}$.}
+\end{pausa}

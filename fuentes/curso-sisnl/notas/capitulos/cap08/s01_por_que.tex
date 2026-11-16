@@ -1,0 +1,43 @@
+%% ---------------------------------------------------------------------
+\section{Lo que el capítulo~7 dejó sin resolver}
+\label{sec:iv-porque}
+%% ---------------------------------------------------------------------
+
+El \cref{cap:lyapunov} terminó con dos preguntas abiertas. La primera apareció con el péndulo con fricción (\cref{ej:ly-pendenergia}): la energía da $\Vdot=-b\,x_2^2\le0$, que se anula en todo el eje $x_2=0$, y el método directo solo concluye \emph{estabilidad}, aunque la física y la simulación dicen que el péndulo termina en reposo. La segunda apareció al estimar la región de atracción de van der Pol en tiempo invertido (\cref{ej:ly-vdp}): una función cuadrática no puede seguir la forma del ciclo límite, y la mejor elipse cubre menos de la mitad de la región. Este capítulo responde las dos:
+\begin{enumerate}
+  \item Si $\Vdot\le0$ y $\Vdot$ se anula en algo más que el origen, ¿qué se puede concluir, y con qué argumento? $\to$ \clave{principio de invarianza de LaSalle}, \S\ref{sec:iv-invariantes}--\ref{sec:iv-region}.
+  \item ¿De dónde sale una $V$ cuando no hay una energía evidente, o cuando la energía se queda corta? $\to$ \clave{gradiente variable}, \clave{Krasovskii} y \clave{Zubov}, \S\ref{sec:iv-gradiente}--\ref{sec:iv-zubov}.
+\end{enumerate}
+
+Conviene ver con precisión qué da, y qué no da, la desigualdad $\Vdot\le0$. Para el péndulo
+\begin{equation}
+  \dot x_1=x_2,\qquad \dot x_2=-a\sin x_1-b\,x_2,\qquad V(x)=a(1-\cos x_1)+\tfrac12x_2^2,\qquad \Vdot=-b\,x_2^2,
+  \label{eq:iv-pendulo}
+\end{equation}
+que es \eqref{eq:ly-pendulo} con $a=g/l$ y $b=k/m$, se obtienen, con rigor, tres hechos:
+\begin{enumerate}
+  \item $t\mapsto V(x(t))$ es no creciente y acotada por debajo por $0$: existe $V_\infty=\lim_{t\to\infty}V(x(t))$.
+  \item Si $x_0$ está en un conjunto de nivel acotado de $V$ (en la \cref{sec:iv-invariantes} se precisa cuál), la solución no sale de él: está acotada.
+  \item Integrando, $b\int_0^\infty x_2(\tau)^2\dif\tau=V(x_0)-V_\infty<\infty$.
+\end{enumerate}
+Ninguno dice que $x(t)\to0$. El tercero sugiere que $x_2$ es pequeña ``casi todo el tiempo'', pero una función de cuadrado integrable no tiene por qué tender a cero (\cref{tr:av-integral}); y aun si $x_2\to0$, falta $x_1$. La pieza que falta es un argumento sobre las soluciones que pueden \emph{quedarse} donde $\Vdot=0$: para que $V$ dejara de decrecer, la trayectoria tendría que permanecer en el eje $x_2=0$; si $x_2(t)\equiv0$, entonces $\dot x_2(t)\equiv0$, y la segunda ecuación da $\sin x_1(t)\equiv0$, es decir $x_1(t)\equiv0$ si $\abs{x_1}<\pi$. El único movimiento que cabe en $\{\Vdot=0\}$ es el reposo. El argumento es correcto, pero deja tres preguntas que el teorema de LaSalle responde con precisión: ¿por qué la trayectoria tiene que ``terminar'' en algún lado? ¿Por qué basta mirar las soluciones que \emph{permanecen} en $\{\Vdot=0\}$? ¿En qué región vale todo esto?
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap08/t_mapa_invarianza}
+\caption{Mapa del capítulo. El principio de invarianza cierra el hueco de $\Vdot\le0$; los métodos de construcción dan funciones (a veces estrictas) donde no hay una energía evidente. Las dos líneas se encuentran al estimar la región de atracción.}
+\label{fig:iv-mapa}
+\end{figure}
+
+\notamargen{\textbf{Ruta de las clases.} Semana~9, después de la región de atracción del \cref{cap:lyapunov}: invarianza y LaSalle, \S\ref{sec:iv-invariantes}--\ref{sec:iv-region}, y construcción de funciones, \S\ref{sec:iv-gradiente}--\ref{sec:iv-zubov}. Las pruebas del \cref{lem:iv-subnivel} y del \cref{thm:iv-lasalle} se hacen en clase.}
+
+\notamargen{\textbf{Dos usos de ``invariante''.} El curso dice que un sistema es ``invariante en el tiempo'' cuando $f$ no depende de $t$: $\dot x=f(x)$. Un \emph{conjunto invariante} es otra cosa: uno del que las soluciones no salen. El principio de invarianza habla de lo segundo y vale para sistemas invariantes en el tiempo.}
+
+\begin{historia}[Barbashin, Krasovskii, LaSalle]
+Los dos corolarios que más se usan (estabilidad asintótica, local y global, con $\Vdot\le0$) se deben a E.~A.~Barbashin y N.~N.~Krasovskii en 1952~\citep{BaKr52} y aparecen en la monografía de Krasovskii de 1959~\citep{Kra63}. J.~P.~LaSalle formuló en 1960 la versión general en términos de conjuntos invariantes~\citep{LaS60}. Por eso se encuentran los nombres ``principio de LaSalle'', ``teorema de Krasovskii--LaSalle''~\citep{KeBr23} y ``teorema de Barbashin y Krasovskii'' para los corolarios~\citep{Kha02}. Los métodos de construcción son de la misma época: el gradiente variable, de Schultz y Gibson en 1962~\citep{ScGi62}; el método de Krasovskii, de su monografía; la ecuación de Zubov, de 1957~\citep{Zub64}. Hoy la construcción se hace también con optimización convexa, buscando $V$ como suma de cuadrados de polinomios~\citep{Par00}.
+\end{historia}
+
+\begin{pausa}
+Antes de seguir, prediga: (1) si $V$ es definida positiva, $\Vdot\le0$ y la solución está acotada, ¿converge la solución a algún punto donde $\Vdot=0$? (2) Si $\Vdot\le0$ y los únicos equilibrios en $\{\Vdot=0\}$ están en el origen, ¿convergen las soluciones al origen? (3) Si todas las soluciones de un anillo convergen a un equilibrio, ¿es estable ese equilibrio? (4) ¿Puede una función que \emph{no} es definida positiva probar que algo converge?
+\respuesta{(1) No necesariamente a un \emph{punto}: converge a un \emph{conjunto} invariante donde $\Vdot=0$, que puede ser un ciclo límite o una recta de equilibrios (\cref{ej:iv-ciclo,ej:iv-adaptativo}). (2) No: $\{\Vdot=0\}$ puede contener órbitas periódicas sin ningún equilibrio, y entonces la solución puede quedarse oscilando (\cref{tr:iv-equilibrios}). (3) No: converger no es ser estable (\cref{ej:iv-inestable}). (4) Sí: el \cref{thm:iv-lasalle} no pide que $V$ sea definida positiva, y con $V=\tfrac14(r^2-1)^2$ prueba que un ciclo límite atrae (\cref{ej:iv-ciclo}).}
+\end{pausa}

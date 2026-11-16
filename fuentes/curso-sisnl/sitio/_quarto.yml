@@ -13,6 +13,7 @@ project:
     - recursos/explorador-bidimensional.js
     - recursos/explorador-introduccion.js
     - recursos/explorador-unidimensional.js
+    - recursos/explorador-invarianza.js
 
 lang: es
 

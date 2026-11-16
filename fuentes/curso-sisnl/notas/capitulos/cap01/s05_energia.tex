@@ -38,7 +38,7 @@ Sabemos dos cosas: $E\ge0$, por ser suma de cuadrados, y $E$ no crece mientras e
 \begin{trampa}[label=tr:in-lasalle]{La energía decrece, luego el sistema va al origen}
 \plausible{Como $\dot E=-cx_2^2\le0$, el bloque se detiene en $x=0$.}
 La desigualdad dice que $E$ no crece; no dice que llegue a cero, y $\dot E$ se anula en toda la recta $x_2=0$, no solo en el origen (\cref{fig:in-energia}): en cada inversión del movimiento el bloque está quieto y $\dot E=0$. Un $\dot E$ \emph{semidefinido} negativo no basta para concluir que $x_1\to0$; de ahí solo se sigue, con un argumento extra, que $x_2\to0$.
-\correcto{Hace falta un paso más: una solución que se quedara en $\{x_2=0\}$ tendría $\dot x_2=0$, luego $x_1=0$. Ninguna solución puede vivir en $\{\dot E=0\}$ salvo el origen, y eso, hecho preciso, es el \clave{principio de invarianza de LaSalle} (capítulo~8). Saltarse ese paso es la trampa más común del curso.}
+\correcto{Hace falta un paso más: una solución que se quedara en $\{x_2=0\}$ tendría $\dot x_2=0$, luego $x_1=0$. Ninguna solución puede vivir en $\{\dot E=0\}$ salvo el origen, y eso, hecho preciso, es el \clave{principio de invarianza de LaSalle} (\cref{cap:invarianza}). Saltarse ese paso es la trampa más común del curso.}
 \end{trampa}
 
 Para el péndulo \eqref{eq:in-pendulo}, la energía $E=mg\ell(1-\cos x_1)+\tfrac12m\ell^2x_2^2$ cumple $\dot E=-k\ell^2x_2^2\le0$. Ahora hay una complicación: $E$ es positiva cerca del origen, pero se anula también en $x_1=2\pi$, $4\pi$, \dots\ (el péndulo da una vuelta y vuelve a colgar). La energía sirve como argumento \emph{local}, en una vecindad del equilibrio de abajo, y esa restricción es el germen de la estabilidad local y de la región de atracción.

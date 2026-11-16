@@ -1,0 +1,15 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}[node distance=6mm and 8mm]
+ \node[bloque=snlnoche,minimum width=104mm] (gap) {\textbf{El hueco del capítulo 7:} $V$ definida positiva y $\dot V\le0$ solo da estabilidad.\\ ¿Qué hace falta para concluir convergencia, y de dónde sale $V$?};
+ \node[bloque=snlazul,below left=9mm and -42mm of gap,minimum width=50mm,font=\footnotesize] (inv) {\textbf{Invarianza} (\S8.2--8.3)\\ $\Omega$ compacto y positivamente invariante\\ $\omega(x_0)\subset M\subset E\subset\Omega$};
+ \node[bloque=snlverde,below right=9mm and -42mm of gap,minimum width=50mm,font=\footnotesize] (cons) {\textbf{Construcción de $V$} (\S8.6--8.8)\\ fijar $\nabla V$, $V=f^{\top}Pf$ o la forma de $\dot V$};
+ \node[bloque=snlvioleta,below=8mm of inv,minimum width=50mm,font=\footnotesize] (ej) {\textbf{Ejemplos} (\S8.4)\\ $M$ puede ser un punto, un ciclo,\\ una recta de equilibrios o un subespacio};
+ \node[bloque=snlambar,below=8mm of $(ej.south)!0.5!(cons.south |- ej.south)$,minimum width=60mm,font=\footnotesize] (reg) {\textbf{Región de atracción} (\S8.5)\\ $\Omega_c$ con $c<c^*$: estimado por dentro;\\ Zubov: la región exacta};
+ \node[bloque=snlcoral,below=8mm of cons,minimum width=50mm,font=\footnotesize] (met) {gradiente variable $\cdot$ Krasovskii $\cdot$ Zubov};
+ \draw[flecha] (gap) -- (inv); \draw[flecha] (gap) -- (cons); \draw[flecha] (inv) -- (ej); \draw[flecha] (cons) -- (met);
+ \draw[flecha] (ej) |- (reg); \draw[flecha] (met) |- (reg);
+ \draw[flecha,dashed] (inv.east) -- node[above,font=\scriptsize]{o una $V$ estricta} (cons.west);
+\end{tikzpicture}
+\end{document}

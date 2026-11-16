@@ -1,0 +1,144 @@
+%% ---------------------------------------------------------------------
+\section{El principio de invarianza}
+\label{sec:iv-lasalle}
+%% ---------------------------------------------------------------------
+
+\begin{ideaclave}
+\textbf{La idea en una frase.} Si $V$ no puede crecer a lo largo de las soluciones y estas permanecen en un compacto, cada solución se acumula en un conjunto donde $V$ es \emph{constante}. Ese conjunto es invariante, así que está contenido en $\{\Vdot=0\}$ \emph{y está hecho de soluciones completas}. Si la única solución completa que cabe en $\{\Vdot=0\}$ es el equilibrio, todas convergen a él.
+\end{ideaclave}
+
+\subsection{El conjunto $E$ y su mayor subconjunto invariante $M$}
+
+\begin{definicion}[label=def:iv-EM]{Los conjuntos $E$ y $M$}
+Sean $\Omega\subset\D$ y $V$ de clase $\Cont1$ con $\Vdot\le0$ en $\Omega$. Se definen
+\[
+  E=\{x\in\Omega:\ \Vdot(x)=0\}
+\]
+y $M$, el \clave{mayor conjunto invariante contenido en $E$}: la unión de todos los subconjuntos invariantes de $E$. Equivalentemente,
+\[
+  x_0\in M\iff\flujo t{x_0}\in E\quad\text{para todo }t\in\R .
+\]
+\end{definicion}
+
+$M$ está bien definido porque la unión de conjuntos invariantes es invariante (puede ser vacío). Siempre $M\subset E$, y en general la inclusión es estricta: en el péndulo, $E$ es un segmento del eje $x_2=0$ y $M=\{0\}$.
+
+\paragraph{Cómo se calcula $M$: la prueba de permanencia.} Suponga que $E=\{x\in\Omega:\ h(x)=0\}$ (en el péndulo, $h(x)=x_2$). Si una solución permanece en $E$, entonces $h(x(t))\equiv0$, y por lo tanto \emph{todas} sus derivadas se anulan:
+\begin{equation}
+  h(x(t))\equiv0\implica\Lie fh\bigl(x(t)\bigr)\equiv0\implica\Lie f^2h\bigl(x(t)\bigr)\equiv0\implica\cdots,
+  \label{eq:iv-permanencia}
+\end{equation}
+con $\Lie fh=\jac hx f$. Cada derivada impone una restricción algebraica nueva; se deriva hasta que las restricciones obliguen a $x(t)$ a estar en un conjunto que ya se reconoce (típicamente, un equilibrio).\notamargen{Las $\Lie f^kh$ son las derivadas de Lie de la linealización por realimentación (\cref{cap:linealizacion}). Calcular $M$ es preguntar qué estados son \emph{inobservables} desde la ``salida'' $y=h(x)$: \cref{ej:iv-observable}.} Para el péndulo:
+\[
+  x_2\equiv0\implica\dot x_2=-a\sin x_1-b\,x_2\equiv0\implica\sin x_1\equiv0\implica x_1\equiv0\qquad(\abs{x_1}<\pi).
+\]
+La geometría es la de la \cref{fig:iv-pendulo}: sobre $E$ el campo vale $f(x_1,0)=(0,-a\sin x_1)$, es vertical y, salvo en el origen, \emph{transversal} a $E$. Una solución que toca $E$ lo atraviesa de inmediato.
+
+\begin{trampa}[label=tr:iv-EM]{``Como $\Vdot=0$ en el eje $x_2=0$, la solución termina en algún punto del eje''}
+\plausible{La solución se acumula donde $\Vdot=0$, y $\Vdot=0$ en todo el eje.}
+Termina en $M$, no en $E$. Los puntos de $E\setminus M$ son puntos por los que se \emph{pasa}, no puntos donde se \emph{queda}: la trayectoria de la \cref{fig:iv-pendulo} cruza el eje doce veces en $[0,40]$ y en cada cruce $V$ sigue bajando.
+\correcto{Hay que calcular $M$ con la prueba de permanencia \eqref{eq:iv-permanencia}.}
+\end{trampa}
+
+\begin{trampa}[label=tr:iv-equilibrios]{``Los únicos equilibrios en $E$ están en el origen, luego $M=\{0\}$''}
+\plausible{Una solución que se queda quieta en $E$ es un equilibrio; si no hay más equilibrios en $E$, solo queda el origen.}
+Una solución puede quedarse en $E$ \emph{sin estar quieta}: $E$ puede contener órbitas periódicas, o subespacios llenos de ellas (\cref{ej:iv-ciclo,ej:iv-observable}). Con este razonamiento, en el \cref{ej:iv-ciclo} se concluiría $M=\emptyset$.
+\correcto{La pregunta es qué \emph{soluciones} pueden permanecer en $E$, no qué \emph{puntos} de $E$ son estacionarios.}
+\end{trampa}
+
+\subsection{El teorema}
+
+\begin{teorema}[label=thm:iv-lasalle]{Principio de invarianza de LaSalle \citep{LaS60}, \citep[Teo.~4.4]{Kha02}}
+Considere \eqref{eq:iv-sistema}. Sea $\Omega\subset\D$ un conjunto \clave{compacto} y \clave{positivamente invariante}, y $V:\D\to\R$ de clase $\Cont1$ con $\Vdot(x)\le0$ en $\Omega$. Sea $E=\{x\in\Omega:\ \Vdot(x)=0\}$ y $M$ el mayor conjunto invariante contenido en $E$. Entonces toda solución que comienza en $\Omega$ tiende a $M$ cuando $t\to\infty$.
+\end{teorema}
+
+\begin{demostracion}
+Sea $x_0\in\Omega$ y $x(t)=\flujo t{x_0}$. (i) \emph{La solución existe para todo $t\ge0$ y se queda en $\Omega$}: por la invarianza positiva, $x(t)\in\Omega$ mientras exista, y como $\Omega$ es compacto no hay escape en tiempo finito. (ii) \emph{$V(x(t))$ tiene límite}: es no creciente porque $\Vdot\le0$ en $\Omega$, y acotada por debajo porque $V$ es continua en el compacto $\Omega$; sea $\ell=\lim_{t\to\infty}V(x(t))$. (iii) \emph{El conjunto límite existe y está en $\Omega$}: por el \cref{lem:oc-omega}, $\omegalim{x_0}$ es no vacío, compacto e invariante, y $x(t)\to\omegalim{x_0}$; como $\Omega$ es cerrado, $\omegalim{x_0}\subset\Omega$. (iv) \emph{$V\equiv\ell$ en $\omegalim{x_0}$, y por eso $\omegalim{x_0}\subset M$}: si $x(t_k)\to p$, por continuidad $V(p)=\ell$. Como $\omegalim{x_0}$ es invariante, la solución que pasa por $p$ se queda en $\omegalim{x_0}$, donde $V\equiv\ell$; luego $\Vdot(p)=\frac{\dif}{\dif t}V(\flujo tp)\big|_{t=0}=0$. Así $\omegalim{x_0}\subset E$, y como es invariante, $\omegalim{x_0}\subset M$. (v) \emph{Conclusión}: $\dist(x(t),M)\le\dist(x(t),\omegalim{x_0})\to0$.
+\end{demostracion}
+
+La prueba entera cabe en una cadena de inclusiones, y cada eslabón usa una hipótesis distinta:
+\begin{equation}
+  \omegalim{x_0}\ \subset\ M\ \subset\ E\ \subset\ \Omega
+  \qquad\begin{array}{l}
+  \text{compacidad}\implica\omegalim{x_0}\neq\emptyset,\\
+  V\text{ constante en }\omegalim{x_0}\implica\omegalim{x_0}\subset E,\\
+  \text{invarianza de }\omegalim{x_0}\implica\omegalim{x_0}\subset M .
+  \end{array}
+  \label{eq:iv-cadena}
+\end{equation}
+
+Conviene leer con cuidado lo que el teorema \emph{no} pide y lo que \emph{no} concluye.
+\begin{itemize}
+  \item \alerta{No pide que $V$ sea definida positiva}, ni que $\Omega$ sea un conjunto de nivel de $V$: basta que $V$ sea $\Cont1$ y no crezca en $\Omega$. Esto permite probar la atracción de un ciclo límite (\cref{ej:iv-ciclo}).
+  \item \alerta{Sí pide un $\Omega$ compacto y positivamente invariante}, y su existencia hay que establecerla aparte: con el \cref{lem:iv-subnivel}, con una región atrapante o de otra forma. Sin compacidad falla el paso (iii).
+  \item \alerta{Concluye convergencia a un conjunto, no a un punto, y no concluye estabilidad de nada.} Las dos cosas requieren argumentos adicionales (\cref{ej:iv-adaptativo,ej:iv-inestable}).
+  \item \alerta{Es un resultado para sistemas invariantes en el tiempo.} El paso (iv) usa que $\omegalim{x_0}$ es invariante, lo que en general falla para $\dot x=f(t,x)$; allí se usan Barbalat (\cref{sec:av-barbalat}) o LaSalle--Yoshizawa (capítulo~9).
+\end{itemize}
+
+\subsection{Corolarios: estabilidad asintótica local y global}
+
+Cuando lo que se quiere es la estabilidad asintótica del origen, el teorema se especializa en los resultados de Barbashin y Krasovskii.
+
+\begin{corolario}[label=cor:iv-as]{Estabilidad asintótica con $\Vdot\le0$ \citep[Cor.~4.1]{Kha02}}
+Sea $x=0$ un equilibrio de \eqref{eq:iv-sistema} y $V:\D\to\R$ de clase $\Cont1$, \clave{definida positiva} en un dominio $\D$ que contiene al origen, con $\Vdot\le0$ en $\D$. Sea $S=\{x\in\D:\ \Vdot(x)=0\}$ y suponga que \clave{ninguna solución distinta de $x(t)\equiv0$ puede permanecer idénticamente en $S$}. Entonces el origen es asintóticamente estable.
+\end{corolario}
+
+\begin{demostracion}
+\emph{Estabilidad}: es el \cref{thm:ly-directo}. \emph{Atracción}: tome $r>0$ con $\Bola r\subset\D$, $\alpha=\min_{\norm x=r}V(x)>0$, $\beta\in(0,\alpha)$ y $\Omega_\beta=\{x\in\Bola r:\ V(x)\le\beta\}$. Una solución que arranca en $\Omega_\beta$ no puede alcanzar la esfera $\norm x=r$, donde $V\ge\alpha>\beta$, porque $V(x(t))$ no crece: $\Omega_\beta$ es compacto y positivamente invariante, y contiene una bola $\Bola\delta$ por la continuidad de $V$ en el origen. Por el \cref{thm:iv-lasalle}, toda solución que arranca en $\Omega_\beta$ tiende a $M\subset S\cap\Omega_\beta$, y por hipótesis $M=\{0\}$.
+\end{demostracion}
+
+\begin{corolario}[label=cor:iv-gas]{Estabilidad asintótica global con $\Vdot\le0$ \citep[Cor.~4.2]{Kha02}}
+Sea $x=0$ un equilibrio de \eqref{eq:iv-sistema} con $\D=\R^n$, y $V:\R^n\to\R$ de clase $\Cont1$, definida positiva y \clave{radialmente no acotada}, con $\Vdot\le0$ en $\R^n$. Si ninguna solución distinta de $x(t)\equiv0$ puede permanecer idénticamente en $S=\{x:\ \Vdot(x)=0\}$, el origen es globalmente asintóticamente estable.
+\end{corolario}
+
+\begin{demostracion}
+Dado $x_0$, sea $c=V(x_0)$. Por ser $V$ radialmente no acotada, $\Nivel c=\{V\le c\}$ es acotado; es cerrado y, como $\Vdot\le0$ en todo $\R^n$, positivamente invariante. Se aplica el \cref{thm:iv-lasalle} con $\Omega=\Nivel c$.
+\end{demostracion}
+
+Si $\Vdot$ es definida negativa, $S=\{0\}$ y los corolarios son los \cref{thm:ly-directo,thm:ly-bk}. La hipótesis radial no sobra: el sistema de la \cref{tr:ly-radial} tiene $V$ definida positiva, $\Vdot<0$ fuera del origen (así que $S=\{0\}$) y aun así hay soluciones que escapan. Sin $\Omega$ compacto no hay conjunto límite garantizado: para esas soluciones, $\omegalim{x_0}=\emptyset$.
+
+\begin{trampa}[label=tr:iv-pasar]{``Las soluciones pasan por $S$, así que la hipótesis del corolario falla''}
+\plausible{El corolario pide que las soluciones no se queden en $S$, y en el péndulo todas llegan a $S$ una y otra vez.}
+La hipótesis no dice que las soluciones eviten $S$; dice que ninguna solución no trivial puede quedarse en $S$ \emph{para todo tiempo}. Las del péndulo cruzan $S$ infinitas veces y el corolario se aplica.
+\correcto{``Pasar por'' no es ``permanecer en''. Se verifica con la prueba de permanencia.}
+\end{trampa}
+
+\begin{receta}[Cómo aplicar LaSalle]
+\begin{enumerate}
+  \item \textbf{Escoger $V$ y calcular $\Vdot$.} Verificar $\Vdot\le0$ en la región de interés. ($V$ no tiene que ser definida positiva para el teorema; sí para los corolarios.)
+  \item \textbf{Exhibir $\Omega$ compacto y positivamente invariante} que contenga la condición inicial: la componente conexa de $\{V\le c\}$ que la contiene (\cref{lem:iv-subnivel}), $\Omega_\beta=\{x\in\Bola r:\ V\le\beta\}$, $\{V\le V(x_0)\}$ si $V$ es radialmente no acotada, o una región atrapante obtenida de otra forma.
+  \item \textbf{Calcular $E=\{x\in\Omega:\ \Vdot(x)=0\}$.}
+  \item \textbf{Calcular $M$ con la prueba de permanencia} \eqref{eq:iv-permanencia}: suponer $x(t)\in E$ para todo $t$ y derivar las restricciones que definen $E$.
+  \item \textbf{Concluir con precisión.} Siempre: $x(t)\to M$ para $x_0\in\Omega$. Si $M=\{0\}$ y $V$ es definida positiva: estabilidad asintótica, con $\Omega$ dentro de la región de atracción. Si además $V$ es radialmente no acotada y $\Vdot\le0$ en $\R^n$: estabilidad asintótica global. Si $M$ es un conjunto de equilibrios u órbitas: solo convergencia a ese conjunto.
+\end{enumerate}
+\end{receta}
+
+\begin{ejemplo}[label=ej:iv-pendulo]{El péndulo con fricción, por fin}
+Pruebe que el origen de \eqref{eq:iv-pendulo} con $a,b>0$ es asintóticamente estable y dé un estimado de su región de atracción.
+\solucion \emph{Paso 1.} En $\D=(-\pi,\pi)\times\R$, $V$ es definida positiva y $\Vdot=a\sin x_1\,x_2+x_2(-a\sin x_1-b\,x_2)=-b\,x_2^2\le0$.
+\emph{Paso 2.} Para $c<2a$ (la energía del péndulo invertido), la componente $\Nivel c$ de $\{V\le c\}$ que contiene al origen cumple $a(1-\cos x_1)\le c<2a$, así que $\abs{x_1}<\pi$: es acotada, está en $\D$ y, por el \cref{lem:iv-subnivel}, es compacta y positivamente invariante.
+\emph{Paso 3.} $E=\{(x_1,0):\ \abs{x_1}\le\arccos(1-c/a)\}$; con $a=1$ y $c=1.8$, $\abs{x_1}\le2.498$.
+\emph{Paso 4.} $x_2\equiv0$ obliga $a\sin x_1\equiv0$ y, como $\abs{x_1}<\pi$, $x_1\equiv0$: $M=\{0\}$.
+\emph{Paso 5.} Por el \cref{cor:iv-as}, el origen es asintóticamente estable, y todo $\Nivel c$ con $c<2a$ está en la región de atracción: toda condición inicial con $\abs{x_1(0)}<\pi$ y energía menor que $2a$ termina en reposo. Con $a=1$, $b=0.3$ y $x_0=(2,0.8)$ ($V=1.736$), la solución cruza el eje $x_2=0$ doce veces en $[0,40]$, y $b\int_0^{40}x_2^2\dif t=V(x_0)-V(x(40))$ hasta la precisión del integrador (\cref{fig:iv-pendulo}).
+\emph{¿Por qué no es global?} En $\R^2$ hay otros equilibrios $(k\pi,0)$, que están en $\{\Vdot=0\}$ y son soluciones que se quedan allí; además, $\{V\le c\}$ no es acotado en $\R^2$ y $V$ no es definida positiva fuera de $\abs{x_1}<2\pi$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_pendulo}
+\caption{Péndulo con fricción ($a=1$, $b=0.3$). Izquierda: en azul, $\Nivel c$ ($c=1.8$), la componente de $\{V\le c\}$ que contiene al origen; en gris, las otras componentes; en coral, $E$; en violeta, el campo sobre $E$, vertical y transversal salvo en el origen; en negro, el nivel $V=2a$ de las separatrices. Los cuadrados son los cruces con $E$. Derecha: $V(x(t))$ y $\Vdot(x(t))$; en los cruces (líneas punteadas) $\Vdot=0$ y $V$ sigue bajando.}
+\label{fig:iv-pendulo}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej2_PenduloLaSalle.m}{pendulo}{$\Nivel c$, $E$, los cruces y el balance $b\int x_2^2=V(x_0)-V(x(t))$}
+\codigorepo{cap08_invarianza/C8_Ej2_PenduloLaSalle.m}{permanencia}{La prueba de permanencia con derivadas de Lie numéricas}
+
+\video{V8_1_pendulo_lasalle}{Pasar por $E$ no es quedarse en $E$}
+
+\begin{profundiza}[El péndulo vive en un cilindro]
+El ángulo $x_1$ es un punto de la circunferencia $\mathbb S^1$, y el espacio de estado es el cilindro $\mathbb S^1\times\R$. Allí $V$ está bien definida y sus conjuntos de nivel son \emph{compactos} para todo $c$. El \cref{thm:iv-lasalle} se aplica globalmente con $M=\{(0,0),(\pi,0)\}$: \emph{toda} solución converge al equilibrio inferior o al superior. El superior es una silla cuya variedad estable es una curva, así que casi todas las condiciones iniciales terminan abajo. Pero ningún resultado puede dar estabilidad asintótica global: la región de atracción de un equilibrio asintóticamente estable es contráctil~\citep{BhSz70}, y el cilindro no lo es. Un campo continuo en el cilindro no tiene equilibrios globalmente atractivos, por razones topológicas.
+\end{profundiza}
+
+\begin{pausa}
+Para $\dot x_1=x_2$, $\dot x_2=-x_1^3-x_2^3$, ¿qué concluye LaSalle con $V=\tfrac14x_1^4+\tfrac12x_2^2$? ¿Qué dice la linealización?
+\respuesta{$\Vdot=x_1^3x_2+x_2(-x_1^3-x_2^3)=-x_2^4\le0$, $S=\{x_2=0\}$. Si $x_2\equiv0$, $\dot x_2=-x_1^3\equiv0$, luego $x_1\equiv0$: $M=\{0\}$. $V$ es radialmente no acotada: por el \cref{cor:iv-gas}, el origen es globalmente asintóticamente estable. La jacobiana en el origen es la matriz nula: el método indirecto no dice nada (\cref{tr:ly-imaginario}).}
+\end{pausa}

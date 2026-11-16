@@ -1,0 +1,50 @@
+%% ---------------------------------------------------------------------
+\section{Estimar la región de atracción cuando $\Vdot\le0$}
+\label{sec:iv-region}
+%% ---------------------------------------------------------------------
+
+La \cref{prop:ly-estimacion} exigía $\Vdot<0$ fuera del origen. Con LaSalle basta $\Vdot\le0$, siempre que en el conjunto de nivel ninguna solución no trivial pueda quedarse donde $\Vdot=0$. Las dos versiones se escriben juntas así.
+
+\begin{proposicion}[label=prop:iv-estimacion]{Estimado de la región de atracción con un conjunto de nivel}
+Sea $V$ de clase $\Cont1$, definida positiva en un dominio $\D\ni0$, y $\Nivel c$ la componente conexa de $\{x\in\D:\ V(x)\le c\}$ que contiene al origen, acotada y con $\overline{\Nivel c}\subset\D$. Si
+\begin{enumerate}
+  \item[(a)] $\Vdot<0$ en $\Nivel c\setminus\{0\}$, o
+  \item[(b)] $\Vdot\le0$ en $\Nivel c$ y ninguna solución distinta de $x\equiv0$ permanece en $\{x\in\Nivel c:\ \Vdot(x)=0\}$,
+\end{enumerate}
+entonces $\Nivel c\subset\RA$. En el caso (a), el mayor $c$ admisible es
+\begin{equation}
+  c^*=\inf\bigl\{V(x):\ x\in\D,\ x\neq0,\ \Vdot(x)\ge0\bigr\},
+  \label{eq:iv-cestrella}
+\end{equation}
+y cualquier $c<c^*$ sirve.
+\end{proposicion}
+
+\begin{demostracion}
+Por el \cref{lem:iv-subnivel}, $\Nivel c$ es compacto y positivamente invariante. En el caso (b), el \cref{thm:iv-lasalle} da $x(t)\to M=\{0\}$. En el caso (a), $E=\{0\}$. En los dos, $x(t)\to0$ desde todo punto de $\Nivel c$.
+\end{demostracion}
+
+\notamargen{En la práctica, $c^*$ se calcula analíticamente cuando se puede y, si no, en una malla: se evalúa $V$ en los puntos donde $\Vdot\ge0$ y se toma el mínimo. Es lo que hace \cmd{nivelCritico} (en \cmd{comun/}). La malla debe cubrir solo $\D$: en el péndulo inclinado del \cref{ej:ly-cpendulo}, una malla más ancha que $\abs{x_1}<\pi$ encuentra puntos con $\Vdot\ge0$ más allá de $\pm\pi$ y da un $c^*$ menor que $2.308$, por la trampa de las componentes.}
+
+\begin{ejemplo}[label=ej:iv-region]{El problema que el capítulo~7 dejó a medias}
+Para $\dot x_1=x_2$, $\dot x_2=-x_1+x_1^3-x_2$ (problema~\ref{prob:ly-duffing}), estime la región de atracción del origen con $V=\tfrac12x_1^2-\tfrac14x_1^4+\tfrac12x_2^2$.
+\solucion $\Vdot=(x_1-x_1^3)x_2+x_2(-x_1+x_1^3-x_2)=-x_2^2\le0$: solo semidefinida, y el caso (a) no se aplica. Las sillas $(\pm1,0)$ tienen $V=\tfrac14$, y para $c<\tfrac14$ la componente $\Nivel c$ que contiene al origen está en $\abs{x_1}<1$. \emph{Permanencia}: $x_2\equiv0$ obliga $x_1-x_1^3\equiv0$, es decir $x_1\in\{0,\pm1\}$, y en $\abs{x_1}<1$ solo queda $x_1=0$. Por el caso (b),
+\[
+  \bigl\{V<\tfrac14\bigr\}\cap\bigl\{\abs{x_1}<1\bigr\}\subset\RA .
+\]
+El punto $(0,0.7)$, con $V=0.245$, converge; los de la componente exterior (gris en la \cref{fig:iv-region}) pueden escapar aunque tengan $V<\tfrac14$.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.66\linewidth]{cap08/f_region}
+\caption{El estimado del \cref{ej:iv-region} (azul), limitado por las separatrices de las sillas en el nivel $V=\tfrac14$. En gris, la parte de $\{V<\tfrac14\}$ fuera de $\abs{x_1}<1$. Soluciones azules: convergen; corales: escapan.}
+\label{fig:iv-region}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej9_RegionLaSalle.m}{region}{El estimado con $\Vdot\le0$ y la función \cmd{nivelCritico}}
+
+\begin{trampa}[label=tr:iv-estimado]{``Fuera de $\Nivel{c^*}$ las soluciones no convergen''}
+\plausible{$c^*$ es el mayor nivel que se puede certificar; si se pudiera más, la proposición lo daría.}
+$c^*$ es el mayor nivel que se puede certificar \emph{con esa $V$}. Los estimados son conservadores: en el \cref{ej:iv-g1} todas las soluciones de prueba convergen, también desde fuera de $\Nivel{c^*}$; en el \cref{ej:iv-z3}, la mejor elipse cubre el 47\,\% de la región real.
+\correcto{$\Nivel{c^*}\subset\RA$ es una inclusión, no una igualdad. Para mejorar el estimado hay que cambiar de $V$: es el tema del resto del capítulo.}
+\end{trampa}

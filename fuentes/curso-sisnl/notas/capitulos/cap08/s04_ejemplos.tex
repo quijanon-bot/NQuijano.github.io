@@ -1,0 +1,166 @@
+%% ---------------------------------------------------------------------
+\section{Qué puede ser $M$}
+\label{sec:iv-ejemplos}
+%% ---------------------------------------------------------------------
+
+En el péndulo $M$ fue un punto. Los ejemplos de esta sección muestran las otras formas que toma $M$ y, con cada una, una trampa distinta.
+
+\subsection{Un punto, pero en la componente correcta}
+
+\begin{ejemplo}[label=ej:iv-duffing]{Resorte con amortiguamiento cuadrático \citep[Ej.~2.35]{KeBr23}}
+Para $\dot x_1=x_2$, $\dot x_2=-(k_0x_1+k_1x_1^3)-\beta\,x_2\abs{x_2}$ con $k_0,\beta>0$, estudie el origen con la energía $V=\tfrac{k_0}2x_1^2+\tfrac{k_1}4x_1^4+\tfrac12x_2^2$ para un resorte duro ($k_1>0$) y uno blando ($k_1<0$).
+\solucion $\Vdot=(k_0x_1+k_1x_1^3)x_2+x_2\bigl(-(k_0x_1+k_1x_1^3)-\beta x_2\abs{x_2}\bigr)=-\beta\abs{x_2}^3\le0$, con $S=\{x_2=0\}$. Si $x_2\equiv0$, $\dot x_2\equiv0$ obliga $x_1(k_0+k_1x_1^2)\equiv0$.
+\emph{Resorte duro.} La única raíz real es $x_1=0$: $M=\{0\}$. $V$ es definida positiva y radialmente no acotada, y por el \cref{cor:iv-gas} el origen es \clave{globalmente asintóticamente estable}. El método indirecto no decide: la linealización es un centro, porque $\beta x_2\abs{x_2}$ es de segundo orden. La convergencia es lenta: la amplitud decae aproximadamente como $1/t$ (con $k_0=k_1=1$, $\beta=0.4$ y $x_0=(2,0)$, el producto amplitud $\times\,t$ vale $\approx6$ entre $t=100$ y $t=400$). El origen es globalmente asintóticamente estable y \emph{no} exponencialmente estable.
+\emph{Resorte blando.} Aparecen dos sillas en $(\pm\sqrt{k_0/\abs{k_1}},0)$, y $V$ deja de ser radialmente no acotada (ni siquiera es definida positiva en $\R^2$). Sobre el eje $x_2=0$, $V$ alcanza su máximo en las sillas, con $c^*=k_0^2/(4\abs{k_1})$. Para $c<c^*$, la componente $\Nivel c$ que contiene al origen está en $\abs{x_1}<\sqrt{k_0/\abs{k_1}}$, es compacta y positivamente invariante, y $M=\{0\}$: el origen es \clave{localmente} asintóticamente estable y $\Nivel c$ está en su región de atracción.
+\end{ejemplo}
+
+\begin{trampa}[label=tr:iv-componente]{``$V(x_0)<c$, luego $x_0$ está en el estimado $\Nivel c$''}
+\plausible{$\Nivel c$ es el conjunto donde $V\le c$, y $x_0$ cumple esa desigualdad.}
+Con $k_0=1$, $k_1=-1$ y $\beta=0.4$, el punto $x_0=(1.2,0)$ tiene $V(x_0)=0.2016<c^*=0.25$ y \alerta{escapa a infinito} ($\abs{x_1}=50$ en $t=2.40$): está en otra componente de $\{V\le c\}$, la que rodea a las sillas por fuera (zona gris de la \cref{fig:iv-duffing}). El punto $(0.9,0)$, con $V=0.241$, sí está en $\Nivel c$ y converge.
+\correcto{El estimado es la \emph{componente conexa} de $\{V\le c\}$ que contiene al origen (\cref{lem:iv-subnivel}). Es la \cref{tr:iv-subnivel} con consecuencias.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_duffing}
+\caption{Izquierda: resorte duro ($k_1=1$), globalmente asintóticamente estable; niveles de $V$ en azul. Derecha: resorte blando ($k_1=-1$). En azul, $\Nivel c$ con $c=0.24$; en gris, la parte de $\{V\le c\}$ que \emph{no} es la componente del origen; en negro, el nivel $V=c^*=\tfrac14$ de las sillas. La solución coral arranca con $V(x_0)<c$ y escapa; la verde arranca en $\Nivel c$ y converge.}
+\label{fig:iv-duffing}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej3_Duffing.m}{duffing}{Resorte duro y blando: $M=\{0\}$ y la componente equivocada}
+
+\subsection{Un ciclo límite, con una $V$ que no es definida positiva}
+
+\begin{ejemplo}[label=ej:iv-ciclo]{LaSalle prueba que un ciclo atrae}
+Para $\dot x_1=x_1(1-x_1^2-x_2^2)-x_2$, $\dot x_2=x_2(1-x_1^2-x_2^2)+x_1$, que en polares es $\dot r=r(1-r^2)$, $\dot\theta=1$, pruebe que el círculo unitario atrae a las soluciones de un anillo.
+\solucion Tome $V=\tfrac14(r^2-1)^2$. Como $\frac{\dif}{\dif t}r^2=2r^2(1-r^2)$,
+\[
+  \Vdot=\tfrac12(r^2-1)\cdot2r^2(1-r^2)=-r^2(1-r^2)^2\le0 .
+\]
+$V$ \emph{no} es definida positiva respecto a ningún punto: $V(0)=\tfrac14$ es un máximo local y $V=0$ en todo el círculo (el ``sombrero'' de la \cref{fig:iv-ciclo}). Para $0<c<\tfrac14$,
+\[
+  \Nivel c=\{V\le c\}=\bigl\{1-2\sqrt c\le r^2\le1+2\sqrt c\bigr\}
+\]
+es un anillo compacto que \emph{no contiene al origen} (con $c=0.2$, $0.325\le r\le1.376$) y es positivamente invariante porque $\Vdot\le0$ en todo $\R^2$. $E=\Nivel c\cap\{r=1\}$ es el círculo, que es una órbita periódica ($r\equiv1\implica\dot r=0$, $\dot\theta=1$) y por lo tanto invariante: $M=E$. Por el \cref{thm:iv-lasalle}, \clave{toda solución que arranca en el anillo tiende al ciclo límite}.
+\end{ejemplo}
+
+Tres comentarios. Poincaré--Bendixson (\cref{sec:oc-pb}) da la \emph{existencia} de una órbita periódica en el anillo; LaSalle da su \emph{atracción}. Si se hubieran revisado solo los equilibrios de $E$ (no hay ninguno), se habría concluido $M=\emptyset$ (\cref{tr:iv-equilibrios}). Y si $c\ge\tfrac14$, $\Nivel c$ contiene al origen, $E=\{0\}\cup\{r=1\}$, y LaSalle solo da convergencia a esa unión: para descartar el origen hace falta un argumento adicional (aquí, que $r(t)$ es monótona).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_ciclo}
+\caption{Izquierda: el anillo $\Nivel{0.2}$ (azul), el conjunto $E=M$ (coral) y dos soluciones que convergen a él. Derecha: el perfil de $V=\tfrac14(r^2-1)^2$ y las mismas soluciones, muestreadas en el tiempo, ``rodando'' hacia el fondo del sombrero.}
+\label{fig:iv-ciclo}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej4_CicloLimite.m}{ciclo}{El anillo $\Nivel c$ y la convergencia al ciclo}
+
+\video{V8_2_ciclo_sombrero}{Rodar por el sombrero hasta el ciclo}
+
+\subsection{Una recta de equilibrios}
+
+\begin{ejemplo}[label=ej:iv-adaptativo]{Control adaptativo \citep[Ej.~4.9]{Kha02}, \citep{Ser00}}
+Para la planta $\dot y=ay+u$ con $a$ \emph{desconocido}, la ley adaptativa $u=-ky$, $\dot k=\gamma y^2$ ($\gamma>0$) da el lazo
+\[
+  \dot y=-(k-a)\,y,\qquad \dot k=\gamma\,y^2 .
+\]
+Pruebe que $y(t)\to0$.
+\solucion La recta $y=0$ está hecha de equilibrios: el origen no es un equilibrio aislado y no puede ser asintóticamente estable. Para cualquier constante $b>a$, tome $V=\tfrac12y^2+\frac1{2\gamma}(k-b)^2$:
+\[
+  \Vdot=-(k-a)\,y^2+(k-b)\,y^2=-(b-a)\,y^2\le0 .
+\]
+$V$ es radialmente no acotada en $(y,k)$, así que $\Nivel c=\{V\le c\}$ es compacto y positivamente invariante para todo $c$. $E=\Nivel c\cap\{y=0\}$, y como cada punto de $E$ es un equilibrio, $M=E$. Por el \cref{thm:iv-lasalle}, $y(t)\to0$ para toda condición inicial. La constante $b$ solo se usa en el análisis: basta que \emph{exista}, y el controlador no necesita conocer $a$.
+\end{ejemplo}
+
+LaSalle da convergencia a la recta. En este caso hay convergencia a un punto, por un argumento adicional: $k(t)$ es no decreciente y acotado (está en $\Nivel c$), luego converge a algún $k_\infty$. Con $b=a$, $W=\tfrac12y^2+\frac1{2\gamma}(k-a)^2$ cumple $\dot W=0$: es una cantidad \emph{conservada}, y con $\gamma=1$ las trayectorias son arcos de circunferencias centradas en $(0,a)$. Como $k$ crece y $y\to0$, si $y_0\neq0$ el arco termina en la intersección superior con el eje:
+\begin{equation}
+  k_\infty=a+\sqrt{(k_0-a)^2+\gamma\,y_0^2}\;>\;a .
+  \label{eq:iv-kinf}
+\end{equation}
+Con $a=\gamma=1$ y $(y_0,k_0)=(2,-1)$, $k_\infty=1+2\sqrt2=3.83$ (\cref{fig:iv-adaptativo}).
+
+\begin{trampa}[label=tr:iv-punto]{``$x(t)\to M$, luego $x(t)$ converge a un punto de $M$, y ese punto es el que usé en $V$''}
+\plausible{LaSalle se aplicó con $V$ centrada en $(0,b)$, así que la solución termina en $(0,b)$.}
+El límite \eqref{eq:iv-kinf} depende de la condición inicial y \emph{no es $b$}: $b$ es una ficción del análisis. Que la solución converja a un \emph{punto} de $M$ requirió un argumento aparte (la monotonía de $k$); en el \cref{ej:iv-ciclo}, la solución no converge a ningún punto de $M$. Observe además que con $b=a$ se tiene $\Vdot\equiv0$ y LaSalle no da información: escoger $b>a$ es lo que hace funcionar el argumento.
+\correcto{LaSalle da convergencia al \emph{conjunto} $M$. La convergencia a un punto, y cuál, requieren argumentos adicionales.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_adaptativo}
+\caption{Izquierda: plano $(y,k)$ con $a=\gamma=1$. Los equilibrios con $k<a$ (coral) son inestables y los con $k>a$ (verde) estables. Las curvas punteadas son niveles de $V$ con $b=2$; las estrellas, los $k_\infty$ de \eqref{eq:iv-kinf}. Derecha: $y(t)$ y $k(t)$ para $(y_0,k_0)=(2,-1)$; $k_\infty=3.83\neq b$.}
+\label{fig:iv-adaptativo}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej5_Adaptativo.m}{adaptativo}{$k(t)$ simulado contra la fórmula de $k_\infty$}
+
+\subsection{Un subespacio no observable}
+
+\begin{ejemplo}[label=ej:iv-observable]{La prueba del \cref{thm:ly-observable}}
+Sea $\dot x=Ax$ con $P=P\T>0$ tal que $A\T P+PA=-C\T C$. Pruebe que si $(A,C)$ es observable, $A$ es Hurwitz, y describa $M$ cuando no lo es.
+\solucion $V=x\T Px$ es definida positiva y radialmente no acotada, con $\Vdot=-\norm{Cx}^2\le0$ y $S=\{x:\ Cx=0\}$. La prueba de permanencia con $h(x)=Cx$: si una solución se queda en $S$, entonces $y(t)=Ce^{At}x_0\equiv0$, y derivando en $t=0$,
+\[
+  Cx_0=0,\ CAx_0=0,\ \dots,\ CA^{n-1}x_0=0\iff\mathcal O\,x_0=0,\qquad \mathcal O=\begin{bmatrix}C\\CA\\\vdots\\CA^{n-1}\end{bmatrix}.
+\]
+Si $(A,C)$ es observable, $\mathcal O$ tiene rango completo y $x_0=0$: $M=\{0\}$, y por el \cref{cor:iv-gas} el origen es globalmente asintóticamente estable, es decir, $A$ es Hurwitz. \alerta{La prueba de permanencia es literalmente la prueba de observabilidad, y $M$ es el subespacio no observable} $\ker\mathcal O$.
+Las dos masas del \cref{cap:lyapunov} (paredes con resortes unitarios, acople $\kappa$, amortiguador $b=0.3$ solo en la masa~1) lo muestran. Con $x=(q_1,v_1,q_2,v_2)$ y la energía $V=\tfrac12\bigl(q_1^2+q_2^2+\kappa(q_1-q_2)^2+v_1^2+v_2^2\bigr)$, $\Vdot=-0.3\,v_1^2$. Con $\kappa=0.4$: $v_1\equiv0$ obliga $\dot v_1=-q_1-\kappa(q_1-q_2)\equiv0$, y como $\dot q_1=v_1=0$, $q_1$ y $q_2$ son constantes; entonces $v_2=\dot q_2=0$ y $\dot v_2=-q_2+\kappa(q_1-q_2)=0$, lo que junto con la primera relación da $q_1=q_2=0$. El rango de observabilidad es $4$ y $M=\{0\}$. Con $\kappa=0$, el rango es $2$ y $M=\ker\mathcal O=\{q_1=v_1=0\}$: la masa~2 oscila para siempre en un plano invariante que la disipación no ve (\cref{fig:ly-masas}).
+\end{ejemplo}
+
+\codigorepo{cap08_invarianza/C8_Ej6_Observabilidad.m}{observabilidad}{$M=\ker\mathcal O$ para las dos masas}
+
+\subsection{Un punto interior: Lotka--Volterra}
+
+\begin{ejemplo}[label=ej:iv-lotka]{La función de Volterra}
+Con la notación de la \cref{sec:oc-lotka} ($v$: presas, $p$: depredadores) y autolimitación solo de las presas,
+\[
+  \dot v=v\,(a-ev-bp),\qquad \dot p=p\,(-c+dv),\qquad e>0,\ ad>ec ,
+\]
+pruebe que el equilibrio de coexistencia $v^*=c/d$, $p^*=(a-ev^*)/b>0$ atrae todo el cuadrante abierto.
+\solucion En $\D=\{v>0,\ p>0\}$ tome la función de Volterra
+\[
+  V(v,p)=d\Bigl(v-v^*-v^*\ln\frac v{v^*}\Bigr)+b\Bigl(p-p^*-p^*\ln\frac p{p^*}\Bigr).
+\]
+Como $z-1-\ln z\ge0$ con igualdad solo en $z=1$, $V\ge0$ y $V=0$ solo en $(v^*,p^*)$. Usando $a=ev^*+bp^*$ y $c=dv^*$,
+\[
+  \Vdot=d(v-v^*)\bigl(-e(v-v^*)-b(p-p^*)\bigr)+b(p-p^*)\,d(v-v^*)=-de\,(v-v^*)^2\le0 .
+\]
+$V\to\infty$ cuando $v\to0^+$, $p\to0^+$ o $\norm{(v,p)}\to\infty$, así que los conjuntos $\{V\le c\}$ son compactos \emph{dentro de} $\D$ y positivamente invariantes. $E=\{v=v^*\}$, y si $v\equiv v^*$, $\dot v\equiv0$ da $a-ev^*-bp\equiv0$, es decir $p\equiv p^*$: $M=\{(v^*,p^*)\}$. El equilibrio es asintóticamente estable y su región de atracción es \emph{todo el cuadrante abierto}. Con $a=b=d=1$, $c=0.5$ y $e=0.2$: $(v^*,p^*)=(0.5,\,0.9)$. Con $e=0$, $\Vdot\equiv0$: $V$ es la cantidad conservada del modelo clásico y las órbitas son cerradas (\cref{fig:iv-lotka}).
+\end{ejemplo}
+
+Este es el argumento que la \cref{sec:oc-lotka} dejó pendiente. No es estabilidad asintótica global en el cuadrante \emph{cerrado}: los ejes son invariantes y las soluciones que nacen en ellos no llegan a $(v^*,p^*)$.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_lotka}
+\caption{Lotka--Volterra con $a=b=d=1$, $c=0.5$. Izquierda: $e=0$, la función de Volterra se conserva y la órbita es cerrada. Derecha: $e=0.2$, la solución cruza transversalmente $E=\{v=v^*\}$ y converge a $(v^*,p^*)$.}
+\label{fig:iv-lotka}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej7_LotkaVolterra.m}{lotka}{La función de Volterra, conservada y disipada}
+
+\subsection{Convergencia sin estabilidad}
+
+\begin{ejemplo}[label=ej:iv-inestable]{LaSalle da convergencia, no estabilidad}
+En polares, sea $\dot r=r(1-r)$, $\dot\theta=1-\cos\theta\ (\ge0)$, en el anillo $\Omega=\{\tfrac12\le r\le\tfrac32\}$, donde el campo es suave. ¿Qué dice LaSalle con $V=(1-r)^2$? ¿Es estable el equilibrio $(1,0)$?
+\solucion $\Vdot=-2(1-r)\,r(1-r)=-2r(1-r)^2\le0$, y $\Omega=\{V\le\tfrac14\}$ (que excluye al origen, donde $V=1$) es compacto y positivamente invariante. $E=\{r=1\}$, el círculo es invariante y $M=E$: LaSalle concluye que $x(t)$ tiende al círculo. La dinámica real es más fina. Sobre el círculo, $\theta$ crece hasta $2\pi\equiv0$, y toda solución del anillo converge al equilibrio $(1,0)$. Pero $(1,0)$ es \clave{inestable}: una condición inicial a distancia $0.15$ del equilibrio, en $\theta=0.15$, da la vuelta completa y se aleja hasta distancia $2$ antes de regresar (\cref{fig:iv-inestable}).
+\end{ejemplo}
+
+\begin{trampa}[label=tr:iv-estabilidad]{``Toda solución tiende a $\eq$, luego $\eq$ es asintóticamente estable''}
+\plausible{LaSalle mostró que todas las soluciones convergen, y en eso consiste la estabilidad asintótica.}
+La estabilidad asintótica pide \emph{estabilidad} y atracción (\cref{tr:ly-convergencia}). En el \cref{ej:iv-inestable} hay atracción sin estabilidad. Los \cref{cor:iv-as,cor:iv-gas} exigen $V$ definida positiva \emph{precisamente} para obtener la estabilidad con el \cref{thm:ly-directo}.
+\correcto{LaSalle solo da convergencia. La estabilidad hay que probarla aparte. Además, $M$ puede ser mucho más grande que los conjuntos límite reales: aquí $M$ es el círculo y todos los $\omegalim{x_0}$ son $\{(1,0)\}$.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap08/f_inestable}
+\caption{Izquierda: el anillo $\Omega$, el conjunto $E=M$ y tres soluciones que convergen a $(1,0)$. Derecha: distancia a $(1,0)$; la solución negra arranca a distancia $0.15$ y hace una excursión de tamaño $2$.}
+\label{fig:iv-inestable}
+\end{figure}
+
+\codigorepo{cap08_invarianza/C8_Ej8_AtractivoInestable.m}{inestable}{Atractivo pero inestable}
+
+\begin{pausa}
+En el \cref{ej:iv-adaptativo}, ¿qué pasa si $y_0=0$? ¿Y si $b<a$?
+\respuesta{Si $y_0=0$, la solución es el equilibrio $(0,k_0)$ y $k_\infty=k_0$; la fórmula \eqref{eq:iv-kinf} da $a+\abs{k_0-a}$, que solo coincide si $k_0\ge a$: la fórmula supone $y_0\neq0$. Si $b<a$, $\Vdot=(a-b)y^2\ge0$ y LaSalle no se aplica con esa $V$; por eso se escoge $b>a$, que siempre existe.}
+\end{pausa}

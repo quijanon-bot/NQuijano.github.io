@@ -1,5 +1,6 @@
 function verificarCap01()
 % VERIFICARCAP01  Pruebas automáticas de los números del capítulo 1
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % (introducción y motivación).   >> verificarCap01
 % (Los mismos números se verificaron de forma independiente en Python con
 %  herramientas/cap01_numeros.py.)
@@ -74,16 +75,18 @@ fprintf('1.6  Control\n');
 revisar('x'' = x + u^3, u = -5x: x(10) -> 5^(-3/2)', X(end), 5^(-1.5), 1e-6);
 [~, X] = ode45(@(t, x) x - 5*x, [0 5], 1, odeset('RelTol', 1e-11, 'AbsTol', 1e-16));
 revisar('u = -(5x)^(1/3): x(5) = exp(-20)', X(end)/exp(-20), 1, 1e-4);
-k3 = @(x) 1 - 2*(x(1)*(x(1) + x(2)) > 0);
 tt = linspace(0, 10, 10001)';
-[~, X] = ode45(@(t, x) [x(2); k3(x)*x(1)], tt, [1; 1], odeset('RelTol', 1e-9, 'AbsTol', 1e-11, 'MaxStep', 1e-3));
-nx = sqrt(sum(X.^2, 2));
-revisar('estructura variable: t(2%)', tt(find(nx > 0.02*nx(1), 1, 'last')), pi/2 + log(50), 2e-3);
-revisar('estructura variable: x(pi/2) = (1,-1)', norm(X(1572,:) - [1 -1]), 0, 2e-3);
+o9 = odeset('RelTol', 1e-9, 'AbsTol', 1e-11, 'MaxStep', 1e-3);
+evento = @(t, x) deal(x(1) + x(2), 1, -1);
+[~, ~, ts, xs] = ode45(@(t, x) [x(2); -4*x(1)], [0 10], [1; 1], odeset(o9, 'Events', evento));
+revisar('estructura variable: llega a s = 0 en atan(4/3)/2', ts, atan(4/3)/2, 1e-6);
+revisar('estructura variable: x(ts) = (1,-1)', norm(xs(:)' - [1 -1]), 0, 1e-6);
+revisar('estructura variable: dot s arriba de s = 0 (= -5 x1)', (xs(2) - 4*xs(1)) - (xs(1) + xs(2)), -5*xs(1), 1e-9);
+revisar('estructura variable: t(2%) = ts + ln 50', ts + log(50), 4.3756, 1e-4);
 [~, X] = ode45(@(t, x) [x(2); -x(1) - x(2)], tt, [1; 1], opc);
 nx = sqrt(sum(X.^2, 2));
 revisar('PD: t(2%)', tt(find(nx > 0.02*nx(1), 1, 'last')), 8.91, 2e-3);
-revisar('PD: sobrepico min x1', min(X(:,1)), -0.20871, 2e-5);
+revisar('PD: mínimo de x1 (sobreimpulso)', min(X(:,1)), -0.20871, 2e-5);
 kP = 10; v = 0.5; w = 0.1; r = 1; k = 2;
 revisar('PD: y(inf) = (kP(r-w)+v)/(k+kP)', (kP*(r - w) + v)/(k + kP), 0.79167, 1e-5);
 dyn = @(t, x) [x(2); -3*x(2) - kP*(x(1) + w - r) - 5*x(3) + v - x(2) - k*x(1); x(1) + w - r];

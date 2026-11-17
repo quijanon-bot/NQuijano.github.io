@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente (sympy/scipy) de los números del capítulo 1.
 Ejecutar:  python3 herramientas/cap01_numeros.py
 """
@@ -86,7 +87,10 @@ revisar('x\' = x - k^3 x^3: equilibrio positivo k^(-3/2)', max(eqs), 5**-1.5, 1e
 revisar('f\'(0) = 1 para todo k (origen inestable)', sp.diff(xx - k**3*xx**3, xx).subs(xx, 0), 1)
 revisar('f\'(k^(-3/2)) = -2', sp.diff(xx - 125*xx**3, xx).subs(xx, max(eqs)), -2, 1e-12)
 revisar('u = -(kx)^(1/3): u^3 = -kx, lazo x\' = (1 - k)x', sp.simplify(xx + (-sp.cbrt(5*xx))**3 + 4*xx).subs(xx, 2), 0, 1e-12)
-revisar('estructura variable: t(2%) = pi/2 + ln 50', np.pi/2 + np.log(50), 5.4828, 1e-4)
+ts = float(sp.atan(sp.Rational(4, 3))/2)
+revisar('estructura variable (u = 4 k3 x1): llega a s = 0 en atan(4/3)/2', ts, 0.46365, 1e-5)
+revisar('estructura variable: x(ts) = (1, -1)', np.cos(2*ts) + 0.5*np.sin(2*ts) - 1 + abs(np.cos(2*ts) - 2*np.sin(2*ts) + 1), 0, 1e-12)
+revisar('estructura variable: t(2%) = ts + ln 50', ts + np.log(50), 4.3756, 1e-4)
 s = solve_ivp(lambda tt, z: [z[1], -z[0] - z[1]], (0, 10), [1, 1], t_eval=np.linspace(0, 10, 10001), **o)
 nx = np.linalg.norm(s.y, axis=0)
 revisar('PD: t(2%)', s.t[np.where(nx > 0.02*nx[0])[0][-1]], 8.91, 2e-3)

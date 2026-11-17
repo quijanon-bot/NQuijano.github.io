@@ -1,4 +1,5 @@
 %% C1_Ej2_Logistica -- Notas: sección 1.4 (crecimiento de poblaciones)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Itera el mapa logístico P[k+1] = R P[k] (1 - P[k]/K), K = 32, desde
 %            P[0] = 1, para R = 1.6 (natalidad 2 menos mortandad 0.4) y para
 %            R = 3.2, 3.5 y 3.9. Compara con la ecuación logística en tiempo

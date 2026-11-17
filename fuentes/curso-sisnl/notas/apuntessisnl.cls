@@ -148,6 +148,10 @@
 \Crefname{table}{Tabla}{Tablas}
 \crefname{chapter}{capítulo}{capítulos}
 \Crefname{chapter}{Capítulo}{Capítulos}
+\crefname{section}{sección}{secciones}
+\Crefname{section}{Sección}{Secciones}
+\crefname{subsection}{sección}{secciones}
+\Crefname{subsection}{Sección}{Secciones}
 \creflabelformat{equation}{#2(#1)#3}
 
 \ifsnl@borrador

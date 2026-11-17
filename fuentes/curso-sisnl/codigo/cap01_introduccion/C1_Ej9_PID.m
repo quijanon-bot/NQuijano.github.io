@@ -1,4 +1,5 @@
 %% C1_Ej9_PID -- Notas: sección 1.6 (lo que se le olvida al diagrama de bloques)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Masa-resorte m y'' + c y' + k y = u + v (m = 1, c = 1, k = 2) con una
 %            perturbación constante v = 0.5 en la entrada y un error constante
 %            w = 0.1 en el sensor: se mide ym = y + w. Referencia r = 1.
@@ -27,4 +28,4 @@ fprintf('PID: y(40) = %.4f   fórmula = r - w = %.4f\n', X2(end,1), r - w);
 % [fin:pid]
 
 fig = estiloFigura(760, 380); plot(t1, X1(:,1), t2, X2(:,1)); hold on; plot([0 40], [r r], 'k--');
-grid on; xlabel('$t$'); ylabel('$y$'); legend('PD', 'PID', 'referencia', 'Location', 'southeast');
+grid on; xlim([0 15]); xlabel('$t$'); ylabel('$y$'); legend('PD', 'PID', 'referencia', 'Location', 'southeast');

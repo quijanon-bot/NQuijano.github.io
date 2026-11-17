@@ -3,7 +3,7 @@
 \label{sec:in-fenomenos}
 %% ---------------------------------------------------------------------
 
-Un sistema lineal $\dot x=Ax$ es, en cierto sentido, aburrido. O el origen es su único equilibrio, o tiene un subespacio entero de ellos. Sus soluciones son combinaciones de exponenciales y senoides, $x(t)=e^{At}x_0$, que existen para todo $t$. Si oscila, la amplitud la fija la condición inicial y el período no depende de ella. Y si $x_a$ y $x_b$ son soluciones, $\alpha x_a+\beta x_b$ también lo es. Un sistema no lineal puede romper cada una de esas reglas. La lista que sigue es el mapa del curso (\cref{fig:in-panorama}).
+Un sistema lineal $\dot x=Ax$ es, en cierto sentido, aburrido. O el origen es su único equilibrio, o tiene un subespacio entero de ellos. Sus soluciones son combinaciones de exponenciales y funciones sinusoidales (multiplicadas por potencias de $t$ si $A$ no es diagonalizable), $x(t)=e^{At}x_0$, que existen para todo $t$. Si oscila, la amplitud la fija la condición inicial y el período no depende de ella. Y si $x_a$ y $x_b$ son soluciones, $\alpha x_a+\beta x_b$ también lo es. Un sistema no lineal puede romper cada una de esas reglas. La lista que sigue es el mapa del curso (\cref{fig:in-panorama}).
 
 \begin{figure*}[t]
 \centering
@@ -19,7 +19,7 @@ El péndulo con fricción, con $x_1=\theta$ medido desde la vertical hacia abajo
   \dot x_1=x_2,\qquad \dot x_2=-\frac g\ell\sin x_1-\frac km\,x_2 ,
   \label{eq:in-pendulo}
 \end{equation}
-tiene equilibrios en $\eq=(n\pi,0)$, $n\in\Z$. Infinitos, y de dos clases: con $n$ par el péndulo cuelga, y vuelve si se le perturba; con $n$ impar está invertido, y se cae. La consecuencia es inmediata: \alerta{en un sistema no lineal la estabilidad es una propiedad de un equilibrio, no del sistema}. Preguntar ``¿es estable esta planta?'' es una pregunta mal planteada. Y aparece una pregunta que en lo lineal no existe: no basta saber a dónde converge la solución, hay que saber \emph{desde dónde}: la \clave{región de atracción} (capítulos~\ref{cap:lyapunov} y~8).
+tiene equilibrios en $\eq=(n\pi,0)$, $n\in\Z$. Infinitos, y de dos clases: con $n$ par el péndulo cuelga, y vuelve si se le perturba; con $n$ impar está invertido, y se cae. La consecuencia es inmediata: \alerta{en un sistema no lineal la estabilidad es una propiedad de un equilibrio, no del sistema}. Preguntar ``¿es estable esta planta?'' es una pregunta mal planteada. Y aparece una pregunta que en lo lineal no existe: no basta saber a dónde converge la solución, hay que saber \emph{desde dónde}: la \clave{región de atracción} (\cref{cap:lyapunov,cap:invarianza}).
 
 \subsection{Ciclos límite: oscilar sin que nadie lo sostenga}
 
@@ -38,7 +38,7 @@ Las soluciones de un sistema lineal inestable crecen, pero tardan un tiempo infi
 
 \subsection{La amplitud importa: período, armónicos, sincronización}
 
-En un sistema lineal invariante en el tiempo, una entrada senoidal produce en régimen permanente una salida senoidal de la \emph{misma} frecuencia; sobre ese hecho descansa el diagrama de Bode. En un sistema no lineal la salida tiene armónicos, a veces subarmónicos, y el período de una oscilación libre depende de su amplitud. El péndulo sin fricción con amplitud $\theta_0$ tiene período
+En un sistema lineal invariante en el tiempo, una entrada sinusoidal produce en régimen permanente una salida sinusoidal de la \emph{misma} frecuencia; sobre ese hecho descansa el diagrama de Bode. En un sistema no lineal la salida tiene armónicos, a veces subarmónicos, y el período de una oscilación libre depende de su amplitud. El péndulo sin fricción con amplitud $\theta_0$ tiene período
 \[
   T(\theta_0)=\frac{4}{\omega_0}\,K\!\left(\sin\frac{\theta_0}{2}\right),\qquad K(k)=\int_0^{\pi/2}\frac{\dif\varphi}{\sqrt{1-k^2\sin^2\varphi}},
 \]
@@ -61,22 +61,22 @@ $T/T_0$ & $1.0019$ & $1.0400$ & $1.1803$ & $2.4394$\\
 
 \subsection{Bifurcaciones y caos}
 
-Los cuatro fenómenos anteriores ocurren con parámetros fijos. El quinto tiene que ver con lo que pasa cuando los parámetros \emph{cambian}. En $\dot x=r+x^2$, para $r<0$ hay dos equilibrios, $\pm\sqrt{-r}$, uno estable y otro inestable; en $r=0$ chocan; para $r>0$ no hay ninguno y todas las soluciones escapan. El retrato de fase no se deforma: se \emph{reorganiza}. Eso es una \clave{bifurcación} (aquí, silla-nodo; capítulo~6).
+Los cuatro fenómenos anteriores ocurren con parámetros fijos. El quinto tiene que ver con lo que pasa cuando los parámetros \emph{cambian}. En $\dot x=r+x^2$, para $r<0$ hay dos equilibrios, $\pm\sqrt{-r}$, uno estable y otro inestable; en $r=0$ chocan; para $r>0$ no hay ninguno y todas las soluciones escapan. El retrato de fase no se deforma: se \emph{reorganiza}. Eso es una \clave{bifurcación} (aquí, silla-nodo; \cref{cap:bifurcaciones}).
 
 En dimensión tres o más, un sistema determinista, sin nada aleatorio, puede tener soluciones acotadas, no periódicas y con dependencia sensible de las condiciones iniciales. El ejemplo canónico es el de Lorenz \citep{Lor63},
 \begin{equation}
   \dot x=\sigma(y-x),\qquad \dot y=x(\rho-z)-y,\qquad \dot z=xy-\beta z,
   \label{eq:in-lorenz}
 \end{equation}
-con $\sigma=10$, $\rho=28$, $\beta=8/3$. Dos condiciones iniciales a $10^{-9}$ una de la otra son indistinguibles durante unos 25 segundos; hacia $t\approx33$ la diferencia ya es del tamaño del atractor (\cref{fig:in-panorama}f). \clave{Determinismo no implica predictibilidad.} Este no es un curso de caos, pero conviene saber dónde termina el mapa.
+con $\sigma=10$, $\rho=28$, $\beta=8/3$. Dos condiciones iniciales a $10^{-9}$ una de la otra son indistinguibles hasta $t\approx25$; hacia $t\approx33$ la diferencia ya es de orden uno, y poco después, del tamaño del atractor (\cref{fig:in-panorama}f). \clave{Determinismo no implica predictibilidad.} Este no es un curso de caos, pero conviene saber dónde termina el mapa.
 
 \video{V1_1_lorenz}{Dos trayectorias de Lorenz a $10^{-9}$}
 \codigorepo{cap01_introduccion/C1_Ej3_Panorama.m}{lorenz}{Sensibilidad a las condiciones iniciales}
 
 \begin{trampa}[label=tr:in-caos]{Una simulación muy precisa predice el futuro}
 \plausible{Con tolerancias de $10^{-12}$, la simulación de Lorenz es la trayectoria verdadera hasta $t=40$.}
-Un error de $10^{-12}$ en cada paso se amplifica como la diferencia de condiciones iniciales: en promedio, por un factor $e^{0.9}$ por unidad de tiempo. Hacia $t\approx30$ el error de redondeo ya es del tamaño del atractor, y el instante exacto en que la simulación se separa de la solución verdadera cambia si se cambian las tolerancias (pruébelo en \cmd{C1\_Ej3\_Panorama}).
-\correcto{En un sistema caótico la simulación es confiable en un horizonte finito y, después, solo en lo cualitativo: la forma del atractor, las estadísticas, el rango de valores. Ningún integrador predice $x(40)$.}
+Un error local de $10^{-12}$ por paso, el que controla la tolerancia, se amplifica como la diferencia de condiciones iniciales: en promedio, por un factor $e^{0.9}$ por unidad de tiempo. Hacia $t\approx30$ el error acumulado ya es de orden uno, y el instante exacto en que la simulación se separa de la solución verdadera cambia si se cambian las tolerancias (pruébelo en \cmd{C1\_Ej3\_Panorama}).
+\correcto{En un sistema caótico la simulación es confiable en un horizonte finito y, después, solo en lo cualitativo: la forma del atractor, las estadísticas, el intervalo de valores. Ningún integrador predice $x(40)$.}
 \end{trampa}
 
 \begin{figure}[ht]
@@ -92,11 +92,11 @@ Un error de $10^{-12}$ en cada paso se amplifica como la diferencia de condicion
 \toprule
 Fenómeno & Dónde se estudia\\
 \midrule
-Equilibrios, estabilidad en la recta y en el plano & capítulos~\ref{cap:unidimensionales} y~4\\
+Equilibrios, estabilidad en la recta y en el plano & \cref{cap:unidimensionales,cap:bidimensionales}\\
 Existencia, unicidad, escape en tiempo finito & capítulos~\ref{cap:unidimensionales} y~\ref{cap:preliminares}\\
 Órbitas, ciclos límite, sincronización & \cref{cap:orbitas}\\
 Bifurcaciones & \cref{cap:bifurcaciones}\\
-Estabilidad de Lyapunov, región de atracción, LaSalle & capítulos~\ref{cap:lyapunov} y~8\\
+Estabilidad de Lyapunov, región de atracción, LaSalle & \cref{cap:lyapunov,cap:invarianza}\\
 Sistemas variantes en el tiempo; UUB, conversos, CLF, Barbalat e ISS & \cref{cap:variantes,cap:avanzada}\\
 Diseño: pasividad y linealización por retroalimentación & \cref{cap:pasividad,cap:linealizacion}\\
 \bottomrule

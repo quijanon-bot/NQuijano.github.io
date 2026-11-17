@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 1 (introducción y motivación). PDF (notas) y SVG (web).
 Cada figura reproduce un script de codigo/cap01_introduccion/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap01_figuras.py
@@ -199,22 +200,29 @@ def control_cubico():
 
 # ---------------------------------------------------------------- C1_Ej7
 def doble_integrador():
-    k3 = lambda x: 1.0 if x[0]*(x[0] + x[1]) < 0 else -1.0
-    leyes = [(lambda x: -5*x[0], C['gris'], '$u=-5x_1$'), (lambda x: -x[0] - x[1], C['coral'], 'PD'),
-             (lambda x: k3(x)*x[0], C['azul'], 'estructura variable')]
+    # Estructura variable u = 4 k3 x1: centro x1'' = -4 x1 hasta tocar s = 0 (evento),
+    # luego deslizamiento (solución de Filippov) x1' = -x1, x2 = -x1.
+    leyes = [(lambda x: -5*x[0], C['gris'], '$u=-5x_1$'), (lambda x: -x[0] - x[1], C['coral'], 'PD')]
     fig, ax = plt.subplots(1, 2, figsize=(6.8, 2.7), gridspec_kw=dict(wspace=0.3))
     for u, col, lab in leyes:
         t, X = ode(lambda t, x: [x[1], u(x)], 10, [1, 1], n=10001, max_step=1e-3)
         ax[0].plot(X[0], X[1], color=col, lw=1.3, label=lab)
         if lab != '$u=-5x_1$':
             ax[1].plot(t, X[0], color=col, label=lab)
+    ev = lambda t, x: x[0] + x[1]; ev.terminal = True; ev.direction = -1
+    sa = solve_ivp(lambda t, x: [x[1], -4*x[0]], (0, 10), [1, 1], events=ev, rtol=1e-10, atol=1e-12, dense_output=True)
+    ts = sa.t_events[0][0]; xs = sa.y_events[0][0]
+    t = np.linspace(0, 10, 10001); X = np.zeros((2, t.size)); a_ = t <= ts
+    X[:, a_] = sa.sol(t[a_]); X[0, ~a_] = xs[0]*np.exp(-(t[~a_] - ts)); X[1, ~a_] = -X[0, ~a_]
+    ax[0].plot(X[0], X[1], color=C['azul'], lw=1.3, label='estructura variable')
+    ax[1].plot(t, X[0], color=C['azul'], label='estructura variable')
     ax[0].plot([-1.5, 1.6], [1.5, -1.6], color=C['noche'], ls='--', lw=0.8)
     ax[0].text(-1.45, 1.05, '$s=x_1+x_2=0$', fontsize=7.5, color=C['noche'])
     ax[0].set_aspect('equal'); ax[0].set_xlim(-1.5, 1.7); ax[0].set_ylim(-1.6, 1.6); ejes0(ax[0])
     ax[0].set_xlabel('$x_1$'); ax[0].set_ylabel('$x_2$'); ax[0].legend(fontsize=6.8, loc='lower left')
-    ax[1].axvline(np.pi/2, color=C['ambar'], ls=':', lw=1); ax[1].text(1.7, 0.75, r'$t=\pi/2$', color=C['ambar'], fontsize=8)
+    ax[1].axvline(ts, color=C['ambar'], ls=':', lw=1); ax[1].text(2.9, 0.55, r'línea punteada: $t\approx0.46$', color=C['ambar'], fontsize=8)
     ax[1].set_xlabel('$t$'); ax[1].set_ylabel('$x_1$'); ax[1].grid(True); ax[1].legend(fontsize=7.5)
-    ax[1].set_title('sin sobrepico, como $\\dot x_1=-x_1$', fontsize=9)
+    ax[1].set_title('sin sobreimpulso, como $\\dot x_1=-x_1$', fontsize=9)
     g(fig, 'f_doble_integrador')
 
 

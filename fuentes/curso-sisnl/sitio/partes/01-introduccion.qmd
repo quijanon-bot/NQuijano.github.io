@@ -24,7 +24,7 @@ Casi todo lo que usted conoce de sistemas dinámicos descansa en la **superposic
 2. Reconocer cinco comportamientos que ningún sistema lineal puede tener: equilibrios aislados múltiples, ciclos límite, escape en tiempo finito, dependencia de la amplitud y caos.
 3. Explicar con un ejemplo por qué el todo no es la suma de las partes, y por qué la versión discreta y la continua de la ecuación logística no se comportan igual.
 4. Usar la energía para concluir algo sobre un sistema sin resolverlo, y decir qué *no* se puede concluir todavía.
-5. Dar ejemplos en los que el control lineal no basta, incluido uno en el que ningún control continuo funciona (Brockett).
+5. Dar ejemplos en los que el control lineal no basta, incluido uno que ninguna retroalimentación estática continua estabiliza (Brockett).
 6. Distinguir una conclusión plausible de una correcta, que es el hilo de todo el curso.
 :::
 
@@ -66,7 +66,7 @@ Para el masa-resorte con fricción, $E=\tfrac12kx_1^2+\tfrac12mx_2^2$ cumple $\d
 ::: {.trampa}
 [Trampa: controlable implica estabilizable]{.caja-titulo}
 
-El integrador de Brockett $\dot z_1=v_1$, $\dot z_2=v_2$, $\dot z_3=z_1v_2-z_2v_1$ es controlable (una vuelta en $(z_1,z_2)$ sube $z_3$ en $2\pi\rho^2$), pero el punto $(0,0,\delta)$ nunca es una velocidad posible: falla la condición de Brockett y **ninguna** realimentación suave $u=k(z)$ estabiliza el origen.
+El integrador de Brockett $\dot z_1=v_1$, $\dot z_2=v_2$, $\dot z_3=z_1v_2-z_2v_1$ es controlable (una vuelta en $(z_1,z_2)$ sube $z_3$ en $2\pi\rho^2$), pero el punto $(0,0,\delta)$ nunca es una velocidad posible: falla la condición de Brockett y **ninguna** retroalimentación suave $u=k(z)$ estabiliza el origen.
 :::
 
 ![Brockett: una vuelta de radio $0.5$ deja $(z_1,z_2)$ donde estaba y sube $z_3$ en $\pi/2$.](../figuras/cap01/f_brockett.svg){width=90%}
@@ -77,7 +77,7 @@ El integrador de Brockett $\dot z_1=v_1$, $\dot z_2=v_2$, $\dot z_3=z_1v_2-z_2v_
 Con $\dot x=x+u^3$ y $u=-kx$, el lazo es $\dot x=x-k^3x^3$: el origen **sigue siendo inestable** ($f'(0)=1$ para todo $k$) y la solución converge a otro equilibrio, $k^{-3/2}$. La ley $u=-(kx)^{1/3}$ da $\dot x=(1-k)x$: exponencialmente estable.
 :::
 
-![Doble integrador: PD contra la ley de estructura variable, que llega a la recta $s=x_1+x_2=0$ en $t=\pi/2$ y desliza por ella sin sobrepico.](../figuras/cap01/f_doble_integrador.svg){width=95%}
+![Doble integrador: PD contra la ley de estructura variable, que llega a la recta $s=x_1+x_2=0$ en $t\approx0.46$ y desliza por ella sin sobreimpulso.](../figuras/cap01/f_doble_integrador.svg){width=95%}
 
 ## Explorador interactivo {#explorador}
 
@@ -173,7 +173,7 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 
 | Video | Qué muestra | Script |
 |:--|:--|:--|
-| [V1.1 · Lorenz](../videos/V1_1_lorenz.mp4) | Dos trayectorias a $10^{-9}$: indistinguibles durante 25 segundos, luego cada una por su lado. | `C1_Video_Lorenz.m` |
+| [V1.1 · Lorenz](../videos/V1_1_lorenz.mp4) | Dos trayectorias a $10^{-9}$: indistinguibles hasta $t\approx25$, luego cada una por su lado. | `C1_Video_Lorenz.m` |
 | [V1.2 · Mapa logístico](../videos/V1_2_logistica.mp4) | La telaraña mientras $R$ crece y el diagrama de bifurcación que se va dibujando. | `C1_Video_Logistica.m` |
 
 ```{=html}
@@ -183,3 +183,7 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 ## Problemas
 
 Los problemas del capítulo (§1.10) tienen cada uno una trampa; las soluciones seleccionadas están en §1.11 y las respuestas a las pausas al final del capítulo.
+
+---
+
+**Nota de transparencia.** En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.

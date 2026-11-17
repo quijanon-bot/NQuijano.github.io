@@ -1,4 +1,5 @@
 %% C1_Ej5_Reescalamiento -- Notas: sección 1.2 (menos parámetros, más entendimiento)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Simula tres masa-resorte con (m, k, c) = (1, 1, 0.5), (1, 4, 1) y
 %            (2, 18, 3). Los tres tienen el mismo alpha = c/sqrt(k m) = 0.5,
 %            pero frecuencias naturales distintas, omega = sqrt(k/m) = 1, 2, 3.

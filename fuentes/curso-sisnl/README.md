@@ -31,7 +31,7 @@ python3 herramientas/cap11_numeros.py      # 72 verificaciones
 python3 herramientas/cap03_numeros.py      # 43 verificaciones
 python3 herramientas/cap05_numeros.py      # 59 verificaciones
 python3 herramientas/cap12_numeros.py      # 88 verificaciones
-python3 herramientas/cap01_numeros.py      # 36 verificaciones
+python3 herramientas/cap01_numeros.py      # 38 verificaciones
 python3 herramientas/cap02_numeros.py      # 42 verificaciones
 python3 herramientas/cap07_numeros.py      # 78 verificaciones
 python3 herramientas/cap04_numeros.py      # 93 verificaciones
@@ -50,7 +50,7 @@ python3 herramientas/pdf_por_capitulo.py notas/NotasSisNL.pdf sitio/pdf   # PDF 
 herramientas/tikz.sh cap11 t_feedback      # recompilar un diagrama TikZ
 ```
 
-En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01` (34), `verificarCap02` (37), `verificarCap03` (33), `verificarCap04` (38), `verificarCap05` (34), `verificarCap06` (42), `verificarCap07` (34), `verificarCap08` (39), `verificarCap09` (51), `verificarCap10` (46), `verificarCap11` (39) o `verificarCap12` (37).
+En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01` (36), `verificarCap02` (37), `verificarCap03` (33), `verificarCap04` (38), `verificarCap05` (34), `verificarCap06` (42), `verificarCap07` (34), `verificarCap08` (39), `verificarCap09` (51), `verificarCap10` (46), `verificarCap11` (39) o `verificarCap12` (37).
 
 ## Estado de las pruebas (16 de noviembre de 2026)
 
@@ -63,7 +63,7 @@ En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01` (34), `verificar
 
 - Capítulo 4: `cap04_numeros.py` 93/93, `verificarCap04` 38/38 en Octave 10.3; los doce `C4_Ej*` corren en Octave y los tres `C4_Video_*` se probaron sin grabar. Los videos publicados en el sitio se generaron con `herramientas/cap04_videos.py`. **Falta correr en MATLAB** `crearModelo_DiodoTunel2D` (Simulink).
 
-- Capítulos 1 y 2: `cap01_numeros.py` 36/36, `cap02_numeros.py` 42/42, `verificarCap01` 34/34 y `verificarCap02` 37/37 en Octave 8.4; los dieciocho `C1_Ej*`/`C2_Ej*` y los cuatro `C1_Video_*`/`C2_Video_*` (sin grabar) corren en Octave. Los videos publicados en el sitio se generaron con `herramientas/cap01_02_videos.py`. **Falta correr en MATLAB** `crearModelo_EstructuraVariable` y `crearModelo_DiodoTunel` (Simulink).
+- Capítulos 1 y 2: `cap01_numeros.py` 38/38, `cap02_numeros.py` 42/42, `verificarCap01` 36/36 y `verificarCap02` 37/37 en Octave 8.4; los dieciocho `C1_Ej*`/`C2_Ej*` y los cuatro `C1_Video_*`/`C2_Video_*` (sin grabar) corren en Octave. Los videos publicados en el sitio se generaron con `herramientas/cap01_02_videos.py`. **Falta correr en MATLAB** `crearModelo_EstructuraVariable` y `crearModelo_DiodoTunel` (Simulink).
 
 - Capítulo 7: `cap07_numeros.py` 78/78, `verificarCap07` 34/34 en Octave 8.4; los diez `C7_Ej*` y los cuatro `C7_Video_*` (sin grabar) corren en Octave. Los videos publicados en el sitio se generaron con `herramientas/cap07_videos.py`. **Falta correr en MATLAB** `crearModelo_PenduloLyapunov` (Simulink).
 

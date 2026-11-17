@@ -43,7 +43,7 @@ La desigualdad dice que $E$ no crece; no dice que llegue a cero, y $\dot E$ se a
 
 Para el péndulo \eqref{eq:in-pendulo}, la energía $E=mg\ell(1-\cos x_1)+\tfrac12m\ell^2x_2^2$ cumple $\dot E=-k\ell^2x_2^2\le0$. Ahora hay una complicación: $E$ es positiva cerca del origen, pero se anula también en $x_1=2\pi$, $4\pi$, \dots\ (el péndulo da una vuelta y vuelve a colgar). La energía sirve como argumento \emph{local}, en una vecindad del equilibrio de abajo, y esa restricción es el germen de la estabilidad local y de la región de atracción.
 
-\paragraph{Otras etiquetas, la misma estructura.} El péndulo sobre un carro modela una grúa (péndulo colgando), un cohete o un \emph{segway} (péndulo invertido): son el mismo sistema mecánico $M(q)\ddot q+C(q,\dot q)+G(q)=B(q)u$ con equilibrios distintos \citep{KeBr23}. Para escribirlo en la forma \eqref{eq:in-general} hay que invertir la matriz de inercia $M(q)$, y verificar que es invertible en todo el espacio de estado: la forma $\dot x=f(x,u)$ no siempre es gratis.
+\paragraph{Otras etiquetas, la misma estructura.} El péndulo sobre un carro modela una grúa (péndulo colgando), un cohete o un \emph{segway} (péndulo invertido): son el mismo sistema mecánico $M(q)\ddot q+C(q,\dot q)\dot q+G(q)=B(q)u$ con equilibrios distintos \citep{KeBr23}. Para escribirlo en la forma \eqref{eq:in-general} hay que invertir la matriz de inercia $M(q)$, y verificar que es invertible en todo el espacio de estado: la forma $\dot x=f(x,u)$ no siempre es gratis.
 
 %% ---------------------------------------------------------------------
 \subsection{Controlable, pero no estabilizable}
@@ -75,19 +75,19 @@ el doble del área encerrada (\cref{fig:in-brockett}). Combinando vueltas se lle
 
 \codigorepo{cap01_introduccion/C1_Ej8_Brockett.m}{vuelta}{Una vuelta sube $z_3$}
 
-\emph{Y no es estabilizable con una realimentación continua.} Brockett encontró una condición necesaria:
+\emph{Y no es estabilizable con una retroalimentación estática continua.} Brockett encontró una condición necesaria:
 
 \begin{teorema}[label=thm:in-brockett]{Condición de Brockett \citep{Bro83}}
-Sea $\dot x=f(x,u)$ con $f$ de clase $\Cont1$ y $f(0,0)=0$. Si existe una realimentación $u=k(x)$, de clase $\Cont1$ y con $k(0)=0$, que hace asintóticamente estable el origen del lazo cerrado, entonces la imagen de $f$ cerca del origen contiene una vecindad del origen: para todo $\varepsilon>0$ existe $\delta>0$ tal que todo $y\in\R^n$ con $\norm y<\delta$ se puede escribir como $y=f(x,u)$ con $\norm x<\varepsilon$ y $\norm u<\varepsilon$.
+Sea $\dot x=f(x,u)$ con $f$ de clase $\Cont1$ y $f(0,0)=0$. Si existe una retroalimentación $u=k(x)$, de clase $\Cont1$ y con $k(0)=0$, que hace asintóticamente estable el origen del lazo cerrado, entonces la imagen de $f$ cerca del origen contiene una vecindad del origen: para todo $\varepsilon>0$ existe $\delta>0$ tal que todo $y\in\R^n$ con $\norm y<\delta$ se puede escribir como $y=f(x,u)$ con $\norm x<\varepsilon$ y $\norm u<\varepsilon$.
 \end{teorema}
 
-\notamargen{Brockett lo enunció con $k$ suave; Zabczyk (1989) lo extendió a realimentaciones continuas con soluciones únicas. La prueba usa topología (grado de un mapa) y está fuera del alcance de estas notas.}
-Para \eqref{eq:in-brockett}, tome $y=(0,0,\delta)$: las dos primeras componentes de $y=f(z,v)$ obligan a $v_1=v_2=0$, y entonces la tercera es $z_1\cdot0-z_2\cdot0=0\neq\delta$. Ningún punto de la forma $(0,0,\delta)$, por pequeño que sea $\delta$, es una velocidad posible. La condición falla, y \alerta{ninguna realimentación estática y suave estabiliza el origen}, aunque el sistema sea controlable.
+\notamargen{Brockett lo enunció con $k$ suave; Zabczyk (1989) lo extendió a retroalimentaciones continuas con soluciones únicas. La prueba usa topología (grado de un mapa) y está fuera del alcance de estas notas.}
+Para \eqref{eq:in-brockett}, tome $y=(0,0,\delta)$: las dos primeras componentes de $y=f(z,v)$ obligan a $v_1=v_2=0$, y entonces la tercera es $z_1\cdot0-z_2\cdot0=0\neq\delta$. Ningún punto de la forma $(0,0,\delta)$, por pequeño que sea $\delta$, es una velocidad posible. La condición falla, y \alerta{ninguna retroalimentación estática y suave estabiliza el origen}, aunque el sistema sea controlable.
 
 \codigorepo{cap01_introduccion/C1_Ej8_Brockett.m}{brockett}{Falla la condición de Brockett}
 
 \begin{trampa}[label=tr:in-controlable]{Controlable implica estabilizable}
-\plausible{El integrador de Brockett es controlable; luego hay una realimentación de estado que lo estabiliza.}
+\plausible{El integrador de Brockett es controlable; luego hay una retroalimentación de estado que lo estabiliza.}
 En sistemas lineales eso es cierto: si $(A,B)$ es controlable, se ubican los polos donde se quiera con $u=-Kx$. En sistemas no lineales el puente se rompe: el \cref{thm:in-brockett} muestra que el integrador de Brockett, controlable, no se estabiliza con ninguna $u=k(x)$ suave.
 \correcto{No es que no hayamos encontrado el controlador: no existe. Para estabilizar un robot móvil hay que usar leyes discontinuas, variantes en el tiempo o híbridas. Este es, quizás, el mejor argumento de por qué hace falta una teoría no lineal.}
 \end{trampa}

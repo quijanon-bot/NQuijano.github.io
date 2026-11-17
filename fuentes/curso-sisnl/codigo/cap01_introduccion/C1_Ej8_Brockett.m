@@ -1,4 +1,5 @@
 %% C1_Ej8_Brockett -- Notas: sección 1.5 (controlable pero no estabilizable)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Integrador no holonómico z1' = v1, z2' = v2, z3' = z1 v2 - z2 v1.
 %            (1) Muestra que es controlable: recorriendo un círculo de radio
 %            rho en (z1, z2) se vuelve al punto de partida con z3 = 2 pi rho^2.
@@ -8,10 +9,10 @@
 %            linealización en el origen.
 % OBSERVE    El sistema se puede llevar a (0, 0, z3) aunque ninguna velocidad
 %            instantánea apunte en esa dirección: hay que dar una vuelta. Por eso
-%            ninguna realimentación continua u = k(z) lo estabiliza.
+%            ninguna retroalimentación estática continua u = k(z) lo estabiliza.
 % ESPERADO   rho = 0.5:  z3(2 pi) = pi/2 = 1.5708, (z1, z2) vuelve a (0, 0).
-%            Distancia mínima de (0, 0, delta) a f(z, v) con |z|, |v| <= eps:
-%            delta (no se puede acercar).  Rango de [B AB AAB] = 2 < 3.
+%            Distancia mínima de (0, 0, 1e-3) a f(z, v) con |z_i|, |v_i| <= 0.1:
+%            0.990e-3 > 0 (el punto no es imagen).  Rango de [B AB AAB] = 2 < 3.
 % EXPLORE    Recorra el círculo al revés. ¿Qué signo tiene z3? ¿Cómo llegaría a
 %            (0, 0, 1) con dos vueltas?
 clear; close all; clc;
@@ -27,14 +28,13 @@ fprintf('Después de una vuelta: z = (%.2e, %.2e, %.4f);  2 pi rho^2 = %.4f\n', 
 
 % [ini:brockett]
 % ¿Es (0, 0, delta) = f(z, v) para algún z, v pequeños? Las dos primeras
-% componentes obligan v = 0, y entonces la tercera vale 0. Muestreo aleatorio:
-delta = 1e-3;  epsi = 0.1;  dmin = inf;
-for j = 1:20000
-    z = epsi*(2*rand(3,1) - 1);  w = epsi*(2*rand(2,1) - 1);
-    fz = [w; z(1)*w(2) - z(2)*w(1)];
-    dmin = min(dmin, norm(fz - [0; 0; delta]));
-end
-fprintf('Distancia mínima a (0, 0, %g) con |z|,|v| <= %g: %.2e (no baja de delta)\n', delta, epsi, dmin);
+% componentes obligan v = 0, y entonces la tercera vale 0: no hay solución.
+% Distancia a la imagen con |z_i|, |v_i| <= epsi: con |v1| + |v2| = 2a, la
+% tercera componente vale a lo sumo 2 epsi a, y lo más barato es v1 = v2 = a.
+delta = 1e-3;  epsi = 0.1;
+a = linspace(0, epsi, 100001);
+dmin = min(sqrt(2*a.^2 + (delta - 2*epsi*a).^2));
+fprintf('Distancia mínima a (0, 0, %g) con |z_i|,|v_i| <= %g: %.3e (> 0: no es imagen)\n', delta, epsi, dmin);
 A = zeros(3);  B = [1 0; 0 1; 0 0];          % linealización en z = 0, v = 0
 fprintf('Rango de [B AB A^2B] = %d de 3\n', rank([B A*B A*A*B]));
 % [fin:brockett]

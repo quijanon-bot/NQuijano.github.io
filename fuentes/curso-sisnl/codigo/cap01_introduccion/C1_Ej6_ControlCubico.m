@@ -1,5 +1,6 @@
 %% C1_Ej6_ControlCubico -- Notas: sección 1.6 (cuando el control lineal no sirve)
-% QUÉ HACE   Planta x' = x + u^3, x(0) = 1. Compara u = 0, la realimentación
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
+% QUÉ HACE   Planta x' = x + u^3, x(0) = 1. Compara u = 0, la retroalimentación
 %            lineal u = -k x y la no lineal u = -(k x)^(1/3), con k = 5.
 % OBSERVE    Con u = -k x el lazo cerrado es x' = x - k^3 x^3: el origen sigue
 %            siendo INESTABLE (su linealización es x' = x) y aparecen dos

@@ -1,4 +1,5 @@
 %% C1_Ej4_Energia -- Notas: sección 1.5 (la semilla del método de Lyapunov)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Simula el masa-resorte con fricción m y'' + c y' + k y = 0 (m = 1,
 %            k = 4, c = 0.5) desde x(0) = (1, 0) y calcula la energía
 %            E = k x1^2/2 + m x2^2/2 a lo largo de la solución. Compara

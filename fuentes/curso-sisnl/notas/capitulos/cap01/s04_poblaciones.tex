@@ -18,7 +18,7 @@ Con $P[k]$ la población en el año $k$, $K$ la capacidad del medio y $R$ el fac
 \end{equation}
 El factor $(1-P/K)$ es la sobrepoblación: cuando $P$ se acerca a $K$, las crías mueren antes de reproducirse. Los equilibrios (puntos fijos, $P^*=F(P^*)$) son $P^*=0$ y $P^*=K(1-1/R)$.
 
-\begin{ejemplo}[label=ej:in-mapa]{Iterar el mapa}
+\begin{ejemplo}[label=ej:in-mapa]{Iterar el mapa \citep{Mit09}}
 Con natalidad $2$, mortandad $0.4$ (de modo que $R=1.6$), capacidad $K=32$ y $P[0]=1$: ¿cuánto vale $P[1]$? ¿Y $P[21]$? Repita con $R=3.2$, $3.5$ y $3.9$. ¿Puede un modelo lineal de una sola variable hacer lo mismo?
 \solucion $P[1]=1.6\cdot1\cdot\tfrac{31}{32}=1.55$. Iterando, la población sube monótonamente hacia el punto fijo $K(1-1/R)=32\cdot0.375=12$; en $P[21]$ ya vale $12.0000$ con cuatro cifras. Con $R=3.2$ la población termina alternando entre $16.42$ y $25.58$: un \emph{ciclo de período 2}. Con $R=3.5$ el ciclo es de período 4. Con $R=3.9$ no se repite nunca (\cref{fig:in-logistica}). Un modelo lineal escalar $P[k+1]=aP[k]$ solo puede crecer, decrecer o alternar de signo geométricamente: nada de eso.
 \end{ejemplo}

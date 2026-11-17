@@ -1,4 +1,5 @@
 %% C1_Video_Logistica -- Video V1_2: el mapa logístico, de la calma al caos
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  A la izquierda, el diagrama de telaraña de P[k+1] = R P[k](1 - P[k]/K)
 %              (K = 32) mientras R crece de 1.6 a 3.95. A la derecha se va
 %              dibujando el diagrama de bifurcación: los valores que visita la

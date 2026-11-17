@@ -10,7 +10,7 @@
   \item \textbf{Lo que lo lineal no puede:} varios equilibrios aislados, ciclos límite, escape en tiempo finito, período que depende de la amplitud, caos. La estabilidad es de un equilibrio, no del sistema.
   \item \textbf{El todo no es la suma de las partes}, y la versión discreta de una ecuación no se comporta como la continua.
   \item \textbf{Energía:} si $E\ge0$ y $\dot E\le0$ se concluye algo sin resolver la ecuación; con $\dot E$ solo semidefinida hace falta LaSalle.
-  \item \textbf{Control:} una ley lineal puede no estabilizar (y crear equilibrios nuevos); una no lineal puede hacerlo mejor; y hay sistemas controlables que ninguna ley continua estabiliza (Brockett).
+  \item \textbf{Control:} una ley lineal puede no estabilizar (y crear equilibrios nuevos); una no lineal puede hacerlo mejor; y hay sistemas controlables que ninguna ley estática continua $u=k(x)$ estabiliza (Brockett).
 \end{enumerate}
 \end{parallevar}
 
@@ -26,9 +26,6 @@
 \end{itemize}
 \end{trampa}
 
-\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout1, Handout1\_2026 e Intro2026)]
-(i) En el ejemplo $\dot x=x+u^3$ con $u=-kx$ se decía que el origen quedaba ``estable pero no asintóticamente estable''. Es falso: el origen sigue siendo inestable y la solución converge a otro equilibrio, $k^{-3/2}$ (\cref{ej:in-cubico}). (ii) La tesis de Poincaré (1879) trató de ecuaciones en derivadas parciales; la clasificación de puntos singulares, el índice y los ciclos límite son de la \emph{Memoria} de 1881--1886. Nació el 29 de abril, no el 28. (iii) Duffing (1918) estudió oscilaciones forzadas con resorte cúbico; el caos en su ecuación se encontró mucho después. (iv) El criterio del círculo es de Sandberg y Zames; Popov dio en 1961 su propio criterio. (v) La dinámica cero es de Byrnes e Isidori; la ISS la introdujo Sontag en 1989, y con Wang (1995) dio sus caracterizaciones. (vi) La obra de Lyapunov se tradujo al francés 15 años después de 1892, no 25. (vii) La ecuación logística la redescubrieron Pearl y Reed en 1920; se eliminó la mención a un redescubrimiento por ``Alfred Volta''. Rousseau era amigo del padre de Malthus, no su mentor. Feigenbaum trabajó con el mapa logístico a finales de los setenta. (viii) Se corrigió la grafía de Artstein. (ix) La ley de estructura variable produce un lazo discontinuo: se agregó la advertencia sobre la noción de solución y se matizó la comparación con el PD. (x) Se quitaron los restos de la plantilla Tufte y la notación se unificó con \texttt{notacion.sty} (invariante/variante en el tiempo, $\eq$, $f(t,x,u)$). Todos los números se verificaron con \texttt{herramientas/cap01\_numeros.py} (36 de 36) y \cmd{verificarCap01.m} (34 de 34).
-\end{profundiza}
 
 %% ---------------------------------------------------------------------
 \section{Problemas}
@@ -85,7 +82,7 @@ En el \cref{ej:in-pid}: (a) muestre que $y^*=r-w$ para todo $k_I>0$ con que el l
 (a) $0$, $\pm1$: tres equilibrios aislados, imposible en un sistema lineal. (b) Solo $0$, y las soluciones con $x_0>0$ escapan en tiempo finito. (c) $k\pi$, infinitos. (d) $0$ y $r$; en $r=0$ chocan e intercambian la estabilidad (una bifurcación transcrítica, \cref{cap:bifurcaciones}). Ninguno puede tener ciclos límite ni caos: son escalares (\cref{cap:unidimensionales}).
 
 \paragraph{Problema~\ref{prob:in-duffing}}
-$x_1=x$, $x_2=\dot x$: $\dot x_1=x_2$, $\dot x_2=-\delta x_2-\alpha x_1-\beta x_1^3+\gamma\cos\omega t$; variante en el tiempo si $\gamma\neq0$. Con $\gamma=0$ los equilibrios son $(x_1,0)$ con $x_1(\alpha+\beta x_1^2)=0$: uno si $\alpha\beta>0$ (o $\beta=0$, $\alpha\neq0$) y tres, $0$ y $\pm\sqrt{-\alpha/\beta}$, si $\alpha\beta<0$. La trampa: con $\gamma\neq0$ la pregunta ``¿cuántos equilibrios?'' no tiene sentido, porque $f(t,x)=0$ para todo $t$ no tiene solución.
+$x_1=x$, $x_2=\dot x$: $\dot x_1=x_2$, $\dot x_2=-\delta x_2-\alpha x_1-\beta x_1^3+\gamma\cos\omega t$; variante en el tiempo si $\gamma\neq0$. Con $\gamma=0$ los equilibrios son $(x_1,0)$ con $x_1(\alpha+\beta x_1^2)=0$: uno ($x_1=0$) si $\alpha\beta>0$ o si exactamente uno de los dos es cero; tres, $0$ y $\pm\sqrt{-\alpha/\beta}$, si $\alpha\beta<0$; con $\alpha=\beta=0$, todo el eje $x_1$ son equilibrios, ninguno aislado. La trampa: con $\gamma\neq0$ la pregunta ``¿cuántos equilibrios?'' no tiene sentido, porque $f(t,x)=0$ para todo $t$ no tiene solución.
 
 \paragraph{Problema~\ref{prob:in-reescalar}}
 (a) $\dif z/\dif\tau=\frac1{RK}\dot P=z(1-z)$. (b) $\dif z/\dif\tau=z(1-z)-h$ con $h=H/(RK)$: un solo parámetro, la cosecha medida en unidades de $RK$. En el \cref{cap:unidimensionales} se ve que la población se extingue si $h>1/4$, es decir, si la cosecha supera el crecimiento máximo de la población, $H>RK/4$.
@@ -100,3 +97,7 @@ $x_1=x$, $x_2=\dot x$: $\dot x_1=x_2$, $\dot x_2=-\delta x_2-\alpha x_1-\beta x_
 (a) $(0,\infty)$ va a $k^{-3/2}$ y $(-\infty,0)$ a $-k^{-3/2}$; el origen solo se atrae a sí mismo. (b) No: $f'(0)=1$ para todo $k$. (c) No es Lipschitz en $0$ (pendiente infinita), pero el lazo cerrado $\dot x=(1-k)x$ sí lo es, y es lo que importa para la existencia y la unicidad. En la práctica importa otra cosa: cerca de $0$ la ley pide ganancias enormes, y un ruido de medición pequeño produce entradas grandes.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

@@ -1,4 +1,5 @@
 %% C1_Video_Lorenz -- Video V1_1: determinismo no es predictibilidad
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Dos trayectorias del sistema de Lorenz (sigma = 10, rho = 28,
 %              beta = 8/3) que empiezan a 1e-9 una de la otra. Durante unos 25
 %              segundos son indistinguibles; después cada una va por su lado.

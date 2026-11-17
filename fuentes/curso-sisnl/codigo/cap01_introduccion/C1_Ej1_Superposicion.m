@@ -1,4 +1,5 @@
 %% C1_Ej1_Superposicion -- Notas: sección 1.1 (el todo no es la suma de las partes)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Compara dos modelos de una población de conejos: el lineal
 %            P[k+1] = 2 P[k] (cada pareja tiene cuatro crías y muere) y el
 %            logístico P[k+1] = R P[k] (1 - P[k]/K), R = 1.6, K = 32. Pone 20

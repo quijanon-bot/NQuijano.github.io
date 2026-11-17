@@ -1,4 +1,5 @@
 %% C1_Ej3_Panorama -- Notas: sección 1.3 (cinco cosas que un sistema lineal no puede hacer)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Seis paneles: (a) retrato del péndulo con fricción y sus infinitos
 %            equilibrios; (b) ciclo límite de van der Pol, alcanzado desde
 %            adentro y desde afuera; (c) escape en tiempo finito de x' = -x^2;
@@ -31,7 +32,7 @@ fig = estiloFigura(1250, 700);
 % (a) péndulo con fricción, g/l = 1, k/m = 0.3
 subplot(2, 3, 1); hold on;
 pend = @(t, x) [x(2); -sin(x(1)) - 0.3*x(2)];
-for x0 = [-7 -4 -1 2 5], [~, X] = ode45(pend, [0 30], [x0; 2.2], opc); plot(X(:,1), X(:,2)); end
+for x0 = [-7 2.2; -1 2.6; 2 2.2; 5 2.2]', [~, X] = ode45(pend, [0 30], x0, opc); plot(X(:,1), X(:,2)); end
 plot((-3:3)*pi, 0*(-3:3), 'ko', 'MarkerFaceColor', 'k'); grid on; axis([-3*pi 3*pi -4 4]);
 title('(a) infinitos equilibrios'); xlabel('$\theta$'); ylabel('$\dot\theta$');
 % [ini:vanderpol]
@@ -59,7 +60,7 @@ tt = linspace(0, 40, 4001);
 d = sqrt(sum((Xa - Xb).^2, 2));
 fprintf('Lorenz: |diferencia| > 1 por primera vez en t = %.1f\n', tt(find(d > 1, 1)));
 % [fin:lorenz]
-subplot(2, 3, 5); plot3(Xa(:,1), Xa(:,2), Xa(:,3), 'LineWidth', 0.6); grid on; view(25, 20);
+subplot(2, 3, 5); plot(Xa(:,1), Xa(:,3), 'LineWidth', 0.35); grid on; xlabel('$x$'); ylabel('$z$');
 title('(e) atractor de Lorenz');
 subplot(2, 3, 6); semilogy(tt, d + 1e-16); grid on; xlabel('$t$'); ylabel('$\|\Delta x(t)\|$');
 title('(f) $\|\Delta x(0)\|=10^{-9}$');

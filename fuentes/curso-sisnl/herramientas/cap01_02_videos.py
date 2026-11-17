@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Videos de las partes 1 y 2 para la página web (MP4, H.264), hechos con matplotlib.
 Son la versión en Python de los scripts C1_Video_* y C2_Video_* (mismos modelos y
 parámetros); los de MATLAB siguen siendo la referencia para grabar en clase.

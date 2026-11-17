@@ -65,6 +65,14 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 - La foto de Duffing de las diapositivas no se pasó a las notas; si se quiere, va en `notas/figuras/cap04/` con su crédito.
 - Los capítulos 2, 3, 5 y 7 ya citan este capítulo con `\cref{cap:bidimensionales}`.
 
+## Correcciones del capítulo 1 respecto a Handout1, Handout1_2026 e Intro2026
+
+Trasladado desde el cierre del capítulo (caja `profundiza`) el 17 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):
+
+(i) En el ejemplo $\dot x=x+u^3$ con $u=-kx$ se decía que el origen quedaba ``estable pero no asintóticamente estable''. Es falso: el origen sigue siendo inestable y la solución converge a otro equilibrio, $k^{-3/2}$ (\cref{ej:in-cubico}). (ii) La tesis de Poincaré (1879) trató de ecuaciones en derivadas parciales; la clasificación de puntos singulares, el índice y los ciclos límite son de la \emph{Memoria} de 1881--1886. Nació el 29 de abril, no el 28. (iii) Duffing (1918) estudió oscilaciones forzadas con resorte cúbico; el caos en su ecuación se encontró mucho después. (iv) El criterio del círculo es de Sandberg y Zames; Popov dio en 1961 su propio criterio. (v) La dinámica cero es de Byrnes e Isidori; la ISS la introdujo Sontag en 1989, y con Wang (1995) dio sus caracterizaciones. (vi) La obra de Lyapunov se tradujo al francés 15 años después de 1892, no 25. (vii) La ecuación logística la redescubrieron Pearl y Reed en 1920; se eliminó la mención a un redescubrimiento por ``Alfred Volta''. Rousseau era amigo del padre de Malthus, no su mentor. Feigenbaum trabajó con el mapa logístico a finales de los setenta. (viii) Se corrigió la grafía de Artstein. (ix) La ley de estructura variable produce un lazo discontinuo: se agregó la advertencia sobre la noción de solución y se matizó la comparación con el PD. (x) Se quitaron los restos de la plantilla Tufte y la notación se unificó con \texttt{notacion.sty} (invariante/variante en el tiempo, $\eq$, $f(t,x,u)$). Todos los números se verificaron con \texttt{herramientas/cap01\_numeros.py} (36 de 36) y \cmd{verificarCap01.m} (34 de 34).
+
+Además, la trampa `tr:in-cubico` decía "Así lo decían las versiones anteriores de estas notas"; se quitó la frase.
+
 ## Pendientes de los capítulos 1 y 2 (migrados el 10 de noviembre de 2026)
 
 - Correr en MATLAB `crearModelo_EstructuraVariable` y `crearModelo_DiodoTunel` (Simulink no estaba disponible) y grabar, si se quiere la versión de MATLAB, los `C1_Video_*` y `C2_Video_*`; los MP4 publicados son los de `herramientas/cap01_02_videos.py`.

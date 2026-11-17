@@ -1,0 +1,118 @@
+%% ---------------------------------------------------------------------
+\section{Funciones de comparación}
+\label{sec:vt-comparacion}
+%% ---------------------------------------------------------------------
+
+Las definiciones con $\varepsilon$, $\delta$ y $T$ son difíciles de manipular. La herramienta que las compacta, y que se usa en el resto del curso (\cref{cap:avanzada}), son las funciones de comparación: funciones escalares que miden el tamaño de la cota en función del tamaño de la condición inicial y del tiempo transcurrido.
+
+\begin{definicion}[label=def:vt-clases]{Clases $\K$, $\Kinf$ y $\KL$ \citep[Def.~4.2 y 4.3]{Kha02}}
+\begin{itemize}
+  \item $\alpha:[0,a)\to[0,\infty)$ es de \clave{clase $\K$} si es continua, \emph{estrictamente} creciente y $\alpha(0)=0$.
+  \item Es de \clave{clase $\Kinf$} si además $a=\infty$ y $\alpha(r)\to\infty$ cuando $r\to\infty$.
+  \item $\beta:[0,a)\times[0,\infty)\to[0,\infty)$ es de \clave{clase $\KL$} si para cada $s$ fijo, $r\mapsto\beta(r,s)$ es de clase $\K$, y para cada $r$ fijo, $s\mapsto\beta(r,s)$ es decreciente y $\beta(r,s)\to0$ cuando $s\to\infty$.
+\end{itemize}
+\end{definicion}
+
+Ejemplos: $\tan^{-1}r\in\K$ pero no $\Kinf$ (se satura en $\pi/2$); $r^c\in\Kinf$ para $c>0$; $\min\{r,1\}$ no es de clase $\K$ (es constante para $r\ge1$); $re^{-s}$, $r^c e^{-s}$ y $\dfrac{r}{sr+1}$ son de clase $\KL$. La primera variable es el tamaño de la condición inicial; la segunda, el tiempo transcurrido.
+
+\begin{pausa}
+¿Cuáles son de clase $\KL$? (a) $\dfrac{r^2}{1+s}$; (b) $re^{-sr}$; (c) $\min\{r,1\}\,e^{-s}$; (d) $\dfrac r{1+s}+re^{-s}$.
+\respuesta{(a) Sí: $\partial\beta/\partial r=2r/(1+s)>0$ y en $s$ decrece a cero. (b) No: para $s>0$, $\partial\beta/\partial r=e^{-sr}(1-sr)<0$ si $r>1/s$; la función sube hasta $r=1/s$ y luego baja. (c) No: es constante en $r$ para $r\ge1$, y ``creciente'' no es ``estrictamente creciente''. (d) Sí: es suma de dos funciones de clase $\KL$.}
+\end{pausa}
+
+\begin{trampa}[label=tr:vt-kl]{``$re^{-sr}$ decae a cero, luego es de clase $\KL$''}
+\plausible{Para cada $r$, $re^{-sr}\to0$ cuando $s\to\infty$, que es lo que se le pide a una cota de convergencia.}
+El requisito que falla es el de la primera variable: con $s=2$, el máximo está en $r=1/2$, y una condición inicial más grande recibiría una cota \emph{más pequeña} (\cref{fig:vt-comparacion}, derecha). Una cota así no garantiza nada sobre la estabilidad, porque no se hace pequeña cuando $r$ se hace pequeño de manera uniforme en $s$.
+\correcto{Hay que revisar las dos variables: estrictamente creciente en $r$ para cada $s$, y decreciente a cero en $s$ para cada $r$. Para (b) hay arreglo: como $e^{-y}\le1/(1+y)$ para $y\ge0$, se tiene $re^{-sr}\le r/(1+sr)$, que sí es de clase $\KL$. En estabilidad basta con que exista \emph{alguna} envolvente de clase $\KL$.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_comparacion}
+\caption{Izquierda: $\tan^{-1}r\in\K$ (se satura), $r^2/10\in\Kinf$ y $0.9\min\{r,1\}\notin\K$. Centro: cortes de $r/(sr+1)\in\KL$ para varios $s$: cada corte crece con $r$ y baja con $s$. Derecha: cortes de $re^{-sr}$; con $s>0$ cada uno tiene un máximo en $r=1/s$ y no es de clase $\K$.}
+\label{fig:vt-comparacion}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej2_FuncionesComparacion.m}{comparacion}{Revisar numéricamente las dos condiciones de la clase $\KL$}
+
+\subsection{Propiedades que se usan}
+
+\begin{lema}[label=lem:vt-propiedades]{Álgebra de las funciones de comparación \citep[Lema~4.2]{Kha02}}
+Sean $\alpha_1,\alpha_2\in\K$ en $[0,a)$, $\alpha_3,\alpha_4\in\Kinf$ y $\beta\in\KL$. Entonces:
+\begin{enumerate}
+  \item $\alpha_1^{-1}$ existe en $[0,\alpha_1(a))$ y es de clase $\K$; $\alpha_3^{-1}\in\Kinf$.
+  \item $\alpha_1\circ\alpha_2\in\K$ y $\alpha_3\circ\alpha_4\in\Kinf$.
+  \item $\sigma(r,s)=\alpha_1\bigl(\beta(\alpha_2(r),s)\bigr)$ es de clase $\KL$ (con dominios compatibles).
+\end{enumerate}
+\end{lema}
+
+\begin{demostracion}
+(1) y (2) se siguen de que la inversa y la composición de funciones continuas estrictamente crecientes que se anulan en cero lo son. Para (3), $\sigma$ es continua y $\sigma(0,s)=\alpha_1(\beta(0,s))=\alpha_1(0)=0$. Con $s$ fijo y $r_1<r_2$, la cadena $\alpha_2(r_1)<\alpha_2(r_2)\Rightarrow\beta(\alpha_2(r_1),s)<\beta(\alpha_2(r_2),s)\Rightarrow\sigma(r_1,s)<\sigma(r_2,s)$ usa que las tres funciones son \emph{estrictamente} crecientes en su primer argumento. Con $r$ fijo, $\beta(\alpha_2(r),\cdot)$ decrece a cero y $\alpha_1$, continua y nula en cero, conserva el orden y el límite.
+\end{demostracion}
+
+El paso (3) se lee de adentro hacia afuera: tamaño inicial $r$, se agranda con $\alpha_2$, se deja decaer con $\beta$ y se traduce con $\alpha_1$. Es exactamente la cota que aparece en la prueba del \cref{thm:vt-lyapunov}, y es la razón por la que se exige crecimiento \emph{estricto}: hay que invertir $\alpha_1$.
+
+\begin{lema}[label=lem:vt-sandwich]{Funciones definidas positivas entre dos funciones $\K$ \citep[Lema~4.3]{Kha02}}
+Si $W:\Bola r\to\R$ es continua y definida positiva, existen $\alpha_1,\alpha_2\in\K$ en $[0,r)$ con
+\[
+  \alpha_1(\norm x)\le W(x)\le\alpha_2(\norm x)\qquad\text{para todo }x\in\Bola r .
+\]
+Si $W$ está definida en $\R^n$ y es radialmente no acotada, se pueden tomar $\alpha_1,\alpha_2\in\Kinf$.
+\end{lema}
+
+La idea de la prueba es construir $\psi(s)=\min_{s\le\norm x\le r}W(x)$, que es continua, positiva y creciente, y quedarse por debajo con una función estrictamente creciente; por arriba, igual con $\max_{\norm x\le s}W(x)$. Para una forma cuadrática no hay que construir nada: $\lmin(P)\norm x^2\le x\T Px\le\lmax(P)\norm x^2$.
+
+\begin{lema}[label=lem:vt-flujo]{La ecuación de comparación genera una función $\KL$ \citep[Lema~4.4]{Kha02}}
+Sea $\alpha\in\K$ localmente Lipschitz en $[0,a)$. La ecuación escalar
+\[
+  \dot y=-\alpha(y),\qquad y(t_0)=y_0\in[0,a)
+\]
+tiene solución única para todo $t\ge t_0$, y $y(t)=\sigma(y_0,t-t_0)$ con $\sigma\in\KL$ en $[0,a)\times[0,\infty)$.
+\end{lema}
+
+Tres casos que se usan todo el tiempo:
+\[
+  \dot y=-ky\ \Rightarrow\ \sigma=re^{-ks},\qquad
+  \dot y=-ky^2\ \Rightarrow\ \sigma=\frac r{krs+1},\qquad
+  \dot y=-y^3\ \Rightarrow\ \sigma=\frac r{\sqrt{1+2r^2s}} .
+\]
+Toda función generada así cumple $\sigma(r,0)=r$ y $\sigma(\sigma(r,s_1),s_2)=\sigma(r,s_1+s_2)$: es un \emph{flujo}. No toda función $\KL$ lo es (\cref{prob:vt-flujo}). Junto con el lema de comparación (\cref{lem:pm-comparacion}), esto da la herramienta principal: si $\dot v\le-\alpha(v)$ y $v(t_0)\le y_0$, entonces $v(t)\le\sigma(y_0,t-t_0)$.
+
+\subsection{La caracterización por funciones de comparación}
+
+\begin{lema}[label=lem:vt-kl]{Estabilidad uniforme con funciones de comparación \citep[Lema~4.5]{Kha02}}
+El origen de \eqref{eq:vt-sistema} es
+\begin{itemize}
+  \item US si y solo si existen $\alpha\in\K$ y $c>0$, independientes de $t_0$, tales que
+  \begin{equation}
+    \norm{x(t)}\le\alpha\bigl(\norm{x(t_0)}\bigr)\qquad\text{para todo }t\ge t_0\ge0\text{ y }\norm{x(t_0)}<c ;
+    \label{eq:vt-us}
+  \end{equation}
+  \item UAS si y solo si existen $\beta\in\KL$ y $c>0$, independientes de $t_0$, tales que
+  \begin{equation}
+    \norm{x(t)}\le\beta\bigl(\norm{x(t_0)},\,t-t_0\bigr)\qquad\text{para todo }t\ge t_0\ge0\text{ y }\norm{x(t_0)}<c ;
+    \label{eq:vt-uas}
+  \end{equation}
+  \item GUAS si y solo si \eqref{eq:vt-uas} vale para toda $x(t_0)\in\R^n$.
+\end{itemize}
+\end{lema}
+
+\begin{ideaclave}
+Una sola función $\beta\in\KL$ para todos los instantes iniciales: eso es la uniformidad. La primera variable de $\beta$ codifica la estabilidad (la cota es pequeña si $x(t_0)$ lo es) y la segunda la convergencia (la cota decae con el tiempo transcurrido $t-t_0$, no con el reloj $t$).
+\end{ideaclave}
+
+Volviendo al \cref{ej:vt-motivador}: para cada $t_0$ la solución cumple $\abs{x(t)}=\beta_{t_0}(\abs{x_0},t-t_0)$ con
+\[
+  \beta_{t_0}(r,s)=\frac{r(1+t_0)}{1+t_0+s}\in\KL .
+\]
+Pero $\sup_{t_0\ge0}\beta_{t_0}(r,s)=r$ para todo $s$: cualquier cota común tendría que valer al menos $r$ para todo $s$, y no decaería. No existe $\beta$ independiente de $t_0$ y el origen no es UAS (\cref{fig:vt-tiempo}, derecha).
+
+\begin{definicion}[label=def:vt-exponencial]{Estabilidad exponencial}
+El origen de \eqref{eq:vt-sistema} es \clave{exponencialmente estable} si existen $c,k,\lambda>0$ tales que
+\[
+  \norm{x(t)}\le k\,\norm{x(t_0)}\,e^{-\lambda(t-t_0)}\qquad\text{para todo }t\ge t_0\ge0\text{ y }\norm{x(t_0)}<c ,
+\]
+y \clave{globalmente exponencialmente estable} si esto vale para toda $x(t_0)$.
+\end{definicion}
+
+Es el caso particular $\beta(r,s)=kre^{-\lambda s}$, y por eso es automáticamente uniforme: en este curso, ``exponencialmente estable'' para un sistema variante quiere decir siempre con $k$ y $\lambda$ independientes de $t_0$.

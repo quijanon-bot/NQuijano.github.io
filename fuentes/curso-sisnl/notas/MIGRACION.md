@@ -11,7 +11,18 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 7. **Figuras.** Si sale de un cálculo, se genera con `herramientas/capNN_figuras.py` (PDF para las notas, SVG para la web). Diagramas: TikZ en `notas/figuras/tikz/` con `herramientas/tikz.sh capNN nombre`.
 8. **Verificar.** Recalcular todos los números con `herramientas/capNN_numeros.py` y escribir `verificarCapNN.m`; compilar; revisar las referencias a Khalil (3.ª edición).
 9. **Página web.** Copiar `sitio/partes/11-pasividad.qmd` como plantilla y agregar el capítulo a `NOMBRES` en `herramientas/pdf_por_capitulo.py`.
-10. **Numeración.** En `NotasSisNL.tex`, `\setcounter{chapter}{N-1}` antes del `\input` del capítulo N mientras los anteriores no estén migrados.
+10. **Numeración.** Con los doce capítulos migrados ya no hace falta `\setcounter{chapter}` (queda uno antes del 12, inofensivo).
+
+## Pendientes del capítulo 9 (migrado el 16 de noviembre de 2026)
+
+- Fuentes: diapositivas `Present2026/Clase101926_VariantesTiempo` y su versión `StmasVariantes_Inestab2026` (exportada como `VariantesTp_Inestabilidad.pdf`), `Ecuaciones_LaTeXiT.tex` (S4.1--S50.3), el *Solucionario y guion* del 19 de octubre de 2026 (E1--E9 y el quiz de la clase $\mathcal{KL}$), `VanDerPol_Inestabilidad.pptx` y los scripts `Codigos/MATLAB_VariantesTiempo/TV01`--`TV09`, reescritos como `C9_Ej*`. `Handout6a.tex` era de preliminares matemáticos (ya cubiertos en el capítulo 3).
+- Prefijo de etiquetas: `vt-`. Las funciones de comparación (`def:vt-clases`) y la caracterización $\mathcal{KL}$ (`lem:vt-kl`) viven aquí; LaSalle--Yoshizawa, Barbălat, los conversos y el ejemplo adaptativo se citan del capítulo 10 sin repetirse.
+- Correcciones a las diapositivas: la cota de la estabilidad exponencial ($V\le k_2\|x\|^a$, no $\ge$), el enunciado del segundo teorema de inestabilidad ($\dot V-\lambda V\ge0$), la $\dot V$ del ejemplo del primer teorema, la cota de Cetaev ($\tfrac12$ en lugar de $\tfrac38$) y el límite $e^{-1/11}=0.913$ (el guion decía 0.914).
+- Se agregaron: Floquet para la Mathieu amortiguada ($|\mu|=e^{-\pi}$), la ganancia rápida (el certificado falla y el sistema es GES, $|\mu|=e^{-\pi/5}$), la linealización no uniforme $\dot x_1=-x_1+tx_2^2$, el teorema de Matrosov (profundiza), la ecuación de Lyapunov diferencial escalar y el ejemplo $\dot x=(6t\sin t-2t)x$ (AS no US).
+- Correr en MATLAB `crearModelo_MathieuAmortiguada` (Simulink no estaba disponible) y, si se quiere la versión de MATLAB, grabar los `C9_Video_*`; los MP4 publicados son los de `herramientas/cap09_videos.py`.
+- Confirmar en Khalil (3.ª ed.): Def. 4.2--4.4, Lemas 4.2--4.5, Teo. 4.3 (Cetaev), 4.8--4.13, §4.5 (los ejemplos $6t\sin t$ y la ganancia variable), §4.6 (Markus--Yamabe) y §9.6 (variación lenta). En Kellett--Braun: Ej. 2.7. Los dos teoremas de inestabilidad variantes se citan de Slotine--Li sin sección: dar el número exacto.
+- Verificar los datos bibliográficos nuevos: Mas49, Yos66, MaYa60, Che61 (traducción de 1961 del libro de Cetaev) y Mat62. Las referencias a "Serón, Ej. 4.2 y 4.3" se citan como `Ser00` sin número.
+- El epígrafe es un fragmento de la cita de Vila-Matas de las diapositivas (recortado).
 
 ## Pendientes del capítulo 8 (migrado el 16 de noviembre de 2026)
 
@@ -19,7 +30,7 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 - Prefijo de etiquetas: `iv-` (el capítulo 1 ya usa `in-`).
 - Se agregaron: la proposición del estimado con $\dot V\le0$ (caso b), el problema `prob:ly-duffing` resuelto con LaSalle, el punto de vista del cilindro (con la contractibilidad de la región de atracción, Bhatia--Szegő) y la función `comun/nivelCritico.m` (y `cap08_invarianza/zubovMalla.m`).
 - Las referencias "capítulo~8" de los capítulos 1, 2, 4, 5, 7 y 10 ya se cambiaron por `\cref` (a `cap:invarianza`, `thm:iv-lasalle`, `ej:iv-pendulo`, `ej:iv-lotka`, `ej:iv-observable`, `ej:iv-region`, `cor:iv-gas` o `sec:iv-gradiente`/`sec:iv-zubov`). El diagrama `t_mapa_lyapunov.tex` (TikZ independiente) sigue diciendo "capítulo 8", que es correcto.
-- LaSalle--Yoshizawa sigue en el capítulo 9 (por migrar): el capítulo 8 lo cita como "capítulo~9".
+- LaSalle--Yoshizawa se enuncia y prueba en el capítulo 10 y se usa en el 9; el capítulo 8 ya cita el 9 con `\cref{cap:variantes}`.
 - Correr en MATLAB `crearModelo_AdaptativoLaSalle` (Simulink no estaba disponible) y, si se quiere la versión de MATLAB, grabar los `C8_Video_*`; los MP4 publicados son los de `herramientas/cap08_videos.py`. `C8_Video_ZubovVanDerPol` calcula una malla de $61\times61$ simulaciones: en Octave tarda más de diez minutos; en MATLAB, del orden de un minuto.
 - Confirmar en Khalil (3.ª ed.): §4.2, Lema 4.1, Teorema 4.4, Corolarios 4.1 y 4.2, el número del ejemplo adaptativo (aquí "Ej. 4.9"), el ejercicio del método de Krasovskii (cap. 4) y §8.2 (Zubov). En Kellett--Braun: Ej. 2.35 (amortiguamiento cuadrático). En Slotine--Li: la ubicación del sistema del problema 8.7 (gradiente variable).
 - Verificar los datos bibliográficos nuevos: ScGi62 (Trans. AIEE, Part II, vol. 81, 203--210), Par00 (tesis de Caltech) y BhSz70 (la contractibilidad de la región de atracción: dar el teorema exacto si se quiere citar).
@@ -29,7 +40,7 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 
 - Fuentes: `AdvancedStab_Notas2026.tex` (octubre de 2026, que ya corregía Handout7 y las diapositivas), las diapositivas `Present2026/AdvancedStab_2026_v4.pptx` (epígrafe de Daniel Kehlmann; la v4 pone CLF e ISS primero y UUB en un apéndice), `Ecuaciones_LaTeXiT_AdvancedStab.tex` y los scripts `MATLAB_AdvancedStab/AS01`--`AS15`, reescritos como `C10_Ej*`. Las notas siguen el orden de los temas (UUB, conversos, CLF, Barbalat, ISS, interconexiones), no el de la v4.
 - **Los teoremas conversos quedaron en este capítulo**, no en el 9 como decía la planeación anterior. `cap07/s04_directo.tex` ya cita `\cref{sec:av-conversos}`. Cuando se migre el capítulo 9, no repetirlos: citar este capítulo.
-- Funciones de comparación, estabilidad uniforme y LaSalle--Yoshizawa son del capítulo 9 (por migrar): aquí se recuerdan en §10.1 y §10.5. Al migrar el 9, cambiar "capítulo~9" por `\cref` y quitar las repeticiones que sobren. El 8 (LaSalle) ya está migrado y se cita con `\cref` (`thm:iv-lasalle`).
+- Las funciones de comparación y la estabilidad uniforme se definen en el capítulo 9 (`def:vt-clases`, `lem:vt-kl`); §10.1 las recuerda (`def:av-comparacion` remite a `def:vt-clases`). LaSalle--Yoshizawa y Barbălat se prueban en §10.5 y el 9 los usa. Las referencias "capítulo~9" ya son `\cref`. El 8 (LaSalle) ya está migrado y se cita con `\cref` (`thm:iv-lasalle`).
 - Correcciones nuevas respecto a las notas de octubre: el pico de la cascada $\dot x_1=-x_1+x_1x_2^2$ desde $(1,3)$ es $18.2=e^{4-\ln3}$ (no 18.1); con $k-L_gV$ y $w\equiv1$, $x$ se asienta en el equilibrio $0.4887$.
 - Correr en MATLAB `crearModelo_RedisenoISS` (Simulink no estaba disponible; el bloque MATLAB Function de Sontag se programa por código y puede requerir ajuste) y, si se quiere la versión de MATLAB, grabar los `C10_Video_*`; los MP4 publicados son los de `herramientas/cap10_videos.py`.
 - Confirmar en Khalil (3.ª ed.): Def. 4.6, Teo. 4.14, 4.16, 4.18, 4.19, Def. 4.7, Lemas 4.6, 4.7, 8.2, 9.1 y Teo. 8.4. En Kellett--Braun: ec. (2.51), Teo. 2.31, 2.32, §2.5.1, Teo. 7.4, 7.9, Ej. 9.2, ec. (9.10), §9.2 y §9.6. En Slotine--Li: Lema 4.3 y Ej. 4.13.

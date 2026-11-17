@@ -45,7 +45,7 @@ Lo mismo con un par $(\eq,u^*)$ y $v=u-u^*$. Por eso los teoremas se enuncian pa
 \begin{trampa}[label=tr:in-tiempo]{Convertir el tiempo en un estado}
 \plausible{Todo sistema variante en el tiempo $\dot x=f(t,x)$ es en realidad invariante: basta agregar el estado $x_{n+1}=t$, con $\dot x_{n+1}=1$.}
 Como reescritura es correcta, pero no sirve para estudiar estabilidad: el sistema aumentado $\bigl(\dot x,\dot x_{n+1}\bigr)=\bigl(f(x_{n+1},x),1\bigr)$ \emph{no tiene equilibrios}, porque $\dot x_{n+1}=1\neq0$, y todas sus soluciones son no acotadas en la última coordenada. La pregunta ``¿es estable el origen de $\dot x=f(t,x)$?'' no tiene traducción en el sistema aumentado.
-\correcto{Los sistemas variantes en el tiempo necesitan una teoría propia, con nociones de \emph{uniformidad} respecto al instante inicial (capítulo~9).}
+\correcto{Los sistemas variantes en el tiempo necesitan una teoría propia, con nociones de \emph{uniformidad} respecto al instante inicial (\cref{cap:variantes}).}
 \end{trampa}
 
 \paragraph{Una advertencia que atraviesa el curso.} Todo lo anterior supone que \eqref{eq:in-general} tiene sentido: que por cada condición inicial pasa una solución, una sola, y que existe mientras la necesitamos. No siempre es así (\cref{sec:in-fenomenos} y capítulo~\ref{cap:unidimensionales}); las condiciones que lo garantizan (Lipschitz) son el tema del \cref{cap:preliminares}. Por ahora la moraleja es: \alerta{antes de aplicar una herramienta a un modelo, verifique sus hipótesis.}

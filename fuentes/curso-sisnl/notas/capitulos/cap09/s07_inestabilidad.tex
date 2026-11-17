@@ -1,0 +1,116 @@
+%% ---------------------------------------------------------------------
+\section{Inestabilidad}
+\label{sec:vt-inestabilidad}
+%% ---------------------------------------------------------------------
+
+Hasta aquí todos los teoremas probaban estabilidad. Probar \emph{inestabilidad} también requiere una función, pero el argumento es el contrario: una cantidad que crece cerca del origen y que, por estar acotada en una bola, obliga a la solución a salir de ella.
+
+\begin{definicion}[label=def:vt-inestable]{Inestabilidad}
+El origen de \eqref{eq:vt-sistema} es \clave{inestable} si no es estable: existen $\varepsilon>0$ y $t_0\ge0$ tales que, para todo $\delta>0$, hay un $x(t_0)$ con $\norm{x(t_0)}<\delta$ y un $t\ge t_0$ con $\norm{x(t)}\ge\varepsilon$.
+\end{definicion}
+
+La negación es literal: basta \emph{un} $\varepsilon$, y para cada $\delta$ basta \emph{una} condición inicial que salga de $\Bola\varepsilon$. No se pide que todas las soluciones se alejen, ni que se vayan a infinito.
+
+\begin{trampa}[label=tr:vt-inestable]{``Inestable quiere decir que las soluciones se van a infinito''}
+\plausible{Es la imagen de $\dot x=x$, y la de los ejemplos de la \cref{sec:vt-ejemplos}.}
+Para van der Pol, $\dot x_1=x_2$, $\dot x_2=-x_1+(1-x_1^2)x_2$, el origen es un foco inestable (valores propios $\tfrac12\pm j\tfrac{\sqrt3}2$), y \emph{todas} las soluciones están acotadas: las que salen de cerca del origen terminan en el ciclo límite, que cumple $1.53\le\norm x\le2.83$. Con $\varepsilon=1$ basta: desde $(\delta,0)$, la solución sale de $\Bola1$ en $t\approx2\ln(1/\delta)$ ($8.90$, $18.97$ y $27.23$ para $\delta=10^{-2},10^{-4},10^{-6}$), por pequeño que sea $\delta$ (\cref{fig:vt-vdp}).
+\correcto{Inestable es la negación de estable: existe un $\varepsilon$ que, para todo $\delta$, alguna solución supera. Ni ``no asintóticamente estable'' implica inestable (un centro es estable), ni inestable implica no acotado.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_vdp}
+\caption{Van der Pol con $\mu=1$. Izquierda: soluciones desde cerca del origen y desde fuera del ciclo; todas acotadas, todas al ciclo. La circunferencia punteada es $\norm x=1$. Derecha: $\norm{x(t)}$ desde $(\delta,0)$ en escala logarítmica; el tiempo para salir de $\Bola1$ crece como $2\ln(1/\delta)$, pero siempre es finito.}
+\label{fig:vt-vdp}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej11_VanDerPol.m}{vdp}{Inestable y acotado: tiempos de salida de $\Bola1$}
+
+\subsection{El teorema de Cetaev}
+
+Para sistemas invariantes en el tiempo, el resultado más útil es el de Cetaev \citep{Che61}, \citep[Teo.~4.3]{Kha02}.
+
+\begin{teorema}[label=thm:vt-cetaev]{Cetaev}
+Sea $\dot x=f(x)$ con $f(0)=0$ y $V:\D\to\R$ de clase $\Cont1$ con $V(0)=0$ y tal que $V(x_0)>0$ para algún $x_0$ de norma arbitrariamente pequeña. Sea $r>0$ con $\overline{\Bola r}\subset\D$ y
+\[
+  U=\{x\in\overline{\Bola r}:\ V(x)>0\} .
+\]
+Si $\Vdot(x)>0$ en $U$, el origen es inestable.
+\end{teorema}
+
+\begin{demostracion}
+Sea $x_0\in U$ con $\norm{x_0}$ tan pequeño como se quiera, y $a=V(x_0)>0$. Mientras la solución esté en $U$, $V$ crece, así que $V(x(t))\ge a$. La solución no puede salir de $U$ por la frontera $\{V=0\}$, porque allí $V$ valdría $0<a$; solo puede salir de la bola. Considere el compacto $\Gamma=\{x\in\overline{\Bola r}:\ V(x)\ge a\}$, contenido en $U$ (no contiene al origen, donde $V=0$), y $\gamma=\min_\Gamma\Vdot>0$. Mientras $x(t)\in\Gamma$, $V(x(t))\ge a+\gamma t$, que crece sin cota; pero $V$ está acotada en $\overline{\Bola r}$. Luego la solución sale de $\Bola r$, y como $x_0$ era arbitrariamente cercano al origen, este es inestable con $\varepsilon=r$.
+\end{demostracion}
+
+$V$ \emph{no} tiene que ser definida positiva: basta con que sea positiva en algún sector que llega hasta el origen, y el teorema solo mira lo que pasa en ese sector. En la silla $\dot x_1=x_1$, $\dot x_2=-x_2$, $V=\tfrac12(x_1^2-x_2^2)$ es indefinida y $\Vdot=x_1^2+x_2^2>0$ en todas partes.
+
+\begin{ejemplo}[label=ej:vt-cetaev]{Un valor propio cero}
+Para $\dot x_1=x_1^2+x_2^3$, $\dot x_2=-x_2+x_1^3$, pruebe que el origen es inestable.
+\solucion La linealización tiene valores propios $0$ y $-1$: el método indirecto no decide. Tome $V=x_1-\tfrac12x_2^2$, de modo que $U=\{x_1>x_2^2/2\}\cap\Bola r$ es una región con forma de parábola que llega al origen (en $(\delta,0)$, $V=\delta>0$). Entonces
+\[
+  \Vdot=(x_1^2+x_2^3)-x_2(-x_2+x_1^3)=x_1^2+x_2^2+x_2^3-x_1^3x_2 .
+\]
+En $\Bola r$, $\abs{x_2^3}\le r\,x_2^2$ y $\abs{x_1^3x_2}\le x_1^2\,\abs{x_1x_2}\le\tfrac{r^2}2x_1^2$, así que
+\[
+  \Vdot\ge\Bigl(1-\frac{r^2}2\Bigr)x_1^2+(1-r)\,x_2^2\ge\min\Bigl\{1-\frac{r^2}2,\ 1-r\Bigr\}\norm x^2 .
+\]
+Con $r=\tfrac12$, $\Vdot\ge\tfrac12\norm x^2>0$ en $\Bola{1/2}\setminus\{0\}$, en particular en $U$: el origen es inestable. La constante $\tfrac12$ es exacta: el mínimo de $\Vdot/\norm x^2$ en $\Bola{1/2}$, calculado numéricamente, es $0.50$, y se alcanza cerca de $(0,-\tfrac12)$.
+\end{ejemplo}
+
+\begin{trampa}[label=tr:vt-cetaevx1]{``Con $V=x_1$ basta: $\dot x_1=x_1^2+x_2^3$ es casi siempre positivo''}
+\plausible{$V=x_1$ es más simple, $U=\{x_1>0\}$ llega al origen y $x_1^2>0$ domina cerca del eje $x_1$.}
+En $x=(\delta^2,-\delta)$, con $0<\delta<1$, $V=\delta^2>0$ y $\Vdot=\delta^4-\delta^3<0$. Esos puntos están en $U$ arbitrariamente cerca del origen, así que $\Vdot$ no es positiva en $U$ para ningún $r$.
+\correcto{Una $V$ de Cetaev se construye para que la parte buena domine a la mala. El término $-\tfrac12x_2^2$ aporta $-x_2\dot x_2=x_2^2-x_1^3x_2$, y ese $x_2^2$ domina a $x_2^3$; además, recorta $U$ a la parábola $x_1>x_2^2/2$, donde $x_1$ no es pequeño frente a $x_2$.}
+\end{trampa}
+
+\subsection{Dos teoremas de inestabilidad para $\dot x=f(t,x)$}
+
+Para sistemas variantes en el tiempo hay dos versiones, que se prueban con el mismo argumento de Cetaev \citep{SlLi91}. En las dos, $V:[0,\infty)\times\Bola r\to\R$ es de clase $\Cont1$, $V(t,0)=0$, es decreciente ($\abs{V(t,x)}\le W_2(x)$) y, para algún $t_0$, $V(t_0,\cdot)$ toma valores positivos en puntos arbitrariamente cercanos al origen.
+
+\begin{teorema}[label=thm:vt-inestable1]{Primer teorema de inestabilidad}
+Si además $\Vdot(t,x)\ge W(x)$ en $[0,\infty)\times\Bola r$, con $W$ continua y definida positiva, el origen es inestable.
+\end{teorema}
+
+\begin{teorema}[label=thm:vt-inestable2]{Segundo teorema de inestabilidad}
+Si además existe $\lambda>0$ con
+\[
+  \Vdot(t,x)-\lambda\,V(t,x)\ge0\qquad\text{en }[0,\infty)\times\Bola r ,
+\]
+el origen es inestable.
+\end{teorema}
+
+\begin{demostracion}
+Sea $x_0$, de norma tan pequeña como se quiera, con $a=V(t_0,x_0)>0$, y suponga que la solución se queda en $\Bola r$. En el segundo teorema, $\frac{\dif}{\dif t}\bigl(e^{-\lambda(t-t_0)}V\bigr)=e^{-\lambda(t-t_0)}(\Vdot-\lambda V)\ge0$, así que $V(t,x(t))\ge ae^{\lambda(t-t_0)}\to\infty$. En el primero, $V$ crece, $V\ge a$, luego $W_2(x(t))\ge a$ y $\norm{x(t)}\ge\gamma>0$ para algún $\gamma$; en el anillo $\gamma\le\norm x\le r$, $W\ge m>0$ y $V\ge a+m(t-t_0)\to\infty$. En los dos casos se contradice $V\le\max_{\overline{\Bola r}}W_2$.
+\end{demostracion}
+
+\begin{ejemplo}[label=ej:vt-inestable1]{Primer teorema donde la linealización calla}
+Para $\dot x_1=2x_2+x_1(x_1^2+2x_2^4)$, $\dot x_2=-2x_1+x_2(x_1^2+x_2^4)$, con $V=\tfrac12\norm x^2$,
+\[
+  \Vdot=x_1^4+x_1^2x_2^2+2x_1^2x_2^4+x_2^6 ,
+\]
+que es definida positiva (todos los términos son no negativos, y $x_1^4+x_2^6>0$ si $x\neq0$). El origen es inestable. La linealización, $\dot x_1=2x_2$, $\dot x_2=-2x_1$, es un centro con valores propios $\pm2j$, y no dice nada.
+\end{ejemplo}
+
+\begin{ejemplo}[label=ej:vt-inestable2]{Segundo teorema: $\Vdot$ no tiene que ser positiva}
+Para
+\[
+  \dot x_1=x_1+3x_2\sin^2x_2+5x_1x_2^2\sin^2x_1,\qquad
+  \dot x_2=3x_1\sin^2x_2+x_2-5x_1^2x_2\cos^2x_1 ,
+\]
+con $V=\tfrac12(x_1^2-x_2^2)$, los términos con $3\sin^2x_2$ se cancelan y
+\[
+  \Vdot=x_1^2-x_2^2+5x_1^2x_2^2\bigl(\sin^2x_1+\cos^2x_1\bigr)=2V+5x_1^2x_2^2 .
+\]
+Entonces $\Vdot-2V=5x_1^2x_2^2\ge0$, y con $\lambda=2$ el origen es inestable. Note que $\Vdot$ \emph{no} es positiva: en $(0,0.5)$, $V=-0.125$ y $\Vdot=-0.25$. El primer teorema no aplica; el segundo sí, porque solo pide que $V$ crezca exponencialmente donde ya es positiva.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_inestabilidad}
+\caption{Izquierda: \cref{ej:vt-inestable1}; la solución desde $(0.25,0)$ gira y se aleja. Centro: \cref{ej:vt-inestable2}; en coral la región $V>0$ ($\abs{x_1}>\abs{x_2}$), de donde las soluciones salen. Derecha: \cref{ej:vt-cetaev}; en verde $U=\{x_1>x_2^2/2\}$ dentro de $\Bola{1/2}$ (punteada); las soluciones que nacen en $U$ salen de la bola.}
+\label{fig:vt-inestabilidad}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej10_Inestabilidad.m}{inestabilidad}{Las tres $\Vdot$ y la cota de Cetaev en una malla}
+
+\video{V9_4_cetaev}{La región de Cetaev: donde $V>0$, $V$ solo puede crecer}

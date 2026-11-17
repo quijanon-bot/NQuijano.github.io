@@ -240,6 +240,7 @@ window.Quarto = {
   <li><a href="#parte-6-bifurcaciones" id="toc-parte-6-bifurcaciones" class="nav-link" data-scroll-target="#parte-6-bifurcaciones">Parte 6 · Bifurcaciones</a></li>
   <li><a href="#parte-7-estabilidad-de-lyapunov" id="toc-parte-7-estabilidad-de-lyapunov" class="nav-link" data-scroll-target="#parte-7-estabilidad-de-lyapunov">Parte 7 · Estabilidad de Lyapunov</a></li>
   <li><a href="#parte-8-principio-de-invarianza-y-construcción-de-funciones-de-lyapunov" id="toc-parte-8-principio-de-invarianza-y-construcción-de-funciones-de-lyapunov" class="nav-link" data-scroll-target="#parte-8-principio-de-invarianza-y-construcción-de-funciones-de-lyapunov">Parte 8 · Principio de invarianza y construcción de funciones de Lyapunov</a></li>
+  <li><a href="#parte-9-sistemas-variantes-en-el-tiempo" id="toc-parte-9-sistemas-variantes-en-el-tiempo" class="nav-link" data-scroll-target="#parte-9-sistemas-variantes-en-el-tiempo">Parte 9 · Sistemas variantes en el tiempo</a></li>
   <li><a href="#parte-10-más-allá-de-la-estabilidad-asintótica" id="toc-parte-10-más-allá-de-la-estabilidad-asintótica" class="nav-link" data-scroll-target="#parte-10-más-allá-de-la-estabilidad-asintótica">Parte 10 · Más allá de la estabilidad asintótica</a></li>
   <li><a href="#parte-11-pasividad" id="toc-parte-11-pasividad" class="nav-link" data-scroll-target="#parte-11-pasividad">Parte 11 · Pasividad</a></li>
   <li><a href="#parte-12-linealización-por-retroalimentación" id="toc-parte-12-linealización-por-retroalimentación" class="nav-link" data-scroll-target="#parte-12-linealización-por-retroalimentación">Parte 12 · Linealización por retroalimentación</a></li>
@@ -517,6 +518,41 @@ window.Quarto = {
 </tbody>
 </table>
 <p>Los cuatro videos de la parte 8 están publicados: se generaron con <code>herramientas/cap08_videos.py</code> (los mismos modelos y parámetros que los <code>C8_Video_*</code>).</p>
+</section>
+<section id="parte-9-sistemas-variantes-en-el-tiempo" class="level2">
+<h2 class="anchored" data-anchor-id="parte-9-sistemas-variantes-en-el-tiempo">Parte 9 · Sistemas variantes en el tiempo</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Video</th>
+<th style="text-align: left;">Qué muestra</th>
+<th style="text-align: left;">Script</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span id="V9_1_tiempo_inicial"></span><a href="videos/V9_1_tiempo_inicial.mp4">V9.1 · Misma condición inicial, distinta hora de arranque</a></td>
+<td style="text-align: left;"><span class="math inline">\(\dot x=-x/(1+t)\)</span> con cuatro arranques: los tiempos de asentamiento son <span class="math inline">\(9(1+t_0)\)</span>.</td>
+<td style="text-align: left;"><code>C9_Video_TiempoInicial.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span id="V9_2_mathieu"></span><a href="videos/V9_2_mathieu.mp4">V9.2 · Los niveles respiran</a></td>
+<td style="text-align: left;">Mathieu amortiguada: el nivel <span class="math inline">\(V(t,x)\)</span> cambia de forma con <span class="math inline">\(t\)</span> y la solución entra.</td>
+<td style="text-align: left;"><code>C9_Video_Mathieu.m</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span id="V9_3_markus_yamabe"></span><a href="videos/V9_3_markus_yamabe.mp4">V9.3 · Los campos congelados atraen</a></td>
+<td style="text-align: left;">Markus–Yamabe: cada campo congelado atrae; la solución real crece como <span class="math inline">\(e^{t/2}\)</span>.</td>
+<td style="text-align: left;"><code>C9_Video_MarkusYamabe.m</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span id="V9_4_cetaev"></span><a href="videos/V9_4_cetaev.mp4">V9.4 · La región de Cetaev</a></td>
+<td style="text-align: left;">Soluciones que nacen en <span class="math inline">\(U=\{x_1&gt;x_2^2/2\}\)</span> cada vez más cerca del origen: todas salen.</td>
+<td style="text-align: left;"><code>C9_Video_Cetaev.m</code></td>
+</tr>
+</tbody>
+</table>
+<p>Los cuatro videos de la parte 9 están publicados: se generaron con <code>herramientas/cap09_videos.py</code> (los mismos modelos y parámetros que los <code>C9_Video_*</code>).</p>
 </section>
 <section id="parte-10-más-allá-de-la-estabilidad-asintótica" class="level2">
 <h2 class="anchored" data-anchor-id="parte-10-más-allá-de-la-estabilidad-asintótica">Parte 10 · Más allá de la estabilidad asintótica</h2>

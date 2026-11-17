@@ -81,6 +81,17 @@ Los cuatro videos de la parte 7 están publicados: se generaron con `herramienta
 
 Los cuatro videos de la parte 8 están publicados: se generaron con `herramientas/cap08_videos.py` (los mismos modelos y parámetros que los `C8_Video_*`).
 
+## Parte 9 · Sistemas variantes en el tiempo
+
+| Video | Qué muestra | Script |
+|:--|:--|:--|
+| []{#V9_1_tiempo_inicial}[V9.1 · Misma condición inicial, distinta hora de arranque](videos/V9_1_tiempo_inicial.mp4) | $\dot x=-x/(1+t)$ con cuatro arranques: los tiempos de asentamiento son $9(1+t_0)$. | `C9_Video_TiempoInicial.m` |
+| []{#V9_2_mathieu}[V9.2 · Los niveles respiran](videos/V9_2_mathieu.mp4) | Mathieu amortiguada: el nivel $V(t,x)$ cambia de forma con $t$ y la solución entra. | `C9_Video_Mathieu.m` |
+| []{#V9_3_markus_yamabe}[V9.3 · Los campos congelados atraen](videos/V9_3_markus_yamabe.mp4) | Markus–Yamabe: cada campo congelado atrae; la solución real crece como $e^{t/2}$. | `C9_Video_MarkusYamabe.m` |
+| []{#V9_4_cetaev}[V9.4 · La región de Cetaev](videos/V9_4_cetaev.mp4) | Soluciones que nacen en $U=\{x_1>x_2^2/2\}$ cada vez más cerca del origen: todas salen. | `C9_Video_Cetaev.m` |
+
+Los cuatro videos de la parte 9 están publicados: se generaron con `herramientas/cap09_videos.py` (los mismos modelos y parámetros que los `C9_Video_*`).
+
 ## Parte 10 · Más allá de la estabilidad asintótica
 
 | Video | Qué muestra | Script |

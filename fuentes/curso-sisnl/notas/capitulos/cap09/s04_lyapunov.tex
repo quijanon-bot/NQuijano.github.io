@@ -1,0 +1,168 @@
+%% ---------------------------------------------------------------------
+\section{El método directo con \texorpdfstring{$V(t,x)$}{V(t,x)}}
+\label{sec:vt-lyapunov}
+%% ---------------------------------------------------------------------
+
+Con un sistema variante en el tiempo es natural, y a veces necesario, que la función de Lyapunov también dependa de $t$. Hay que decidir entonces qué significa que $V(t,x)$ sea ``positiva'', y aparece una condición nueva, sin análogo en el \cref{cap:lyapunov}: que $V$ no crezca sin cota con el tiempo.
+
+\subsection{Positividad, decrecimiento y radialidad}
+
+\begin{definicion}[label=def:vt-decreciente]{Funciones $V(t,x)$ \citep[\S4.5]{Kha02}}
+Sea $V:[0,\infty)\times\D\to\R$ continua con $V(t,0)=0$ para todo $t$. Se dice que $V$ es
+\begin{itemize}
+  \item \clave{definida positiva} si existe $W_1:\D\to\R$ continua y definida positiva con $V(t,x)\ge W_1(x)$ para todo $t\ge0$ y $x\in\D$;
+  \item \clave{decreciente} si existe $W_2:\D\to\R$ continua y definida positiva con $V(t,x)\le W_2(x)$ para todo $t\ge0$ y $x\in\D$;
+  \item \clave{radialmente no acotada} (con $\D=\R^n$) si $W_1$ se puede escoger radialmente no acotada.
+\end{itemize}
+Por el \cref{lem:vt-sandwich}, las dos primeras condiciones juntas equivalen a $\alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x)$ con $\alpha_1,\alpha_2\in\K$ (en $\Kinf$ si es radialmente no acotada).
+\end{definicion}
+
+\notamargen{``Decreciente'' es la traducción usual del inglés \emph{decrescent}, y se presta a confusión: no dice que $V$ decrezca a lo largo de las soluciones (eso lo dice $\Vdot\le0$), sino que $V$ está acotada por arriba por una función de $x$ sola. \citet{KeBr23} usan el mismo término.}
+
+Las dos cotas no tienen por qué depender del tiempo. ``Definida positiva'' prohíbe que $V(t,x)$ se acerque a cero con el tiempo para un $x\neq0$ fijo; ``decreciente'' prohíbe que se vaya a infinito. Ejemplos con $x\in\R^2$:
+
+\begin{center}
+\small
+\begin{tabular}{@{}lccl@{}}
+\toprule
+$V(t,x)$ & d.\,p. & decreciente & razón \\
+\midrule
+$x_1^2(1+\sin^2t)+x_2^2(1+\cos^2t)$ & sí & sí & $\norm x^2\le V\le2\norm x^2$ \\
+$x_1^2+(1+t)\,x_2^2$ & sí & no & en $x=(0,1)$ vale $1+t$ \\
+$e^{-t}\norm x^2$ & no & sí & para $x$ fijo, $V\to0$ \\
+$(2+\sin t)\,x^2$ & sí & sí & $x^2\le V\le3x^2$ \\
+$x_1^2+x_1x_2^2(1+e^{-t})$ & no & sí & en $(-\epsilon^2,\epsilon)$ vale $-e^{-t}\epsilon^4<0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Las dos primeras filas son el ejemplo~2.7 de \citet{KeBr23}. En la última, $V$ toma valores negativos en puntos arbitrariamente cercanos al origen: no es definida positiva en ningún $\Bola r$, aunque $x_1^2$ ``domine'' cuando $x_2=0$.
+
+\subsection{La derivada a lo largo de las soluciones}
+
+Si $V$ es de clase $\Cont1$, a lo largo de una solución de \eqref{eq:vt-sistema},
+\begin{equation}
+  \Vdot(t,x)=\frac{\partial V}{\partial t}(t,x)+\frac{\partial V}{\partial x}(t,x)\,f(t,x) .
+  \label{eq:vt-vdot}
+\end{equation}
+El primer término es nuevo: mide cuánto cambia $V$ por el paso del reloj, con $x$ congelado.
+
+\begin{trampa}[label=tr:vt-parcial]{``$\Vdot=\nabla V\cdot f$, como siempre''}
+\plausible{Es la fórmula de los siete capítulos anteriores.}
+Para $\dot x=-x/10$ y $V=(2+\sin t)\,x^2$, olvidando $\partial V/\partial t$ se obtiene $\nabla V\cdot f=-0.2(2+\sin t)\,x^2<0$ para todo $x\neq0$. La derivada correcta es
+\[
+  \Vdot=\cos t\;x^2-0.2(2+\sin t)\,x^2=\bigl(\cos t-0.2(2+\sin t)\bigr)x^2 ,
+\]
+que en $t=0$ vale $0.6\,x^2>0$: $V$ \emph{sube} a lo largo de la solución durante parte de cada periodo (\cref{fig:vt-parcial}). Aquí el sistema es exponencialmente estable de todos modos (basta $V=x^2$), pero la conclusión ``$\Vdot<0$'' era falsa.
+\correcto{Use siempre \eqref{eq:vt-vdot}. Si $V$ no depende de $t$, el término desaparece; si depende, casi siempre es el que decide.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_derivada_parcial}
+\caption{Izquierda: $V(t,x(t))=(2+\sin t)\,x(t)^2$ a lo largo de una solución de $\dot x=-x/10$: baja a la larga, pero sube a ratos. Derecha: el coeficiente de $x^2$ en $\Vdot$ con el término $\partial V/\partial t$ (rojo) y sin él (gris punteado).}
+\label{fig:vt-parcial}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej3_DerivadaParcial.m}{derivada}{$\Vdot$ con y sin $\partial V/\partial t$, comparado con la derivada numérica de $V(t,x(t))$}
+
+\subsection{Los teoremas}
+
+\begin{teorema}[label=thm:vt-lyapunov]{Lyapunov para sistemas variantes \citep[Teo.~4.8 y 4.9]{Kha02}}
+Sea $V:[0,\infty)\times\D\to\R$ de clase $\Cont1$ con
+\begin{equation}
+  W_1(x)\le V(t,x)\le W_2(x)\qquad\text{para todo }t\ge0,\ x\in\D ,
+  \label{eq:vt-w1w2}
+\end{equation}
+con $W_1,W_2$ continuas y definidas positivas en $\D$.
+\begin{enumerate}
+  \item Si $\Vdot(t,x)\le0$ para todo $t\ge0$ y $x\in\D$, el origen es \clave{uniformemente estable}.
+  \item Si $\Vdot(t,x)\le-W_3(x)$ para todo $t\ge0$ y $x\in\D$, con $W_3$ continua y definida positiva, el origen es \clave{uniformemente asintóticamente estable}.
+  \item Si además $\D=\R^n$ y $W_1$ es radialmente no acotada, el origen es \clave{globalmente uniformemente asintóticamente estable}.
+\end{enumerate}
+\end{teorema}
+
+\begin{demostracion}
+Se prueba (2) con funciones de comparación; (1) es el primer paso y (3) es el mismo argumento con $\Kinf$. Por el \cref{lem:vt-sandwich} hay $\alpha_1,\alpha_2,\alpha_3\in\K$ en $[0,r)$, con $\Bola r\subset\D$, tales que $\alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x)$ y $W_3(x)\ge\alpha_3(\norm x)$; sin pérdida de generalidad, $\alpha_3$ es localmente Lipschitz.
+
+\emph{Paso 1 (las soluciones no salen).} Sea $\rho<\alpha_1(r)$ y $c>0$ con $\alpha_2(c)<\rho$. Si $\norm{x(t_0)}<c$, entonces $V(t_0,x(t_0))<\rho$, y como $V$ no crece, $\alpha_1(\norm{x(t)})\le V(t,x(t))<\rho$: la solución se queda en $\Bola{\alpha_1^{-1}(\rho)}\subset\Bola r$ para todo $t\ge t_0$. Con $\Vdot\le0$ esto ya da $\norm{x(t)}\le\alpha_1^{-1}(\alpha_2(\norm{x(t_0)}))$, que es \eqref{eq:vt-us} con una función de $\K$ que no depende de $t_0$: US.
+
+\emph{Paso 2 (desigualdad diferencial escalar).} Con $\norm x\ge\alpha_2^{-1}(V)$,
+\[
+  \Vdot\le-\alpha_3(\norm x)\le-\alpha_3\bigl(\alpha_2^{-1}(V)\bigr)=:-\alpha(V) ,\qquad\alpha=\alpha_3\circ\alpha_2^{-1}\in\K .
+\]
+
+\emph{Paso 3 (comparación).} Por el \cref{lem:vt-flujo}, $\dot y=-\alpha(y)$ tiene solución $\sigma(y_0,t-t_0)$ con $\sigma\in\KL$, y por el lema de comparación (\cref{lem:pm-comparacion}), $V(t,x(t))\le\sigma\bigl(V(t_0,x(t_0)),t-t_0\bigr)$.
+
+\emph{Paso 4 (de vuelta a $\norm x$).} Con $\alpha_1(\norm x)\le V$ y $V(t_0,x_0)\le\alpha_2(\norm{x_0})$,
+\[
+  \norm{x(t)}\le\alpha_1^{-1}\Bigl(\sigma\bigl(\alpha_2(\norm{x(t_0)}),\,t-t_0\bigr)\Bigr)=:\beta\bigl(\norm{x(t_0)},t-t_0\bigr) ,
+\]
+y $\beta\in\KL$ por el \cref{lem:vt-propiedades}. Ninguna de las funciones depende de $t_0$: por el \cref{lem:vt-kl}, el origen es UAS. En el caso (3), $\alpha_1,\alpha_2\in\Kinf$, el paso~1 vale para todo $c$ y la cota vale en todo $\R^n$.
+\end{demostracion}
+
+\notamargen{Dónde entra cada hipótesis: $W_1$ (definida positiva) en el paso~4, para pasar de $V$ a $\norm x$; $W_2$ (decreciente) en los pasos~1 y~2, para que $c$ y $\alpha$ no dependan de $t_0$; $W_3$ en el paso~2. Sin $W_2$ el argumento da estabilidad y convergencia, pero no uniformes.}
+
+\begin{teorema}[label=thm:vt-exp]{Estabilidad exponencial \citep[Teo.~4.10]{Kha02}}
+Si existen $k_1,k_2,k_3,a>0$ tales que
+\[
+  k_1\norm x^a\le V(t,x)\le k_2\norm x^a ,\qquad\Vdot(t,x)\le-k_3\norm x^a
+\]
+para todo $t\ge0$ y $x\in\D$, el origen es exponencialmente estable, con
+\begin{equation}
+  \norm{x(t)}\le\Bigl(\frac{k_2}{k_1}\Bigr)^{1/a}\norm{x(t_0)}\,e^{-\frac{k_3}{a\,k_2}(t-t_0)} .
+  \label{eq:vt-cotaexp}
+\end{equation}
+Si $\D=\R^n$, es globalmente exponencialmente estable.
+\end{teorema}
+
+\begin{demostracion}
+$\Vdot\le-k_3\norm x^a\le-\frac{k_3}{k_2}V$, así que $V(t)\le V(t_0)e^{-\frac{k_3}{k_2}(t-t_0)}$ (\cref{lem:pm-comparacion}). Entonces $k_1\norm{x(t)}^a\le k_2\norm{x(t_0)}^ae^{-\frac{k_3}{k_2}(t-t_0)}$, y se saca raíz $a$-ésima.
+\end{demostracion}
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{4.9cm}p{3.1cm}p{3.3cm}@{}}
+\toprule
+Hipótesis sobre $V(t,x)$ & $\Vdot$ & Conclusión \\
+\midrule
+definida positiva & $\le0$ & estable \\
+definida positiva y decreciente & $\le0$ & US \\
+definida positiva y decreciente & $\le-W_3(x)$ & UAS \\
+\quad$+$ radialmente no acotada, $\D=\R^n$ & $\le-W_3(x)$ & GUAS \\
+$k_1\norm x^a\le V\le k_2\norm x^a$ & $\le-k_3\norm x^a$ & exponencial (uniforme) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+La primera fila, estabilidad no uniforme con $V$ definida positiva no decreciente, es la que demostró Lyapunov para el caso variante~\citep{Lya92}; en la práctica casi no se usa, porque sin uniformidad no hay robustez. Si $V$ no depende de $t$, las dos cotas \eqref{eq:vt-w1w2} se cumplen con $W_1=W_2=V$, y el teorema se reduce al del \cref{cap:lyapunov}: en ese caso, la uniformidad es gratis.
+
+\subsection{La trampa de $\Vdot<0$}
+
+\begin{ejemplo}[label=ej:vt-e1]{$\Vdot<0$ y aun así no hay convergencia a cero}
+Para $\dot x=-\dfrac{x}{(1+t)^2}$ con $V=x^2$, decida si el origen es asintóticamente estable.
+\solucion $V$ es definida positiva, decreciente y radialmente no acotada, y
+\[
+  \Vdot=-\frac{2x^2}{(1+t)^2}<0\qquad\text{para todo }x\neq0 .
+\]
+Pero integrando,
+\[
+  x(t)=x_0\exp\Bigl(-\int_{t_0}^t\frac{\dif\tau}{(1+\tau)^2}\Bigr)=x_0\,e^{\frac1{1+t}-\frac1{1+t_0}}\xrightarrow[t\to\infty]{}x_0\,e^{-\frac1{1+t_0}}\neq0 .
+\]
+Con $x_0=1$, el límite es $e^{-1}=0.368$ si $t_0=0$ y $e^{-1/11}=0.913$ si $t_0=10$ (\cref{fig:vt-e1}). El origen es uniformemente estable ($\abs{x(t)}\le\abs{x_0}$), pero no es asintóticamente estable.
+\end{ejemplo}
+
+\begin{trampa}[label=tr:vt-negativa]{``$V>0$ y $\Vdot<0$ fuera del origen, luego AS''}
+\plausible{Para $\dot x=f(x)$, $V$ definida positiva y $\Vdot$ definida negativa dan estabilidad asintótica (\cref{thm:ly-directo}).}
+En el \cref{ej:vt-e1}, $\Vdot<0$ para todo $x\neq0$, pero para $x$ fijo $-\Vdot=2x^2/(1+t)^2\to0$: el decrecimiento se apaga con el reloj, y ninguna $W_3(x)$ definida positiva queda por debajo de $-\Vdot$ para todo $t$. La energía que se disipa en total es finita y no alcanza para llegar a cero.
+\correcto{Lo que se necesita es $\Vdot\le-W_3(x)$, con $W_3$ \emph{independiente de $t$}. ``$\Vdot<0$ para cada $t$'' no es lo mismo que ``$\Vdot$ definida negativa'' en el sentido de la \cref{def:vt-decreciente}.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.75\linewidth]{cap09/f_trampa_e1}
+\caption{$\dot x=-x/(1+t)^2$ con $x_0=1$ y varios $t_0$: cada solución se estanca en $e^{-1/(1+t_0)}$ (punteadas), aunque $\Vdot<0$ en todo instante.}
+\label{fig:vt-e1}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej4_TrampaE1.m}{trampae1}{Límites $x_0e^{-1/(1+t_0)}$ contra la simulación}

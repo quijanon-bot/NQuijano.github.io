@@ -3,7 +3,7 @@
 \label{sec:av-porque}
 %% ---------------------------------------------------------------------
 
-El \cref{cap:lyapunov} y el capítulo~9 respondieron una pregunta: si $\dot x=f(t,x)$ tiene un equilibrio en el origen, ¿las soluciones se quedan cerca y llegan a él? En ingeniería esa pregunta casi nunca es la única. Este capítulo responde otras cinco:
+Los \cref{cap:lyapunov,cap:variantes} respondieron una pregunta: si $\dot x=f(t,x)$ tiene un equilibrio en el origen, ¿las soluciones se quedan cerca y llegan a él? En ingeniería esa pregunta casi nunca es la única. Este capítulo responde otras cinco:
 \begin{enumerate}
   \item \textbf{Sin equilibrio} (una perturbación que no se apaga), ¿qué se puede garantizar? $\to$ acotamiento último uniforme (UUB), \S\ref{sec:av-uub}.
   \item Si no encuentro una función de Lyapunov, ¿es porque no existe? $\to$ teoremas conversos, \S\ref{sec:av-conversos}.
@@ -29,9 +29,9 @@ Hay un hilo que une las respuestas, y conviene decirlo desde el principio: \aler
 
 \subsection*{Lo que se usa de los capítulos anteriores}
 
-Cuatro herramientas aparecen en todo el capítulo. Las funciones de comparación y la estabilidad uniforme se estudian en el capítulo~9; aquí se recuerda lo indispensable.
+Cuatro herramientas aparecen en todo el capítulo. Las funciones de comparación y la estabilidad uniforme se estudian en el \cref{cap:variantes}; aquí se recuerda lo indispensable.
 
-\begin{definicion}[label=def:av-comparacion]{Funciones de comparación}
+\begin{definicion}[label=def:av-comparacion]{Funciones de comparación (recordatorio de la \cref{def:vt-clases})}
 $\alpha:[0,r)\to[0,\infty)$ es de \clave{clase $\K$} si es continua, estrictamente creciente y $\alpha(0)=0$; es de \clave{clase $\Kinf$} si además $r=\infty$ y $\alpha(s)\to\infty$ cuando $s\to\infty$. $\beta:[0,r)\times[0,\infty)\to[0,\infty)$ es de \clave{clase $\KL$} si $\beta(\cdot,s)\in\K$ para cada $s$ y $\beta(r,\cdot)$ es decreciente con $\beta(r,s)\to0$ cuando $s\to\infty$.
 \end{definicion}
 

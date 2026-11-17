@@ -1,0 +1,148 @@
+%% ---------------------------------------------------------------------
+\section{Ejemplos y sistemas lineales variantes}
+\label{sec:vt-ejemplos}
+%% ---------------------------------------------------------------------
+
+\subsection{La ecuación de Mathieu amortiguada}
+
+\begin{ejemplo}[label=ej:vt-mathieu]{Un resorte cuya rigidez oscila}
+Considere $\ddot y+\dot y+(2+\sin t)\,y=0$, es decir,
+\begin{equation}
+  \dot x_1=x_2,\qquad\dot x_2=-x_2-(2+\sin t)\,x_1 ,
+  \label{eq:vt-mathieu}
+\end{equation}
+y la candidata $V(t,x)=x_1^2+\dfrac{x_2^2}{2+\sin t}$. ¿Qué concluye el \cref{thm:vt-lyapunov}?
+\solucion Es la energía con la rigidez del instante: si la rigidez fuera constante $k$, $kx_1^2+x_2^2$ sería la energía, y dividir por $k$ da $V$. Como $1\le2+\sin t\le3$,
+\[
+  x_1^2+\tfrac13x_2^2\le V(t,x)\le x_1^2+x_2^2 ,
+\]
+así que $V$ es definida positiva, decreciente y radialmente no acotada. Con \eqref{eq:vt-vdot},
+\[
+  \frac{\partial V}{\partial t}=-\frac{\cos t\;x_2^2}{(2+\sin t)^2},\qquad
+  \frac{\partial V}{\partial x}f=2x_1x_2+\frac{2x_2}{2+\sin t}\bigl(-x_2-(2+\sin t)x_1\bigr)=-\frac{2x_2^2}{2+\sin t} ,
+\]
+y sumando,
+\begin{equation}
+  \Vdot=-\frac{4+2\sin t+\cos t}{(2+\sin t)^2}\,x_2^2\le-c\,x_2^2 .
+  \label{eq:vt-mathieuvdot}
+\end{equation}
+El numerador es al menos $4-\sqrt5=1.76$ (porque $2\sin t+\cos t\ge-\sqrt5$) y el denominador a lo sumo $9$, de modo que $c=(4-\sqrt5)/9=0.196$ sirve; el mínimo exacto del cociente es $0.637$. $\Vdot$ es semidefinida negativa: se anula en todo el eje $x_2=0$. El teorema da \clave{estabilidad uniforme global}, y nada más.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_mathieu}
+\caption{Mathieu amortiguada desde $(1.5,0)$. Izquierda: la solución y el conjunto de nivel $V(t,x)=2.25$ en tres instantes; el elipse ``respira'' con $t$, siempre entre las dos circunferencias de \eqref{eq:vt-w1w2}. Derecha: $V(t,x(t))$ baja con mesetas (donde $x_2\approx0$) y, de hecho, decae como $e^{-t}$.}
+\label{fig:vt-mathieu}
+\end{figure}
+
+La figura sugiere que el origen es mucho mejor que uniformemente estable. Como \eqref{eq:vt-mathieu} es lineal y periódico (periodo $2\pi$), la teoría de Floquet lo decide. Para $\dot x=A(t)x$ con $A(t+\tau)=A(t)$, la matriz de monodromía $M=\Phi(\tau,0)$ es el mapa estroboscópico de la \cref{sec:bf-poincare} (aquí lineal): $x(k\tau)=M^kx(0)$. Sus valores propios, los \clave{multiplicadores de Floquet}, deciden: si todos tienen módulo menor que $1$, el origen es uniforme y exponencialmente estable; si alguno tiene módulo mayor que $1$, es inestable \citep[cap.~7]{Sas99}. Para \eqref{eq:vt-mathieu}, $\tau=2\pi$ y $M$, calculada numéricamente, tiene los multiplicadores
+\[
+  \mu=-0.0099\pm0.0421\,j,\qquad\abs\mu=e^{-\pi}=0.0432<1 .
+\]
+El módulo no es casualidad: por la fórmula de Liouville, $\det M=\exp\int_0^{2\pi}\operatorname{tr}A(\tau)\dif\tau=e^{-2\pi}$, y como los multiplicadores son complejos conjugados, $\abs\mu^2=e^{-2\pi}$. Con los dos multiplicadores dentro del círculo unitario el origen es \clave{uniforme y globalmente exponencialmente estable}, con tasa $\ln\abs\mu/2\pi=-\tfrac12$: $\norm{x(t)}e^{t/2}$ se mantiene acotado (por $2.05$ en $[10,40]$ desde $(1,0)$). En la \cref{sec:vt-semidefinida} se cierra la brecha sin calcular $M$, con LaSalle--Yoshizawa y Barbalat.
+
+\codigorepo{cap09_variantes/C9_Ej5_Mathieu.m}{mathieu}{$\Vdot$ simbólica, la cota $c$ y los multiplicadores de Floquet}
+
+\video{V9_2_mathieu}{Los niveles de $V(t,x)$ respiran y la solución entra}
+
+\subsection{Una ganancia variable}
+
+\begin{ejemplo}[label=ej:vt-ganancia]{GES con una condición sobre $\dot g$ \citep[\S4.5]{Kha02}}
+Considere
+\[
+  \dot x_1=-x_1-g(t)\,x_2,\qquad\dot x_2=x_1-x_2 ,
+\]
+con $g$ de clase $\Cont1$, $0\le g(t)\le k$ y $\dot g(t)\le g(t)$. Pruebe que el origen es globalmente exponencialmente estable.
+\solucion Tome $V=x_1^2+(1+g(t))\,x_2^2$, de modo que $\norm x^2\le V\le(1+k)\norm x^2$. Entonces
+\[
+  \Vdot=\dot g\,x_2^2+2x_1(-x_1-gx_2)+2(1+g)x_2(x_1-x_2)=-2x_1^2+2x_1x_2-\bigl(2+2g-\dot g\bigr)x_2^2 .
+\]
+Los términos cruzados $\mp2gx_1x_2$ se cancelan: para eso está el factor $(1+g)$. Con $\dot g\le g$, $2+2g-\dot g\ge2+g\ge2$, y
+\[
+  \Vdot\le-2x_1^2+2x_1x_2-2x_2^2=-x\T\begin{bmatrix}2&-1\\-1&2\end{bmatrix}x\le-\norm x^2 ,
+\]
+porque los valores propios de la matriz son $1$ y $3$. El \cref{thm:vt-exp} con $k_1=1$, $k_2=1+k$, $k_3=1$, $a=2$ da
+\[
+  \norm{x(t)}\le\sqrt{1+k}\;\norm{x(t_0)}\;e^{-\frac{t-t_0}{2(1+k)}} .
+\]
+\end{ejemplo}
+
+Con $g=1+0.5\sin t$ ($k=1.5$), $g-\dot g\ge1-0.5\sqrt2=0.29>0$ y la cota se cumple con holgura: en la simulación de la \cref{fig:vt-ganancia}, el peor cociente entre $\norm{x(t)}$ y la cota es $0.63$. Con $g=(1+\sin10t)/2$, en cambio, $2+2g-\dot g$ vale $-2$ en $t=0$: el término $\partial V/\partial t$ inyecta más de lo que el sistema disipa y $\Vdot$ deja de ser negativa. \alerta{Eso no prueba que el sistema sea inestable}: solo que esta $V$ ya no es un certificado.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_ganancia}
+\caption{Izquierda: $\norm{x(t)}$ para varias condiciones iniciales en el círculo unitario con $g=1+0.5\sin t$, y la cota $\sqrt{1+k}\,e^{-(t-t_0)/(2(1+k))}$. Derecha: el coeficiente $2+2g-\dot g$ de $x_2^2$; con la $g$ lenta se queda sobre $2$, con la rápida cruza a valores negativos.}
+\label{fig:vt-ganancia}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej6_GananciaVariable.m}{ganancia}{La cota exponencial y el coeficiente $2+2g-\dot g$}
+
+\subsection{Sistemas lineales variantes: los valores propios no bastan}
+
+Para $\dot x=A(t)x$ la solución es $x(t)=\Phi(t,t_0)x(t_0)$, con $\Phi$ la matriz de transición. Las nociones del \cref{sec:vt-comparacion} se simplifican mucho.
+
+\begin{teorema}[label=thm:vt-lineal]{Estabilidad de $\dot x=A(t)x$ \citep[Teo.~4.11 y 4.12]{Kha02}}
+\begin{enumerate}
+  \item El origen es UAS si y solo si es globalmente exponencialmente estable, si y solo si existen $k,\lambda>0$ con $\norm{\Phi(t,t_0)}\le ke^{-\lambda(t-t_0)}$ para todo $t\ge t_0\ge0$.
+  \item Si existen $P(t)$ de clase $\Cont1$, simétrica, y constantes $c_1,c_2,c_3>0$ con $c_1I\le P(t)\le c_2I$ y
+  \begin{equation}
+    \dot P(t)+A\T(t)P(t)+P(t)A(t)=-Q(t),\qquad Q(t)\ge c_3I ,
+    \label{eq:vt-lyapdif}
+  \end{equation}
+  el origen es globalmente exponencialmente estable. Recíprocamente, si $A(t)$ es continua y acotada y el origen es UAS, para cada $Q(t)$ continua, acotada y con $Q\ge c_3I$, la matriz $P(t)=\int_t^\infty\Phi\T(\tau,t)Q(\tau)\Phi(\tau,t)\dif\tau$ cumple \eqref{eq:vt-lyapdif} y las cotas.
+\end{enumerate}
+\end{teorema}
+
+La parte de suficiencia es el \cref{thm:vt-exp} con $V=x\T P(t)x$: $\Vdot=x\T(\dot P+A\T P+PA)x=-x\T Qx\le-c_3\norm x^2$. La ecuación \eqref{eq:vt-lyapdif} es la ecuación de Lyapunov \emph{diferencial}: para $A$ constante y $P$ constante es la del \cref{thm:ly-ecuacion}. Lo que \emph{no} sirve es congelar el tiempo.
+
+\begin{ejemplo}[label=ej:vt-markus]{Markus--Yamabe \citep{MaYa60}, \citep[\S4.6]{Kha02}}
+Considere $\dot x=A(t)x$ con
+\[
+  A(t)=\begin{bmatrix}-1+1.5\cos^2t & 1-1.5\sin t\cos t\\[2pt] -1-1.5\sin t\cos t & -1+1.5\sin^2t\end{bmatrix} .
+\]
+Calcule los valores propios de $A(t)$ y verifique que
+\[
+  \Phi(t,0)=\begin{bmatrix}e^{t/2}\cos t & e^{-t}\sin t\\ -e^{t/2}\sin t & e^{-t}\cos t\end{bmatrix} .
+\]
+\solucion Con $c=\cos t$ y $s=\sin t$, $\operatorname{tr}A=-2+1.5(c^2+s^2)=-\tfrac12$ y $\det A=(-1+1.5c^2)(-1+1.5s^2)-(1-1.5sc)(-1-1.5sc)=\tfrac12$. El polinomio característico $\lambda^2+\tfrac12\lambda+\tfrac12$ no depende de $t$:
+\[
+  \lambda=-\tfrac14\pm j\,\tfrac{\sqrt7}4\qquad\text{para todo }t .
+\]
+Para la primera columna $\varphi=e^{t/2}(c,-s)$: $\dot\varphi=e^{t/2}\bigl(\tfrac12c-s,\ -\tfrac12s-c\bigr)$, y $A\varphi=e^{t/2}\bigl(-c+1.5c^3-s+1.5s^2c,\ -c-1.5sc^2+s-1.5s^3\bigr)=e^{t/2}\bigl(\tfrac12c-s,\ -c-\tfrac12s\bigr)$. La segunda columna se verifica igual, y $\det\Phi=e^{-t/2}=\exp\int_0^t\operatorname{tr}A$, como pide Liouville. Desde $x(0)=(1,0)$, $x(t)=e^{t/2}(\cos t,-\sin t)$ y $\norm{x(t)}=e^{t/2}$: \clave{el origen es inestable}.
+\end{ejemplo}
+
+\begin{trampa}[label=tr:vt-congelar]{``Si $A(t)$ es Hurwitz para cada $t$, el sistema es estable''}
+\plausible{Para cada instante, el sistema ``congelado'' $\dot x=A(t^*)x$ es asintóticamente estable, con los mismos valores propios.}
+En el \cref{ej:vt-markus} los valores propios congelados son $-\tfrac14\pm j\tfrac{\sqrt7}4$ para todo $t$, y las soluciones crecen como $e^{t/2}$. La factorización $\Phi(t,0)=R(-t)\,\diag(e^{t/2},e^{-t})$, con $R(\theta)$ la rotación de ángulo $\theta$, explica lo que pasa: en un marco que gira con el campo, el sistema es una silla con valor propio $+\tfrac12$, y la rotación lo esconde de los valores propios (\cref{fig:vt-markus}).
+\correcto{Los valores propios de $A(t)$ no deciden la estabilidad de $\dot x=A(t)x$. Sirven la matriz de transición (\cref{thm:vt-lineal}), la ecuación de Lyapunov diferencial, Floquet en el caso periódico, o resultados de variación lenta: si $A(t)$ es Hurwitz uniformemente y $\norm{\dot A(t)}$ es suficientemente pequeña, el origen sí es exponencialmente estable \citep[\S9.6]{Kha02}.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_markus}
+\caption{Markus--Yamabe desde $(1,0)$. Izquierda: la solución real (coral) se va en espiral; las de los campos congelados $\dot x=A(t^*)x$ (punteadas) convergen al origen. Derecha: $\norm{x(t)}$ coincide con $e^{t/2}$, mientras los valores propios ``dicen'' $e^{-t/4}$.}
+\label{fig:vt-markus}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej7_MarkusYamabe.m}{markus}{Valores propios congelados contra la matriz de transición}
+
+\video{V9_3_markus_yamabe}{Los campos congelados atraen; la solución real se escapa}
+
+\subsection{La linealización necesita uniformidad}
+
+El método indirecto (\cref{thm:ly-indirecto}) tiene una versión variante \citep[Teo.~4.13]{Kha02}: si $f(t,x)$ es de clase $\Cont1$ y su jacobiano $\partial f/\partial x$ es \emph{acotado y Lipschitz en $\Bola r$, uniformemente en $t$}, y el origen de la linealización $\dot x=A(t)x$, con $A(t)=\frac{\partial f}{\partial x}(t,0)$, es exponencialmente estable, entonces el origen del sistema no lineal es exponencialmente estable. La hipótesis de uniformidad no es decorativa.
+
+\begin{ejemplo}[label=ej:vt-linealizacion]{Una linealización Hurwitz que engaña}
+Para $\dot x_1=-x_1+t\,x_2^2$, $\dot x_2=x_1-x_2$, la linealización en el origen es $\dot x=\bigl[\begin{smallmatrix}-1&0\\1&-1\end{smallmatrix}\bigr]x$, constante y Hurwitz. Pero el jacobiano $\bigl[\begin{smallmatrix}-1&2tx_2\\1&-1\end{smallmatrix}\bigr]$ no es Lipschitz uniformemente en $t$: el término cuadrático tiene un coeficiente que crece con el reloj. Desde la misma condición inicial $(0.1,0.1)$, la solución converge si $t_0=0$ y explota si $t_0=10$ (cruza $\norm x=10^3$ en $t=16.33$) o $t_0=100$ (\cref{fig:vt-linealizacion}). El radio de la región que converge depende de $t_0$ y se encoge: no hay un $c$ uniforme, y el origen no es UAS.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\linewidth]{cap09/f_linealizacion}
+\caption{$\norm{x}$ contra $t-t_0$ desde $(0.1,0.1)$ para $\dot x_1=-x_1+tx_2^2$, $\dot x_2=x_1-x_2$. La linealización (negra punteada) es la misma para todo $t_0$; el sistema no lineal converge con $t_0=0$ y explota con $t_0=10$ y $t_0=100$.}
+\label{fig:vt-linealizacion}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej8_Linealizacion.m}{linealizacion}{La misma condición inicial con tres horas de arranque}

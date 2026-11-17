@@ -1,0 +1,73 @@
+%% ---------------------------------------------------------------------
+\section{Cuando \texorpdfstring{$\Vdot$}{dV/dt} es solo semidefinida}
+\label{sec:vt-semidefinida}
+%% ---------------------------------------------------------------------
+
+En la Mathieu amortiguada (\cref{ej:vt-mathieu}), $\Vdot\le-c\,x_2^2$: semidefinida negativa. Para un sistema invariante en el tiempo se usaría LaSalle (\cref{thm:iv-lasalle}), pero su prueba descansa en que los conjuntos límite son invariantes, y eso es falso cuando $f$ depende de $t$: una solución que se acerca a un conjunto no tiene por qué ``ver'' el mismo campo vectorial cuando llega. Las herramientas disponibles son estas.
+
+\begin{center}
+\small
+\begin{tabular}{@{}p{3.6cm}p{3.7cm}p{4.6cm}@{}}
+\toprule
+Sistema & Herramienta & Qué da \\
+\midrule
+$\dot x=f(x)$ & LaSalle (\cref{thm:iv-lasalle}) & convergencia al mayor invariante en $\{\Vdot=0\}$ \\
+$f(t+\tau,x)=f(t,x)$ & LaSalle periódico & lo mismo, con el mapa estroboscópico \\
+$\dot x=f(t,x)$ general & LaSalle--Yoshizawa (\cref{thm:av-ly}) & $W(x(t))\to0$ si $\Vdot\le-W(x)\le0$ \\
+$\dot x=f(t,x)$ general & Barbalat (\cref{lem:av-barbalat}) & completar la convergencia en las variables que faltan \\
+$\dot x=f(t,x)$ general & Matrosov & UAS con varias funciones auxiliares \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+LaSalle--Yoshizawa \citep{Yos66} es la generalización directa: con $V$ definida positiva y decreciente y $\Vdot\le-W(x)\le0$, las soluciones están acotadas y $W(x(t))\to0$. Da convergencia de la parte de $x$ que $W$ ``ve'', no de todo el estado. Su prueba, con el lema de Barbălat, está en la \cref{sec:av-barbalat}; aquí se usa. El lema de Barbălat dice que si $\phi:[0,\infty)\to\R$ es uniformemente continua y $\int_0^t\phi(\tau)\dif\tau$ tiene límite finito cuando $t\to\infty$, entonces $\phi(t)\to0$. Una condición suficiente para la continuidad uniforme es que $\dot\phi$ esté acotada.
+
+\begin{ejemplo}[label=ej:vt-barbalat]{Cerrar la Mathieu amortiguada con Barbălat}
+Con los datos del \cref{ej:vt-mathieu}, pruebe que $x(t)\to0$ para toda condición inicial.
+\solucion
+\emph{Paso 1 (LaSalle--Yoshizawa).} $V$ es definida positiva, decreciente y radialmente no acotada y $\Vdot\le-c\,x_2^2=:-W(x)$: las soluciones están acotadas y $x_2(t)\to0$.
+
+\emph{Paso 2 ($\dot x_2$ es uniformemente continua).} Derivando la segunda ecuación,
+\[
+  \ddot x_2=-\dot x_2-\cos t\;x_1-(2+\sin t)\,\dot x_1 ,
+\]
+que está acotada porque $x$, $\dot x$, $\sin t$ y $\cos t$ lo están (desde $(1,0)$, $\abs{\ddot x_2}\le2.77$).
+
+\emph{Paso 3 (la integral converge).} $\int_{t_0}^t\dot x_2(\tau)\dif\tau=x_2(t)-x_2(t_0)\to-x_2(t_0)$.
+
+\emph{Paso 4 (Barbălat).} $\dot x_2(t)\to0$.
+
+\emph{Paso 5 (la variable que faltaba).} De la ecuación, $(2+\sin t)\,x_1=-\dot x_2-x_2\to0$, y como $2+\sin t\ge1$, $x_1(t)\to0$.
+
+Con el paso~1, el origen es uniformemente estable y globalmente atractivo. Como el sistema es periódico, la atracción es uniforme (\cref{sec:vt-uniformidad}), y como es lineal, es exponencial, en acuerdo con Floquet.
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\linewidth]{cap09/f_yoshizawa}
+\caption{La cadena del \cref{ej:vt-barbalat} desde $(1,0)$: $W=x_2^2\to0$ (LaSalle--Yoshizawa), luego $\dot x_2\to0$ (Barbălat) y, de la ecuación, $x_1=-(\dot x_2+x_2)/(2+\sin t)\to0$.}
+\label{fig:vt-yoshizawa}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej9_MathieuBarbalat.m}{yoshizawa}{Los cinco pasos, señal por señal}
+
+\begin{receta}[Cuando $\Vdot\le-W(x)$ con $W$ solo semidefinida]
+\begin{enumerate}
+  \item Verifique que $V$ es definida positiva y decreciente; con LaSalle--Yoshizawa, $W(x(t))\to0$ y las soluciones están acotadas.
+  \item Identifique la variable que falta, $x_1$ en Mathieu o $\theta$ en el adaptativo, y busque una ecuación donde aparezca multiplicada por algo que no se anula.
+  \item Derive una vez la variable que ya converge, verifique que la derivada segunda está acotada y aplique Barbălat para concluir que su derivada tiende a cero.
+  \item Lea la variable que falta de la ecuación. Si el coeficiente puede anularse o desaparecer con el tiempo, el paso falla, y casi siempre la conclusión también.
+\end{enumerate}
+\end{receta}
+
+El último punto es el de la excitación persistente. En el control adaptativo $\dot e=-e+\theta\omega(t)$, $\dot\theta=-e\omega(t)$, con $V=e^2+\theta^2$ se tiene $\Vdot=-2e^2$ y LaSalle--Yoshizawa da $e\to0$; el paso~4 da $\theta\,\omega(t)\to0$, que implica $\theta\to0$ solo si $\omega$ no se apaga. Con $\omega=\sin t$, $\theta\to0$; con $\omega$ que decae exponencialmente, $\theta$ se congela en un valor distinto de cero (\cref{ej:av-adaptativo}).
+
+\begin{trampa}[label=tr:vt-lasalle]{``LaSalle con $\{\Vdot=0\}$ funciona igual para $\dot x=f(t,x)$''}
+\plausible{El argumento parece el mismo: $V$ baja, las soluciones están acotadas, y se acercan al conjunto donde $\Vdot=0$.}
+Sin invarianza de los conjuntos límite, el paso ``el mayor conjunto invariante dentro de $E$'' pierde su justificación. El \cref{ej:vt-e1} lo muestra: con $\dot x=-x/(1+t)^2$ y $V=x^2$, $\Vdot=-2x^2/(1+t)^2$ se anula solo en $x=0$, para todo $t$. Un ``LaSalle variante'' ingenuo daría $E=M=\{0\}$ y concluiría $x(t)\to0$; pero $x(t)\to x_0e^{-1/(1+t_0)}\neq0$.
+\correcto{Para sistemas variantes en general use LaSalle--Yoshizawa y Barbălat; para sistemas periódicos en $t$, la versión periódica de LaSalle sí es válida, porque el mapa estroboscópico es invariante en el tiempo \citep[\S4.5]{Kha02}.}
+\end{trampa}
+
+\begin{profundiza}[El teorema de Matrosov]
+Cuando una sola $V$ no da UAS, Matrosov~\citep{Mat62} combina una función $V$ con $\Vdot\le-W(x)\le0$ y una función auxiliar $U(t,x)$ acotada cuya derivada es estrictamente negativa cerca del conjunto $\{W=0\}$, fuera del origen. Las dos juntas dan estabilidad asintótica \emph{uniforme} sin exigir periodicidad. Para la Mathieu amortiguada, $U=x_1x_2$ cumple $\dot U=x_2^2-x_1x_2-(2+\sin t)x_1^2$, que en $x_2=0$ vale $-(2+\sin t)x_1^2<0$. Es la herramienta natural para sistemas mecánicos con amortiguamiento parcial y para el análisis de controladores adaptativos.
+\end{profundiza}

@@ -14,6 +14,7 @@ project:
     - recursos/explorador-introduccion.js
     - recursos/explorador-unidimensional.js
     - recursos/explorador-invarianza.js
+    - recursos/explorador-variantes.js
 
 lang: es
 

@@ -1,0 +1,36 @@
+%% ---------------------------------------------------------------------
+\section{Por qué sistemas variantes en el tiempo}
+\label{sec:vt-porque}
+%% ---------------------------------------------------------------------
+
+Hasta aquí casi todo el curso trató sistemas invariantes en el tiempo, $\dot x=f(x)$. En control, sin embargo, casi todo problema no lineal termina siendo variante en el tiempo, por tres caminos:
+\begin{itemize}
+  \item \textbf{Seguimiento.} Aunque la planta $\dot x=f(x,u)$ sea invariante, el error respecto a una referencia que se mueve, $e=x-x_{\mathrm{ref}}(t)$, obedece
+  \begin{equation}
+    \dot e=f\bigl(e+x_{\mathrm{ref}}(t),u\bigr)-\dot x_{\mathrm{ref}}(t)=:\bar f(t,e) ,
+    \label{eq:vt-seguimiento}
+  \end{equation}
+  que depende explícitamente de $t$. Estabilizar el seguimiento es estabilizar el origen de un sistema variante.
+  \item \textbf{Excitación paramétrica.} Un parámetro que oscila (la rigidez de un resorte, la longitud de un columpio, una ganancia) produce ecuaciones como la de Mathieu amortiguada, $\ddot y+\dot y+(2+\sin t)\,y=0$ (\cref{ej:vt-mathieu}).
+  \item \textbf{Adaptación.} En control adaptativo, los parámetros estimados y las señales de excitación entran como funciones del tiempo: $\dot e=-e+\theta\,\omega(t)$, $\dot\theta=-e\,\omega(t)$ (\cref{ej:av-adaptativo}).
+\end{itemize}
+
+\begin{pausa}
+Antes de seguir, prediga: (1) si $A(t)$ tiene todos sus valores propios con parte real negativa para cada $t$, ¿es estable $\dot x=A(t)x$? (2) Si $V(t,x)>0$ y $\Vdot(t,x)<0$ para todo $x\neq0$, ¿es asintóticamente estable el origen? (3) Si todas las soluciones tienden a cero, ¿tienden a cero ``igual de rápido'' sin importar cuándo empiezan?
+\respuesta{Las tres respuestas son \emph{no}, y las tres tienen la misma estructura: algo que vale para sistemas invariantes en el tiempo y que se extrapola sin pensar. (1) Markus--Yamabe: valores propios $-\tfrac14\pm j\tfrac{\sqrt7}4$ para todo $t$ y soluciones que crecen como $e^{t/2}$ (\cref{ej:vt-markus}). (2) Con $\dot x=-x/(1+t)^2$ y $V=x^2$, $\Vdot<0$ fuera del origen y $x(t)\to x_0e^{-1/(1+t_0)}\neq0$ (\cref{ej:vt-e1}). (3) Con $\dot x=-x/(1+t)$, el tiempo para bajar de $0.1$ es $9(1+t_0)$: $9$ si se arranca en $t_0=0$, $909$ si se arranca en $t_0=100$ (\cref{ej:vt-motivador}).}
+\end{pausa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\linewidth]{cap09/t_mapa_variantes}
+\caption{Mapa de las nociones de estabilidad para $\dot x=f(t,x)$ (\cref{sec:vt-uniformidad,sec:vt-comparacion}). Cada flecha es una implicación; las que no aparecen son falsas en general.}
+\label{fig:vt-mapa}
+\end{figure}
+
+\notamargen{\textbf{Ruta de las clases.} Semana~10: uniformidad y funciones de comparación (\S\ref{sec:vt-uniformidad}--\ref{sec:vt-comparacion}) y teoremas de Lyapunov con $V(t,x)$ (\S\ref{sec:vt-lyapunov}--\ref{sec:vt-ejemplos}); después, $\Vdot\le0$ e inestabilidad (\S\ref{sec:vt-semidefinida}--\ref{sec:vt-inestabilidad}).}
+
+\notamargen{\textbf{Vocabulario.} \citet{Kha02} y \citet{KeBr23} llaman \emph{autónomo} al sistema $\dot x=f(x)$ y \emph{no autónomo} a $\dot x=f(t,x)$. En el curso: invariante y variante en el tiempo.}
+
+\begin{historia}[De Lyapunov a Kamke, Hahn y Yoshizawa]
+Lyapunov trató desde el principio el caso variante en el tiempo: su tesis de 1892~\citep{Lya92} estudia $\dot x=f(t,x)$ y ya distingue funciones $V(t,x)$ que admiten una cota superior. Las nociones uniformes se precisaron en las décadas siguientes, y Massera mostró en 1949 que la estabilidad asintótica uniforme es la que tiene recíproco~\citep{Mas49}. Las funciones de comparación se llaman también funciones de Kamke, por Erich Kamke y sus teoremas de comparación para ecuaciones diferenciales; su uso sistemático en estabilidad se consolida con la monografía de W.~Hahn~\citep{Hah67}. Yoshizawa extendió en 1966 el argumento de LaSalle al caso variante~\citep{Yos66}. Markus y Yamabe publicaron en 1960 el ejemplo de los valores propios ``congelados''~\citep{MaYa60}, y N.~G.~Cetaev (Chetaev) formuló en los años treinta el teorema de inestabilidad que lleva su nombre, recogido en su libro~\citep{Che61}.
+\end{historia}

@@ -1,0 +1,78 @@
+%% ---------------------------------------------------------------------
+\section{Uniformidad: cuando la hora de arranque importa}
+\label{sec:vt-uniformidad}
+%% ---------------------------------------------------------------------
+
+En todo el capítulo se considera
+\begin{equation}
+  \dot x=f(t,x),\qquad f:[0,\infty)\times\D\to\R^n ,
+  \label{eq:vt-sistema}
+\end{equation}
+con $\D\subset\R^n$ un dominio que contiene al origen, $f$ continua a trozos en $t$ y localmente Lipschitz en $x$ uniformemente en $t$ (\cref{cap:preliminares}), y $f(t,0)=0$ para todo $t\ge0$: el origen es un equilibrio en todo instante. Se escribe $\phi(t;t_0,x_0)$ para la solución que en $t=t_0$ pasa por $x_0$. La diferencia con el caso invariante es justamente ese $t_0$: en $\dot x=f(x)$, $\phi(t;t_0,x_0)=\flujo{t-t_0}{x_0}$ y el instante inicial solo traslada la solución; aquí la cambia.
+
+\notamargen{¿Por qué un equilibrio en el origen? Con el cambio $z=x-x^*(t)$ un equilibrio, o una solución nominal cualquiera $x^*(t)$, se traslada al origen; el precio es que el sistema en $z$ es variante en el tiempo aun si el original no lo era, como en \eqref{eq:vt-seguimiento}.}
+
+\begin{ejemplo}[label=ej:vt-motivador]{El mismo sistema, dos horas de arranque}
+Considere $\dot x=-\dfrac{x}{1+t}$. Calcule el tiempo que tarda $x$ en pasar de $x_0=1$ a $0.1$ si se arranca en $t_0=0$ y si se arranca en $t_0=100$.
+\solucion Separando variables, $\ln\dfrac{x(t)}{x_0}=-\ln\dfrac{1+t}{1+t_0}$, es decir
+\[
+  x(t)=x_0\,\frac{1+t_0}{1+t} .
+\]
+$x(t)=0.1\,x_0$ cuando $1+t=10(1+t_0)$, así que el tiempo de asentamiento es
+\[
+  T(0.1,t_0)=t-t_0=9\,(1+t_0):\qquad T=9\ \text{si } t_0=0,\qquad T=909\ \text{si } t_0=100 .
+\]
+Todas las soluciones tienden a cero y $\abs{x(t)}\le\abs{x_0}$ para todo $t\ge t_0$, cualquiera que sea $t_0$. Pero la tasa $1/(1+t)$ se debilita con el reloj: cuanto más tarde se arranca, más lento se converge, y no hay un tiempo $T$ que sirva para todos los $t_0$ (\cref{fig:vt-tiempo}).
+\end{ejemplo}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_tiempo_inicial}
+\caption{$\dot x=-x/(1+t)$ con $x_0=1$. Izquierda: soluciones para varios $t_0$; la línea punteada es el umbral $0.1$, que la solución con $t_0=0$ cruza en $t=9$ y la de $t_0=40$ cruza en $t=409$. Derecha: las mismas soluciones contra $s=t-t_0$. Cada una es una cota $\beta_{t_0}(1,s)=(1+t_0)/(1+t_0+s)$ de clase $\KL$, pero la envolvente de todas es la recta $1$: no hay una cota común que decaiga.}
+\label{fig:vt-tiempo}
+\end{figure}
+
+\codigorepo{cap09_variantes/C9_Ej1_TiempoInicial.m}{tiempoinicial}{El tiempo de asentamiento $9(1+t_0)$, simulado}
+
+\video{V9_1_tiempo_inicial}{Misma condición inicial, distinta hora de arranque}
+
+\subsection{Las cuatro definiciones}
+
+\begin{definicion}[label=def:vt-estabilidad]{Estabilidad de $\dot x=f(t,x)$ \citep[Def.~4.4]{Kha02}}
+El origen de \eqref{eq:vt-sistema} es
+\begin{itemize}
+  \item \clave{estable} si para cada $\varepsilon>0$ y cada $t_0\ge0$ existe $\delta=\delta(\varepsilon,t_0)>0$ tal que
+  \[
+    \norm{x(t_0)}<\delta\implica\norm{x(t)}<\varepsilon\quad\text{para todo }t\ge t_0 ;
+  \]
+  \item \clave{uniformemente estable} (US) si, para cada $\varepsilon>0$, el $\delta$ anterior se puede tomar \emph{independiente de $t_0$}, $\delta=\delta(\varepsilon)$;
+  \item \clave{inestable} si no es estable;
+  \item \clave{asintóticamente estable} (AS) si es estable y existe $c=c(t_0)>0$ tal que $x(t)\to0$ cuando $t\to\infty$ para todo $\norm{x(t_0)}<c$;
+  \item \clave{uniformemente asintóticamente estable} (UAS) si es US y existe $c>0$, \emph{independiente de $t_0$}, tal que para cada $\eta>0$ hay un $T=T(\eta)>0$ con
+  \[
+    \norm{x(t_0)}<c\implica\norm{x(t)}<\eta\quad\text{para todo }t\ge t_0+T(\eta)\ \text{y todo }t_0\ge0 ;
+  \]
+  \item \clave{globalmente uniformemente asintóticamente estable} (GUAS) si es US, $\delta(\varepsilon)$ se puede escoger con $\delta(\varepsilon)\to\infty$ cuando $\varepsilon\to\infty$, y para cada par $\eta,c>0$ hay un $T=T(\eta,c)$ con $\norm{x(t)}<\eta$ para todo $t\ge t_0+T$, todo $t_0\ge0$ y todo $\norm{x(t_0)}<c$.
+\end{itemize}
+\end{definicion}
+
+Los dos requisitos de uniformidad son de naturaleza distinta. US dice que el \emph{tamaño} de la excursión no depende de la hora de arranque. UAS dice además que la \emph{velocidad} de la convergencia (el tiempo $T(\eta)$ para entrar a la bola $\Bola\eta$) tampoco depende de ella. En el \cref{ej:vt-motivador} se cumple lo primero con $\delta=\varepsilon$, y falla lo segundo: $T(0.1,t_0)=9(1+t_0)$ no tiene cota uniforme. El origen es US y AS, pero no UAS. Es el ejemplo de la parte baja del mapa de la \cref{fig:vt-mapa}.
+
+\begin{trampa}[label=tr:vt-converge]{``Si toda solución converge a cero, la convergencia es uniforme''}
+\plausible{En un sistema invariante en el tiempo, estable y atractivo es lo mismo que uniformemente asintóticamente estable: el instante inicial no cambia nada.}
+En el \cref{ej:vt-motivador} toda solución converge y el origen es incluso uniformemente estable, pero el tiempo para entrar a $\Bola{0.1}$ crece sin cota con $t_0$. Tampoco es un detalle técnico: un controlador cuyo error converge ``a la larga'' pero cada vez más despacio no es aceptable, y las cotas uniformes son las que sobreviven a perturbaciones (los teoremas recíprocos de la \cref{sec:av-conversos} existen para UAS, no para AS).
+\correcto{Converger y converger uniformemente son dos propiedades distintas. Para un sistema variante en el tiempo hay que verificar que $\delta$ y $T$ no dependan de $t_0$, o, equivalentemente, encontrar una sola cota $\beta\in\KL$ (\cref{lem:vt-kl}).}
+\end{trampa}
+
+\begin{pausa}
+Para $\dot x=-x/(1+t)$, ¿qué pasa si se cambia la tasa por $-x/(1+t)^{1/2}$? ¿Y por $-(2+\sin t)\,x$?
+\respuesta{Con $-x/\sqrt{1+t}$, $x(t)=x_0\exp\bigl(-2(\sqrt{1+t}-\sqrt{1+t_0})\bigr)$: la convergencia es más rápida que con $1/(1+t)$, pero $T(0.1,t_0)$ sigue creciendo con $t_0$ (como $\sqrt{t_0}$); de nuevo AS sin UAS. Con $-(2+\sin t)x$ la tasa está entre $1$ y $3$ para todo $t$, así que $\abs{x(t)}\le\abs{x_0}e^{-(t-t_0)}$: UAS, de hecho exponencial y global. Lo que destruye la uniformidad no es que la tasa varíe, sino que se \emph{apague}.}
+\end{pausa}
+
+\begin{trampa}[label=tr:vt-estable]{``Estable con $\delta(\varepsilon,t_0)$ es lo mismo que uniformemente estable''}
+\plausible{Se dio un $\delta$ para cada $t_0$; tomar el menor de ellos debería servir para todos.}
+El ínfimo de infinitos números positivos puede ser cero. Para $\dot x=(6t\sin t-2t)x$ \citep[\S4.5]{Kha02}, $x(t)=x(t_0)\exp\bigl(\int_{t_0}^t(6\tau\sin\tau-2\tau)\dif\tau\bigr)$ y el exponente, que es negativo a la larga, alcanza máximos que crecen con $t_0$ cuando $t_0=2n\pi$: el origen es AS, pero el $\delta$ necesario se encoge sin cota y no es US.
+\correcto{US exige exhibir un $\delta(\varepsilon)$ que no dependa de $t_0$. En la práctica se prueba con una función de Lyapunov \emph{decreciente} (\cref{def:vt-decreciente}).}
+\end{trampa}
+
+En un sistema invariante en el tiempo todas las propiedades anteriores son automáticamente uniformes: si el origen de $\dot x=f(x)$ es estable, es US, y si es AS, es UAS. Por eso los capítulos anteriores no las distinguían. Lo mismo vale para un sistema \emph{periódico} en $t$, $f(t+\tau,x)=f(t,x)$: basta revisar $t_0\in[0,\tau]$, que es un compacto \citep[\S4.5]{Kha02}.

@@ -1,0 +1,14 @@
+\documentclass[tikz,border=2pt]{standalone}
+\input{preambulo}
+\begin{document}
+\begin{tikzpicture}[node distance=7mm and 11mm]
+ \node[bloque=snlnoche,minimum width=22mm] (guas) {\textbf{GUAS}\\ \footnotesize una $\beta\in\mathcal{KL}$\\[-1pt]\footnotesize para todo $x(t_0)$};
+ \node[bloque=snlazul,right=of guas,minimum width=22mm] (uas) {\textbf{UAS}\\ \footnotesize una $\beta\in\mathcal{KL}$\\[-1pt]\footnotesize para $\|x(t_0)\|<c$};
+ \node[bloque=snlverde,right=of uas,minimum width=22mm] (as) {\textbf{AS}\\ \footnotesize una $\beta_{t_0}\in\mathcal{KL}$\\[-1pt]\footnotesize por cada $t_0$};
+ \node[bloque=snlambar,right=of as,minimum width=22mm] (est) {\textbf{Estable}\\ \footnotesize $\delta=\delta(\varepsilon,t_0)$};
+ \node[bloque=snlvioleta,below=10mm of as,minimum width=22mm] (us) {\textbf{US}\\ \footnotesize $\delta=\delta(\varepsilon)$\\[-1pt]\footnotesize una $\alpha\in\mathcal K$};
+ \draw[flecha] (guas) -- (uas); \draw[flecha] (uas) -- (as); \draw[flecha] (as) -- (est);
+ \draw[flecha] (uas.south) |- (us.west); \draw[flecha] (us.east) -| (est.south);
+ \node[below=3mm of us,font=\footnotesize,align=center] {$\dot x=-x/(1+t)$: US y AS, pero no UAS.\\ En un sistema invariante en el tiempo, estable $\Leftrightarrow$ US y AS $\Leftrightarrow$ UAS.};
+\end{tikzpicture}
+\end{document}

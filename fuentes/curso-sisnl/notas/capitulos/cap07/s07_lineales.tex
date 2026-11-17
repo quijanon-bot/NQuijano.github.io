@@ -118,7 +118,7 @@ El \cref{thm:ly-ecuacion} habla de una solución \emph{definida positiva}. La ec
 
 \begin{trampa}[label=tr:ly-solucion]{``Si la ecuación de Lyapunov tiene solución, $A$ es Hurwitz''}
 \plausible{El teorema dice que $A$ es Hurwitz si y solo si la ecuación tiene solución.}
-El teorema dice ``solución \emph{definida positiva}''. Con $A(\mu)=\bigl[\begin{smallmatrix}-1&2\\0&\mu\end{smallmatrix}\bigr]$ y $Q=I$: para $\mu<0$, $P>0$ (y $p_{22}\to\infty$ cuando $\mu\to0^-$); en $\mu=0$ y $\mu=1$ no hay solución única ($2\mu=0$ y $-1+\mu=0$); para $\mu>0$, $\mu\neq1$, sí hay solución, pero $P$ tiene exactamente un valor propio negativo: tantos como valores propios inestables de $A$ (\cref{fig:ly-inercia}). Esa $P$ indefinida no es inútil: en el cono $\{x\T Px<0\}$, $W=-x\T Px$ crece, y es la función que usa el teorema de inestabilidad de Chetaev (capítulo~9).
+El teorema dice ``solución \emph{definida positiva}''. Con $A(\mu)=\bigl[\begin{smallmatrix}-1&2\\0&\mu\end{smallmatrix}\bigr]$ y $Q=I$: para $\mu<0$, $P>0$ (y $p_{22}\to\infty$ cuando $\mu\to0^-$); en $\mu=0$ y $\mu=1$ no hay solución única ($2\mu=0$ y $-1+\mu=0$); para $\mu>0$, $\mu\neq1$, sí hay solución, pero $P$ tiene exactamente un valor propio negativo: tantos como valores propios inestables de $A$ (\cref{fig:ly-inercia}). Esa $P$ indefinida no es inútil: en el cono $\{x\T Px<0\}$, $W=-x\T Px$ crece, y es la función que usa el teorema de inestabilidad de Chetaev (\cref{cap:variantes}).
 \correcto{$A$ es Hurwitz si y solo si la solución (para algún $Q>0$, y entonces para todos) es \emph{definida positiva}. La inercia de $P$ cuenta los valores propios inestables~\citep{KeBr23}.}
 \end{trampa}
 

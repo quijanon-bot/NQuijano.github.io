@@ -1,4 +1,5 @@
 %% C4_Ej2_Nulclinas -- Notas: secciones 4.2 y 4.5 (nulclinas, sistema de la clase del 19 de agosto)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para x1' = -x1 + x1 x2, x2' = x1 + x2 - 2 x1 x2 dibuja las nulclinas
 %            (de x1: x1 = 0 y x2 = 1; de x2: la hipérbola x2 = x1/(2 x1 - 1)),
 %            busca los equilibrios con fsolve y los clasifica con la jacobiana.

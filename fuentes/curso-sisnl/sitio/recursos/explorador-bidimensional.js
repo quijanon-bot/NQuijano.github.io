@@ -174,7 +174,7 @@
     const p = panel('nolineal'), e = {};
     const hD = v => 17.76 * v - 103.79 * v ** 2 + 229.62 * v ** 3 - 226.31 * v ** 4 + 83.72 * v ** 5;
     const sis = {
-      cuaderno: {t: 'x₁′ = −x₁ + x₁x₂, x₂′ = x₁ + x₂ − 2x₁x₂ (clase del 19 de agosto)', F: () => x => [-x[0] + x[0] * x[1], x[0] + x[1] - 2 * x[0] * x[1]],
+      cuaderno: {t: 'x₁′ = −x₁ + x₁x₂, x₂′ = x₁ + x₂ − 2x₁x₂ (ejemplo 4.1)', F: () => x => [-x[0] + x[0] * x[1], x[0] + x[1] - 2 * x[0] * x[1]],
                  xr: [-2, 3], yr: [-2, 3], sem: [[0.1, -0.1], [0.9, 1.1]], T: 15, lab: ['x₁', 'x₂']},
       tres: {t: 'x₁′ = x₁ + x₁x₂, x₂′ = −x₂ + x₂² + x₁x₂ − x₁³ (ejemplo 4.5)', F: () => x => [x[0] + x[0] * x[1], -x[1] + x[1] ** 2 + x[0] * x[1] - x[0] ** 3],
              xr: [-2, 2.5], yr: [-3, 2.5], sem: [[0.05, 0.05], [0.05, 0.95], [0.9, -0.9]], T: 12, lab: ['x₁', 'x₂']},
@@ -216,7 +216,7 @@
       svg._T = T;
     };
     p.insertAdjacentHTML('beforeend', '<p>Escoja un sistema. El explorador busca los equilibrios (Newton), calcula la jacobiana numérica y los clasifica con traza y determinante. Haga clic en el plano para lanzar trayectorias.</p>');
-    selector(p, 'sis', 'Sistema', [['cuaderno', 'Sistema de la clase (nulclinas)'], ['tres', 'Tres equilibrios'], ['duffing', 'Duffing amortiguado'], ['diodo', 'Diodo túnel de segundo orden'], ['centro', 'Un centro que no lo es']], e, dib);
+    selector(p, 'sis', 'Sistema', [['cuaderno', 'Ejemplo 4.1 (nulclinas)'], ['tres', 'Tres equilibrios'], ['duffing', 'Duffing amortiguado'], ['diodo', 'Diodo túnel de segundo orden'], ['centro', 'Un centro que no lo es']], e, dib);
     p.insertAdjacentHTML('beforeend', '<div class="exp-ctl"></div><div class="exp-resumen"></div><svg viewBox="0 0 460 400" style="cursor:crosshair;max-width:640px"></svg><div class="exp-controles"><label><button type="button" data-borrar>Borrar trayectorias</button></label></div>');
     const ctl = p.querySelector('.exp-ctl'), svg = p.querySelector('svg'), res = p.querySelector('.exp-resumen');
     svg.addEventListener('click', ev => { const r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width * 460, py = (ev.clientY - r.top) / r.height * 400;

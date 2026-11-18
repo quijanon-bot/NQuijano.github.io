@@ -30,10 +30,6 @@
 \cmd{crearModelo\_DiodoTunel2D.m} arma el circuito \eqref{eq:bi-diodo} con dos integradores y un bloque \texttt{Fcn} para la característica $h(v)$, con el tiempo en ns. Simula desde $(v_C,i_L)=(0.4,0)$ y $(0.4,0.3)$, que terminan en equilibrios distintos aunque empiezan con el mismo voltaje, y compara con \texttt{ode45}. Deje $E$, $R$, $L$, $C$ y $x_0$ en el workspace y busque la frontera entre las cuencas.
 \end{modelo}
 
-\begin{profundiza}[Correcciones respecto a la versión anterior (Handout3 y las diapositivas SisBidim)]
-(i) La solución del ejemplo $\dot x_1=-x_1-3x_2$, $\dot x_2=2x_2$ es $x_1=x_1(0)e^{-t}+x_2(0)(e^{-t}-e^{2t})$, no $(e^{-t}-e^{-2t})$. (ii) En la linealización faltaba el factor $(x-\eq)$: $f(x)\approx Df(\eq)(x-\eq)$. (iii) En el caso de valores propios reales distintos, $J=P^{-1}AP$ (no $PAP^{-1}$) y $\dot z_2=\lambda_2z_2$. (iv) ``Cuando un valor propio es cero el origen es un equilibrio aislado'': es al revés, hay una recta de equilibrios. (v) En el foco: $\phi=\tan^{-1}(z_2/z_1)$, y ``si $\alpha=0$ la trayectoria tiende al origen'' es falso (es un centro). (vi) El ejemplo ``sin equilibrios'' con $\alpha>0$: hace falta $\alpha>1$. (vii) ``Duffing sin amortiguamiento tiene comportamiento caótico'': es integrable (\cref{tr:bi-caos}); con $\delta>0$, $(\pm1,0)$ son focos solo si $\delta<2\sqrt2$. La empresa de Duffing era la Ölwerke Stern-Sonneborn (Ossag), y fue Max Planck, no Plank. (viii) La prueba de la proposición de equilibrios aislados tenía la desigualdad al revés ($\norm{x-\eq}>\delta$) y mezclaba el caso variante en el tiempo; se reescribió. (ix) Hartman--Grobman: el homeomorfismo no es único, como decía la versión anterior, y no distingue nodos de focos. (x) En el ejemplo $\dot x_2=-x_1-\varepsilon x_1^2x_2$, con $\varepsilon>0$ el origen es asintóticamente estable (LaSalle), no solo estable. (xi) La prueba de la reducción a la variedad central no usa ``funciones tipo Kampke'' sino una función de Lyapunov, y el teorema necesita que no haya valores propios con parte real positiva. (xii) El teorema fundamental: se eliminó el paso $A^{-1}A$ (que suponía $A$ invertible) y el ``teorema de Moore''. (xiii) Se agregaron: nulclinas, el tiempo de llegada, el sentido de giro, la clasificación completa y su prueba, la robustez de los retratos, el diodo túnel de segundo orden, las variedades estable e inestable, las cuencas de Duffing, la no unicidad de la variedad central y el término de orden cuatro de $h$.
-\end{profundiza}
-
 %% ---------------------------------------------------------------------
 \section{Problemas}
 \label{sec:bi-problemas}
@@ -122,3 +118,7 @@ Desde $(0.4,0)$ y $(0.4,0.1)$ el circuito termina en $Q_1$; desde $(0.4,0.2)$ y 
 Escriba $x_0=c_1v_1+c_2v_2$ con $c_2\neq0$. Entonces $x(t)=e^{\lambda_2t}\bigl(c_1e^{(\lambda_1-\lambda_2)t}v_1+c_2v_2\bigr)$ y, como $\lambda_1-\lambda_2<0$, el paréntesis tiende a $c_2v_2$: la dirección tiende a $\sgn(c_2)\,v_2/\norm{v_2}$. En un foco, $x(t)/\norm{x(t)}$ gira sin parar y no tiene límite.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

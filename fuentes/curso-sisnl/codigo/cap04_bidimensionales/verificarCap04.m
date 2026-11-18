@@ -3,6 +3,7 @@ function verificarCap04()
 % (sistemas bidimensionales).   >> verificarCap04
 % (Los mismos números se verificaron de forma independiente con sympy y
 %  scipy en herramientas/cap04_numeros.py.)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 raiz = fileparts(mfilename('fullpath'));
 addpath(fullfile(raiz, '..', 'comun'));  addpath(raiz);  addpath(fullfile(raiz, '..', 'cap02_unidimensionales'));
 fallas = 0;  n = 0;

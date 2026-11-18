@@ -1,4 +1,5 @@
 %% C4_Ej10_DiodoTunel -- Notas: sección 4.6 (el diodo túnel con su inductancia)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Circuito de Khalil (sec. 1.2.2): x1 = vC (V), x2 = iL (mA), t en ns,
 %              x1' = (-h(x1) + x2)/C,   x2' = (-x1 - R x2 + E)/L,
 %            con E = 1.2, R = 1.5, C = 2, L = 5. Equilibrios, jacobianas, la variedad

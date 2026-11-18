@@ -65,6 +65,14 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 - La foto de Duffing de las diapositivas no se pasó a las notas; si se quiere, va en `notas/figuras/cap04/` con su crédito.
 - Los capítulos 2, 3, 5 y 7 ya citan este capítulo con `\cref{cap:bidimensionales}`.
 
+## Correcciones del capítulo 4 respecto a Handout3 y las diapositivas SisBidim
+
+Trasladado desde el cierre del capítulo (caja `profundiza`) el 18 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):
+
+(i) La solución del ejemplo $\dot x_1=-x_1-3x_2$, $\dot x_2=2x_2$ es $x_1=x_1(0)e^{-t}+x_2(0)(e^{-t}-e^{2t})$, no $(e^{-t}-e^{-2t})$. (ii) En la linealización faltaba el factor $(x-\eq)$: $f(x)\approx Df(\eq)(x-\eq)$. (iii) En el caso de valores propios reales distintos, $J=P^{-1}AP$ (no $PAP^{-1}$) y $\dot z_2=\lambda_2z_2$. (iv) ``Cuando un valor propio es cero el origen es un equilibrio aislado'': es al revés, hay una recta de equilibrios. (v) En el foco: $\phi=\tan^{-1}(z_2/z_1)$, y ``si $\alpha=0$ la trayectoria tiende al origen'' es falso (es un centro). (vi) El ejemplo ``sin equilibrios'' con $\alpha>0$: hace falta $\alpha>1$. (vii) ``Duffing sin amortiguamiento tiene comportamiento caótico'': es integrable (\cref{tr:bi-caos}); con $\delta>0$, $(\pm1,0)$ son focos solo si $\delta<2\sqrt2$. La empresa de Duffing era la Ölwerke Stern-Sonneborn (Ossag), y fue Max Planck, no Plank. (viii) La prueba de la proposición de equilibrios aislados tenía la desigualdad al revés ($\norm{x-\eq}>\delta$) y mezclaba el caso variante en el tiempo; se reescribió. (ix) Hartman--Grobman: el homeomorfismo no es único, como decía la versión anterior, y no distingue nodos de focos. (x) En el ejemplo $\dot x_2=-x_1-\varepsilon x_1^2x_2$, con $\varepsilon>0$ el origen es asintóticamente estable (LaSalle), no solo estable. (xi) La prueba de la reducción a la variedad central no usa ``funciones tipo Kampke'' sino una función de Lyapunov, y el teorema necesita que no haya valores propios con parte real positiva. (xii) El teorema fundamental: se eliminó el paso $A^{-1}A$ (que suponía $A$ invertible) y el ``teorema de Moore''. (xiii) Se agregaron: nulclinas, el tiempo de llegada, el sentido de giro, la clasificación completa y su prueba, la robustez de los retratos, el diodo túnel de segundo orden, las variedades estable e inestable, las cuencas de Duffing, la no unicidad de la variedad central y el término de orden cuatro de $h$.
+
+Además, el título del ejemplo `ej:bi-tres` decía "Tres equilibrios (diapositivas 2026)": el ejemplo viene de las diapositivas SisBidim de 2026.
+
 ## Correcciones del capítulo 3 respecto a PrelimMath, Handout6a y las diapositivas de 2026
 
 Trasladado desde el cierre del capítulo (caja `profundiza`) el 18 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):

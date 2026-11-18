@@ -1,4 +1,5 @@
 %% C4_Video_VariedadCentral -- Video V4_3: caer rápido, moverse despacio
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  y' = y z, z' = -z + a y^2 con a = -1. Doce soluciones caen en menos de
 %              tres unidades de tiempo sobre la variedad central z ~ a y^2 - 2 a^2 y^4
 %              (verde) y después se deslizan despacio hacia el origen. La recta z = 0

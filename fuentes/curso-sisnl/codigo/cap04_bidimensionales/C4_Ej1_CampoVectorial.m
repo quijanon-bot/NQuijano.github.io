@@ -1,4 +1,5 @@
 %% C4_Ej1_CampoVectorial -- Notas: sección 4.2 (el plano de fase)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Dibuja con quiver el campo x1' = 2 x1 x2, x2' = x1 x2, con
 %            flechas normalizadas, y algunas trayectorias. (2) Masa-resorte
 %            x1' = x2, x2' = -w^2 x1 (w = 2): campo y órbitas cerradas.

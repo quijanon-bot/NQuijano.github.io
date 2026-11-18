@@ -47,7 +47,7 @@ subtitle: "Semanas 2 y 5"
 La nulclina de $x_1$ es $\{f_1=0\}$ (el campo es vertical); la de $x_2$, $\{f_2=0\}$ (horizontal). Los equilibrios son los cruces de una nulclina de $x_1$ con una de $x_2$; entre ellas, el flujo va siempre hacia el mismo cuadrante.
 :::
 
-![Nulclinas del sistema de la clase del 19 de agosto: $(0,1)$ es un cruce de dos ramas de la misma nulclina y no es un equilibrio.](../figuras/cap04/f_nulclinas.svg){width=60%}
+![Nulclinas del ejemplo 4.1: $(0,1)$ es un cruce de dos ramas de la misma nulclina y no es un equilibrio.](../figuras/cap04/f_nulclinas.svg){width=60%}
 
 ::: {.trampa}
 [Trampa: "la trayectoria llega al equilibrio"]{.caja-titulo}
@@ -86,7 +86,7 @@ Llegan tangentes a la dirección **lenta**: con $\lambda=-6,-2$, la componente r
 ::: {.teorema}
 [Hartman–Grobman (Grobman 1959, Hartman 1960)]{.caja-titulo}
 
-Si $x^*$ es un equilibrio **hiperbólico** (ningún valor propio de la jacobiana con parte real nula), hay un homeomorfismo local que lleva las trayectorias no lineales a las de $\dot e=Ae$. Es local, $h$ no es única ni diferenciable, y si $x^*$ no es hiperbólico el teorema **no dice nada**.
+Si $x^*$ es un equilibrio **hiperbólico** (ningún valor propio de la jacobiana con parte real nula), hay un homeomorfismo local que lleva las trayectorias no lineales a las de $\dot e=Ae$. Es local, $h$ en general no es única ni diferenciable, y si $x^*$ no es hiperbólico el teorema **no dice nada**.
 :::
 
 ![Cerca de la silla de Duffing las trayectorias se parecen a las lineales; lejos, no.](../figuras/cap04/f_hartman.svg){width=95%}
@@ -144,7 +144,7 @@ Tres pestañas. Todo se calcula en su navegador (Runge–Kutta de paso fijo, New
 1. **Retratos lineales:** escoja el nodo $\mathrm{diag}(-6,-2)$. ¿Por qué eje llegan las trayectorias? Cambie $a_{22}$ a $-8$. ¿Y ahora?
 2. **Retratos lineales:** parta del nodo impropio y mueva $a_{21}$ a $-0.05$ y a $+0.05$. ¿Qué tipo aparece en cada caso? ¿Cambia la estabilidad?
 3. **Retratos lineales:** construya un centro que gire en sentido horario y otro antihorario. ¿Qué elemento de $A$ decide?
-4. **Linealizar:** en el sistema de la clase, haga clic cerca del punto $(0,1)$. ¿Por qué no se queda quieta la trayectoria?
+4. **Linealizar:** en el sistema del ejemplo 4.1, haga clic cerca del punto $(0,1)$. ¿Por qué no se queda quieta la trayectoria?
 5. **Linealizar:** en Duffing, suba $\delta$ por encima de $2.83$. ¿Qué cambia en los equilibrios $(\pm1,0)$? ¿Y en el retrato?
 6. **Linealizar:** en el diodo túnel, lance trayectorias desde $v_C=0.4$ con distintas $i_L(0)$. Encuentre el umbral. Cambie $L$: ¿cambian los equilibrios? ¿Y el umbral?
 7. **Linealizar:** en "un centro que no lo es", ponga $\varepsilon=0$ y luego $\pm0.2$. ¿Qué dice la clasificación en los tres casos?
@@ -275,3 +275,7 @@ Los videos están publicados (generados con `herramientas/cap04_videos.py`, los 
 ## Problemas
 
 Los problemas del capítulo (§4.10) tienen cada uno una trampa; las soluciones seleccionadas están en §4.11 y las respuestas a las pausas al final del capítulo.
+
+---
+
+**Nota de transparencia.** En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.

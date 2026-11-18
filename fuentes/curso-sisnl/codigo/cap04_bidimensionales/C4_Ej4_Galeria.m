@@ -1,4 +1,5 @@
 %% C4_Ej4_Galeria -- Notas: sección 4.4 (los retratos lineales)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Dibuja los seis retratos de la figura 4.4 en coordenadas propias:
 %            nodo estable, silla, estrella, nodo impropio, foco estable y centro,
 %            con clasificarEquilibrio para el título.

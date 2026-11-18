@@ -9,6 +9,7 @@ function ramas = variedadSilla(f, xs, cual, T, epsilon, caja)
 %   para W^u. Hacia atrás, W^s atrae a los errores numéricos en lugar de
 %   amplificarlos.
 %   Opcionales: T (tiempo, 20), epsilon (1e-5), caja [x1min x1max x2min x2max].
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 4 || isempty(T), T = 20; end
 if nargin < 5 || isempty(epsilon), epsilon = 1e-5; end
 if nargin < 6 || isempty(caja), caja = [-1e3 1e3 -1e3 1e3]; end

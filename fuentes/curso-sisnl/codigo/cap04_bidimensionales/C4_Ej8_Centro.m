@@ -1,4 +1,5 @@
 %% C4_Ej8_Centro -- Notas: sección 4.5 (cuando la linealización es un centro)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para x1' = x2, x2' = -x1 - eps x1^2 x2 con eps = 1, 0, -1: jacobiana en
 %            el origen (la misma para los tres), V = x1^2 + x2^2 a lo largo de una
 %            solución y el retrato.

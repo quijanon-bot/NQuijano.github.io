@@ -51,7 +51,7 @@ donde se usó que $e^{-At}$ conmuta con $A$. Luego $y$ es constante, $y(t)=y(0)=
 
 \begin{pausa}
 ¿Es cierto que $e^{At}$ es la matriz de las exponenciales $e^{a_{ij}t}$? ¿Y que $e^{(A+B)t}=e^{At}e^{Bt}$?
-\respuesta{Lo primero solo si $A$ es diagonal: para $A=\bigl[\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr]$, $e^{At}=I+At=\bigl[\begin{smallmatrix}1&t\\0&1\end{smallmatrix}\bigr]$, y no $\bigl[\begin{smallmatrix}1&e^t\\1&1\end{smallmatrix}\bigr]$. Lo segundo solo si $AB=BA$; en general es falso, y en la prueba anterior hizo falta que $A$ conmute consigo misma.}
+\respuesta{Lo primero, nunca (para $n\ge2$): aun con $A$ diagonal, $e^{At}$ tiene ceros fuera de la diagonal y la matriz de las $e^{a_{ij}t}$ tiene unos. Para $A=\bigl[\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr]$, $e^{At}=I+At=\bigl[\begin{smallmatrix}1&t\\0&1\end{smallmatrix}\bigr]$, y no $\bigl[\begin{smallmatrix}1&e^t\\1&1\end{smallmatrix}\bigr]$. Lo que sí vale es que, si $A$ es diagonal, la diagonal de $e^{At}$ son los $e^{a_{ii}t}$. Lo segundo solo si $AB=BA$; en general es falso, y en la prueba anterior hizo falta que $A$ conmute consigo misma.}
 \end{pausa}
 
 \subsection{Diagonalizar: cambiar a las coordenadas propias}

@@ -1,4 +1,5 @@
 %% C4_Ej6_Estructural -- Notas: sección 4.4 (qué retratos sobreviven a una perturbación)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Perturba el centro [0 -1; 1 0] con +-epsilon*I y compara una
 %            trayectoria de cada uno. (2) Perturba el nodo impropio [-1 1; 0 -1]
 %            con -epsilon en la posición (2,1).

@@ -37,7 +37,7 @@ La energía $E=\tfrac12x_2^2-\tfrac12x_1^2+\tfrac14x_1^4$ (cinética más potenc
 
 \begin{trampa}[label=tr:bi-caos]{``La ecuación de Duffing sin amortiguamiento ni forzamiento es caótica''}
 \plausible{Duffing es el ejemplo clásico de caos, y sin fricción nada frena las oscilaciones.}
-Con $\delta=\gamma=0$ el sistema es plano e invariante en el tiempo, y conserva $E$: cada trayectoria vive en una curva de nivel de $E$, y el retrato es un ocho rodeado de órbitas cerradas (\cref{ej:oc-duffing}). Las trayectorias de un sistema autónomo en el plano no pueden ser caóticas: el teorema de Poincaré--Bendixson (\cref{cap:orbitas}) solo deja equilibrios, órbitas cerradas y ciclos de equilibrios como comportamiento a largo plazo.
+Con $\delta=\gamma=0$ el sistema es plano e invariante en el tiempo, y conserva $E$: cada trayectoria vive en una curva de nivel de $E$, y el retrato es un ocho rodeado de órbitas cerradas (\cref{ej:oc-duffing}). Las trayectorias de un sistema invariante en el tiempo en el plano no pueden ser caóticas: el teorema de Poincaré--Bendixson (\cref{cap:orbitas}) solo deja equilibrios, órbitas cerradas y ciclos de equilibrios como comportamiento a largo plazo.
 \correcto{El caos de Duffing aparece con el forzamiento $\gamma\cos\omega t$: el sistema forzado tiene un estado de dimensión tres ($x_1$, $x_2$ y la fase del forzamiento), y en tres dimensiones Poincaré--Bendixson ya no aplica.}
 \end{trampa}
 
@@ -50,13 +50,13 @@ En la \cref{sec:un-diodo} se estudió el circuito del diodo túnel sin inductanc
 \end{equation}
 con $x_1=v_C$ en V, $x_2=i_L$ en mA, $h$ la característica de la \cref{sec:un-diodo}, $E=1.2$\,V, $R=1.5$\,k$\Omega$, $C=2$\,pF, $L=5$\,$\mu$H y $t$ en ns.
 
-Los equilibrios cumplen $x_2=h(x_1)$ y $x_2=(E-x_1)/R$: son los mismos tres cortes con la recta de carga del capítulo~2, $Q_1=(0.063,\,0.758)$, $Q_2=(0.285,\,0.610)$ y $Q_3=(0.884,\,0.210)$. La jacobiana es
+Los equilibrios cumplen $x_2=h(x_1)$ y $x_2=(E-x_1)/R$: son los mismos tres cortes con la recta de carga del \cref{cap:unidimensionales}, $Q_1=(0.063,\,0.758)$, $Q_2=(0.285,\,0.610)$ y $Q_3=(0.884,\,0.210)$. La jacobiana es
 \[
   A=\begin{bmatrix}-h'(x_1)/C&1/C\\-1/L&-R/L\end{bmatrix},
   \qquad
   \det A=\frac{1+Rh'(x_1)}{CL},
 \]
-de modo que la silla aparece exactamente donde $h'(x_1)<-1/R$, la misma condición del capítulo~2. Numéricamente:
+de modo que la silla aparece exactamente donde $h'(x_1)<-1/R$, la misma condición del \cref{cap:unidimensionales}. Numéricamente:
 \begin{center}\small
 \begin{tabular}{lccc}
 \toprule

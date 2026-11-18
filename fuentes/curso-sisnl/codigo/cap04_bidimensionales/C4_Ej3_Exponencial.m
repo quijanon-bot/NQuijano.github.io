@@ -1,4 +1,5 @@
 %% C4_Ej3_Exponencial -- Notas: sección 4.3 (exponencial de matriz y diagonalización)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para A = [-1 -3; 0 2]: valores y vectores propios con eig, el cambio
 %            de coordenadas z = P^{-1} x que diagonaliza, y la comparación de
 %            P*diag(exp(lambda t))*P^{-1} con expm(A t) y con la fórmula de las notas.

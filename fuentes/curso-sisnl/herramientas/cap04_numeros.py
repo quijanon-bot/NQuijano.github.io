@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente (sympy/scipy) de los números del capítulo 4
 (sistemas bidimensionales).   Ejecutar:  python3 herramientas/cap04_numeros.py
 Los mismos números se comprueban en MATLAB/Octave con codigo/cap04_bidimensionales/verificarCap04.m.

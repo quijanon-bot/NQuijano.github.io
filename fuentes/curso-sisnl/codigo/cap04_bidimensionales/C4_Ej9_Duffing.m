@@ -1,4 +1,5 @@
 %% C4_Ej9_Duffing -- Notas: sección 4.6 (la ecuación de Duffing)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Clasifica los equilibrios de x1' = x2, x2' = x1 - x1^3 - delta x2
 %            para varios delta. (2) Simula desde (1.5, 0) y (2, 0) con delta = 0.5
 %            y grafica x1(t) y la energía E = x2^2/2 - x1^2/2 + x1^4/4.

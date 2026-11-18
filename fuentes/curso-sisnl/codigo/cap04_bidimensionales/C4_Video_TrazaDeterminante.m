@@ -1,4 +1,5 @@
 %% C4_Video_TrazaDeterminante -- Video V4_1: un punto recorre el plano traza-determinante
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  A la izquierda, un punto (tau, delta) recorre un camino que cruza todas
 %              las fronteras (sillas, nodos, focos, centros, nodos degenerados). A la
 %              derecha, el retrato de x' = A x con A = [tau/2 1; tau^2/4 - delta tau/2],

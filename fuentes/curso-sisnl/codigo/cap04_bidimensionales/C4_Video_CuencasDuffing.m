@@ -1,4 +1,5 @@
 %% C4_Video_CuencasDuffing -- Video V4_2: la variedad estable dibuja las cuencas
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Duffing amortiguado (delta = 0.5). Las dos ramas de W^s de la silla
 %              (negro, calculadas hacia atrás en el tiempo) y de W^u (verde) crecen
 %              desde el origen; al final aparecen las cuencas de (1,0) (azul) y

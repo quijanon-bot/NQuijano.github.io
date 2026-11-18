@@ -1,4 +1,5 @@
 %% C4_Ej11_Variedades -- Notas: sección 4.7 (variedades estable e inestable)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) x1' = -x1, x2' = x2 + x1^2: compara la variedad estable exacta
 %            x2 = -x1^2/3 con la que calcula variedadSilla, y simula desde (1,-1/3),
 %            que está en W^s, y desde (1,0), que está en E^s pero no en W^s.
@@ -42,3 +43,21 @@ for r = variedadSilla(g, [0; 0], 'estable', 40, 1e-6, [-3 3 -3 3]), plot(r{1}(:,
 for r = variedadSilla(g, [0; 0], 'inestable', 40, 1e-6), plot(r{1}(:, 1), r{1}(:, 2), 'Color', [42 157 143]/255, 'LineWidth', 2); end
 axis equal;  axis([-3 3 -3 3]);  xlabel('$x_1$');  ylabel('$x_2$');  title('Duffing: $W^s$ (negro) separa las cuencas');
 % [fin:variedad]
+
+fig2 = estiloFigura(600, 560);  ax = gca;         % la figura del ejemplo: W^s, W^u y E^s
+retratoFase(ax, f, [-2 2], [-2.5 2], 'T', 4, 'N', 15);
+s = linspace(-2, 2, 200);
+plot(ax, s, -s.^2/3, 'Color', [42 157 143]/255, 'LineWidth', 2.5);
+plot(ax, [0 0], [-2.5 2], 'Color', [224 159 62]/255, 'LineWidth', 2.5);  plot(ax, [-2 2], [0 0], 'k:');
+[~, X] = ode45(@(t, x) f(x), [0 1.7], [1; 0], opc);
+plot(ax, X(:, 1), X(:, 2), 'Color', [209 73 91]/255, 'LineWidth', 2);
+title(ax, '$\dot x_1=-x_1,\ \dot x_2=x_2+x_1^2$');
+
+fig3 = estiloFigura(1000, 460);                   % Hartman--Grobman en la silla de Duffing
+J0 = [0 1; 1 -delta];  w = [0.35 1.6];  nombres = {'cerca de la silla', 'lejos de la silla'};
+for k = 1:2
+    ax = subplot(1, 2, k);
+    retratoFase(ax, @(x) J0*x, w(k)*[-1 1], w(k)*[-1 1], 'T', 8, 'N', 15, 'Color', [0.75 0.78 0.85]);
+    retratoFase(ax, g, w(k)*[-1 1], w(k)*[-1 1], 'T', 8, 'N', 15);
+    title(ax, nombres{k});
+end

@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 4 (sistemas bidimensionales). PDF y SVG.
 Cada figura reproduce un script de codigo/cap04_bidimensionales/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap04_figuras.py   [nombre_de_función ...]

@@ -1,4 +1,5 @@
 %% C4_Ej12_VariedadCentral -- Notas: sección 4.8 (la variedad central)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Para y' = y z, z' = -z + a y^2 calcula los coeficientes de
 %            h(y) = h2 y^2 + h4 y^4 igualando coeficientes en la ecuación de
 %            invariancia (sin toolbox simbólico: un sistema de dos ecuaciones).
@@ -38,3 +39,20 @@ subplot(1, 2, 2);  semilogy(t, d);  grid on;  xlabel('$t$');  ylabel('$|z-h(y)|$
 yy = -0.05;
 fprintf('exp(1/y)/y^5 en y = %.2f: %.2e (tiende a 0)\n', yy, exp(1/yy)/yy^5);
 % [fin:unica]
+
+fig2 = estiloFigura(1000, 440);                   % la figura de las notas: a = -1 y a = 1
+[Y0, Z0] = meshgrid([-0.8 -0.5 -0.25 0.25 0.5 0.8], [-0.75 0.75]);  s = linspace(-0.62, 0.62, 200);
+for k = 1:2
+    aa = 2*k - 3;  ax = subplot(1, 2, k);
+    retratoFase(ax, @(x) [x(1)*x(2); -x(2) + aa*x(1)^2], [-1 1], [-0.8 0.8], 'X0', [Y0(:)'; Z0(:)'], 'T', 30, 'N', 15);
+    plot(ax, s, aa*s.^2 - 2*aa^2*s.^4, 'Color', [42 157 143]/255, 'LineWidth', 2.5);
+    plot(ax, [-1 1], [0 0], 'k:');  xlabel(ax, '$y$');  ylabel(ax, '$z$');  title(ax, sprintf('$a=%d$', aa));
+end
+
+fig3 = estiloFigura(600, 460);  hold on;          % y' = y^2, z' = -z: muchas variedades centrales
+yn = linspace(-1.2, -1e-3, 400);
+for c = [-3 -1.5 -0.5 0.5 1.5 3], plot(yn, c*exp(1./yn), 'Color', [30 90 168]/255); end
+plot([-1.2 1.2], [0 0], 'Color', [42 157 143]/255, 'LineWidth', 2.5);
+plot(0, 0, 'o', 'MarkerFaceColor', 'w', 'MarkerEdgeColor', 'k');
+xlim([-1.2 1.2]);  ylim([-1.2 1.2]);  grid on;  xlabel('$y$');  ylabel('$z$');
+title('$\dot y=y^2$, $\dot z=-z$: $z=c\,e^{1/y}$ para $y<0$');

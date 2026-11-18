@@ -130,7 +130,7 @@ Los coeficientes de un modelo nunca se conocen exactamente. Si se cambia $A$ por
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{cap04/f_estructural}
-\caption{Izquierda: un centro y dos perturbaciones de tamaño $0.05$. Derecha: un nodo impropio y la perturbación $\varepsilon=0.05$ que lo vuelve foco. La estabilidad se conserva en el segundo caso, no en el primero.}
+\caption{Izquierda: un centro y dos perturbaciones de tamaño $0.05$. Derecha: un nodo impropio y la perturbación $\varepsilon=0.5$ que lo vuelve foco. La estabilidad se conserva en el segundo caso, no en el primero.}
 \label{fig:bi-estructural}
 \end{figure}
 
@@ -138,5 +138,5 @@ Los coeficientes de un modelo nunca se conocen exactamente. Si se cambia $A$ por
 
 \begin{pausa}
 ¿Es cierto que todo sistema plano tiene al menos un equilibrio? Piense en $\dot x_1=\alpha+\sin(x_1+x_2)+x_1$, $\dot x_2=\alpha+\sin(x_1+x_2)-x_1$.
-\respuesta{No. Restando las dos ecuaciones, un equilibrio necesita $x_1=0$, y entonces $\sin x_2=-\alpha$. Si $\alpha>1$ no hay solución: el sistema no tiene equilibrios (con $\alpha\le1$ sí los tiene, infinitos). Los sistemas lineales siempre tienen al origen; los no lineales, no necesariamente.}
+\respuesta{No. Restando las dos ecuaciones, un equilibrio necesita $x_1=0$, y entonces $\sin x_2=-\alpha$. Si $\abs\alpha>1$ no hay solución: el sistema no tiene equilibrios (con $\abs\alpha\le1$ sí los tiene, infinitos). Los sistemas lineales siempre tienen al origen; los no lineales, no necesariamente.}
 \end{pausa}

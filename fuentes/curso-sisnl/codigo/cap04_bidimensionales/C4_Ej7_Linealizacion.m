@@ -1,4 +1,5 @@
 %% C4_Ej7_Linealizacion -- Notas: sección 4.5 (linealización y Hartman-Grobman)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Para x1' = x1 + x1 x2, x2' = -x2 + x2^2 + x1 x2 - x1^3 (diapositivas
 %            2026) busca los tres equilibrios con fsolve, calcula la jacobiana
 %            (analítica y numérica) y los clasifica. (2) Dibuja el retrato.

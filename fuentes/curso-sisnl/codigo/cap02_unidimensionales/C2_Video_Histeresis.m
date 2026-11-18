@@ -1,4 +1,5 @@
 %% C2_Video_Histeresis -- Video V2_2: el diodo túnel recuerda
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  El voltaje de la fuente E sube lentamente de 0 a 1.8 V y vuelve a
 %              bajar. A la izquierda, la línea de fase del circuito para el E del
 %              momento (cómo aparecen y desaparecen equilibrios); a la derecha,

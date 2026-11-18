@@ -1,4 +1,5 @@
 %% C2_Ej4_Logistica -- Notas: sección 2.5 (poblaciones: logística y cosecha)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Ecuación logística normalizada con cosecha constante,
 %            x' = x (1 - x) - h  (x: población / capacidad, tiempo en 1/r).
 %            Calcula los equilibrios para h = 0, 0.2 y 0.3 y simula.

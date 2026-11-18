@@ -1,4 +1,5 @@
 %% C2_Ej8_NoUnicidad -- Notas: sección 2.8 (¿es única la solución?)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Muestra la trampa de implementación de la raíz cúbica:
 %            (-8)^(1/3) no es -2 en MATLAB. (2) Simula x' = x^(1/3) desde 0 y desde
 %            1e-12. (3) Simula x' = -x^(1/3) desde x0 = 1: llega a 0 en tiempo

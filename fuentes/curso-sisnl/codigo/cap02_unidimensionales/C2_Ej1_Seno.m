@@ -1,4 +1,5 @@
 %% C2_Ej1_Seno -- Notas: sección 2.2 (el flujo sobre la recta)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Dibuja la línea de fase de x' = sin x, simula 15 condiciones
 %            iniciales y compara la simulación desde x0 = pi/4 con la solución
 %            exacta x(t) = 2 atan( tan(x0/2) e^t ).

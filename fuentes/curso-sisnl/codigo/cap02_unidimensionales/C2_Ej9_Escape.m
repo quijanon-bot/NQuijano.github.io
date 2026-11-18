@@ -1,4 +1,5 @@
 %% C2_Ej9_Escape -- Notas: sección 2.9 (escape en tiempo finito)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Integra x' = x^2 (x0 = 0.25, 0.5, 1, 2) y x' = x^2 - 1 (varios x0) con
 %            un EVENTO que detiene ode45 cuando |x| = 1000, y compara el instante
 %            del evento con el tiempo de escape exacto.

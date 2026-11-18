@@ -1,4 +1,5 @@
 %% C2_Ej3_Potencial -- Notas: sección 2.4 (la bolita que baja: un adelanto de Lyapunov)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Calcula el potencial V(x) = -int_0^x f(s) ds de x' = sin x, es decir
 %            V(x) = cos x - 1, y lo evalúa a lo largo de varias soluciones.
 % OBSERVE    V(x(t)) nunca crece: dV/dt = -f(x)^2 <= 0. Las soluciones bajan por

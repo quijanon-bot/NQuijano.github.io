@@ -1,4 +1,5 @@
 %% C2_Video_LineaFase -- Video V2_1: la partícula que se mueve sobre la recta
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Arriba, la gráfica de f(x) = sin x y, sobre el eje, cinco
 %              partículas que se mueven con velocidad f(x). Abajo, sus x(t). Las
 %              partículas nunca cruzan los equilibrios x = k pi y se detienen en

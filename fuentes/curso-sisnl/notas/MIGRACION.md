@@ -65,6 +65,14 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 - La foto de Duffing de las diapositivas no se pasó a las notas; si se quiere, va en `notas/figuras/cap04/` con su crédito.
 - Los capítulos 2, 3, 5 y 7 ya citan este capítulo con `\cref{cap:bidimensionales}`.
 
+## Correcciones del capítulo 2 respecto a Handout2, el borrador de LibroSisNL2026 y SisUniDim2026
+
+Trasladado desde el cierre del capítulo (caja `profundiza`) el 17 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):
+
+(i) En $\dot x=\sin x$ con $x_0=\pi/4$ se afirmaba que $x(t)\to\infty$; la solución tiende a $\pi$ (\cref{tr:un-infinito}). (ii) En $\dot x=x^2-1$ se decía que una perturbación grande de $-1$ ``podría tender a $1$''; si $x_0>1$ la solución escapa en tiempo finito (\cref{ej:un-x2menos1}). (iii) La ecuación integral se escribía con $f(\tau)$ en lugar de $f(x(\tau))$. (iv) En el juego halcón--paloma se cambió la notación de los pagos ($F$ en lugar de $\omega(\bar\pi_i,p)$ y $J_1$) y se probó la invarianza por columnas, que antes se usaba sin justificar (\cref{lem:un-columnas}). (v) El tiempo de escape de $\dot x=x^2$ se llamaba \emph{finite escape time} sin decir que la solución no existe después; se aclaró que la rama de la fórmula para $t>1/x_0$ no es parte de la solución. (vi) Se agregaron la logística con cosecha y la histéresis del diodo túnel, que conectan con la silla-nodo del \cref{cap:bifurcaciones}; las bifurcaciones de las diapositivas de 2026 (silla-nodo, transcrítica, horquilla, láser) quedan para ese capítulo. (vii) El teorema de existencia y unicidad se enuncia y se demuestra en el \cref{cap:preliminares}; aquí solo se usa. (viii) Notación de \texttt{notacion.sty}: invariante en el tiempo (no autónomo), $\eq$, $\Cont1$. Todos los números se verificaron con \texttt{herramientas/cap02\_numeros.py} (42 de 42) y \cmd{verificarCap02.m} (37 de 37).
+
+Además se quitaron del texto tres menciones a "las notas de 2024": en la trampa `tr:un-infinito` ("Así lo afirmaban las notas de 2024"), en la nota al margen de los pagos del replicador (antes $\omega(\bar\pi_i,p)$ y $J_1$) y en el `ej:un-x2menos1` ("una perturbación grande de $-1$ puede llevar al equilibrio $1$").
+
 ## Correcciones del capítulo 1 respecto a Handout1, Handout1_2026 e Intro2026
 
 Trasladado desde el cierre del capítulo (caja `profundiza`) el 17 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):

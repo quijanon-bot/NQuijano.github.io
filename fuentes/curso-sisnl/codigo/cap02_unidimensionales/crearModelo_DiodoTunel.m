@@ -1,4 +1,5 @@
 %% crearModelo_DiodoTunel -- Construye DiodoTunel.slx por código (Simulink)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Arma C v' = (E - v)/R - h(v) con un integrador, un bloque
 %            Polynomial para la característica h(v) y una fuente E que sube y
 %            baja lentamente (Repeating Sequence). Simula 8000 ns y compara con
@@ -9,7 +10,9 @@
 % REQUIERE   Simulink.
 clear; close all; clc;
 nombre = 'DiodoTunel';  R = 1.5;  C = 2;  Tm = 4000;  Emax = 1.8;
+carpeta = fileparts(mfilename('fullpath'));  archivo = fullfile(carpeta, [nombre '.slx']);
 if bdIsLoaded(nombre), close_system(nombre, 0); end
+if exist(archivo, 'file'), delete(archivo); end       % evita dos modelos con el mismo nombre
 new_system(nombre);  open_system(nombre);
 set_param(nombre, 'StopTime', num2str(2*Tm), 'Solver', 'ode45', 'RelTol', '1e-9', 'AbsTol', '1e-11', ...
           'MaxStep', '0.5', 'SaveOutput', 'on', 'SaveFormat', 'Array');
@@ -28,7 +31,7 @@ l = @(a, c) add_line(nombre, a, c, 'autorouting', 'on');
 l('E/1', 'EmenosV/1');  l('v/1', 'EmenosV/2');  l('EmenosV/1', 'invR/1');  l('invR/1', 'nodo/1');
 l('v/1', 'h/1');  l('h/1', 'nodo/2');  l('nodo/1', 'invC/1');  l('invC/1', 'v/1');
 l('v/1', 'yv/1');  l('E/1', 'yE/1');
-save_system(nombre);
+save_system(nombre, archivo);
 assignin('base', 'R', R);  assignin('base', 'C', C);
 out = sim(nombre, 'ReturnWorkspaceOutputs', 'on');
 tS = out.tout;  YS = out.yout;                      % columnas: v, E

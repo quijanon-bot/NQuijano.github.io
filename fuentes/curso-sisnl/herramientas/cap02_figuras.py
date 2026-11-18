@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 2 (sistemas unidimensionales). PDF (notas) y SVG (web).
 Cada figura reproduce un script de codigo/cap02_unidimensionales/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap02_figuras.py

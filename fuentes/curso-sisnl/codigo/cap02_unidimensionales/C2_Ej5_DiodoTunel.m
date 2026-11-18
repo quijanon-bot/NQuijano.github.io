@@ -1,4 +1,5 @@
 %% C2_Ej5_DiodoTunel -- Notas: sección 2.6 (un circuito con memoria)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Circuito RC con diodo túnel, C v' = (E - v)/R - h(v), con E = 1.2 V,
 %            R = 1.5 kOhm, C = 2 pF (t en ns). Halla los equilibrios como
 %            intersecciones de la característica con la recta de carga, los

@@ -3,6 +3,7 @@ function verificarCap02()
 % (sistemas unidimensionales).   >> verificarCap02
 % (Los mismos números se verificaron de forma independiente en Python con
 %  herramientas/cap02_numeros.py.)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 raiz = fileparts(mfilename('fullpath'));
 addpath(raiz); addpath(fullfile(raiz, '..', 'comun'));
 fallas = 0;  n = 0;

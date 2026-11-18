@@ -18,7 +18,7 @@
 \begin{trampa}[title={\faBug\hspace{0.45em}Las trampas del capítulo, en una caja}]{}
 \begin{itemize}
   \item Crecer no es tender a infinito (\cref{tr:un-infinito}); $f'(\eq)=0$ no decide nada (\cref{tr:un-nohiperbolico}).
-  \item ``En una dimensión nada oscila'' necesita tres hipótesis (\cref{tr:un-oscilar}).
+  \item ``En una dimensión nada oscila'' necesita dos hipótesis; la unicidad no es una de ellas (\cref{tr:un-oscilar}).
   \item La cosecha máxima sostenible está en el borde del colapso (\cref{tr:un-sostenible}).
   \item Cerca de una silla-nodo el salto se retrasa (\cref{tr:un-histeresis}).
   \item Una raíz de $f$ fuera del dominio no es un equilibrio (\cref{tr:un-dominio}).
@@ -27,9 +27,6 @@
 \end{itemize}
 \end{trampa}
 
-\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout2, el borrador de LibroSisNL2026 y SisUniDim2026)]
-(i) En $\dot x=\sin x$ con $x_0=\pi/4$ se afirmaba que $x(t)\to\infty$; la solución tiende a $\pi$ (\cref{tr:un-infinito}). (ii) En $\dot x=x^2-1$ se decía que una perturbación grande de $-1$ ``podría tender a $1$''; si $x_0>1$ la solución escapa en tiempo finito (\cref{ej:un-x2menos1}). (iii) La ecuación integral se escribía con $f(\tau)$ en lugar de $f(x(\tau))$. (iv) En el juego halcón--paloma se cambió la notación de los pagos ($F$ en lugar de $\omega(\bar\pi_i,p)$ y $J_1$) y se probó la invarianza por columnas, que antes se usaba sin justificar (\cref{lem:un-columnas}). (v) El tiempo de escape de $\dot x=x^2$ se llamaba \emph{finite escape time} sin decir que la solución no existe después; se aclaró que la rama de la fórmula para $t>1/x_0$ no es parte de la solución. (vi) Se agregaron la logística con cosecha y la histéresis del diodo túnel, que conectan con la silla-nodo del \cref{cap:bifurcaciones}; las bifurcaciones de las diapositivas de 2026 (silla-nodo, transcrítica, horquilla, láser) quedan para ese capítulo. (vii) El teorema de existencia y unicidad se enuncia y se demuestra en el \cref{cap:preliminares}; aquí solo se usa. (viii) Notación de \texttt{notacion.sty}: invariante en el tiempo (no autónomo), $\eq$, $\Cont1$. Todos los números se verificaron con \texttt{herramientas/cap02\_numeros.py} (42 de 42) y \cmd{verificarCap02.m} (37 de 37).
-\end{profundiza}
 
 %% ---------------------------------------------------------------------
 \section{Problemas}
@@ -63,7 +60,7 @@ Repita el \cref{ej:un-hd} con $\Pi=\diag(a,b)$, $a,b>0$ (las dos estrategias gan
 \end{problema}
 
 \begin{problema}[la advertencia de MATLAB]\label{prob:un-advertencia}
-\etiquetaM{} Comente la opción \cmd{'Events'} en \cmd{C2\_Ej9\_Escape} y ejecute de nuevo. Copie la advertencia y explique, con la solución exacta, por qué aparece y en qué instante.
+\etiquetaM{} En \cmd{C2\_Ej9\_Escape}, comente la opción \cmd{'Events'} y ejecute de nuevo. Copie la advertencia y explique, con la solución exacta, por qué aparece y en qué instante.
 \end{problema}
 
 \begin{problema}[detecte la trampa]\label{prob:un-trampa}
@@ -97,3 +94,7 @@ $\dot p_1=p_1(1-p_1)\bigl((a+b)p_1-b\bigr)$: equilibrio interior $b/(a+b)$ inest
 El error es pasar de local a global. Los equilibrios son $0$ (estable) y $\pm1$ (inestables); la región de atracción del origen es $(-1,1)$. Para $x_0>1$, $\bar t=\tfrac12\ln\frac{x_0^2}{x_0^2-1}$.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

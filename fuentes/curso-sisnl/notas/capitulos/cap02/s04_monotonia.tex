@@ -22,13 +22,13 @@ La consecuencia es inmediata: \alerta{un sistema escalar invariante en el tiempo
 
 \begin{trampa}[label=tr:un-oscilar]{En una dimensión nada oscila}
 \plausible{Un sistema con una sola variable de estado no puede oscilar.}
-La conclusión anterior depende de tres hipótesis, y falla si se quita cualquiera:
+La conclusión anterior depende de dos hipótesis, y falla si se quita cualquiera de ellas; una tercera, la unicidad, parece necesaria pero no lo es:
 \begin{itemize}
   \item \emph{Invariancia en el tiempo.} $\dot x=-x+\sin t$ es escalar y sus soluciones tienden a la oscilación $\tfrac12(\sin t-\cos t)$.
   \item \emph{Estado en la recta.} $\dot\theta=\omega-\sin\theta$ con $\theta$ un ángulo tiene soluciones periódicas si $\omega>1$: la partícula da vueltas a la circunferencia.
-  \item \emph{Unicidad.} Sin la condición de Lipschitz una solución puede detenerse en un equilibrio en tiempo finito, como $\dot x=-x^{1/3}$ (\cref{ej:un-raiz}).
+  \item \emph{Unicidad, que no hace falta.} Con $f$ solo continua las soluciones siguen siendo monótonas: una solución que subiera y luego bajara pasaría dos veces por los mismos valores con velocidades de signos opuestos, lo que obliga a $f\equiv0$ en esos valores. Sin Lipschitz se pierde otra cosa: una solución puede llegar a un equilibrio en tiempo finito o salir de él, como $\dot x=\mp x^{1/3}$ (\cref{ej:un-raiz}).
 \end{itemize}
-\correcto{``No hay oscilaciones'' vale para $\dot x=f(x)$, $x\in\R$, con $f$ localmente Lipschitz. Las tres hipótesis cuentan.}
+\correcto{``No hay oscilaciones'' vale para $\dot x=f(x)$, $x\in\R$, con $f$ continua. Las dos hipótesis que cuentan son la invariancia en el tiempo y que el estado viva en la recta.}
 \end{trampa}
 
 \subsection{La bolita que baja: el potencial}
@@ -56,5 +56,5 @@ con igualdad solo en los equilibrios. La partícula siempre ``baja'' por la grá
 
 \begin{pausa}
 ¿Todo sistema escalar $\dot x=f(x)$ con $f$ continua tiene un potencial? ¿Y todo sistema en $\R^2$?
-\respuesta{En $\R$ sí: $V=-\int f$ siempre existe. En $\R^2$ no: $\dot x=-\nabla V$ exige que el campo sea un gradiente, y un campo con rotación (como $\dot x_1=-x_2$, $\dot x_2=x_1$) no lo es. Por eso en dimensión mayor hay que \emph{buscar} una función que decrezca: es el problema de construir funciones de Lyapunov (capítulos~\ref{cap:lyapunov} y~8).}
+\respuesta{En $\R$ sí: $V=-\int f$ siempre existe. En $\R^2$ no: $\dot x=-\nabla V$ exige que el campo sea un gradiente, y un campo con rotación (como $\dot x_1=-x_2$, $\dot x_2=x_1$) no lo es. Por eso en dimensión mayor hay que \emph{buscar} una función que decrezca: es el problema de construir funciones de Lyapunov (\cref{cap:lyapunov,cap:invarianza}).}
 \end{pausa}

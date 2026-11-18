@@ -1,4 +1,5 @@
 %% C2_Ej7_HalconPaloma -- Notas: sección 2.7 (halcón y paloma)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Dinámica del replicador p_i' = p_i (F_i(p) - Fbar(p)), F = Pi p,
 %            Fbar = p' Pi p, en el juego halcón-paloma. Con p2 = 1 - p1 se reduce
 %            a p1' = (1/2) p1 (1 - p1) (v - c p1). Verifica que la matriz de

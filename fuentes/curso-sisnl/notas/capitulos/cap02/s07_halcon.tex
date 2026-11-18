@@ -18,7 +18,7 @@ En un juego simétrico con \clave{matriz de pagos} $\Pi\in\R^{N\times N}$, el pa
   \dot p_i=p_i\bigl(F_i(p)-\bar F(p)\bigr),\qquad i=1,\dots,N .
   \label{eq:un-replicador}
 \end{equation}
-\notamargen{Se usa $F$ para los pagos, como en \citet{San10}. Las notas de 2024 escribían $\omega(\bar\pi_i,p)$ y $J_1$; se cambió para no chocar con la frecuencia $\omega$ ni con los conjuntos $\omega$-límite.}
+\notamargen{Se usa $F$ para los pagos, como en \citet{San10}. No se usa $\omega$, para no confundirla con la frecuencia ni con los conjuntos $\omega$-límite.}
 
 \paragraph{El juego.} Dos individuos se disputan un recurso de valor $v>0$. Un \emph{halcón} pelea hasta ganar o salir herido (costo $c>0$); una \emph{paloma} amenaza, pero se retira si el otro escala. Dos halcones ganan cada uno la mitad de las veces: pago esperado $(v-c)/2$. Un halcón contra una paloma se lleva $v$ y la paloma $0$. Dos palomas se reparten el recurso: $v/2$. La matriz de pagos del que elige la fila es
 \begin{equation}
@@ -50,6 +50,7 @@ de donde $f'(0)=v/2>0$, $f'(1)=(c-v)/2$ y $f'(v/c)=-\tfrac v2\bigl(1-\tfrac vc\b
 \begin{itemize}
   \item Si $v<c$ (pelear cuesta más de lo que se gana): los tres están en $[0,1]$; $0$ y $1$ son inestables y $v/c$ es estable. La población converge a una mezcla con una fracción $v/c$ de halcones desde cualquier estado interior (\cref{fig:un-halcon}). Con $v=1$ y $c=3$, a $1/3$, con $f'(1/3)=-1/3$. Esa es la respuesta de Maynard Smith y Price: no todos los encuentros escalan porque, en equilibrio, solo una parte de la población usa la estrategia agresiva.
   \item Si $v>c$: $v/c>1$ no está en el espacio de estado; $f>0$ en $(0,1)$ y la población converge a $p_1=1$: todos halcones.
+  \item Si $v=c$: $v/c=1$ se funde con el equilibrio $1$ ($f'(1)=0$); $f>0$ en $(0,1)$ y la población también converge a $p_1=1$, pero no exponencialmente.
 \end{itemize}
 \end{ejemplo}
 

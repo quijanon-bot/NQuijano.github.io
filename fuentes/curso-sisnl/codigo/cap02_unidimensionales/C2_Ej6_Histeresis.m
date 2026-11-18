@@ -1,4 +1,5 @@
 %% C2_Ej6_Histeresis -- Notas: sección 2.6 (histéresis en el diodo túnel)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Calcula el intervalo de voltajes de fuente E en el que el
 %            circuito con diodo túnel tiene tres equilibrios: E = v + R h(v)
 %            tiene un máximo y un mínimo locales. (2) Sube E lentamente de 0 a

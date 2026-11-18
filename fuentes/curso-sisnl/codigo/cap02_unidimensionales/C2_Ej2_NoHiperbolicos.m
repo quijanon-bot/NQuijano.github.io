@@ -1,4 +1,5 @@
 %% C2_Ej2_NoHiperbolicos -- Notas: sección 2.3 (cuando f'(x*) = 0)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Compara x' = -x^3, x' = x^3 y x' = x^2: los tres tienen f(0) = 0 y
 %            f'(0) = 0, la misma linealización x' = 0.
 % OBSERVE    El origen es estable, inestable y semiestable, respectivamente. En
@@ -26,8 +27,15 @@ for c = {{@(x) x^3, 1, 0.5}, {@(x) x^2, 1, 1}}
 end
 % [fin:tres]
 
-fig = estiloFigura(1200, 420); fs = {@(x) -x.^3, @(x) x.^3, @(x) x.^2};
+fig = estiloFigura(1200, 700); fs = {@(x) -x.^3, @(x) x.^3, @(x) x.^2};
 tit = {'$\dot x=-x^3$: estable', '$\dot x=x^3$: inestable', '$\dot x=x^2$: semiestable'};
+ev = odeset(opc, 'Events', @(t, x) deal(abs(x) - 3, 1, 0));   % se detiene en |x| = 3
 for i = 1:3
-    ax = subplot(1, 3, i); lineaFase(ax, fs{i}, [-1.5 1.5], 'Equilibrios', 0); title(ax, tit{i}); xlabel(ax, '$x$');
+    ax = subplot(2, 3, i); lineaFase(ax, fs{i}, [-1.5 1.5], 'Equilibrios', 0); title(ax, tit{i}); xlabel(ax, '$x$');
+    ax = subplot(2, 3, 3 + i); hold(ax, 'on');
+    for x0 = [-1.5 -1 -0.5 0.5 1 1.5]
+        [t, x] = ode45(@(t, x) fs{i}(x), [0 6], x0, ev);  plot(ax, t, x);
+    end
+    if i == 1, tt = linspace(0, 6, 200); plot(ax, tt, 1.5./sqrt(1 + 4.5*tt), 'k:'); end
+    grid(ax, 'on'); axis(ax, [0 6 -3 3]); xlabel(ax, '$t$'); if i == 1, ylabel(ax, '$x(t)$'); end
 end

@@ -1,9 +1,9 @@
 function verificarCap01()
 % VERIFICARCAP01  Pruebas automáticas de los números del capítulo 1
-% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % (introducción y motivación).   >> verificarCap01
 % (Los mismos números se verificaron de forma independiente en Python con
 %  herramientas/cap01_numeros.py.)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 raiz = fileparts(mfilename('fullpath'));
 addpath(fullfile(raiz, '..', 'comun'));
 fallas = 0;  n = 0;

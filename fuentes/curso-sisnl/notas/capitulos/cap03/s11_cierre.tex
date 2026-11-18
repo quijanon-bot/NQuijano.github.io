@@ -10,7 +10,7 @@
   \item \textbf{Normas de matrices:} $\norm A_1$ por columnas, $\norm A_\infty$ por filas, $\norm A_2=\sqrt{\lmax(A\T A)}$, que en general es mayor que el radio espectral.
   \item \textbf{Regularidad:} $\Cont1\Rightarrow$ localmente Lipschitz; con jacobiano acotado en un convexo, Lipschitz en ese convexo; con jacobiano uniformemente acotado en $\R^n$, globalmente Lipschitz.
   \item \textbf{Existencia y unicidad:} localmente Lipschitz da una solución única en un intervalo máximo. Se prueba con el principio de contracción en $(C[t_0,t_0+\delta],\norm\cdot_C)$, y la unicidad, con Gronwall--Bellman.
-  \item \textbf{Existencia global:} con Lipschitz global, o ---lo que se usa en la práctica--- mostrando que la solución se queda en un compacto.
+  \item \textbf{Existencia global:} con Lipschitz global, o, lo que se usa en la práctica, mostrando que la solución se queda en un compacto.
   \item \textbf{Gronwall y comparación:} una cantidad que crece a lo sumo como $f(t,v)$ se queda debajo de la solución de $\dot u=f(t,u)$. Con $v=\norm x$ hace falta la derivada de Dini.
 \end{enumerate}
 \end{parallevar}
@@ -26,9 +26,6 @@
 \end{itemize}
 \end{trampa}
 
-\begin{profundiza}[Correcciones respecto a las versiones anteriores (PrelimMath, Handout6a y las diapositivas de 2026)]
-(i) Un espacio de Banach no es ``un conjunto con norma'' ni ``el conjunto unido con todas las normas posibles'': es un espacio normado \emph{completo}; lo mismo para Hilbert con producto interno. (ii) $(C[0,\infty),\mathcal{L}_p)$ no es un espacio de Banach: $C[a,b]$ con la norma $\mathcal{L}_2$ no es completo (\cref{tr:pm-completo}), y en $[0,\infty)$ ni siquiera toda función continua tiene norma finita. (iii) La desigualdad de Cauchy--Schwarz es un teorema, no una definición, y su prueba no puede usar $\cos\theta$ (\cref{tr:pm-circular}); se corrigió la prueba de $\norm x_\infty\le\norm x_2$, que tenía una errata. (iv) La equivalencia de normas no requiere $\alpha,\beta\in\mathbb N$: vale para \emph{cualquier} par de normas en $\R^n$. (v) Continua a trozos admite saltos; la versión anterior decía lo contrario. (vi) $\sat$ es \emph{globalmente} Lipschitz, no solo localmente. (vii) El resumen de existencia decía que con Lipschitz global la solución es única ``en un intervalo finito $[0,\infty)$''; el enunciado correcto es el \cref{thm:pm-global}, y la existencia global se obtiene en la práctica con el \cref{thm:pm-compacto}. (viii) En Gronwall--Bellman, la forma con $\lambda$ constante es $\lambda e^{\int_a^t\mu}$, no $\lambda e^{\int_s^t\mu}$; se completó la prueba y se agregó la parte de la unicidad que faltaba en la demostración del teorema local. (ix) En el diagrama de regularidad, Lipschitz está contenido en localmente Lipschitz (\cref{fig:pm-regularidad}); el diagrama anterior lo dibujaba parcialmente afuera. (x) Se agregaron las figuras que decían ``AÑADIR FIGURA'' (dominio y convexidad, \cref{fig:pm-conjuntos}). (xi) La notación se unificó con \texttt{notacion.sty}: sin negrillas, $f(t,x)$, $\inner xy$ en lugar de $<x,y>$, $\mathcal{L}_p$ para las señales. Todos los números se verificaron con \texttt{herramientas/cap03\_numeros.py} (43 de 43) y \cmd{verificarCap03.m} (33 de 33).
-\end{profundiza}
 
 %% ---------------------------------------------------------------------
 \section{Problemas}
@@ -98,7 +95,7 @@ Para $\dot x=-x-x^3+u(t)$ con $\abs{u(t)}\le1$, use $v=\abs x$ y la derivada de 
 (c) No: $x\T Px$ solo ve la parte simétrica $\tfrac12(P+P\T)=\begin{bmatrix}1&1\\1&1\end{bmatrix}$, que es semidefinida, y $x=[1,-1]\T$ da $x\T Px=1-2+1=0$ con $x\neq0$. (d) No: $x=[0,1]\T$ tiene ``norma'' cero. La trampa es mirar $P$ y no su parte simétrica.
 
 \paragraph{Problema~\ref{prob:pm-transitorio}}
-(a) Sí, valores propios $-1$ y $-2$. (b) $\rho=2$ y $\norm A_2\approx10.2$. (c) $e^{At}=\begin{bmatrix}e^{-t}&10(e^{-t}-e^{-2t})\\0&e^{-2t}\end{bmatrix}$; la entrada fuera de la diagonal llega a $2.5$ en $t=\ln2$, y $\norm{e^{At}}_2$ llega a $2.56$ en $t\approx0.66$ antes de decaer. (d) $A$ no es normal; los valores propios dicen hacia dónde converge, no cuánto amplifica en el camino.
+(a) Sí, valores propios $-1$ y $-2$. (b) $\rho=2$ y $\norm A_2\approx10.2$. (c) \[ e^{At}=\begin{bmatrix}e^{-t}&10(e^{-t}-e^{-2t})\\0&e^{-2t}\end{bmatrix}; \] la entrada fuera de la diagonal llega a $2.5$ en $t=\ln2$, y $\norm{e^{At}}_2$ llega a $2.56$ en $t\approx0.66$ antes de decaer. (d) $A$ no es normal; los valores propios dicen hacia dónde converge, no cuánto amplifica en el camino.
 
 \paragraph{Problema~\ref{prob:pm-clasificar}}
 (a) Globalmente Lipschitz con $L=1$, no $\Cont1$. (b) $\Cont1$ (derivada $2\abs x$), localmente pero no globalmente Lipschitz. (c) Continua, no localmente Lipschitz en $0$ (como $x^{1/3}$). (d) $\Cont\infty$ y globalmente Lipschitz, $L=1$. (e) $\Cont\infty$ y globalmente Lipschitz, $L=2$. La respuesta a la pregunta final es (a).
@@ -107,9 +104,13 @@ Para $\dot x=-x-x^3+u(t)$ con $\abs{u(t)}\le1$, use $v=\abs x$ y la derivada de 
 (a) $\sqrt{h(t)}=\sqrt{h_0}-kt/2$, el tanque se vacía en $T=2\sqrt{h_0}/k$ y después $h\equiv0$. (b) Desde $h(T)=0$ hacia atrás, cualquier $h_0$ (y cualquier instante de vaciado anterior) es compatible. (c) $\sqrt h$ no es Lipschitz en $h=0$. (d) Mirando un tanque vacío no se puede saber cuándo se vació: la información se pierde. Hacia adelante sí hay unicidad (el tanque vacío se queda vacío), porque $f\le0$ empuja contra el borde $h=0$.
 
 \paragraph{Problema~\ref{prob:pm-tan}}
-(a) $x=\tan t$, escape en $t=\pi/2\approx1.571$. (b) En $\{\abs x\le r\}$: $L=2r$, $h=1$; $r/(2r^2+1)$ es máximo en $r=1/\sqrt2$ con valor $1/(2\sqrt2)\approx0.354$, y $\rho/L<1/\sqrt2$: $\delta\approx0.354$. (c) Numéricamente convergen en los dos intervalos (con $60$ iteraciones el error en $[0,1.5]$ es del orden de $10^{-5}$), aunque el teorema solo lo garantiza en $[0,\delta]$: la conclusión del teorema es una cota inferior del intervalo, no superior.
+(a) $x=\tan t$, escape en $t=\pi/2\approx1.571$. (b) En $\{\abs x\le r\}$: $L=2r$, $h=1$; $r/(2r^2+1)$ es máximo en $r=1/\sqrt2$ con valor $1/(2\sqrt2)\approx0.354$, y $\rho/L<1/\sqrt2$: $\delta\approx0.354$. (c) Numéricamente convergen en los dos intervalos (en $[0,1.5]$, con unas $30$ iteraciones el error ya es el de la integración numérica: del orden de $10^{-5}$ con $10^4$ puntos y de $10^{-7}$ con $2\times10^5$), aunque el teorema solo lo garantiza en $[0,\delta]$: la conclusión del teorema es una cota inferior del intervalo, no superior.
 
 \paragraph{Problema~\ref{prob:pm-entrada}}
 Donde $x\neq0$, $\dot v=\sgn(x)\dot x=-\abs x-\abs x^3+\sgn(x)u\le-v+1$. Donde $x=0$, $\abs x$ no es derivable, pero $D^+v=\abs{\dot x}=\abs u\le1=-0+1$. La comparación con $\dot w=-w+1$ da la cota. Usando $-v^3$ se obtiene una cota mejor, pero la ecuación de comparación $\dot w=-w-w^3+1$ no tiene solución explícita.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

@@ -3,6 +3,7 @@ function verificarCap03()
 % (fundamentos matemáticos).   >> verificarCap03
 % (Los mismos números se verificaron de forma independiente con sympy y
 %  scipy en herramientas/cap03_numeros.py.)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 raiz = fileparts(mfilename('fullpath'));
 addpath(fullfile(raiz, '..', 'comun'));
 fallas = 0;  n = 0;
@@ -52,6 +53,8 @@ revisar('||f_10 - f_20||_inf', max(abs(rampa(10) - rampa(20))), 0.5, 1e-4);
 fprintf('3.8  Lipschitz\n');
 revisar('caja a1 = 1, a2 = 2: L = 1 + a1 + a2', 1 + 1 + 2, 4, 0);
 revisar('pendiente x^(1/3) entre 0 y 1e-3', (1e-3)^(1/3)/1e-3, 100, 1e-9);
+fc = @(x) [-x(1) + x(1)*x(2); x(2) - x(1)*x(2)];  p = [-1; -2];  q = p + 1e-4*[1; 1];
+revisar('caja: cociente junto a la esquina (-1,-2)', norm(fc(p) - fc(q), inf)/norm(p - q, inf), 3.9999, 1e-9);
 
 fprintf('3.9  Existencia y unicidad\n');
 revisar('x_0(3) de x'' = x^(1/3)', (2/3*3)^(3/2), 2*sqrt(2), 1e-12);
@@ -75,6 +78,20 @@ g = @(t, x) [-x(1) + 2*x(2)/(1 + x(2)^2); -x(2) + 2*x(1)/(1 + x(1)^2)];
 nx = vecnorm(X2.');  cota = exp(-t2.')*sqrt(13) + sqrt(2)*(1 - exp(-t2.'));
 revisar('sistema 2D: max(||x|| - cota) <= 0', double(max(nx - cota) <= 1e-9), 1, 0);
 revisar('||x(20)|| -> sqrt(2) (equilibrio (1,1))', nx(end), sqrt(2), 1e-6);
+
+fprintf('Soluciones de los problemas\n');
+M = [-1 10; 0 -2];
+revisar('transitorio: ||A||_2', norm(M), 10.245, 1e-3);
+revisar('transitorio: rho(A)', max(abs(eig(M))), 2, 1e-12);
+tg = linspace(0, 6, 60001);  nE = arrayfun(@(s) norm(expm(M*s)), tg);  [nmax, kmax] = max(nE);
+revisar('transitorio: max ||e^{At}||_2', nmax, 2.563, 1e-3);
+revisar('transitorio: instante del máximo', tg(kmax), 0.663, 1e-3);
+revisar('transitorio: entrada (1,2) en t = ln 2', 10*(exp(-log(2)) - exp(-2*log(2))), 2.5, 1e-12);
+r = 1/sqrt(2);
+revisar('delta de x'' = 1 + x^2: 1/(2 sqrt 2)', r/(2*r^2 + 1), 1/(2*sqrt(2)), 1e-12);
+tp = linspace(0, 1.5, 200001);  xp = zeros(size(tp));
+for k = 1:30, xp = cumtrapz(tp, 1 + xp.^2); end
+revisar('Picard de tan t en [0,1.5], 30 it.: error < 1e-6', double(max(abs(xp - tan(tp))) < 1e-6), 1, 0);
 
 fprintf('\n%d de %d verificaciones correctas.\n', n - fallas, n);
 end

@@ -32,7 +32,7 @@ $(C[a,b],\norm\cdot_C)$ es un espacio de Banach: si $\{x_k\}$ es de Cauchy en es
 \begin{trampa}[label=tr:pm-completo]{Producto interno no es lo mismo que Hilbert}
 \plausible{$C[0,1]$ con $\inner fg=\int_0^1fg\,\dif t$ tiene producto interno; por lo tanto es un espacio de Hilbert.}
 Falta la completitud, y falla. Las rampas continuas $f_k(t)$, que valen $0$ hasta $t=\tfrac12$, suben con pendiente $k$ y valen $1$ después, forman una sucesión de Cauchy en $\Ldos$: $\norm{f_k-f_m}_{\Ldos}\to0$ (por ejemplo, $\norm{f_{10}-f_{20}}_{\Ldos}=1/\sqrt{120}\approx0.091$). Pero se acercan al escalón, que no es continuo (\cref{fig:pm-completitud}). En la norma del máximo la misma sucesión ni siquiera es de Cauchy: $\norm{f_k-f_{2k}}_C=\tfrac12$ para todo $k$.
-\correcto{$(C[0,1],\norm\cdot_C)$ es Banach; $(C[0,1],\norm\cdot_{\Ldos})$ no es completo. Su completación ---agregar todos los límites--- es el espacio $\Ldos[0,1]$, que sí es de Hilbert. Por eso la prueba de existencia trabaja con la norma del máximo.}
+\correcto{$(C[0,1],\norm\cdot_C)$ es Banach; $(C[0,1],\norm\cdot_{\Ldos})$ no es completo. Su completación (agregar todos los límites) es el espacio $\Ldos[0,1]$, que sí es de Hilbert. Por eso la prueba de existencia trabaja con la norma del máximo.}
 \end{trampa}
 
 \script{cap03_preliminares/C3_Ej4_Completitud.m}

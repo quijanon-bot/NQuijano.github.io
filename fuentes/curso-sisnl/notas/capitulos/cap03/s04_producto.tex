@@ -3,7 +3,7 @@
 \label{sec:pm-producto}
 %% ---------------------------------------------------------------------
 
-Una norma dice qué tan grande es un vector, pero no si dos vectores ``apuntan para el mismo lado''. Esa información ---ángulos, ortogonalidad, proyecciones--- la da el producto interno.
+Una norma dice qué tan grande es un vector, pero no si dos vectores ``apuntan para el mismo lado''. Esa información (ángulos, ortogonalidad, proyecciones) la da el producto interno.
 
 \begin{definicion}[label=def:pm-pinterno]{Producto interno}
 Sea $X$ un espacio vectorial real. Una función $\inner{\cdot}{\cdot}:X\times X\to\R$ es un \clave{producto interno} si para todo $x,y,z\in X$ y $\alpha\in\R$:
@@ -40,7 +40,7 @@ Con Cauchy--Schwarz, la triangular de la norma inducida es una línea: $\norm{x+
 
 \begin{trampa}[label=tr:pm-circular]{Cauchy--Schwarz no sale de $\abs{\cos\theta}\le1$}
 \plausible{$\inner xy=\norm x\norm y\cos\theta$ y $\abs{\cos\theta}\le1$; por lo tanto $\abs{\inner xy}\le\norm x\norm y$.}
-En $\R^2$ y $\R^3$ el argumento es correcto porque el ángulo se define con la geometría euclidiana. Pero en un espacio general ---funciones, polinomios, $\R^{100}$--- el ángulo \emph{se define} con la fórmula $\cos\theta=\inner xy/(\norm x\norm y)$, y para que esa definición tenga sentido hace falta saber antes que el cociente está en $[-1,1]$. El argumento es circular.
+En $\R^2$ y $\R^3$ el argumento es correcto porque el ángulo se define con la geometría euclidiana. Pero en un espacio general (funciones, polinomios, $\R^{100}$) el ángulo \emph{se define} con la fórmula $\cos\theta=\inner xy/(\norm x\norm y)$, y para que esa definición tenga sentido hace falta saber antes que el cociente está en $[-1,1]$. El argumento es circular.
 \correcto{La prueba general usa solo los axiomas (la parábola del \cref{thm:pm-cs}). La figura en $\R^2$ es una buena intuición, no una demostración.}
 \end{trampa}
 
@@ -52,7 +52,7 @@ Sean $p,q\in[1,\infty]$ con $\frac1p+\frac1q=1$ (exponentes conjugados; $p=1$ va
 \]
 \end{teorema}
 
-Con $p=q=2$ se recupera Cauchy--Schwarz. Hölder permite acotar un producto usando normas \emph{distintas} para cada factor; por ejemplo, $\abs{x\T y}\le\norm x_1\norm y_\infty$, que se usa cuando una señal es acotada y la otra tiene área finita: la potencia que entra a un sistema con una entrada acotada y una salida en $\mathcal{L}_1$ tiene energía total finita.
+Con $p=q=2$ se recupera Cauchy--Schwarz. Hölder permite acotar un producto usando normas \emph{distintas} para cada factor; por ejemplo, $\abs{x\T y}\le\norm x_1\norm y_\infty$ y, para señales, $\int\abs{u\,y}\,\dif t\le\norm u_{\Linf}\norm y_{\mathcal{L}_1}$, que se usa cuando una señal es acotada y la otra tiene área finita: la potencia que entra a un sistema con una entrada acotada y una salida en $\mathcal{L}_1$ tiene energía total finita.
 
 \begin{pausa}
 ¿Proviene $\norm\cdot_1$ de algún producto interno en $\R^2$? Pista: si $\norm x=\sqrt{\inner xx}$, entonces $\norm{x+y}^2+\norm{x-y}^2=2\norm x^2+2\norm y^2$ (ley del paralelogramo).

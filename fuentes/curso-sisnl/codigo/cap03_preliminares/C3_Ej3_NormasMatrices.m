@@ -1,4 +1,5 @@
 %% C3_Ej3_NormasMatrices -- Notas: sección 3.3 (normas inducidas de matrices)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Calcula ||A||_1, ||A||_2 e ||A||_inf con las fórmulas de las notas
 %            y con norm(); verifica las cotas entre ellas; y muestra que la
 %            norma 2 NO es el mayor |valor propio|.
@@ -28,9 +29,15 @@ N = [0 1; 0 0];
 fprintf('N = [0 1; 0 0]:  rho(N) = %g,  ||N||_2 = %g\n', max(abs(eig(N))), norm(N));
 % [fin:espectral]
 
-fig = estiloFigura(560, 560);
+fig = estiloFigura(1000, 460);             % la figura de las notas (A y N)
 th = linspace(0, 2*pi, 400);  U = [cos(th); sin(th)];  Y = A*U;
 [~, ~, Vs] = svd(A);  v = A*Vs(:,1);          % imagen del vector singular derecho
-plot(U(1,:), U(2,:), Y(1,:), Y(2,:)); hold on;
+subplot(1,2,1); plot(U(1,:), U(2,:), Y(1,:), Y(2,:)); hold on;
 quiver(0, 0, v(1), v(2), 0, 'LineWidth', 2.5);
-axis equal; grid on; legend('$\|x\|_2=1$', '$Ax$', '$\|A\|_2$', 'Location', 'southoutside');
+rho = max(abs(eig(A)));  plot(rho*cos(th), rho*sin(th), '--');   % círculo de radio rho(A)
+axis equal; grid on; xlim([-5.5 5.5]); ylim([-5.5 5.5]); title('$A=[1\ 2;\ -3\ 4]$');
+legend('$\|x\|_2=1$', '$Ax$', '$\|A\|_2=5.12$', '$\rho(A)=\sqrt{10}$', 'Location', 'southoutside', 'NumColumns', 2);
+subplot(1,2,2); plot(U(1,:), U(2,:)); hold on;  YN = N*U;
+plot(YN(1,:), YN(2,:), 'LineWidth', 4);
+axis equal; grid on; xlim([-1.5 1.5]); ylim([-1.5 1.5]);
+title('$N=[0\ 1;\ 0\ 0]$: $\rho(N)=0$, $\|N\|_2=1$'); legend('$\|x\|_2=1$', '$Nx$ (segmento)', 'Location', 'southoutside');

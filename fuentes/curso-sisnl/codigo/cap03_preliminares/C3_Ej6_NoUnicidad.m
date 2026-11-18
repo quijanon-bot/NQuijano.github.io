@@ -1,4 +1,5 @@
 %% C3_Ej6_NoUnicidad -- Notas: sección 3.9 (continuidad no basta)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Resuelve x' = x^(1/3), x(0) = 0. Muestra la familia de soluciones
 %            x_c(t) = 0 para t <= c y ((2/3)(t - c))^(3/2) para t >= c, y lo que
 %            hace ode45 desde 0 y desde un número muy pequeño.

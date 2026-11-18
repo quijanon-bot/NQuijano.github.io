@@ -1,4 +1,5 @@
 %% C3_Ej7_Picard -- Notas: sección 3.9 (aproximaciones sucesivas)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Aplica el operador de Picard (P x)(t) = x0 + int_0^t f(x(s)) ds a
 %            x' = x, x(0) = 1, en [0, 1], empezando en x_0(t) = 1. Luego calcula
 %            el intervalo que garantiza el teorema local para x' = x^2, x(0) = 1.
@@ -29,7 +30,14 @@ fprintf('x'' = x^2, x(0) = 1: el teorema garantiza [0, %.4f] (r = %.4f); la solu
         dmax, r(k));
 % [fin:delta]
 
-fig = estiloFigura(700, 420); hold on;
-x = ones(size(t));
-for k = 1:4, x = x0 + cumtrapz(t, f(x)); plot(t, x); end
-plot(t, exp(t), 'k--'); grid on; xlabel('$t$'); legend('$x_1$', '$x_2$', '$x_3$', '$x_4$', '$e^t$', 'Location', 'northwest');
+fig = estiloFigura(1000, 420);             % la figura de las notas (iteraciones y error)
+subplot(1,2,1); hold on;  x = ones(size(t));  plot(t, x);  err = zeros(1, 6);
+for k = 1:6
+    x = x0 + cumtrapz(t, f(x));  err(k) = max(abs(x - exp(t)));
+    if k <= 4, plot(t, x); end
+end
+plot(t, exp(t), 'k--'); grid on; xlabel('$t$'); title('$x_{k+1}(t)=1+\int_0^t x_k(s)\,ds$');
+legend('$x_0$', '$x_1$', '$x_2$', '$x_3$', '$x_4$', '$e^t$', 'Location', 'northwest');
+subplot(1,2,2); ks = 1:6;
+semilogy(ks, err, 'o-', ks, exp(1)./factorial(ks + 1), '--'); grid on;
+xlabel('iteraci\''on $k$'); title('$\|x_k-e^t\|_C$'); legend('error medido', '$e/(k+1)!$');

@@ -1,4 +1,5 @@
 %% C3_Ej10_Dependencia -- Notas: sección 3.9 (dependencia continua)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Compara y' = -y + 0.5 sin(y), y(0) = 1, con la versión perturbada
 %            z' = -z + 0.5 sin(z) + 0.1 cos(t), z(0) = 1.05, y con la cota
 %            ||y - z|| <= gamma e^{L t} + (mu/L)(e^{L t} - 1), L = 1.5.

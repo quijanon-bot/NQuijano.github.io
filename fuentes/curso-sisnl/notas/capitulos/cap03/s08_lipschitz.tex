@@ -72,7 +72,7 @@ Si $\norm{\partial f/\partial x}\le L$ en todas partes, el \cref{lem:pm-jacobian
 
 \begin{ejemplo}[label=ej:pm-lipcaja]{Una constante de Lipschitz en una caja}
 Para $f(x)=\begin{bmatrix}-x_1+x_1x_2\\ x_2-x_1x_2\end{bmatrix}$ en $\R^2$: (a) ¿es localmente Lipschitz?, ¿globalmente? (b) Halle una constante de Lipschitz en $W=\{\abs{x_1}\le a_1,\ \abs{x_2}\le a_2\}$ con la norma $\infty$.
-\solucion (a) $\jac fx=\begin{bmatrix}-1+x_2&x_1\\-x_2&1-x_1\end{bmatrix}$ es continuo, así que $f\in\Cont1$ y es localmente Lipschitz (\cref{lem:pm-c1lip}). No es globalmente Lipschitz: las entradas crecen sin cota y el \cref{lem:pm-global} lo descarta. (b) $W$ es convexo. La norma $\infty$ inducida es la máxima suma por filas: $\abs{-1+x_2}+\abs{x_1}\le1+a_1+a_2$ y $\abs{x_2}+\abs{1-x_1}\le1+a_1+a_2$. Luego $L=1+a_1+a_2$. Con $a_1=1$, $a_2=2$, $L=4$, y el mayor cociente encontrado con $50\,000$ pares aleatorios es $3.57$.
+\solucion (a) $\jac fx=\begin{bmatrix}-1+x_2&x_1\\-x_2&1-x_1\end{bmatrix}$ es continuo, así que $f\in\Cont1$ y es localmente Lipschitz (\cref{lem:pm-c1lip}). No es globalmente Lipschitz: las entradas crecen sin cota y el \cref{lem:pm-global} lo descarta. (b) $W$ es convexo. La norma $\infty$ inducida es la máxima suma por filas: $\abs{-1+x_2}+\abs{x_1}\le1+a_1+a_2$ y $\abs{x_2}+\abs{1-x_1}\le1+a_1+a_2$. Luego $L=1+a_1+a_2$. Con $a_1=1$, $a_2=2$, $L=4$: ningún cociente de $50\,000$ pares aleatorios lo supera, y dos puntos a distancia $10^{-4}$ de la esquina $(-1,-2)$ dan $3.9999$: la constante no se puede mejorar.
 \end{ejemplo}
 
 \codigorepo{cap03_preliminares/C3_Ej5_Lipschitz.m}{caja}{Verificación de $L=1+a_1+a_2$ con pares aleatorios}
@@ -84,7 +84,7 @@ La constante puede crecer al moverse por $D$: $x^3$ es localmente Lipschitz en t
 \end{trampa}
 
 \begin{definicion}[label=def:pm-unifcont]{Continuidad uniforme}
-$f$ es \clave{uniformemente continua} en $W$ si para todo $\epsilon>0$ existe $\delta>0$ ---el mismo para todos los puntos--- tal que $\norm{x-y}<\delta$ implica $\norm{f(x)-f(y)}<\epsilon$.
+$f$ es \clave{uniformemente continua} en $W$ si para todo $\epsilon>0$ existe $\delta>0$, el mismo para todos los puntos, tal que $\norm{x-y}<\delta$ implica $\norm{f(x)-f(y)}<\epsilon$.
 \end{definicion}
 
 Si $f$ es Lipschitz en $W$ con constante $L>0$, es uniformemente continua ($\delta=\epsilon/L$). La \cref{fig:pm-regularidad} resume las relaciones en $\R$: $\Cont1\Rightarrow$ localmente Lipschitz; Lipschitz $\Rightarrow$ localmente Lipschitz \emph{y} uniformemente continua; ninguna de las implicaciones se invierte. $x^{1/3}$ es uniformemente continua en $\R$ sin ser localmente Lipschitz en el origen; $x^3$ es $\Cont1$ sin ser uniformemente continua.
@@ -97,5 +97,5 @@ Si $f$ es Lipschitz en $W$ con constante $L>0$, es uniformemente continua ($\del
 \end{figure}
 
 \begin{profundiza}[Lipschitz fuera de las ecuaciones diferenciales]
-La constante de Lipschitz de una red neuronal mide cuánto puede cambiar la salida cuando cambia la entrada; acotarla controla la sensibilidad y el sobreajuste. Para una red residual, cada bloque es $x\mapsto x+\sigma(Wx+b)$, y con una activación $1$-Lipschitz su constante es a lo sumo $1+\norm W_2$; la de la red es a lo sumo el producto de las constantes de los bloques (composición y submultiplicatividad, \cref{prop:pm-matrices}). Con exactamente estas tres herramientas ---Lipschitz, normas matriciales y composición---, \citet{CGR26} diseñaron una regularización adaptativa para redes ResNet. Las redes residuales son, además, la discretización de Euler de una ecuación diferencial $\dot x=\sigma(W(t)x+b(t))$, y la condición de Lipschitz es la misma del teorema de existencia y unicidad.
+La constante de Lipschitz de una red neuronal mide cuánto puede cambiar la salida cuando cambia la entrada; acotarla controla la sensibilidad y el sobreajuste. Para una red residual, cada bloque es $x\mapsto x+\sigma(Wx+b)$, y con una activación $1$-Lipschitz su constante es a lo sumo $1+\norm W_2$; la de la red es a lo sumo el producto de las constantes de los bloques (composición y submultiplicatividad, \cref{prop:pm-matrices}). Con exactamente estas tres herramientas (Lipschitz, normas matriciales y composición), \citet{CGR26} diseñaron una regularización adaptativa para redes ResNet. Las redes residuales son, además, la discretización de Euler de una ecuación diferencial $\dot x=\sigma(W(t)x+b(t))$, y la condición de Lipschitz es la misma del teorema de existencia y unicidad.
 \end{profundiza}

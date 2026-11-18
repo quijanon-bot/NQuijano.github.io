@@ -1,4 +1,5 @@
 %% C3_Ej2_Normas -- Notas: sección 3.3 (normas y su equivalencia)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Dibuja las bolas unitarias {||x||_p = 1} para p = 1, 2, inf y 1/2;
 %            comprueba las constantes de equivalencia con vectores aleatorios
 %            y muestra que en C[0,1] las normas NO son equivalentes.
@@ -18,7 +19,7 @@ fprintf('5 <= 7 <= 5*sqrt(2) = %.4f\n', 5*sqrt(2));
 % [fin:ejemplo]
 
 % [ini:equivalencia]
-n = 5;  X = randn(n, 20000);
+n = 5;  rng(0);  X = randn(n, 20000);
 r12 = vecnorm(X, 1) ./ vecnorm(X, 2);        % debe estar en [1, sqrt(n)]
 r2i = vecnorm(X, 2) ./ vecnorm(X, Inf);      % debe estar en [1, sqrt(n)]
 fprintf('n = %d:  ||x||_1/||x||_2 en [%.3f, %.3f];  ||x||_2/||x||_inf en [%.3f, %.3f];  sqrt(n) = %.3f\n', ...
@@ -40,10 +41,18 @@ for k = [1 5 20 100]
 end
 % [fin:funciones]
 
-fig = estiloFigura(560, 560);
-th = linspace(0, 2*pi, 721);  c = cos(th);  s = sin(th);  hold on;
+fig = estiloFigura(1000, 440);             % la figura de las notas (bolas y t^k)
+subplot(1,2,1); hold on;
+th = linspace(0, 2*pi, 1441);  c = cos(th);  s = sin(th);
 for p = [0.5 1 2 Inf]
     if isinf(p), r = 1 ./ max(abs(c), abs(s)); else, r = 1 ./ (abs(c).^p + abs(s).^p).^(1/p); end
-    plot(r.*c, r.*s);
+    if p == 0.5, plot(r.*c, r.*s, '--'); else, plot(r.*c, r.*s); end
 end
-axis equal; grid on; legend('$p=1/2$', '$p=1$', '$p=2$', '$p=\infty$'); title('$\{x:\|x\|_p=1\}$');
+axis equal; grid on; xlim([-1.3 1.3]); ylim([-1.3 1.3]);
+legend('$p=1/2$ (no es norma)', '$p=1$', '$p=2$', '$p=\infty$', 'Location', 'southoutside', 'NumColumns', 2);
+title('$\{x:\|x\|_p=1\}$');
+subplot(1,2,2); hold on;  t = linspace(0, 1, 2001);  ks = [1 3 10 40];
+for k = ks, plot(t, t.^k); end
+grid on; xlabel('$t$'); title('$\|t^k\|_\infty=1$, $\|t^k\|_{L_1}\to0$');
+legend(arrayfun(@(k) sprintf('$t^{%d}$: $\\|\\cdot\\|_{L_1}=%.3f$', k, 1/(k + 1)), ks, 'UniformOutput', false), ...
+       'Location', 'northwest');

@@ -455,7 +455,7 @@
 \newcommand{\script}[2][]{\snl@margen{\sffamily\footnotesize\raggedright
   \href{\urlcodigo/#2}{\textcolor{snlteal}{\Large\faFileCode}}\enspace
   \textbf{\color{snlnoche}C\'odigo}\ifstrempty{#1}{}{\\[1pt]{\color{snlgris}#1}}\\[1pt]
-  {\scriptsize\ttfamily\color{snlgris!80}\detokenize{#2}}}}
+  {\scriptsize\ttfamily\color{snlgris!80}\urlstyle{same}\nolinkurl{#2}}}}
 
 %% ---------------------------------------------------------------------
 %% Compatibilidad con mybook.cls (capítulos aún no migrados)

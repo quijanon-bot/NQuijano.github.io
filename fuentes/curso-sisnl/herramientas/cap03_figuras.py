@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 3 (fundamentos matemáticos). PDF (notas) y SVG (web).
 Cada figura reproduce un script de codigo/cap03_preliminares/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap03_figuras.py
@@ -86,9 +87,9 @@ def matriz():
     a = ax[0]
     a.plot(*U, color=C['gris'], lw=1.2, label=r'$\|x\|_2=1$'); a.plot(*Y, color=C['azul'], label='$Ax$')
     a.annotate('', xy=v, xytext=(0, 0), arrowprops=dict(arrowstyle='->', color=C['coral'], lw=2))
-    a.text(1.6, 4.6, r'$\|A\|_2=5.12$', color=C['coral'], fontsize=8.5)
+    a.text(2.5, 3.6, r'$\|A\|_2=5.12$', color=C['coral'], fontsize=8.5)
     a.add_patch(Circle((0, 0), np.sqrt(10), fill=False, ls='--', color=C['ambar']))
-    a.text(-5.2, -5.1, r'$\rho(A)=\sqrt{10}=3.16$', color=C['ambar'], fontsize=8)
+    a.text(0.9, -5.1, r'$\rho(A)=\sqrt{10}=3.16$', color=C['ambar'], fontsize=8)
     a.set_aspect('equal'); a.set_xlim(-5.5, 5.5); a.set_ylim(-5.5, 5.5); a.grid(True)
     a.set_title('A = [1  2; −3  4]')
     a.legend(fontsize=7, loc='upper left')

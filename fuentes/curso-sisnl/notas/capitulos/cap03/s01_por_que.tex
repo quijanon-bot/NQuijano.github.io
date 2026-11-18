@@ -19,7 +19,7 @@ Antes de seguir con sistemas de dimensión dos necesitamos responder, con precis
 \notamargen{\textbf{Notación.} El tiempo es el primer argumento: $f(t,x)$, y $f(t,x,u)$ cuando hay entrada. Un sistema es \emph{invariante en el tiempo} si $f$ no depende de $t$ y \emph{variante en el tiempo} si depende. No usamos ``autónomo''.}
 Las tres respuestas dependen de poder decir qué tan \emph{cerca} están dos estados, dos soluciones o dos funciones, y qué tan \emph{rápido} puede cambiar $f$ cuando cambia el estado. Lo primero es la geometría de los espacios (métricas, normas, productos internos y completitud, \cref{sec:pm-metricos,sec:pm-normas,sec:pm-producto,sec:pm-completos}). Lo segundo es la regularidad de $f$ (continuidad, diferenciabilidad y la condición de Lipschitz, \cref{sec:pm-regularidad,sec:pm-lipschitz}). Con las dos cosas se prueba el teorema de existencia y unicidad (\cref{sec:pm-existencia}) y se construye la herramienta que más vamos a usar después de este capítulo: el lema de comparación (\cref{sec:pm-comparacion}).
 
-\notamargen{\textbf{Ruta de las clases.} Clase~1: \S\ref{sec:pm-metricos}--\ref{sec:pm-producto}. Clase~2: \S\ref{sec:pm-completos}--\ref{sec:pm-regularidad}. Clase~3: \S\ref{sec:pm-lipschitz} y \S\ref{sec:pm-existencia}. Clase~4: \S\ref{sec:pm-existencia} (pruebas) y \S\ref{sec:pm-comparacion}.}
+\notamargen{\textbf{Ruta de las clases.} Clase~1: \S\ref{sec:pm-metricos}--\ref{sec:pm-regularidad} (métricas, normas, producto interno, completitud, conjuntos y regularidad). Clase~2: \S\ref{sec:pm-lipschitz} y la primera mitad de la \S\ref{sec:pm-existencia} (contracción, Gronwall, teorema local con su prueba y no unicidad). Clase~3: el resto de la \S\ref{sec:pm-existencia} (prolongación y dependencia continua) y la \S\ref{sec:pm-comparacion}.}
 
 ¿Por qué este capítulo va aquí y no antes? Porque ahora tenemos los ejemplos que lo justifican. Un estudiante que llega a la definición de norma sin haber visto una ecuación con dos soluciones no tiene ninguna razón para quererla; uno que ya vio $\dot x=x^{1/3}$ sabe exactamente qué está buscando.
 
@@ -28,7 +28,7 @@ La idea que organiza la primera mitad del capítulo es una sola:
 \begin{center}
 \sffamily\large\color{snlazul}espacio $=$ conjunto $+$ estructura.
 \end{center}
-Los elementos pueden ser vectores, funciones del tiempo o incluso palabras. La estructura que se les agrega ---una métrica, una norma, un producto interno--- decide qué preguntas tienen sentido: qué tan lejos, qué tan grande, en qué ángulo, y si las sucesiones que ``deberían'' converger convergen dentro del espacio.
+Los elementos pueden ser vectores, funciones del tiempo o incluso palabras. La estructura que se les agrega (una métrica, una norma, un producto interno) decide qué preguntas tienen sentido: qué tan lejos, qué tan grande, en qué ángulo, y si las sucesiones que ``deberían'' converger convergen dentro del espacio.
 \end{ideaclave}
 
 \begin{figure}[ht]

@@ -193,7 +193,7 @@ que se quedan en $W$ en $[t_0,t_1]$, con $\norm{g(t,x)}\le\mu$ en $[t_0,t_1]\tim
 \begin{proof}
 Restando las ecuaciones integrales y usando Lipschitz y la cota de $g$,
 $\norm{y(t)-z(t)}\le\gamma+\mu(t-t_0)+\int_{t_0}^tL\norm{y(s)-z(s)}\,\dif s$.
-Gronwall--Bellman con $\lambda(t)=\gamma+\mu(t-t_0)$ y $\mu(\cdot)\equiv L$ da
+Gronwall--Bellman con $\lambda(t)=\gamma+\mu(t-t_0)$ y, en el lugar de la función $\mu(\cdot)$ del \cref{lem:pm-gronwall}, la constante $L$, da
 $\norm{y-z}\le\gamma+\mu(t-t_0)+\int_{t_0}^tL\bigl(\gamma+\mu(s-t_0)\bigr)e^{L(t-s)}\,\dif s$, y la integral (por partes) es $\gamma(e^{L(t-t_0)}-1)+\frac\mu L(e^{L(t-t_0)}-1)-\mu(t-t_0)$.
 \end{proof}
 
@@ -208,21 +208,21 @@ $\norm{y-z}\le\gamma+\mu(t-t_0)+\int_{t_0}^tL\bigl(\gamma+\mu(s-t_0)\bigr)e^{L(t
 \begin{trampa}[label=tr:pm-cotaexp]{La cota exponencial no predice que las soluciones se separan}
 \plausible{Por \eqref{eq:pm-dependencia}, dos soluciones que empiezan cerca se separan exponencialmente.}
 \eqref{eq:pm-dependencia} es una \emph{cota superior}, válida para cualquier $f$ con constante $L$, incluso las que contraen. Para $\dot y=-y+\tfrac12\sin y$ la diferencia real con la versión perturbada nunca pasa de $0.091$ en $[0,5]$, mientras la cota llega a $211$ (\cref{fig:pm-dependencia}). El teorema solo usa $\norm{f(y)-f(z)}\le L\norm{y-z}$, que no distingue entre un sistema que acerca las soluciones y uno que las aleja.
-\correcto{El teorema garantiza que en un intervalo \emph{finito} el error se puede hacer tan pequeño como se quiera achicando $\gamma$ y $\mu$. Para cotas que no crezcan con $t$ hace falta estabilidad, que es el tema de los capítulos~7 a~10.}
+\correcto{El teorema garantiza que en un intervalo \emph{finito} el error se puede hacer tan pequeño como se quiera achicando $\gamma$ y $\mu$. Para cotas que no crezcan con $t$ hace falta estabilidad, que es el tema de los \crefrange{cap:lyapunov}{cap:avanzada}.}
 \end{trampa}
 
 \codigorepo{cap03_preliminares/C3_Ej10_Dependencia.m}{dependencia}{La cota de Gronwall contra la diferencia real}
 
 \begin{ideaclave}
-\begin{tabular}{@{}ll@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.40\linewidth}>{\raggedright\arraybackslash}p{0.54\linewidth}@{}}
 $f$ continua & existe una solución, quizá no única (Peano)\\
 $f$ localmente Lipschitz & solución única en un intervalo máximo $[t_0,T)$\\
-\quad\dots y una solución acotada & $T=\infty$ (\cref{thm:pm-compacto})\\
+\quad\dots y una solución que se queda en un compacto de $D$ & $T=\infty$ (\cref{thm:pm-compacto})\\
 $f$ globalmente Lipschitz & solución única para todo $t$ (\cref{thm:pm-global})\\
 cualquiera de los anteriores con Lipschitz & dependencia continua en intervalos finitos
 \end{tabular}
 \end{ideaclave}
 
 \begin{historia}[Cauchy, Lipschitz, Peano, Picard, Lindelöf]
-Cauchy probó existencia y unicidad en la década de 1820 para $f$ con derivada continua, con un método de poligonales. Lipschitz, en 1876, reemplazó la derivada por la condición que hoy lleva su nombre \citep{Lip1876}. Peano mostró en 1890 que la continuidad basta para la existencia \citep{Pea1890}. Picard introdujo ese mismo año las aproximaciones sucesivas \citep{Pic1890}, y Lindelöf, en 1894, dio la versión con la que se enuncia hoy el teorema \citep{Lin1894}. Por eso en muchos textos el \cref{thm:pm-local} se llama teorema de Picard--Lindelöf.
+Cauchy probó existencia y unicidad en la década de 1820 para $f$ con derivada continua, con un método de poligonales. Lipschitz, en 1876, reemplazó la derivada por la condición que hoy lleva su nombre \citep{Lip1876}. Peano mostró en 1886 que la continuidad basta para la existencia en una ecuación escalar, y en 1890 lo extendió a sistemas \citep{Pea1890}. Picard sistematizó ese mismo año las aproximaciones sucesivas \citep{Pic1890}, que Peano ya había usado en 1887 para ecuaciones lineales, y Lindelöf, en 1894, dio la versión con la que se enuncia hoy el teorema \citep{Lin1894}. Por eso en muchos textos el \cref{thm:pm-local} se llama teorema de Picard--Lindelöf.
 \end{historia}

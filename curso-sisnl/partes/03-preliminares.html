@@ -281,7 +281,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">3. Fundamentos matemáticos</h1>
-<p class="subtitle lead">Semanas 3–4 · cuatro clases</p>
+<p class="subtitle lead">Semanas 3–4 · tres clases</p>
 </div>
 
 
@@ -336,25 +336,19 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">1</td>
-<td style="text-align: left;">Espacio = conjunto + estructura. Métricas, normas de vectores y de señales, equivalencia de normas</td>
-<td style="text-align: left;">§3.1–3.3</td>
-<td style="text-align: left;"><code>C3_Ej1</code>, <code>C3_Ej2</code></td>
+<td style="text-align: left;">Espacio = conjunto + estructura. Métricas, normas de vectores, señales y matrices, producto interno, completitud, conjuntos en <span class="math inline">\(\R^n\)</span> y regularidad</td>
+<td style="text-align: left;">§3.1–3.7</td>
+<td style="text-align: left;"><code>C3_Ej1</code>–<code>C3_Ej4</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">2</td>
-<td style="text-align: left;">Normas inducidas de matrices, producto interno, Cauchy–Schwarz, espacios completos, conjuntos en <span class="math inline">\(\R^n\)</span></td>
-<td style="text-align: left;">§3.3–3.6</td>
-<td style="text-align: left;"><code>C3_Ej3</code>, <code>C3_Ej4</code></td>
+<td style="text-align: left;">Condición de Lipschitz, contracción, Gronwall–Bellman, existencia y unicidad local (con la prueba) y no unicidad</td>
+<td style="text-align: left;">§3.8–3.9</td>
+<td style="text-align: left;"><code>C3_Ej5</code>, <code>C3_Ej6</code>, <code>C3_Ej7</code></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">3</td>
-<td style="text-align: left;">Jerarquía de regularidad, condición de Lipschitz, existencia y unicidad local (prueba con contracción)</td>
-<td style="text-align: left;">§3.7–3.9</td>
-<td style="text-align: left;"><code>C3_Ej5</code>, <code>C3_Ej6</code>, <code>C3_Ej7</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">Existencia global, escape en tiempo finito, Gronwall–Bellman, dependencia de condiciones iniciales, lema de comparación</td>
+<td style="text-align: left;">Prolongación y existencia global, escape en tiempo finito, dependencia continua y lema de comparación</td>
 <td style="text-align: left;">§3.9–3.10</td>
 <td style="text-align: left;"><code>C3_Ej8</code>, <code>C3_Ej9</code>, <code>C3_Ej10</code></td>
 </tr>
@@ -385,7 +379,7 @@ window.Quarto = {
 </div>
 <div class="trampa">
 <p><span class="caja-titulo">Trampa: la norma 2 no es el mayor valor propio</span></p>
-<p>Para <span class="math inline">\(A=\begin{bmatrix}1&amp;2\\-3&amp;4\end{bmatrix}\)</span>, el radio espectral es <span class="math inline">\(\sqrt{10}\approx3.16\)</span>, pero <span class="math inline">\(\norm A_2=\sqrt{15+5\sqrt5}\approx5.12\)</span>. Lo correcto: <span class="math inline">\(\norm A_2=\sqrt{\lmax(A\T A)}\)</span>, y solo coincide con <span class="math inline">\(\max\abs{\lambda_i}\)</span> si <span class="math inline">\(A\)</span> es simétrica (o normal).</p>
+<p>Para <span class="math inline">\(A=\begin{bmatrix}1&amp;2\\-3&amp;4\end{bmatrix}\)</span>, el radio espectral es <span class="math inline">\(\sqrt{10}\approx3.16\)</span>, pero <span class="math inline">\(\norm A_2=\sqrt{15+5\sqrt5}\approx5.12\)</span>. Lo correcto: <span class="math inline">\(\norm A_2=\sqrt{\lmax(A\T A)}\)</span>, y coincide con <span class="math inline">\(\max\abs{\lambda_i}\)</span> si <span class="math inline">\(A\)</span> es simétrica (o normal), pero no en general.</p>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -419,7 +413,7 @@ window.Quarto = {
 </div>
 <div class="ideaclave">
 <p><span class="caja-titulo">Gronwall–Bellman y comparación</span></p>
-<p>Si <span class="math inline">\(y(t)\le\lambda_0+\int_a^t\mu_0\,y(s)\dif s\)</span> con <span class="math inline">\(\mu_0\ge0\)</span>, entonces <span class="math inline">\(y(t)\le\lambda_0e^{\mu_0(t-a)}\)</span>. De ahí sale la <strong>dependencia continua</strong> de las condiciones iniciales: <span class="math inline">\(\norm{x(t)-y(t)}\le\norm{x_0-y_0}e^{L(t-t_0)}\)</span>. El <strong>lema de comparación</strong> hace lo mismo con una ecuación escalar: si <span class="math inline">\(\dot v\le f(t,v)\)</span> y <span class="math inline">\(\dot u=f(t,u)\)</span> con <span class="math inline">\(v(t_0)\le u(t_0)\)</span>, entonces <span class="math inline">\(v(t)\le u(t)\)</span>. Sirve para acotar soluciones que no se pueden calcular.</p>
+<p>Si <span class="math inline">\(y(t)\le\lambda_0+\int_a^t\mu_0\,y(s)\dif s\)</span> con <span class="math inline">\(\mu_0\ge0\)</span>, entonces <span class="math inline">\(y(t)\le\lambda_0e^{\mu_0(t-a)}\)</span>. De ahí sale la <strong>dependencia continua</strong> de las condiciones iniciales: <span class="math inline">\(\norm{x(t)-y(t)}\le\norm{x_0-y_0}e^{L(t-t_0)}\)</span>. El <strong>lema de comparación</strong> hace lo mismo con una ecuación escalar: si <span class="math inline">\(\dot v\le f(t,v)\)</span> y <span class="math inline">\(\dot u=f(t,u)\)</span>, con <span class="math inline">\(f\)</span> localmente Lipschitz en <span class="math inline">\(u\)</span> y <span class="math inline">\(v(t_0)\le u(t_0)\)</span>, entonces <span class="math inline">\(v(t)\le u(t)\)</span>. Sirve para acotar soluciones que no se pueden calcular.</p>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -445,9 +439,9 @@ window.Quarto = {
 </section>
 <section id="códigos-de-esta-parte" class="level2">
 <h2 class="anchored" data-anchor-id="códigos-de-esta-parte">Códigos de esta parte</h2>
-<p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap03_preliminares">repositorio</a>. Ejecute antes <code>iniciarCurso</code>. <code>verificarCap03</code> comprueba los números del capítulo (33/33).</p>
+<p>Los bloques salen directamente de los archivos del <a href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap03_preliminares">repositorio</a>. Ejecute antes <code>iniciarCurso</code>. <code>verificarCap03</code> comprueba los números del capítulo (41/41).</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Clase 1: métricas y normas</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Clase 2: matrices y completitud</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Clase 3: Lipschitz y existencia</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Clase 4: escape, Gronwall y comparación</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Clase 1: espacios, normas y matrices</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Clase 2: Lipschitz y existencia</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Clase 3: escape, dependencia y comparación</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p><strong>Tres métricas para los mismos dos puntos (§3.2).</strong></p>
@@ -463,7 +457,7 @@ window.Quarto = {
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>[<span class="va">dinff</span><span class="op">,</span> <span class="va">k</span>] <span class="op">=</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">f</span> <span class="op">-</span> <span class="va">g</span>))<span class="op">;</span>                 <span class="co">% mayor separación vertical</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'funciones: d1 = %.4f,  d_inf = %.4f (en t = %.4f)\n'</span><span class="op">,</span> <span class="va">d1f</span><span class="op">,</span> <span class="va">dinff</span><span class="op">,</span> <span class="va">t</span>(<span class="va">k</span>))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Equivalencia de normas en <span class="math inline">\(\R^n\)</span> (§3.3).</strong></p>
-<div class="sourceCode" id="cb3" data-filename="cap03_preliminares/C3_Ej2_Normas.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">n</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span>  <span class="va">X</span> <span class="op">=</span> <span class="va">randn</span>(<span class="va">n</span><span class="op">,</span> <span class="fl">20000</span>)<span class="op">;</span></span>
+<div class="sourceCode" id="cb3" data-filename="cap03_preliminares/C3_Ej2_Normas.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">n</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span>  <span class="va">rng</span>(<span class="fl">0</span>)<span class="op">;</span>  <span class="va">X</span> <span class="op">=</span> <span class="va">randn</span>(<span class="va">n</span><span class="op">,</span> <span class="fl">20000</span>)<span class="op">;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">r12</span> <span class="op">=</span> <span class="va">vecnorm</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">1</span>) <span class="op">./</span> <span class="va">vecnorm</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">2</span>)<span class="op">;</span>        <span class="co">% debe estar en [1, sqrt(n)]</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">r2i</span> <span class="op">=</span> <span class="va">vecnorm</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">2</span>) <span class="op">./</span> <span class="va">vecnorm</span>(<span class="va">X</span><span class="op">,</span> <span class="va">Inf</span>)<span class="op">;</span>      <span class="co">% debe estar en [1, sqrt(n)]</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'n = %d:  ||x||_1/||x||_2 en [%.3f, %.3f];  ||x||_2/||x||_inf en [%.3f, %.3f];  sqrt(n) = %.3f\n'</span><span class="op">,</span> <span class="op">...</span></span>
@@ -475,8 +469,6 @@ window.Quarto = {
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'k = %3d:  ||f_k||_inf = %.3f,  ||f_k||_L1 = %.4f,  ||f_k||_L2 = %.4f\n'</span><span class="op">,</span> <span class="op">...</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            <span class="va">k</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">fk</span>))<span class="op">,</span> <span class="va">trapz</span>(<span class="va">t</span><span class="op">,</span> <span class="va">abs</span>(<span class="va">fk</span>))<span class="op">,</span> <span class="va">sqrt</span>(<span class="va">trapz</span>(<span class="va">t</span><span class="op">,</span> <span class="va">fk</span><span class="op">.^</span><span class="fl">2</span>)))<span class="op">;</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p><strong>Normas inducidas (§3.3).</strong></p>
 <div class="sourceCode" id="cb5" data-filename="cap03_preliminares/C3_Ej3_NormasMatrices.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> [<span class="fl">1</span> <span class="fl">2</span><span class="op">;</span> <span class="op">-</span><span class="fl">3</span> <span class="fl">4</span>]<span class="op">;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">n1</span>   <span class="op">=</span> <span class="va">max</span>(<span class="va">sum</span>(<span class="va">abs</span>(<span class="va">A</span>)<span class="op">,</span> <span class="fl">1</span>))<span class="op">;</span>            <span class="co">% máxima suma por columnas</span></span>
@@ -502,7 +494,7 @@ window.Quarto = {
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="va">fprintf</span>(<span class="ss">'||f_10 - f_20||_L2 = %.4f,   ||f_10 - f_20||_inf = %.4f\n'</span><span class="op">,</span> <span class="op">...</span></span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">nL2</span>(<span class="va">rampa</span>(<span class="fl">10</span>) <span class="op">-</span> <span class="va">rampa</span>(<span class="fl">20</span>))<span class="op">,</span> <span class="va">nInf</span>(<span class="va">rampa</span>(<span class="fl">10</span>) <span class="op">-</span> <span class="va">rampa</span>(<span class="fl">20</span>)))<span class="op">;</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p><strong>Constantes de Lipschitz con secantes (§3.8).</strong></p>
 <div class="sourceCode" id="cb8" data-filename="cap03_preliminares/C3_Ej5_Lipschitz.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">pend</span> <span class="op">=</span> <span class="op">@</span>(<span class="va">f</span><span class="op">,</span> <span class="va">x</span><span class="op">,</span> <span class="va">y</span>) <span class="va">abs</span>(<span class="va">f</span>(<span class="va">x</span>) <span class="op">-</span> <span class="va">f</span>(<span class="va">y</span>)) <span class="op">./</span> <span class="va">abs</span>(<span class="va">x</span> <span class="op">-</span> <span class="va">y</span>)<span class="op">;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="va">sat</span>  <span class="op">=</span> <span class="op">@</span>(<span class="va">x</span>) <span class="va">min</span>(<span class="fl">1</span><span class="op">,</span> <span class="va">max</span>(<span class="op">-</span><span class="fl">1</span><span class="op">,</span> <span class="va">x</span>))<span class="op">;</span></span>
@@ -532,7 +524,7 @@ window.Quarto = {
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">fprintf</span>(<span class="ss">'iteración %d: error ||x_k - e^t||_C = %.4e\n'</span><span class="op">,</span> <span class="va">k</span><span class="op">,</span> <span class="va">max</span>(<span class="va">abs</span>(<span class="va">x</span> <span class="op">-</span> <span class="va">exp</span>(<span class="va">t</span>))))<span class="op">;</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p><strong>Escape en tiempo finito (§3.9).</strong></p>
 <div class="sourceCode" id="cb11" data-filename="cap03_preliminares/C3_Ej8_Escape.m"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">opc</span> <span class="op">=</span> <span class="va">odeset</span>(<span class="ss">'RelTol'</span><span class="op">,</span> <span class="fl">1e-10</span><span class="op">,</span> <span class="ss">'AbsTol'</span><span class="op">,</span> <span class="fl">1e-12</span>)<span class="op">;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>[<span class="va">t1</span><span class="op">,</span> <span class="va">X1</span>] <span class="op">=</span> <span class="va">ode45</span>(<span class="op">@</span>(<span class="va">t</span><span class="op">,</span> <span class="va">x</span>) <span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">,</span> [<span class="fl">0</span> <span class="fl">0.99</span>]<span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="va">opc</span>)<span class="op">;</span></span>
@@ -559,13 +551,8 @@ window.Quarto = {
 </section>
 <section id="videos" class="level2">
 <h2 class="anchored" data-anchor-id="videos">Videos</h2>
-<p>Los videos se generan con los scripts de la tabla (MATLAB, <code>VideoWriter</code>).</p>
+<p>Los videos están publicados (generados con <code>herramientas/cap03_videos.py</code>, los mismos modelos y parámetros); los scripts <code>C3_Video_*</code> de MATLAB producen la misma animación para grabarla en su computador.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Video</th>
@@ -575,21 +562,24 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">V3.1 · Picard</td>
-<td style="text-align: left;">Las iteraciones se acercan a la solución en el intervalo del teorema y se separan fuera de él.</td>
+<td style="text-align: left;"><a href="../videos/V3_1_picard.mp4">V3.1 · Picard</a></td>
+<td style="text-align: left;">Las iteraciones de Picard para <span class="math inline">\(\dot x=x\)</span>, <span class="math inline">\(x(0)=1\)</span>, se pegan a <span class="math inline">\(e^t\)</span> en <span class="math inline">\([0,1]\)</span>, y el error en la norma del máximo cae factorialmente.</td>
 <td style="text-align: left;"><code>C3_Video_Picard.m</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">V3.2 · No unicidad</td>
+<td style="text-align: left;"><a href="../videos/V3_2_no_unicidad.mp4">V3.2 · No unicidad</a></td>
 <td style="text-align: left;">Desde <span class="math inline">\(x(0)=0\)</span>, la familia de soluciones de <span class="math inline">\(\dot x=x^{1/3}\)</span> despega en distintos instantes.</td>
 <td style="text-align: left;"><code>C3_Video_NoUnicidad.m</code></td>
 </tr>
 </tbody>
 </table>
+<video controls="" preload="metadata" style="width:100%;max-width:820px;border-radius:8px" src="../videos/V3_1_picard.mp4"></video>
 </section>
 <section id="problemas" class="level2">
 <h2 class="anchored" data-anchor-id="problemas">Problemas</h2>
 <p>Los problemas del capítulo (§3.12) tienen cada uno una trampa; las soluciones seleccionadas están en §3.13 y las respuestas a las pausas al final del capítulo.</p>
+<hr>
+<p><strong>Nota de transparencia.</strong> En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.</p>
 
 
 </section>

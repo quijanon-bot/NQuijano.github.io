@@ -1,4 +1,5 @@
 %% C3_Ej1_Metricas -- Notas: sección 3.2 (espacios métricos)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Calcula la distancia entre los mismos dos puntos de R^2 con d1, d2
 %            y d_inf; la distancia de Hamming entre palabras; y las distancias
 %            d1 y d_inf entre dos funciones continuas en [0, 1].

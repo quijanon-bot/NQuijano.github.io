@@ -3,7 +3,7 @@
 \label{sec:pm-comparacion}
 %% ---------------------------------------------------------------------
 
-Sabemos cuándo existe una solución única, pero casi nunca la podemos escribir. La tercera pregunta del capítulo es si al menos se puede \emph{acotar}. La idea: si una cantidad escalar $v(t)$ ---una norma, una energía--- crece a lo sumo como la solución de una ecuación escalar sencilla, entonces se queda por debajo de esa solución.
+Sabemos cuándo existe una solución única, pero casi nunca la podemos escribir. La tercera pregunta del capítulo es si al menos se puede \emph{acotar}. La idea: si una cantidad escalar $v(t)$ (una norma, una energía) crece a lo sumo como la solución de una ecuación escalar sencilla, entonces se queda por debajo de esa solución.
 
 Para enunciarlo con generalidad hace falta una derivada que exista aunque $v$ no sea derivable, porque $v(t)=\norm{x(t)}$ no lo es cuando $x(t)=0$. La \clave{derivada superior por la derecha} (de Dini) de una función continua $v$ es
 \[
@@ -19,7 +19,7 @@ Considere $\dot u=f(t,u)$, $u(t_0)=u_0$, con $u\in\R$, $f$ continua en $t$ y loc
 entonces $v(t)\le u(t)$ para todo $t\in[t_0,T)$.
 \end{lema}
 
-\noindent Dicho con palabras: si $v$ empieza por debajo de $u$ y en cada instante crece a lo sumo como crecería $u$ \emph{en el mismo valor}, no la puede adelantar. La hipótesis de Lipschitz no es decorativa: garantiza que $u$ es la única solución, y por lo tanto que no hay otra solución ``más alta'' con la que $v$ pudiera compararse. La prueba \citep[\S3.4]{Kha02} compara $v$ con las soluciones de $\dot u=f(t,u)+\lambda$, $\lambda>0$, y hace tender $\lambda\to0$ usando la dependencia continua.
+\noindent Dicho con palabras: si $v$ empieza por debajo de $u$ y en cada instante crece a lo sumo como crecería $u$ \emph{en el mismo valor}, no la puede adelantar. La hipótesis de Lipschitz no es decorativa: garantiza que $u$ es la única solución. Sin ella el lema falla: con $\dot u=u^{1/3}$, $u(0)=0$, la solución $u\equiv0$ y $v(t)=(2t/3)^{3/2}$ cumplen $D^+v=v^{1/3}$ y $v(0)=0$, pero $v>u$ para $t>0$. La prueba \citep[§3.4 y apéndice~C]{Kha02} compara $v$ con las soluciones de $\dot u=f(t,u)+\lambda$, $\lambda>0$, y hace tender $\lambda\to0$ usando la dependencia continua.
 
 \begin{ejemplo}[label=ej:pm-comparacion1]{Una cota sin resolver la ecuación}
 Acote la solución de $\dot x=-(1+x^2)x$, $x(0)=a$, sin resolverla.

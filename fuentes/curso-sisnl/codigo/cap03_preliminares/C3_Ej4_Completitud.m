@@ -1,4 +1,5 @@
 %% C3_Ej4_Completitud -- Notas: sección 3.5 (espacios completos)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Construye las rampas continuas f_k en [0,1] (0 hasta t = 1/2, suben
 %            con pendiente k, valen 1 después) y mide ||f_k - f_m|| en la norma
 %            L2 y en la norma del máximo.

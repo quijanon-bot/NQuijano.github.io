@@ -1,4 +1,5 @@
 %% C3_Video_NoUnicidad -- Video V3_2: x' = x^(1/3) desde x(0) = 0
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  A la izquierda, el campo f(x) = x^(1/3) con la pendiente infinita
 %              en el origen. A la derecha, una tras otra, soluciones que esperan
 %              en x = 0 un tiempo c y luego despegan: todas parten de x(0) = 0.

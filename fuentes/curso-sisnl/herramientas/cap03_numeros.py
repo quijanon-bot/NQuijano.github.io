@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente (sympy/scipy) de los números del capítulo 3.
 Ejecutar:  python3 herramientas/cap03_numeros.py
 """
@@ -96,5 +97,26 @@ tt = np.linspace(0, 20, 4001); nx = np.linalg.norm(S.sol(tt), axis=0)
 cota = np.exp(-tt)*np.sqrt(13) + np.sqrt(2)*(1 - np.exp(-tt))
 revisar('max(||x|| - cota) <= 0', np.max(nx - cota) <= 1e-9, 1)
 revisar('||x(20)|| = sqrt(2)', nx[-1], np.sqrt(2), 1e-6)
+
+print('3.8 Lipschitz: la esquina de la caja')
+fc = lambda v: np.array([-v[0] + v[0]*v[1], v[1] - v[0]*v[1]])
+pc = np.array([-1.0, -2.0]); qc = pc + 1e-4*np.array([1.0, 1.0])
+revisar('caja: cociente junto a la esquina (-1,-2)', np.max(abs(fc(pc) - fc(qc)))/np.max(abs(pc - qc)), 3.9999, 1e-9)
+
+print('Soluciones de los problemas')
+from scipy.linalg import expm
+from scipy.integrate import cumulative_trapezoid
+M = np.array([[-1.0, 10.0], [0.0, -2.0]])
+revisar('transitorio: ||A||_2', np.linalg.norm(M, 2), 10.245, 1e-3)
+revisar('transitorio: rho(A)', max(abs(np.linalg.eigvals(M))), 2, 1e-12)
+tg = np.linspace(0, 6, 60001); nE = np.array([np.linalg.norm(expm(M*s), 2) for s in tg]); km = int(np.argmax(nE))
+revisar('transitorio: max ||e^{At}||_2', nE[km], 2.563, 1e-3)
+revisar('transitorio: instante del máximo', tg[km], 0.663, 1e-3)
+revisar('transitorio: entrada (1,2) en t = ln 2 (simbólico)', sp.simplify(10*(sp.exp(-sp.log(2)) - sp.exp(-2*sp.log(2)))), 2.5)
+rr = 1/np.sqrt(2)
+revisar('delta de x\' = 1 + x^2 = 1/(2 sqrt 2)', rr/(2*rr**2 + 1), 1/(2*np.sqrt(2)), 1e-12)
+tp = np.linspace(0, 1.5, 200001); xp = np.zeros_like(tp)
+for _ in range(30): xp = cumulative_trapezoid(1 + xp**2, tp, initial=0)
+revisar('Picard de tan t en [0,1.5], 30 it.: error < 1e-6', np.max(abs(xp - np.tan(tp))) < 1e-6, 1)
 
 print(f'\n{ok} de {total} verificaciones correctas.')

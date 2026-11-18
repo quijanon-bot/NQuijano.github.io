@@ -1,6 +1,6 @@
 ---
 title: "3. Fundamentos matemáticos"
-subtitle: "Semanas 3–4 · cuatro clases"
+subtitle: "Semanas 3–4 · tres clases"
 ---
 
 ```{=html}
@@ -31,10 +31,9 @@ Antes de hablar de estabilidad hay que saber **medir**: la distancia entre dos e
 
 | Clase | Qué se ve | Capítulo | Scripts |
 |:--|:--|:--|:--|
-| 1 | Espacio = conjunto + estructura. Métricas, normas de vectores y de señales, equivalencia de normas | §3.1–3.3 | `C3_Ej1`, `C3_Ej2` |
-| 2 | Normas inducidas de matrices, producto interno, Cauchy–Schwarz, espacios completos, conjuntos en $\R^n$ | §3.3–3.6 | `C3_Ej3`, `C3_Ej4` |
-| 3 | Jerarquía de regularidad, condición de Lipschitz, existencia y unicidad local (prueba con contracción) | §3.7–3.9 | `C3_Ej5`, `C3_Ej6`, `C3_Ej7` |
-| 4 | Existencia global, escape en tiempo finito, Gronwall–Bellman, dependencia de condiciones iniciales, lema de comparación | §3.9–3.10 | `C3_Ej8`, `C3_Ej9`, `C3_Ej10` |
+| 1 | Espacio = conjunto + estructura. Métricas, normas de vectores, señales y matrices, producto interno, completitud, conjuntos en $\R^n$ y regularidad | §3.1–3.7 | `C3_Ej1`–`C3_Ej4` |
+| 2 | Condición de Lipschitz, contracción, Gronwall–Bellman, existencia y unicidad local (con la prueba) y no unicidad | §3.8–3.9 | `C3_Ej5`, `C3_Ej6`, `C3_Ej7` |
+| 3 | Prolongación y existencia global, escape en tiempo finito, dependencia continua y lema de comparación | §3.9–3.10 | `C3_Ej8`, `C3_Ej9`, `C3_Ej10` |
 
 : Lea la sección del capítulo **antes** de cada clase. {.striped}
 
@@ -59,7 +58,7 @@ Una **norma** en un espacio vectorial $X$ es una función $\norm{\cdot}:X\to\Rp$
 ::: {.trampa}
 [Trampa: la norma 2 no es el mayor valor propio]{.caja-titulo}
 
-Para $A=\begin{bmatrix}1&2\\-3&4\end{bmatrix}$, el radio espectral es $\sqrt{10}\approx3.16$, pero $\norm A_2=\sqrt{15+5\sqrt5}\approx5.12$. Lo correcto: $\norm A_2=\sqrt{\lmax(A\T A)}$, y solo coincide con $\max\abs{\lambda_i}$ si $A$ es simétrica (o normal).
+Para $A=\begin{bmatrix}1&2\\-3&4\end{bmatrix}$, el radio espectral es $\sqrt{10}\approx3.16$, pero $\norm A_2=\sqrt{15+5\sqrt5}\approx5.12$. Lo correcto: $\norm A_2=\sqrt{\lmax(A\T A)}$, y coincide con $\max\abs{\lambda_i}$ si $A$ es simétrica (o normal), pero no en general.
 :::
 
 ![Clases de regularidad para funciones $\R\to\R$, con un representante en cada región: $\Cont1$ y Lipschitz global son, cada una, más fuertes que localmente Lipschitz, pero ninguna implica la otra.](../figuras/cap03/f_regularidad.svg){width=80%}
@@ -89,7 +88,7 @@ Si $f(t,x)$ es continua a trozos en $t$ y Lipschitz en $x$ en la bola $\{\norm{x
 ::: {.ideaclave}
 [Gronwall–Bellman y comparación]{.caja-titulo}
 
-Si $y(t)\le\lambda_0+\int_a^t\mu_0\,y(s)\dif s$ con $\mu_0\ge0$, entonces $y(t)\le\lambda_0e^{\mu_0(t-a)}$. De ahí sale la **dependencia continua** de las condiciones iniciales: $\norm{x(t)-y(t)}\le\norm{x_0-y_0}e^{L(t-t_0)}$. El **lema de comparación** hace lo mismo con una ecuación escalar: si $\dot v\le f(t,v)$ y $\dot u=f(t,u)$ con $v(t_0)\le u(t_0)$, entonces $v(t)\le u(t)$. Sirve para acotar soluciones que no se pueden calcular.
+Si $y(t)\le\lambda_0+\int_a^t\mu_0\,y(s)\dif s$ con $\mu_0\ge0$, entonces $y(t)\le\lambda_0e^{\mu_0(t-a)}$. De ahí sale la **dependencia continua** de las condiciones iniciales: $\norm{x(t)-y(t)}\le\norm{x_0-y_0}e^{L(t-t_0)}$. El **lema de comparación** hace lo mismo con una ecuación escalar: si $\dot v\le f(t,v)$ y $\dot u=f(t,u)$, con $f$ localmente Lipschitz en $u$ y $v(t_0)\le u(t_0)$, entonces $v(t)\le u(t)$. Sirve para acotar soluciones que no se pueden calcular.
 :::
 
 ![Lema de comparación: a la izquierda, una cota escalar; a la derecha, la cota de la norma de una solución vectorial, que se acerca al equilibrio $(1,1)$.](../figuras/cap03/f_comparacion.svg){width=95%}
@@ -114,11 +113,11 @@ Tres pestañas con los ejemplos del capítulo. Todo se calcula en su navegador (
 
 ## Códigos de esta parte
 
-Los bloques salen directamente de los archivos del [repositorio](https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap03_preliminares). Ejecute antes `iniciarCurso`. `verificarCap03` comprueba los números del capítulo (33/33).
+Los bloques salen directamente de los archivos del [repositorio](https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap03_preliminares). Ejecute antes `iniciarCurso`. `verificarCap03` comprueba los números del capítulo (41/41).
 
 ::: {.panel-tabset}
 
-### Clase 1: métricas y normas
+### Clase 1: espacios, normas y matrices
 
 **Tres métricas para los mismos dos puntos (§3.2).**
 
@@ -140,8 +139,6 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 ```{.matlab include="../../codigo/cap03_preliminares/C3_Ej2_Normas.m" marca="funciones"}
 ```
 
-### Clase 2: matrices y completitud
-
 **Normas inducidas (§3.3).**
 
 ```{.matlab include="../../codigo/cap03_preliminares/C3_Ej3_NormasMatrices.m" marca="inducidas"}
@@ -157,7 +154,7 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 ```{.matlab include="../../codigo/cap03_preliminares/C3_Ej4_Completitud.m" marca="rampas"}
 ```
 
-### Clase 3: Lipschitz y existencia
+### Clase 2: Lipschitz y existencia
 
 **Constantes de Lipschitz con secantes (§3.8).**
 
@@ -174,7 +171,7 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 ```{.matlab include="../../codigo/cap03_preliminares/C3_Ej7_Picard.m" marca="picard"}
 ```
 
-### Clase 4: escape, Gronwall y comparación
+### Clase 3: escape, dependencia y comparación
 
 **Escape en tiempo finito (§3.9).**
 
@@ -195,13 +192,21 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 
 ## Videos
 
-Los videos se generan con los scripts de la tabla (MATLAB, `VideoWriter`).
+Los videos están publicados (generados con `herramientas/cap03_videos.py`, los mismos modelos y parámetros); los scripts `C3_Video_*` de MATLAB producen la misma animación para grabarla en su computador.
 
 | Video | Qué muestra | Script |
 |:--|:--|:--|
-| V3.1 · Picard | Las iteraciones se acercan a la solución en el intervalo del teorema y se separan fuera de él. | `C3_Video_Picard.m` |
-| V3.2 · No unicidad | Desde $x(0)=0$, la familia de soluciones de $\dot x=x^{1/3}$ despega en distintos instantes. | `C3_Video_NoUnicidad.m` |
+| [V3.1 · Picard](../videos/V3_1_picard.mp4) | Las iteraciones de Picard para $\dot x=x$, $x(0)=1$, se pegan a $e^t$ en $[0,1]$, y el error en la norma del máximo cae factorialmente. | `C3_Video_Picard.m` |
+| [V3.2 · No unicidad](../videos/V3_2_no_unicidad.mp4) | Desde $x(0)=0$, la familia de soluciones de $\dot x=x^{1/3}$ despega en distintos instantes. | `C3_Video_NoUnicidad.m` |
+
+```{=html}
+<video controls preload="metadata" style="width:100%;max-width:820px;border-radius:8px" src="../videos/V3_1_picard.mp4"></video>
+```
 
 ## Problemas
 
 Los problemas del capítulo (§3.12) tienen cada uno una trampa; las soluciones seleccionadas están en §3.13 y las respuestas a las pausas al final del capítulo.
+
+---
+
+**Nota de transparencia.** En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.

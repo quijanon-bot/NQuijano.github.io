@@ -1,4 +1,5 @@
 %% C3_Ej9_Comparacion -- Notas: sección 3.10 (lema de comparación)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Compara la solución de x' = -(1 + x^2) x con la cota |a| e^{-t} del
 %            lema de comparación, y la de un sistema de dos estados con la cota
 %            ||x(t)||_2 <= e^{-t} ||x(0)||_2 + sqrt(2)(1 - e^{-t}).

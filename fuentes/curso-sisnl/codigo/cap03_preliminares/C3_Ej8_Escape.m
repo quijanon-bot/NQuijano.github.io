@@ -1,4 +1,5 @@
 %% C3_Ej8_Escape -- Notas: sección 3.9 (intervalo máximo y existencia global)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Compara x' = x^2 (escapa en tiempo finito) con x' = -x^3 (existe
 %            para todo t >= 0), ninguna de las dos globalmente Lipschitz.
 % OBSERVE    ode45 avisa que no puede seguir cerca de t = 1 para x' = x^2. La
@@ -19,6 +20,14 @@ fprintf('x'' = x^2: x(0.99) = %.4f  (exacto 1/(1 - 0.99) = 100)\n', X1(end));
 fprintf('x'' = -x^3: x(10) = %.4f  (exacto 2/sqrt(81) = %.4f)\n', X2(end), 2/9);
 % [fin:escape]
 
-fig = estiloFigura(1000, 380);
-subplot(1,2,1); semilogy(t1, X1); grid on; xlabel('$t$'); title('$\dot x=x^2$: escape en $t=1$');
-subplot(1,2,2); plot(t2, X2); grid on; xlabel('$t$'); title('$\dot x=-x^3$: existe para todo $t$');
+fig = estiloFigura(1000, 380);             % la figura de las notas
+subplot(1,2,1); dg = (sqrt(2) - 1)/2;        % intervalo que garantiza el teorema local
+patch([0 dg dg 0], [1 1 1e3 1e3], [0.16 0.62 0.56], 'FaceAlpha', 0.18, 'EdgeColor', 'none'); hold on;
+semilogy(t1, X1); set(gca, 'YScale', 'log'); plot([1 1], [1 1e3], 'k--'); xlim([0 1.05]); ylim([1 1e3]);
+grid on; xlabel('$t$'); legend('garantizado: $[0,\,0.207]$', '$x(t)=1/(1-t)$', '$t=1$', 'Location', 'northwest');
+title('$\dot x=x^2$, $x(0)=1$: escapa en $t=1$');
+subplot(1,2,2); hold on;
+for x0 = [2 -1 0.5]
+    [tt, XX] = ode45(@(t, x) -x^3, [0 10], x0, opc);  plot(tt, XX);
+end
+grid on; xlabel('$t$'); legend('$x_0=2$', '$x_0=-1$', '$x_0=0.5$'); title('$\dot x=-x^3$: existe para todo $t\geq0$');

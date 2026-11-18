@@ -1,4 +1,5 @@
 %% C3_Video_Picard -- Video V3_1: las aproximaciones sucesivas de Picard
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  x' = x, x(0) = 1 en [0, 1]: cada fotograma aplica una vez el
 %              operador (P x)(t) = 1 + int_0^t x(s) ds. Las iteraciones (polinomios
 %              de Taylor de e^t) se pegan a la solución; abajo, el error en la

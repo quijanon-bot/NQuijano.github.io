@@ -74,5 +74,5 @@ Sea $g(s)=f(y+s(x-y))$, $s\in[0,1]$. Por la regla de la cadena, $g'(s)=\jacat fx
 \begin{trampa}[label=tr:pm-valormedio]{No hay un punto intermedio para campos vectoriales}
 \plausible{Como en una variable, $f(x)-f(y)=\jacat fx z(x-y)$ para algún $z$ en el segmento entre $x$ y $y$.}
 Falso si $f$ tiene más de una componente. Tome $f(\theta)=[\cos\theta,\sin\theta]\T$ entre $\theta=0$ y $\theta=2\pi$: $f(2\pi)-f(0)=0$, pero $f'(z)\cdot2\pi=2\pi[-\sin z,\cos z]\T\neq0$ para todo $z$. Cada componente tiene su propio punto intermedio, y en general no coinciden.
-\correcto{Use la forma integral (\cref{lem:pm-valormedio}) o, para acotar, la desigualdad $\norm{f(x)-f(y)}\le\sup_{z}\norm{\jacat fxz}\,\norm{x-y}$ con $z$ en el segmento. Esa desigualdad es la que convierte un jacobiano acotado en una constante de Lipschitz.}
+\correcto{Use la forma integral (\cref{lem:pm-valormedio}) o, para acotar, la desigualdad \[ \norm{f(x)-f(y)}\le\sup_{z}\norm{\jacat fxz}\,\norm{x-y},\qquad z\ \text{en el segmento}. \] Esa desigualdad es la que convierte un jacobiano acotado en una constante de Lipschitz.}
 \end{trampa}

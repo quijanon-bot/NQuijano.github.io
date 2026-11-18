@@ -42,6 +42,9 @@
   .enlaces a:hover { background: rgba(255,255,255,.18); }
   .enlaces a.cv { background: var(--ambar); border-color: var(--ambar); color: var(--noche); }
   .enlaces a.cv:hover { background: #f0b45a; }
+  .enlaces .correo { color: #fff; font-size: .86rem; font-weight: 700; border: 1px dashed rgba(255,255,255,.35);
+    border-radius: 999px; padding: .28rem .85rem; background: rgba(255,255,255,.06); cursor: text; }
+  .correo-texto { user-select: all; font-weight: 600; }
   @media (max-width: 680px) {
     header .dentro { grid-template-columns: 1fr; text-align: center; gap: 1.2rem; }
     header .foto { margin: 0 auto; width: 150px; height: 150px; }
@@ -181,7 +184,7 @@
       <p><b>Director</b>, Research Group in Control and Automation Systems (GIAP)</p>
       <nav class="enlaces" aria-label="Profiles">
         <a class="cv" href="assets/CV_Nicanor_Quijano.pdf" download>⤓ CV (PDF)</a>
-        <a href="mailto:nquijano@uniandes.edu.co">✉ nquijano@uniandes.edu.co</a>
+        <span class="correo" title="Copy this address to write an email">✉ <span class="correo-texto">nquijano@uniandes.edu.co</span></span>
         <a href="https://scholar.google.com/citations?user=xu0jdYAAAAAJ">Google Scholar</a>
         <a href="https://orcid.org/0000-0002-8688-3195">ORCID</a>
         <a href="https://www.linkedin.com/in/nqs/">LinkedIn</a>
@@ -700,7 +703,7 @@
     <h2>Contact</h2>
     <p>Department of Electrical and Electronics Engineering, Universidad de los Andes<br>
       Cra. 1 Este No. 19A-40, Edificio Mario Laserna, 111711 Bogotá, Colombia<br>
-      <a href="mailto:nquijano@uniandes.edu.co">nquijano@uniandes.edu.co</a></p>
+      Email: <span class="correo-texto">nquijano@uniandes.edu.co</span></p>
   </section>
 </main>
 

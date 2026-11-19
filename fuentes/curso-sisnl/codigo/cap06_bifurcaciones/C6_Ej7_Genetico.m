@@ -1,4 +1,5 @@
 %% C6_Ej7_Genetico -- Notas: sección 6.5 (el interruptor genético de Griffith)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Para x' = -a x + y, y' = x^2/(1+x^2) - b y calcula los equilibrios,
 %            sus (tau, delta) y su tipo, y el valor crítico a_c = 1/(2b).
 %            (2) Histéresis: con b = 0.35, el gen encendido sigue encendido con
@@ -32,10 +33,17 @@ for a = [1.3 1.6 1.3]
 end
 % [fin:histeresis]
 
-fig = estiloFigura(1100, 420);
-subplot(1, 2, 1);  xx = linspace(0, 3.6, 300);  hold on;
+fig = estiloFigura(1300, 420);
+subplot(1, 3, 1);  xx = linspace(0, 3.6, 300);  hold on;
 plot(xx, xx.^2./(b*(1 + xx.^2)), 'k');
-for aa = [0.93 ac 2.4], plot(xx, aa*xx, '--'); end
+cols = [30 90 168; 209 73 91; 42 157 143]/255;  aas = [0.93 ac 2.4];
+for i = 1:3, plot(xx, aas(i)*xx, '--', 'Color', cols(i, :)); end
+legend('sigmoide', '$a<a_c$', '$a=a_c$', '$a>a_c$', 'Location', 'southeast');
 axis([0 3.6 0 3.2]);  grid on;  xlabel('$x$');  ylabel('$y$');  title('Nulclinas');
-retratoFase(subplot(1, 2, 2), @(z) F(1)(0, z), [0 3.5], [0 3.5], 'T', 30, 'Equilibrios', [xs; xs]);
+F1 = F(1);                                       % (F(1)(0, z) solo funciona en Octave)
+retratoFase(subplot(1, 3, 2), @(z) F1(0, z), [0 3.5], [0 3.5], 'T', 30, 'Equilibrios', [xs; xs]);
 title('$a=1$, $b=0.35$');  xlabel('$x$');  ylabel('$y$');
+subplot(1, 3, 3);  A = linspace(0.5, 2.2, 400);  dd = 1 - 4*A.^2*b^2;  k = dd >= 0;  hold on;
+plot(A(k), (1 + sqrt(dd(k)))./(2*A(k)*b), 'k', A(k), (1 - sqrt(dd(k)))./(2*A(k)*b), 'r--', A, 0*A, 'k');
+plot(ac, 1, 'o', 'MarkerFaceColor', [0.67 0.67 0.67], 'MarkerEdgeColor', 'k');
+grid on;  axis([0.5 2.2 -0.1 3.4]);  xlabel('$a$');  ylabel('$x^*$');  title(sprintf('$a_c=%.3f$', ac));

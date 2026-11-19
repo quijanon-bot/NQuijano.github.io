@@ -1,4 +1,5 @@
 %% C6_Ej3_Transcritica -- Notas: sección 6.4 (transcrítica y el umbral del láser)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Diagrama de x' = mu x - x^2: ramas 0 y mu que intercambian la
 %            estabilidad. (2) El láser n' = (G N0 - k) n - alpha G n^2: simula hasta
 %            el régimen permanente para varios bombeos N0 y compara con n* = (G N0 - k)/(alpha G).

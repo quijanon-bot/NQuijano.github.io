@@ -30,4 +30,4 @@ fprintf('mejor a11 = %.2f con área %.1f; con a11 = 1.1 el área es %.3f\n', aa(
 % [fin:barrido]
 
 fig = estiloFigura(600, 420);  plot(aa, area, 2, pi^3, 'o', aa(imax), amax, 'p');  grid on;
-xlabel('$a_{11}$');  ylabel('área de $\Omega_{c^*}$');
+xlabel('$a_{11}$');  ylabel('\''area de $\Omega_{c^*}$');

@@ -4,6 +4,7 @@ function L = derivadaLie(f, lambda, x, h)
 %   Gradiente por diferencias centradas (paso h, por defecto 1e-6).
 %   Para derivadas sucesivas, anide:  Lf2 = @(x) derivadaLie(f, @(z) derivadaLie(f, lambda, z), x)
 %   (cada anidamiento pierde precisión; para n > 2 conviene la fórmula cerrada).
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 4, h = 1e-6; end
 x = x(:);  n = numel(x);  grad = zeros(1, n);
 for i = 1:n

@@ -32,8 +32,10 @@ que con $\mu=0.1$ son $0.8266$ (estable) y $1.1475$ (inestable). Recorrida hacia
 \label{fig:bf-pliegue}
 \end{figure}
 
+\codigorepo{cap06_bifurcaciones/C6_Ej13_SillaNodoCiclos.m}{pliegue}{Los dos ciclos de la silla-nodo de ciclos: fórmula contra simulación}
+
 \begin{trampa}[label=tr:bf-cielo]{``Esta es la catástrofe de cielo azul''}
-\plausible{Las diapositivas y la versión anterior de las notas llaman así a \eqref{eq:bf-pliegue}: un ciclo aparece ``de la nada'' al aumentar $\mu$.}
+\plausible{Es común llamar así a \eqref{eq:bf-pliegue}: un ciclo aparece ``de la nada'' al aumentar $\mu$.}
 Lo que ocurre en \eqref{eq:bf-pliegue} es una silla-nodo de ciclos (también llamada \emph{pliegue} de ciclos): los dos ciclos nacen juntos, con radio finito, de un ciclo semiestable. La \clave{catástrofe de cielo azul} es otra cosa, descubierta por Turaev y Shilnikov en 1995~\citep{TuSh95}: una órbita periódica cuyo período y longitud crecen sin cota al acercarse al valor crítico, y que desaparece sin chocar con nada. No puede ocurrir en el plano; necesita al menos tres dimensiones. Y la ``bifurcación de cielo azul'' de Abraham y Shaw es la silla-nodo de \emph{equilibrios} (\cref{sec:bf-sillanodo}).
 \correcto{En el plano, un ciclo que aparece con amplitud finita al lado de otro es una silla-nodo de ciclos. Los nombres con ``cielo azul'' son tres cosas distintas; conviene evitarlos o decir cuál se usa.}
 \end{trampa}
@@ -63,6 +65,6 @@ homoclínica & finita & $\sim\abs{\ln\abs{\mu-\mu_c}}$\\
 \end{ideaclave}
 
 \begin{pausa}
-En una simulación, una oscilación desaparece al cambiar un parámetro. Su amplitud no tiende a cero pero su período crece mucho justo antes. ¿Qué bifurcación descarta inmediatamente? ¿Cómo distinguiría entre las dos que quedan?
+En una simulación, una oscilación desaparece al cambiar un parámetro. Su amplitud no tiende a cero pero su período crece mucho justo antes. ¿Qué bifurcaciones descarta inmediatamente? ¿Cómo distinguiría entre las dos que quedan?
 \respuesta{Descarta la Hopf supercrítica (la amplitud iría a cero con período finito) y la silla-nodo de ciclos (el período queda finito). Quedan la SNIC y la homoclínica. Se distinguen por la ley de crecimiento del período: graficando $T$ contra $\ln\abs{\mu-\mu_c}$ (recta para la homoclínica) y $\log T$ contra $\log\abs{\mu-\mu_c}$ (pendiente $-\tfrac12$ para la SNIC). También por la forma del ciclo justo antes: en la SNIC aparece un punto donde el estado ``se detiene'' (el fantasma), en la homoclínica una esquina, la silla.}
 \end{pausa}

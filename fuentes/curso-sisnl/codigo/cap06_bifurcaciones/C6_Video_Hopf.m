@@ -1,4 +1,5 @@
 %% C6_Video_Hopf -- Video V6_2: nace un ciclo límite
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  El circuito x1' = x2 - (x1^3 - mu x1), x2' = -x1 con mu barriendo de -0.4
 %              a 1. A la izquierda, una trayectoria desde (0.6, 0) y el ciclo cuando
 %              existe; a la derecha, los valores propios cruzando el eje imaginario.

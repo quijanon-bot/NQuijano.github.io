@@ -4,6 +4,7 @@ function K = ubicarPolos(A, B, polos)
 %   Fórmula de Ackermann: K = [0 ... 0 1] C^{-1} p(A), con C = [B AB ... A^{n-1}B]
 %   y p el polinomio característico deseado. No requiere Control System Toolbox
 %   (equivale a place/acker para una entrada). Avisa si (A, B) no es controlable.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 n = size(A, 1);
 Cc = zeros(n);  Cc(:, 1) = B;
 for i = 2:n, Cc(:, i) = A*Cc(:, i-1); end

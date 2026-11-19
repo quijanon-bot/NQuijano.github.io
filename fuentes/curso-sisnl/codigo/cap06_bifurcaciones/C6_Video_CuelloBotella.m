@@ -1,4 +1,5 @@
 %% C6_Video_CuelloBotella -- Video V6_1: el fantasma de la silla-nodo
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  x' = mu - x^2 con mu < 0 acercándose a 0. A la izquierda, la parábola
 %              f(x) y un punto que recorre la línea de fase; a la derecha, x(t). Cuanto
 %              más cerca de mu = 0, más se demora el punto donde estaba el equilibrio.

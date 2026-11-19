@@ -1,4 +1,5 @@
 %% C6_Video_Poincare -- Video V6_4: la sucesión de Poincaré de van der Pol
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Van der Pol (mu = 1) desde (0.2, 0): la trayectoria se dibuja vuelta por
 %              vuelta y cada cruce con Sigma = {x2 = 0, x1 > 0} se marca; a la derecha,
 %              la misma sucesión en la telaraña del mapa P.

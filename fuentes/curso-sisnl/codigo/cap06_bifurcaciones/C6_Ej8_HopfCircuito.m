@@ -1,4 +1,5 @@
 %% C6_Ej8_HopfCircuito -- Notas: sección 6.6 (la bifurcación de Hopf)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para el circuito x1' = x2 - (x1^3 - mu x1), x2' = -x1:
 %            (1) valores propios del origen al variar mu (cruzan el eje en +-j);
 %            (2) retratos de fase para mu = -0.5, 0, 0.5, 1;

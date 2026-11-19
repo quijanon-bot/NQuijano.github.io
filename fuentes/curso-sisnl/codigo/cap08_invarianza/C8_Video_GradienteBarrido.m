@@ -24,7 +24,7 @@ for i = 1:numel(aa)
     if cs > 1e-3, contour(X1, X2, VV, [cs cs], 'b', 'LineWidth', 2.5); end
     axis equal;  axis([-7 7 -7 7]);  grid on;  title(sprintf('$a_{11}=%.2f$', a));
     subplot(1, 2, 2);  plot(aa(1:i), area(1:i), 'b.-');  hold on;  plot(2, pi^3, 'ro');
-    axis([1 4.2 0 42]);  grid on;  xlabel('$a_{11}$');  ylabel('área del estimado');
+    axis([1 4.2 0 42]);  grid on;  xlabel('$a_{11}$');  ylabel('\''area del estimado');
     drawnow;  if HACER_VIDEO, writeVideo(vid, getframe(fig)); end
 end
 if HACER_VIDEO, close(vid); end

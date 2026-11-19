@@ -22,4 +22,4 @@ kk = linspace(0, b, 101);  cs = 2 + pi^2*kk.*(b - kk)/2;
 fprintf('c*(k) máximo en k = %.3f: c* = %.3f\n', kk(i), cmax);
 % [fin:pendulo]
 
-fig = estiloFigura(800, 420);  plot(t, E(X), '--', t, V(X));  grid on;  xlabel('$t$');  legend('energía', '$V$');
+fig = estiloFigura(800, 420);  plot(t, E(X), '--', t, V(X));  grid on;  xlabel('$t$');  legend('energ\''ia', '$V$');

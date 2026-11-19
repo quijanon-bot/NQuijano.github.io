@@ -1,4 +1,5 @@
 %% C6_Ej9_HopfSuperSub -- Notas: sección 6.6 (supercrítica o subcrítica)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Calcula el primer coeficiente de Lyapunov (primerLyapunov, en comun/)
 %            para la forma normal super y subcrítica, el circuito en mu = 0 y el modelo
 %            de Rosenzweig-MacArthur en K = 3. (2) Distingue super de sub "sin
@@ -33,3 +34,11 @@ fprintf('super, mu = %.2f: r final = %.4f (sqrt(mu) = %.4f)\n', mu, norm(X(end, 
 [t, X] = ode45(fb, [0 400], [0.01; 0], opc);
 fprintf('sub,   mu = %.2f: r = %.1f en t = %.1f (escapa)\n', mu, norm(X(end, :)), t(end));
 % [fin:supersub]
+
+fig = estiloFigura(1100, 420);  m = linspace(-1, 1, 200);  mn = m(m <= 0);  mp = m(m >= 0);
+subplot(1, 2, 1);  hold on;
+plot(mn, 0*mn, 'k', mp, 0*mp, 'r--');  plot(mp, sqrt(mp), 'Color', [42 157 143]/255);
+grid on;  ylim([-0.05 1.3]);  xlabel('$\mu$');  ylabel('$r$');  title('Supercr\''itica: $\dot r=r(\mu-r^2)$');
+subplot(1, 2, 2);  hold on;
+plot(mn, 0*mn, 'k', mp, 0*mp, 'r--');  plot(mn, sqrt(-mn), '--', 'Color', [209 73 91]/255);
+grid on;  ylim([-0.05 1.3]);  xlabel('$\mu$');  ylabel('$r$');  title('Subcr\''itica: $\dot r=r(\mu+r^2)$ (ciclo inestable)');

@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 6 (bifurcaciones). PDF (notas) y SVG (web).
 Cada figura reproduce un script de codigo/cap06_bifurcaciones/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap06_figuras.py   [nombre_de_función ...]
@@ -215,7 +216,7 @@ def griffith():                     # C6_Ej7 [genetico], [histeresis]
                       events=lambda t, z: min(z[0], z[1], 3.5 - z[0], 3.5 - z[1]), max_step=0.05, **o)
         a.plot(s.y[0], s.y[1], color=C['noche'], lw=2)
     punto(a, (0, 0), True); punto(a, (xm, xm), False); punto(a, (xp, xp), True)
-    a.text(0.08, 0.55, 'apagado', fontsize=7, color=C['noche'], bbox=dict(fc='white', ec='none', alpha=0.8, pad=1))
+    a.text(0.03, 0.09, 'apagado', fontsize=6, color=C['noche'])   # dentro de la cuenca del origen, sin tapar la separatriz
     a.text(2.35, 1.45, 'encendido', fontsize=7, color=C['noche'], bbox=dict(fc='white', ec='none', alpha=0.8, pad=1))
     a.set_xlim(0, 3.5); a.set_ylim(0, 3.5); a.set_xlabel('$x$'); a.set_ylabel('$y$'); a.set_title('$a=1$')
     a = ax[2]; A = np.linspace(0.5, 2.2, 400); dd = 1 - 4*A**2*b**2; ok = dd >= 0
@@ -300,7 +301,7 @@ def histeresis():                   # C6_Ej10 [rampa]
 
 
 # ------------------------------------------------------------------ 6.7
-def pliegue():                      # (sección 6.7)
+def pliegue():                      # C6_Ej13 [pliegue]
     fig, ax = plt.subplots(1, 3, figsize=(6.9, 2.5), gridspec_kw=dict(wspace=0.35))
     r = np.linspace(0, 1.6, 400)
     for m, c in [(-0.1, C['coral']), (0, C['gris']), (0.1, C['azul'])]:

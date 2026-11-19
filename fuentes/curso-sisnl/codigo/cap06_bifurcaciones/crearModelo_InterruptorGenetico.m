@@ -1,4 +1,5 @@
 %% crearModelo_InterruptorGenetico -- Construye "InterruptorGenetico.slx" (sección 6.5)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % Interruptor genético de Griffith con la tasa de degradación a variando lentamente:
 %   x' = -a(t) x + y,    y' = x^2/(1 + x^2) - b y,
 %   a(t) sube de a0 a a1 en Tr unidades de tiempo y vuelve a bajar (señal triangular).
@@ -13,7 +14,9 @@ vars = {'b', 'a0', 'a1', 'Tr', 'x0'};
 for i = 1:numel(vars), assignin('base', vars{i}, eval(vars{i})); end
 
 mdl = 'InterruptorGenetico';
+carpeta = fileparts(mfilename('fullpath'));  archivo = fullfile(carpeta, [mdl '.slx']);
 if bdIsLoaded(mdl), close_system(mdl, 0); end
+if exist(archivo, 'file'), delete(archivo); end       % evita dos modelos con el mismo nombre
 new_system(mdl);  open_system(mdl);
 blk = @(tipo, nombre, varargin) add_block(tipo, [mdl '/' nombre], varargin{:});
 lin = @(desde, hasta) add_line(mdl, desde, hasta, 'autorouting', 'on');
@@ -37,13 +40,15 @@ lin('a(t)/1', 'salida/1');  lin('x/1', 'salida/2');  lin('y/1', 'salida/3');  li
 lin('a(t)/1', 'x contra a/1');  lin('x/1', 'x contra a/2');
 try, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end
 set_param(mdl, 'StopTime', '2*Tr', 'Solver', 'ode45', 'RelTol', '1e-9', 'MaxStep', '1');
-save_system(mdl);
+save_system(mdl, archivo);                           % junto al script, no en la carpeta actual
 fprintf('Modelo %s.slx creado.\n', mdl);
 
 salida = sim(mdl);  reg = salida.get('reg');
 k = find(reg(:, 2) < 0.7, 1);
 fprintf('a_c = %.4f; el gen se apaga en a = %.4f (subiendo); x final = %.4f (apagado)\n', 1/(2*b), reg(k, 1), reg(end, 2));
 F = @(t, z) [-(a0 + (a1 - a0)*(1 - abs(1 - t/Tr)))*z(1) + z(2); z(1)^2/(1 + z(1)^2) - b*z(2)];
-[~, Z] = ode45(F, [0 2*Tr], x0, odeset('RelTol', 1e-9, 'MaxStep', 1));
-fprintf('ode45: x final = %.4f\n', Z(end, 1));
-figure;  plot(reg(:, 1), reg(:, 2));  grid on;  xlabel('a');  ylabel('x');  title('Histéresis del interruptor genético');
+[tO, Z] = ode45(F, [0 2*Tr], x0, odeset('RelTol', 1e-9, 'MaxStep', 1));
+aO = a0 + (a1 - a0)*(1 - abs(1 - tO/Tr));
+fprintf('ode45:    se apaga en a = %.4f; x final = %.4f\n', aO(find(Z(:, 1) < 0.7, 1)), Z(end, 1));
+figure('Color', 'w');  plot(reg(:, 1), reg(:, 2));  grid on;  xlabel('$a$');  ylabel('$x$');
+title('Hist\''eresis del interruptor gen\''etico');      % con el intérprete LaTeX, los acentos se escriben \'e

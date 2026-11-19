@@ -1,11 +1,12 @@
 %% C6_Ej1_SillaNodo -- Notas: sección 6.3 (la bifurcación silla-nodo)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Dibuja la línea de fase de x' = mu + x^2 para mu = -1, 0, 1.
 %            (2) Diagrama de bifurcación: equilibrios +-sqrt(-mu) con su estabilidad.
 %            (3) Verifica las condiciones de la silla-nodo para la cosecha
 %            x' = x(1-x) - h en (x*, h) = (1/2, 1/4).
 % OBSERVE    En mu = 0 el equilibrio es semiestable (la línea de fase lo clasifica por
 %            el signo de f, no por f'(0) = 0). Para mu > 0 no hay equilibrios.
-% ESPERADO   mu = -1: -1 estable, +1 inestable. Cosecha: f_x = 0, f_h = -1, f_xx = -2.
+% ESPERADO   mu = -1: -1 estable, +1 inestable. Cosecha: f_x = 0, f_h = -1, f_xx/2 = -1.
 % EXPLORE    Cambie a x' = mu - x^2 (la "de cielo azul"). ¿De qué lado aparecen
 %            ahora los equilibrios? ¿Cuál es estable?
 clear; close all; clc;

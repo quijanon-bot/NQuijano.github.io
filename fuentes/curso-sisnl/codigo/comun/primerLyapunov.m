@@ -9,6 +9,7 @@ function [l1, w0, P] = primerLyapunov(f, xs, h)
 %   l1 < 0: Hopf supercrítica (ciclo estable);  l1 > 0: subcrítica.
 %   La magnitud de l1 depende de la escala de las coordenadas; el signo no.
 %   Compatible con MATLAB y GNU Octave.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 3, h = 1e-2; end
 A = jacobianoNumerico(f, xs(:), 1e-6);
 w0 = sqrt(det(A));

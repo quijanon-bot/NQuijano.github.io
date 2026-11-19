@@ -11,12 +11,12 @@ Sea $\gamma$ una órbita periódica de $\dot x=f(x)$, $x\in\R^2$, y $p\in\gamma$
 Con $\gamma$, $p$ y $\Sigma$ como arriba, y $U\subset\Sigma$ una vecindad de $p$ en $\Sigma$, el \clave{mapa de Poincaré} (o de primer retorno) es $P:U\to\Sigma$, $P(q)=\flujo{\tau(q)}q$, donde $\tau(q)>0$ es el primer instante en que la solución que arranca en $q$ vuelve a cruzar $\Sigma$ en el mismo sentido. $\tau(q)$ es el \clave{tiempo de retorno}. La sucesión $q,\ P(q),\ P^2(q),\dots$ es una \clave{sucesión de Poincaré}.
 \end{definicion}
 
-\notamargen{Que el retorno exista y que $P$ sea suave cerca de $p$ se sigue de la dependencia continua de las soluciones respecto a la condición inicial (\cref{cap:preliminares}) y del teorema de la función implícita aplicado a la ecuación ``$\flujo tq\in\Sigma$''. Lejos de $p$ el retorno puede no existir.}
+\notamargen{Que el retorno exista y que $P$ sea derivable cerca de $p$ se sigue de que, con $f\in\Cont1$, la solución es derivable respecto a la condición inicial \citep[\S3.3]{Kha02} (la dependencia continua del \cref{cap:preliminares} no basta para derivar), y del teorema de la función implícita aplicado a la ecuación ``$\flujo tq\in\Sigma$''. Lejos de $p$ el retorno puede no existir.}
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\linewidth]{cap06/f_seccion}
-\caption{Izquierda: la sección $\Sigma$ y la sucesión de Poincaré $A_0,A_1,A_2,\dots$ que converge al punto $B$ donde el ciclo estable corta a $\Sigma$. Derecha: la misma sucesión vista como iteración del mapa $P$ (diagrama de telaraña): de cada punto se sube a la gráfica de $P$ y se pasa horizontalmente a la diagonal.}
+\caption{Izquierda: el circuito \eqref{eq:bf-circuito} con $\mu=0.1$, la sección $\Sigma$ y la sucesión de Poincaré $A_0,A_1,A_2,\dots$ que converge al punto $B$ donde el ciclo estable corta a $\Sigma$. Derecha: la sucesión del \cref{ej:bf-mapa2} con $\mu=0.2$, vista como iteración del mapa $P$ (diagrama de telaraña): de cada punto se sube a la gráfica de $P$ y se pasa horizontalmente a la diagonal.}
 \label{fig:bf-seccion}
 \end{figure}
 

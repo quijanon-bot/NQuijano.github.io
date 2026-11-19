@@ -1,4 +1,5 @@
 %% C6_Ej4_Horquillas -- Notas: sección 6.4 (horquillas y la histéresis)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Diagramas de las horquillas supercrítica x' = mu x - x^3 y
 %            subcrítica x' = mu x + x^3. (2) Con el término quíntico,
 %            x' = mu x + x^3 - x^5, barre mu lentamente de -0.5 a 0.3 y de vuelta,
@@ -16,7 +17,8 @@ if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpat
 r = linspace(0, 1.4, 400);
 musn = -r.^2 + r.^4;                  % ramas de x' = mu x + x^3 - x^5: mu = x^4 - x^2
 estable = (2*r.^2 - 4*r.^4) < 0;      % f_x en la rama = mu + 3x^2 - 5x^4 = 2x^2 - 4x^4
-fprintf('silla-nodo: mu = %.4f en x = %.4f\n', min(musn), r(musn == min(musn)));
+xsn = fminbnd(@(x) x.^4 - x.^2, 0, 1.4, optimset('TolX', 1e-10));   % mínimo de mu(x): la silla-nodo
+fprintf('silla-nodo: mu = %.4f en x = %.4f\n', xsn^4 - xsn^2, xsn);
 fprintf('mu = -0.1: x estable = %.4f, inestable = %.4f\n', sqrt((1 + sqrt(0.6))/2), sqrt((1 - sqrt(0.6))/2));
 % [fin:horquillas]
 

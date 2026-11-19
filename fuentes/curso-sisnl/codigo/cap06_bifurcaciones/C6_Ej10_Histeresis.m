@@ -1,18 +1,21 @@
 %% C6_Ej10_Histeresis -- Notas: sección 6.6 (histéresis: Hopf subcrítica + silla-nodo de ciclos)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para r' = r(mu + r^2 - r^4) (en cartesianas, theta' = 1):
 %            (1) diagrama de bifurcación de los ciclos, mu = r^4 - r^2;
-%            (2) rampa lenta de mu de -0.4 a 0.1 y de vuelta, con un piso de ruido.
+%            (2) rampa lenta de mu de -0.4 a 0.1 y de vuelta, con un término constante
+%            pequeño (ruido = 1e-6) sumado a r' que hace las veces de ruido.
 % OBSERVE    Al subir, el estado deja el origen después de mu = 0 (retardo); al bajar,
 %            el ciclo grande se apaga cerca de mu = -1/4.
-% ESPERADO   Silla-nodo de ciclos en mu = -0.25, r = 0.7071. Con T = 3000 y ruido
-%            1e-6: salto en mu = 0.048, caída en mu = -0.258.
-% EXPLORE    Reduzca el ruido a 1e-10. ¿Qué pasa con el retardo al subir? ¿Y al bajar?
+% ESPERADO   Silla-nodo de ciclos en mu = -0.25, r = 0.7071. Con T = 3000 y
+%            ruido = 1e-6: salto en mu = 0.048, caída en mu = -0.258.
+% EXPLORE    Reduzca ruido a 1e-10. ¿Qué pasa con el retardo al subir? ¿Y al bajar?
 clear; close all; clc;
 if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpath')), '..', 'comun')); end
 
 % [ini:rampa]
 r = linspace(0, 1.3, 600);  m = r.^4 - r.^2;  est = (2*r - 4*r.^3) < 0;
-fprintf('silla-nodo de ciclos: mu = %.4f, r = %.4f\n', min(m), r(m == min(m)));
+rsn = fminbnd(@(r) r.^4 - r.^2, 0, 1.3, optimset('TolX', 1e-10));   % mínimo de mu(r): la silla-nodo de ciclos
+fprintf('silla-nodo de ciclos: mu = %.4f, r = %.4f\n', rsn^4 - rsn^2, rsn);
 T = 3000;  ruido = 1e-6;
 g = @(t, r, m0, m1) r*((m0 + (m1 - m0)*t/T) + r^2 - r^4) + ruido;
 opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'MaxStep', 1);

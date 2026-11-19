@@ -1,4 +1,5 @@
 %% C6_Video_Histeresis -- Video V6_3: salto y regreso (histéresis de ciclos)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  r' = r(mu + r^2 - r^4), theta' = 1, con mu que sube lentamente de -0.4
 %              a 0.1 y vuelve a bajar. A la izquierda, el estado en el plano; a la
 %              derecha, (mu, r) sobre el diagrama de bifurcación.

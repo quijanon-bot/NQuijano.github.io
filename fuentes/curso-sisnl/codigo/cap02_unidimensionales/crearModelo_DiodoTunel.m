@@ -43,4 +43,4 @@ if err < 1e-4
 else
     warning('Diferencia %.2e: revise el bloque "h" (coeficientes en potencias DECRECIENTES) y "nodo" (+-).', err);
 end
-figure; plot(YS(:,2), YS(:,1)); grid on; xlabel('E [V]'); ylabel('v [V]'); title('DiodoTunel.slx: histéresis');
+figure; plot(YS(:,2), YS(:,1)); grid on; xlabel('E [V]'); ylabel('v [V]'); title('DiodoTunel.slx: hist\''eresis');

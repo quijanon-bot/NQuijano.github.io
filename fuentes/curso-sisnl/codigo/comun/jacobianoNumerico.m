@@ -1,6 +1,7 @@
 function J = jacobianoNumerico(g, y, h)
 % JACOBIANONUMERICO  Jacobiano de g en y por diferencias centradas.
 %   J = jacobianoNumerico(@(y) ..., y0)     (paso h = 1e-7 por defecto)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 3, h = 1e-7; end
 n = numel(y);  m = numel(g(y));  J = zeros(m, n);
 for j = 1:n

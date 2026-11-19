@@ -6,6 +6,7 @@ function [S, D, residuo] = balanceEnergia(t, V, s, d)
 %   d : tasa de disipación evaluada en la solución, d(x(t), u(t)) >= 0
 %   S, D : integrales acumuladas (regla del trapecio)
 %   residuo : V - V(0) - S + D   (debe ser del orden del error numérico)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 t = t(:);  V = V(:);  s = s(:);  d = d(:);
 S = [0; cumsum(0.5*(s(2:end) + s(1:end-1)).*diff(t))];
 D = [0; cumsum(0.5*(d(2:end) + d(1:end-1)).*diff(t))];

@@ -7,6 +7,7 @@ function [tipo, info] = clasificarEquilibrio(A, tol)
 %   giro ('horario' o 'antihorario' si los valores propios son complejos; se lee
 %   en el signo de A(2,1)).
 %   tol (1e-10 por defecto) decide cuándo una cantidad se considera cero.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 2, tol = 1e-10; end
 tau = trace(A);  delta = det(A);  disc = tau^2 - 4*delta;
 info = struct('traza', tau, 'det', delta, 'disc', disc, 'lambda', eig(A), ...

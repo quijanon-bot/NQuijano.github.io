@@ -10,6 +10,7 @@ function [xr, tau] = mapaPoincare(f, x0, sigma, sentido, Tmax)
 %   El tiempo de retorno depende de x0: por eso se usa un evento, no un tiempo fijo.
 %   Para no detectar el punto de partida, primero se integra un tramo corto sin eventos.
 %   Compatible con MATLAB y GNU Octave.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 5, Tmax = 100; end
 t0 = 1e-3;
 opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12);

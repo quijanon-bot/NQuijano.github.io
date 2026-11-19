@@ -1,4 +1,5 @@
 %% C6_Ej6_SillaNodo2D -- Notas: sección 6.5 (bifurcaciones de equilibrios en el plano)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Retratos de fase de x1' = mu - x1^2, x2' = -x2 para mu = -1, 0, 1.
 %            (2) El recorrido de (tau, delta) de cada rama en el plano traza-determinante.
 %            (3) La horquilla escondida x1' = mu x1 - x1 x2, x2' = -x2 + x1^2: simula con
@@ -25,7 +26,8 @@ subplot(1, 4, 4);  hold on;
 plot(-2*sqrt(m) - 1, 2*sqrt(m), 'Color', [30 90 168]/255);      % rama del nodo
 plot(2*sqrt(m) - 1, -2*sqrt(m), 'Color', [209 73 91]/255);      % rama de la silla
 tt = linspace(-4, 4, 100);  plot(tt, tt.^2/4, 'k:', [-4 4], [0 0], 'k-');
-grid on;  xlabel('$\tau$');  ylabel('$\delta$');  title('Ruta 1: cruce de $\delta=0$');
+plot([0 0], [0 3], 'Color', [42 157 143]/255);  plot([-1 1], [1 1], 'Color', [224 159 62]/255);   % Ruta 2 y el circuito: (tau, delta) = (mu, 1)
+grid on;  xlabel('$\tau$');  ylabel('$\delta$');  title('Rutas 1 y 2');
 for mu = [1 0.25]
     Jn = [-2*sqrt(mu) 0; 0 -1];  Js = [2*sqrt(mu) 0; 0 -1];
     fprintf('mu = %.2f: nodo (tau, delta) = (%.3f, %.3f); silla (%.3f, %.3f)\n', mu, trace(Jn), det(Jn), trace(Js), det(Js));
@@ -44,3 +46,11 @@ fprintf('escondida: x(200) = (%.4f, %.4f), sqrt(mu) = %.4f; tau = %.3f, delta = 
 k = t > 20;
 fprintf('max |x2 - x1^2| para t > 20: %.2e (la variedad, no el eje)\n', max(abs(X(k, 2) - X(k, 1).^2)));
 % [fin:escondida]
+
+fig2 = estiloFigura(1100, 420);
+retratoFase(subplot(1, 2, 1), @(x) f(0, x), [-0.8 0.8], [-0.4 0.8], 'T', 80, 'Equilibrios', [0 sqrt(mu) -sqrt(mu); 0 mu mu]);
+hold on;  xx = linspace(-0.8, 0.8, 200);  plot(xx, xx.^2, 'Color', [42 157 143]/255);
+xlabel('$x_1$');  ylabel('$x_2$');  title('$\mu=0.1$: las trayectorias caen sobre $x_2\approx x_1^2$');
+subplot(1, 2, 2);  m = linspace(-0.3, 0.3, 200);  hold on;
+plot(m(m <= 0), 0*m(m <= 0), 'k', m(m >= 0), 0*m(m >= 0), 'r--', m(m >= 0), sqrt(m(m >= 0)), 'k', m(m >= 0), -sqrt(m(m >= 0)), 'k');
+grid on;  xlabel('$\mu$');  ylabel('$x_1^*$');  title('Horquilla supercr\''itica');

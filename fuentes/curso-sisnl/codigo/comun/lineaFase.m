@@ -14,6 +14,7 @@ function eq = lineaFase(ax, f, xr, varargin)
 %   El tipo se decide por el SIGNO de f a cada lado del equilibrio, no por
 %   f'(x*): así también clasifica los equilibrios no hiperbólicos (f'(x*) = 0).
 %   Compatible con MATLAB y GNU Octave.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 p = struct('Equilibrios', [], 'N', 2001, 'Color', [30 90 168]/255);
 for k = 1:2:numel(varargin), p.(varargin{k}) = varargin{k+1}; end
 x = linspace(xr(1), xr(2), p.N);

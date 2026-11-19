@@ -1,4 +1,5 @@
 %% C6_Ej2_Fantasma -- Notas: sección 6.3 (el fantasma de la silla-nodo)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Simula x' = mu - x^2 desde x(0) = 4 para cuatro mu < 0 y muestra la
 %            pausa cerca de x = 0. (2) Mide el tiempo de tránsito de x = 1 a x = -1
 %            para 25 valores de |mu| y lo compara con la fórmula exacta

@@ -6,6 +6,7 @@ function P = ecuacionLyapunov(A, Q)
 %   para todo i, j; si no, devuelve NaN y avisa.
 %   OJO: lyap(A, Q) de la Control System Toolbox resuelve A X + X A' + Q = 0.
 %   La P del curso es lyap(A', Q), NO lyap(A, Q).
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 n = size(A, 1);
 lam = eig(A);
 S = repmat(lam, 1, n) + repmat(lam.', n, 1);

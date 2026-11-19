@@ -3,6 +3,7 @@ function G = respFrec(num, den, w)
 %   G = respFrec(num, den, w)   num, den: coeficientes (potencias decrecientes)
 %   Ejemplo: G = respFrec([1 3], [1 3 2], logspace(-2, 2, 400));
 %   Equivale a squeeze(freqresp(tf(num, den), w)) del Control System Toolbox.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 s = 1j*w(:).';
 G = polyval(num, s)./polyval(den, s);
 end

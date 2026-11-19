@@ -19,5 +19,5 @@ fprintf('distancia inicial = %.3f, máxima = %.3f, final (t = 400) = %.4f\n', d(
 % [fin:inestable]
 
 fig = estiloFigura(900, 420);
-subplot(1, 2, 1);  plot(X(:, 1), X(:, 2));  axis equal;  grid on;  title('$\Omega$ y la solución');
+subplot(1, 2, 1);  plot(X(:, 1), X(:, 2));  axis equal;  grid on;  title('$\Omega$ y la soluci\''on');
 subplot(1, 2, 2);  plot(t, d);  xlim([0 60]);  grid on;  xlabel('$t$');  ylabel('distancia a $(1,0)$');

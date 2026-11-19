@@ -1,4 +1,5 @@
 %% C6_Ej12_PoincareVanDerPol -- Notas: sección 6.8 (el multiplicador sin resolver la ecuación)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para van der Pol en forma de Liénard, x1' = x2 - (x1^3 - x1), x2' = -x1,
 %            con Sigma = {x2 = 0, x1 > 0}:
 %            (1) calcula P(q) y el tiempo de retorno tau(q) para una malla de q;
@@ -29,7 +30,18 @@ for k = 1:numel(qq), [xr, tt(k)] = mapaPoincare(f, [qq(k); 0], sigma, -1);  PP(k
 fprintf('tau(0.5) = %.4f,  tau(2.5) = %.4f\n', interp1(qq, tt, 0.5, 'spline'), interp1(qq, tt, 2.5, 'spline'));
 % [fin:vdp]
 
-fig = estiloFigura(1100, 420);
-subplot(1, 2, 1);  plot(qq, PP, 'o-', qq, qq, '--');  grid on;  xlabel('$q$');  ylabel('$P(q)$');
-title(sprintf('Punto fijo $q^*=%.4f$', qs));
-subplot(1, 2, 2);  plot(qq, tt, 'o-');  grid on;  xlabel('$q$');  ylabel('$\tau(q)$');  title('El tiempo de retorno no es constante');
+fig = estiloFigura(1300, 420);
+subplot(1, 3, 1);  hold on;                      % trayectorias y sus cruces con Sigma
+for q0 = [0.2 2.6]
+    [~, Y] = ode45(@(t, x) f(x), [0 14], [q0; 0], opc);  plot(Y(:, 1), Y(:, 2), 'LineWidth', 0.9);
+    c = q0;  for k = 1:2, c(end + 1) = Pq(c(end)); end
+    plot(c, 0*c, 'o', 'MarkerFaceColor', [209 73 91]/255, 'MarkerEdgeColor', 'none');
+end
+[~, Y] = ode45(@(t, x) f(x), [0 T], [qs; 0], opc);  plot(Y(:, 1), Y(:, 2), 'Color', [42 157 143]/255);
+plot([0 2.8], [0 0], 'Color', [224 159 62]/255, 'LineWidth', 2.5);
+axis equal;  axis([-2.8 2.8 -2.8 2.8]);  grid on;  xlabel('$x_1$');  ylabel('$x_2$');  title('Van der Pol y $\Sigma$');
+subplot(1, 3, 2);  hold on;  plot(qq, PP, 'k-', qq, qq, ':');
+c = 0.2;  xt = c;  yt = 0;  for k = 1:3, y = Pq(c);  xt = [xt c y];  yt = [yt y y];  c = y; end   % telaraña desde q = 0.2
+plot(xt, yt, 'Color', [209 73 91]/255);  plot(qs, qs, 'ko', 'MarkerFaceColor', 'k');
+axis([0 3 0 3]);  axis square;  grid on;  xlabel('$q$');  ylabel('$P(q)$');  title(sprintf('Punto fijo $q^*=%.4f$', qs));
+subplot(1, 3, 3);  plot(qq, tt, 'o-');  grid on;  xlabel('$q$');  ylabel('$\tau(q)$');  title('El tiempo de retorno no es constante');

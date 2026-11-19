@@ -6,6 +6,7 @@ function u = leySontag(lf, lg, kappa)
 %   y u = 0 donde lg = 0. Con ella  Vdot = -sqrt(lf^2 + |lg|^4) - kappa |lg|^2.
 %   Si V es CLF (lg = 0 => lf < 0), Vdot < 0 para x ~= 0. La ley es continua en el
 %   origen si y solo si V tiene la propiedad de control pequeño (Artstein).
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 3, kappa = 0; end
 lg = lg(:).';  n2 = lg*lg.';
 if n2 < 1e-300

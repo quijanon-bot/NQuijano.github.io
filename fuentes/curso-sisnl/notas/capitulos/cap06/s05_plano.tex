@@ -18,7 +18,7 @@ La forma normal es
   \dot x_1=\mu-x_1^2,\qquad \dot x_2=-x_2 ,\qquad J=\begin{bmatrix}-2x_1&0\\0&-1\end{bmatrix} .
   \label{eq:bf-sn2}
 \end{equation}
-Para $\mu>0$ hay dos equilibrios, $(\pm\sqrt\mu,0)$. En $(\sqrt\mu,0)$, $\tau=-2\sqrt\mu-1$ y $\delta=2\sqrt\mu>0$: nodo estable. En $(-\sqrt\mu,0)$, $\delta=-2\sqrt\mu<0$: silla. Al bajar $\mu$, el nodo y la silla se acercan sobre el eje $x_1$, chocan en $\mu=0$ y desaparecen; de ahí el nombre ``silla-nodo'' (\cref{fig:bf-sn2}). En el plano traza--determinante, los dos puntos $(\tau,\delta)$ llegan a $(-1,0)$ desde lados opuestos del eje $\delta=0$: es el cruce de la Ruta~1 (\cref{fig:bf-rutas}). El valor propio que va a cero, $\lambda_1=-2\sqrt\mu$, es el de la dirección $x_1$; el otro se queda en $-1$.
+Para $\mu>0$ hay dos equilibrios, $(\pm\sqrt\mu,0)$. En $(\sqrt\mu,0)$, $\tau=-2\sqrt\mu-1$ y $\delta=2\sqrt\mu>0$: nodo estable. En $(-\sqrt\mu,0)$, $\delta=-2\sqrt\mu<0$: silla. Al bajar $\mu$, el nodo y la silla se acercan sobre el eje $x_1$, chocan en $\mu=0$ y desaparecen; de ahí el nombre ``silla-nodo'' (\cref{fig:bf-sn2}). En el plano traza--determinante, los dos puntos $(\tau,\delta)$ llegan a $(-1,0)$ desde lados opuestos del eje $\delta=0$: es el cruce de la Ruta~1 (\cref{fig:bf-rutas}). El valor propio que va a cero es el de la dirección $x_1$, $\lambda_1=\mp2\sqrt\mu$ (en el nodo y en la silla); el otro se queda en $-1$.
 
 \begin{figure}[ht]
 \centering
@@ -43,7 +43,7 @@ Estudie el origen de $\dot x_1=\mu x_1-x_1x_2$, $\dot x_2=-x_2+x_1^2$ para $\mu$
 \[
   h'(x_1)\bigl(-x_1h(x_1)\bigr)=-h(x_1)+x_1^2 ,
 \]
-y da $c_2=1$, $c_4=2$. Sobre la variedad central, $\dot x_1=\mu x_1-x_1h(x_1)\approx\mu x_1-x_1^3$: una \alerta{horquilla supercrítica}. En este ejemplo se confirma con los equilibrios exactos: $\dot x_1=0$ con $x_1\neq0$ da $x_2=\mu$, y $\dot x_2=0$ da $x_1^2=x_2=\mu$; para $\mu>0$ aparecen $(\pm\sqrt\mu,\mu)$, con $\tau=-1$ y $\delta=2\mu>0$: estables. Nótese que los equilibrios nuevos no están sobre el eje $x_1$ sino sobre la parábola $x_2=x_1^2$, que es la variedad central. La simetría $(x_1,x_2)\mapsto(-x_1,x_2)$ del sistema es la que protege la horquilla.
+y da $c_2=1$, $c_4=2$. Sobre la variedad central, $\dot x_1=\mu x_1-x_1h(x_1)\approx\mu x_1-x_1^3$: una \alerta{horquilla supercrítica}. En este ejemplo se confirma con los equilibrios exactos: $\dot x_1=0$ con $x_1\neq0$ da $x_2=\mu$, y $\dot x_2=0$ da $x_1^2=x_2=\mu$; para $\mu>0$ aparecen $(\pm\sqrt\mu,\mu)$, con $\tau=-1$ y $\delta=2\mu>0$: estables. Nótese que los equilibrios nuevos no están sobre el eje $x_1$ sino sobre la parábola $x_2=x_1^2$, muy cerca de la variedad central (con $\mu=0$, $h(x_1)=x_1^2+2x_1^4+\cdots$). La simetría $(x_1,x_2)\mapsto(-x_1,x_2)$ del sistema es la que protege la horquilla.
 \end{ejemplo}
 
 \begin{figure}[ht]
@@ -62,7 +62,7 @@ Es la misma trampa del \cref{cap:bidimensionales} (\cref{tr:bi-zcero}), ahora co
 \subsection{Un ejemplo completo: el interruptor genético}
 
 \begin{ejemplo}[label=ej:bf-griffith]{El interruptor genético de Griffith}
-En un modelo de control genético, la actividad de un gen es inducida por dos copias de la proteína que el mismo gen produce: es un lazo de realimentación positiva~\citep{Gri68}, \citep[Ejemplo~8.1.2]{Str15}. Con $x$ y $y$ proporcionales a las concentraciones de la proteína y del ARN mensajero,
+En un modelo de control genético, la actividad de un gen es inducida por dos copias de la proteína que el mismo gen produce: es un lazo de retroalimentación positiva~\citep{Gri68}, \citep[Ejemplo~8.1.1]{Str15}. Con $x$ y $y$ proporcionales a las concentraciones de la proteína y del ARN mensajero,
 \begin{equation}
   \dot x=-ax+y,\qquad \dot y=\frac{x^2}{1+x^2}-by ,\qquad a,b>0,
   \label{eq:bf-griffith}

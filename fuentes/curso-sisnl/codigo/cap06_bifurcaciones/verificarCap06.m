@@ -3,6 +3,7 @@ function verificarCap06()
 % (bifurcaciones).   >> verificarCap06
 % (Los mismos números se verificaron de forma independiente con sympy y
 %  scipy en herramientas/cap06_numeros.py.)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 raiz = fileparts(mfilename('fullpath'));
 addpath(fullfile(raiz, '..', 'comun'));  addpath(raiz);
 fallas = 0;  n = 0;
@@ -37,8 +38,9 @@ revisar('láser G = k = 1, alpha = 0.5, N0 = 2: n* = 2', n2(end), 2, 1e-8);
 revisar('quíntica: silla-nodo en mu = -1/4', min(linspace(0, 1.4, 1401).^4 - linspace(0, 1.4, 1401).^2), -0.25, 1e-6);
 revisar('quíntica, mu = -0.1: rama estable 0.9420', sqrt((1 + sqrt(0.6))/2), 0.9420, 1e-4);
 revisar('quíntica, mu = -0.1: rama inestable 0.3357', sqrt((1 - sqrt(0.6))/2), 0.3357, 1e-4);
-z = roots([-1 0.6928 -0.12]);
-revisar('transcrítica + eps = -0.12: raíz doble en mu = 0.6928', abs(z(1) - z(2)), 0, 2e-2);
+z = roots([-1 2*sqrt(0.12) -0.12]);
+revisar('transcrítica + eps = -0.12: raíz doble en mu = 2 sqrt(0.12)', abs(z(1) - z(2)), 0, 1e-6);
+revisar('transcrítica + eps = -0.12: 2 sqrt(0.12) = 0.6928', 2*sqrt(0.12), 0.6928, 1e-4);
 revisar('horquilla + h = 0.1: silla-nodo en 0.4072', 3*(0.05)^(2/3), 0.4072, 1e-4);
 
 fprintf('6.5  En el plano\n');
@@ -61,7 +63,9 @@ revisar('Griffith a = 1.3: encendido', fin(1) > 1, 1, 0);
 revisar('Griffith a = 1.6: apagado', fin(2) < 1e-3, 1, 0);
 revisar('Griffith de vuelta a 1.3: sigue apagado (histéresis)', fin(3) < 1e-3, 1, 0);
 b = 0.5;  a = 0.8;  d = 1 - 4*a^2*b^2;
-revisar('problema: b = 0.5, a = 0.8: equilibrios 0.5 y 2', [1 1]*[(1 - sqrt(d)); (1 + sqrt(d))]/(2*a*b), 2.5, 1e-12);
+xs = sort([1 - sqrt(d), 1 + sqrt(d)]/(2*a*b));
+revisar('problema: b = 0.5, a = 0.8: equilibrio 0.5', xs(1), 0.5, 1e-12);
+revisar('problema: b = 0.5, a = 0.8: equilibrio 2', xs(2), 2, 1e-12);
 
 fprintf('6.6  Hopf\n');
 sup = @(x) [-x(2) - x(1)*(x(1)^2 + x(2)^2);  x(1) - x(2)*(x(1)^2 + x(2)^2)];

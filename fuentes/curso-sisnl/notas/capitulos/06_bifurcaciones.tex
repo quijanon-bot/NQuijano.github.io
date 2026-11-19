@@ -9,12 +9,12 @@
 %%  scripts bif_*.m, BifEj*.m y Bifurcaciones80min_LiveScript.m, reescritos
 %%  en codigo/cap06_bifurcaciones.
 %%  Se agregaron: la condición de la función implícita, las condiciones de
-%%  Sotomayor, la horquilla escondida (variedad central con parámetro), el
+%%  la silla-nodo, la horquilla escondida (variedad central con parámetro), el
 %%  coeficiente de Lyapunov, el retardo de la bifurcación con rampa lenta,
 %%  la fórmula de la divergencia para el multiplicador y el mapa de Poincaré
-%%  numérico de van der Pol. Correcciones: ver \S\ref{sec:bf-cierre}.
+%%  numérico de van der Pol. Correcciones: ver MIGRACION.md.
 %%  Números verificados con herramientas/cap06_numeros.py (125/125) y
-%%  codigo/cap06_bifurcaciones/verificarCap06.m (42/42 en Octave 8.4).
+%%  codigo/cap06_bifurcaciones/verificarCap06.m (44/44 en Octave 8.4).
 %% =====================================================================
 
 \capitulo[cap:bifurcaciones]{Bifurcaciones}
@@ -22,7 +22,7 @@
   {Junot Díaz}
 
 \begin{objetivos}[partes/06-bifurcaciones.html]
-  \item Explicar qué es una bifurcación local como pérdida de hiperbolicidad, y reconocer en el plano traza--determinante las dos maneras en que puede ocurrir en $\R^2$.
+  \item Explicar por qué una bifurcación local exige una pérdida de hiperbolicidad, y reconocer en el plano traza--determinante las dos maneras en que puede ocurrir en $\R^2$.
   \item Analizar las bifurcaciones silla-nodo, transcrítica y de horquilla (supercrítica y subcrítica) con líneas de fase y diagramas de bifurcación, y decidir cuáles sobreviven a una perturbación del modelo.
   \item Seguir una receta de cinco pasos (equilibrios, jacobiano, cruce, transversalidad y no degeneración) para encontrar y clasificar bifurcaciones en sistemas planos, reduciendo a la variedad central cuando haga falta.
   \item Enunciar el teorema de Hopf con todas sus hipótesis, distinguir la bifurcación supercrítica de la subcrítica con el primer coeficiente de Lyapunov o con una simulación, y explicar la histéresis que produce una subcrítica.

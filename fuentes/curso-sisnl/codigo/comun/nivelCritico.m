@@ -7,6 +7,7 @@ function [cs, xs] = nivelCritico(V, Vd, xl, yl, n, rmin)
 %   Todo conjunto de nivel {V <= c} con c < cs (la componente que contiene al origen)
 %   es un estimado de la región de atracción (Proposición de la sección 8.5 de las notas).
 %   OJO: es un estimado en malla; refine la malla cerca de xs para más cifras.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 5 || isempty(n), n = 801; end
 if nargin < 6, rmin = 1e-2; end
 [X1, X2] = meshgrid(linspace(xl(1), xl(2), n), linspace(yl(1), yl(2), n));

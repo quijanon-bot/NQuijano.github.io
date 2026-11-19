@@ -14,6 +14,7 @@ function [veredicto, info] = esPR(num, den, wmax)
 %   reemplaza el análisis. El límite w -> inf se estima con w = wmax.
 %   Ejemplo (notas, trampa de la sección 11.7):
 %       esPR([1 3], [1 3 2])    % -> 'PR' (no SPR: w^2 Re G -> 0)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 tol = 1e-9;
 p = roots(den);
 if nargin < 3, wmax = 1e4*max([1; abs(p); abs(roots(num))]); end

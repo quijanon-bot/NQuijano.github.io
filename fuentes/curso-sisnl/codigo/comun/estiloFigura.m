@@ -4,6 +4,7 @@ function fig = estiloFigura(ancho, alto)
 %   Quitar las barras evita que exportgraphics las capture en la imagen.
 %   El orden de colores es el mismo de las notas y de la página web:
 %   azul, coral, violeta, ámbar, verde.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 1, ancho = 1100; alto = 620; end
 fig = figure('Color', 'w', 'Position', [80 80 ancho alto]);
 set(fig, 'MenuBar', 'none', 'ToolBar', 'none');

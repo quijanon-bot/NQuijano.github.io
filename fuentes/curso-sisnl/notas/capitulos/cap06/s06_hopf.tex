@@ -11,7 +11,7 @@ Un circuito $LC$ con un resistor no lineal cuya característica $i=f_\mu(v)$ dep
   \dot x_1=x_2-f_\mu(x_1),\qquad \dot x_2=-x_1,\qquad f_\mu(x_1)=x_1^3-\mu x_1 ,
   \label{eq:bf-circuito}
 \end{equation}
-con $\mu\in[-1,1]$. Con $\mu=1$ es el oscilador de van der Pol del \cref{cap:orbitas}. Estudie el origen al variar $\mu$.
+con $\mu\in[-1,1]$. Con $\mu=1$ es el oscilador de van der Pol del \cref{cap:orbitas}, reescalado: con $x_1=x/\sqrt3$, la amplitud $2.009$ de allá es $1.160$ aquí, y el período, $6.663$, es el mismo. Estudie el origen al variar $\mu$.
 \solucion El único equilibrio es el origen, con
 \[
   J=\begin{bmatrix}\mu&1\\-1&0\end{bmatrix},\qquad \tau=\mu,\quad \delta=1,\quad \lambda_{1,2}=\tfrac12\bigl(\mu\pm\sqrt{\mu^2-4}\bigr) .
@@ -82,7 +82,7 @@ con las derivadas evaluadas en el origen. Para la forma normal \eqref{eq:bf-hopf
 
 \begin{ejemplo}[label=ej:bf-l1circuito]{¿Supercrítica o subcrítica?}
 Decida el tipo de la bifurcación del circuito \eqref{eq:bf-circuito} y prediga la amplitud del ciclo para $\mu$ pequeño.
-\solucion En $\mu=0$: $\dot x_1=x_2-x_1^3$, $\dot x_2=-x_1$. Con $u=x_1$, $v=-x_2$: $\dot u=-v-u^3$, $\dot v=u$, que es la forma pedida con $\omega_0=1$, $F=-u^3$ y $G=0$. Solo sobrevive $F_{uuu}=-6$: $\ell_1=-\tfrac6{16}=-\tfrac38<0$, \alerta{supercrítica}. Con $\alpha'=\tfrac12$, el radio es $r^2\approx\tfrac12\mu/\tfrac38=\tfrac43\mu$: amplitud $2\sqrt{\mu/3}$. Con $\mu=0.1$ predice $0.3651$; la simulación da $0.3652$. Con $\mu=1$ predice $1.155$ contra $1.160$: la ley de la raíz es asintótica, pero aquí funciona bien incluso lejos. Es la amplitud que da el método de promedios para van der Pol.
+\solucion En $\mu=0$: $\dot x_1=x_2-x_1^3$, $\dot x_2=-x_1$. Con $u=x_1$, $v=-x_2$: $\dot u=-v-u^3$, $\dot v=u$, que es la forma pedida con $\omega_0=1$, $F=-u^3$ y $G=0$. Solo sobrevive $F_{uuu}=-6$: $\ell_1=-\tfrac6{16}=-\tfrac38<0$, \alerta{supercrítica}. Con $\alpha'=\tfrac12$, el radio es $r^2\approx\tfrac12\mu/\tfrac38=\tfrac43\mu$: amplitud $2\sqrt{\mu/3}$. Con $\mu=0.1$ predice $0.3651$; la simulación da $0.3652$. Con $\mu=1$ predice $1.155$ contra $1.160$: la ley de la raíz es asintótica, pero aquí funciona bien incluso lejos. (Es también la amplitud que da, para van der Pol con $\mu$ pequeño, el método de promedios, que no se ve en este curso.)
 \end{ejemplo}
 
 \codigorepo{cap06_bifurcaciones/C6_Ej9_HopfSuperSub.m}{lyapunov}{El primer coeficiente de Lyapunov con derivadas numéricas}
@@ -96,8 +96,8 @@ Sin hiperbolicidad no hay Hartman--Grobman (\cref{tr:bi-centro}). Con $\mu=0$ la
 \end{trampa}
 
 \begin{pausa}
-Con $\mu=0$ en la forma normal supercrítica, ¿certifica $V=\tfrac12(x_1^2+x_2^2)$ la estabilidad asintótica del origen? ¿Certifica estabilidad exponencial?
-\respuesta{$\dot V=r\dot r=-r^4=-(x_1^2+x_2^2)^2$, que es definida negativa: por el teorema de Lyapunov del \cref{cap:lyapunov}, el origen es asintóticamente estable, incluso globalmente porque $V$ es radialmente no acotada. Pero no exponencialmente: para eso haría falta $\dot V\le-cV$ cerca del origen, y $-r^4\le-\tfrac c2r^2$ falla para $r$ pequeño. Es consistente con $r(t)\sim1/\sqrt{2t}$.}
+Con $\mu=0$ en la forma normal supercrítica, $r(t)=r_0/\sqrt{1+2r_0^2t}$ (\cref{tr:bf-centro}). ¿Es el origen asintóticamente estable? ¿Decae $r(t)$ exponencialmente, es decir, hay constantes $k,c>0$ con $r(t)\le k\,r_0e^{-ct}$?
+\respuesta{Asintóticamente estable sí, y desde cualquier $r_0$: $r(t)$ nunca crece (estabilidad) y tiende a cero (atracción). Exponencialmente no: con $r_0>0$ fijo, $r(t)\approx1/\sqrt{2t}$ para $t$ grande, y cualquier cota $k\,r_0e^{-ct}$ decae más rápido, así que tarde o temprano queda por debajo de $r(t)$. En el \cref{cap:lyapunov} se llega a lo mismo sin resolver la ecuación, con $V=\tfrac12(x_1^2+x_2^2)$ y $\dot V=-r^4$.}
 \end{pausa}
 
 \begin{trampa}[label=tr:bf-periodo]{``El período del ciclo es $2\pi/\omega_0$''}
@@ -113,10 +113,10 @@ Sea $\dot x_1=\mu x_1+x_2-x_1\,g(r)$, $\dot x_2=-x_1+\mu x_2-x_2\,g(r)$, con $r=
 \end{proposicion}
 
 \begin{demostracion}
-En polares, $\dot r=r(\mu-g(r))$ y $\dot\theta=-1$. Para $\mu\le0$, $\mu-g(r)<0$ si $r>0$. Para $\mu>0$, $\mu-g(r)$ es positiva para $r<g^{-1}(\mu)$ y negativa después, porque $g$ es creciente: los círculos $r=c$ con $c<g^{-1}(\mu)$ se cruzan hacia afuera y los de radio mayor hacia adentro.
+En polares, $\dot r=r(\mu-g(r))$ y $\dot\theta=-1$. Para $\mu\le0$, $\mu-g(r)<0$ si $r>0$, así que $r$ decrece y tiende a $0$ (si tendiera a $L>0$, $\dot r\le-Lg(L)<0$ lo llevaría por debajo de $L$). Con $\mu=0$ la convergencia no es exponencial: como $g(0)=0$ y $g\in\Cont1$, $g(r)\le cr$ cerca de $0$, así que $\dot r\ge-cr^2$ y $r(t)\ge r_0/(1+cr_0t)$. Para $\mu>0$, $\mu-g(r)$ es positiva para $r<g^{-1}(\mu)$ y negativa después, porque $g$ es creciente: los círculos $r=c$ con $c<g^{-1}(\mu)$ se cruzan hacia afuera y los de radio mayor hacia adentro.
 \end{demostracion}
 
-\notamargen{La versión anterior de estas notas pedía ``$f(r)>0$ para $\mu>0$''; lo que hace falta es que $g$ sea creciente en $r$, para que el ciclo sea único y crezca con $\mu$.}
+\notamargen{Para que el ciclo sea único y crezca con $\mu$ hace falta que $g$ sea creciente en $r$; no basta con que el origen sea inestable para $\mu>0$.}
 
 \subsection{Histéresis: la Hopf subcrítica en un sistema real}
 
@@ -142,7 +142,7 @@ Si $\mu$ sube despacio desde $-0.4$, el sistema se queda en reposo hasta pasar $
 
 \begin{trampa}[label=tr:bf-retardo]{``Con una rampa lenta, el salto ocurre exactamente en $\mu=\mu_c$''}
 \plausible{Si $\mu$ cambia muy despacio, el sistema está siempre casi en equilibrio y debe dejar el origen justo cuando este se vuelve inestable.}
-Mientras $\mu<0$ el estado se acerca muchísimo al origen ($r$ decae exponencialmente), y cuando $\mu$ pasa a positivo necesita un tiempo largo para crecer desde ese valor diminuto. En la simulación de la \cref{fig:bf-histeresis} (rampa de $1.7\times10^{-4}$ por unidad de tiempo, con un piso de ruido de $10^{-6}$), el salto ocurre en $\mu\approx0.048$, no en $0$. Es el \clave{retardo de la bifurcación}: cuanto menos ruido, mayor el retardo. Al bajar, en cambio, el ciclo grande sí se apaga cerca de $-\tfrac14$ (en $-0.258$).
+Mientras $\mu<0$ el estado se acerca muchísimo al origen ($r$ decae exponencialmente), y cuando $\mu$ pasa a positivo necesita un tiempo largo para crecer desde ese valor diminuto. En la simulación de la \cref{fig:bf-histeresis} (rampa de $1.7\times10^{-4}$ por unidad de tiempo, con un término constante de $10^{-6}$ sumado a $\dot r$, que hace las veces de ruido), el salto ocurre en $\mu\approx0.048$, no en $0$. Es el \clave{retardo de la bifurcación}: cuanto menos ruido, mayor el retardo. Al bajar, en cambio, el ciclo grande sí se apaga cerca de $-\tfrac14$ (en $-0.258$).
 \correcto{Con un parámetro que cambia en el tiempo, el diagrama de bifurcación (que es estático) da los valores límite de una rampa infinitamente lenta \emph{y} con perturbaciones; el retardo depende de la velocidad de la rampa y del nivel de ruido.}
 \end{trampa}
 

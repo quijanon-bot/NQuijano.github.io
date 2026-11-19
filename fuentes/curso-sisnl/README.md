@@ -59,7 +59,7 @@ En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01` (36), `verificar
 
 - Capítulo 10: `cap10_numeros.py` 105/105, `verificarCap10` 46/46 en Octave 8.4; los quince `C10_Ej*` corren en Octave y los cuatro `C10_Video_*` se probaron sin grabar. Los videos publicados en el sitio se generaron con `herramientas/cap10_videos.py`. **Falta correr en MATLAB** `crearModelo_RedisenoISS` (Simulink).
 
-- Capítulo 6: `cap06_numeros.py` 125/125, `verificarCap06` 42/42 en Octave 8.4; los doce `C6_Ej*` corren en Octave y los cuatro `C6_Video_*` se probaron sin grabar. Los videos publicados en el sitio se generaron con `herramientas/cap06_videos.py`. **Falta correr en MATLAB** `crearModelo_InterruptorGenetico` (Simulink).
+- Capítulo 6: `cap06_numeros.py` 125/125, `verificarCap06` 44/44 en Octave 8.4; los trece `C6_Ej*` corren en Octave y los cuatro `C6_Video_*` se probaron sin grabar. Los videos publicados en el sitio se generaron con `herramientas/cap06_videos.py`. **Falta correr en MATLAB** `crearModelo_InterruptorGenetico` (Simulink).
 
 - Capítulo 4: `cap04_numeros.py` 93/93, `verificarCap04` 38/38 en Octave 10.3; los doce `C4_Ej*` corren en Octave y los tres `C4_Video_*` se probaron sin grabar. Los videos publicados en el sitio se generaron con `herramientas/cap04_videos.py`. **Falta correr en MATLAB** `crearModelo_DiodoTunel2D` (Simulink).
 

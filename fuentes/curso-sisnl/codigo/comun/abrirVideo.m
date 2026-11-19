@@ -3,6 +3,7 @@ function v = abrirVideo(nombre, fps)
 %   En Windows y macOS genera .mp4 (MPEG-4). En Linux MATLAB no soporta
 %   MPEG-4, así que usa 'Motion JPEG AVI' (.avi).
 %   Los videos se guardan en la carpeta "videos" junto al script que llama.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 2, fps = 30; end
 if ispc || ismac
     v = VideoWriter(nombre, 'MPEG-4');

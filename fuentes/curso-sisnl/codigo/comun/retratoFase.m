@@ -12,6 +12,7 @@ function retratoFase(ax, f, xl, yl, varargin)
 %                    jacobiana numérica es Hurwitz, vacío si no).
 %   Las trayectorias se detienen al salir de la ventana (evento de ode45).
 %   Compatible con MATLAB y GNU Octave.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 p = struct('X0', [], 'T', 10, 'Atras', false, 'N', 21, 'Color', [30 90 168]/255, 'Equilibrios', []);
 for k = 1:2:numel(varargin), p.(varargin{k}) = varargin{k+1}; end
 hold(ax, 'on');

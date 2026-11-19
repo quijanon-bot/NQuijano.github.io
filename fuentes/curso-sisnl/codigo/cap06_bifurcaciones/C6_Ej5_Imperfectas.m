@@ -1,4 +1,5 @@
 %% C6_Ej5_Imperfectas -- Notas: sección 6.4 (cuáles sobreviven a una perturbación)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Agrega una constante pequeña al campo de las tres formas normales y
 %            calcula los equilibrios con roots para una malla de mu:
 %              silla-nodo    x' = mu - x^2 + eps
@@ -16,14 +17,15 @@ if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpat
 % [ini:imperfecta]
 mu = linspace(-1.5, 1.5, 601);
 casos = {@(m, e) [-1 0 m + e], @(m, e) [-1 m e], @(m, e) [-1 0 m e]};   % coeficientes en x
-pert  = [0.4, -0.12, 0.1];
+pert  = {[0.4 -0.4], [0.12 -0.12], 0.1};          % las mismas de la figura de las notas
 fig = estiloFigura(1300, 420);
 for c = 1:3
     subplot(1, 3, c);  hold on;
-    for e = [0 pert(c)]
+    for e = [0 pert{c}]
+        col = [0.75 0.78 0.84]*(e == 0) + [30 90 168]/255*(e > 0) + [209 73 91]/255*(e < 0);   % gris, azul, coral
         for m = mu
             z = roots(casos{c}(m, e));  z = real(z(abs(imag(z)) < 1e-9));
-            plot(m*ones(size(z)), z, '.', 'Color', [0.55 0.55 0.55]*(e == 0) + [30 90 168]/255*(e ~= 0), 'MarkerSize', 4);
+            plot(m*ones(size(z)), z, '.', 'Color', col, 'MarkerSize', 4);
         end
     end
     grid on;  xlabel('$\mu$');  ylabel('$x^*$');

@@ -29,4 +29,4 @@ fprintf('||f_10 - f_20||_L2 = %.4f,   ||f_10 - f_20||_inf = %.4f\n', ...
 
 fig = estiloFigura(700, 420); hold on;
 for k = [4 10 40], plot(t, rampa(k)); end
-plot(t, escalon, 'k--'); grid on; xlabel('$t$'); legend('$k=4$', '$k=10$', '$k=40$', 'escalón', 'Location', 'northwest');
+plot(t, escalon, 'k--'); grid on; xlabel('$t$'); legend('$k=4$', '$k=10$', '$k=40$', 'escal\''on', 'Location', 'northwest');

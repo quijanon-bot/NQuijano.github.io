@@ -9,7 +9,7 @@ if ~exist('estiloFigura', 'file'), addpath(fullfile(raiz, '..', 'comun')); end
 HACER_VIDEO = true;
 
 k = @(x) -2*x/(x^2 + 1);  k1 = @(x) k(x) - x*(x^2 + 1);  xx = linspace(-1, 12, 600);
-opc = odeset('RelTol', 1e-9, 'AbsTol', 1e-11, 'MaxStep', 0.02, 'Events', @(t, x) deal(x - 30, 1, 1));
+opc = odeset('RelTol', 1e-9, 'AbsTol', 1e-11, 'MaxStep', 0.02, 'Events', @(t, x) eventoODE(x - 30, 1, 1));
 fig = estiloFigura(1280, 600);
 if HACER_VIDEO
     if ~exist(fullfile(raiz, 'videos'), 'dir'), mkdir(fullfile(raiz, 'videos')); end

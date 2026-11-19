@@ -26,7 +26,7 @@ fprintf('L_g h = 1, L_f h = eta - 3 eta^3, eta'' = xi + eta + eta^3: error máxi
 % [ini:escape]
 k = 2;  u = @(x) -x(1) + 3*x(1)^3 - k*(-x(1)^3 + x(2));
 lazo = @(t, x) f(x) + g(x)*u(x);
-opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'MaxStep', 0.005, 'Events', @(t, x) deal(abs(x(1)) - 2.2, 1, 0));
+opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'MaxStep', 0.005, 'Events', @(t, x) eventoODE(abs(x(1)) - 2.2, 1, 0));
 [t, X] = ode45(lazo, [0 10], [0.05; 0.6], opc);
 y = -X(:,1).^3 + X(:,2);
 fprintf('|eta| = 2.2 en t = %.3f s; en ese instante |y| = %.3f (y(0) = %.3f)\n', t(end), abs(y(end)), y(1));

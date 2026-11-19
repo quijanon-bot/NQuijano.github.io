@@ -3,7 +3,7 @@
 \label{sec:oc-pb}
 %% ---------------------------------------------------------------------
 
-Las herramientas de las dos secciones anteriores dicen dónde \emph{no} puede haber órbitas. El resultado de esta sección es el único, en dimensión dos, que permite probar que una órbita \emph{existe} sin conocerla.
+Las herramientas de las dos secciones anteriores dicen dónde \emph{no} puede haber órbitas. El resultado de esta sección es la herramienta general, en dimensión dos, para probar que una órbita \emph{existe} sin conocerla; Liénard (\cref{thm:oc-lienard}) lo hace solo para una familia de ecuaciones.
 
 \begin{teorema}[label=thm:oc-pb]{Poincaré--Bendixson \citep[Lema~2.1]{Kha02}}
 Considere $\dot x=f(x)$, $x\in\R^2$, con $f$ localmente Lipschitz, y sea $M$ un conjunto cerrado y acotado tal que
@@ -47,6 +47,6 @@ El teorema garantiza una \emph{órbita periódica}, no una aislada. En el oscila
 
 \begin{trampa}[label=tr:oc-pb3d]{En tres dimensiones no hay Poincaré--Bendixson}
 \plausible{Una trayectoria acotada que no converge a ningún equilibrio converge a una órbita periódica.}
-Es cierto en el plano y falso en $\R^3$. El sistema de Lorenz \citep{Lor63} tiene trayectorias acotadas que no convergen ni a equilibrios ni a órbitas periódicas: se mueven para siempre en un atractor extraño. La prueba de Poincaré--Bendixson usa que una curva cerrada separa el plano en un adentro y un afuera, y en $\R^3$ una curva no separa nada.
-\correcto{En dimensión dos, los únicos comportamientos de largo plazo de una trayectoria acotada son: un equilibrio, una órbita cerrada o una cadena de equilibrios unidos por trayectorias. El caos necesita al menos tres dimensiones (en tiempo continuo, invariante en el tiempo). Lo usaremos en la \cref{sec:oc-nowak}.}
+En el plano es casi cierto (la otra posibilidad es una cadena de equilibrios unidos por trayectorias); en $\R^3$ es falso. El sistema de Lorenz \citep{Lor63} tiene trayectorias acotadas que no convergen ni a equilibrios ni a órbitas periódicas: se mueven para siempre en un atractor extraño. La prueba de Poincaré--Bendixson usa que una curva cerrada separa el plano en un adentro y un afuera, y en $\R^3$ una curva no separa nada.
+\correcto{En dimensión dos, si hay un número finito de equilibrios, los únicos comportamientos de largo plazo de una trayectoria acotada son: un equilibrio, una órbita cerrada o una cadena de equilibrios unidos por trayectorias. El caos necesita al menos tres dimensiones (en tiempo continuo, invariante en el tiempo). Lo usaremos en la \cref{sec:oc-nowak}.}
 \end{trampa}

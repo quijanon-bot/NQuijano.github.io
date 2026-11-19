@@ -27,7 +27,7 @@ fprintf('x'' = x^(1/3): desde 0, x(3) = %g;  desde 1e-12, x(3) = %.4f;  (2)^(3/2
 % [fin:ode45]
 
 % [ini:tiempofinito]
-ev = @(t, x) deal(x - 1e-9, 1, -1);
+ev = @(t, x) eventoODE(x - 1e-9, 1, -1);
 [t, x, te] = ode45(@(t, x) -nthroot(x, 3), [0 3], 1, odeset('RelTol', 1e-10, 'AbsTol', 1e-14, 'Events', ev));
 fprintf('x'' = -x^(1/3) desde 1: llega a 0 en t = %.4f  (exacto 1.5)\n', te);
 % [fin:tiempofinito]

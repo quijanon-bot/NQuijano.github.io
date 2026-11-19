@@ -17,7 +17,7 @@ if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpat
 % [ini:iss]
 tEsc = @(k, xi0, eta0) log((xi0/(k + 1))/(xi0/(k + 1) - 1/eta0))/(k + 1);   % si eta0 xi0 > k + 1
 k = 1;  xi0 = 2;  eta0 = 2;
-opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, z) deal(z(2) - 1e6, 1, 0));
+opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, z) eventoODE(z(2) - 1e6, 1, 0));
 [t, Z] = ode45(@(t, z) [-k*z(1); -z(2) + z(2)^2*z(1)], [0 3], [xi0; eta0], opc);
 fprintf('k = %g, xi0 = %g, eta0 = %g: fórmula t_e = %.4f s, simulación (eta = 1e6) %.4f s\n', ...
         k, xi0, eta0, tEsc(k, xi0, eta0), t(end));

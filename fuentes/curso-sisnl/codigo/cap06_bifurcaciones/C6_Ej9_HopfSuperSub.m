@@ -27,7 +27,7 @@ fprintf('l1: super %.4f, sub %.4f, circuito %.4f, Rosenzweig-MacArthur %.4f\n', 
 mu = 0.05;
 fs = @(t, x) [mu*x(1) - x(2) - x(1)*(x(1)^2 + x(2)^2);  x(1) + mu*x(2) - x(2)*(x(1)^2 + x(2)^2)];
 fb = @(t, x) [mu*x(1) - x(2) + x(1)*(x(1)^2 + x(2)^2);  x(1) + mu*x(2) + x(2)*(x(1)^2 + x(2)^2)];
-opc = odeset('RelTol', 1e-9, 'AbsTol', 1e-12, 'Events', @(t, x) deal(norm(x) - 10, 1, 1));
+opc = odeset('RelTol', 1e-9, 'AbsTol', 1e-12, 'Events', @(t, x) eventoODE(norm(x) - 10, 1, 1));
 [~, X] = ode45(fs, [0 400], [0.01; 0], opc);
 fprintf('super, mu = %.2f: r final = %.4f (sqrt(mu) = %.4f)\n', mu, norm(X(end, :)), sqrt(mu));
 [t, X] = ode45(fb, [0 400], [0.01; 0], opc);

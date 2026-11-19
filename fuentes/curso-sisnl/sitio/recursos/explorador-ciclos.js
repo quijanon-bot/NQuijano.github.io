@@ -108,10 +108,10 @@
       linea(svg1, ths.map(t => [X(t), Y(F(t))]), C.azul, 2.6);
       let txt;
       if (a > Math.abs(w)) {
-        const s = Math.asin(w / a), est = Math.PI - s, ine = (s + 2 * Math.PI) % (2 * Math.PI);
+        const s = Math.asin(w / a), est = (s + 2 * Math.PI) % (2 * Math.PI), ine = Math.PI - s;
         [[est, C.noche, 'black'], [ine, 'white', C.noche]].forEach(([th, fill, st]) =>
           svg1.insertAdjacentHTML('beforeend', `<circle cx="${X(((th % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI))}" cy="${Y(0)}" r="6" fill="${fill}" stroke="${C.noche}" stroke-width="2"/>`));
-        txt = `<b style="color:#2A9D8F">a &gt; |ω|: la fase se engancha</b> en θ* = π − arcsin(ω/a) = ${f(est, 4)} (estable); el otro equilibrio es inestable.`;
+        txt = `<b style="color:#2A9D8F">a &gt; |ω|: la fase se engancha</b> en θ* = arcsin(ω/a) = ${f(est, 4)} (estable); el otro equilibrio es inestable.`;
       } else if (Math.abs(a - Math.abs(w)) < 1e-9) {
         txt = '<b style="color:#E09F3E">a = |ω|: un equilibrio semiestable</b> (bifurcación silla-nodo en el círculo).';
       } else {
@@ -241,7 +241,7 @@
         (Math.round(I) === 1 ? ' · podría ser una órbita (necesario, no suficiente).' : ' · <b style="color:#D1495B">no puede ser una órbita cerrada.</b>');
     };
     p.insertAdjacentHTML('beforeend', '<p>Mueva y agrande la circunferencia. Los vectores numerados (izquierda) se trasladan al origen (derecha); el índice es el número neto de vueltas. Mientras la curva no cruce un equilibrio, el índice no cambia.</p>');
-    selector(p, 'campo', 'Campo', [['nodo', 'nodo'], ['silla', 'silla'], ['foco', 'foco'], ['z2', 'z²'], ['zb2', 'z̄²'], ['khalil', 'silla + foco (ej. 5.11)'], ['dege', 'degenerado (ej. 5.12)'], ['duff', 'Duffing']], e, () => dib());
+    selector(p, 'campo', 'Campo', [['nodo', 'nodo'], ['silla', 'silla'], ['foco', 'foco'], ['z2', 'z²'], ['zb2', 'z̄²'], ['khalil', 'silla + foco (ej. 5.7)'], ['dege', 'degenerado (ej. 5.8)'], ['duff', 'Duffing']], e, () => dib());
     controles(p, [['cx', 'centro x₁', -2, 2, 0, 0.01], ['cy', 'centro x₂', -2, 2, 0, 0.01], ['R', 'radio', 0.1, 2.4, 1, 0.01]], e, () => dib());
     p.insertAdjacentHTML('beforeend', '<div class="exp-resumen"></div><div style="display:grid;grid-template-columns:1.4fr 1fr;gap:.5rem"><svg viewBox="0 0 400 380"></svg><svg viewBox="0 0 280 280"></svg></div>');
     const [svg1, svg2] = p.querySelectorAll('svg'), res_ = p.querySelector('.exp-resumen');

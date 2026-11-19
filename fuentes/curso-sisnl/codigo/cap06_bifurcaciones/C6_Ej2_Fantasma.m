@@ -15,7 +15,7 @@ mm = logspace(-3, 0, 25);                 % |mu|
 Tsim = zeros(size(mm));
 for k = 1:numel(mm)
     m = mm(k);
-    opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) deal(x + 1, 1, -1));
+    opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) eventoODE(x + 1, 1, -1));
     [~, ~, te] = ode45(@(t, x) -m - x^2, [0 1e5], 1, opc);
     Tsim(k) = te(1);
 end
@@ -30,7 +30,7 @@ fprintf('pendiente log-log cerca de mu = 0: %.4f (teoría: -1/2)\n', p(1));
 fig = estiloFigura(1100, 420);
 subplot(1, 2, 1);  hold on;
 for m = [0.02 0.08 0.3 1]
-    opc = odeset('RelTol', 1e-9, 'Events', @(t, x) deal(x + 4, 1, -1));
+    opc = odeset('RelTol', 1e-9, 'Events', @(t, x) eventoODE(x + 4, 1, -1));
     [t, X] = ode45(@(t, x) -m - x^2, [0 60], 4, opc);
     plot(t, X);
 end

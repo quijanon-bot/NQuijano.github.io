@@ -3,6 +3,7 @@ function verificarCap05()
 % (órbitas, osciladores y ciclos límite).   >> verificarCap05
 % (Los mismos números se verificaron de forma independiente con sympy y
 %  scipy en herramientas/cap05_numeros.py.)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 raiz = fileparts(mfilename('fullpath'));
 addpath(fullfile(raiz, '..', 'comun'));  addpath(raiz);
 fallas = 0;  n = 0;
@@ -22,7 +23,7 @@ revisar('Im lambda en (1,0) = sqrt(2)', max(imag(eig([0 1; -2 0]))), sqrt(2), 1e
 revisar('H(1,0) = -1/4', -1/2 + 1/4, -0.25, 0);
 f = @(t, x) [x(2); x(1) - x(1)^3];
 for h = [-0.2 -0.01]
-    ev = odeset(opc, 'Events', @(t, x) deal(x(2), 0, 0));
+    ev = odeset(opc, 'Events', @(t, x) eventoODE(x(2), 0, 0));
     [~, ~, te] = ode45(f, [0 100], [sqrt(1 + sqrt(1 + 4*h)); 0], ev);  te = te(te > 1e-6);
     revisar(sprintf('período de la órbita H = %.2f', h), te(2), 4.6307*(h < -0.1) + 7.4087*(h > -0.1), 2e-4);
 end
@@ -36,6 +37,9 @@ vdp = @(mu) @(t, x) [x(2); -x(1) - mu*(x(1)^2 - 1)*x(2)];
 s = k(X(k(1:end-1),2) < 0 & X(k(2:end),2) >= 0 & X(k(1:end-1),1) < 0);
 revisar('van der Pol mu = 1: período', mean(diff(t(s))), 6.6633, 1e-3);
 revisar('van der Pol mu = 1: amplitud', max(X(k,1)), 2.0086, 1e-3);
+[t, X] = ode45(vdp(5), [0 200], [0.5; 0], opc);  k = find(t > 100);
+s = k(X(k(1:end-1),2) < 0 & X(k(2:end),2) >= 0 & X(k(1:end-1),1) < 0);
+revisar('van der Pol mu = 5: período', mean(diff(t(s))), 11.612, 2e-3);
 revisar('Liénard: cero de F = sqrt(3)', fzero(@(x) x^3/3 - x, [1 2]), sqrt(3), 1e-10);
 
 fprintf('5.4  Flujos en el círculo\n');
@@ -55,6 +59,11 @@ th0 = 2*pi*mod(i*0.6180339887, 1);  o2 = odeset('RelTol', 1e-6, 'AbsTol', 1e-8);
 [~, TH] = ode45(@(t, th) modeloKuramoto(t, th, w, 2), [0 100], th0, o2);
 [~, TH] = ode45(@(t, th) modeloKuramoto(t, th, w, 2), linspace(100, 200, 201), TH(end,:).', o2);
 revisar('r simulado K = 2 (N = 400)', mean(abs(mean(exp(1j*TH), 2))), 0.7071, 0.01);
+for KK = [1.5 3]
+    [~, TH] = ode45(@(t, th) modeloKuramoto(t, th, w, KK), [0 100], th0, o2);
+    [~, TH] = ode45(@(t, th) modeloKuramoto(t, th, w, KK), linspace(100, 200, 201), TH(end,:).', o2);
+    revisar(sprintf('r simulado K = %.1f (N = 400)', KK), mean(abs(mean(exp(1j*TH), 2))), sqrt(1 - 1/KK), 0.01);
+end
 
 fprintf('5.7  Índice\n');
 revisar('índice silla', indiceCurva(@(x) [x(1); -x(2)], [0 0], 1), -1, 1e-9);
@@ -69,6 +78,8 @@ revisar('max V'' en V = 3/2: 3c - 2c^2', 3*1.5 - 2*1.5^2, 0, 1e-12);
 fpb = @(t, x) [x(1) + x(2) - x(1)*(x(1)^2 + x(2)^2); -2*x(1) + x(2) - x(2)*(x(1)^2 + x(2)^2)];
 [t, X] = ode45(fpb, [0 60], [0.01; 0], opc);  r = vecnorm(X(t > 40,:).');
 revisar('ciclo: r mínimo', min(r), 0.8501, 2e-4);  revisar('ciclo: r máximo', max(r), 1.1302, 2e-4);
+tk = t(t > 40);  x1k = X(t > 40, 1);  i = find(x1k(1:end-1) < 0 & x1k(2:end) >= 0);
+revisar('ciclo: período', mean(diff(tk(i) - x1k(i).*(tk(i+1) - tk(i))./(x1k(i+1) - x1k(i)))), 4.4429, 1e-3);
 
 fprintf('5.10 Presa-depredador\n');
 revisar('competencia: v3', (1*0.2 + 1*0.5)/(1*1 + 0.5*0.2), 0.6364, 1e-4);
@@ -77,6 +88,7 @@ revisar('Rosenzweig-MacArthur: K_H', (2 + 1)/(2 - 1), 3, 0);
 K = 5;  rm = @(t, x) [x(1)*(1 - x(1)/K) - x(1)*x(2)/(1 + x(1)); x(2)*(2*x(1)/(1 + x(1)) - 1)];
 [t, X] = ode45(rm, [0 800], [1.1; 1.6], odeset(opc, 'MaxStep', 0.5));
 revisar('R-M K = 5: v máximo en el ciclo', max(X(t > 600, 1)), 4.4666, 2e-3);
+revisar('R-M K = 5: v mínimo en el ciclo', min(X(t > 600, 1)), 0.0465, 1e-3);
 
 fprintf('5.11 Nowak\n');
 B = 0.2*ones(3) + 0.68*eye(3);  Qc = @(c) [0.8 - c, 0.2, c; c, 0.8 - c, 0.2; 0.2, c, 0.8 - c];
@@ -88,6 +100,9 @@ revisar('c* de Hopf', fzero(@(c) max(real(eig(Js(c)))), [0.01 0.04]), 0.031293, 
 revisar('Fbar* = 0.4267 (tasa de atracción al símplex)', xs.'*B*xs, 0.426667, 1e-6);
 dx = modeloNowak(0, [1e-6; 0.5; 0.5 - 1e-6], B, Qc(0.01));
 revisar('frontera repelente: x1'' en (1e-6, .5, .5)', dx(1), 0.0567, 1e-4);
+[t, X] = ode45(@(t, x) modeloNowak(t, x, B, Qc(0.01)), [0 3000], [0.6; 0.3; 0.1], odeset(opc, 'MaxStep', 1));
+k = t > 2000;  revisar('Nowak c = 0.01: x1 mínimo', min(X(k,1)), 0.1856, 1e-3);
+revisar('Nowak c = 0.01: x1 máximo', max(X(k,1)), 0.4781, 1e-3);
 
 fprintf('\n%d de %d verificaciones correctas.\n', n - fallas, n);
 end

@@ -74,7 +74,7 @@ revisar('adaptativo sin t: theta -> 0', abs(Z(end, 2)) < 0.05, 1, 0);
 revisar('adaptativo e^{-0.3t}: theta -> -0.11', Z(end, 2), -0.11, 5e-3);
 
 fprintf('10.6  ISS\n');
-o2 = odeset(opc, 'Events', @(t, x) deal(x - 1e6, 1, 1));
+o2 = odeset(opc, 'Events', @(t, x) eventoODE(x - 1e6, 1, 1));
 [~, ~, te] = ode45(@(t, x) -3*x + 1 + 2*x^2, [0 1], 2, o2);
 revisar('Riccati: escape en ln 1.5 = 0.405', te(1), log(1.5), 1e-5);
 revisar('-x^3 + w: gamma(0.5) = 1 con theta = 1/2', (0.5/0.5)^(1/3), 1, 0);
@@ -88,7 +88,7 @@ revisar('Sontag kappa = 1: x -> 0.386', X(end), 0.386, 1e-3);
 revisar('w = 0.1: x_+ = 9.90', (1 + sqrt(1 - 0.04))/0.2, 9.90, 1e-2);
 
 fprintf('10.7  Interconexiones\n');
-o3 = odeset(opc, 'Events', @(t, x) deal(abs(x(1)) - 1e8, 1, 1));
+o3 = odeset(opc, 'Events', @(t, x) eventoODE(abs(x(1)) - 1e8, 1, 1));
 [~, ~, te] = ode45(@(t, x) [-x(1) + x(1)^2*x(2); -x(2)], [0 2], [2; 2], o3);
 revisar('cascada x1^2 x2: escape en ln(2)/2 = 0.347', te(1), log(2)/2, 1e-5);
 revisar('cascada x1 x2^2 desde (1, 3): pico 18.2', exp(-log(3) + 4), 18.2, 5e-3);

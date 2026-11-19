@@ -14,7 +14,7 @@ if nargin < 5, Tmax = 100; end
 t0 = 1e-3;
 opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12);
 [~, X] = ode45(@(t, x) f(x), [0 t0/2 t0], x0(:), opc);
-opc = odeset(opc, 'Events', @(t, x) deal(sigma(x), 1, sentido));
+opc = odeset(opc, 'Events', @(t, x) eventoODE(sigma(x), 1, sentido));
 [~, ~, te, xe] = ode45(@(t, x) f(x), [t0 Tmax], X(end, :).', opc);
 if isempty(te), error('mapaPoincare: no hubo retorno antes de Tmax = %g', Tmax); end
 xr = xe(1, :).';  tau = te(1);

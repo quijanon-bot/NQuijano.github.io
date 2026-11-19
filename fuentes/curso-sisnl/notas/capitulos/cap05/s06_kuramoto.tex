@@ -3,7 +3,7 @@
 \label{sec:oc-kuramoto}
 %% ---------------------------------------------------------------------
 
-\notamargen{Esta sección es fenomenológica: se describe lo que pasa y por qué es plausible. Las pruebas de sincronización usan herramientas de Lyapunov y de pasividad (capítulos~7 a~11).}
+\notamargen{Esta sección es fenomenológica: se describe lo que pasa y por qué es plausible. Las pruebas de sincronización usan herramientas de Lyapunov y de pasividad (\crefrange{cap:lyapunov}{cap:pasividad}).}
 Kuramoto tomó \eqref{eq:oc-redsin} con todos contra todos y el mismo peso:
 \begin{equation}
   \dot\theta_i=\omega_i+\frac KN\sum_{j=1}^N\sin(\theta_j-\theta_i),\qquad i=1,\dots,N,
@@ -21,14 +21,14 @@ Es el centroide de las $N$ fases vistas como puntos del círculo unitario: $r\in
   \dot\theta_i=\omega_i+K\,r\sin(\Psi-\theta_i) .
   \label{eq:oc-campomedio}
 \end{equation}
-Cada oscilador ya no ve a los demás uno por uno: ve un solo ``estímulo'' de fase $\Psi$ e intensidad $Kr$. Es la luciérnaga frente a la linterna, \eqref{eq:oc-dos}, con la diferencia de que la linterna la fabrican entre todos. El mecanismo es una retroalimentación: un poco de coherencia ($r>0$) hace que más osciladores se enganchen (los que cumplen $\abs{\omega_i}\le Kr$), y eso aumenta $r$.
+Cada oscilador ya no ve a los demás uno por uno: ve un solo ``estímulo'' de fase $\Psi$ e intensidad $Kr$. Es la luciérnaga frente a la linterna (\cref{ej:oc-luciernaga}), con la diferencia de que la linterna la fabrican entre todos. El mecanismo es una retroalimentación: un poco de coherencia ($r>0$) hace que más osciladores se enganchen (los que cumplen $\abs{\omega_i}\le Kr$), y eso aumenta $r$.
 
-Kuramoto mostró que, cuando $N\to\infty$, la solución incoherente $r=0$ pierde la estabilidad en
+Kuramoto mostró que, cuando $N\to\infty$, a partir de
 \begin{equation}
   K_c=\frac2{\pi g(0)},
   \label{eq:oc-Kc}
 \end{equation}
-y que, para la distribución de Lorentz $g(\omega)=\frac{\gamma}{\pi(\gamma^2+\omega^2)}$, la coherencia de régimen es exactamente $r=\sqrt{1-K_c/K}$ para $K>K_c=2\gamma$ \citep{Kur84}. La \cref{fig:oc-kuramoto} compara esa predicción con una simulación de $N=400$ osciladores con $\gamma=0.5$: $r=0.58$, $0.71$ y $0.82$ para $K=1.5$, $2$ y $3$, contra $0.577$, $0.707$ y $0.816$ de la teoría.
+aparece una solución parcialmente sincronizada ($r>0$), y que, para la distribución de Lorentz $g(\omega)=\frac{\gamma}{\pi(\gamma^2+\omega^2)}$, la coherencia de régimen es exactamente $r=\sqrt{1-K_c/K}$ para $K>K_c=2\gamma$ \citep{Kur84}. La \cref{fig:oc-kuramoto} compara esa predicción con una simulación de $N=400$ osciladores con $\gamma=0.5$: $r=0.58$, $0.71$ y $0.82$ para $K=1.5$, $2$ y $3$, contra $0.577$, $0.707$ y $0.816$ de la teoría.
 
 \video{V5_1_kuramoto}{Las fases se agrupan; algunas siguen dando vueltas}
 \script{cap05_orbitas_ciclos/C5_Ej6_Kuramoto.m}

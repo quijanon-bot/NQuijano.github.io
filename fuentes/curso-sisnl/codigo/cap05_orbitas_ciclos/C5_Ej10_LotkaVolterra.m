@@ -1,4 +1,5 @@
 %% C5_Ej10_LotkaVolterra -- Notas: sección 5.10 (tres modelos presa-depredador)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Lotka-Volterra clásico (a, b, c, d) = (6, 3, 2, 1): conserva
 %            K = d v - c ln v + b p - a ln p y el promedio en un período es el
 %            equilibrio (c/d, a/b) = (2, 2). (2) Con competencia (e, f > 0): la
@@ -22,7 +23,7 @@ opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12);
 a = 6; b = 3; c = 2; d = 1;
 lv = @(t, x) [x(1)*(a - b*x(2)); x(2)*(-c + d*x(1))];
 Kf = @(x) d*x(:,1) - c*log(x(:,1)) + b*x(:,2) - a*log(x(:,2));
-ev = odeset(opc, 'Events', @(t, x) deal(x(2) - a/b, 0, 1));   % cruce hacia arriba de p = a/b
+ev = odeset(opc, 'Events', @(t, x) eventoODE(x(2) - a/b, 0, 1));   % cruce hacia arriba de p = a/b
 [t, X, te] = ode45(lv, linspace(0, 10, 40001), [4; 2], ev);
 k = t >= te(1) & t <= te(2);                                    % exactamente un período
 fprintf('(1) variación de K = %.1e;  período = %.4f;  promedios: v = %.4f, p = %.4f\n', ...

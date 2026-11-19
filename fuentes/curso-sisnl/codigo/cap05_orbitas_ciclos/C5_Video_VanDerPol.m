@@ -1,4 +1,5 @@
 %% C5_Video_VanDerPol -- Video V5_3: todas las trayectorias llegan al mismo ciclo
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Van der Pol con mu = 1: ocho condiciones iniciales (cerca del
 %              origen y lejos) se mueven a la vez en el plano de fase; todas
 %              terminan en el mismo ciclo límite, con la misma amplitud (~2).

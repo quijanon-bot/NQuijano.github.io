@@ -4,6 +4,7 @@ function dx = modeloNowak(~, x, B, Q)
 %   dx_j = sum_i F_i x_i Q_ij - Fbar x_j,   es decir   dx = Q' (F .* x) - Fbar x.
 %   Q es estocástica por filas: Q(i,j) = prob. de que el hijo de un hablante
 %   de G_i aprenda G_j.
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 F    = B*x(:);
 Fbar = x(:).'*F;
 dx   = Q.'*(F.*x(:)) - Fbar*x(:);

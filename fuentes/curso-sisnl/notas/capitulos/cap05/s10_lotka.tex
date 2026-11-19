@@ -6,7 +6,7 @@
 Esta sección aplica el arsenal completo a tres modelos de poblaciones. Se parecen mucho y se comportan de tres maneras cualitativamente distintas: un continuo de órbitas cerradas, un equilibrio que atrae todo y un ciclo límite aislado. Distinguirlos es exactamente el trabajo de las herramientas del capítulo.
 
 \begin{historia}[Lotka, Volterra y los peces del Adriático]
-Alfred J.\ Lotka (1880--1949), químico físico de formación y luego estadístico de una aseguradora en Nueva York, mostró en 1920 que un modelo de reacciones químicas podía producir oscilaciones no amortiguadas \citep{Lot20}. Vito Volterra (1860--1940), matemático italiano conocido por sus ecuaciones integrales, llegó al mismo modelo en 1926 por otra pregunta: su yerno, el biólogo marino Umberto D'Ancona, había notado que durante la Primera Guerra Mundial, cuando casi no se pescaba en el Adriático, la proporción de peces depredadores en las capturas había aumentado \citep{Vol26}. En 1931 Volterra fue uno de los pocos profesores universitarios italianos que se negaron a jurar lealtad al régimen fascista, y perdió su cátedra. La descripción moderna del modelo y sus variantes está en \citet{HoSi98}.
+Alfred J.\ Lotka (1880--1949), químico físico de formación y luego estadístico de una aseguradora en Nueva York, mostró en 1920 que un modelo de reacciones químicas podía producir oscilaciones no amortiguadas \citep{Lot20b}. Vito Volterra (1860--1940), matemático italiano conocido por sus ecuaciones integrales, llegó al mismo modelo en 1926 por otra pregunta: su yerno, el biólogo marino Umberto D'Ancona, había notado que durante la Primera Guerra Mundial, cuando casi no se pescaba en el Adriático, la proporción de peces depredadores en las capturas había aumentado \citep{Vol26}. En 1931 Volterra fue uno de los pocos profesores universitarios italianos que se negaron a jurar lealtad al régimen fascista, y perdió su cátedra. La descripción moderna del modelo y sus variantes está en \citet{HoSi98}.
 \end{historia}
 
 %% ---------------------------------------------------------------------
@@ -59,7 +59,7 @@ Los equilibrios en el cuadrante cerrado son $(0,0)$, $(a/e,0)$ y, si $ad-ce>0$, 
 
 \emph{Dulac descarta órbitas.} Con $g=1/(vp)$ (\cref{sec:oc-descartar}),
 \[
-  \operatorname{div}\Bigl(\frac{f}{vp}\Bigr)=\frac{\partial}{\partial v}\Bigl(\frac{a-ev-bp}{p}\Bigr)+\frac{\partial}{\partial p}\Bigl(\frac{-c+dv-fp}{v}\Bigr)=-\frac ep-\frac fv<0
+  \operatorname{div}\Bigl(\frac1{vp}\begin{bmatrix}\dot v\\ \dot p\end{bmatrix}\Bigr)=\frac{\partial}{\partial v}\Bigl(\frac{a-ev-bp}{p}\Bigr)+\frac{\partial}{\partial p}\Bigl(\frac{-c+dv-fp}{v}\Bigr)=-\frac ep-\frac fv<0
 \]
 en el cuadrante abierto, que es simplemente conexo: no hay órbitas cerradas. (Con $e=f=0$ la misma cuenta da $0$, consistente con los centros del modelo clásico.)
 
@@ -85,18 +85,18 @@ con $K$ la capacidad de carga del ambiente y $\beta>\gamma$. El equilibrio de co
 \[
   K_H=\frac{\beta+\gamma}{\beta-\gamma} .
 \]
-Con $\beta=2$, $\gamma=1$: $v^*=1$ y $K_H=3$. Para $K<3$ el equilibrio es un foco estable; para $K>3$ es un foco inestable. Se puede mostrar que una región acotada del cuadrante atrapa todas las trayectorias y que las trayectorias interiores no pueden acercarse a las sillas de los ejes, $(0,0)$ y $(K,0)$; con eso, Poincaré--Bendixson da una órbita periódica alrededor del foco (es el Problema~\ref{prob:oc-rm}). La simulación con $K=5$ muestra un ciclo límite en el que las presas oscilan entre $0.047$ y $4.47$ (\cref{fig:oc-lotka}, derecha). El ciclo nace en una bifurcación de Hopf (\cref{cap:bifurcaciones}).
+Con $\beta=2$, $\gamma=1$: $v^*=1$ y $K_H=3$. Para $1<K<3$ el equilibrio de coexistencia es estable (un nodo si $K<9/7$, un foco si $K>9/7$); para $K>3$ es un foco inestable. Se puede mostrar que una región acotada del cuadrante atrapa todas las trayectorias y que las trayectorias interiores no pueden acercarse a las sillas de los ejes, $(0,0)$ y $(K,0)$; con eso, Poincaré--Bendixson da una órbita periódica alrededor del foco (es el Problema~\ref{prob:oc-rm}). La simulación con $K=5$ muestra un ciclo límite en el que las presas oscilan entre $0.047$ y $4.47$ (\cref{fig:oc-lotka}, derecha). El ciclo nace en una bifurcación de Hopf (\cref{cap:bifurcaciones}).
 
 \codigorepo{cap05_orbitas_ciclos/C5_Ej10_LotkaVolterra.m}{rosenzweig}{Del equilibrio estable al ciclo al aumentar $K$}
 
 \begin{trampa}[label=tr:oc-enriquecer]{Más recursos no estabilizan}
-\plausible{Si se aumenta la capacidad de carga $K$ de las presas ---más alimento, mejor hábitat---, el ecosistema se vuelve más estable.}
+\plausible{Si se aumenta la capacidad de carga $K$ de las presas (más alimento, mejor hábitat), el ecosistema se vuelve más estable.}
 En \eqref{eq:oc-rm} pasa lo contrario: para $K>K_H$ el equilibrio pierde la estabilidad y aparece un ciclo cuya amplitud crece con $K$. Con $K=5$ las presas bajan hasta $0.047$, cerca de la extinción. Es la \emph{paradoja del enriquecimiento} \citep{Ros71}.
 \correcto{La estabilidad depende de la estructura del sistema, no de la abundancia. Lo que hay que mirar es la traza del jacobiano en el equilibrio (cambio de estabilidad) y, después, una región que atrape las trayectorias (existencia del ciclo).}
 \end{trampa}
 
 \begin{ideaclave}
-\begin{tabular}{@{}lll@{}}
+\begin{tabular}{@{}>{\raggedright}p{0.25\linewidth}>{\raggedright}p{0.38\linewidth}>{\raggedright\arraybackslash}p{0.29\linewidth}@{}}
 \textbf{modelo} & \textbf{herramienta que decide} & \textbf{resultado}\\
 Lotka--Volterra & primera integral $K$ & continuo de órbitas (centro)\\
 con competencia & Dulac con $1/(vp)$; Lyapunov $W$ & equilibrio globalmente atractor\\

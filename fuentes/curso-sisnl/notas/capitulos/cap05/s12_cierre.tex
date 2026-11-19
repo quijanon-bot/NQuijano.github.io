@@ -7,8 +7,8 @@
 \begin{enumerate}
   \item \textbf{Órbita cerrada:} la trayectoria de una solución periódica no constante. No pasa por equilibrios ni se corta. En un sistema lineal vienen en familias; un \textbf{ciclo límite} es una órbita aislada, y es un fenómeno exclusivamente no lineal.
   \item \textbf{Con valores propios imaginarios puros la linealización no concluye.} Deciden una cantidad conservada (centro), una función de Lyapunov o las coordenadas polares.
-  \item \textbf{Osciladores de fase:} en el círculo hay órbitas sin equilibrios. $\dot\theta=\omega-a\sin\theta$ deriva con período $2\pi/\sqrt{\omega^2-a^2}$ si $a<\omega$ y se engancha si $a>\omega$. Dos osciladores, una luciérnaga y su linterna, y cada oscilador de Kuramoto frente al campo medio obedecen esa misma ecuación.
-  \item \textbf{Kuramoto:} la incoherencia pierde la estabilidad en $K_c=2/(\pi g(0))$; para Lorentz, $r=\sqrt{1-K_c/K}$. Acoplar sincroniza frecuencias, no iguala fases.
+  \item \textbf{Osciladores de fase:} en el círculo hay órbitas sin equilibrios. $\dot\theta=\omega-a\sin\theta$ deriva con período $2\pi/\sqrt{\omega^2-a^2}$ si $a<\omega$ y se engancha si $a\ge\omega$. Dos osciladores, una luciérnaga y su linterna, y cada oscilador de Kuramoto frente al campo medio obedecen esa misma ecuación.
+  \item \textbf{Kuramoto:} la sincronía parcial aparece en $K_c=2/(\pi g(0))$; para Lorentz, $r=\sqrt{1-K_c/K}$. Acoplar sincroniza frecuencias, no iguala fases.
   \item \textbf{Para descartar órbitas:} índice (la suma dentro de una órbita es $+1$), sistemas gradiente, funciones que decrecen estrictamente, Bendixson--Dulac. Son condiciones necesarias.
   \item \textbf{Para probar que existen:} Poincaré--Bendixson (región compacta que atrapa, sin equilibrios o con un solo foco/nodo inestable) y Liénard (además, unicidad). Solo en el plano.
   \item \textbf{Lotka--Volterra:} un centro (primera integral); con competencia, un equilibrio globalmente atractor (Dulac y Volterra); con saturación, un ciclo límite (Hopf y Poincaré--Bendixson). Nowak: la mutación rompe la estructura de Fisher y aparece un ciclo, demostrado con Poincaré--Bendixson.
@@ -25,10 +25,6 @@
   \item Una simulación no prueba un ciclo (\cref{tr:oc-simulado}); no es la no linealidad la que produce el ciclo de Nowak (\cref{tr:oc-fisher}).
 \end{itemize}
 \end{trampa}
-
-\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout4a, LotkaVolterra y las diapositivas de 2026)]
-(i) El criterio de Bendixson \emph{descarta} órbitas y Poincaré--Bendixson \emph{prueba} su existencia; el handout decía exactamente lo contrario. (ii) El criterio de Poincaré--Bendixson permite \emph{un solo} equilibrio en $M$ (foco o nodo inestable), no ``al menos uno''. (iii) En el ejemplo de índice, $J(1,1)=\begin{bmatrix}0&1\\-1&-1\end{bmatrix}$; la versión anterior tenía una fila equivocada. (iv) $N=S+1$ requiere equilibrios no degenerados; se agregó el ejemplo degenerado de índice $0$ y su conclusión (no hay órbitas en ninguna parte). (v) En el modelo con competencia, la traza del jacobiano en el equilibrio de coexistencia es \emph{negativa}; el texto anterior decía que los valores propios tenían parte real positiva y luego llamaba estable al equilibrio. (vi) Las coordenadas polares valen para todo $r>0$, sin excluir $x_1=0$, y en el ejemplo $\dot\theta=+1$; se corrigieron $\arctan(x_2/x_2)$ y el signo de $\dot\theta$. (vii) Las ecuaciones de estado de Rayleigh tenían un término perdido; la ecuación es de 1883. (viii) Huygens observó la sincronización en 1665 (mediados, no principios, del siglo~XVII) y la publicó en 1673; el modelo sinusoidal con pesos $a_{ij}$ generales no es el de Winfree, que propuso otro acoplamiento; Kuramoto lo planteó en 1975. (ix) En la caracterización de un ciclo límite con conjuntos $\omega$-límite se cambió ``puede ser'' por la equivalencia precisa, y se agregó la distinción entre estabilidad orbital y estabilidad de la solución periódica. (x) En el modelo de Nowak, $F_i=\sum_jB_{ij}x_j$ (el índice estaba cambiado), y la referencia es \citet{MiNo04} (2004, no 1977). (xi) Se completaron los ejemplos que no tenían solución (Khalil, ej.~2.8) y las figuras pendientes (índice, Poincaré--Bendixson, Lotka--Volterra con competencia). (xii) Notación unificada: $\phi(t;x_0)$ para el flujo, $\varphi$ para diferencias de fase, $\bar F$ para la aptitud media, $j$ para la unidad imaginaria, $\nabla V\T f$ para la derivada a lo largo del campo. Números verificados con \texttt{herramientas/cap05\_numeros.py} (59 de 59) y \cmd{verificarCap05.m} (34 de 34).
-\end{profundiza}
 
 %% ---------------------------------------------------------------------
 \section{Problemas}
@@ -108,3 +104,7 @@ Con $g=1/(xy)$: $\operatorname{div}(gf)=\partial_x\bigl((2-x-y)/y\bigr)+\partial
 (b) $\Vdot=2x_2^2(1-x_1^2-2x_2^2)$. En $V=\tfrac12$: $x_1^2+2x_2^2\le2V=1$, luego $\Vdot\ge0$. En $V=1$: $x_1^2+2x_2^2\ge V=1$, luego $\Vdot\le0$. (d) No es un círculo: el ciclo vive entre las dos circunferencias sin coincidir con ninguna.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

@@ -1,4 +1,5 @@
 %% C5_Ej5_Luciernagas -- Notas: sección 5.5 (arrastre y deriva de fase)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Luciérnaga theta' = w + A sin(psi - theta) frente a un estímulo
 %            psi' = Omega. La diferencia phi = psi - theta cumple
 %            phi' = Omega - w - A sin(phi). Simula tres frecuencias de estímulo.
@@ -23,7 +24,7 @@ for Om = [1.3 1.6 2]
         [~, P] = ode45(@(t, p) Om - w - A*sin(p), [0 60], 0, opc);
         fprintf('Omega = %.1f: arrastre, phi(60) = %.4f, arcsin(mu) = %.4f\n', Om, P(end), asin(mu));
     else
-        ev = odeset(opc, 'Events', @(t, p) deal(p - 2*pi, 1, 1));
+        ev = odeset(opc, 'Events', @(t, p) eventoODE(p - 2*pi, 1, 1));
         [~, ~, te] = ode45(@(t, p) Om - w - A*sin(p), [0 500], 0, ev);
         fprintf('Omega = %.1f: deriva, período %.4f, fórmula %.4f\n', Om, te, ...
                 2*pi/sqrt((Om - w)^2 - A^2));

@@ -1,4 +1,5 @@
 %% C5_Video_Kuramoto -- Video V5_1: sincronización de Kuramoto
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  N = 60 osciladores (puntos sobre el círculo) con frecuencias de
 %              Lorentz (gamma = 0.5) y K = 2 > Kc = 1. La flecha es el parámetro
 %              de orden r e^{j Psi}; a la derecha, r(t). Las fases se agrupan,

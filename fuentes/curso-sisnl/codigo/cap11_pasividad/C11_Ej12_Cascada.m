@@ -9,10 +9,11 @@
 %            Con pasivación: |(x, z)|(30) ~ 1e-13 y U no creciente.
 % EXPLORE    Halle con la fórmula exacta el tiempo de escape para z0 = 2.5.
 clear; close all; clc;
+if ~exist('eventoODE', 'file'), addpath(fullfile(fileparts(mfilename('fullpath')), '..', 'comun')); end
 
 % [ini:escape]
 k = 1;  x0 = 1;  z0 = 3;                   % x0 z0 = 3 > 1 + k = 2
-evento = @(t, x) deal(abs(x(1)) - 1e6, 1, 0);
+evento = @(t, x) eventoODE(abs(x(1)) - 1e6, 1, 0);
 opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12, 'Events', evento);
 [t, X, te] = ode45(@(t, x) [-x(1) + x(1)^2*x(2); -k*x(2)], [0 5], [x0; z0], opc);
 % fórmula exacta: con w = 1/x, w' = w - z0 e^{-k t}  ->  w = 0 en

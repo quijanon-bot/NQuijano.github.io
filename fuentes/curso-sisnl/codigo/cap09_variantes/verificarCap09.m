@@ -16,7 +16,7 @@ fallas = 0;  n = 0;
         end
     end
 opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-13);
-escape = @(L) odeset(opc, 'Events', @(t, x) deal(norm(x) - L, 1, 0));
+escape = @(L) odeset(opc, 'Events', @(t, x) eventoODE(norm(x) - L, 1, 0));
 monodromia = @(A, T) [ultimo(A, T, [1; 0]), ultimo(A, T, [0; 1])];
 
 fprintf('9.2  Uniformidad\n');
@@ -113,7 +113,7 @@ fv = @(t, x) [x(2); -x(1) + (1 - x(1)^2)*x(2)];
 [t, X] = ode45(fv, linspace(0, 100, 100001), [2; 0], opc);  nx = sqrt(sum(X(t > 60, :).^2, 2));
 revisar('van der Pol: min ||x|| en el ciclo = 1.532', min(nx), 1.532, 1e-3);
 revisar('van der Pol: max ||x|| en el ciclo = 2.830', max(nx), 2.830, 1e-3);
-sal = odeset(opc, 'AbsTol', 1e-14, 'Events', @(t, x) deal(norm(x) - 1, 1, 1));
+sal = odeset(opc, 'AbsTol', 1e-14, 'Events', @(t, x) eventoODE(norm(x) - 1, 1, 1));
 for par = [1e-2 8.90; 1e-4 18.97; 1e-6 27.23]'
     [te, ~] = ode45(fv, [0 100], [par(1); 0], sal);
     revisar(sprintf('van der Pol: desde (%g, 0) sale de B_1', par(1)), te(end), par(2), 0.01);

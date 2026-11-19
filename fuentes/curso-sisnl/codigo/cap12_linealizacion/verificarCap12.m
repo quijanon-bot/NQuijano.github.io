@@ -84,7 +84,7 @@ x0 = equilibrioLevitador(0.08, P);  t = linspace(0, 3, 3001);  k = t > 1;  Yd = 
 revisar('seguimiento: error jacobiana [cm]', 100*max(abs(X1(k,1) - Yd(k))), 2.3599, 2e-3);
 revisar('seguimiento: error exacta [m]', max(abs(X2(k,1) - Yd(k))), 0, 1e-5);
 x0 = equilibrioLevitador(0.05, P);
-ev = odeset(opc, 'MaxStep', 2e-4, 'Events', @(t, x) deal(x(3) - 0.02, 1, -1));
+ev = odeset(opc, 'MaxStep', 2e-4, 'Events', @(t, x) eventoODE(x(3) - 0.02, 1, -1));
 [ts, ~] = ode45(@(t, x) modeloLevitador(x, leyExactaLevitador(x, [0.2 0 0 0], KFL, P), P), [0 1.2], x0, ev);
 revisar('escalón: i = 0.02 A en t [s]', ts(end), 0.02048, 5e-5);
 [~, X3] = ode45(@(t, x) modeloLevitador(x, leyExactaLevitador(x, [0.05 0 0 0], KFL, P), P, mR(t)), [0 3], xs, opc);
@@ -92,7 +92,7 @@ revisar('masa 0.12: error final exacta sola [cm]', 100*(X3(end,1) - 0.05), 1.961
 
 fprintf('12.9-12.10  Dinámica cero\n');
 lazo = @(t, x) [x(1) + x(2); 3*x(1)^2*x(2) + x(1) + (-x(1) + 3*x(1)^3 - 2*(-x(1)^3 + x(2)))];
-[te, ~] = ode45(lazo, [0 10], [0.05; 0.6], odeset(o2, 'MaxStep', 0.005, 'Events', @(t, x) deal(abs(x(1)) - 2.2, 1, 0)));
+[te, ~] = ode45(lazo, [0 10], [0.05; 0.6], odeset(o2, 'MaxStep', 0.005, 'Events', @(t, x) eventoODE(abs(x(1)) - 2.2, 1, 0)));
 revisar('fase no mínima: |eta| = 2.2 en t', te(end), 1.39448, 2e-4);
 revisar('dinámica cero: escape desde 0.05', log(1 + 1/0.05^2)/2, 2.99698, 1e-5);
 for cs = [1 -2 -0.0095955; 2 -1 179.3018].'

@@ -5,7 +5,7 @@ function W = zubovMalla(f, x1, x2, hfun, T)
 %   Se pone W = Inf si la solución sale de ||x|| <= 10 o no llega a ||x|| < 1e-3 en T.
 %   V = 1 - exp(-W) es la función de Zubov; {V < 1} = {W < Inf} es la región de atracción.
 if nargin < 5, T = 40; end
-opc = odeset('RelTol', 1e-7, 'AbsTol', 1e-9, 'Events', @(t, z) deal(z(1)^2 + z(2)^2 - 100, 1, 0));
+opc = odeset('RelTol', 1e-7, 'AbsTol', 1e-9, 'Events', @(t, z) eventoODE(z(1)^2 + z(2)^2 - 100, 1, 0));
 g = @(t, z) [f(t, z(1:2)); hfun(z(1:2))];
 W = Inf(numel(x2), numel(x1));
 for i = 1:numel(x2)

@@ -1,4 +1,5 @@
 %% C5_Ej3_VanDerPol -- Notas: sección 5.3 (van der Pol y Liénard)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Simula x'' + mu (x^2 - 1) x' + x = 0 para mu = 1 y mu = 5 desde
 %            adentro y desde afuera del ciclo; mide período y amplitud; verifica
 %            las hipótesis del teorema de Liénard con F(x) = mu (x^3/3 - x).

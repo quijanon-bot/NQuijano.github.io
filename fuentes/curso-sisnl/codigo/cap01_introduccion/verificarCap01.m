@@ -77,7 +77,7 @@ revisar('x'' = x + u^3, u = -5x: x(10) -> 5^(-3/2)', X(end), 5^(-1.5), 1e-6);
 revisar('u = -(5x)^(1/3): x(5) = exp(-20)', X(end)/exp(-20), 1, 1e-4);
 tt = linspace(0, 10, 10001)';
 o9 = odeset('RelTol', 1e-9, 'AbsTol', 1e-11, 'MaxStep', 1e-3);
-evento = @(t, x) deal(x(1) + x(2), 1, -1);
+evento = @(t, x) eventoODE(x(1) + x(2), 1, -1);
 [~, ~, ts, xs] = ode45(@(t, x) [x(2); -4*x(1)], [0 10], [1; 1], odeset(o9, 'Events', evento));
 revisar('estructura variable: llega a s = 0 en atan(4/3)/2', ts, atan(4/3)/2, 1e-6);
 revisar('estructura variable: x(ts) = (1,-1)', norm(xs(:)' - [1 -1]), 0, 1e-6);

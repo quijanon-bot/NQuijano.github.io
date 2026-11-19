@@ -7,7 +7,7 @@
 % EXPLORE    Con t0 = 10, reduzca la condición inicial hasta que converja. ¿Y con t0 = 100?
 clear; close all; clc;
 if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpath')), '..', 'comun')); end
-opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) deal(norm(x) - 1e3, 1, 0));
+opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) eventoODE(norm(x) - 1e3, 1, 0));
 
 % [ini:linealizacion]
 f = @(t, x) [-x(1) + t*x(2)^2; x(1) - x(2)];

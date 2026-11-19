@@ -33,7 +33,7 @@ end
 % Estructura variable. Mientras x1 s > 0, u = -4 x1: el centro x1'' = -4 x1.
 % Al tocar s = 0 los dos campos apuntan hacia la recta y la solución (en el
 % sentido de Filippov) desliza por ella con x1' = -x1, x2 = -x1.
-evento = @(t, x) deal(x(1) + x(2), 1, -1);          % s = 0, de arriba hacia abajo
+evento = @(t, x) eventoODE(x(1) + x(2), 1, -1);          % s = 0, de arriba hacia abajo
 [~, ~, ts, xs] = ode45(@(t, x) [x(2); -4*x(1)], [0 10], [1; 1], odeset(opc, 'Events', evento));
 antes = t <= ts;  X = zeros(numel(t), 2);
 [~, Xa] = ode45(@(t, x) [x(2); -4*x(1)], t(antes), [1; 1], opc);  X(antes, :) = Xa;

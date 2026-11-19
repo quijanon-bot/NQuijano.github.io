@@ -11,7 +11,7 @@ clear; close all; clc;
 if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpath')), '..', 'comun')); end
 
 % [ini:cascadas]
-opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12, 'Events', @(t, x) deal(abs(x(1)) - 1e8, 1, 1));
+opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12, 'Events', @(t, x) eventoODE(abs(x(1)) - 1e8, 1, 1));
 [~, ~, te] = ode45(@(t, x) [-x(1) + x(1)^2*x(2); -x(2)], [0 2], [2; 2], opc);
 fprintf('(1) escape en t = %.5f;  ln(2)/2 = %.5f\n', te, log(2)/2);
 x1c = @(t) exp(-t + 9/2*(1 - exp(-2*t)));

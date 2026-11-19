@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 5 (órbitas, osciladores y ciclos límite). PDF y SVG.
 Cada figura reproduce un script de codigo/cap05_orbitas_ciclos/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap05_figuras.py
@@ -159,7 +160,7 @@ def no_uniforme():
         if A == 2:
             a.plot(np.pi/2, 0, 'o', color=C['ambar'], ms=6)
         if A == 3:
-            s = np.arcsin(w/A); a.plot(s, 0, 'o', mfc='white', mec=C['noche'], ms=6); a.plot(np.pi - s, 0, 'o', color=C['noche'], ms=6)
+            s = np.arcsin(w/A); a.plot(s, 0, 'o', color=C['noche'], ms=6); a.plot(np.pi - s, 0, 'o', mfc='white', mec=C['noche'], ms=6)  # estable: cos > 0
         a.set_xticks([0, np.pi, 2*np.pi]); a.set_xticklabels(['0', r'$\pi$', r'$2\pi$']); a.set_title(tit, fontsize=9)
         a.set_ylim(-1.5, 5.2); a.grid(True); a.set_xlabel(r'$\theta$')
     ax[0].set_ylabel(r'$\dot\theta$')
@@ -322,7 +323,7 @@ def nowak():
     def f(t, x, Q):
         F = B @ x; return Q.T @ (F*x) - (x @ F)*x
     P = lambda X: (X[1] + 0.5*X[2], np.sqrt(3)/2*X[2])           # coordenadas del triángulo
-    fig, ax = plt.subplots(1, 3, figsize=(6.9, 2.5), gridspec_kw=dict(wspace=0.2, width_ratios=[1, 1, 1.15]))
+    fig, ax = plt.subplots(1, 3, figsize=(6.9, 2.5), gridspec_kw=dict(wspace=0.45, width_ratios=[1, 1, 1.15]))
     tri = np.array([[0, 0], [1, 0], [0.5, np.sqrt(3)/2], [0, 0]])
     for a, c, tit in [(ax[0], 0.01, '$c=0.01$: ciclo límite'), (ax[1], 0.04, '$c=0.04$: foco estable')]:
         a.plot(*tri.T, color=C['gris'], lw=1)

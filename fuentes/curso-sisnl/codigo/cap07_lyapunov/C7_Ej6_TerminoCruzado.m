@@ -26,7 +26,7 @@ fprintf('max Vdot en D sin el origen: %.2e (< 0)\n', max(W(:)));
 % [fin:cruzado]
 
 % [ini:sale]
-opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) deal(x(1) - pi, 1, 1));
+opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) eventoODE(x(1) - pi, 1, 1));
 [t, X, te] = ode45(@(t, x) [x(2); -a*sin(x(1)) - b*x(2)], [0 60], [1.5; 3], opc);
 [~, Y] = ode45(@(t, x) [x(2); -a*sin(x(1)) - b*x(2)], [0 60], [1.5; 3], odeset('RelTol', 1e-10));
 fprintf('V(1.5,3) = %.3f > c*; sale de D en t = %.3f; termina en x1 = %.4f pi\n', ...

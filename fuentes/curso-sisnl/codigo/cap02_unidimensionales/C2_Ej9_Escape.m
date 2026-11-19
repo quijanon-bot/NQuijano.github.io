@@ -16,7 +16,7 @@ if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpat
 
 % [ini:eventos]
 XMAX = 1e3;
-ev = @(t, x) deal(abs(x) - XMAX, 1, 0);           % [valor, terminal, dirección]
+ev = @(t, x) eventoODE(abs(x) - XMAX, 1, 0);           % [valor, terminal, dirección]
 opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', ev);
 fprintf('x'' = x^2\n   x0     evento      1/x0 - 1/XMAX\n');
 for x0 = [0.25 0.5 1 2]

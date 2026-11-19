@@ -33,7 +33,7 @@ d = 0.1;  fprintf('con V = x1, en (delta^2, -delta), delta = 0.1: V = %.2f, Vdot
 fig = estiloFigura(600, 520);  fC = @(t, x) [x(1)^2 + x(2)^3; -x(2) + x(1)^3];
 th = linspace(0, 2*pi, 300);  plot(0.5*cos(th), 0.5*sin(th), 'k:');  hold on;
 s = linspace(-1, 1, 200);  plot(s.^2/2, s, 'g', 'LineWidth', 2);
-opc = odeset('RelTol', 1e-9, 'Events', @(t, x) deal(norm(x) - 0.6, 1, 0));
+opc = odeset('RelTol', 1e-9, 'Events', @(t, x) eventoODE(norm(x) - 0.6, 1, 0));
 for x0 = [[0.02; 0.15], [0.03; -0.18], [0.01; 0]]
     [~, X] = ode45(fC, [0 200], x0, opc);  plot(X(:, 1), X(:, 2), 'k');
 end

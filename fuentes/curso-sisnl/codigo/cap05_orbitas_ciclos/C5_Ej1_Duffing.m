@@ -1,4 +1,5 @@
 %% C5_Ej1_Duffing -- Notas: sección 5.1 (más allá de los equilibrios)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Oscilador de Duffing sin forzamiento ni fricción, x'' + x^3 - x = 0:
 %            equilibrios, valores propios del jacobiano, la energía
 %            H = x2^2/2 - x1^2/2 + x1^4/4 a lo largo de una simulación y el
@@ -37,7 +38,7 @@ fprintf('H(x(t)): de %.10f a %.10f (variación %.1e)\n', H(X(1,:)), H(X(end,:)),
 % extremos x1min < 1 < x1max; T = 2 * int dx1 / x2 (se integra la ODE).
 for h = [-0.2 -0.01]
     x1max = sqrt(1 + sqrt(1 + 4*h));              % raíz de -x^2/2 + x^4/4 = h
-    ev  = odeset(opc, 'Events', @(t, x) deal(x(2), 0, 0));
+    ev  = odeset(opc, 'Events', @(t, x) eventoODE(x(2), 0, 0));
     [~, ~, te] = ode45(f, [0 100], [x1max; 0], ev);
     te = te(te > 1e-6);                           % el primer cruce es x1min (medio período)
     fprintf('H = %5.2f: período %.4f\n', h, te(2));

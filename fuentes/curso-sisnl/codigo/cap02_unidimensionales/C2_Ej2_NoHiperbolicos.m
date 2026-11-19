@@ -29,7 +29,7 @@ end
 
 fig = estiloFigura(1200, 700); fs = {@(x) -x.^3, @(x) x.^3, @(x) x.^2};
 tit = {'$\dot x=-x^3$: estable', '$\dot x=x^3$: inestable', '$\dot x=x^2$: semiestable'};
-ev = odeset(opc, 'Events', @(t, x) deal(abs(x) - 3, 1, 0));   % se detiene en |x| = 3
+ev = odeset(opc, 'Events', @(t, x) eventoODE(abs(x) - 3, 1, 0));   % se detiene en |x| = 3
 for i = 1:3
     ax = subplot(2, 3, i); lineaFase(ax, fs{i}, [-1.5 1.5], 'Equilibrios', 0); title(ax, tit{i}); xlabel(ax, '$x$');
     ax = subplot(2, 3, 3 + i); hold(ax, 'on');

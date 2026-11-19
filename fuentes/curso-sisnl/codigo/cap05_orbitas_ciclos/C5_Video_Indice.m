@@ -1,4 +1,5 @@
 %% C5_Video_Indice -- Video V5_2: el índice de una curva cerrada
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Un punto recorre una circunferencia en sentido antihorario; en
 %              cada posición se dibuja el vector f(x) y, a la derecha, el mismo
 %              vector trasladado al origen. Se cuentan las vueltas netas. Cuatro

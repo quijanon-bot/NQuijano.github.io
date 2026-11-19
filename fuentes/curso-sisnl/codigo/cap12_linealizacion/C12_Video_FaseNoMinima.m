@@ -9,7 +9,7 @@ if ~exist('estiloFigura', 'file'), addpath(fullfile(raiz, '..', 'comun')); end
 HACER_VIDEO = true;
 
 k = 2;  lazo = @(t, x) [x(1) + x(2); 3*x(1)^2*x(2) + x(1) + (-x(1) + 3*x(1)^3 - k*(-x(1)^3 + x(2)))];
-opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'MaxStep', 0.005, 'Events', @(t, x) deal(abs(x(1)) - 2.2, 1, 0));
+opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'MaxStep', 0.005, 'Events', @(t, x) eventoODE(abs(x(1)) - 2.2, 1, 0));
 [ts, Xs] = ode45(lazo, [0 10], [0.05; 0.6], opc);
 t = linspace(0, ts(end), 288);  X = interp1(ts, Xs, t);
 y = -X(:,1).^3 + X(:,2);  u = -X(:,1) + 3*X(:,1).^3 - k*y;

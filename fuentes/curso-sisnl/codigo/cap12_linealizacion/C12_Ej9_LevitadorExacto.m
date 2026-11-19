@@ -36,7 +36,7 @@ fprintf('seguimiento, error máximo (t > 1): jacobiana %.2f cm, exacta %.1e m\n'
 
 % [ini:singularidad]
 x0 = equilibrioLevitador(0.05, P);
-ev = odeset(opc, 'MaxStep', 2e-4, 'Events', @(t, x) deal(x(3) - 0.02, 1, -1));
+ev = odeset(opc, 'MaxStep', 2e-4, 'Events', @(t, x) eventoODE(x(3) - 0.02, 1, -1));
 [ts, S1] = ode45(@(t, x) modeloLevitador(x, leyExactaLevitador(x, [0.2 0 0 0], KFL, P), P), [0 1.2], x0, ev);
 fprintf('escalón 0.05 -> 0.2: la corriente llega a 0.02 A en t = %.4f s (y = %.4f m)\n', ts(end), S1(end,1));
 % [fin:singularidad]

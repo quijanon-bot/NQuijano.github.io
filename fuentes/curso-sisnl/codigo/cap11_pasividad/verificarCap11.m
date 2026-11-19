@@ -79,7 +79,7 @@ qr = pi/3;  qss = fzero(@(q) 20*(qr - q) - 9.81*sin(q), [0 qr]);
 revisar('PD solo: q_ss', qss, 0.7228, 1e-4);
 revisar('PD solo: error (grados)', rad2deg(qr - qss), 18.589, 1e-3);
 revisar('escape exacto con x0 = 1, z0 = 3, k = 1', log((3/2)/(3/2 - 1))/2, log(3)/2, 1e-12);
-ev = @(t, x) deal(abs(x(1)) - 1e6, 1, 0);
+ev = @(t, x) eventoODE(abs(x(1)) - 1e6, 1, 0);
 [~, ~, te] = ode45(@(t, x) [-x(1) + x(1)^2*x(2); -x(2)], [0 5], [1; 3], odeset(opc, 'Events', ev));
 revisar('escape simulado', te(1), 0.5493, 1e-3);
 

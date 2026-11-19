@@ -16,7 +16,7 @@ fallas = 0;  n = 0;
         end
     end
 opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12);
-escape = @(L) odeset(opc, 'Events', @(t, x) deal(abs(x(1)) - L, 1, 0));
+escape = @(L) odeset(opc, 'Events', @(t, x) eventoODE(abs(x(1)) - L, 1, 0));
 
 fprintf('8.2-8.3  Conjuntos límite y péndulo\n');
 [t, X] = ode45(@(t, x) [x(2); -x(1) + (1 - x(1)^2)*x(2)], [0 80], [0.1; 0], opc);

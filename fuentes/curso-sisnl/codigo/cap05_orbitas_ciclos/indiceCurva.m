@@ -4,6 +4,7 @@ function I = indiceCurva(f, c, r, n)
 %   en sentido antihorario, sigue el ángulo de f(x) sin saltos (unwrap) y
 %   devuelve el número neto de vueltas que dio el vector.  f: R^2 -> R^2.
 %   La curva no debe pasar por equilibrios (f ~= 0 sobre ella).
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 4, n = 4000; end
 th  = linspace(0, 2*pi, n + 1);
 ang = zeros(1, n + 1);

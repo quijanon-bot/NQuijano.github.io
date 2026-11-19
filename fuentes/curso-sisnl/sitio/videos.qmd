@@ -42,9 +42,9 @@ Los tres videos de la parte 4 están publicados: se generaron con `herramientas/
 
 | Video | Qué muestra | Script |
 |:--|:--|:--|
-| []{#V5_1_kuramoto}V5.1 · Kuramoto | Los osciladores en el círculo y $r(t)$ mientras $K$ cruza $K_c$. | `C5_Video_Kuramoto.m` |
-| []{#V5_2_indice}V5.2 · Índice | La curva barre el plano y el contador de vueltas cambia al cruzar equilibrios. | `C5_Video_Indice.m` |
-| []{#V5_3_vanderpol}V5.3 · van der Pol | Trayectorias de adentro y de afuera llegan al mismo ciclo. | `C5_Video_VanDerPol.m` |
+| []{#V5_1_kuramoto}[V5.1 · Kuramoto](videos/V5_1_kuramoto.mp4) | Sesenta osciladores con $K=2>K_c$: las fases se agrupan, algunas siguen dando vueltas, y $r(t)$ se acerca a $\sqrt{1-K_c/K}$. | `C5_Video_Kuramoto.m` |
+| []{#V5_2_indice}[V5.2 · Índice](videos/V5_2_indice.mp4) | El vector $f$ sobre un círculo, trasladado al origen: nodo ($+1$), silla ($-1$), $z^2$ ($+2$) y una curva que rodea la silla y el foco ($0$). | `C5_Video_Indice.m` |
+| []{#V5_3_vanderpol}[V5.3 · van der Pol](videos/V5_3_vanderpol.mp4) | Trayectorias de adentro y de afuera llegan al mismo ciclo. | `C5_Video_VanDerPol.m` |
 
 Los videos de las partes 3 y 5 todavía no se han grabado: los scripts están listos y, cuando se graben, basta con copiar los `.mp4` a `sitio/videos/` y convertir el nombre en enlace.
 

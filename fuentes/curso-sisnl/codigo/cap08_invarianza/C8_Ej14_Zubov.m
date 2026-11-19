@@ -26,7 +26,7 @@ res2 = Wd + X1.^2 + X2.^2;                                  % dW/dt + h(x) debe 
 fprintf('[z2] max |dW/dt + ||x||^2| en {x1 x2 < 0.98} = %.1e\n', max(abs(res2(dentro))));
 [~, X] = ode45(f, [0 30], [1.9; 0.5], opc);
 fprintf('desde (1.9, 0.5), w = 0.95: ||x(30)|| = %.1e\n', norm(X(end, :)));
-salir = odeset(opc, 'Events', @(t, x) deal(x(1) - 1e3, 1, 0));
+salir = odeset(opc, 'Events', @(t, x) eventoODE(x(1) - 1e3, 1, 0));
 [te, ~] = ode45(f, [0 30], [2.1; 0.5], salir);
 fprintf('desde (2.1, 0.5), w = 1.05: x1 = 1000 en t = %.3f\n', te(end));
 % [fin:z2]

@@ -40,7 +40,7 @@ fprintf('2.5  Logística con cosecha\n');
 revisar('h = 0.2: equilibrio inestable', (1 - sqrt(0.2))/2, 0.27639, 1e-5);
 revisar('h = 0.2: equilibrio estable', (1 + sqrt(0.2))/2, 0.72361, 1e-5);
 revisar('cosecha crítica h_c = r K/4', 1/4, 0.25, 0);
-ev = @(t, x) deal(x, 1, -1);
+ev = @(t, x) eventoODE(x, 1, -1);
 [~, ~, te] = ode45(@(t, x) x*(1 - x) - 0.3, [0 20], 0.5, odeset(opc, 'Events', ev));
 a = sqrt(0.05);
 revisar('h = 0.3: tiempo de extinción', te, atan(0.5/a)/a, 1e-6);
@@ -81,12 +81,12 @@ revisar('nthroot(-8, 3)', nthroot(-8, 3), -2, 0);
 revisar('|(-8)^(1/3)| = 2, pero no es real', double(abs(imag((-8)^(1/3))) > 1), 1, 0);
 [~, x] = ode45(@(t, x) nthroot(x, 3), [0 3], 1e-12, odeset('RelTol', 1e-10, 'AbsTol', 1e-14));
 revisar('x'' = x^(1/3) desde 1e-12: x(3)', x(end), 2*sqrt(2), 1e-3);
-ev = @(t, x) deal(x - 1e-9, 1, -1);
+ev = @(t, x) eventoODE(x - 1e-9, 1, -1);
 [~, ~, te] = ode45(@(t, x) -nthroot(x, 3), [0 3], 1, odeset('RelTol', 1e-10, 'AbsTol', 1e-14, 'Events', ev));
 revisar('x'' = -x^(1/3): llega a 0 en 3/2', te, 1.5, 1e-4);
 
 fprintf('2.9  Escape\n');
-ev = @(t, x) deal(abs(x) - 1e3, 1, 0);
+ev = @(t, x) eventoODE(abs(x) - 1e3, 1, 0);
 for x0 = [0.5 2]
     [~, ~, te] = ode45(@(t, x) x^2, [0 6], x0, odeset(opc, 'Events', ev));
     revisar(sprintf('x'' = x^2, x0 = %g: evento en 1/x0 - 1/1000', x0), te, 1/x0 - 1e-3, 1e-6);

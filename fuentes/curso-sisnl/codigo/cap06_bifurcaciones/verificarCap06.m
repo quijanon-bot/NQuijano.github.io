@@ -25,7 +25,7 @@ eq = lineaFase(axes('Visible', 'off'), @(x) -1 + x.^2, [-2 2]);  close all;
 revisar("x' = -1 + x^2: -1 estable", strcmp(eq.tipo{1}, 'estable'), 1, 0);
 x = linspace(0, 1, 11);  h = 0.2;
 revisar('cosecha: forma normal exacta', max(abs(x.*(1 - x) - h - ((0.25 - h) - (x - 0.5).^2))), 0, 1e-15);
-o2 = odeset(opc, 'Events', @(t, x) deal(x + 1, 1, -1));
+o2 = odeset(opc, 'Events', @(t, x) eventoODE(x + 1, 1, -1));
 [~, ~, te] = ode45(@(t, x) -0.01 - x^2, [0 1e3], 1, o2);
 revisar('fantasma |mu| = 0.01: tránsito de +1 a -1', te(1), 2*atan(10)/0.1, 1e-5);
 revisar('... = 29.42', te(1), 29.42, 5e-3);

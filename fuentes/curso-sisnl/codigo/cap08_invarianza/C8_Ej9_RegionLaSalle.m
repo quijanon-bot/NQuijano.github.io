@@ -15,7 +15,7 @@ V = @(x1, x2) x1.^2/2 - x1.^4/4 + x2.^2/2;
 fprintf('V en las sillas = %.3f\n', V(1, 0));
 [~, X] = ode45(f, [0 100], [0; 0.7], opc);
 fprintf('desde (0, 0.7), V = %.3f: ||x(100)|| = %.1e\n', V(0, 0.7), norm(X(end, :)));
-salir = odeset(opc, 'Events', @(t, x) deal(abs(x(1)) - 5, 1, 0));
+salir = odeset(opc, 'Events', @(t, x) eventoODE(abs(x(1)) - 5, 1, 0));
 [te, ~] = ode45(f, [0 30], [1.1; 0.1], salir);
 fprintf('desde (1.1, 0.1), V = %.3f < 1/4 pero fuera de |x1| < 1: |x1| = 5 en t = %.2f\n', V(1.1, 0.1), te(end));
 % Con una Vdot estricta se usa nivelCritico (mínimo de V donde Vdot >= 0). La malla debe

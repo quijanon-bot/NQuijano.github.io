@@ -4,7 +4,7 @@
 %% ---------------------------------------------------------------------
 
 \begin{definicion}[label=def:oc-ciclo]{Ciclo límite}
-Un \clave{ciclo límite} es una órbita cerrada \emph{aislada}: alguna vecindad suya no contiene otras órbitas cerradas. Equivalentemente (en el plano), es una órbita cerrada $\gamma$ que es el conjunto $\omega$-límite o $\alpha$-límite de algún punto que no está en $\gamma$.
+Un \clave{ciclo límite} es una órbita cerrada \emph{aislada}: alguna vecindad suya no contiene otras órbitas cerradas. Si $f$ es analítica (por ejemplo, polinomial), esto equivale a que $\gamma$ sea el conjunto $\omega$-límite o $\alpha$-límite de algún punto que no está en $\gamma$, que es la definición de \citet{Per01}; con $f$ solo suave las dos definiciones pueden diferir.
 \end{definicion}
 
 Todo ciclo límite es una órbita cerrada; no toda órbita cerrada es un ciclo límite (las de Duffing y las de un sistema lineal no lo son). Por la \cref{prop:oc-lineal}, los ciclos límite son un fenómeno exclusivamente no lineal. Las trayectorias vecinas a un ciclo límite se acercan o se alejan de él en espiral, y eso da tres tipos (\cref{fig:oc-tipos}): \clave{estable} (se acercan por los dos lados), \clave{inestable} (se alejan por los dos lados) y \clave{semiestable} (se acercan por un lado y se alejan por el otro).
@@ -23,7 +23,7 @@ Analice $\dot x_1=-x_2+x_1(1-x_1^2-x_2^2)$, $\dot x_2=x_1+x_2(1-x_1^2-x_2^2)$.
   r\dot r=x_1\dot x_1+x_2\dot x_2,\qquad r^2\dot\theta=x_1\dot x_2-x_2\dot x_1,
   \label{eq:oc-polares}
 \end{equation}
-válidas en todo punto con $r>0$ (no hace falta excluir $x_1=0$). Aquí dan $\dot r=r(1-r^2)$ y $\dot\theta=1$: el radio y el ángulo se desacoplan. La ecuación radial es la logística de la \cref{sec:un-poblaciones}, con $r=0$ inestable y $r=1$ estable, y tiene solución explícita
+válidas en todo punto con $r>0$ (no hace falta excluir $x_1=0$). Aquí dan $\dot r=r(1-r^2)$ y $\dot\theta=1$: el radio y el ángulo se desacoplan. La ecuación radial es la logística de la \cref{sec:un-poblaciones} en la variable $u=r^2$ ($\dot u=2u(1-u)$), con $r=0$ inestable y $r=1$ estable, y tiene solución explícita
 \[
   r(t)=\Bigl(1+\bigl(r_0^{-2}-1\bigr)e^{-2t}\Bigr)^{-1/2}.
 \]
@@ -45,7 +45,7 @@ Toda trayectoria con $r_0>0$ se enrolla sobre el círculo unitario, que es un ci
 
 Un ciclo límite estable es una \clave{oscilación autosostenida}: el sistema oscila sin ninguna entrada periódica, con un período, una amplitud y una forma de onda propios, y si se le perturba, vuelve a ellos. El latido del corazón, el ritmo circadiano de la temperatura corporal, las reacciones químicas que oscilan espontáneamente (Belousov--Zhabotinsky) y el aleteo (\emph{flutter}) de un ala son ejemplos.
 
-Los primeros modelos vinieron de la acústica y de la electrónica. Lord Rayleigh, estudiando las vibraciones \emph{mantenidas} ---la cuerda de un violín frotada por el arco, el tubo de un órgano---, propuso en 1883 la ecuación $\ddot x+\epsilon\bigl(\tfrac13\dot x^2-1\bigr)\dot x+x=0$, es decir,
+Los primeros modelos vinieron de la acústica y de la electrónica. Lord Rayleigh, estudiando las vibraciones \emph{mantenidas} (la cuerda de un violín frotada por el arco, el tubo de un órgano), propuso en 1883 la ecuación $\ddot x+\epsilon\bigl(\tfrac13\dot x^2-1\bigr)\dot x+x=0$, es decir,
 \[
   \dot x_1=x_2,\qquad \dot x_2=-x_1-\epsilon\bigl(\tfrac13x_2^2-1\bigr)x_2 \qquad\text{\citep{Ray1883}}.
 \]
@@ -77,12 +77,12 @@ Considere $\ddot x+f(x)\dot x+g(x)=0$, es decir, $\dot x_1=x_2$, $\dot x_2=-g(x_
 Entonces el sistema tiene un único ciclo límite, que rodea el origen y es estable.
 \end{teorema}
 
-Para van der Pol, $f(x)=\mu(x^2-1)$ es par, $g(x)=x$ es impar y positiva para $x>0$, y $F(x)=\mu(\tfrac13x^3-x)=\tfrac\mu3x(x^2-3)$ tiene su único cero positivo en $a=\sqrt3$, es negativa en $(0,\sqrt3)$ y creciente después. El teorema da existencia, unicidad y estabilidad del ciclo para todo $\mu>0$. Es, en este capítulo, el único resultado que dice \emph{cuántos} ciclos hay.
+Para van der Pol, $f(x)=\mu(x^2-1)$ es par, $g(x)=x$ es impar y positiva para $x>0$, y $F(x)=\mu(\tfrac13x^3-x)=\tfrac\mu3x(x^2-3)$ tiene su único cero positivo en $a=\sqrt3$, es negativa en $(0,\sqrt3)$ y creciente después. El teorema da existencia, unicidad y estabilidad del ciclo para todo $\mu>0$. Es, en este capítulo, el único resultado que garantiza que hay \emph{exactamente un} ciclo.
 
 \codigorepo{cap05_orbitas_ciclos/C5_Ej3_VanDerPol.m}{ciclo}{Período y amplitud del ciclo de van der Pol}
 
 \begin{trampa}[label=tr:oc-orbital]{Un ciclo estable no es una solución asintóticamente estable}
 \plausible{Las trayectorias vecinas convergen al ciclo límite; por lo tanto la solución periódica es asintóticamente estable en el sentido de Lyapunov: si $x(0)$ está cerca de $\bar x(0)$, entonces $x(t)-\bar x(t)\to0$.}
 Lo que converge es la \emph{órbita}, no el instante en que se pasa por cada punto. Una trayectoria que empieza un poco afuera del ciclo de van der Pol llega al ciclo con un desfase: $x(t)$ se acerca al conjunto $\gamma$, pero $x(t)-\bar x(t)$ no tiende a cero, salvo que se corrija la fase. Basta comparar dos puntos \emph{sobre} el mismo ciclo: siguen separados para siempre, aunque los dos estén en el ciclo.
-\correcto{Un ciclo límite estable es \emph{orbitalmente} asintóticamente estable: $\dist(x(t),\gamma)\to0$. Cada trayectoria vecina converge, además, a la solución periódica con alguna \emph{fase asintótica} propia. La estabilidad de Lyapunov de una solución periódica de un sistema invariante en el tiempo nunca es asintótica, porque un corrimiento de fase sobre el ciclo no decae.}
+\correcto{Un ciclo límite estable es asintóticamente estable \emph{en sentido orbital}: $\dist(x(t),\gamma)\to0$. Si el ciclo es hiperbólico (como el de van der Pol), cada trayectoria vecina converge, además, a la solución periódica con alguna \emph{fase asintótica} propia. La estabilidad de Lyapunov de una solución periódica no constante de un sistema invariante en el tiempo nunca es asintótica, porque un corrimiento de fase sobre el ciclo no decae.}
 \end{trampa}

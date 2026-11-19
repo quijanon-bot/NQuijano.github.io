@@ -9,7 +9,7 @@ if ~exist('estiloFigura', 'file'), addpath(fullfile(raiz, '..', 'comun')); end
 HACER_VIDEO = true;
 
 f = @(t, x) [x(1)^2 + x(2)^3; -x(2) + x(1)^3];
-opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) deal(norm(x) - 0.6, 1, 0));
+opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) eventoODE(norm(x) - 0.6, 1, 0));
 x0s = [0.05 0.02 0.01 0.005];  sol = cell(1, 4);
 for k = 1:4
     [t, X] = ode45(f, linspace(0, 400, 40001), [x0s(k); 0.5*x0s(k)^0.5*0.3], opc);  sol{k} = [t X];

@@ -30,7 +30,7 @@ end
 
 % [ini:extincion]
 h = 0.3;  a = sqrt(h - 1/4);
-ev = @(t, x) deal(x, 1, -1);                    % detener cuando x = 0
+ev = @(t, x) eventoODE(x, 1, -1);                    % detener cuando x = 0
 opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12, 'Events', ev);
 [t, x, te] = ode45(@(t, x) x*(1 - x) - h, [0 20], 0.5, opc);
 fprintf('h = 0.3 desde x0 = 0.5: extinción en t = %.4f (exacto %.4f)\n', te, atan(0.5/a)/a);

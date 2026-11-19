@@ -10,7 +10,7 @@ if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpat
 
 % [ini:contra]
 fprintf('(1) x(5) con w = 2 y x(0) = 1: %.1f = e^5\n', exp(5));
-opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12, 'Events', @(t, x) deal(x - 1e6, 1, 1));
+opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12, 'Events', @(t, x) eventoODE(x - 1e6, 1, 1));
 [t, X, te] = ode45(@(t, x) -3*x + (1 + 2*x^2), [0 1], 2, opc);
 xc = @(t) (3 - exp(t))./(3 - 2*exp(t));
 fprintf('(2) escape simulado en t = %.5f;  ln(3/2) = %.5f\n', te, log(1.5));

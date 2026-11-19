@@ -22,7 +22,7 @@ end
 % resorte blando: la componente equivocada
 cs = k0^2/(4*abs(-1));
 fprintf('blando: c* = %.3f, V(1.2, 0) = %.4f, V(0.9, 0) = %.4f\n', cs, V(-1, [1.2; 0]), V(-1, [0.9; 0]));
-escape = odeset(opc, 'Events', @(t, x) deal(abs(x(1)) - 50, 1, 0));
+escape = odeset(opc, 'Events', @(t, x) eventoODE(abs(x(1)) - 50, 1, 0));
 [te, Xe] = ode45(fd(-1), [0 100], [1.2; 0], escape);
 fprintf('desde (1.2, 0): |x1| = 50 en t = %.2f\n', te(end));
 [~, Xb] = ode45(fd(-1), [0 300], [0.9; 0], opc);

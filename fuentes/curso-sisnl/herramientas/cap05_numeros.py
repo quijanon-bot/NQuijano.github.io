@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente (sympy/scipy) de los números del capítulo 5.
 Ejecutar:  python3 herramientas/cap05_numeros.py
 """

@@ -1,4 +1,5 @@
 %% C5_Ej7_Indice -- Notas: sección 5.7 (teoría del índice)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Calcula numéricamente el índice de circunferencias para: un nodo,
 %            un foco, un centro, una silla, z^2 (índice 2), el campo
 %            (x1^2 x2, x1^2 - x2^2) (índice 0) y el ejemplo con una silla y un foco.
@@ -9,7 +10,7 @@
 % ESPERADO   nodo +1, foco +1, centro +1, silla -1, z^2 +2, (x1^2 x2, x1^2-x2^2) 0.
 %            Ejemplo silla + foco: índice de un círculo que rodea a ambos = 0;
 %            de uno que rodea solo el foco (1,1) = +1.
-% EXPLORE    Construya un campo con índice -2 en el origen (pista: conjugado de z^3... o z-barra^2).
+% EXPLORE    Construya un campo con índice -2 en el origen (pista: el conjugado de z^2, f = (x1^2 - x2^2, -2 x1 x2)).
 clear; close all; clc;
 if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpath')), '..', 'comun')); end
 

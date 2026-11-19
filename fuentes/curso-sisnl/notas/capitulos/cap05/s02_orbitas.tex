@@ -3,10 +3,10 @@
 \label{sec:oc-orbitas}
 %% ---------------------------------------------------------------------
 
-En todo el capítulo, $\dot x=f(x)$ es invariante en el tiempo, $x\in\R^2$ (salvo que se diga otra cosa) y $f$ es localmente Lipschitz, de modo que por cada punto pasa una única solución (capítulo~3). Escribimos $\flujo t{x_0}$ para la solución que en $t=0$ está en $x_0$ (el \clave{flujo}).
+En todo el capítulo, $\dot x=f(x)$ es invariante en el tiempo, $x\in\R^2$ (salvo que se diga otra cosa) y $f$ es localmente Lipschitz, de modo que por cada punto pasa una única solución (\cref{cap:preliminares}). Escribimos $\flujo t{x_0}$ para la solución que en $t=0$ está en $x_0$ (el \clave{flujo}).
 
 \begin{definicion}[label=def:oc-orbita]{Solución periódica y órbita cerrada}
-Una solución $x(t)$ es \clave{periódica} si existe $T>0$ con $x(t+T)=x(t)$ para todo $t$; el menor de esos $T$ es el \clave{período}. Si la solución periódica no es un equilibrio, su trayectoria $\gamma=\{x(t):0\le t\le T\}$ es una \clave{órbita cerrada}.
+Una solución $x(t)$ es \clave{periódica} si existe $T>0$ con $x(t+T)=x(t)$ para todo $t$; si $x$ no es constante, el menor de esos $T$ existe y es el \clave{período}. Si la solución periódica no es un equilibrio, su trayectoria $\gamma=\{x(t):0\le t\le T\}$ es una \clave{órbita cerrada}.
 \end{definicion}
 
 Por unicidad, una órbita cerrada no puede pasar por un equilibrio: si $x(t^*)=\eq$, la única solución que pasa por $\eq$ es la constante, y la trayectoria no sería periódica no constante. Por la misma razón no se puede cortar a sí misma: por el punto de cruce pasarían dos soluciones distintas. Una curva que se ve como un ``ocho'' alrededor de dos centros (\cref{fig:oc-duffing}, en rojo) no es una órbita cerrada: son dos órbitas homoclínicas más el equilibrio que las une, y cada una tarda un tiempo infinito en recorrerse.
@@ -19,7 +19,7 @@ Si $\dot x=Ax$ tiene una solución periódica no constante $x(t)$, entonces $c\,
 $\frac{\dif}{\dif t}(cx)=c\dot x=cAx=A(cx)$, y $cx(t+T)=cx(t)$. Las órbitas $c\gamma$ llenan una vecindad de $\gamma$.
 \end{proof}
 
-Esto tiene una consecuencia práctica: en un oscilador lineal (un LC ideal, un resorte sin fricción) la \emph{amplitud} de la oscilación la decide la condición inicial, y cualquier perturbación la cambia para siempre. Además, la oscilación es frágil: cualquier amortiguamiento, por pequeño que sea, la destruye, y cualquier término negativo la hace crecer sin cota. Un reloj, un corazón o un oscilador electrónico no pueden funcionar así.
+Esto tiene una consecuencia práctica: en un oscilador lineal (un LC ideal, un resorte sin fricción) la \emph{amplitud} de la oscilación la decide la condición inicial, y cualquier perturbación la cambia para siempre. Además, la oscilación es frágil: cualquier amortiguamiento, por pequeño que sea, la destruye, y cualquier amortiguamiento negativo la hace crecer sin cota. Un reloj, un corazón o un oscilador electrónico no pueden funcionar así.
 
 %% ---------------------------------------------------------------------
 \subsection{Conjuntos límite}
@@ -34,7 +34,7 @@ Un punto $z$ es un \clave{punto $\omega$-límite} de $x_0$ si existe una sucesi�
 \notamargen{$\omega$ y $\alpha$ son la última y la primera letra del alfabeto griego: el final y el comienzo de la trayectoria.}
 Si $x_0$ es un equilibrio, $\omegalim{x_0}=\{x_0\}$. Si $x_0$ está en una órbita cerrada $\gamma$, $\omegalim{x_0}=\gamma$. Si la solución converge a un equilibrio $\eq$, $\omegalim{x_0}=\{\eq\}$. El caso interesante es el de una trayectoria que \emph{no está} en $\gamma$ y tiene $\omegalim{x_0}=\gamma$: se enrolla sobre la órbita sin alcanzarla nunca.
 
-\begin{lema}[label=lem:oc-omega]{Propiedades de $\omegalim{x_0}$ \citep[Lema~4.1]{Kha02}}
+\begin{lema}[label=lem:oc-omega]{Propiedades de $\omegalim{x_0}$ \citep[Lema~4.1]{Kha02} y, para la conexidad, \citep[\S3.2, Teorema~2]{Per01}}
 Si la solución $\flujo t{x_0}$ es acotada para $t\ge0$, entonces $\omegalim{x_0}$ es no vacío, compacto, invariante (si $z\in\omegalim{x_0}$, toda la trayectoria de $z$ está en $\omegalim{x_0}$) y conexo, y $\flujo t{x_0}$ se acerca a $\omegalim{x_0}$ cuando $t\to\infty$.
 \end{lema}
 

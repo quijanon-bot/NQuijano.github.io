@@ -9,6 +9,7 @@
 % EXPLORE    ¿Contradice esto que el equilibrio sea asintóticamente estable?
 %            Relea la región de atracción D del teorema.
 clear; close all; clc;
+if ~exist('eventoODE', 'file'), addpath(fullfile(fileparts(mfilename('fullpath')), '..', 'comun')); end
 
 % [ini:caras]
 Q = 2;  r = 2;  vm = 2;  c = [0.6; 1.0; 1.4];
@@ -16,7 +17,7 @@ fprintf('tanque 3 sin caudal: se vacía en t = 2 sqrt(v3(0))/c3 = %.4f s\n', ...
         2*sqrt(0.4)/1.4);
 for q30 = 10.^(-2:-2:-8)
     x0  = [0.4; 0.4; 0.4; 1 - q30/2; 1 - q30/2; q30];
-    ev  = @(t, x) deal(x(6) - 0.5, 1, 1);           % q3 cruza 0.5 subiendo
+    ev  = @(t, x) eventoODE(x(6) - 0.5, 1, 1);           % q3 cruza 0.5 subiendo
     opc = odeset('RelTol', 1e-8, 'AbsTol', [1e-10*ones(5,1); 1e-3*q30], 'Events', ...
             ev);   % tolerancia a la escala de q3
     [~, ~, te] = ode45(@(t, x) modeloAgua(x, c, Q, r, vm), [0 40], x0, opc);

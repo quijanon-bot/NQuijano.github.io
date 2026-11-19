@@ -16,7 +16,7 @@ if HACER_VIDEO
 end
 xx = linspace(-3, 3, 300);
 for mu = mus
-    opc = odeset('RelTol', 1e-9, 'Events', @(t, x) deal(x + 3, 1, -1));
+    opc = odeset('RelTol', 1e-9, 'Events', @(t, x) eventoODE(x + 3, 1, -1));
     [t, X] = ode45(@(t, x) mu - x^2, [0 40], 3, opc);
     tk = linspace(0, t(end), nt);  xk = interp1(t, X, tk);
     for k = 1:nt

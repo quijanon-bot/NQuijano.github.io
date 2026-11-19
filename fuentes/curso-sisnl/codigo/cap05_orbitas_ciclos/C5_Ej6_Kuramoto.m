@@ -1,4 +1,5 @@
 %% C5_Ej6_Kuramoto -- Notas: sección 5.6 (el modelo de Kuramoto)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   N = 400 osciladores con frecuencias naturales de una distribución
 %            de Lorentz (centro 0, ancho gamma = 0.5), tomadas por cuantiles para
 %            que el experimento sea reproducible. Para varios K simula el modelo

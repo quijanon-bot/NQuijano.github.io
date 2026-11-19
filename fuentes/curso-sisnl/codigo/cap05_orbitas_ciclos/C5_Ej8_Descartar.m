@@ -1,4 +1,5 @@
 %% C5_Ej8_Descartar -- Notas: sección 5.8 (cómo descartar órbitas cerradas)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Tres certificados de "no hay órbitas cerradas": (1) el sistema
 %            gradiente x' = -grad V con V = -x1 sin(x2); (2) la función
 %            V = x1^2 + 4 x2^2 para x1' = -x1 + 4 x2, x2' = -x1 - x2^3; (3) la

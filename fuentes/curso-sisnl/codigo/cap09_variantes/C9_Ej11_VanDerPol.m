@@ -15,7 +15,7 @@ f = @(t, x) [x(2); -x(1) + (1 - x(1)^2)*x(2)];
 [t, X] = ode45(f, linspace(0, 100, 100001), [2; 0], opc);
 nx = sqrt(sum(X(t > 60, :).^2, 2));
 fprintf('ciclo: %.3f <= ||x|| <= %.3f\n', min(nx), max(nx));
-sal = odeset(opc, 'Events', @(t, x) deal(norm(x) - 1, 1, 1));
+sal = odeset(opc, 'Events', @(t, x) eventoODE(norm(x) - 1, 1, 1));
 for d = [1e-2 1e-4 1e-6]
     [te, ~] = ode45(f, [0 100], [d; 0], sal);
     fprintf('delta = %.0e: sale de B_1 en t = %.2f   (2 ln(1/delta) = %.2f)\n', d, te(end), 2*log(1/d));

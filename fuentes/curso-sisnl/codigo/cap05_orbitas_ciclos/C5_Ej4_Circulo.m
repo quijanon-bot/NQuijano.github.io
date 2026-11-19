@@ -1,9 +1,10 @@
 %% C5_Ej4_Circulo -- Notas: sección 5.4 (flujos en el círculo)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) theta' = sin(theta): equilibrios y estabilidad. (2) Dos corredores
 %            con períodos T1 = 4 min y T2 = 5 min: tiempo para sacar una vuelta.
 %            (3) Oscilador no uniforme theta' = w - a sin(theta): período para a < w
 %            comparado con la fórmula T = 2 pi / sqrt(w^2 - a^2).
-% OBSERVE    En el círculo los equilibrios estables e inestables se alternan.
+% OBSERVE    En el círculo, los equilibrios en los que f cambia de signo se alternan entre estables e inestables.
 %            En el no uniforme, el oscilador "se demora" cerca de theta = pi/2,
 %            donde theta' es mínima; al acercarse a = w el período se dispara.
 % ESPERADO   sin: theta* = 0 inestable (f' = 1), pi estable (f' = -1).
@@ -26,7 +27,7 @@ fprintf('T_lap = 2 pi/(w1 - w2) = %.4f min\n', 2*pi/(w1 - w2));
 % [ini:nouniforme]
 w = 2;  opc = odeset('RelTol', 1e-11, 'AbsTol', 1e-12);
 for a = [1 1.9 1.99]
-    ev = odeset(opc, 'Events', @(t, th) deal(th - 2*pi, 1, 1));
+    ev = odeset(opc, 'Events', @(t, th) eventoODE(th - 2*pi, 1, 1));
     [~, ~, te] = ode45(@(t, th) w - a*sin(th), [0 200], 0, ev);
     fprintf('a = %4.2f: período simulado %.4f, fórmula %.4f\n', a, te, 2*pi/sqrt(w^2 - a^2));
 end

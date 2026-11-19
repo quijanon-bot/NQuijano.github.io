@@ -1,4 +1,5 @@
 %% C5_Ej11_Nowak -- Notas: sección 5.11 (ciclos límite y lenguaje)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Dinámica replicador-mutador con tres gramáticas (Mitchener y Nowak,
 %            2004): B con 0.88 en la diagonal y 0.2 fuera; Q = circ(0.8 - c, 0.2, c).
 %            (1) El símplex atrae: s = sum(x) cumple s' = Fbar (1 - s).
@@ -46,7 +47,7 @@ fprintf('(4) en (1e-6, 0.5, 0.5): x1'' = %+.4f\n', dx(1));
 % [fin:ciclo]
 
 % [ini:fisher]
-peor = 0;
+rng(0);  peor = 0;
 for k = 1:200
     x = rand(3,1);  x = x/sum(x);  F = B*x;  Fbar = x.'*F;
     xd = x.*(F - Fbar);                            % replicador puro (Q = I)

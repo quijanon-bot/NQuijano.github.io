@@ -17,7 +17,7 @@ k  = @(x) -2*x/(x^2 + 1);
 k1 = @(x) k(x) - x*(x^2 + 1);                            % - L_gV con V = x^2/2
 kS = @(x) leySontag(x^2, x*(x^2 + 1), 1);                % Sontag con kappa = 1
 planta = @(x, u, w) x + (x^2 + 1)*(u + w);
-opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) deal(x - 1e6, 1, 1));
+opc = odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'Events', @(t, x) eventoODE(x - 1e6, 1, 1));
 [~, ~, te] = ode45(@(t, x) planta(x, k(x), 1), [0 5], 0, opc);
 fprintf('cancelación, w = 1: escapa en t = %.4f (4 pi/(3 sqrt3) = %.4f)\n', te, 4*pi/(3*sqrt(3)));
 [~, X1] = ode45(@(t, x) planta(x, k1(x), 1), [0 10], 0, opc);

@@ -1,4 +1,5 @@
 %% crearModelo_VanDerPol -- Construye VanDerPol.slx por código (Simulink)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Arma con bloques el oscilador x'' + mu (x^2 - 1) x' + x = 0:
 %            dos integradores en cascada (x' y x), un producto para x^2 x' y
 %            sumadores. Simula 40 s desde (0.5, 0) con mu = 1, compara contra
@@ -10,7 +11,9 @@
 % REQUIERE   Simulink.
 clear; close all; clc;
 nombre = 'VanDerPol';  mu = 1;  x0 = [0.5; 0];
+carpeta = fileparts(mfilename('fullpath'));  archivo = fullfile(carpeta, [nombre '.slx']);
 if bdIsLoaded(nombre), close_system(nombre, 0); end
+if exist(archivo, 'file'), delete(archivo); end       % evita dos modelos con el mismo nombre
 new_system(nombre);  open_system(nombre);
 set_param(nombre, 'StopTime', '40', 'Solver', 'ode45', 'RelTol', '1e-9', 'AbsTol', '1e-10', ...
           'SaveOutput', 'on', 'SaveFormat', 'Array');
@@ -29,7 +32,7 @@ l('suma/1', 'xdot/1');  l('xdot/1', 'x/1');  l('x/1', 'y/1');  l('xdot/1', 'yd/1
 l('x/1', 'x2/1');  l('x/1', 'x2/2');  l('x2/1', 'menos1/1');
 l('menos1/1', 'amort/1');  l('xdot/1', 'amort/2');  l('amort/1', 'mu/1');
 l('mu/1', 'suma/2');  l('x/1', 'suma/1');
-save_system(nombre);
+save_system(nombre, archivo);                        % junto al script, no en la carpeta actual
 assignin('base', 'mu', mu);
 out = sim(nombre, 'ReturnWorkspaceOutputs', 'on');
 tS = out.tout;  YS = out.yout;                       % columnas: x, x'

@@ -15,7 +15,7 @@ V = @(x) (x(1) - x(1)^3)^2 + x(2)^2;
 r = 1/sqrt(3);
 fprintf('la condición vale en |x1| < 1/sqrt3 = %.3f; (r - r^3)^2 = %.4f = 4/27\n', r, (r - r^3)^2);
 fprintf('V(1, 0) = %g (silla), V(1.05, 0) = %.4f\n', V([1; 0]), V([1.05; 0]));
-salir = odeset(opc, 'Events', @(t, x) deal(x(1) - 10, 1, 0));
+salir = odeset(opc, 'Events', @(t, x) eventoODE(x(1) - 10, 1, 0));
 [te, ~] = ode45(f, [0 10], [1.05; 0], salir);
 fprintf('desde (1.05, 0): x1 = 10 en t = %.2f\n', te(end));
 % [fin:k2]

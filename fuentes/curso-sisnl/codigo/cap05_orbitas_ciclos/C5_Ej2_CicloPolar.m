@@ -1,4 +1,5 @@
 %% C5_Ej2_CicloPolar -- Notas: sección 5.3 (ciclos límite)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   x1' = -x2 + x1(1 - r^2), x2' = x1 + x2(1 - r^2). En polares
 %            r' = r(1 - r^2), theta' = 1. Compara la simulación con la solución
 %            exacta r(t) = (1 + (1/r0^2 - 1) e^{-2t})^{-1/2} y dibuja los tres

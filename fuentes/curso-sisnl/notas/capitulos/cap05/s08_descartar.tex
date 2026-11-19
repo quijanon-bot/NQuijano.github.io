@@ -33,8 +33,8 @@ Muestre que $\dot x_1=-x_1+4x_2$, $\dot x_2=-x_1-x_2^3$ no tiene órbitas cerrad
 
 \begin{trampa}[label=tr:oc-gas]{Para descartar órbitas no hace falta estabilidad global}
 \plausible{Para descartar órbitas cerradas con una función $V$ hay que probar que el origen es globalmente asintóticamente estable: $V$ definida positiva, radialmente no acotada y $\Vdot<0$.}
-Esas hipótesis dan GAS (\cref{cap:lyapunov}), y GAS implica que no hay órbitas cerradas; pero para descartar órbitas basta mucho menos. El \cref{thm:oc-lyapunov} solo usa que $V$ baja estrictamente fuera de los equilibrios: $V$ puede ser indefinida, y el sistema puede tener varios equilibrios, algunos inestables. En un sistema gradiente con dos mínimos y una silla, $V$ no es definida positiva respecto a ningún punto, y aun así descarta todas las órbitas.
-\correcto{Una cantidad que decrece estrictamente a lo largo de toda trayectoria no estacionaria prohíbe las órbitas cerradas. Es la misma idea que usaremos con la entropía relativa del replicador y con la aptitud media en la \cref{sec:oc-nowak}.}
+Esas hipótesis dan GAS (\cref{cap:lyapunov}), y GAS implica que no hay órbitas cerradas; pero para descartar órbitas basta mucho menos. El \cref{thm:oc-lyapunov} solo usa que $V$ baja estrictamente fuera de los equilibrios: $V$ puede ser indefinida, y el sistema puede tener varios equilibrios, algunos inestables. En un sistema gradiente con dos mínimos y una silla ningún equilibrio es globalmente asintóticamente estable, y aun así $V$ descarta todas las órbitas.
+\correcto{Una cantidad que decrece estrictamente a lo largo de toda trayectoria no estacionaria prohíbe las órbitas cerradas. Es la misma idea que usaremos con la aptitud media del replicador en la \cref{sec:oc-nowak}.}
 \end{trampa}
 
 %% ---------------------------------------------------------------------
@@ -46,7 +46,7 @@ Sea $D\subseteq\R^2$ una región \emph{simplemente conexa} (sin huecos), $f\in\C
 \[
   \operatorname{div}(gf)=\frac{\partial(gf_1)}{\partial x_1}+\frac{\partial(gf_2)}{\partial x_2}
 \]
-no es idénticamente cero y no cambia de signo en $D$, entonces $D$ no contiene órbitas cerradas. Con $g\equiv1$ es el criterio de Bendixson.
+no cambia de signo en $D$ y no se anula idénticamente en ningún abierto de $D$, entonces $D$ no contiene órbitas cerradas. Con $g\equiv1$ es el criterio de Bendixson.
 \end{teorema}
 
 \begin{proof}
@@ -54,7 +54,7 @@ Suponga que $\gamma\subset D$ es una órbita cerrada y sea $S$ la región que en
 \[
   0=\oint_\gamma g\,(f_1\,\dif x_2-f_2\,\dif x_1)=\iint_S\operatorname{div}(gf)\,\dif x_1\dif x_2 .
 \]
-Una función continua de un solo signo, que no es idénticamente cero, no puede tener integral cero sobre $S$.
+Una función continua de un solo signo que no se anula idénticamente en el interior de $S$ no puede tener integral cero sobre $S$.
 \end{proof}
 
 \begin{ejemplo}[label=ej:oc-duffingfriccion]{La fricción destruye las órbitas de Duffing}

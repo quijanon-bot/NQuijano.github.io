@@ -1,4 +1,5 @@
 %% C5_Ej9_PoincareBendixson -- Notas: sección 5.9 (Poincaré-Bendixson)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   x1' = x1 + x2 - x1 r^2, x2' = -2 x1 + x2 - x2 r^2 (Khalil, ej. 2.8).
 %            Verifica las dos condiciones del criterio: el único equilibrio es un
 %            foco inestable y M = {V <= c}, V = x1^2 + x2^2, es positivamente
@@ -8,7 +9,7 @@
 %            un ciclo límite que atrae a las dos condiciones iniciales.
 % ESPERADO   Valores propios en el origen: 1 +- 1.4142j.
 %            max V' en V = c:  c = 1 -> +1;  c = 1.5 -> 0;  c = 2 -> -2.
-%            Ciclo (no es un círculo): r entre 0.8501 y 1.1302, período 4.442.
+%            Ciclo (no es un círculo): r entre 0.8501 y 1.1302, período 4.4429.
 % EXPLORE    ¿Es el ciclo un círculo? Grafique r(t) en régimen.
 clear; close all; clc;
 if ~exist('estiloFigura', 'file'), addpath(fullfile(fileparts(mfilename('fullpath')), '..', 'comun')); end
@@ -32,7 +33,8 @@ for x0 = [0.01 0; 1.2 0].'
     fprintf('desde (%.2f, %.2f): en régimen r entre %.4f y %.4f\n', x0, min(r), max(r));
 end
 tk = t(k);  x1k = X(k,1);
-cruza = tk([false; x1k(1:end-1) < 0 & x1k(2:end) >= 0]);
+i = find(x1k(1:end-1) < 0 & x1k(2:end) >= 0);
+cruza = tk(i) - x1k(i).*(tk(i+1) - tk(i))./(x1k(i+1) - x1k(i));   % interpolación lineal
 fprintf('período del ciclo = %.4f\n', mean(diff(cruza)));
 % [fin:simulacion]
 

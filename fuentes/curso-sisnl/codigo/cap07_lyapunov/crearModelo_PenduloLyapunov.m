@@ -1,4 +1,5 @@
 %% crearModelo_PenduloLyapunov -- Construye "PenduloLyapunov.slx" (secciones 7.4 y 7.6)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % Péndulo con fricción  x1' = x2,  x2' = -a sin x1 - b x2,  con dos "medidores":
 %   V_E = a(1 - cos x1) + x2^2/2                         (la energía)
 %   V_P = (1/2)(b p12 x1^2 + 2 p12 x1 x2 + x2^2) + a(1 - cos x1)   (con término cruzado)
@@ -44,7 +45,8 @@ lin('V_E/1', 'medidores/1');  lin('Vdot_E/1', 'medidores/2');  lin('V_P/1', 'med
 lin('medidores/1', 'V y Vdot/1');  lin('medidores/1', 'a workspace/1');  lin('x/1', 'estado/1');
 try, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end
 set_param(mdl, 'StopTime', '20', 'Solver', 'ode45', 'RelTol', '1e-9', 'MaxStep', '1e-2');
-save_system(mdl);
+carpeta = fileparts(mfilename('fullpath'));
+save_system(mdl, fullfile(carpeta, [mdl '.slx']));
 fprintf('Modelo %s.slx creado.\n', mdl);
 
 salida = sim(mdl);  med = salida.get('med');  est = salida.get('est');

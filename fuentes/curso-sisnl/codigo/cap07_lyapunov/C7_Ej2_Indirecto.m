@@ -1,4 +1,5 @@
 %% C7_Ej2_Indirecto -- Notas: sección 7.3 (método indirecto)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Jacobiano del péndulo con fricción (a = 1, b = 0.5) en (0,0) y en (pi,0).
 %            (2) x' = a x - x^3 para a = -1, 0, 1: valor propio de la linealización en el
 %            origen y lo que hacen las soluciones; compara x' = -x^3 con x' = -x.
@@ -28,9 +29,13 @@ end
 fprintf('x(10): con -x^3 %.4f (exacto 1/sqrt(21) = %.4f), con -x %.3e\n', xc(end), 1/sqrt(21), xl(end));
 % [fin:cubico]
 
+% ---- Figura de las notas (fig:ly-indirecto) --------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;
 fig = estiloFigura(1100, 420);
-subplot(1, 2, 1);  semilogy(t, xc, t, xl);  grid on;
-xlabel('$t$');  ylabel('$x(t)$');  legend('$\dot x=-x^3$', '$\dot x=-x$');  title('Asint\''otica no es exponencial');
-subplot(1, 2, 2);  xx = linspace(-1.6, 1.6, 300);  hold on;  grid on;
-plot(xx, -xx - xx.^3, xx, -xx.^3, xx, xx - xx.^3);  plot(xx, 0*xx, 'k');
+subplot(1, 2, 1);  xx = linspace(-1.6, 1.6, 300);  hold on;  grid on;
+plot(xx, -xx - xx.^3, 'Color', az);  plot(xx, -xx.^3, 'Color', vi);  plot(xx, xx - xx.^3, 'Color', co);
+plot(xx, 0*xx, 'Color', [0.6 0.6 0.6], 'LineWidth', 0.7);  ylim([-2.5 2.5]);
 xlabel('$x$');  ylabel('$\dot x$');  legend('$a=-1$', '$a=0$', '$a=1$');  title('$\dot x=ax-x^3$');
+subplot(1, 2, 2);  semilogy(t, xc, 'Color', vi);  hold on;  semilogy(t, xl, 'Color', az);  grid on;
+xlabel('$t$');  ylabel('$x(t)$');  legend('$\dot x=-x^3$: $1/\sqrt{1+2t}$', '$\dot x=-x$: $e^{-t}$');
+title('Asint\''otica no es exponencial');

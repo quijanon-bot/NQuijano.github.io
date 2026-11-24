@@ -65,6 +65,12 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 - La foto de Duffing de las diapositivas no se pasó a las notas; si se quiere, va en `notas/figuras/cap04/` con su crédito.
 - Los capítulos 2, 3, 5 y 7 ya citan este capítulo con `\cref{cap:bidimensionales}`.
 
+## Correcciones del capítulo 7 respecto a Handout7 y las diapositivas de 2026
+
+Trasladado desde el cierre del capítulo (caja `profundiza`) el 19 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):
+
+(i) ``Positiva definida (semi) si y solo si todos los valores propios son positivos (negativos)'' debe decir ``(no negativos)''. (ii) La tabla de clasificación daba $P\ge0$ con menores principales \emph{líderes} $\ge0$: es falso (\cref{tr:ly-sylvester}); en la misma tabla, ``indefinida: algunos $\lambda_i<0$ y otros negativos'' debe decir ``otros positivos''. (iii) En el ejemplo $\dot x_1=-x_1+x_1x_2$, $\dot x_2=-x_2$: el signo es $\Vdot=-x_1^2+x_1^2x_2-x_2^2$, el dominio es $\norm x<r$ (no $\le r^2$) y falta la condición $r<2$; además el sistema es globalmente asintóticamente estable (\cref{ej:ly-local}). (iv) En $\dot x=-g(x)$, $V\in\Cont1$, no $\Cont{-1}$. (v) En el ejemplo de Jordan, el último elemento de la diagonal de $J_P$ es $-j$, y $\omega=1$\,rad/s. (vi) La relajación $Q=C\T C$ necesita observabilidad (\cref{thm:ly-observable}); sin ella la implicación falla. (vii) El teorema de cotas exponenciales no es el de Barbashin--Krasovskii, y la tasa es $\norm{x(t)}\le(k_2/k_1)^{1/a}\norm{x_0}e^{-k_3t/(ak_2)}$. (viii) ``Laypunov''. (ix) Se agregaron: convergencia sin estabilidad, la condición de rango para el eje imaginario, $P$ como costo, la trampa de \cmd{lyap}, la no normalidad, la inercia de la ecuación, la prueba del método indirecto y la estimación de la región de atracción por tangencia. El epígrafe de la versión anterior se cambió por uno de las diapositivas de 2026.
+
 ## Correcciones del capítulo 6 respecto a Handout5 y las diapositivas de bifurcaciones
 
 Trasladado desde el cierre del capítulo (caja `profundiza`) el 19 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):
@@ -117,10 +123,10 @@ Además, la trampa `tr:in-cubico` decía "Así lo decían las versiones anterior
 
 ## Pendientes del capítulo 7 (migrado el 10 de noviembre de 2026)
 
-- Fuentes: Handout7.tex (definiciones, métodos indirecto y directo, global, cuadráticas, lineales, región de atracción), diapositivas `Present2026/Lyapunov2026` y los scripts `Codigos/LyapLin/L01`--`L08` con su `GuionClase.md`, reescritos como `C7_Ej*`. LaSalle, gradiente variable, Krasovskii y Zubov quedaron en el capítulo 8 (migrado el 16 de noviembre); variantes en el tiempo, funciones de comparación, recíprocos y Chetaev, para el 9; UUB, CLF, Barbalat e ISS, para el 10. El capítulo 7 cita el 8 con `\cref` y el 9 por número ("capítulo~9"); al migrar el 9, cambiar por `\cref`.
-- Correr en MATLAB `crearModelo_PenduloLyapunov` (Simulink no estaba disponible) y, si se quiere la versión de MATLAB, grabar los `C7_Video_*`; los MP4 publicados son los de `herramientas/cap07_videos.py`.
-- Confirmar en Khalil (3.ª ed.): Def. 4.1, Teoremas 4.1, 4.2, 4.5, 4.6, 4.7 y 4.10, Corolario 4.3, el ejemplo de la $V$ no radialmente no acotada y el del péndulo con término cruzado (§4.1), y la estimación con bolas de van der Pol (§8.2).
-- Verificar datos de Vin57 (agregada) y de Lya92 (las páginas de la traducción de 1992 son 531--773, no 531--534).
+- Fuentes: Handout7.tex (definiciones, métodos indirecto y directo, global, cuadráticas, lineales, región de atracción), diapositivas `Present2026/Lyapunov2026` y los scripts `Codigos/LyapLin/L01`--`L08` con su `GuionClase.md`, reescritos como `C7_Ej*`. LaSalle, gradiente variable, Krasovskii y Zubov quedaron en el capítulo 8 (migrado el 16 de noviembre); variantes en el tiempo, funciones de comparación, recíprocos y Chetaev, para el 9; UUB, CLF, Barbalat e ISS, para el 10. El capítulo 7 cita el 8 y el 9 con `\cref` (hecho; verificado en la auditoría, 19 de noviembre de 2026).
+- Correr en MATLAB `crearModelo_PenduloLyapunov` (Simulink no estaba disponible) y, si se quiere la versión de MATLAB, grabar los `C7_Video_*`; los MP4 publicados son los de `herramientas/cap07_videos.py`. (hecho en la auditoría, 24 de noviembre de 2026).
+- Confirmar en Khalil (3.ª ed.): Def. 4.1, Teoremas 4.1, 4.2, 4.5, 4.6, 4.7 y 4.10, Corolario 4.3, el ejemplo de la $V$ no radialmente no acotada y el del péndulo con término cruzado (§4.1), y la estimación con bolas de van der Pol (§8.2). (hecho en la auditoría, 24 de noviembre de 2026).
+- Verificar datos de Vin57 (agregada) y de Lya92 (las páginas de la traducción de 1992 son 531--773, no 531--534). (hecho en la auditoría, 24 de noviembre de 2026).
 - El epígrafe del Handout7 (Le Tellier) se cambió por el de Juan Esteban Constaín que abre las diapositivas de 2026.
 
 ## Pendientes del capítulo 12 (migrado el 9 de noviembre de 2026)

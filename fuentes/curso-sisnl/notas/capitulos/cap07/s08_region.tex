@@ -11,13 +11,16 @@ Sea $V$ una función $\Cont1$ definida positiva en $\D$ con $\Vdot<0$ en $\D\set
 
 La prueba es la del \cref{thm:ly-directo}: $\Nivel c$ es compacto y positivamente invariante, y dentro de él $\Vdot<0$ fuera del origen. La estimación es mejor mientras mayor sea $c$, y el mayor valor admisible es
 \begin{equation}
-  c^*=\min_{x\in\partial\D}V(x)\qquad\text{o, si }\D\text{ es la región donde }\Vdot<0,\qquad c^*=\min\bigl\{V(x):\ \Vdot(x)=0,\ x\neq0\bigr\} .
+  \begin{gathered}
+    c^*=\min_{x\in\partial\D}V(x) ,\\
+    \text{o, si }\D\text{ es la región donde }\Vdot<0,\quad c^*=\min\bigl\{V(x):\ \Vdot(x)=0,\ x\neq0\bigr\} .
+  \end{gathered}
   \label{eq:ly-cestrella}
 \end{equation}
 
 \begin{trampa}[label=tr:ly-region]{``$\Vdot<0$ en $\D$, luego $\D$ está en la región de atracción''}
 \plausible{Dentro de $\D$, $V$ decrece a lo largo de toda solución; una solución que arranca en $\D$ baja hacia el mínimo de $V$, que es el origen.}
-$V$ decrece \emph{mientras la solución está en $\D$}, pero nada impide que salga de $\D$ con $V$ todavía grande. En el péndulo con la $V$ del \cref{ej:ly-cruzado}, $\Vdot<0$ en $\D=\{\abs{x_1}<\pi\}$. La solución que arranca en $(1.5,\ 3)\in\D$ sale de $\D$ en $t=0.72$, cuando el péndulo pasa por la posición invertida, y termina en $(2\pi,0)$ (\cref{fig:ly-cruzado}). Ese punto tiene $V=6.69$: muy por encima de cualquier nivel contenido en $\D$.
+$V$ decrece \emph{mientras la solución está en $\D$}, pero nada impide que salga de $\D$ con $V$ todavía grande. En el péndulo con la $V$ del \cref{ej:ly-cruzado}, $\Vdot<0$ en $\D=\{\abs{x_1}<\pi\}$. La solución que arranca en $(1.5,\ 3)\in\D$ sale de $\D$ en $t=0.72$, cuando el péndulo pasa por la posición invertida, y termina en $(2\pi,0)$ (\cref{fig:ly-cruzado}). El punto de partida tiene $V=6.69$ (con $p_{12}=b/2$): muy por encima de $c^*=2.31$, el mayor nivel contenido en $\D$ (\cref{ej:ly-cpendulo}).
 \correcto{Solo un \emph{conjunto de nivel} acotado contenido en $\D$ es una estimación válida (\cref{prop:ly-estimacion}): es invariante, y $\D$ no lo es.}
 \end{trampa}
 
@@ -59,7 +62,7 @@ Estime $\RA$ para \eqref{eq:ly-vdpinv} con $V=x\T Px$.
 \[
   \Vdot=-(x_1^2+x_2^2)-x_1^3x_2+2x_1^2x_2^2=-\norm x^2-x_1^2\,x_2\,(x_1-2x_2) .
 \]
-\emph{Con bolas} \citep[\S8.2]{Kha02}: $\abs{x_1}\le\norm x$, $\abs{x_1x_2}\le\tfrac12\norm x^2$ y $\abs{x_1-2x_2}\le\sqrt5\norm x$, así que $\Vdot\le-\norm x^2+\tfrac{\sqrt5}2\norm x^4<0$ si $\norm x^2<2/\sqrt5$. El mayor nivel dentro de esa bola tiene $c<\lmin(P)\cdot2/\sqrt5=0.618$.
+\emph{Con bolas} \citep[ej.~8.9]{Kha02}: $\abs{x_1}\le\norm x$, $\abs{x_1x_2}\le\tfrac12\norm x^2$ y $\abs{x_1-2x_2}\le\sqrt5\norm x$, así que $\Vdot\le-\norm x^2+\tfrac{\sqrt5}2\norm x^4<0$ si $\norm x^2<2/\sqrt5$. El mayor nivel dentro de esa bola tiene $c<\lmin(P)\cdot2/\sqrt5=0.618$. Khalil afina esa cota en coordenadas polares hasta $c=0.8$ y, con curvas de nivel, llega a $c=2.25$.
 \emph{Con la tangencia} \eqref{eq:ly-cestrella}: sobre la recta $x=r(\cos\theta,\sin\theta)$, $\Vdot=-r^2+k(\theta)r^4$ con $k=-\cos^3\theta\sin\theta+2\cos^2\theta\sin^2\theta$, y se anula en $r^2=1/k(\theta)$ (si $k>0$). Minimizando $V$ sobre esos puntos se obtiene $c^*=2.30$, en $x\approx(-0.86,\ 0.75)$: una estimación $3.7$ veces más grande en área (\cref{fig:ly-region}).
 \end{ejemplo}
 

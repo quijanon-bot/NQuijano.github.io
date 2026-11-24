@@ -95,7 +95,7 @@ El radio va a $1$ desde cualquier $r_0>0$, y $\theta$ crece hasta $2\pi$, que es
 
 La estabilidad asintótica no dice \emph{qué tan rápido} se converge. Para el control eso importa (tiempos de establecimiento, robustez), y la propiedad que lo cuantifica es la siguiente.
 
-\begin{definicion}[label=def:ly-exponencial]{Estabilidad exponencial \citep{Kha02}}
+\begin{definicion}[label=def:ly-exponencial]{Estabilidad exponencial \citep[Def.~4.5]{Kha02}}
 El origen de \eqref{eq:ly-sistema} es \clave{exponencialmente estable} si existen constantes $c,k,\lambda>0$ tales que
 \begin{equation}
   \norm{x(0)}<c\ \Longrightarrow\ \norm{x(t)}\le k\,\norm{x(0)}\,e^{-\lambda t}\quad\text{para todo }t\ge0 ,
@@ -114,7 +114,7 @@ La convergencia es inmediata de \eqref{eq:ly-exponencial}. Para la estabilidad, 
 
 \begin{pausa}
 La \cref{def:ly-estabilidad} de estabilidad asintótica exige ``estable \emph{y} convergente''. ¿Por qué la \cref{def:ly-exponencial} no exige también que el origen sea estable?
-\respuesta{Porque la cota \eqref{eq:ly-exponencial} ya controla todo el transitorio, no solo el límite: la solución nunca se aleja más de $k$ veces su distancia inicial. Esa es exactamente la estabilidad, con $\delta=\varepsilon/k$ (\cref{prop:ly-expas}). La convergencia sola no controla el transitorio (\cref{tr:ly-convergencia}); la cota exponencial sí.}
+\respuesta{Porque la cota \eqref{eq:ly-exponencial} ya controla todo el transitorio, no solo el límite: la solución nunca se aleja más de $k$ veces su distancia inicial. Esa es exactamente la estabilidad, con $\delta=\min\{c,\ \varepsilon/k\}$ (\cref{prop:ly-expas}). La convergencia sola no controla el transitorio (\cref{tr:ly-convergencia}); la cota exponencial sí.}
 \end{pausa}
 
 Lo contrario es falso: $\dot x=-x^3$ tiene el origen asintóticamente estable (lo probaremos en la \cref{sec:ly-directo}), pero desde $x_0=1$ la solución es $x(t)=1/\sqrt{1+2t}$, que decae como $t^{-1/2}$: más lento que cualquier exponencial (\cref{fig:ly-indirecto}, derecha).

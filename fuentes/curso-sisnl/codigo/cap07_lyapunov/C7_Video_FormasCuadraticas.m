@@ -1,4 +1,5 @@
 %% C7_Video_FormasCuadraticas -- Video V7_1: de elipses a hipérbolas
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  V(x) = x'Px con P = R diag(2, lambda2) R' (ejes girados 30 grados) mientras
 %              lambda2 baja de 1.5 a -1.5. Las elipses (P > 0) se estiran, se abren en
 %              franjas paralelas justo en lambda2 = 0 (P >= 0 singular) y se vuelven

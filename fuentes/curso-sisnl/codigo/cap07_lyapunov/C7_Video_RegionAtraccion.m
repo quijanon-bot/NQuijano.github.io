@@ -1,4 +1,5 @@
 %% C7_Video_RegionAtraccion -- Video V7_4: el nivel más grande que se puede certificar
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Van der Pol en tiempo invertido con V = x'Px, P = [1.5 -0.5; -0.5 1]. El
 %              nivel Omega_c crece hasta tocar la curva {Vdot = 0} (c* = 2.30); detrás,
 %              el ciclo límite inestable, frontera de la región de atracción real. Al

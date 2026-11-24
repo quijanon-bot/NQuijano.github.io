@@ -211,7 +211,7 @@
         } else txt += `<b style="color:#D1495B">P no es definida positiva</b> (${lp[0] < 0 ? 'tiene ' + (lp[1] < 0 ? 'dos valores propios negativos' : 'un valor propio negativo') : 'es singular'}): ${hur ? '' : 'tantos valores propios negativos como valores propios inestables de A.'}`;
       }
       const crece = nx.some((v, i) => i > 0 && v > nx[0] * 1.001);
-      if (hur && crece) txt += ' <b style="color:#D1495B">A es Hurwitz y aun así ‖x(t)‖ crece al principio.</b>';
+      if (hur && crece) txt += ' <b style="color:#D1495B">A es Hurwitz y aun así ‖x(t)‖ pasa de ‖x₀‖ antes de decaer.</b>';
       linea(svg1, sub(R.X.map(x => [X(dentro(x[0], -lim, lim)), Y(dentro(x[1], -lim, lim))]), 500), C.azul, 2);
       svg1.insertAdjacentHTML('beforeend', `<circle cx="${X(e.x01)}" cy="${Y(e.x02)}" r="4" fill="${C.azul}"/>`);
       const top = Math.min(10, Math.max(1.2, ...nx.map(v => v / nx[0]).filter(isFinite)) * 1.1);

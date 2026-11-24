@@ -1,4 +1,5 @@
 function verificarCap07()
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % VERIFICARCAP07  Pruebas automáticas de los números del capítulo 7
 % (estabilidad de Lyapunov).   >> verificarCap07
 % (Los mismos números se verificaron de forma independiente con sympy y

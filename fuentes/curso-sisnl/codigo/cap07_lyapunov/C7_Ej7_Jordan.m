@@ -1,4 +1,5 @@
 %% C7_Ej7_Jordan -- Notas: sección 7.7 (estabilidad de sistemas lineales)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Conecta dos copias de S: x' = Ax + Bu, y = Cx (A = [0 1; -1 0]) en paralelo
 %            y en serie. Las dos matrices tienen espectro {j, j, -j, -j}; compara el rango
 %            de A - jI (criterio de bloques de Jordan) y simula la salida en serie.
@@ -26,6 +27,8 @@ fprintf('serie: max|y - (t/2) sin t| = %.1e\n', max(abs(yS - t/2.*sin(t))));
 fprintf('paralelo: A_P + A_P'' = 0 -> |x|^2 constante (max|A_P + A_P''| = %g)\n', max(max(abs(AP + AP'))));
 % [fin:jordan]
 
+% ---- Figura de las notas (fig:ly-jordan) ------------------------------------
 fig = estiloFigura(1100, 420);
-plot(t, yP, t, yS, t, t/2, 'k:', t, -t/2, 'k:');  grid on;
-xlabel('$t$');  legend('paralelo', 'serie', '$\pm t/2$');  title('Mismo espectro, distinto comportamiento');
+plot(t, yP, t, yS);  hold on;  plot(t, t/2, 'k:', t, -t/2, 'k:', 'LineWidth', 0.8);  grid on;
+xlabel('$t$');  ylabel('$y_2(t)$');  legend('paralelo', 'serie', 'Location', 'northwest');
+title('Mismo espectro $\{\pm j,\pm j\}$: en serie, $y=\frac{t}{2}\sin t$');

@@ -1,4 +1,5 @@
 %% C7_Ej6_TerminoCruzado -- Notas: secciones 7.6 y 7.8 (péndulo: inclinar la energía)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Péndulo con fricción (a = 1, b = 0.5) con la candidata
 %               V = (1/2) x' P x + a(1 - cos x1),   P = [b p12  p12; p12  1],  0 < p12 < b,
 %            cuyo Vdot = -a p12 x1 sin x1 - (b - p12) x2^2 es definida negativa en
@@ -33,9 +34,22 @@ fprintf('V(1.5,3) = %.3f > c*; sale de D en t = %.3f; termina en x1 = %.4f pi\n'
         V(1.5, 3), te, Y(end, 1)/pi);
 % [fin:sale]
 
-fig = estiloFigura(1100, 480);
-[X1, X2] = meshgrid(linspace(-4.5, 8, 301), linspace(-3.6, 3.6, 241));
-contour(X1, X2, V(X1, X2), [0.5 1 1.5 2]);  hold on;
-contour(X1, X2, V(X1, X2), cEst(p12)*[1 1], 'LineWidth', 3);
-plot(Y(:,1), Y(:,2), 'LineWidth', 2);  plot([-pi -pi pi pi], [-3.6 3.6 -3.6 3.6], 'k:');
-grid on;  xlabel('$x_1$');  ylabel('$x_2$');  title('$\Omega_c$ dentro de $D$; la trayectoria sale de $D$');
+% ---- Figura de las notas (fig:ly-cruzado) -----------------------------------
+co = [209 73 91]/255;  am = [224 159 62]/255;  ve = [42 157 143]/255;  gr = [0.78 0.78 0.78];
+fig = estiloFigura(1200, 460);
+subplot(1, 2, 1);  hold on;
+[X1, X2] = meshgrid(linspace(-4.5, 8, 500), linspace(-3.6, 3.6, 300));
+VE = a*(1 - cos(X1)) + X2.^2/2;  VP = V(X1, X2);
+VE(abs(X1) > pi) = NaN;  VP(abs(X1) > pi) = NaN;          % solo dentro de D
+fill([-pi pi pi -pi], [-3.6 -3.6 3.6 3.6], [0.94 0.95 0.97], 'EdgeColor', 'none');
+contour(X1, X2, VE, (cEst(0) - 0.01)*[1 1], 'LineColor', am, 'LineStyle', '--', 'LineWidth', 1.6);
+contour(X1, X2, VP, [0.5 1 1.5], 'LineColor', gr, 'LineWidth', 0.8);
+contour(X1, X2, VP, (cEst(p12) - 0.01)*[1 1], 'LineColor', ve, 'LineWidth', 2.5);
+plot(Y(:,1), Y(:,2), 'Color', co, 'LineWidth', 1.4);
+plot(1.5, 3, 'o', 'Color', co, 'MarkerFaceColor', co);  plot(2*pi, 0, 'o', 'Color', co, 'MarkerFaceColor', co);
+plot(0, 0, 'ko', 'MarkerFaceColor', 'k');
+plot([-pi -pi], [-3.6 3.6], 'k:', [pi pi], [-3.6 3.6], 'k:', 'LineWidth', 0.7);  text(-3, 3.1, '$D$');
+axis([-4.5 8 -3.6 3.6]);  xlabel('$x_1$');  ylabel('$x_2$');  title('$\Omega_{c^*}$: energ\''ia y $p_{12}=b/2$');
+subplot(1, 2, 2);  q = linspace(0, b, 200);  plot(q, cEst(q), 'Color', ve);  hold on;
+plot([b/2 b/2], [2 cEst(b/2)], 'k:', 'LineWidth', 0.8);  grid on;
+xlabel('$p_{12}$');  ylabel('$c^*(p_{12})$');  title('El mejor nivel, en $b/2$');

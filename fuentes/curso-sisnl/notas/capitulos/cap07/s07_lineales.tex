@@ -24,7 +24,7 @@ Conecte dos copias del oscilador $S$: $\dot x=Ax+Bu$, $y=Cx$, con $A=\bigl[\begi
 \[
   A_S=\begin{bmatrix}A&0\\BC&A\end{bmatrix}.
 \]
-Las dos tienen espectro $\{j,j,-j,-j\}$. Pero $\rank(A_P-jI)=2=n-q$, mientras que $\rank(A_S-jI)=3$: la serie tiene un bloque de Jordan de orden $2$. La salida $y_1=\cos t$ de la primera excita a la segunda justo en su frecuencia natural (resonancia), y $y_2(t)=\tfrac t2\sin t$ crece sin límite (\cref{fig:ly-jordan}).
+Las dos tienen espectro $\{j,j,-j,-j\}$. Pero $\rank(A_P-jI)=2=n-q$, mientras que $\rank(A_S-jI)=3$: la serie tiene un bloque de Jordan de orden $2$. Desde $x(0)=(1,0,0,0)$, la salida $y_1=\cos t$ de la primera excita a la segunda justo en su frecuencia natural (resonancia), y $y_2(t)=\tfrac t2\sin t$ crece sin límite (\cref{fig:ly-jordan}).
 \correcto{Con valores propios en el eje imaginario hay que revisar la condición de rango \eqref{eq:ly-rango} (o los bloques de Jordan). En paralelo, además, $A_P+A_P\T=0$: $\norm x^2$ se conserva y es una función de Lyapunov; en serie no existe ninguna $P>0$ con $A_S\T P+PA_S\le0$, porque si existiera el origen sería estable.}
 \end{trampa}
 
@@ -76,7 +76,11 @@ $V(x)$ es el \emph{costo que falta por pagar} desde $x$, y $\Vdot=-x\T Qx$ dice 
 
 \begin{ejemplo}[label=ej:ly-ecuacion]{Resolver la ecuación a mano}
 Resuelva $A\T P+PA=-I$ para $A=\begin{bmatrix}0&-1\\1&-1\end{bmatrix}$.
-\solucion Con $P=\bigl[\begin{smallmatrix}p_1&p_2\\p_2&p_3\end{smallmatrix}\bigr]$, $A\T P+PA=\begin{bmatrix}2p_2&-p_1+p_3-p_2\\-p_1+p_3-p_2&-2p_2-2p_3\end{bmatrix}=\begin{bmatrix}-1&0\\0&-1\end{bmatrix}$. La primera ecuación da $p_2=-\tfrac12$; la tercera, $p_3=1$; la segunda, $p_1=p_3-p_2=\tfrac32$:
+\solucion Con $P=\bigl[\begin{smallmatrix}p_1&p_2\\p_2&p_3\end{smallmatrix}\bigr]$,
+\[
+  A\T P+PA=\begin{bmatrix}2p_2&-p_1+p_3-p_2\\-p_1+p_3-p_2&-2p_2-2p_3\end{bmatrix}=\begin{bmatrix}-1&0\\0&-1\end{bmatrix}.
+\]
+La primera ecuación da $p_2=-\tfrac12$; la tercera, $p_3=1$; la segunda, $p_1=p_3-p_2=\tfrac32$:
 \[
   P=\begin{bmatrix}1.5&-0.5\\-0.5&1\end{bmatrix},\qquad \Delta_1=1.5>0,\quad \Delta_2=1.25>0 .
 \]
@@ -99,7 +103,7 @@ $P>0$, luego $A$ es Hurwitz (sus valores propios son $-\tfrac12\pm j\tfrac{\sqrt
 \begin{trampa}[label=tr:ly-normal]{``Si $A$ es Hurwitz, la norma $\norm{x(t)}$ decrece''}
 \plausible{Todos los modos decaen exponencialmente; la suma de cosas que decaen, decae.}
 La suma de cosas que decaen puede crecer un rato. Con $A=\bigl[\begin{smallmatrix}-1&10\\0&-2\end{smallmatrix}\bigr]$ (valores propios $-1$ y $-2$) y $x_0=(0,1)$, $x_1(t)=10(e^{-t}-e^{-2t})$, y $\norm{x(\ln2)}=2.51$: la norma crece de $1$ a $2.5$ antes de decaer. La razón es que $\frac{d}{dt}\norm x^2=x\T(A+A\T)x$ y $A+A\T$ es indefinida (valores propios $-13.05$ y $7.05$): hay un cono de direcciones donde la norma crece. La $P$ de $A\T P+PA=-I$ define una métrica en la que el sistema sí se contrae siempre (\cref{fig:ly-nonormal}). La cota del \cref{thm:ly-exp}, $\norm{x(t)}\le\sqrt{\lmax/\lmin}\,\norm{x_0}e^{-t/(2\lmax)}=7.24\,\norm{x_0}e^{-0.056t}$, es válida pero muy conservadora.
-\correcto{$A$ Hurwitz da $\norm{x(t)}\le k\norm{x_0}e^{-\lambda t}$ con $k\ge1$, y $k$ puede ser grande. La norma euclidiana es una función de Lyapunov solo si $A+A\T<0$; en general hay que construir la métrica con la ecuación de Lyapunov.}
+\correcto{$A$ Hurwitz da $\norm{x(t)}\le k\norm{x_0}e^{-\lambda t}$ con $k\ge1$, y $k$ puede ser grande. La norma euclidiana es una función de Lyapunov estricta solo si $A+A\T<0$; en general hay que construir la métrica con la ecuación de Lyapunov.}
 \end{trampa}
 
 \begin{figure}[ht]
@@ -119,7 +123,7 @@ El \cref{thm:ly-ecuacion} habla de una solución \emph{definida positiva}. La ec
 \begin{trampa}[label=tr:ly-solucion]{``Si la ecuación de Lyapunov tiene solución, $A$ es Hurwitz''}
 \plausible{El teorema dice que $A$ es Hurwitz si y solo si la ecuación tiene solución.}
 El teorema dice ``solución \emph{definida positiva}''. Con $A(\mu)=\bigl[\begin{smallmatrix}-1&2\\0&\mu\end{smallmatrix}\bigr]$ y $Q=I$: para $\mu<0$, $P>0$ (y $p_{22}\to\infty$ cuando $\mu\to0^-$); en $\mu=0$ y $\mu=1$ no hay solución única ($2\mu=0$ y $-1+\mu=0$); para $\mu>0$, $\mu\neq1$, sí hay solución, pero $P$ tiene exactamente un valor propio negativo: tantos como valores propios inestables de $A$ (\cref{fig:ly-inercia}). Esa $P$ indefinida no es inútil: en el cono $\{x\T Px<0\}$, $W=-x\T Px$ crece, y es la función que usa el teorema de inestabilidad de Chetaev (\cref{cap:variantes}).
-\correcto{$A$ es Hurwitz si y solo si la solución (para algún $Q>0$, y entonces para todos) es \emph{definida positiva}. La inercia de $P$ cuenta los valores propios inestables~\citep{KeBr23}.}
+\correcto{$A$ es Hurwitz si y solo si la solución (para algún $Q>0$, y entonces para todos) es \emph{definida positiva}. La inercia de $P$ cuenta los valores propios inestables~\citep[Lema~3.7]{KeBr23}.}
 \end{trampa}
 
 \begin{figure}[ht]
@@ -133,11 +137,11 @@ El teorema dice ``solución \emph{definida positiva}''. Con $A(\mu)=\bigl[\begin
 
 \paragraph{Relajar $Q$.} A veces la $V$ natural (la energía) da $\Vdot=-x\T C\T Cx$, con $Q=C\T C$ solo semidefinida. El teorema siguiente dice cuándo basta.
 
-\begin{teorema}[label=thm:ly-observable]{Ecuación de Lyapunov con $Q=C\T C$ \citep{Arc18}}
+\begin{teorema}[label=thm:ly-observable]{Ecuación de Lyapunov con $Q=C\T C$ \citep[lección~9]{Arc18}}
 Si $(A,C)$ es observable, $A$ es Hurwitz si y solo si existe $P>0$ con $A\T P+PA=-C\T C$.
 \end{teorema}
 
-La observabilidad es indispensable. Dos masas unitarias unidas a las paredes por resortes $k_1=k_2=1$ y entre sí por un resorte $\kappa$, con un amortiguador $b=0.3$ \emph{solo en la masa~1}: con $x=(q_1,v_1,q_2,v_2)$ y $V$ la energía, $\Vdot=-b\,v_1^2=-x\T C\T Cx$ con $C=[0\ \sqrt b\ 0\ 0]$. Con $\kappa=0.4$, $(A,C)$ es observable (rango $4$) y $A$ es Hurwitz. Con $\kappa=0$, el rango de observabilidad es $2$: la masa~2 oscila para siempre, $P>0$ y $Q\ge0$ siguen valiendo, y $A$ no es Hurwitz (\cref{fig:ly-masas}). La disipación ``no ve'' a la masa~2. El subespacio no observable es justamente el conjunto donde una solución puede quedarse con $\Vdot=0$; esa es la idea del principio de invarianza, y con él se prueba el teorema siguiente (\cref{ej:iv-observable}).
+La observabilidad es indispensable. Dos masas unitarias unidas a las paredes por resortes $k_1=k_2=1$ y entre sí por un resorte $\kappa$, con un amortiguador $b=0.3$ \emph{solo en la masa~1}: con $x=(q_1,v_1,q_2,v_2)$ y $V$ la energía, $\Vdot=-b\,v_1^2=-x\T C\T Cx$ con $C=[0\ \sqrt b\ 0\ 0]$. Con $\kappa=0.4$, $(A,C)$ es observable (rango $4$) y $A$ es Hurwitz. Con $\kappa=0$, el rango de observabilidad es $2$: la masa~2 oscila para siempre, $P>0$ y $Q\ge0$ siguen valiendo, y $A$ no es Hurwitz (\cref{fig:ly-masas}). La disipación ``no ve'' a la masa~2. El subespacio no observable es justamente el conjunto donde una solución puede quedarse con $\Vdot=0$; esa es la idea del principio de invarianza, y con él se prueba el \cref{thm:ly-observable} (\cref{ej:iv-observable}).
 
 \begin{figure}[ht]
 \centering
@@ -159,7 +163,7 @@ Escriba $f(x)=Ax+g(x)$ como en \eqref{eq:ly-linealizacion}. Entonces
 \[
   \Vdot=x\T(A\T P+PA)x+2x\T Pg(x)\le-\lmin(Q)\norm x^2+2\lmax(P)\norm x\,\norm{g(x)} .
 \]
-Como $\norm{g(x)}/\norm x\to0$, existe $r>0$ tal que $\norm{g(x)}\le\gamma\norm x$ en $\norm x<r$, con $\gamma=\lmin(Q)/(4\lmax(P))$. Ahí $\Vdot\le-\tfrac12\lmin(Q)\norm x^2$, y el \cref{thm:ly-exp} (con $a=2$) da estabilidad exponencial.
+Como $\norm{g(x)}/\norm x\to0$, para $\gamma=\lmin(Q)/(4\lmax(P))$ existe $r>0$ tal que $\norm{g(x)}\le\gamma\norm x$ si $\norm x<r$. Ahí $\Vdot\le-\tfrac12\lmin(Q)\norm x^2$, y el \cref{thm:ly-exp} (con $a=2$) da estabilidad exponencial.
 \end{proof}
 
 La prueba hace algo más que probar: produce una $V$ explícita para el sistema no lineal, y con ella se puede estimar la región de atracción. Es lo que hace la próxima sección.

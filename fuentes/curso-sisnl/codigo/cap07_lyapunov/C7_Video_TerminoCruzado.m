@@ -1,4 +1,5 @@
 %% C7_Video_TerminoCruzado -- Video V7_2: inclinar la energía del péndulo
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Péndulo con fricción (a = 1, b = 0.5). El término cruzado p12 de
 %              V = (1/2) x'[b p12  p12; p12 1] x + a(1 - cos x1) crece de 0 a 0.95 b:
 %              el nivel certificado Omega_c* (grueso) se inclina y crece hasta p12 = b/2.

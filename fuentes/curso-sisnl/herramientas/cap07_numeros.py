@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente (sympy/scipy) de los números del capítulo 7
 (estabilidad de Lyapunov).   Ejecutar:  python3 herramientas/cap07_numeros.py
 Los mismos números se comprueban en MATLAB/Octave con codigo/cap07_lyapunov/verificarCap07.m.
@@ -85,7 +86,7 @@ revisar('Khalil: Vdot = -12x1^2/(1+x1^2)^4 - 4x2^2/(1+x1^2)^2', sp.simplify(VdK 
 FK = sp.lambdify((x1, x2), list(fK))
 s = solve_ivp(lambda tt, z: FK(*z), (0, 200), [2, 2], **o)
 revisar('Khalil: desde (2, 2), x1(200) > 700 (no converge)', s.y[0, -1] > 700, 1)
-revisar('Khalil: ... y x2(200) -> 2 (aprox.)', s.y[1, -1], 1.912, 1e-2)
+revisar('Khalil: ... y x2(200) -> 1.912', s.y[1, -1], 1.912, 1e-2)
 revisar('Khalil: V(x) < 1 para todo x1 si x2 = 0 (nivel no acotado c >= 1)', sp.limit(VK.subs(x2, 0), x1, sp.oo), 1)
 # x' = -x - x^3, V = x^2/2: |x(t)| <= |x0| e^-t
 solx = x0*sp.exp(-t)/sp.sqrt(1 + x0**2*(1 - sp.exp(-2*t)))

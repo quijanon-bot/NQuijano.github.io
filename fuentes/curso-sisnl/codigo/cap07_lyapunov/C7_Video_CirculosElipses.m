@@ -1,4 +1,5 @@
 %% C7_Video_CirculosElipses -- Video V7_3: la métrica en la que el sistema se contrae
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  x' = Ax con A = [-1 10; 0 -2] (Hurwitz) desde x0 = (0, 1). Izquierda: el
 %              círculo por x(t) (norma euclidiana) y la elipse {x'Px = V(x(t))}, con P de
 %              A'P + PA = -I. Derecha: |x(t)| y sqrt(V). El círculo crece (de 1 a 2.5)

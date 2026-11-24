@@ -25,7 +25,7 @@ Si $V$ es $\Cont1$, su \clave{derivada a lo largo de las soluciones} de \eqref{e
   \Vdot(x)=\jac Vx\,f(x)=\sum_{i=1}^n\jac V{x_i}f_i(x)=\inner{\nabla V(x)}{f(x)} ,
   \label{eq:ly-vdot}
 \end{equation}
-la derivada de Lie $L_fV$ del \cref{cap:linealizacion}. Es una función de $x$, no de $t$: si $x(t)$ es una solución, $\frac{d}{dt}V(x(t))=\Vdot(x(t))$. Geométricamente, $\Vdot<0$ dice que $f$ apunta hacia adentro de los conjuntos de nivel de $V$.
+que en el \cref{cap:linealizacion} llamaremos derivada de Lie, $L_fV$. Es una función de $x$, no de $t$: si $x(t)$ es una solución, $\frac{d}{dt}V(x(t))=\Vdot(x(t))$. Geométricamente, $\Vdot<0$ dice que $f$ apunta hacia adentro de los conjuntos de nivel de $V$.
 
 \subsection{El teorema}
 
@@ -98,12 +98,12 @@ Sea $\dot x=-g(x)$ con $g$ continua, $g(0)=0$ y $x\,g(x)>0$ para $x\neq0$ en $(-
 \begin{trampa}[label=tr:ly-suficiente]{``No encontré una función de Lyapunov, luego el equilibrio no es estable''}
 \plausible{El teorema de Lyapunov es la herramienta para probar estabilidad; si no se puede usar, la estabilidad no se puede probar y el equilibrio debe ser inestable.}
 El \cref{thm:ly-directo} da condiciones \emph{suficientes}. Una candidata que falla (con $\Vdot$ que cambia de signo) no dice nada sobre el equilibrio: dice algo sobre la candidata. La energía del péndulo con fricción ``falla'' en probar estabilidad asintótica, y el origen es asintóticamente estable. Los teoremas conversos (\cref{sec:av-conversos}) garantizan que, si el equilibrio es asintóticamente estable, \emph{existe} una función de Lyapunov; no dicen cómo encontrarla.
-\correcto{Una candidata que falla se cambia por otra. La inestabilidad se prueba con sus propios teoremas (Cetaev, \cref{thm:vt-cetaev}), o con el \cref{thm:ly-indirecto} si algún valor propio tiene parte real positiva.}
+\correcto{Una candidata que falla se cambia por otra. La inestabilidad se prueba con sus propios teoremas (Chetaev, \cref{thm:vt-cetaev}), o con el \cref{thm:ly-indirecto} si algún valor propio tiene parte real positiva.}
 \end{trampa}
 
 \begin{trampa}[label=tr:ly-semidef]{``$\Vdot\le0$ y $\Vdot=0$ solo en algunos puntos: asintóticamente estable''}
 \plausible{Si $V$ casi siempre decrece, en algún momento tiene que llegar a cero.}
-El \cref{thm:ly-directo} con $\Vdot\le0$ da estabilidad y nada más. La frase es cierta en el péndulo con fricción, pero por una razón que el teorema no usa: ninguna solución puede \emph{quedarse} en el eje $x_2=0$ fuera del origen. En el péndulo sin fricción, con $V=E+x_2^4$ (también definida positiva), $\Vdot=4x_2^3(-a\sin x_1)$ cambia de signo; y con $V=E$, $\Vdot\equiv0$ y no hay convergencia.
+El \cref{thm:ly-directo} con $\Vdot\le0$ da estabilidad y nada más. La frase es cierta en el péndulo con fricción, pero por una razón que el teorema no usa: ninguna solución puede \emph{quedarse} en el eje $x_2=0$ fuera del origen. Y puede ser falsa. En el plano, $\dot x_1=-x_1$, $\dot x_2=0$ con $V=x_1^2+x_2^2$ da $\Vdot=-2x_1^2\le0$, que se anula solo en el eje $x_1=0$; pero ese eje está lleno de equilibrios, y el origen no es asintóticamente estable. Que el origen sea el único equilibrio tampoco salva la frase: en $\dot x_1=-x_1$, $\dot x_2=x_3$, $\dot x_3=-x_2$, con $V=\norm x^2$, $\Vdot=-2x_1^2\le0$ se anula solo en el plano $x_1=0$, y el origen no es asintóticamente estable, porque en ese plano las soluciones giran en círculos sin acercarse.
 \correcto{Para pasar de $\Vdot\le0$ a estabilidad asintótica hay que estudiar qué soluciones pueden permanecer en $\{\Vdot=0\}$: es el principio de invarianza de LaSalle (\cref{sec:iv-lasalle}).}
 \end{trampa}
 

@@ -32,7 +32,7 @@ Los términos cruzados $x_1x_2$ se cancelan: es la razón para escoger los mismo
 
 \begin{trampa}[label=tr:ly-radial]{``$\Vdot<0$ en todo $\R^n\setminus\{0\}$ basta para la estabilidad global''}
 \plausible{Si $V$ decrece en todas partes, todas las soluciones bajan de nivel en nivel hasta el mínimo, que es el origen.}
-Considere el ejemplo de Khalil \citep[\S4.1]{Kha02}
+Considere el sistema del ejercicio~4.8 de Khalil, con la $V$ de su \S4.1~\citep[ej.~4.8]{Kha02}
 \[
   \dot x_1=-\frac{6x_1}{(1+x_1^2)^2}+2x_2,\qquad \dot x_2=-\frac{2(x_1+x_2)}{(1+x_1^2)^2},\qquad V=\frac{x_1^2}{1+x_1^2}+x_2^2 .
 \]
@@ -85,5 +85,5 @@ Para $\dot x=-x-x^3$ con $V=\tfrac12x^2$: $k_1=k_2=\tfrac12$, $a=2$ y $\Vdot=-x^
 \codigorepo{cap07_lyapunov/C7_Ej4_Global.m}{exponencial}{La cota exponencial de $\dot x=-x-x^3$}
 
 \begin{cuidado}[Nombres]
-El \cref{thm:ly-bk} (estabilidad asintótica global con $V$ radialmente no acotada) es el de Barbashin y Krasovskii. El \cref{thm:ly-exp} (cotas de potencia) es otro resultado, y no lleva ese nombre; la versión anterior de estas notas los confundía.
+El \cref{thm:ly-bk} (estabilidad asintótica global con $V$ radialmente no acotada) es el de Barbashin y Krasovskii. El \cref{thm:ly-exp} (cotas de potencia) es otro resultado, y no lleva ese nombre, aunque es común confundirlos.
 \end{cuidado}

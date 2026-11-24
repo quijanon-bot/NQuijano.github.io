@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 7 (estabilidad de Lyapunov). PDF y SVG.
 Cada figura reproduce un script de codigo/cap07_lyapunov/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap07_figuras.py   [nombre_de_función ...]

@@ -1,9 +1,10 @@
 %% C7_Ej4_Global -- Notas: sección 7.5 (estabilidad global y exponencial)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) x1' = -6 x1/(1+x1^2)^2 + 2 x2, x2' = -2(x1 + x2)/(1+x1^2)^2 con
 %            V = x1^2/(1+x1^2) + x2^2: Vdot < 0 en todo x ~= 0, pero V no es
 %            radialmente no acotada y hay soluciones que se van a infinito.
 %            (2) x' = -x - x^3 con V = x^2/2: cota exponencial |x(t)| <= |x0| e^{-t}.
-% OBSERVE    (1) Desde (2, 2): x1 crece sin límite y x2 tiende a ~2; V(x(t)) sí
+% OBSERVE    (1) Desde (2, 2): x1 crece sin límite y x2 tiende a ~1.91; V(x(t)) sí
 %            decrece, pero hacia 1 + x2(inf)^2 ~ 4.66... nunca hacia 0.
 % ESPERADO   (1) x1(200) > 700, x2(200) ~ 1.91.  (2) x(1) = 0.3724 <= 3/e = 1.1036.
 % EXPLORE    Pruebe condiciones iniciales con V(x0) < 1. ¿Convergen todas? ¿Por qué?
@@ -28,10 +29,23 @@ fprintf('x'' = -x - x^3 desde 3: x(1) = %.4f <= 3/e = %.4f; max(x - 3e^{-t}) = %
         interp1(ts, xe, 1), 3/exp(1), max(xe - 3*exp(-ts(:))));
 % [fin:exponencial]
 
-fig = estiloFigura(1100, 420);
-subplot(1, 2, 1);  [X1, X2] = meshgrid(linspace(-6, 6, 241), linspace(-2.5, 2.5, 201));
-contour(X1, X2, X1.^2./(1 + X1.^2) + X2.^2, [0.25 0.5 0.75 1 1.5 2]);  hold on;
-plot(X(X(:,1) < 6, 1), X(X(:,1) < 6, 2), 'LineWidth', 2.5);  grid on;
-xlabel('$x_1$');  ylabel('$x_2$');  title('$V$ no radialmente no acotada');
-subplot(1, 2, 2);  semilogy(ts, xe, ts, 3*exp(-ts), '--');  grid on;
+% ---- Figura de las notas (fig:ly-noacotada) ---------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  am = [224 159 62]/255;  gr = [0.78 0.78 0.78];
+fig1 = estiloFigura(1000, 460);  hold on;
+[X1, X2] = meshgrid(linspace(-7, 7, 400), linspace(-3, 3, 300));
+VV = X1.^2./(1 + X1.^2) + X2.^2;
+[Cc, hc] = contour(X1, X2, VV, [0.3 0.6 0.9 1.5 2.5], 'LineColor', gr, 'LineWidth', 0.9);
+clabel(Cc, hc, 'FontSize', 8);
+contour(X1, X2, VV, [1 1], 'LineColor', am, 'LineWidth', 2.5);      % c = 1: frontera entre cerrados y abiertos
+x0s = [2 2; -2 -2; 0.5 0.5; -1.5 0.6];  cols = [co; co; az; az];
+for i = 1:4
+    [~, Y] = ode45(f, linspace(0, 400, 40001), x0s(i, :)', opc);  m = abs(Y(:,1)) < 7;
+    plot(Y(m,1), Y(m,2), 'Color', cols(i, :), 'LineWidth', 1.4);
+    plot(x0s(i,1), x0s(i,2), 'o', 'Color', cols(i, :), 'MarkerFaceColor', cols(i, :), 'MarkerSize', 4);
+end
+axis([-7 7 -3 3]);  xlabel('$x_1$');  ylabel('$x_2$');
+title('$\dot V<0$ en todo $x\neq0$, y aun as\''i hay soluciones que se van');
+
+% Figura adicional (no est\'a en las notas): la cota exponencial de x' = -x - x^3
+fig2 = estiloFigura(560, 420);  semilogy(ts, xe, ts, 3*exp(-ts), '--');  grid on;
 xlabel('$t$');  legend('$x(t)$', '$|x_0|e^{-t}$');  title('$\dot x=-x-x^3$: cota exponencial');

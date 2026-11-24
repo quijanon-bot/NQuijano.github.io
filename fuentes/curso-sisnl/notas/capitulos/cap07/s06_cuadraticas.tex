@@ -41,7 +41,7 @@ Sea $P=P\T$.
 
 \begin{trampa}[label=tr:ly-sylvester]{``Menores líderes $\ge0$, luego $P\ge0$''}
 \plausible{Sylvester dice que menores líderes positivos dan $P>0$; por continuidad, menores líderes no negativos deberían dar $P\ge0$.}
-La continuidad no funciona así. $P=\operatorname{diag}(0,-1)$ tiene $\Delta_1=0$ y $\Delta_2=0$, y $x\T Px=-x_2^2$: es semidefinida \emph{negativa}. El menor principal que delata el problema es $p_{22}=-1$, que no es líder. La tabla de clasificación de la versión anterior de estas notas tenía este error en las filas de las semidefinidas.
+La continuidad no funciona así. $P=\operatorname{diag}(0,-1)$ tiene $\Delta_1=0$ y $\Delta_2=0$, y $x\T Px=-x_2^2$: es semidefinida \emph{negativa}. El menor principal que delata el problema es $p_{22}=-1$, que no es líder. El error aparece con frecuencia en las tablas de clasificación, en las filas de las semidefinidas.
 \correcto{Para las semidefinidas hay que revisar \emph{todos} los menores principales (parte~3 del \cref{thm:ly-sylvester}) o, mejor, los valores propios.}
 \end{trampa}
 
@@ -54,7 +54,7 @@ La continuidad no funciona así. $P=\operatorname{diag}(0,-1)$ tiene $\Delta_1=0
 
 \subsection{Inclinar la energía: el péndulo con fricción}
 
-La energía del péndulo dio $\Vdot=-bx_2^2$, que se anula en todo el eje $x_2=0$ (\cref{ej:ly-pendenergia}). Un término cruzado $p_{12}x_1x_2$ puede arreglarlo: cerca del eje $x_2=0$, su derivada aporta $p_{12}x_1\dot x_2\approx-a\,p_{12}x_1^2$, que es negativa. Esta es la construcción de Khalil~\citep[\S4.1]{Kha02}.
+La energía del péndulo dio $\Vdot=-bx_2^2$, que se anula en todo el eje $x_2=0$ (\cref{ej:ly-pendenergia}). Un término cruzado $p_{12}x_1x_2$ puede arreglarlo: cerca del eje $x_2=0$, su derivada aporta $p_{12}x_1\dot x_2\approx-a\,p_{12}x_1^2$, que es negativa. Esta es la construcción de Khalil~\citep[ej.~4.4]{Kha02}.
 
 \begin{ejemplo}[label=ej:ly-cruzado]{Una función de Lyapunov estricta para el péndulo}
 Pruebe que el origen de \eqref{eq:ly-pendulo} con $b>0$ es asintóticamente estable usando
@@ -63,9 +63,10 @@ Pruebe que el origen de \eqref{eq:ly-pendulo} con $b>0$ es asintóticamente esta
   \label{eq:ly-Vcruzado}
 \end{equation}
 \solucion La matriz es definida positiva si $b\,p_{12}>0$ y $b\,p_{12}-p_{12}^2>0$, es decir, $0<p_{12}<b$; el término $a(1-\cos x_1)$ es no negativo, así que $V$ es definida positiva en $\R^2$. Su derivada es
-\[
-  \Vdot=(b\,p_{12}x_1+p_{12}x_2+a\sin x_1)\,x_2+(p_{12}x_1+x_2)(-a\sin x_1-b\,x_2)=-a\,p_{12}\,x_1\sin x_1-(b-p_{12})\,x_2^2 .
-\]
+\begin{align*}
+  \Vdot&=(b\,p_{12}x_1+p_{12}x_2+a\sin x_1)\,x_2+(p_{12}x_1+x_2)(-a\sin x_1-b\,x_2)\\
+  &=-a\,p_{12}\,x_1\sin x_1-(b-p_{12})\,x_2^2 .
+\end{align*}
 En $\D=\{\abs{x_1}<\pi\}\times\R$, $x_1\sin x_1>0$ si $x_1\neq0$, y $b-p_{12}>0$: $\Vdot<0$ en $\D\setminus\{0\}$. Por el \cref{thm:ly-directo}, el origen es asintóticamente estable. La energía ($p_{12}=0$) es el caso límite, y por eso solo daba estabilidad.
 \end{ejemplo}
 

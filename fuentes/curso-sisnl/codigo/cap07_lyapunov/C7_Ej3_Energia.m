@@ -1,4 +1,5 @@
 %% C7_Ej3_Energia -- Notas: sección 7.4 (método directo)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Evalúa la energía V = a(1 - cos x1) + x2^2/2 a lo largo de soluciones del
 %            péndulo con y sin fricción, y la compara con Vdot = -b x2^2.
 %            (2) x' = -g(x) con g(x) = sin x + x^3 y V = int_0^x g: Vdot = -g(x)^2.
@@ -28,7 +29,17 @@ g = @(x) sin(x) + x.^3;  Vg = @(x) 1 - cos(x) + x.^4/4;      % V = int_0^x g
 fprintf('x'' = -g(x): V(0) = %.4f, V(20) = %.2e; Vdot = -g^2 <= 0\n', Vg(2), Vg(xg(end)));
 % [fin:gx]
 
-fig = estiloFigura(1100, 420);
-subplot(1, 2, 1);  plot(t, Vt, t, X(:,2));  grid on;  xlabel('$t$');
-legend('$V(x(t))$', '$x_2(t)$');  title('Con fricci\''on: $\dot V=-bx_2^2\le0$');
-subplot(1, 2, 2);  plot(t, Vg(xg));  grid on;  xlabel('$t$');  ylabel('$V$');  title('$\dot x=-g(x)$');
+% ---- Figura de las notas (fig:ly-energia): b = 0.5, desde (2.5, 0) ---------
+az = [30 90 168]/255;  co = [209 73 91]/255;  ve = [42 157 143]/255;
+fig1 = estiloFigura(1100, 420);
+subplot(1, 2, 1);  hold on;  grid on;
+h1 = plot(t, Vt, 'Color', ve);  h2 = plot(t, X(:,2), 'Color', az, 'LineWidth', 1);
+ceros = t([false; diff(sign(X(:,2))) ~= 0]);           % instantes en que x2 = 0
+for c = ceros, plot([c c], [-2 2], ':', 'Color', co, 'LineWidth', 0.8); end
+ylim([-2 2]);  xlabel('$t$');  legend([h1 h2], '$V(x(t))$', '$x_2(t)$');
+title('$\dot V=-bx_2^2$: se detiene si $x_2=0$');
+subplot(1, 2, 2);  plot(t, -b*X(:,2).^2, 'Color', co);  grid on;  xlabel('$t$');
+title('$\dot V(x(t))\le 0$, con ceros aislados');
+
+% Figura adicional (no est\'a en las notas): x' = -g(x)
+fig2 = estiloFigura(560, 420);  plot(t, Vg(xg));  grid on;  xlabel('$t$');  ylabel('$V$');  title('$\dot x=-g(x)$');

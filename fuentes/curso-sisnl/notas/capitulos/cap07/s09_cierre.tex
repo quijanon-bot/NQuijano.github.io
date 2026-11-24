@@ -31,10 +31,6 @@
 \cmd{crearModelo\_PenduloLyapunov.m} arma el péndulo con fricción con dos integradores y bloques \texttt{Fcn}, y agrega cuatro ``medidores'': la energía, la $V$ con término cruzado \eqref{eq:ly-Vcruzado} y sus derivadas a lo largo de las soluciones. Simula, compara con \texttt{ode45} y deja $a$, $b$, $p_{12}$ y $x_0$ en el workspace para ensayar: vea cómo $\Vdot_E$ se anula en cada extremo de la oscilación y $\Vdot_P$ no.
 \end{modelo}
 
-\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout7 y las diapositivas de 2026)]
-(i) ``Positiva definida (semi) si y solo si todos los valores propios son positivos (negativos)'' debe decir ``(no negativos)''. (ii) La tabla de clasificación daba $P\ge0$ con menores principales \emph{líderes} $\ge0$: es falso (\cref{tr:ly-sylvester}); en la misma tabla, ``indefinida: algunos $\lambda_i<0$ y otros negativos'' debe decir ``otros positivos''. (iii) En el ejemplo $\dot x_1=-x_1+x_1x_2$, $\dot x_2=-x_2$: el signo es $\Vdot=-x_1^2+x_1^2x_2-x_2^2$, el dominio es $\norm x<r$ (no $\le r^2$) y falta la condición $r<2$; además el sistema es globalmente asintóticamente estable (\cref{ej:ly-local}). (iv) En $\dot x=-g(x)$, $V\in\Cont1$, no $\Cont{-1}$. (v) En el ejemplo de Jordan, el último elemento de la diagonal de $J_P$ es $-j$, y $\omega=1$\,rad/s. (vi) La relajación $Q=C\T C$ necesita observabilidad (\cref{thm:ly-observable}); sin ella la implicación falla. (vii) El teorema de cotas exponenciales no es el de Barbashin--Krasovskii, y la tasa es $\norm{x(t)}\le(k_2/k_1)^{1/a}\norm{x_0}e^{-k_3t/(ak_2)}$. (viii) ``Laypunov''. (ix) Se agregaron: convergencia sin estabilidad, la condición de rango para el eje imaginario, $P$ como costo, la trampa de \cmd{lyap}, la no normalidad, la inercia de la ecuación, la prueba del método indirecto y la estimación de la región de atracción por tangencia. El epígrafe de la versión anterior se cambió por uno de las diapositivas de 2026.
-\end{profundiza}
-
 %% ---------------------------------------------------------------------
 \section{Problemas}
 \label{sec:ly-problemas}
@@ -73,7 +69,7 @@ Para $A=\bigl[\begin{smallmatrix}0&1\\-2&-3\end{smallmatrix}\bigr]$: (a) resuelv
 \end{problema}
 
 \begin{problema}[cuándo la norma sirve]\label{prob:ly-norma}
-Para $A=\bigl[\begin{smallmatrix}-1&k\\0&-2\end{smallmatrix}\bigr]$: (a) ¿para qué $k$ es $\norm x^2$ una función de Lyapunov estricta? (b) Para $k$ fuera de ese rango, encuentre una condición inicial desde la que $\norm{x(t)}$ crece al principio. (c) ¿Cambia la estabilidad con $k$?
+Para $A=\bigl[\begin{smallmatrix}-1&k\\0&-2\end{smallmatrix}\bigr]$: (a) ¿para qué $k$ es $\norm x^2$ una función de Lyapunov estricta? (b) Para $k$ fuera de ese intervalo, encuentre una condición inicial desde la que $\norm{x(t)}$ crece al principio. (c) ¿Cambia la estabilidad con $k$?
 \end{problema}
 
 \begin{problema}[la mejor estimación posible]\label{prob:ly-unidim}
@@ -85,7 +81,7 @@ Para $\dot x=-x+x^3$: (a) encuentre la región de atracción exacta del origen; 
 \end{problema}
 
 \begin{problema}[una cota para $P$]\label{prob:ly-cota}
-\etiquetaEstrella{} Sea $A$ Hurwitz y $P>0$ la solución de $A\T P+PA=-Q$. Muestre que $\lmin(P)\ge\lmin(Q)/(2\norm A)$. (Pista: evalúe la ecuación en un vector propio de $P$ asociado a $\lmin(P)$.) Si se reemplaza $A$ por $\alpha A$ ($\alpha>0$), ¿cómo cambia $P$? ¿Es consistente con la cota?
+\etiquetaEstrella{} Sea $A$ Hurwitz y $P>0$ la solución de $A\T P+PA=-Q$. Muestre que $\lmin(P)\ge\lmin(Q)/(2\norm A)$. (Pista: evalúe la ecuación en un vector propio de $P$ asociado a $\lmin(P)$.) Si se reemplaza $A$ por $\alpha A$ ($\alpha>0$), ¿cómo cambia $P$? ¿Es coherente con la cota?
 \end{problema}
 
 %% ---------------------------------------------------------------------
@@ -117,9 +113,13 @@ Para $\dot x=-x+x^3$: (a) encuentre la región de atracción exacta del origen; 
 (a) Equilibrios en $0$ y $\pm1$; $\dot x<0$ en $(0,1)$ y $\dot x>0$ en $(-1,0)$: $\RA=(-1,1)$. (b) $\Vdot=-x^2+x^4<0$ en $0<\abs x<1$; el mayor nivel dentro es $c<\tfrac12$, es decir, $\abs x<1$: la estimación es exacta. En una dimensión los conjuntos de nivel no tienen forma que escoger.
 
 \paragraph{Problema~\ref{prob:ly-tangencia}}
-(a) $c^*=2+\tfrac{\pi^2}2p_{12}(0.5-p_{12})$: $2.197$, $2.308$ y $2.197$, con tangencia en $(\pi,-p_{12}\pi)$ y $(-\pi,p_{12}\pi)$. (b) La primera solución converge al origen; la segunda puede converger o dar la vuelta (por ejemplo, desde $(1.5,3)$ termina en $(2\pi,0)$, \cref{tr:ly-region}). (c) $\Vdot<0$ mientras la solución está en $\D$; la que sale de $\D$ tiene $\Vdot>0$ al cruzar $x_1=\pi$ (allí $x_1\sin x_1<0$).
+(a) $c^*=2+\tfrac{\pi^2}2p_{12}(0.5-p_{12})$: $2.197$, $2.308$ y $2.197$, con tangencia en $(\pi,-p_{12}\pi)$ y $(-\pi,p_{12}\pi)$. (b) La primera solución converge al origen; la segunda puede converger o dar la vuelta (por ejemplo, desde $(1.5,3)$ termina en $(2\pi,0)$, \cref{tr:ly-region}). (c) $\Vdot<0$ mientras la solución está en $\D$; la que sale de $\D$ cruza $x_1=\pi$ con $\Vdot=-(b-p_{12})x_2^2<0$; después $x_1\sin x_1<0$, y $\Vdot$ se vuelve positiva cuando el péndulo se frena cerca de la posición invertida.
 
 \paragraph{Problema~\ref{prob:ly-cota}}
 Sea $Pv=\lmin v$ con $\norm v=1$. Entonces $v\T(A\T P+PA)v=2\lmin\,v\T Av$, y $\lmin(Q)\le v\T Qv=-2\lmin(P)\,v\T Av\le2\lmin(P)\norm A$. Con $\alpha A$, la solución es $P/\alpha$ (sustituya en la ecuación), y la cota pasa a $\lmin(Q)/(2\alpha\norm A)$: las dos escalan igual. Un sistema más rápido acumula menos costo, y su $P$ es más pequeña.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

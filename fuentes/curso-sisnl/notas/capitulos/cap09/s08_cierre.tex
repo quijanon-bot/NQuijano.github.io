@@ -9,8 +9,8 @@
   \item \textbf{Funciones de comparación:} UAS es lo mismo que una sola cota $\norm{x(t)}\le\beta(\norm{x(t_0)},t-t_0)$ con $\beta\in\KL$. Hay que revisar las dos variables de $\beta$: estrictamente creciente en el tamaño, decreciente a cero en el tiempo transcurrido.
   \item \textbf{Lyapunov con $V(t,x)$:} $W_1(x)\le V\le W_2(x)$ y $\Vdot\le-W_3(x)$ dan UAS; con $W_1$ radialmente no acotada, GUAS; con cotas $k_i\norm x^a$, exponencial. ``Decreciente'' ($V\le W_2$) es lo que hace uniforme el resultado, y $\Vdot$ incluye $\partial V/\partial t$.
   \item \textbf{$\Vdot<0$ no basta:} hace falta una cota $-W_3(x)$ independiente de $t$. Tampoco bastan los valores propios congelados (Markus--Yamabe) ni una linealización sin uniformidad.
-  \item \textbf{Con $\Vdot$ semidefinida:} LaSalle--Yoshizawa da $W(x(t))\to0$; Barbălat sobre la ecuación de la variable que falta completa la convergencia; en el caso lineal periódico, Floquet decide.
-  \item \textbf{Inestabilidad:} es la negación de estabilidad, no ``escape a infinito''. Cetaev (invariante) y los dos teoremas de inestabilidad (variantes) piden una $V$ que sea positiva cerca del origen y crezca donde es positiva; $V$ puede ser indefinida.
+  \item \textbf{Con $\Vdot$ semidefinida:} LaSalle--Yoshizawa da $W(x(t))\to0$; Barbalat sobre la ecuación de la variable que falta completa la convergencia; en el caso lineal periódico, Floquet decide.
+  \item \textbf{Inestabilidad:} es la negación de estabilidad, no ``escape a infinito''. Chetaev (invariante) y los dos teoremas de inestabilidad (variantes) piden una $V$ que sea positiva cerca del origen y crezca donde es positiva; $V$ puede ser indefinida.
 \end{enumerate}
 \end{parallevar}
 
@@ -21,14 +21,10 @@
   \item $\Vdot$ lleva el término $\partial V/\partial t$ (\cref{tr:vt-parcial}); $\Vdot<0$ en cada instante no es $\Vdot\le-W_3(x)$ (\cref{tr:vt-negativa}).
   \item Los valores propios de $A(t)$ no deciden (\cref{tr:vt-congelar}); la linealización necesita un jacobiano uniforme en $t$ (\cref{ej:vt-linealizacion}).
   \item LaSalle no se traslada tal cual a sistemas variantes (\cref{tr:vt-lasalle}).
-  \item Inestable no es no acotado (\cref{tr:vt-inestable}); una $V$ de Cetaev se construye, no se adivina (\cref{tr:vt-cetaevx1}).
+  \item Inestable no es no acotado (\cref{tr:vt-inestable}); una $V$ de Chetaev se construye, no se adivina (\cref{tr:vt-cetaevx1}).
   \item Un certificado que falla no prueba inestabilidad: con la $g$ rápida del \cref{ej:vt-ganancia} el sistema sigue siendo exponencialmente estable (\cref{prob:vt-grapida}).
 \end{itemize}
 \end{trampa}
-
-\begin{profundiza}[Correcciones respecto a la versión anterior (Clase101926\_VariantesTiempo y StmasVariantes\_Inestab2026)]
-(i) El corolario de estabilidad exponencial pedía $W_2(x)\ge k_2\norm x^c$; la cota correcta es por arriba, $V\le k_2\norm x^a$, y con ella la tasa es $k_3/(a\,k_2)$ (\cref{thm:vt-exp}). (ii) El enunciado del segundo teorema de inestabilidad decía $\Vdot\ge0$; lo que se pide es $\Vdot-\lambda V\ge0$, y el ejemplo de la diapositiva lo muestra: allí $\Vdot$ toma valores negativos (\cref{ej:vt-inestable2}). (iii) La expresión de $\Vdot$ del ejemplo del primer teorema estaba mal transcrita; la correcta es $x_1^4+x_1^2x_2^2+2x_1^2x_2^4+x_2^6$. (iv) En el ejemplo de Cetaev, la cota $\Vdot\ge\tfrac38\norm x^2$ en $\Bola{1/2}$ es válida pero no la mejor; con $\abs{x_1^3x_2}\le\tfrac{r^2}2x_1^2$ se obtiene $\tfrac12$, que es exacta. (v) Las referencias ``Serón, Ej.~4.2 y 4.3'' se conservan como problemas (\cref{prob:vt-seron2,prob:vt-seron3}); los teoremas siguen la numeración de \citet{Kha02}. (vi) Las funciones de comparación se definen aquí; el \cref{cap:avanzada} solo las recuerda. LaSalle--Yoshizawa y Barbălat se enuncian y prueban en el \cref{cap:avanzada} y aquí se usan. (vii) Notación: invariante y variante en el tiempo en lugar de autónomo y no autónomo; $\phi(t;t_0,x_0)$ para las soluciones; ``decreciente'' para \emph{decrescent}, con la advertencia de la nota al margen.
-\end{profundiza}
 
 %% ---------------------------------------------------------------------
 \section{Problemas}
@@ -53,7 +49,7 @@ Una función $\sigma\in\KL$ generada por $\dot y=-\alpha(y)$ cumple $\sigma(r,0)
 
 \subsection*{Teoremas de Lyapunov}
 
-\begin{problema}[decreciente o no {\citep[Ej.~2.7]{KeBr23}}]\label{prob:vt-decreciente}
+\begin{problema}[decreciente o no {\citep[ejercicio~2.7]{KeBr23}}]\label{prob:vt-decreciente}
 Para $V_1=x_1^2(1+\sin^2t)+x_2^2(1+\cos^2t)$ y $V_2=x_1^2+x_2^2(1+t)$, escriba $\alpha_1$ y, si existe, $\alpha_2$. Explique en una frase por qué no existe para $V_2$.
 \end{problema}
 
@@ -61,11 +57,11 @@ Para $V_1=x_1^2(1+\sin^2t)+x_2^2(1+\cos^2t)$ y $V_2=x_1^2+x_2^2(1+t)$, escriba $
 Para $\dot x=-(1+g(t))\,x^3$ con $0\le g(t)\le k$: (a) con $V=x^2/2$ pruebe que el origen es GUAS; (b) pruebe que no es exponencialmente estable. ¿Para qué sirve la cota $g\le k$?
 \end{problema}
 
-\begin{problema}[cota cruzada {\citep{Ser00}}]\label{prob:vt-seron2}
+\begin{problema}[cota cruzada {\citep[ejercicio~4.2]{Ser00}}]\label{prob:vt-seron2}
 Para $\dot x_1=-2x_1+g(t)x_2$, $\dot x_2=g(t)x_1-2x_2$ con $\abs{g(t)}\le1$, pruebe que el origen es GES y dé la tasa. ¿Hace falta alguna condición sobre $\dot g$?
 \end{problema}
 
-\begin{problema}[rotación y disipación cúbica {\citep{Ser00}}]\label{prob:vt-seron3}
+\begin{problema}[rotación y disipación cúbica {\citep[ejercicio~4.3]{Ser00}}]\label{prob:vt-seron3}
 Para $\dot x_1=x_2-g(t)x_1\norm x^2$, $\dot x_2=-x_1-g(t)x_2\norm x^2$ con $k\le g(t)\le M$, $k>0$: (a) pruebe que el origen es GUAS; (b) pruebe que no es exponencialmente estable; (c) ¿qué dice la linealización?
 \end{problema}
 
@@ -85,7 +81,7 @@ Verifique la segunda columna de $\Phi(t,0)$ en el \cref{ej:vt-markus}, compruebe
 
 \subsection*{Inestabilidad}
 
-\begin{problema}[¿hasta dónde llega la cota de Cetaev?]\label{prob:vt-cetaevr}
+\begin{problema}[¿hasta dónde llega la cota de Chetaev?]\label{prob:vt-cetaevr}
 En el \cref{ej:vt-cetaev}, ¿para qué valores de $r$ la cota $\min\{1-r^2/2,\ 1-r\}\norm x^2$ prueba que $\Vdot>0$ en $\Bola r\setminus\{0\}$? ¿Cambia eso la conclusión de inestabilidad?
 \end{problema}
 
@@ -135,3 +131,7 @@ Para $r<1$, porque $1-r>0$ y $1-r^2/2>0$. No: la inestabilidad es local y basta 
 (a) $\Vdot=(1-x_1^2)x_2^2\ge0$ cerca del origen, pero se anula en todo el eje $x_2=0$: no es definida positiva. (b) El jacobiano en el origen tiene valores propios $\tfrac12\pm j\tfrac{\sqrt3}2$, con parte real positiva. (c) Cerca del origen la solución es aproximadamente la de la linealización, $\norm{x(t)}\approx\delta e^{t/2}$, que vale $1$ en $t=2\ln(1/\delta)$; el término $O(1)$ corrige la parte en que la no linealidad ya pesa.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

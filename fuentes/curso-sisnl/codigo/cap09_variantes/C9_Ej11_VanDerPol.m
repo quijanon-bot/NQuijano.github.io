@@ -1,4 +1,5 @@
 %% C9_Ej11_VanDerPol -- Notas: sección 9.7 (inestable no es no acotado)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Van der Pol con mu = 1: mide el rango de ||x|| sobre el ciclo límite y el
 %            tiempo que tarda en salir de la bola unitaria la solución desde (delta, 0).
 % OBSERVE    El origen es inestable y todas las soluciones están acotadas.
@@ -22,7 +23,20 @@ for d = [1e-2 1e-4 1e-6]
 end
 % [fin:vdp]
 
-fig = estiloFigura(600, 520);  plot(X(t > 60, 1), X(t > 60, 2), 'r', 'LineWidth', 2);  hold on;
-[~, Y] = ode45(f, [0 30], [0.01; 0], opc);  plot(Y(:, 1), Y(:, 2), 'k');
-th = linspace(0, 2*pi, 200);  plot(cos(th), sin(th), 'k:');  axis equal;  grid on;
-title('inestable, y todo queda acotado');
+% ---- Figura de las notas (fig:vt-vdp) --------------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;  cl = [201 209 222]/255;
+fig = estiloFigura(1200, 460);  ds = [1e-2 1e-4 1e-6];  cl3 = [az; ve; co];  t = linspace(0, 45, 9000);
+subplot(1, 2, 1);  hold on;  grid on;  th = linspace(0, 2*pi, 200);  plot(cos(th), sin(th), ':', 'Color', gr);
+[~, Y] = ode45(f, t, [-2.5; 2.5], opc);  plot(Y(:, 1), Y(:, 2), 'Color', gr, 'LineWidth', 0.8);    % desde fuera del ciclo
+for j = 1:3
+    [~, Y] = ode45(f, t, [ds(j); 0], opc);  plot(Y(:, 1), Y(:, 2), 'Color', cl3(j, :), 'LineWidth', 0.8);
+    nrm{j} = sqrt(sum(Y.^2, 2));
+end
+plot(0, 0, 'o', 'MarkerFaceColor', 'w', 'MarkerEdgeColor', no);
+axis equal;  axis([-3 3 -3 3]);  box on;  xlabel('$x_1$');  ylabel('$x_2$');  title('inestable, y todo queda acotado');
+subplot(1, 2, 2);
+for j = 1:3, semilogy(t, nrm{j}, 'Color', cl3(j, :), 'LineWidth', 1.2);  hold on;  end
+semilogy([0 45], [1 1], ':', 'Color', gr);  grid on;  xlabel('$t$');  ylabel('$\|x(t)\|$');
+legend('$x_0=(0.01,0)$', '$x_0=(10^{-4},0)$', '$x_0=(10^{-6},0)$', 'Location', 'southeast');
+title('salida de $B_1$ en $t\approx2\ln(1/\delta)$');

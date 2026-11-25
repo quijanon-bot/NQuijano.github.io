@@ -1,4 +1,5 @@
-%% C9_Video_Cetaev -- Video V9_4: la región de Cetaev
+%% C9_Video_Chetaev -- Video V9_4: la región de Chetaev
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  x1' = x1^2 + x2^3, x2' = -x2 + x1^3 con V = x1 - x2^2/2. La región
 %              U = {V > 0} dentro de B_{1/2} (sombreada) y soluciones que nacen en U cada
 %              vez más cerca del origen: todas salen de la bola. A la derecha, V(x(t)).

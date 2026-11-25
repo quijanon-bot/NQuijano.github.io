@@ -1,4 +1,5 @@
 %% C9_Video_MarkusYamabe -- Video V9_3: los campos congelados atraen; la solución real se escapa
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  A la izquierda, el campo congelado A(t) (flechas) que cambia con t, la
 %              solución real desde (1, 0) y la solución del campo congelado en ese instante.
 %              A la derecha, ||x(t)|| contra e^{t/2} y e^{-t/4}.

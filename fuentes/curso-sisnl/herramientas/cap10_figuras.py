@@ -122,21 +122,6 @@ def sontag():                       # C10_Ej7 [sontag] y C10_Ej8 [pequeno]
 
 
 # ------------------------------------------------------------------ 10.5
-def pulsos():                       # C10_Ej9 [pulsos]
-    fig, ax = plt.subplots(1, 3, figsize=(7.4, 2.4), gridspec_kw=dict(wspace=0.35))
-    a = ax[0]; xs, ys = [0], [0]
-    for k in range(1, 7):
-        w = 1/k**3; xs += [k - w/2, k, k + w/2]; ys += [0, k, 0]
-    xs.append(6.6); ys.append(0); a.plot(xs, ys, color=C['azul'], lw=1.4)
-    a.set_xlabel('$t$'); a.set_ylabel(r'$\psi$'); a.set_title(r'área $\pi^2/12$, $\psi(k)=k$'); a.grid(True)
-    t = np.linspace(1, 3000, 20000); a = ax[1]; a.semilogx(t, np.sin(np.log(t)), color=C['violeta'])
-    a.set_xlabel('$t$'); a.set_title(r'$h=\sin(\ln t)$'); a.grid(True)
-    t = np.linspace(0, 2.2, 40000); a = ax[2]; a.plot(t, np.exp(-t)*np.sin(np.exp(2*t)), color=C['verde'], lw=0.8)
-    a.plot(t, np.exp(-t), color=C['gris'], ls=':', lw=1); a.plot(t, -np.exp(-t), color=C['gris'], ls=':', lw=1)
-    a.set_xlabel('$t$'); a.set_title(r'$h=e^{-t}\sin(e^{2t})$'); a.grid(True)
-    g(fig, 'f_pulsos')
-
-
 def adaptativo():                   # C10_Ej10 [adaptativo]
     fig, ax = plt.subplots(1, 2, figsize=(7.0, 2.7), gridspec_kw=dict(wspace=0.3), sharey=True)
     t = np.linspace(0, 40, 2000)
@@ -207,5 +192,5 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         for nombre in sys.argv[1:]: globals()[nombre]()
         sys.exit()
-    for fn in [uub_escalar, conjuntos, energia_futura, sinV, sontag, pulsos, adaptativo, rediseno, cascada, pequena_ganancia]:
+    for fn in [uub_escalar, conjuntos, energia_futura, sinV, sontag, adaptativo, rediseno, cascada, pequena_ganancia]:
         fn()

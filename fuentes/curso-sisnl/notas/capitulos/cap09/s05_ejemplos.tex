@@ -32,11 +32,11 @@ El numerador es al menos $4-\sqrt5=1.76$ (porque $2\sin t+\cos t\ge-\sqrt5$) y e
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{cap09/f_mathieu}
-\caption{Mathieu amortiguada desde $(1.5,0)$. Izquierda: la solución y el conjunto de nivel $V(t,x)=2.25$ en tres instantes; el elipse ``respira'' con $t$, siempre entre las dos circunferencias de \eqref{eq:vt-w1w2}. Derecha: $V(t,x(t))$ baja con mesetas (donde $x_2\approx0$) y, de hecho, decae como $e^{-t}$.}
+\caption{Mathieu amortiguada desde $(1.5,0)$. Izquierda: la solución y el conjunto de nivel $V(t,x)=2.25$ en tres instantes; la elipse ``respira'' con $t$, siempre entre la circunferencia $x_1^2+x_2^2=2.25$ ($t=4.71$) y la elipse $x_1^2+\tfrac13x_2^2=2.25$ ($t=1.57$), que son los conjuntos de nivel de las cotas $W_2$ y $W_1$ de \eqref{eq:vt-w1w2}. Derecha: $V(t,x(t))$ baja con mesetas (donde $x_2\approx0$) y, de hecho, decae como $e^{-t}$.}
 \label{fig:vt-mathieu}
 \end{figure}
 
-La figura sugiere que el origen es mucho mejor que uniformemente estable. Como \eqref{eq:vt-mathieu} es lineal y periódico (periodo $2\pi$), la teoría de Floquet lo decide. Para $\dot x=A(t)x$ con $A(t+\tau)=A(t)$, la matriz de monodromía $M=\Phi(\tau,0)$ es el mapa estroboscópico de la \cref{sec:bf-poincare} (aquí lineal): $x(k\tau)=M^kx(0)$. Sus valores propios, los \clave{multiplicadores de Floquet}, deciden: si todos tienen módulo menor que $1$, el origen es uniforme y exponencialmente estable; si alguno tiene módulo mayor que $1$, es inestable \citep[cap.~7]{Sas99}. Para \eqref{eq:vt-mathieu}, $\tau=2\pi$ y $M$, calculada numéricamente, tiene los multiplicadores
+La figura sugiere que el origen es mucho mejor que uniformemente estable. Como \eqref{eq:vt-mathieu} es lineal y periódico (periodo $2\pi$), la teoría de Floquet lo decide. Para $\dot x=A(t)x$ con $A(t+\tau)=A(t)$, la matriz de monodromía $M=\Phi(\tau,0)$ es el mapa estroboscópico de la \cref{sec:bf-poincare} (aquí lineal): $x(k\tau)=M^kx(0)$. Sus valores propios, los \clave{multiplicadores de Floquet}, deciden: si todos tienen módulo menor que $1$, el origen es uniforme y exponencialmente estable; si alguno tiene módulo mayor que $1$, es inestable \citep[\S7.3, Prop.~7.14]{Sas99}. Para \eqref{eq:vt-mathieu}, $\tau=2\pi$ y $M$, calculada numéricamente, tiene los multiplicadores
 \[
   \mu=-0.0099\pm0.0421\,j,\qquad\abs\mu=e^{-\pi}=0.0432<1 .
 \]
@@ -68,7 +68,7 @@ porque los valores propios de la matriz son $1$ y $3$. El \cref{thm:vt-exp} con 
 \]
 \end{ejemplo}
 
-Con $g=1+0.5\sin t$ ($k=1.5$), $g-\dot g\ge1-0.5\sqrt2=0.29>0$ y la cota se cumple con holgura: en la simulación de la \cref{fig:vt-ganancia}, el peor cociente entre $\norm{x(t)}$ y la cota es $0.63$. Con $g=(1+\sin10t)/2$, en cambio, $2+2g-\dot g$ vale $-2$ en $t=0$: el término $\partial V/\partial t$ inyecta más de lo que el sistema disipa y $\Vdot$ deja de ser negativa. \alerta{Eso no prueba que el sistema sea inestable}: solo que esta $V$ ya no es un certificado.
+Con $g=1+0.5\sin t$ ($k=1.5$), $g-\dot g\ge1-0.5\sqrt2=0.29>0$ y la cota se cumple con holgura: en la simulación de la \cref{fig:vt-ganancia}, el cociente entre $\norm{x(t)}$ y la cota vale $1/\sqrt{1+k}=0.63$ en $t=t_0$ y después solo baja. Con $g=(1+\sin10t)/2$, en cambio, $2+2g-\dot g$ vale $-2$ en $t=0$: el término $\partial V/\partial t$ inyecta más de lo que el sistema disipa y $\Vdot$ deja de ser negativa. \alerta{Eso no prueba que el sistema sea inestable}: solo que esta $V$ ya no es un certificado.
 
 \begin{figure}[ht]
 \centering
@@ -141,7 +141,7 @@ Para $\dot x_1=-x_1+t\,x_2^2$, $\dot x_2=x_1-x_2$, la linealización en el orige
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\linewidth]{cap09/f_linealizacion}
-\caption{$\norm{x}$ contra $t-t_0$ desde $(0.1,0.1)$ para $\dot x_1=-x_1+tx_2^2$, $\dot x_2=x_1-x_2$. La linealización (negra punteada) es la misma para todo $t_0$; el sistema no lineal converge con $t_0=0$ y explota con $t_0=10$ y $t_0=100$.}
+\caption{$\norm{x}$ contra $t-t_0$ desde $(0.1,0.1)$ para $\dot x_1=-x_1+tx_2^2$, $\dot x_2=x_1-x_2$. La linealización (gris, a trazos) es la misma para todo $t_0$; el sistema no lineal converge con $t_0=0$ y explota con $t_0=10$ y $t_0=100$.}
 \label{fig:vt-linealizacion}
 \end{figure}
 

@@ -3,7 +3,7 @@
 //       <script src="../recursos/explorador-variantes.js"></script>
 // Tres pestañas: la hora de arranque (uniformidad), sistemas lineales periódicos (Mathieu,
 // Markus--Yamabe, ganancia variable: valores propios congelados contra multiplicadores de Floquet)
-// e inestabilidad (Cetaev, los dos teoremas, la silla y van der Pol).
+// e inestabilidad (Chetaev, los dos teoremas, la silla y van der Pol).
 // Los modelos son los de codigo/cap09_variantes.
 (function () {
   const raiz = document.getElementById('explorador-variantes');
@@ -195,7 +195,7 @@
   (function () {
     const p = panel('inestab'), e = {};
     const sis = {
-      cet: {t: 'Cetaev: ẋ₁ = x₁² + x₂³, ẋ₂ = −x₂ + x₁³ con V = x₁ − x₂²/2', L: 0.6, x0: [0.02, 0.1],
+      cet: {t: 'Chetaev: ẋ₁ = x₁² + x₂³, ẋ₂ = −x₂ + x₁³ con V = x₁ − x₂²/2', L: 0.6, x0: [0.02, 0.1],
             F: x => [x[0] ** 2 + x[1] ** 3, -x[1] + x[0] ** 3], V: x => x[0] - x[1] ** 2 / 2, Vd: x => x[0] ** 2 + x[1] ** 2 + x[1] ** 3 - x[0] ** 3 * x[1], bola: 0.5},
       cetx1: {t: 'La trampa: el mismo sistema con V = x₁', L: 0.6, x0: [0.01, -0.1],
               F: x => [x[0] ** 2 + x[1] ** 3, -x[1] + x[0] ** 3], V: x => x[0], Vd: x => x[0] ** 2 + x[1] ** 3, bola: 0.5},
@@ -211,7 +211,7 @@
             F: x => [x[1], -x[0] + (1 - x[0] ** 2) * x[1]], V: x => (x[0] ** 2 + x[1] ** 2) / 2, Vd: x => (1 - x[0] ** 2) * x[1] ** 2, bola: 1, semi: 'V̇ ≥ 0 en la bola, pero se anula en todo el eje x₂ = 0: no es definida positiva y el primer teorema no aplica (la inestabilidad sale del método indirecto). '},
     };
     p.insertAdjacentHTML('beforeend', '<p>Verde: la región U = {V &gt; 0} dentro de la bola (punteada). Coral: puntos de U donde V̇ ≤ 0 (si los hay, el teorema no aplica con esa V). <b>Haga clic</b> para lanzar una solución; a la derecha, V(x(t)).</p>');
-    selector(p, 'sis', 'Sistema', [['cet', 'Cetaev'], ['cetx1', 'Cetaev con V = x₁ (trampa)'], ['t1', 'Primer teorema'], ['t2', 'Segundo teorema'], ['silla', 'Silla'], ['vdp', 'Van der Pol']], e, dib);
+    selector(p, 'sis', 'Sistema', [['cet', 'Chetaev'], ['cetx1', 'Chetaev con V = x₁ (trampa)'], ['t1', 'Primer teorema'], ['t2', 'Segundo teorema'], ['silla', 'Silla'], ['vdp', 'Van der Pol']], e, dib);
     p.insertAdjacentHTML('beforeend', '<div class="exp-resumen"></div><div style="display:grid;grid-template-columns:1fr 1.15fr;gap:.5rem"><svg viewBox="0 0 360 340" style="cursor:crosshair"></svg><svg viewBox="0 0 400 340"></svg></div>');
     const [s1, s2] = p.querySelectorAll('svg'), res = p.querySelector('.exp-resumen');
     let T1;
@@ -235,7 +235,7 @@
       const T2 = ejes(s2, 400, 340, {l: 44, r: 8, t: 10, b: 30}, [0, Math.max(tf, 1)], [Math.min(...Vt, 0) * 1.05, Math.max(...Vt, 0.01) * 1.05], 't', 'V(x(t))');
       linea(s2, tr.map((z, k) => [T2.X(z[0]), T2.Y(Vt[k])]), C.azul, 2);
       const kb = tr.findIndex(z => Math.hypot(z[1], z[2]) > s.bola);
-      res.innerHTML = `<b>${s.t}</b>. ` + (s.semi ? `<b style="color:#D1495B">${s.semi}</b>` : '') + (malos ? `<b style="color:#D1495B">Hay puntos de U con V̇ ≤ 0</b> (${malos} celdas): Cetaev no aplica con esta V en esta bola. ` : (s.semi ? '' : 'V̇ > 0 en toda U. ')) +
+      res.innerHTML = `<b>${s.t}</b>. ` + (s.semi ? `<b style="color:#D1495B">${s.semi}</b>` : '') + (malos ? `<b style="color:#D1495B">Hay puntos de U con V̇ ≤ 0</b> (${malos} celdas): Chetaev no aplica con esta V en esta bola. ` : (s.semi ? '' : 'V̇ > 0 en toda U. ')) +
         `V(x₀) = ${f(s.V(e.x0), 5)}. ` + (kb > 0 ? `La solución sale de la bola en t ≈ ${f(tr[kb][0], 2)}.` : 'La solución no sale de la bola en [0, 60].');
     }
     s1.addEventListener('click', ev => { const r = s1.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width * 360, py = (ev.clientY - r.top) / r.height * 340;

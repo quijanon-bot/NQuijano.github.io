@@ -65,6 +65,12 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 - La foto de Duffing de las diapositivas no se pasó a las notas; si se quiere, va en `notas/figuras/cap04/` con su crédito.
 - Los capítulos 2, 3, 5 y 7 ya citan este capítulo con `\cref{cap:bidimensionales}`.
 
+## Correcciones del capítulo 9 respecto a Clase101926_VariantesTiempo y StmasVariantes_Inestab2026
+
+Trasladado desde el cierre del capítulo (caja `profundiza`) el 24 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):
+
+(i) El corolario de estabilidad exponencial pedía $W_2(x)\ge k_2\norm x^c$; la cota correcta es por arriba, $V\le k_2\norm x^a$, y con ella la tasa es $k_3/(a\,k_2)$ (\cref{thm:vt-exp}). (ii) El enunciado del segundo teorema de inestabilidad decía $\Vdot\ge0$; lo que se pide es $\Vdot-\lambda V\ge0$, y el ejemplo de la diapositiva lo muestra: allí $\Vdot$ toma valores negativos (\cref{ej:vt-inestable2}). (iii) La expresión de $\Vdot$ del ejemplo del primer teorema estaba mal transcrita; la correcta es $x_1^4+x_1^2x_2^2+2x_1^2x_2^4+x_2^6$. (iv) En el ejemplo de Cetaev, la cota $\Vdot\ge\tfrac38\norm x^2$ en $\Bola{1/2}$ es válida pero no la mejor; con $\abs{x_1^3x_2}\le\tfrac{r^2}2x_1^2$ se obtiene $\tfrac12$, que es exacta. (v) Las referencias ``Serón, Ej.~4.2 y 4.3'' se conservan como problemas (\cref{prob:vt-seron2,prob:vt-seron3}); los teoremas siguen la numeración de \citet{Kha02}. (vi) Las funciones de comparación se definen aquí; el \cref{cap:avanzada} solo las recuerda. LaSalle--Yoshizawa y Barbălat se enuncian y prueban en el \cref{cap:avanzada} y aquí se usan. (vii) Notación: invariante y variante en el tiempo en lugar de autónomo y no autónomo; $\phi(t;t_0,x_0)$ para las soluciones; ``decreciente'' para \emph{decrescent}, con la advertencia de la nota al margen.
+
 ## Correcciones del capítulo 8 respecto a LaSalle_Invarianza, Construccion_Lyapunov y Handout7
 
 Trasladado desde el cierre del capítulo (caja `profundiza`) el 24 de noviembre de 2026, por decisión del autor durante la auditoría. Además, los títulos de los ejemplos `ej:iv-g1` y `ej:iv-k1` decían "El ejercicio del handout, resuelto": son los ejercicios de gradiente variable y de Krasovskii de Handout7.

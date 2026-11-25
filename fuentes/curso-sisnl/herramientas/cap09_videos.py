@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Videos de la parte 9 para la página web (MP4, H.264), hechos con matplotlib.
 Son la versión en Python de los scripts C9_Video_* (mismos modelos y parámetros);
 los de MATLAB siguen siendo la referencia para grabar en clase.
@@ -76,7 +77,7 @@ def v9_3_markus():                  # C9_Video_MarkusYamabe
     grabar(fig, act, nf, 'V9_3_markus_yamabe')
 
 
-def v9_4_cetaev():                  # C9_Video_Cetaev
+def v9_4_cetaev():                  # C9_Video_Chetaev
     f = lambda tt, z: [z[0]**2 + z[1]**3, -z[1] + z[0]**3]
     ev = lambda tt, z: np.hypot(*z) - 0.6; ev.terminal = True
     sols = []

@@ -1,4 +1,5 @@
 %% C9_Video_TiempoInicial -- Video V9_1: misma condición inicial, distinta hora de arranque
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  x' = -x/(1 + t) desde x0 = 1 con t0 = 0, 10, 40 y 100, todas contra el
 %              tiempo transcurrido s = t - t0. Un cronómetro marca cuándo cada una baja de 0.1.
 % USO          Ejecute. Video en videos/V9_1_tiempo_inicial.mp4 (.avi en Linux).

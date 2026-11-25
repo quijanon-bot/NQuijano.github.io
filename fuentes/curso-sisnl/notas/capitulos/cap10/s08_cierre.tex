@@ -19,7 +19,7 @@
   \item UUB no es estabilidad con otra cota (\cref{tr:av-noestable}); la cota última no es $\mu$ (\cref{tr:av-cota}); el $T$ de Lyapunov es una cota pesimista (\cref{tr:av-T}).
   \item El converso no es constructivo (\cref{tr:av-converso}).
   \item Una $V$ puede no ser CLF aunque el sistema sea estabilizable (\cref{tr:av-noclf}); el exponente 4 no es decorativo (\cref{tr:av-cuarta}); ``universal'' no es ``sin perillas'' (\cref{tr:av-escala}); si $f(0)\neq0$, el control en régimen no es cero (\cref{tr:av-regimen}).
-  \item $\int W<\infty$ no implica $W\to0$ (\cref{tr:av-integral}); Barbalat no da estabilidad asintótica (\cref{tr:av-barbalat}).
+  \item $\int W<\infty$ no implica $W\to0$ (\cref{tr:vt-integral}); Barbalat no da estabilidad asintótica (\cref{tr:av-barbalat}).
   \item ``Existe $u$'' (CLF) no es ``para todo $w$'' (ISS); un lazo GES puede no aguantar perturbaciones pequeñas (\cref{tr:av-robustecer}).
   \item GAS más GAS no da GAS en cascada (\cref{ej:av-cascada}), pero no toda cascada no ISS escapa (\cref{tr:av-cascadaerr}).
 \end{itemize}
@@ -71,7 +71,7 @@ Planta $\dot y=a^*y+u$ con $a^*$ desconocido; modelo $\dot y_m=-ay_m+r(t)$, $a>0
 \end{problema}
 
 \begin{problema}[cuando falta la continuidad uniforme]\label{prob:av-sint2}
-Sea $h(t)=\sin(t^2)/t$. (a) Muestre que $h\to0$; (b) muestre que $\dot h\not\to0$; (c) ¿qué hipótesis de la forma de derivada del \cref{lem:av-barbalat} falla?
+Sea $h(t)=\sin(t^2)/t$. (a) Muestre que $h\to0$; (b) muestre que $\dot h\not\to0$; (c) ¿qué hipótesis de la forma de derivada del \cref{lem:vt-barbalat} falla?
 \end{problema}
 
 \subsection*{ISS e interconexiones}

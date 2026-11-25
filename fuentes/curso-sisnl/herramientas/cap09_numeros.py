@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente (sympy/scipy) de los números del capítulo 9
 (sistemas variantes en el tiempo: uniformidad, funciones de comparación, teoremas de
 Lyapunov con V(t,x) e inestabilidad).
@@ -134,6 +135,8 @@ revisar('   con t0 = 10 escapa en t = 16.33', solve_ivp(lambda tt, z: [-z[0] + t
 
 # ------------------------------------------------------------------ 9.6 Vdot <= 0
 print('9.6 cuando Vdot <= 0')
+revisar('pulsos: área total = pi^2/12', sum(1/(2*k**2) for k in range(1, 200001)), np.pi**2/12, 1e-5)
+revisar('sin(t^2): t_n y s_n se acercan (n = 1000): s - t < 0.02', np.sqrt(2*np.pi*1000 + np.pi/2) - np.sqrt(2*np.pi*1000), 0.0099, 2e-4)
 th_ = sp.symbols('theta'); e_ = sp.symbols('e'); w_ = sp.Function('w')(t)
 Va2 = e_**2 + th_**2
 revisar('adaptativo: Vdot = -2e^2', sp.simplify(sp.diff(Va2, e_)*(-e_ + th_*w_) + sp.diff(Va2, th_)*(-e_*w_) + 2*e_**2), 0)
@@ -164,12 +167,12 @@ fS = [x1, -x2]; VS = (x1**2 - x2**2)/2
 revisar('silla: Vdot = x1^2 + x2^2', sp.simplify(sp.diff(VS, x1)*fS[0] + sp.diff(VS, x2)*fS[1] - x1**2 - x2**2), 0)
 fC = [x1**2 + x2**3, -x2 + x1**3]; VC = x1 - x2**2/2
 VCd = sp.expand(sp.diff(VC, x1)*fC[0] + sp.diff(VC, x2)*fC[1])
-revisar('Cetaev: Vdot = x1^2 + x2^2 + x2^3 - x1^3 x2', sp.simplify(VCd - (x1**2 + x2**2 + x2**3 - x1**3*x2)), 0)
+revisar('Chetaev: Vdot = x1^2 + x2^2 + x2^3 - x1^3 x2', sp.simplify(VCd - (x1**2 + x2**2 + x2**3 - x1**3*x2)), 0)
 th = np.linspace(0, 2*np.pi, 721); rq = np.linspace(1e-3, 0.5, 400)
 TH, RQ = np.meshgrid(th, rq); X1, X2 = RQ*np.cos(TH), RQ*np.sin(TH)
 cociente = (X1**2 + X2**2 + X2**3 - X1**3*X2)/(X1**2 + X2**2)
-revisar('Cetaev: en B_{1/2}, min Vdot/||x||^2 >= 1/2 (la diapositiva daba 3/8)', cociente.min() >= 0.5 - 1e-12, 1)
-revisar('Cetaev: min Vdot/||x||^2 en B_{1/2} = 0.50', cociente.min(), 0.50, 0.01)
+revisar('Chetaev: en B_{1/2}, min Vdot/||x||^2 >= 1/2 (la diapositiva daba 3/8)', cociente.min() >= 0.5 - 1e-12, 1)
+revisar('Chetaev: min Vdot/||x||^2 en B_{1/2} = 0.50', cociente.min(), 0.50, 0.01)
 revisar('E8: con V = x1, en (delta^2, -delta), delta = 0.1: Vdot = delta^4 - delta^3 < 0', (0.01**2 + (-0.1)**3), 1e-4 - 1e-3, 1e-15)
 fv = lambda tt, z: [z[1], -z[0] + (1 - z[0]**2)*z[1]]
 so = solve_ivp(fv, (0, 100), [2, 0], dense_output=True, **o)

@@ -1,4 +1,5 @@
 %% C9_Ej9_MathieuBarbalat -- Notas: sección 9.6 (cuando Vdot es solo semidefinida)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Sigue los cinco pasos del ejemplo con la Mathieu amortiguada desde (1, 0):
 %            W = x2^2 -> 0 (LaSalle--Yoshizawa), x2'' acotada, x2' -> 0 (Barbalat) y
 %            x1 = -(x2' + x2)/(2 + sin t) -> 0.
@@ -23,6 +24,11 @@ fprintf('paso 5: max |x1 + (x2'' + x2)/(2 + sin t)| = %.1e;  ||x(30)|| = %.1e\n'
     max(abs(x1 + (x2d + x2)./(2 + sin(t)))), norm(X(end, :)));
 % [fin:yoshizawa]
 
-fig = estiloFigura(800, 360);
-plot(t, x2.^2, 'r', t, x2d, 'Color', [0.5 0.3 0.7]);  hold on;  plot(t, x1, 'b', 'LineWidth', 2);
-grid on;  xlim([0 20]);  xlabel('$t$');  legend('$x_2^2$', '$\dot x_2$', '$x_1$');
+% ---- Figura de las notas (fig:vt-yoshizawa) -------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;  cl = [201 209 222]/255;
+fig = estiloFigura(800, 420);  hold on;  grid on;
+plot(t, x2.^2, 'Color', co);  plot(t, x2d, 'Color', vi, 'LineWidth', 1);  plot(t, x1, 'Color', az);
+plot([0 20], [0 0], 'Color', no, 'LineWidth', 0.6);  xlim([0 20]);  xlabel('$t$');
+legend('$W=x_2^2$ (LaSalle--Yoshizawa: $\to0$)', '$\dot x_2$ (Barbalat: $\to0$)', '$x_1=-(\dot x_2+x_2)/(2+\sin t)\to0$');
+title('Mathieu amortiguada: de $x_2\to0$ a $x_1\to0$');

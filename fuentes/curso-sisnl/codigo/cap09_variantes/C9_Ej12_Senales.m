@@ -1,4 +1,5 @@
-%% C10_Ej9_Barbalat -- Notas: sección 10.5 (tres trampas sobre señales)
+%% C9_Ej12_Senales -- Notas: sección 9.6 (tres trampas sobre señales, antes del lema de Barbalat)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Pulsos de altura k y base 1/k^3: área parcial contra pi^2/12.
 %            (2) h = sin(ln t): dh/dt -> 0 y h no converge.
 %            (3) h = e^{-t} sin(e^{2t}): h -> 0 y dh/dt no está acotada.
@@ -21,6 +22,16 @@ n = 1000;  fprintf('sin(t^2): s_n - t_n = %.4f con |sin(s_n^2) - sin(t_n^2)| = 1
                      sqrt(2*pi*n + pi/2) - sqrt(2*pi*n));
 % [fin:pulsos]
 
-fig = estiloFigura(1000, 380);  xs = 0;  ys = 0;
-for j = 1:6, w = 1/j^3;  xs = [xs, j - w/2, j, j + w/2];  ys = [ys, 0, j, 0]; end
-plot([xs 6.6], [ys 0]);  grid on;  xlabel('$t$');  ylabel('$\psi$');  title('\''area $\pi^2/12$, pero $\psi(k)=k$');
+% ---- Figura de las notas (fig:vt-pulsos) ----------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;  cl = [201 209 222]/255;
+fig = estiloFigura(1200, 380);
+subplot(1, 3, 1);  xs = 0;  ys = 0;
+for j = 1:6, w = 1/j^3;  xs = [xs, j - w/2, j, j + w/2];  ys = [ys, 0, j, 0];  end
+plot([xs 6.6], [ys 0], 'Color', az, 'LineWidth', 1.4);  grid on;  xlabel('$t$');  ylabel('$\psi$');
+title('\''area $\pi^2/12$, $\psi(k)=k$');
+subplot(1, 3, 2);  t = linspace(1, 3000, 20000);  semilogx(t, sin(log(t)), 'Color', vi);  grid on;
+xlabel('$t$');  title('$h=\sin(\ln t)$');
+subplot(1, 3, 3);  t = linspace(0, 2.2, 40000);  hold on;  grid on;
+plot(t, exp(-t).*sin(exp(2*t)), 'Color', ve, 'LineWidth', 0.8);  plot(t, exp(-t), ':', 'Color', gr);  plot(t, -exp(-t), ':', 'Color', gr);
+xlabel('$t$');  title('$h=e^{-t}\sin(e^{2t})$');

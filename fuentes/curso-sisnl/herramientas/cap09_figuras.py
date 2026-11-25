@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 9 (sistemas variantes en el tiempo).
 PDF (notas) y SVG (web). Cada figura reproduce un script de codigo/cap09_variantes/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap09_figuras.py   [nombre_de_función ...]
@@ -39,7 +40,7 @@ def comparacion():                  # C9_Ej2 [kl]
     A.plot(r, r**2/10, color=C['verde'], label=r'$r^2/10\in\mathcal{K}_\infty$')
     A.plot(r, np.minimum(r, 1)*0.9, color=C['coral'], ls='--', label=r'$0.9\min\{r,1\}\notin\mathcal{K}$')
     A.axhline(np.pi/2, color=C['gris'], ls=':', lw=0.8); A.set_xlim(0, 5); A.set_ylim(0, 2.6); A.grid(True); A.legend(fontsize=6.5, loc='upper left')
-    A.set_xlabel('$r$'); A.set_title('clase $\mathcal{K}$ y $\mathcal{K}_\\infty$')
+    A.set_xlabel('$r$'); A.set_title(r'clase $\mathcal{K}$ y $\mathcal{K}_\infty$')
     r = np.linspace(0, 6, 400)
     for A, f, tit in [(ax[1], lambda r, s: r/(s*r + 1), r'$r/(sr+1)\in\mathcal{KL}$'), (ax[2], lambda r, s: r*np.exp(-s*r), r'$re^{-sr}\notin\mathcal{KL}$')]:
         for s, c in zip([0, 0.5, 1, 2, 4], COLS): A.plot(r, f(r, s), color=c, lw=1.3, label=f'$s={s}$')
@@ -135,6 +136,21 @@ def linealizacion():                # C9_Ej8 [lineal]
     g(fig, 'f_linealizacion')
 
 
+def pulsos():                       # C9_Ej12 [pulsos]
+    fig, ax = plt.subplots(1, 3, figsize=(7.4, 2.4), gridspec_kw=dict(wspace=0.35))
+    a = ax[0]; xs, ys = [0], [0]
+    for k in range(1, 7):
+        w = 1/k**3; xs += [k - w/2, k, k + w/2]; ys += [0, k, 0]
+    xs.append(6.6); ys.append(0); a.plot(xs, ys, color=C['azul'], lw=1.4)
+    a.set_xlabel('$t$'); a.set_ylabel(r'$\psi$'); a.set_title(r'área $\pi^2/12$, $\psi(k)=k$'); a.grid(True)
+    t = np.linspace(1, 3000, 20000); a = ax[1]; a.semilogx(t, np.sin(np.log(t)), color=C['violeta'])
+    a.set_xlabel('$t$'); a.set_title(r'$h=\sin(\ln t)$'); a.grid(True)
+    t = np.linspace(0, 2.2, 40000); a = ax[2]; a.plot(t, np.exp(-t)*np.sin(np.exp(2*t)), color=C['verde'], lw=0.8)
+    a.plot(t, np.exp(-t), color=C['gris'], ls=':', lw=1); a.plot(t, -np.exp(-t), color=C['gris'], ls=':', lw=1)
+    a.set_xlabel('$t$'); a.set_title(r'$h=e^{-t}\sin(e^{2t})$'); a.grid(True)
+    g(fig, 'f_pulsos')
+
+
 def yoshizawa():                    # C9_Ej9 [yoshizawa]
     A = lambda t: np.array([[0, 1], [-(2 + np.sin(t)), -1]])
     t = np.linspace(0, 20, 4000); s = solve_ivp(lambda tt, z: A(tt) @ z, (0, 20), [1, 0], t_eval=t, **o)
@@ -169,7 +185,7 @@ def inestabilidad():                # C9_Ej10 y C9_Ej11
         esc = lambda t, z: np.hypot(*z) - 0.6; esc.terminal = True
         s = solve_ivp(lambda t, z: fC(z), (0, 200), x0, events=esc, max_step=0.01, **o); a.plot(s.y[0], s.y[1], color=C['noche'], lw=0.9)
     s = solve_ivp(lambda t, z: fC(z), (0, 10), [-0.2, 0.2], max_step=0.01, **o); a.plot(s.y[0], s.y[1], color=C['azul'], lw=0.9)
-    punto(a, (0, 0), False); ejes(a, (-0.55, 0.55), (-0.55, 0.55), r'Cetaev: $\Omega_1=\{x_1>x_2^2/2\}$')
+    punto(a, (0, 0), False); ejes(a, (-0.55, 0.55), (-0.55, 0.55), r'Chetaev: $\Omega_1=\{x_1>x_2^2/2\}$')
     g(fig, 'f_inestabilidad')
 
 
@@ -177,6 +193,8 @@ def vdp():                          # C9_Ej11 [vdp]
     fv = lambda t, z: [z[1], -z[0] + (1 - z[0]**2)*z[1]]
     fig, ax = plt.subplots(1, 2, figsize=(7.4, 3.0), gridspec_kw=dict(wspace=0.3))
     a = ax[0]; th = np.linspace(0, 2*np.pi, 200); a.plot(np.cos(th), np.sin(th), color=C['gris'], ls=':')
+    s = solve_ivp(fv, (0, 45), [-2.5, 2.5], t_eval=np.linspace(0, 45, 9000), **o)   # desde fuera del ciclo
+    a.plot(s.y[0], s.y[1], color=C['gris'], lw=0.8)
     for d, c in zip([1e-2, 1e-4, 1e-6], [C['azul'], C['verde'], C['coral']]):
         t = np.linspace(0, 45, 9000); s = solve_ivp(fv, (0, 45), [d, 0], t_eval=t, **o)
         a.plot(s.y[0], s.y[1], color=c, lw=0.8)
@@ -192,5 +210,5 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         for nombre in sys.argv[1:]: globals()[nombre]()
         sys.exit()
-    for fn in [tiempo_inicial, comparacion, derivada_parcial, trampa_e1, mathieu, ganancia, markus, linealizacion, yoshizawa, inestabilidad, vdp]:
+    for fn in [tiempo_inicial, comparacion, derivada_parcial, trampa_e1, mathieu, ganancia, markus, linealizacion, pulsos, yoshizawa, inestabilidad, vdp]:
         fn()

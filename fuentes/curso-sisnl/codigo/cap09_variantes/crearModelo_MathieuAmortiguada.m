@@ -1,4 +1,5 @@
 %% crearModelo_MathieuAmortiguada -- Construye "MathieuAmortiguada.slx" (secciones 9.5 y 9.6)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % Resorte con rigidez periódica: y'' + b y' + (k0 + k1 sin t) y = 0, con un "medidor"
 % de la función de Lyapunov variante V(t,x) = x1^2 + x2^2/(k0 + k1 sin t) y de su
 % derivada Vdot = -x2^2 (2b(k0 + k1 sin t) + k1 cos t)/(k0 + k1 sin t)^2.
@@ -36,7 +37,8 @@ lin('tx/1', 'V/1');  lin('tx/1', 'Vdot/1');  lin('tx/1', 'estado/1');
 lin('V/1', 'medidor/1');  lin('Vdot/1', 'medidor/2');  lin('medidor/1', 'V y Vdot/1');
 try, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end
 set_param(mdl, 'StopTime', '20', 'Solver', 'ode45', 'RelTol', '1e-9', 'MaxStep', '1e-2');
-save_system(mdl);
+carpeta = fileparts(mfilename('fullpath'));
+save_system(mdl, fullfile(carpeta, [mdl '.slx']));
 fprintf('Modelo %s.slx creado.\n', mdl);
 
 salida = sim(mdl);  est = salida.get('est');               % columnas: t, x1, x2

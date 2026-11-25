@@ -26,11 +26,11 @@ Para van der Pol, $\dot x_1=x_2$, $\dot x_2=-x_1+(1-x_1^2)x_2$, el origen es un 
 
 \codigorepo{cap09_variantes/C9_Ej11_VanDerPol.m}{vdp}{Inestable y acotado: tiempos de salida de $\Bola1$}
 
-\subsection{El teorema de Cetaev}
+\subsection{El teorema de Chetaev}
 
-Para sistemas invariantes en el tiempo, el resultado más útil es el de Cetaev \citep{Che61}, \citep[Teo.~4.3]{Kha02}.
+Para sistemas invariantes en el tiempo, el resultado más útil es el de Chetaev \citep{Che61}, \citep[Teo.~4.3]{Kha02}.
 
-\begin{teorema}[label=thm:vt-cetaev]{Cetaev}
+\begin{teorema}[label=thm:vt-cetaev]{Chetaev}
 Sea $\dot x=f(x)$ con $f(0)=0$ y $V:\D\to\R$ de clase $\Cont1$ con $V(0)=0$ y tal que $V(x_0)>0$ para algún $x_0$ de norma arbitrariamente pequeña. Sea $r>0$ con $\overline{\Bola r}\subset\D$ y
 \[
   U=\{x\in\overline{\Bola r}:\ V(x)>0\} .
@@ -60,12 +60,12 @@ Con $r=\tfrac12$, $\Vdot\ge\tfrac12\norm x^2>0$ en $\Bola{1/2}\setminus\{0\}$, e
 \begin{trampa}[label=tr:vt-cetaevx1]{``Con $V=x_1$ basta: $\dot x_1=x_1^2+x_2^3$ es casi siempre positivo''}
 \plausible{$V=x_1$ es más simple, $U=\{x_1>0\}$ llega al origen y $x_1^2>0$ domina cerca del eje $x_1$.}
 En $x=(\delta^2,-\delta)$, con $0<\delta<1$, $V=\delta^2>0$ y $\Vdot=\delta^4-\delta^3<0$. Esos puntos están en $U$ arbitrariamente cerca del origen, así que $\Vdot$ no es positiva en $U$ para ningún $r$.
-\correcto{Una $V$ de Cetaev se construye para que la parte buena domine a la mala. El término $-\tfrac12x_2^2$ aporta $-x_2\dot x_2=x_2^2-x_1^3x_2$, y ese $x_2^2$ domina a $x_2^3$; además, recorta $U$ a la parábola $x_1>x_2^2/2$, donde $x_1$ no es pequeño frente a $x_2$.}
+\correcto{Una $V$ de Chetaev se construye para que la parte buena domine a la mala. El término $-\tfrac12x_2^2$ aporta $-x_2\dot x_2=x_2^2-x_1^3x_2$, y ese $x_2^2$ domina a $x_2^3$; además, recorta $U$ a la parábola $x_1>x_2^2/2$, donde $x_1$ no es pequeño frente a $x_2$.}
 \end{trampa}
 
 \subsection{Dos teoremas de inestabilidad para $\dot x=f(t,x)$}
 
-Para sistemas variantes en el tiempo hay dos versiones, que se prueban con el mismo argumento de Cetaev \citep{SlLi91}. En las dos, $V:[0,\infty)\times\Bola r\to\R$ es de clase $\Cont1$, $V(t,0)=0$, es decreciente ($\abs{V(t,x)}\le W_2(x)$) y, para algún $t_0$, $V(t_0,\cdot)$ toma valores positivos en puntos arbitrariamente cercanos al origen.
+Para sistemas variantes en el tiempo hay dos versiones, que se prueban con el mismo argumento de Chetaev \citep{SlLi91}. En las dos, $V:[0,\infty)\times\Bola r\to\R$ es de clase $\Cont1$, $V(t,0)=0$, es decreciente ($\abs{V(t,x)}\le W_2(x)$) y, para algún $t_0$, $V(t_0,\cdot)$ toma valores positivos en puntos arbitrariamente cercanos al origen.
 
 \begin{teorema}[label=thm:vt-inestable1]{Primer teorema de inestabilidad}
 Si además $\Vdot(t,x)\ge W(x)$ en $[0,\infty)\times\Bola r$, con $W$ continua y definida positiva, el origen es inestable.
@@ -111,6 +111,6 @@ Entonces $\Vdot-2V=5x_1^2x_2^2\ge0$, y con $\lambda=2$ el origen es inestable. N
 \label{fig:vt-inestabilidad}
 \end{figure}
 
-\codigorepo{cap09_variantes/C9_Ej10_Inestabilidad.m}{inestabilidad}{Las tres $\Vdot$ y la cota de Cetaev en una malla}
+\codigorepo{cap09_variantes/C9_Ej10_Inestabilidad.m}{inestabilidad}{Las tres $\Vdot$ y la cota de Chetaev en una malla}
 
-\video{V9_4_cetaev}{La región de Cetaev: donde $V>0$, $V$ solo puede crecer}
+\video{V9_4_cetaev}{La región de Chetaev: donde $V>0$, $V$ solo puede crecer}

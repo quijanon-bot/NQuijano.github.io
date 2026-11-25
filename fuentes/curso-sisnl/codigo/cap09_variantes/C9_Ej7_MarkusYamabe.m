@@ -1,4 +1,5 @@
 %% C9_Ej7_MarkusYamabe -- Notas: sección 9.5 (los valores propios no bastan)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Calcula los valores propios de A(t) en muchos instantes, verifica que
 %            Phi(t,0) = [e^{t/2}cos t, e^{-t}sin t; -e^{t/2}sin t, e^{-t}cos t] resuelve
 %            Phi' = A Phi y simula desde (1, 0).
@@ -24,6 +25,23 @@ fprintf('max ||Phi'' - A Phi|| = %.1e\n', err);
 fprintf('||x(10)|| = %.2f   e^5 = %.2f\n', norm(X(end, :)), exp(5));
 % [fin:markus]
 
-[t, X] = ode45(@(t, x) A(t)*x, linspace(0, 8, 800), [1; 0], opc);
-fig = estiloFigura(700, 380);  semilogy(t, sqrt(sum(X.^2, 2)), t, exp(t/2), 'k--', t, exp(-t/4), 'b:');
-grid on;  xlabel('$t$');  legend('$\|x(t)\|$', '$e^{t/2}$', '$e^{-t/4}$');
+% ---- Figura de las notas (fig:vt-markus) ----------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;  cl = [201 209 222]/255;
+[t, X] = ode45(@(t, x) A(t)*x, linspace(0, 8, 3000), [1; 0], opc);  m = t <= 6.5;
+fig = estiloFigura(1200, 460);
+subplot(1, 2, 1);  hold on;  grid on;
+plot(X(m, 1), X(m, 2), 'Color', co, 'LineWidth', 1.4);
+tfs = [0 1.2];  cl2 = [az; ve];
+for j = 1:2
+    [~, Y] = ode45(@(t, x) A(tfs(j))*x, linspace(0, 12, 1500), [1; 0], opc);    % campo congelado A(tf)
+    plot(Y(:, 1), Y(:, 2), '--', 'Color', cl2(j, :));
+end
+plot(0, 0, 'o', 'MarkerFaceColor', no, 'MarkerEdgeColor', no);
+axis equal;  axis([-22 22 -22 22]);  box on;  xlabel('$x_1$');  ylabel('$x_2$');
+legend('soluci\''on de $\dot x=A(t)x$', 'campo congelado $A(0)$', 'campo congelado $A(1.2)$', 'Location', 'southwest');
+title('desde $(1,0)$: la real se va, las congeladas no');
+subplot(1, 2, 2);  semilogy(t, sqrt(sum(X.^2, 2)), 'Color', co);  hold on;
+semilogy(t, exp(t/2), '--', 'Color', no);  semilogy(t, exp(-t/4), ':', 'Color', az);
+grid on;  xlabel('$t$');  legend('$\|x(t)\|$', '$e^{t/2}$', '$e^{-t/4}$ (los valores propios)', 'Location', 'west');
+title('$\lambda(A(t))=-0.25\pm0.66j$ para todo $t$');

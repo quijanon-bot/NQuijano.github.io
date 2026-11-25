@@ -33,7 +33,7 @@ La teoría de Lyapunov de las partes 7 a 9 responde una sola pregunta: si hay un
 |:--|:--|:--|:--|
 | 11 (21 de octubre) | Acotamiento último: el ejemplo que se resuelve, el argumento de los conjuntos de nivel, el teorema y sus trampas | §10.1–10.2 | `C10_Ej1`, `C10_Ej2` |
 | 12 (26 de octubre) | Conversos (energía futura, robustez, estable sin $V(x)$); funciones de control de Lyapunov | §10.3–10.4 | `C10_Ej3`–`C10_Ej8` |
-| 12 (28 de octubre) | CLF e ISS: Sontag, estabilizar contra robustecer, cascadas y pequeña ganancia; Barbalat como lectura | §10.4–10.7 | `C10_Ej9`–`C10_Ej15`, `crearModelo_RedisenoISS` |
+| 12 (28 de octubre) | CLF e ISS: Sontag, estabilizar contra robustecer, cascadas y pequeña ganancia; Barbalat como lectura | §10.4–10.7 | `C10_Ej10`–`C10_Ej15`, `crearModelo_RedisenoISS` |
 
 : Lea la sección del capítulo **antes** de cada clase. Se usan la estabilidad de Lyapunov de la [parte 7](07-lyapunov.qmd) y el lema de comparación de la [parte 3](03-preliminares.qmd); las funciones de comparación y la estabilidad uniforme son del capítulo 9, y aquí se recuerda lo indispensable. {.striped}
 
@@ -98,10 +98,8 @@ En $\dot x=\cos x-x^3+u$, $f(0)=1\neq0$: el control en régimen es $u^*=-1$. Son
 ::: {.trampa}
 [Trampa: "la integral es finita, luego $W(x(t))\to0$"]{.caja-titulo}
 
-Pulsos de altura $k$ y base $1/k^3$: área total $\pi^2/12$ y alturas sin cota. Falta la **continuidad uniforme**, que se verifica mostrando que la derivada está acotada. Con ella, Barbalat da $\dot V\to0$, una conclusión parcial: en el control adaptativo el error converge, pero el parámetro solo si hay excitación persistente.
+Pulsos de altura $k$ y base $1/k^3$: área total $\pi^2/12$ y alturas sin cota (figura y código en la [parte 9](09-variantes.qmd)). Falta la **continuidad uniforme**, que se verifica mostrando que la derivada está acotada. Con ella, Barbalat da $\dot V\to0$, una conclusión parcial: en el control adaptativo el error converge, pero el parámetro solo si hay excitación persistente.
 :::
-
-![Tres trampas sobre señales y el control adaptativo.](../figuras/cap10/f_pulsos.svg){width=95%}
 
 ![$e\to0$ siempre; $\theta\to0$ solo con $\omega=\sin t$.](../figuras/cap10/f_adaptativo.svg){width=90%}
 
@@ -156,7 +154,7 @@ Cuatro pestañas. Todo se calcula en su navegador (Runge–Kutta de paso fijo), 
 
 ## Códigos de esta parte
 
-Los bloques salen directamente de los archivos del [repositorio](https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap10_avanzada). Ejecute antes `iniciarCurso`. `verificarCap10` comprueba los números del capítulo (46/46). Ningún script necesita toolboxes. Una función nueva en `comun/`: `leySontag` (la fórmula universal, también con varias entradas y con el amortiguamiento $\kappa$).
+Los bloques salen directamente de los archivos del [repositorio](https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap10_avanzada). Ejecute antes `iniciarCurso`. `verificarCap10` comprueba los números del capítulo (45/45). Ningún script necesita toolboxes. Una función nueva en `comun/`: `leySontag` (la fórmula universal, también con varias entradas y con el amortiguamiento $\kappa$).
 
 ::: {.panel-tabset}
 
@@ -212,11 +210,6 @@ Los bloques salen directamente de los archivos del [repositorio](https://github.
 ```
 
 ### Barbalat
-
-**Tres trampas sobre señales (§10.5).**
-
-```{.matlab include="../../codigo/cap10_avanzada/C10_Ej9_Barbalat.m" marca="pulsos"}
-```
 
 **Control adaptativo (§10.5).**
 

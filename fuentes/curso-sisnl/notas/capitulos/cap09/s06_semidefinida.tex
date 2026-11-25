@@ -13,16 +13,70 @@ Sistema & Herramienta & Qué da \\
 \midrule
 $\dot x=f(x)$ & LaSalle (\cref{thm:iv-lasalle}) & convergencia al mayor invariante en $\{\Vdot=0\}$ \\
 $f(t+\tau,x)=f(t,x)$ & LaSalle periódico & lo mismo, con el mapa estroboscópico \\
-$\dot x=f(t,x)$ general & LaSalle--Yoshizawa (\cref{thm:av-ly}) & $W(x(t))\to0$ si $\Vdot\le-W(x)\le0$ \\
-$\dot x=f(t,x)$ general & Barbalat (\cref{lem:av-barbalat}) & completar la convergencia en las variables que faltan \\
+$\dot x=f(t,x)$ general & LaSalle--Yoshizawa (\cref{thm:vt-ly}) & $W(x(t))\to0$ si $\Vdot\le-W(x)\le0$ \\
+$\dot x=f(t,x)$ general & Barbalat (\cref{lem:vt-barbalat}) & completar la convergencia en las variables que faltan \\
 $\dot x=f(t,x)$ general & Matrosov & UAS con varias funciones auxiliares \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-LaSalle--Yoshizawa \citep{Yos66} es la generalización directa: con $V$ definida positiva y decreciente y $\Vdot\le-W(x)\le0$, las soluciones están acotadas y $W(x(t))\to0$. Da convergencia de la parte de $x$ que $W$ ``ve'', no de todo el estado. Su prueba, con el lema de Barbălat, está en la \cref{sec:av-barbalat}; aquí se usa. El lema de Barbălat dice que si $\phi:[0,\infty)\to\R$ es uniformemente continua y $\int_0^t\phi(\tau)\dif\tau$ tiene límite finito cuando $t\to\infty$, entonces $\phi(t)\to0$. Una condición suficiente para la continuidad uniforme es que $\dot\phi$ esté acotada.
+LaSalle--Yoshizawa \citep{Yos66} es la generalización directa: con $V$ definida positiva y decreciente y $\Vdot\le-W(x)\le0$, las soluciones están acotadas y $W(x(t))\to0$. Da convergencia de la parte de $x$ que $W$ ``ve'', no de todo el estado. Su prueba descansa en un resultado sobre señales, el lema de Barbalat, y los dos se prueban a continuación.
 
-\begin{ejemplo}[label=ej:vt-barbalat]{Cerrar la Mathieu amortiguada con Barbălat}
+\subsection{Señales: el lema de Barbalat}
+
+Aquí la discusión cambia de escenario: \alerta{el lema de Barbalat es un resultado sobre funciones de una variable real (señales), no sobre ecuaciones diferenciales}. Se aplica a la señal $t\mapsto V(t,x(t))$, o a $t\mapsto W(x(t))$, sobre una solución fija. La hipótesis vive en el espacio de estados; la conclusión, en el eje del tiempo.
+
+En la situación de esta sección, $\Vdot(t,x)\le-W(x)\le0$ con $W$ solo semidefinida positiva, hay algo que sí es gratis: si $V$ está acotada por debajo y no crece a lo largo de la solución, converge a un límite $V_\infty$, e integrando
+\begin{equation}
+  \int_{t_0}^\infty W\bigl(x(t)\bigr)\dif t\le V\bigl(t_0,x(t_0)\bigr)-V_\infty<\infty .
+  \label{eq:vt-integral}
+\end{equation}
+
+\begin{trampa}[label=tr:vt-integral]{``La integral es finita, luego $W(x(t))\to0$''}
+\plausible{Si el área bajo una curva no negativa es finita, la curva tiene que irse a cero.}
+Una función no negativa puede tener integral finita sin tender a cero: basta con pulsos cada vez más angostos. Con pulsos triangulares centrados en $t=k$, de altura $k$ y base $1/k^3$, el área total es $\sum_k\frac1{2k^2}=\pi^2/12$, pero $\psi(k)=k\to\infty$ (\cref{fig:vt-pulsos}).
+\correcto{Falta una hipótesis de regularidad: la continuidad uniforme. Los pulsos tienen pendientes $\pm2k^4$, no acotadas.}
+\end{trampa}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{cap09/f_pulsos}
+\caption{Tres trampas sobre señales. Izquierda: pulsos de área total $\pi^2/12$ con alturas que crecen sin cota. Centro: $h=\sin(\ln t)$ tiene $\dot h\to0$ pero no converge. Derecha: $h=e^{-t}\sin(e^{2t})\to0$ pero $\dot h$ no está acotada.}
+\label{fig:vt-pulsos}
+\end{figure}
+
+Las otras dos trampas de la figura: $\dot h\to0$ no implica que $h$ converja ($h=\sin(\ln t)$ oscila entre $\pm1$ cada vez más despacio), y $h$ convergente no implica $\dot h\to0$ ($h=e^{-t}\sin(e^{2t})$: la amplitud se apaga, pero la frecuencia crece más rápido).
+
+\begin{definicion}[label=def:vt-unifcont]{Continuidad uniforme}
+$\psi:[0,\infty)\to\R$ es \clave{uniformemente continua} si para todo $\varepsilon>0$ existe $\delta(\varepsilon)>0$, \emph{el mismo para todo $t$}, tal que $\abs{t_1-t_2}<\delta\implica\abs{\psi(t_1)-\psi(t_2)}<\varepsilon$.
+\end{definicion}
+
+En la práctica casi siempre se verifica así: \alerta{si $\abs{\dot\psi(t)}\le L$ para todo $t$, entonces $\psi$ es uniformemente continua} (valor medio, $\delta=\varepsilon/L$). $\sin t$, $e^{-t}$ y $\arctan t$ lo son; $\sin(t^2)$ no (entre $t_n=\sqrt{2\pi n}$ y $s_n=\sqrt{2\pi n+\pi/2}$ la distancia tiende a cero y los valores difieren en $1$); los pulsos tampoco. Es la misma idea de ``uniforme'' de la \cref{sec:vt-uniformidad}: una constante que no depende del instante (\cref{def:pm-unifcont}).
+
+\begin{lema}[label=lem:vt-barbalat]{Barbalat \citep{Bar59}; \citep[Lema~8.2]{Kha02}}
+\textbf{Forma integral.} Si $\psi$ es uniformemente continua y $\lim_{t\to\infty}\int_0^t\psi(\tau)\dif\tau$ existe y es finito, entonces $\psi(t)\to0$.
+
+\textbf{Forma de derivada.} Si $h$ tiene límite finito cuando $t\to\infty$ y $\dot h$ es uniformemente continua, entonces $\dot h(t)\to0$. En particular, basta con que $\ddot h$ exista y esté acotada.
+\end{lema}
+
+\begin{demostracion}
+Si $\psi\not\to0$, hay $\varepsilon>0$ y $t_k\to\infty$ con $\abs{\psi(t_k)}\ge\varepsilon$. Con $\delta=\delta(\varepsilon/2)$, en $[t_k,t_k+\delta]$ se tiene $\abs{\psi}>\varepsilon/2$ y $\psi$ no cambia de signo, así que $\bigl|\int_{t_k}^{t_k+\delta}\psi\bigr|\ge\varepsilon\delta/2$ para todo $k$. Pero si $\int_0^t\psi$ converge, el criterio de Cauchy exige que esas integrales tiendan a cero. La clave es que $\delta$ es \emph{el mismo} para todo $k$: sin continuidad uniforme, los intervalos podrían encogerse, como en los pulsos. La forma de derivada es la integral con $\psi=\dot h$.
+\end{demostracion}
+
+\codigorepo{cap09_variantes/C9_Ej12_Senales.m}{pulsos}{Las tres trampas sobre señales}
+
+\subsection{El teorema de LaSalle--Yoshizawa}
+
+\begin{teorema}[label=thm:vt-ly]{LaSalle--Yoshizawa \citep{Yos66}; \citep[Teo.~8.4]{Kha02}}
+Sea $\dot x=f(t,x)$ con $f$ continua a trozos en $t$, localmente Lipschitz en $x$ uniformemente en $t$, y $f(t,0)=0$. Si $V\in\Cont1$ cumple $\alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x)$ y $\Vdot\le-W(x)\le0$ en $[0,\infty)\times\Bola r$, con $W$ continua, entonces para $\norm{x(t_0)}<\alpha_2^{-1}(\alpha_1(r))$ las soluciones están acotadas y $W(x(t))\to0$. Si las hipótesis valen en todo $\R^n$ y $\alpha_1\in\Kinf$, la conclusión vale para toda $x(t_0)$.
+\end{teorema}
+
+\begin{demostracion}
+(i) $V$ no crece, luego $x(t)$ se queda en un compacto $\Bola\rho\subset\Bola r$, con $\rho=\alpha_1^{-1}(\alpha_2(\norm{x(t_0)}))$; en el caso global, $\rho$ es finito para toda $x(t_0)$. (ii) Vale \eqref{eq:vt-integral}. (iii) En $\Bola\rho$, $\norm{f}\le L\rho$: $x(t)$ es Lipschitz en $t$; $W$ es uniformemente continua en el compacto; la composición $t\mapsto W(x(t))$ es uniformemente continua. (iv) Barbalat, forma integral.
+\end{demostracion}
+
+
+\begin{ejemplo}[label=ej:vt-barbalat]{Cerrar la Mathieu amortiguada con Barbalat}
 Con los datos del \cref{ej:vt-mathieu}, pruebe que $x(t)\to0$ para toda condición inicial.
 \solucion
 \emph{Paso 1 (LaSalle--Yoshizawa).} $V$ es definida positiva, decreciente y radialmente no acotada y $\Vdot\le-c\,x_2^2=:-W(x)$: las soluciones están acotadas y $x_2(t)\to0$.
@@ -35,7 +89,7 @@ que está acotada porque $x$, $\dot x$, $\sin t$ y $\cos t$ lo están (desde $(1
 
 \emph{Paso 3 (la integral converge).} $\int_{t_0}^t\dot x_2(\tau)\dif\tau=x_2(t)-x_2(t_0)\to-x_2(t_0)$.
 
-\emph{Paso 4 (Barbălat).} $\dot x_2(t)\to0$.
+\emph{Paso 4 (Barbalat).} $\dot x_2(t)\to0$.
 
 \emph{Paso 5 (la variable que faltaba).} De la ecuación, $(2+\sin t)\,x_1=-\dot x_2-x_2\to0$, y como $2+\sin t\ge1$, $x_1(t)\to0$.
 
@@ -45,7 +99,7 @@ Con el paso~1, el origen es uniformemente estable y globalmente atractivo. Como 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.85\linewidth]{cap09/f_yoshizawa}
-\caption{La cadena del \cref{ej:vt-barbalat} desde $(1,0)$: $W=x_2^2\to0$ (LaSalle--Yoshizawa), luego $\dot x_2\to0$ (Barbălat) y, de la ecuación, $x_1=-(\dot x_2+x_2)/(2+\sin t)\to0$.}
+\caption{La cadena del \cref{ej:vt-barbalat} desde $(1,0)$: $W=x_2^2\to0$ (LaSalle--Yoshizawa), luego $\dot x_2\to0$ (Barbalat) y, de la ecuación, $x_1=-(\dot x_2+x_2)/(2+\sin t)\to0$.}
 \label{fig:vt-yoshizawa}
 \end{figure}
 
@@ -53,9 +107,9 @@ Con el paso~1, el origen es uniformemente estable y globalmente atractivo. Como 
 
 \begin{receta}[Cuando $\Vdot\le-W(x)$ con $W$ solo semidefinida]
 \begin{enumerate}
-  \item Verifique que $V$ es definida positiva y decreciente; con LaSalle--Yoshizawa, $W(x(t))\to0$ y las soluciones están acotadas.
+  \item Verifique que $V$ es definida positiva y decreciente. Entonces, por el teorema de LaSalle--Yoshizawa, las soluciones están acotadas y $W(x(t))\to0$.
   \item Identifique la variable que falta, $x_1$ en Mathieu o $\theta$ en el adaptativo, y busque una ecuación donde aparezca multiplicada por algo que no se anula.
-  \item Derive una vez la variable que ya converge, verifique que la derivada segunda está acotada y aplique Barbălat para concluir que su derivada tiende a cero.
+  \item Derive una vez la variable que ya converge, verifique que la derivada segunda está acotada y aplique Barbalat para concluir que su derivada tiende a cero.
   \item Lea la variable que falta de la ecuación. Si el coeficiente puede anularse o desaparecer con el tiempo, el paso falla, y casi siempre la conclusión también.
 \end{enumerate}
 \end{receta}
@@ -65,7 +119,7 @@ El último punto es el de la excitación persistente. En el control adaptativo $
 \begin{trampa}[label=tr:vt-lasalle]{``LaSalle con $\{\Vdot=0\}$ funciona igual para $\dot x=f(t,x)$''}
 \plausible{El argumento parece el mismo: $V$ baja, las soluciones están acotadas, y se acercan al conjunto donde $\Vdot=0$.}
 Sin invarianza de los conjuntos límite, el paso ``el mayor conjunto invariante dentro de $E$'' pierde su justificación. El \cref{ej:vt-e1} lo muestra: con $\dot x=-x/(1+t)^2$ y $V=x^2$, $\Vdot=-2x^2/(1+t)^2$ se anula solo en $x=0$, para todo $t$. Un ``LaSalle variante'' ingenuo daría $E=M=\{0\}$ y concluiría $x(t)\to0$; pero $x(t)\to x_0e^{-1/(1+t_0)}\neq0$.
-\correcto{Para sistemas variantes en general use LaSalle--Yoshizawa y Barbălat; para sistemas periódicos en $t$, la versión periódica de LaSalle sí es válida, porque el mapa estroboscópico es invariante en el tiempo \citep[\S4.5]{Kha02}.}
+\correcto{Para sistemas variantes en general use LaSalle--Yoshizawa y Barbalat; para sistemas periódicos en $t$, la versión periódica de LaSalle sí es válida, porque el mapa estroboscópico es invariante en el tiempo \citep[cap.~8]{RHL77}; \citep[\S8.3, nota~14]{Kha02}.}
 \end{trampa}
 
 \begin{profundiza}[El teorema de Matrosov]

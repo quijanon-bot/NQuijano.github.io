@@ -36,7 +36,7 @@ $x_1^2+x_1x_2^2(1+e^{-t})$ & no & sí & en $(-\epsilon^2,\epsilon)$ vale $-e^{-t
 \end{tabular}
 \end{center}
 
-Las dos primeras filas son el ejemplo~2.7 de \citet{KeBr23}. En la última, $V$ toma valores negativos en puntos arbitrariamente cercanos al origen: no es definida positiva en ningún $\Bola r$, aunque $x_1^2$ ``domine'' cuando $x_2=0$.
+Las dos primeras filas son el ejercicio~2.7 de \citet{KeBr23}. En la última, $V$ toma valores negativos en puntos arbitrariamente cercanos al origen: no es definida positiva en ningún $\Bola r$, aunque $x_1^2$ ``domine'' cuando $x_2=0$.
 
 \subsection{La derivada a lo largo de las soluciones}
 
@@ -83,7 +83,7 @@ con $W_1,W_2$ continuas y definidas positivas en $\D$.
 \end{teorema}
 
 \begin{demostracion}
-Se prueba (2) con funciones de comparación; (1) es el primer paso y (3) es el mismo argumento con $\Kinf$. Por el \cref{lem:vt-sandwich} hay $\alpha_1,\alpha_2,\alpha_3\in\K$ en $[0,r)$, con $\Bola r\subset\D$, tales que $\alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x)$ y $W_3(x)\ge\alpha_3(\norm x)$; sin pérdida de generalidad, $\alpha_3$ es localmente Lipschitz.
+Se prueba (2) con funciones de comparación; (1) es el primer paso y (3) es el mismo argumento con $\Kinf$. Por el \cref{lem:vt-sandwich} hay $\alpha_1,\alpha_2,\alpha_3\in\K$ en $[0,r)$, con $\Bola r\subset\D$, tales que $\alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x)$ y $W_3(x)\ge\alpha_3(\norm x)$.
 
 \emph{Paso 1 (las soluciones no salen).} Sea $\rho<\alpha_1(r)$ y $c>0$ con $\alpha_2(c)<\rho$. Si $\norm{x(t_0)}<c$, entonces $V(t_0,x(t_0))<\rho$, y como $V$ no crece, $\alpha_1(\norm{x(t)})\le V(t,x(t))<\rho$: la solución se queda en $\Bola{\alpha_1^{-1}(\rho)}\subset\Bola r$ para todo $t\ge t_0$. Con $\Vdot\le0$ esto ya da $\norm{x(t)}\le\alpha_1^{-1}(\alpha_2(\norm{x(t_0)}))$, que es \eqref{eq:vt-us} con una función de $\K$ que no depende de $t_0$: US.
 
@@ -91,6 +91,7 @@ Se prueba (2) con funciones de comparación; (1) es el primer paso y (3) es el m
 \[
   \Vdot\le-\alpha_3(\norm x)\le-\alpha_3\bigl(\alpha_2^{-1}(V)\bigr)=:-\alpha(V) ,\qquad\alpha=\alpha_3\circ\alpha_2^{-1}\in\K .
 \]
+Sin pérdida de generalidad, $\alpha$ es localmente Lipschitz: si no lo es, se reemplaza por una función de clase $\K$ localmente Lipschitz que quede por debajo de ella, y la desigualdad se conserva.
 
 \emph{Paso 3 (comparación).} Por el \cref{lem:vt-flujo}, $\dot y=-\alpha(y)$ tiene solución $\sigma(y_0,t-t_0)$ con $\sigma\in\KL$, y por el lema de comparación (\cref{lem:pm-comparacion}), $V(t,x(t))\le\sigma\bigl(V(t_0,x(t_0)),t-t_0\bigr)$.
 

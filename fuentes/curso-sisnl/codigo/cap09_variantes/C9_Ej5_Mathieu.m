@@ -1,4 +1,5 @@
 %% C9_Ej5_Mathieu -- Notas: sección 9.5 (Mathieu amortiguada)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   y'' + y' + (2 + sin t) y = 0 con V = x1^2 + x2^2/(2 + sin t). Verifica la
 %            fórmula de Vdot en una malla, calcula la constante c de Vdot <= -c x2^2 y
 %            los multiplicadores de Floquet (matriz de monodromía en un periodo 2 pi).
@@ -32,10 +33,18 @@ fprintf('multiplicadores: %.4f %+.4fj,  |mu| = %.4f,  e^{-pi} = %.4f,  det M = %
     real(mu(1)), abs(imag(mu(1))), abs(mu(1)), exp(-pi), det(M));
 % [fin:mathieu]
 
-[t, X] = ode45(@(t, x) A(t)*x, linspace(0, 14, 2000), [1.5; 0], opc);
+% ---- Figura de las notas (fig:vt-mathieu) ---------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;  cl = [201 209 222]/255;
+[t, X] = ode45(@(t, x) A(t)*x, linspace(0, 14, 3000), [1.5; 0], opc);
 Vt = X(:, 1).^2 + X(:, 2).^2./(2 + sin(t));
-fig = estiloFigura(900, 380);
-subplot(1, 2, 1);  plot(X(:, 1), X(:, 2), 'k');  hold on;  th = linspace(0, 2*pi, 200);
-for ts = [0 pi/2 3*pi/2], plot(1.5*cos(th), 1.5*sqrt(2 + sin(ts))*sin(th), '--'); end
-axis equal;  grid on;  xlabel('$x_1$');  ylabel('$x_2$');  title('los niveles respiran');
-subplot(1, 2, 2);  semilogy(t, Vt, t, 2.25*exp(-t), 'k--');  grid on;  xlabel('$t$');  title('$V(t,x(t))$');
+fig = estiloFigura(1200, 460);
+subplot(1, 2, 1);  hold on;  grid on;  th = linspace(0, 2*pi, 300);  ts = [0 pi/2 3*pi/2];  cl3 = [az; ve; co];
+for j = 1:3, plot(1.5*cos(th), 1.5*sqrt(2 + sin(ts(j)))*sin(th), '--', 'Color', cl3(j, :));  end   % V(t,x) = 2.25; t = 1.57 y 4.71 dan W1 y W2
+plot(X(:, 1), X(:, 2), 'Color', no, 'LineWidth', 1.1);
+axis([-1.8 1.8 -2.8 2.8]);  box on;  xlabel('$x_1$');  ylabel('$x_2$');
+legend('$V(t,x)=2.25$, $t=0$', '$t=1.57$', '$t=4.71$', 'Location', 'southwest');
+title('los niveles respiran con $t$');
+subplot(1, 2, 2);  semilogy(t, Vt, 'Color', az);  hold on;  semilogy(t, 2.25*exp(-t), '--', 'Color', gr);
+grid on;  xlabel('$t$');  legend('$V(t,x(t))$', '$2.25\,e^{-t}$');
+title('$\dot V\le0$ y, de hecho, decae como $e^{-t}$');

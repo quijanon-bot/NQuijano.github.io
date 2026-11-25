@@ -67,7 +67,6 @@ revisar('E10: k(10) = -10/198 (aprox.)', leySontag(100 - 1e4, 10), -10/198, 2e-5
 revisar('variante con lg^4: k -> 0 si lf = 0', leySontag(0, 1e-3), -1e-3, 1e-12);
 
 fprintf('10.5  Barbalat\n');
-revisar('pulsos: área = pi^2/12', sum(1./(2*(1:200000).^2)), pi^2/12, 1e-5);
 [~, Z] = ode45(@(t, z) [-z(1) + z(2)*sin(t); -z(1)*sin(t)], [0 40], [1; 1], opc);
 revisar('adaptativo sin t: theta -> 0', abs(Z(end, 2)) < 0.05, 1, 0);
 [~, Z] = ode45(@(t, z) [-z(1) + z(2)*exp(-0.3*t); -z(1)*exp(-0.3*t)], [0 40], [1; 1], opc);

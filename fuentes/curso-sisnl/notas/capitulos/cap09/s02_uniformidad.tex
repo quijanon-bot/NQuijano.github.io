@@ -60,7 +60,7 @@ Los dos requisitos de uniformidad son de naturaleza distinta. US dice que el \em
 
 \begin{trampa}[label=tr:vt-converge]{``Si toda solución converge a cero, la convergencia es uniforme''}
 \plausible{En un sistema invariante en el tiempo, estable y atractivo es lo mismo que uniformemente asintóticamente estable: el instante inicial no cambia nada.}
-En el \cref{ej:vt-motivador} toda solución converge y el origen es incluso uniformemente estable, pero el tiempo para entrar a $\Bola{0.1}$ crece sin cota con $t_0$. Tampoco es un detalle técnico: un controlador cuyo error converge ``a la larga'' pero cada vez más despacio no es aceptable, y las cotas uniformes son las que sobreviven a perturbaciones (los teoremas recíprocos de la \cref{sec:av-conversos} existen para UAS, no para AS).
+En el \cref{ej:vt-motivador} toda solución converge y el origen es incluso uniformemente estable, pero el tiempo para entrar a $\Bola{0.1}$ crece sin cota con $t_0$. Tampoco es un detalle técnico: un controlador cuyo error converge ``a la larga'' pero cada vez más despacio no es aceptable, y las cotas uniformes son las que sobreviven a perturbaciones (en la \cref{sec:av-conversos} se verá que los teoremas recíprocos, con $V$ decreciente, son para UAS y no para AS).
 \correcto{Converger y converger uniformemente son dos propiedades distintas. Para un sistema variante en el tiempo hay que verificar que $\delta$ y $T$ no dependan de $t_0$, o, equivalentemente, encontrar una sola cota $\beta\in\KL$ (\cref{lem:vt-kl}).}
 \end{trampa}
 
@@ -75,4 +75,4 @@ El ínfimo de infinitos números positivos puede ser cero. Para $\dot x=(6t\sin 
 \correcto{US exige exhibir un $\delta(\varepsilon)$ que no dependa de $t_0$. En la práctica se prueba con una función de Lyapunov \emph{decreciente} (\cref{def:vt-decreciente}).}
 \end{trampa}
 
-En un sistema invariante en el tiempo todas las propiedades anteriores son automáticamente uniformes: si el origen de $\dot x=f(x)$ es estable, es US, y si es AS, es UAS. Por eso los capítulos anteriores no las distinguían. Lo mismo vale para un sistema \emph{periódico} en $t$, $f(t+\tau,x)=f(t,x)$: basta revisar $t_0\in[0,\tau]$, que es un compacto \citep[\S4.5]{Kha02}.
+En un sistema invariante en el tiempo todas las propiedades anteriores son automáticamente uniformes: si el origen de $\dot x=f(x)$ es estable, es US, y si es AS, es UAS. Por eso los capítulos anteriores no las distinguían. Lo mismo vale para un sistema \emph{periódico} en $t$, $f(t+\tau,x)=f(t,x)$: basta revisar $t_0\in[0,\tau]$, que es un compacto \citep[Teo.~38.5]{Hah67}.

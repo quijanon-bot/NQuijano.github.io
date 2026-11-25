@@ -1,4 +1,5 @@
 function verificarCap09()
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % VERIFICARCAP09  Pruebas automáticas de los números del capítulo 9
 % (sistemas variantes en el tiempo).   >> verificarCap09
 % (Los mismos números se verificaron de forma independiente con sympy y
@@ -89,6 +90,7 @@ revisar('linealización: t0 = 10 explota en t = 16.33', t(end), 16.33, 0.01);
 revisar('linealización: t0 = 100 explota', t(end) < 150, 1, 0);
 
 fprintf('9.6  Vdot semidefinida\n');
+revisar('pulsos: área = pi^2/12', sum(1./(2*(1:200000).^2)), pi^2/12, 1e-5);
 t = linspace(0, 30, 30001)';  [t, X] = ode45(@(t, x) Am(t)*x, t, [1; 0], opc);
 x2d = -X(:, 2) - (2 + sin(t)).*X(:, 1);  x2dd = -x2d - cos(t).*X(:, 1) - (2 + sin(t)).*X(:, 2);
 revisar('Mathieu: max |x2''''| desde (1, 0) = 2.77', max(abs(x2dd)), 2.77, 0.01);
@@ -101,8 +103,8 @@ fprintf('9.7  Inestabilidad\n');
 [TH, RR] = meshgrid(linspace(0, 2*pi, 721), linspace(1e-3, 0.5, 400));
 X1 = RR.*cos(TH);  X2 = RR.*sin(TH);
 q = (X1.^2 + X2.^2 + X2.^3 - X1.^3.*X2)./RR.^2;
-revisar('Cetaev: min Vdot/||x||^2 en B_{1/2} = 0.50', min(q(:)), 0.50, 0.01);
-revisar('Cetaev: cota min(1 - r^2/2, 1 - r) con r = 1/2', min(1 - 0.125, 0.5), 0.5, 0);
+revisar('Chetaev: min Vdot/||x||^2 en B_{1/2} = 0.50', min(q(:)), 0.50, 0.01);
+revisar('Chetaev: cota min(1 - r^2/2, 1 - r) con r = 1/2', min(1 - 0.125, 0.5), 0.5, 0);
 revisar('E8: V = x1 en (0.01, -0.1): Vdot = -9e-4', 0.01^2 + (-0.1)^3, -9e-4, 1e-15);
 f2 = @(x) [x(1) + 3*x(2)*sin(x(2))^2 + 5*x(1)*x(2)^2*sin(x(1))^2; 3*x(1)*sin(x(2))^2 + x(2) - 5*x(1)^2*x(2)*cos(x(1))^2];
 F = f2([0; 0.5]);

@@ -143,8 +143,6 @@ revisar('variante lg^4 con lf = 0: k = -lg -> 0', sontag(0.0, 1e-3), -1e-3, 1e-1
 
 # ------------------------------------------------------------------ 10.5 Barbalat
 print('10.5 Barbalat')
-revisar('pulsos: área total = pi^2/12', sum(1/(2*k**2) for k in range(1, 200001)), np.pi**2/12, 1e-5)
-revisar('sin(t^2): t_n y s_n se acercan (n = 1000): s - t < 0.02', np.sqrt(2*np.pi*1000 + np.pi/2) - np.sqrt(2*np.pi*1000), 0.0099, 2e-4)
 def adapt(wf, T=40):
     return solve_ivp(lambda tt, z: [-z[0] + z[1]*wf(tt), -z[0]*wf(tt)], (0, T), [1, 1], **o).y[:, -1]
 ea, tha = adapt(np.sin)

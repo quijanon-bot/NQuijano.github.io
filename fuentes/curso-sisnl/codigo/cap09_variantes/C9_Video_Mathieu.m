@@ -1,4 +1,5 @@
 %% C9_Video_Mathieu -- Video V9_2: los niveles de V(t,x) respiran y la solución entra
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Mathieu amortiguada desde (1.5, 0). A la izquierda, la solución y el nivel
 %              V(t, x) = V(t, x(t)) en el instante actual: la elipse cambia de forma con t
 %              y la solución siempre está sobre ella. A la derecha, V(t, x(t)).

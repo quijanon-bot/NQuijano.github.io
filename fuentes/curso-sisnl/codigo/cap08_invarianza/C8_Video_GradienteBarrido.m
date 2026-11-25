@@ -1,4 +1,5 @@
 %% C8_Video_GradienteBarrido -- Video V8_3: mover a11 y ver crecer (y colapsar) el estimado
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Gradiente variable para x1' = x2, x2' = -(x1 + x2) - sin(x1 + x2) con
 %              V = a11 x1^2/2 + x1 x2 + x2^2/2. Al barrer a11 de 1.1 a 4: la región donde
 %              Vdot > 0 (rojo), el mayor nivel que no la toca (azul) y su área.

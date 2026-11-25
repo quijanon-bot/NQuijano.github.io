@@ -38,10 +38,6 @@ Zubov & región de atracción exacta & EDP sin solución cerrada en general \\
 \end{itemize}
 \end{trampa}
 
-\begin{profundiza}[Correcciones respecto a la versión anterior (LaSalle\_Invarianza.tex, Construccion\_Lyapunov.tex y Handout7)]
-(i) El teorema de LaSalle pedía ``$\Omega$ compacto e \emph{invariante}''; lo correcto, y lo que se usa con los conjuntos de nivel, es \emph{positivamente} invariante. (ii) El corolario global omitía que $V$ debe ser radialmente no acotada. (iii) ``La única trayectoria que está en $S$'' se cambió por ``ninguna solución distinta de $x\equiv0$ puede permanecer idénticamente en $S$''. (iv) En el gradiente variable, la condición de simetría del ejemplo decía $\partial g_1/\partial x_1=\partial g_2/\partial x_1$; es $\partial g_1/\partial x_2=\partial g_2/\partial x_1$. (v) Krasovskii: ``la solución $x(t)=0$ es única'' se cambió por ``el origen es el único equilibrio en $\D$'', con $\D$ convexo, y se agregó la prueba de que $f\T Pf$ es definida positiva y, si $\D=\R^n$, radialmente no acotada. (vi) Zubov: $V:\D\to\R$ y $h:\R^n\to\R$ (no $\R^n$); $\D$ abierto (no ``acotado'', que era incompatible con la versión global), y la conclusión es que $\D$ \emph{es} la región de atracción, no solo que está contenida en ella. (vii) El ejemplo de la $V$ no radialmente no acotada, que estaba repetido, ahora se cita del capítulo~7, y el ejemplo del gradiente variable para el péndulo se presenta como la deducción de la $V$ del \cref{ej:ly-cruzado} (con $c^*=2.308$ para $b=0.5$). (viii) El mejor $a_{11}$ del \cref{ej:iv-g1} es $1.48$ (área $37.4$), no ``cerca de $1.5$''. (ix) La trampa de sistemas variantes en el tiempo remitía a ``más adelante en este capítulo (lámina 147)''; LaSalle--Yoshizawa se usa en el \cref{cap:variantes} y Barbalat en el \cref{cap:avanzada}. (x) Notación: invariante en el tiempo en lugar de autónomo; $\Nivel c$ es siempre una componente conexa; $\flujo t{x_0}$ para las soluciones; Lotka--Volterra con la notación del \cref{cap:orbitas}; el ejemplo de observabilidad usa las dos masas del \cref{cap:lyapunov}.
-\end{profundiza}
-
 %% ---------------------------------------------------------------------
 \section{Problemas}
 \label{sec:iv-problemas}
@@ -78,7 +74,7 @@ Considere $L\,\dot\imath=-v_C-\psi(i)$, $C\,\dot v_C=i$, con $\psi(i)=0$ si $\ab
 \subsection*{Construcción de funciones de Lyapunov}
 
 \begin{problema}[gradiente variable y Zubov sobre el mismo sistema]\label{prob:iv-slotine}
-Para $\dot x_1=-2x_1$, $\dot x_2=-2x_2+2x_1x_2^2$~\citep{SlLi91}: (a) con $g=(x_1,x_2)$, muestre que $\Vdot=-2x_1^2-2x_2^2(1-x_1x_2)$ y que el estimado es $x_1^2+x_2^2<2$; (b) con $w=x_1x_2$, muestre que la región de atracción exacta es $\{x_1x_2<2\}$; (c) encuentre una solución de Zubov inspirada en el \cref{ej:iv-z2}. ¿Es globalmente asintóticamente estable el origen, ya que $V$ es radialmente no acotada?
+Para $\dot x_1=-2x_1$, $\dot x_2=-2x_2+2x_1x_2^2$~\citep{SlLi91}: (a) con $g=(x_1,x_2)$, muestre que $\Vdot=-2x_1^2-2x_2^2(1-x_1x_2)$ y que $x_1^2+x_2^2<2$ es un estimado; (b) con $w=x_1x_2$, muestre que la región de atracción exacta es $\{x_1x_2<2\}$; (c) encuentre una solución de Zubov inspirada en el \cref{ej:iv-z2}. (d) ¿Es globalmente asintóticamente estable el origen, ya que $V$ es radialmente no acotada?
 \end{problema}
 
 \begin{problema}[el mejor término cruzado, otra vez]\label{prob:iv-pendulo}
@@ -124,7 +120,7 @@ En $\mathbb S^1\times\R$, $V=a(1-\cos x_1)+\tfrac12x_2^2$ es continua y $\{V\le 
 (a) Si $y_0=0$, la solución es el equilibrio $(0,k_0)$ y $k_\infty=k_0$; la fórmula da $a+\abs{k_0-a}$, que coincide solo si $k_0\ge a$. (b) $b$ no aparece en el modelo: el lazo solo tiene $a$, $\gamma$ y la condición inicial.
 
 \paragraph{Problema~\ref{prob:iv-slotine}}
-(a) $\Vdot=-2x_1^2+x_2(-2x_2+2x_1x_2^2)=-2x_1^2-2x_2^2(1-x_1x_2)$; como $x_1x_2\le\tfrac12\norm x^2$, $\Vdot<0$ si $\norm x^2<2$, y el mayor nivel dentro es $\norm x^2<2$. (b) $\dot w=-2x_1x_2+x_1(-2x_2+2x_1x_2^2)=-2w(2-w)$: si $w(0)<2$, $w\to0$ y $x\to0$; si $w(0)>2$, $w$ explota. (c) $W=\tfrac12x_1^2+\dfrac{x_2^2}{2(1-w/2)}$ cumple $\dot W=-2\norm x^2$ y $W\to\infty$ cuando $w\to2^-$. (d) No es global: que $V$ sea radialmente no acotada no basta si $\Vdot$ no es negativa en todo $\R^2$ (desde $(3,1)$, $w=3$, la solución escapa).
+(a) $\Vdot=-2x_1^2+x_2(-2x_2+2x_1x_2^2)=-2x_1^2-2x_2^2(1-x_1x_2)$; como $x_1x_2\le\tfrac12\norm x^2$, $\Vdot<0$ si $\norm x^2<2$, y el mayor disco dentro de $\{x_1x_2<1\}$ es $\norm x^2<2$. El $c^*$ de \eqref{eq:iv-cestrella} es mayor ($c^*\approx1.54$, el disco $\norm x^2<3.08$), porque $\Vdot<0$ también en parte de $\{x_1x_2\ge1\}$. (b) $\dot w=-2x_1x_2+x_1(-2x_2+2x_1x_2^2)=-2w(2-w)$: si $w(0)<2$, $w\to0$ y $x\to0$; si $w(0)>2$, $w$ explota. (c) $W=\tfrac12x_1^2+\dfrac{x_2^2}{2(1-w/2)}$ cumple $\dot W=-2\norm x^2$ y $W\to\infty$ cuando $w\to2^-$. (d) No es global: que $V$ sea radialmente no acotada no basta si $\Vdot$ no es negativa en todo $\R^2$ (desde $(3,1)$, $w=3$, la solución escapa).
 
 \paragraph{Problema~\ref{prob:iv-pendulo}}
 $\frac{\dif c^*}{\dif k}=\frac{\pi^2}2(b-2k)=0$ en $k=b/2$, con $c^*=2+\pi^2b^2/8$ ($2.308$ con $b=0.5$). LaSalle con la energía certifica los niveles $c<2$; la $V$ inclinada, niveles de otra función, con un área mayor. LaSalle necesita la prueba de permanencia; la $V$ estricta no.
@@ -142,3 +138,7 @@ $\frac{\dif W}{\dif x}(-x+x^2)=-2x^2$ da $W'=\frac{2x}{1-x}$ y $W=-2x-2\ln(1-x)$
 Los niveles intermedios cambian de forma (pesan más la dirección $x_1$), pero $W=\infty$ exactamente en los mismos puntos de la malla: $\{V<1\}$ es el interior del ciclo con cualquier $h$ definida positiva.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

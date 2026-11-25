@@ -1,4 +1,5 @@
 %% C8_Ej2_PenduloLaSalle -- Notas: sección 8.3 (el péndulo con fricción, por fin)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Péndulo x1' = x2, x2' = -a sin x1 - b x2 (a = 1, b = 0.3) con la energía V:
 %            dibuja Omega_c (c = 1.8), las otras componentes de {V <= c}, el conjunto E,
 %            los cruces de la solución con E y el balance b int x2^2 = V(x0) - V(x(t)).
@@ -34,10 +35,30 @@ Lf  = arrayfun(@(q) Lfh([q; 0]), xs);
 fprintf('puntos de E con L_f h = 0: x1 = %s\n', mat2str(xs(abs(Lf) < 1e-12), 3));
 % [fin:permanencia]
 
-fig = estiloFigura(1100, 460);
-subplot(1, 2, 1);  [X1, X2] = meshgrid(linspace(-9.5, 9.5, 500), linspace(-2.6, 2.6, 300));
-contourf(X1, X2, double(V(X1, X2) <= c) + double(V(X1, X2) <= c & abs(X1) < pi), [0.5 1.5 2.5]);  hold on;
-plot([-xE xE], [0 0], 'r', 'LineWidth', 4);  plot(Z(:, 1), Z(:, 2), 'k', 'LineWidth', 1);
-xlabel('$x_1$');  ylabel('$x_2$');  title('$\Omega_c$, otras componentes y $E$');
-subplot(1, 2, 2);  plot(t, V(Z(:, 1), Z(:, 2)), t, -b*Z(:, 2).^2);  xlim([0 20]);  grid on;
-xlabel('$t$');  legend('$V(x(t))$', '$\dot V(x(t))$');
+% ---- Figura de las notas (fig:iv-pendulo) ---------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;  cl = [201 209 222]/255;
+ev = odeset(opc, 'Events', @(t, x) eventoODE(x(2), 0, 0));
+[~, ~, tc, Xc] = ode45(f, [0 40], x0, ev);                    % cruces con E (x2 = 0)
+fig = estiloFigura(1200, 460);
+subplot(1, 2, 1);  hold on;
+x1 = linspace(-9.5, 9.5, 700);  x2 = linspace(-2.6, 2.6, 400);  [X1, X2] = meshgrid(x1, x2);  VV = V(X1, X2);
+pintarZonas(x1, x2, {VV <= c & abs(X1) >= pi, VV <= c & abs(X1) < pi}, [gr; az], [0.22 0.25]);
+contour(X1, X2, VV, [2*a 2*a], 'LineColor', no, 'LineWidth', 0.9);       % separatrices, V = 2a
+plot(Z(:, 1), Z(:, 2), 'Color', no, 'LineWidth', 0.9);
+plot([-xE xE], [0 0], 'Color', co, 'LineWidth', 3);
+plot(Xc(:, 1), Xc(:, 2), 's', 'Color', co, 'MarkerFaceColor', co, 'MarkerSize', 4);
+for q = linspace(-xE, xE, 7)                                  % el campo sobre E es vertical
+    if abs(q) > 0.05, quiver(q, 0, 0, -0.55*a*sin(q), 0, 'Color', vi, 'LineWidth', 1.1, 'MaxHeadSize', 0.8); end
+end
+plot([-2 0 2]*pi, [0 0 0], 'o', 'MarkerFaceColor', no, 'MarkerEdgeColor', no);
+plot([-1 1]*pi, [0 0], 'o', 'MarkerFaceColor', 'w', 'MarkerEdgeColor', no);
+text(-9.2, 2.15, 'gris: $\{V\le c\}$ fuera de $\Omega_c$', 'Color', gr);
+text(-1.1, -1.85, '$\Omega_c$', 'Color', az);  text(1.0, 0.25, '$E$', 'Color', co);
+axis([-9.5 9.5 -2.6 2.6]);  box on;  xlabel('$x_1$');  ylabel('$x_2$');
+title('$\Omega_c$ ($c=1.8$), $E$ y una trayectoria');
+subplot(1, 2, 2);  hold on;  grid on;
+plot(t, V(Z(:, 1), Z(:, 2)), 'Color', az);  plot(t, -b*Z(:, 2).^2, 'Color', co, 'LineWidth', 1.3);
+for te = tc(1:min(6, end))', plot([te te], [-1.5 2], ':', 'Color', gr, 'LineWidth', 0.6);  end
+xlim([0 20]);  xlabel('$t$');  legend('$V(x(t))$', '$\dot V(x(t))$', 'Location', 'northeast');
+title('$\dot V=0$ en los cruces; $V$ sigue bajando');

@@ -1,4 +1,5 @@
 %% C8_Video_PenduloLaSalle -- Video V8_1: pasar por E no es quedarse en E
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  El péndulo con fricción (a = 1, b = 0.3) desde (2, 0.8): a la izquierda la
 %              trayectoria cruzando E (el segmento del eje x2 = 0 en Omega_c); a la derecha
 %              V(x(t)) y Vdot(x(t)). En cada cruce Vdot = 0 y V sigue bajando.

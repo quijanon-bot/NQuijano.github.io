@@ -1,4 +1,5 @@
 %% C8_Video_ZubovVanDerPol -- Video V8_4: los niveles de Zubov llenan la región hasta el ciclo
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Van der Pol en tiempo invertido. Calcula W en una malla (zubovMalla) y anima
 %              el nivel {V <= c} con c de 0.05 a 0.999, junto al ciclo límite y a la mejor
 %              elipse x'Px <= 2.30 del capítulo 7. (La malla tarda unos minutos.)

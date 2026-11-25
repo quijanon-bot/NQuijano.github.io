@@ -1,4 +1,5 @@
 function W = zubovMalla(f, x1, x2, hfun, T)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % ZUBOVMALLA  W(x0) = int_0^T h(phi_t(x0)) dt en una malla (método de las características).
 %   W = zubovMalla(f, x1, x2, hfun, T)   f = @(t, x) ..., hfun = @(x) ... (h(x) > 0 si x ~= 0)
 %   x1, x2: vectores de la malla. W(i, j) corresponde a (x1(j), x2(i)).

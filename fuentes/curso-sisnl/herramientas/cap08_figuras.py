@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 8 (principio de invarianza y construcción de funciones de Lyapunov).
 PDF (notas) y SVG (web). Cada figura reproduce un script de codigo/cap08_invarianza/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap08_figuras.py   [nombre_de_función ...]
@@ -88,7 +89,7 @@ def duffing():                      # C8_Ej3 [duffing]
                 s = sim(f, x0, 40); A.plot(s.y[0], s.y[1], color=C['noche'], lw=0.9)
             punto(A, (0, 0), True)
         else:
-            cc = 0.24
+            cc = 0.245
             zona(A, X, Y, (VV <= cc) & (np.abs(X) >= 1), C['gris'], 0.25)
             zona(A, X, Y, (VV <= cc) & (np.abs(X) < 1), C['azul'], 0.25)
             A.contour(X, Y, VV, levels=[0.25], colors=[C['noche']], linewidths=1.0)
@@ -314,7 +315,7 @@ def zubov_hiperbola():              # C8_Ej14 [z2]
     zona(ax, X, Y, w >= 1, C['gris'], 0.25)
     cs = ax.contour(X, Y, VV, levels=[0.25, 0.5, 0.75, 0.9, 0.99], colors=[C['azul']], linewidths=1)
     xx = np.linspace(0.34, 3, 200); ax.plot(xx, 1/xx, color=C['coral'], lw=1.8); ax.plot(-xx, -1/xx, color=C['coral'], lw=1.8)
-    for x0 in ([1.9, 0.5], [-2.5, -0.35], [0.5, 2.5]):
+    for x0 in ([1.9, 0.5], [-2.5, -0.35], [0.35, 2.5]):
         s = sim(f, x0, 15); ax.plot(s.y[0], s.y[1], color=C['noche'], lw=1)
     esc = lambda t, z: abs(z[0]) - 3; esc.terminal = True
     s = solve_ivp(lambda t, z: f(z), (0, 10), [2.1, 0.5], events=esc, max_step=0.01, **o); ax.plot(s.y[0], s.y[1], color=C['coral'], lw=1.2, ls='--')

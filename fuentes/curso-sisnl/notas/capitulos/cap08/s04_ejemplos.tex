@@ -23,7 +23,7 @@ Con $k_0=1$, $k_1=-1$ y $\beta=0.4$, el punto $x_0=(1.2,0)$ tiene $V(x_0)=0.2016
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{cap08/f_duffing}
-\caption{Izquierda: resorte duro ($k_1=1$), globalmente asintóticamente estable; niveles de $V$ en azul. Derecha: resorte blando ($k_1=-1$). En azul, $\Nivel c$ con $c=0.24$; en gris, la parte de $\{V\le c\}$ que \emph{no} es la componente del origen; en negro, el nivel $V=c^*=\tfrac14$ de las sillas. La solución coral arranca con $V(x_0)<c$ y escapa; la verde arranca en $\Nivel c$ y converge.}
+\caption{Izquierda: resorte duro ($k_1=1$), globalmente asintóticamente estable; niveles de $V$ en azul. Derecha: resorte blando ($k_1=-1$). En azul, $\Nivel c$ con $c=0.245$; en gris, la parte de $\{V\le c\}$ que \emph{no} es la componente del origen; en negro, el nivel $V=c^*=\tfrac14$ de las sillas. La solución coral arranca con $V(x_0)<c$ y escapa; la verde arranca en $\Nivel c$ y converge.}
 \label{fig:iv-duffing}
 \end{figure}
 
@@ -59,7 +59,7 @@ Tres comentarios. Poincaré--Bendixson (\cref{sec:oc-pb}) da la \emph{existencia
 
 \subsection{Una recta de equilibrios}
 
-\begin{ejemplo}[label=ej:iv-adaptativo]{Control adaptativo \citep[Ej.~4.9]{Kha02}, \citep{Ser00}}
+\begin{ejemplo}[label=ej:iv-adaptativo]{Control adaptativo \citep[Ej.~4.10]{Kha02}, \citep{Ser00}}
 Para la planta $\dot y=ay+u$ con $a$ \emph{desconocido}, la ley adaptativa $u=-ky$, $\dot k=\gamma y^2$ ($\gamma>0$) da el lazo
 \[
   \dot y=-(k-a)\,y,\qquad \dot k=\gamma\,y^2 .
@@ -124,7 +124,7 @@ Como $z-1-\ln z\ge0$ con igualdad solo en $z=1$, $V\ge0$ y $V=0$ solo en $(v^*,p
 \[
   \Vdot=d(v-v^*)\bigl(-e(v-v^*)-b(p-p^*)\bigr)+b(p-p^*)\,d(v-v^*)=-de\,(v-v^*)^2\le0 .
 \]
-$V\to\infty$ cuando $v\to0^+$, $p\to0^+$ o $\norm{(v,p)}\to\infty$, así que los conjuntos $\{V\le c\}$ son compactos \emph{dentro de} $\D$ y positivamente invariantes. $E=\{v=v^*\}$, y si $v\equiv v^*$, $\dot v\equiv0$ da $a-ev^*-bp\equiv0$, es decir $p\equiv p^*$: $M=\{(v^*,p^*)\}$. El equilibrio es asintóticamente estable y su región de atracción es \emph{todo el cuadrante abierto}. Con $a=b=d=1$, $c=0.5$ y $e=0.2$: $(v^*,p^*)=(0.5,\,0.9)$. Con $e=0$, $\Vdot\equiv0$: $V$ es la cantidad conservada del modelo clásico y las órbitas son cerradas (\cref{fig:iv-lotka}).
+$V\to\infty$ cuando $v\to0^+$, $p\to0^+$ o $\norm{(v,p)}\to\infty$, así que los conjuntos $\{V\le\ell\}$, $\ell>0$, son compactos \emph{dentro de} $\D$ y positivamente invariantes. $E=\{v=v^*\}$, y si $v\equiv v^*$, $\dot v\equiv0$ da $a-ev^*-bp\equiv0$, es decir $p\equiv p^*$: $M=\{(v^*,p^*)\}$. El equilibrio es asintóticamente estable y su región de atracción es \emph{todo el cuadrante abierto}. Con $a=b=d=1$, $c=0.5$ y $e=0.2$: $(v^*,p^*)=(0.5,\,0.9)$. Con $e=0$, $\Vdot\equiv0$: $V$ es la cantidad conservada del modelo clásico y las órbitas son cerradas (\cref{fig:iv-lotka}).
 \end{ejemplo}
 
 Este es el argumento que la \cref{sec:oc-lotka} dejó pendiente. No es estabilidad asintótica global en el cuadrante \emph{cerrado}: los ejes son invariantes y las soluciones que nacen en ellos no llegan a $(v^*,p^*)$.

@@ -1,4 +1,5 @@
 %% crearModelo_AdaptativoLaSalle -- Construye "AdaptativoLaSalle.slx" (sección 8.4)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % Planta y' = a y + u con a desconocido para el controlador, ley u = -k y y adaptación
 % k' = gamma y^2. Un "medidor" calcula V_b = y^2/2 + (k - b)^2/(2 gamma) con una constante
 % b > a que solo existe en el análisis, y su derivada Vdot_b = -(b - a) y^2.
@@ -43,7 +44,8 @@ lin('y/1', 'yk/1');  lin('k/1', 'yk/2');  lin('yk/1', 'V_b/1');  lin('yk/1', 'Vd
 lin('V_b/1', 'medidor/1');  lin('Vdot_b/1', 'medidor/2');  lin('medidor/1', 'V_b y Vdot_b/1');
 try, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end
 set_param(mdl, 'StopTime', '30', 'Solver', 'ode45', 'RelTol', '1e-9', 'MaxStep', '1e-2');
-save_system(mdl);
+carpeta = fileparts(mfilename('fullpath'));
+save_system(mdl, fullfile(carpeta, [mdl '.slx']));
 fprintf('Modelo %s.slx creado.\n', mdl);
 
 salida = sim(mdl);  est = salida.get('est');

@@ -1,4 +1,5 @@
 %% C8_Video_CicloSombrero -- Video V8_2: rodar por el sombrero hasta el ciclo
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  r' = r(1 - r^2), theta' = 1 con V = (r^2 - 1)^2/4. A la izquierda, dos
 %              soluciones en el anillo Omega_0.2; a la derecha, el perfil V(r) con las dos
 %              soluciones bajando al fondo (r = 1). V(0) = 1/4 es un máximo.

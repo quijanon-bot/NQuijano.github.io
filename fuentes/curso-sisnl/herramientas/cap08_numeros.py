@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente (sympy/scipy) de los números del capítulo 8
 (principio de invarianza y construcción de funciones de Lyapunov).
 Ejecutar:  python3 herramientas/cap08_numeros.py

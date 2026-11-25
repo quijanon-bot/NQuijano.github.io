@@ -1,4 +1,5 @@
 %% C8_Ej6_Observabilidad -- Notas: sección 8.4 (M es el subespacio no observable)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Las dos masas del capítulo 7 (resortes unitarios a las paredes, acople kappa,
 %            amortiguador b = 0.3 solo en la masa 1), x = (q1, v1, q2, v2), C = [0 sqrt(b) 0 0].
 %            Calcula la matriz de observabilidad, su rango y su espacio nulo (= M).

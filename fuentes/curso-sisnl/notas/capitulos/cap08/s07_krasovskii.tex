@@ -9,7 +9,7 @@ La idea de Krasovskii es medir la ``energía'' no del estado sino de la \clave{v
 \]
 La velocidad obedece un sistema ``lineal'' con una matriz $J(x(t))$ que cambia con el tiempo. Si una forma cuadrática $z\T Pz$ decrece para \emph{todas} las matrices $J(x)$ que pueden aparecer, la velocidad se apaga y el sistema se detiene; si además el único lugar donde $f=0$ es el origen, se detiene allí.\notamargen{Para $f(x)=Ax$, $J=A$ y la condición del teorema es $A\T P+PA\le-R$: la ecuación de Lyapunov. La candidata es $V=x\T A\T PA\,x$.}
 
-\begin{teorema}[label=thm:iv-krasovskii]{Krasovskii \citep{Kra63}, \citep[ejercicios del cap.~4]{Kha02}}
+\begin{teorema}[label=thm:iv-krasovskii]{Krasovskii \citep{Kra63}, \citep[ej.~4.10]{Kha02}}
 Sea $x=0$ un equilibrio de $\dot x=f(x)$, con $f:\D\to\R^n$ de clase $\Cont1$ y $\D$ un dominio \clave{convexo} que contiene al origen. Si existen $P=P\T>0$ y $R=R\T>0$ con
 \begin{equation}
   J(x)\T P+PJ(x)\le-R\qquad\text{para todo }x\in\D,
@@ -36,7 +36,7 @@ en particular $f(x)\neq0$ si $x\neq0$. (ii) $V=f\T Pf\ge\lmin(P)\kappa^2\norm x^
 
 Tres observaciones. En $x=0$ la condición dice que $J(0)\T P+PJ(0)<0$, es decir, que la linealización es Hurwitz; el valor del método está en que la condición se pide \alerta{de manera uniforme en $\D$}, y eso da una región y, si $\D=\R^n$, un resultado global. La convexidad (basta que $\D$ sea estrellado respecto al origen) se usa solo en (i); sin ella, $V=\norm f_P^2$ puede anularse en otro equilibrio dentro de $\D$. Y las cotas de la prueba dan estabilidad \emph{exponencial}: cerca del origen $V\le\lmax(P)L^2\norm x^2$, con $L$ la constante de Lipschitz de $f$, y se aplica el \cref{thm:ly-exp}.
 
-\begin{ejemplo}[label=ej:iv-k1]{El ejercicio del handout, resuelto}
+\begin{ejemplo}[label=ej:iv-k1]{Una jacobiana simétrica: Krasovskii con $P=I$}
 Pruebe que el origen de $\dot x_1=-3x_1+x_2$, $\dot x_2=x_1-x_2-x_2^3$ es globalmente asintóticamente estable.
 \solucion La jacobiana $J(x)=\bigl[\begin{smallmatrix}-3&1\\1&-1-3x_2^2\end{smallmatrix}\bigr]$ es simétrica, así que con $P=I$, $J\T P+PJ=2J$. Con $R=I$ hay que verificar $2J+I\le0$:
 \[

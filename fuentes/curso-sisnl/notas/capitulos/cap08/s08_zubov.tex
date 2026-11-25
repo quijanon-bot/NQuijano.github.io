@@ -5,7 +5,7 @@
 
 El gradiente variable y Krasovskii dan \emph{estimados} conservadores de la región de atracción. Zubov cambia la pregunta: en lugar de buscar una $V$ cualquiera, impone la forma exacta de $\Vdot$ con una ecuación en derivadas parciales. Si la ecuación se resuelve con la condición de frontera adecuada, se obtiene la región de atracción \clave{exacta}.
 
-\begin{teorema}[label=thm:iv-zubov]{Zubov \citep{Zub64}, \citep[\S8.2]{Kha02}}
+\begin{teorema}[label=thm:iv-zubov]{Zubov \citep{Zub64}, \citep[\S8.2 y ej.~8.10]{Kha02}}
 Sea $x=0$ un equilibrio de $\dot x=f(x)$, con $f$ localmente Lipschitz, y $\D\subset\R^n$ un conjunto \clave{abierto} que contiene al origen. Suponga que existen $V:\D\to\R$ de clase $\Cont1$ y $h:\R^n\to\R$ continua tales que
 \begin{enumerate}
   \item[(a)] $V(0)=0$ y $0<V(x)<1$ para $x\in\D\setminus\{0\}$;
@@ -36,7 +36,7 @@ $W$ es una función de Lyapunov que \alerta{explota exactamente en la frontera d
   W(x_0)=\int_0^\infty h\bigl(\flujo t{x_0}\bigr)\dif t,\qquad V(x_0)=1-e^{-W(x_0)} .
   \label{eq:iv-caracteristicas}
 \end{equation}
-$W$ es finita exactamente cuando la solución converge al origen lo bastante rápido, es decir, en la región de atracción. Cerca del origen, con $h=x\T Qx$ y $A=J(0)$, se tiene $W(x)\approx x\T Px$ con $A\T P+PA=-Q$: \alerta{Zubov contiene a la ecuación de Lyapunov como su aproximación lineal}. Y $W$ con $h=\norm x^2$ es la ``energía futura'' del converso de la \cref{sec:av-conversos}.
+$W$ es finita exactamente cuando la solución converge al origen lo bastante rápido. Si la linealización es Hurwitz y $h$ es cuadrática cerca del origen, eso pasa en toda la región de atracción; con $\dot x=-x^3$ y $h=x^2$, en cambio, $x(t)\sim1/\sqrt{2t}$ y $W=\infty$ fuera del origen. Cerca del origen, con $h=x\T Qx$ y $A=J(0)$, se tiene $W(x)\approx x\T Px$ con $A\T P+PA=-Q$: \alerta{Zubov contiene a la ecuación de Lyapunov como su aproximación lineal}. Y $W$ con $h=\norm x^2$ será la ``energía futura'' del converso de la \cref{sec:av-conversos}.
 
 \begin{ejemplo}[label=ej:iv-z1]{Zubov en la recta}
 Para $\dot x=-x+x^3$ (equilibrios $0$ estable y $\pm1$ inestables, $\RA=(-1,1)$), resuelva la ecuación de Zubov con $h=2x^2$.
@@ -100,7 +100,7 @@ Para \eqref{eq:ly-vdpinv}, $\dot x_1=-x_2$, $\dot x_2=x_1+(x_1^2-1)x_2$, la fron
 
 \begin{trampa}[label=tr:iv-frontera]{``$V$ resuelve la ecuación de Zubov en $\D$, luego $\D$ es la región de atracción''}
 \plausible{La ecuación \eqref{eq:iv-zubov} es la condición del teorema, y $V$ la cumple.}
-Falta la condición de frontera (c): $V\to1$ en \emph{toda} $\partial\D$ y en el infinito. Una solución de la EDP que no tiende a $1$ en parte de la frontera solo certifica que esa parte \emph{no} es frontera de $\RA$. Por ejemplo, en el \cref{ej:iv-z2}, $V=1-e^{-W}$ resuelve la ecuación en cualquier $\D'=\{x_1x_2<1,\ \norm x<5\}$, pero en el círculo $\norm x=5$ no tiende a $1$, y $\D'$ no es la región de atracción.
+Falta la condición de frontera (c): $V\to1$ en \emph{toda} $\partial\D$ y en el infinito. Una solución de la EDP que no tiende a $1$ en parte de la frontera no certifica nada sobre esa parte: puede no ser frontera de $\RA$, como en el ejemplo que sigue. Por ejemplo, en el \cref{ej:iv-z2}, $V=1-e^{-W}$ resuelve la ecuación en cualquier $\D'=\{x_1x_2<1,\ \norm x<5\}$, pero en el círculo $\norm x=5$ no tiende a $1$, y $\D'$ no es la región de atracción.
 \correcto{La EDP fija $V$ en el interior; la condición de frontera es la que identifica la región.}
 \end{trampa}
 

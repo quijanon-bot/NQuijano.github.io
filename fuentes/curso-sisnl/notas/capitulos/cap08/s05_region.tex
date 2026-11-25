@@ -11,19 +11,19 @@ Sea $V$ de clase $\Cont1$, definida positiva en un dominio $\D\ni0$, y $\Nivel c
   \item[(a)] $\Vdot<0$ en $\Nivel c\setminus\{0\}$, o
   \item[(b)] $\Vdot\le0$ en $\Nivel c$ y ninguna solución distinta de $x\equiv0$ permanece en $\{x\in\Nivel c:\ \Vdot(x)=0\}$,
 \end{enumerate}
-entonces $\Nivel c\subset\RA$. En el caso (a), el mayor $c$ admisible es
+entonces $\Nivel c\subset\RA$. En el caso (a) sirve todo $c<c^*$, con
 \begin{equation}
-  c^*=\inf\bigl\{V(x):\ x\in\D,\ x\neq0,\ \Vdot(x)\ge0\bigr\},
+  c^*=\min\Bigl\{\min_{x\in\partial\D}V(x),\ \inf\bigl\{V(x):\ x\in\D,\ x\neq0,\ \Vdot(x)\ge0\bigr\}\Bigr\}:
   \label{eq:iv-cestrella}
 \end{equation}
-y cualquier $c<c^*$ sirve.
+el primer término garantiza que $\Nivel c$ no toque $\partial\D$ y el segundo, que $\Vdot<0$ en $\Nivel c\setminus\{0\}$. Si $\D=\R^n$ queda solo el segundo y, si $\Vdot<0$ en todo $\D\setminus\{0\}$, solo el primero, como en \eqref{eq:ly-cestrella}.
 \end{proposicion}
 
 \begin{demostracion}
 Por el \cref{lem:iv-subnivel}, $\Nivel c$ es compacto y positivamente invariante. En el caso (b), el \cref{thm:iv-lasalle} da $x(t)\to M=\{0\}$. En el caso (a), $E=\{0\}$. En los dos, $x(t)\to0$ desde todo punto de $\Nivel c$.
 \end{demostracion}
 
-\notamargen{En la práctica, $c^*$ se calcula analíticamente cuando se puede y, si no, en una malla: se evalúa $V$ en los puntos donde $\Vdot\ge0$ y se toma el mínimo. Es lo que hace \cmd{nivelCritico} (en \cmd{comun/}). La malla debe cubrir solo $\D$: en el péndulo inclinado del \cref{ej:ly-cpendulo}, una malla más ancha que $\abs{x_1}<\pi$ encuentra puntos con $\Vdot\ge0$ más allá de $\pm\pi$ y da un $c^*$ menor que $2.308$, por la trampa de las componentes.}
+\notamargen{En la práctica, $c^*$ se calcula analíticamente cuando se puede y, si no, en una malla de $\D$: se evalúa $V$ en los puntos de $\D$ donde $\Vdot\ge0$ y en $\partial\D$, y se toma el menor valor; \cmd{nivelCritico} (en \cmd{comun/}) hace la primera parte. En el péndulo inclinado del \cref{ej:ly-cpendulo}, $\Vdot<0$ en toda la franja $\abs{x_1}<\pi$: $c^*=2.308$ es el mínimo de $V$ en $\abs{x_1}=\pi$. Una malla más ancha encuentra puntos con $\Vdot\ge0$ cerca de $x_1=\pm1.9\pi$, con $V=1.16$, que están en otra componente: es la trampa de las componentes.}
 
 \begin{ejemplo}[label=ej:iv-region]{El problema que el capítulo~7 dejó a medias}
 Para $\dot x_1=x_2$, $\dot x_2=-x_1+x_1^3-x_2$ (problema~\ref{prob:ly-duffing}), estime la región de atracción del origen con $V=\tfrac12x_1^2-\tfrac14x_1^4+\tfrac12x_2^2$.
@@ -37,7 +37,7 @@ El punto $(0,0.7)$, con $V=0.245$, converge; los de la componente exterior (gris
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.66\linewidth]{cap08/f_region}
-\caption{El estimado del \cref{ej:iv-region} (azul), limitado por las separatrices de las sillas en el nivel $V=\tfrac14$. En gris, la parte de $\{V<\tfrac14\}$ fuera de $\abs{x_1}<1$. Soluciones azules: convergen; corales: escapan.}
+\caption{El estimado del \cref{ej:iv-region} (azul), limitado por el nivel $V=\tfrac14$, que pasa por las sillas $(\pm1,0)$. En gris, la parte de $\{V<\tfrac14\}$ fuera de $\abs{x_1}<1$. Soluciones azules: convergen; corales: escapan.}
 \label{fig:iv-region}
 \end{figure}
 

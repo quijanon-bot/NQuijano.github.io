@@ -27,7 +27,7 @@ $M$ está bien definido porque la unión de conjuntos invariantes es invariante 
   h(x(t))\equiv0\implica\Lie fh\bigl(x(t)\bigr)\equiv0\implica\Lie f^2h\bigl(x(t)\bigr)\equiv0\implica\cdots,
   \label{eq:iv-permanencia}
 \end{equation}
-con $\Lie fh=\jac hx f$. Cada derivada impone una restricción algebraica nueva; se deriva hasta que las restricciones obliguen a $x(t)$ a estar en un conjunto que ya se reconoce (típicamente, un equilibrio).\notamargen{Las $\Lie f^kh$ son las derivadas de Lie de la linealización por realimentación (\cref{cap:linealizacion}). Calcular $M$ es preguntar qué estados son \emph{inobservables} desde la ``salida'' $y=h(x)$: \cref{ej:iv-observable}.} Para el péndulo:
+con $\Lie fh=\jac hx f$. Cada derivada impone una restricción algebraica nueva; se deriva hasta que las restricciones obliguen a $x(t)$ a estar en un conjunto que ya se reconoce (típicamente, un equilibrio).\notamargen{En el \cref{cap:linealizacion} las $\Lie f^kh$ se llamarán derivadas de Lie y se usarán en la linealización por retroalimentación. Calcular $M$ es preguntar qué estados son \emph{inobservables} desde la ``salida'' $y=h(x)$: \cref{ej:iv-observable}.} Para el péndulo:
 \[
   x_2\equiv0\implica\dot x_2=-a\sin x_1-b\,x_2\equiv0\implica\sin x_1\equiv0\implica x_1\equiv0\qquad(\abs{x_1}<\pi).
 \]
@@ -91,7 +91,7 @@ Sea $x=0$ un equilibrio de \eqref{eq:iv-sistema} con $\D=\R^n$, y $V:\R^n\to\R$ 
 \end{corolario}
 
 \begin{demostracion}
-Dado $x_0$, sea $c=V(x_0)$. Por ser $V$ radialmente no acotada, $\Nivel c=\{V\le c\}$ es acotado; es cerrado y, como $\Vdot\le0$ en todo $\R^n$, positivamente invariante. Se aplica el \cref{thm:iv-lasalle} con $\Omega=\Nivel c$.
+Dado $x_0$, sea $c=V(x_0)$. Por ser $V$ radialmente no acotada, $\Omega=\{x\in\R^n:\ V(x)\le c\}$ es acotado; es cerrado y, como $\Vdot\le0$ en todo $\R^n$, positivamente invariante. Se aplica el \cref{thm:iv-lasalle} con ese $\Omega$, que no necesita ser conexo.
 \end{demostracion}
 
 Si $\Vdot$ es definida negativa, $S=\{0\}$ y los corolarios son los \cref{thm:ly-directo,thm:ly-bk}. La hipótesis radial no sobra: el sistema de la \cref{tr:ly-radial} tiene $V$ definida positiva, $\Vdot<0$ fuera del origen (así que $S=\{0\}$) y aun así hay soluciones que escapan. Sin $\Omega$ compacto no hay conjunto límite garantizado: para esas soluciones, $\omegalim{x_0}=\emptyset$.
@@ -115,7 +115,7 @@ La hipótesis no dice que las soluciones eviten $S$; dice que ninguna solución 
 \begin{ejemplo}[label=ej:iv-pendulo]{El péndulo con fricción, por fin}
 Pruebe que el origen de \eqref{eq:iv-pendulo} con $a,b>0$ es asintóticamente estable y dé un estimado de su región de atracción.
 \solucion \emph{Paso 1.} En $\D=(-\pi,\pi)\times\R$, $V$ es definida positiva y $\Vdot=a\sin x_1\,x_2+x_2(-a\sin x_1-b\,x_2)=-b\,x_2^2\le0$.
-\emph{Paso 2.} Para $c<2a$ (la energía del péndulo invertido), la componente $\Nivel c$ de $\{V\le c\}$ que contiene al origen cumple $a(1-\cos x_1)\le c<2a$, así que $\abs{x_1}<\pi$: es acotada, está en $\D$ y, por el \cref{lem:iv-subnivel}, es compacta y positivamente invariante.
+\emph{Paso 2.} Para $c<2a$ (la energía del péndulo invertido), en las rectas $x_1=\pm\pi$ se tiene $V\ge2a>c$, así que la componente $\Nivel c$ de $\{V\le c\}$ que contiene al origen no las cruza y está en $\abs{x_1}<\pi$; como además $x_2^2\le2c$, es acotada, está en $\D$ y, por el \cref{lem:iv-subnivel}, es compacta y positivamente invariante.
 \emph{Paso 3.} $E=\{(x_1,0):\ \abs{x_1}\le\arccos(1-c/a)\}$; con $a=1$ y $c=1.8$, $\abs{x_1}\le2.498$.
 \emph{Paso 4.} $x_2\equiv0$ obliga $a\sin x_1\equiv0$ y, como $\abs{x_1}<\pi$, $x_1\equiv0$: $M=\{0\}$.
 \emph{Paso 5.} Por el \cref{cor:iv-as}, el origen es asintóticamente estable, y todo $\Nivel c$ con $c<2a$ está en la región de atracción: toda condición inicial con $\abs{x_1(0)}<\pi$ y energía menor que $2a$ termina en reposo. Con $a=1$, $b=0.3$ y $x_0=(2,0.8)$ ($V=1.736$), la solución cruza el eje $x_2=0$ doce veces en $[0,40]$, y $b\int_0^{40}x_2^2\dif t=V(x_0)-V(x(40))$ hasta la precisión del integrador (\cref{fig:iv-pendulo}).
@@ -135,7 +135,7 @@ Pruebe que el origen de \eqref{eq:iv-pendulo} con $a,b>0$ es asintóticamente es
 \video{V8_1_pendulo_lasalle}{Pasar por $E$ no es quedarse en $E$}
 
 \begin{profundiza}[El péndulo vive en un cilindro]
-El ángulo $x_1$ es un punto de la circunferencia $\mathbb S^1$, y el espacio de estado es el cilindro $\mathbb S^1\times\R$. Allí $V$ está bien definida y sus conjuntos de nivel son \emph{compactos} para todo $c$. El \cref{thm:iv-lasalle} se aplica globalmente con $M=\{(0,0),(\pi,0)\}$: \emph{toda} solución converge al equilibrio inferior o al superior. El superior es una silla cuya variedad estable es una curva, así que casi todas las condiciones iniciales terminan abajo. Pero ningún resultado puede dar estabilidad asintótica global: la región de atracción de un equilibrio asintóticamente estable es contráctil~\citep{BhSz70}, y el cilindro no lo es. Un campo continuo en el cilindro no tiene equilibrios globalmente atractivos, por razones topológicas.
+El ángulo $x_1$ es un punto de la circunferencia $\mathbb S^1$, y el espacio de estado es el cilindro $\mathbb S^1\times\R$. Allí $V$ está bien definida y sus conjuntos de nivel son \emph{compactos} para todo $c$. El \cref{thm:iv-lasalle} se aplica globalmente con $M=\{(0,0),(\pi,0)\}$: \emph{toda} solución converge al equilibrio inferior o al superior. El superior es una silla cuya variedad estable es una curva, así que casi todas las condiciones iniciales terminan abajo. Pero ningún resultado puede dar estabilidad asintótica global: la región de atracción de un equilibrio asintóticamente estable es contráctil~\citep{BhSz70}, y el cilindro no lo es. Ningún campo localmente Lipschitz en el cilindro tiene un equilibrio globalmente asintóticamente estable, por razones topológicas.
 \end{profundiza}
 
 \begin{pausa}

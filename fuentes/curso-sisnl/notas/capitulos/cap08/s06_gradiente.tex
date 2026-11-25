@@ -3,7 +3,7 @@
 \label{sec:iv-gradiente}
 %% ---------------------------------------------------------------------
 
-Los teoremas de Lyapunov y el principio de invarianza dicen qué hacer \emph{una vez que se tiene} una función $V$. Los teoremas conversos (\cref{sec:av-conversos}) garantizan que, si el origen es asintóticamente estable, una tal $V$ existe, pero no dicen cómo encontrarla. En sistemas físicos la energía es la primera candidata. Cuando no hay energía evidente, o cuando la energía solo da $\Vdot\le0$, hacen falta métodos sistemáticos. Se verán tres, y cada uno \emph{fija} algo distinto y deja libre el resto:
+Los teoremas de Lyapunov y el principio de invarianza dicen qué hacer \emph{una vez que se tiene} una función $V$. Los teoremas conversos, que se verán en la \cref{sec:av-conversos}, garantizan que, si el origen es asintóticamente estable, una tal $V$ existe, pero no dicen cómo encontrarla. En sistemas físicos la energía es la primera candidata. Cuando no hay energía evidente, o cuando la energía solo da $\Vdot\le0$, hacen falta métodos sistemáticos. Se verán tres, y cada uno \emph{fija} algo distinto y deja libre el resto:
 
 \begin{center}
 \small
@@ -25,9 +25,12 @@ Sea $g:\D\to\R^n$ de clase $\Cont1$ en un dominio $\D$ convexo (o estrellado res
 \[
   \jac{g_i}{x_j}=\jac{g_j}{x_i},\qquad i,j=1,\dots,n .
 \]
-En ese caso $V(x)=\int_0^1g(\sigma x)\T x\dif\sigma$, la integral de línea $\int_0^xg\T\dif y$ no depende del camino, y se puede integrar a lo largo de los ejes:
+En ese caso $V(x)=\int_0^1g(\sigma x)\T x\dif\sigma$, la integral de línea $\int_0^xg\T\dif y$ no depende del camino, y, si el camino por los ejes está en $\D$ (por ejemplo, si $\D=\R^n$ o es una caja centrada en el origen), se puede integrar a lo largo de los ejes:
 \[
-  V(x)=\int_0^{x_1}g_1(y_1,0,\dots,0)\dif y_1+\int_0^{x_2}g_2(x_1,y_2,0,\dots,0)\dif y_2+\cdots+\int_0^{x_n}g_n(x_1,\dots,x_{n-1},y_n)\dif y_n .
+  \begin{aligned}
+  V(x)={}&\int_0^{x_1}g_1(y_1,0,\dots,0)\dif y_1+\int_0^{x_2}g_2(x_1,y_2,0,\dots,0)\dif y_2\\
+  &+\cdots+\int_0^{x_n}g_n(x_1,\dots,x_{n-1},y_n)\dif y_n .
+  \end{aligned}
 \]
 \end{lema}
 
@@ -50,7 +53,7 @@ Si $g$ no es simétrico, la integral por los ejes produce \emph{alguna} función
 \end{enumerate}
 \end{receta}
 
-\begin{ejemplo}[label=ej:iv-g1]{El ejercicio del handout, resuelto}
+\begin{ejemplo}[label=ej:iv-g1]{Un gradiente variable con $\sin(x_1+x_2)$}
 Estudie el origen de
 \begin{equation}
   \dot x_1=x_2,\qquad \dot x_2=-(x_1+x_2)-\sin(x_1+x_2) .
@@ -115,7 +118,10 @@ En el \cref{ej:ly-cruzado} se \emph{propuso} una $V$ con un término cruzado par
 Para $\dot x_1=x_2$, $\dot x_2=-\sin x_1-b\,x_2$ ($b>0$), busque una $V$ con $\Vdot$ definida negativa.
 \solucion \emph{Pasos 1 a 4.} Proponga $g_2=k\,x_1+x_2$, con $k$ por determinar. La simetría pide $\partial g_1/\partial x_2=\partial g_2/\partial x_1=k$, así que $g_1=\varphi(x_1)+k\,x_2$ para alguna $\varphi$. Entonces
 \[
-  \Vdot=\bigl(\varphi(x_1)+k\,x_2\bigr)x_2+(k\,x_1+x_2)(-\sin x_1-b\,x_2)=\bigl(\varphi(x_1)-\sin x_1-kb\,x_1\bigr)x_2+(k-b)\,x_2^2-k\,x_1\sin x_1 .
+  \begin{aligned}
+  \Vdot&=\bigl(\varphi(x_1)+k\,x_2\bigr)x_2+(k\,x_1+x_2)(-\sin x_1-b\,x_2)\\
+  &=\bigl(\varphi(x_1)-\sin x_1-kb\,x_1\bigr)x_2+(k-b)\,x_2^2-k\,x_1\sin x_1 .
+  \end{aligned}
 \]
 El primer término es lineal en $x_2$, sin signo; se anula con $\varphi(x_1)=\sin x_1+kb\,x_1$, y queda
 \[

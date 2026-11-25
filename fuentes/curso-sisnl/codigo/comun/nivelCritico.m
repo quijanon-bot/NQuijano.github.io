@@ -4,8 +4,10 @@ function [cs, xs] = nivelCritico(V, Vd, xl, yl, n, rmin)
 %   V y Vd son funciones vectorizadas de (X1, X2):  V = @(X1, X2) ...,  Vd = @(X1, X2) ...
 %   Devuelve el mínimo de V sobre los puntos de la malla (n x n, 801 por defecto) con
 %   Vd >= 0 y ||x|| >= rmin (1e-2 por defecto), y el punto xs donde se alcanza.
-%   Todo conjunto de nivel {V <= c} con c < cs (la componente que contiene al origen)
-%   es un estimado de la región de atracción (Proposición de la sección 8.5 de las notas).
+%   Si c < cs, en la componente de {V <= c} que contiene al origen Vdot < 0 (salvo en 0).
+%   Esa componente es un estimado de la región de atracción si además es acotada y no toca
+%   la frontera del dominio D de la malla: si D no es todo el plano, use también
+%   c < min V en la frontera de D (Proposición de la sección 8.5 de las notas).
 %   OJO: es un estimado en malla; refine la malla cerca de xs para más cifras.
 % TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 if nargin < 5 || isempty(n), n = 801; end

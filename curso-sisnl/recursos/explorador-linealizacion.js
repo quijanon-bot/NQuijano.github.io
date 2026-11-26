@@ -174,7 +174,7 @@
         `<b style="color:#D1495B">jacobiana ${isFinite(err(RJ.X)) ? f(100 * err(RJ.X), 2) + ' cm' : 'diverge'}</b>.` +
         (Math.abs(m - P.m) > 1e-9 ? ` Con m ≠ 0.1 kg, la cancelación usa la masa equivocada (sección 12.8).` : '');
     };
-    p.insertAdjacentHTML('beforeend', '<p>Seguimiento de y_d = y₀ + A sin(2π f t) con la <b style="color:#1E5AA8">linealización exacta</b> (polos −10, −20, −30) y con la <b style="color:#D1495B">jacobiana</b> de ganancia fija (diseñada en 5 cm) más la prealimentación u*(y_d). Suba la amplitud o la frecuencia hasta pedir una aceleración mayor que g.</p>');
+    p.insertAdjacentHTML('beforeend', '<p>Seguimiento de y_d = y₀ + A sin(2π f t) con la <b style="color:#1E5AA8">linealización exacta</b> (polos −10, −20, −30) y con la <b style="color:#D1495B">jacobiana</b> de ganancia fija (diseñada en 5 cm) más el <i>feedforward</i> u*(y_d). Suba la amplitud o la frecuencia hasta pedir una aceleración mayor que g.</p>');
     controles(p, [['y0', 'y₀ [cm]', 3, 15, 8, 0.5], ['A', 'Amplitud A [cm]', 0, 6, 3, 0.1], ['fr', 'Frecuencia f [Hz]', 0.2, 4, 1, 0.05], ['m', 'Masa real [kg]', 0.08, 0.14, 0.1, 0.005]], e, () => dib());
     p.insertAdjacentHTML('beforeend', '<div class="exp-resumen"></div><svg viewBox="0 0 640 260" style="max-width:720px"></svg><svg viewBox="0 0 640 200" style="max-width:720px"></svg>');
     const [svg1, svg2] = p.querySelectorAll('svg'), res = p.querySelector('.exp-resumen');

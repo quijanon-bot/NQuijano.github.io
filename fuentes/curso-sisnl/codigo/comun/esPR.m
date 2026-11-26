@@ -1,7 +1,7 @@
 function [veredicto, info] = esPR(num, den, wmax)
 % ESPR  Prueba numérica (escalar) de real positiva / estrictamente real positiva.
 %   [veredicto, info] = esPR(num, den)  aplica las condiciones en frecuencia
-%   de Khalil (2002), Lema 6.1, a G(s) = num(s)/den(s), con realización mínima
+%   de Khalil (2002), Def. 6.4 (PR) y Lema 6.1 (SPR), a G(s) = num(s)/den(s), con realización mínima
 %   (sin factores comunes). veredicto: 'SPR', 'PR' o 'no PR'.
 %
 %   PR : polos en Re s <= 0; los del eje jw simples con residuo real > 0;

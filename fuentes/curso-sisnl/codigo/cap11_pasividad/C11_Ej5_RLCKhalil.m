@@ -1,4 +1,5 @@
 %% C11_Ej5_RLCKhalil -- Notas: sección 11.5 (el mismo circuito, cuatro tipos)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Simula el circuito RLC no lineal de Khalil (§6.2):
 %              L x1' = u - h2(x1) - x2,   C x2' = x1 - h3(x2),   y = x1 + h1(u)
 %            con V = L x1^2/2 + C x2^2/2 y verifica, sobre la solución, que

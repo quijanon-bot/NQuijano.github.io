@@ -1,4 +1,5 @@
 %% crearModelo_LevitadorFL -- Construye "LevitadorFL.slx" (sección 12.8)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % Levitador magnético con la linealización exacta en el lazo:
 %   planta:      x1' = x2,  x2' = g - (k/m) x2 - L0 a x3^2/(2 m (a + x1)^2),
 %                x3' = (u - R x3 + L0 a x2 x3/(a + x1)^2)/L(x1)
@@ -17,6 +18,7 @@ x0 = equilibrioLevitador(y0, P);
 vars = {'P', 'KFL', 'p', 'y0', 'yf', 'mPlanta', 'x0'};
 for i = 1:numel(vars), assignin('base', vars{i}, eval(vars{i})); end
 
+raiz = fileparts(mfilename('fullpath'));
 mdl = 'LevitadorFL';
 if bdIsLoaded(mdl), close_system(mdl, 0); end
 new_system(mdl);  open_system(mdl);
@@ -64,7 +66,7 @@ lin('demux/1', 'mux y yd/1');  lin('demux ref/1', 'mux y yd/2');
 lin('mux y yd/1', 'y y yd/1');  lin('mux y yd/1', 'a workspace/1');  lin('demux/3', 'corriente/1');
 try, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end
 set_param(mdl, 'StopTime', '2', 'Solver', 'ode45', 'RelTol', '1e-8', 'MaxStep', '1e-3');
-save_system(mdl);
+save_system(mdl, fullfile(raiz, [mdl '.slx']));   % junto al script, no en la carpeta actual
 fprintf('Modelo %s.slx creado.\n', mdl);
 
 salida = sim(mdl);  sal = salida.get('sal');  corr = salida.get('corr');

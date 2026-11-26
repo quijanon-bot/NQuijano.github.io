@@ -10,7 +10,7 @@
   \item \textbf{Grado relativo} $r$: cuántas veces hay que derivar $y$ para ver $u$. Depende de la salida y puede no existir en un punto ($b(x^o)=0$). En el caso lineal, es el exceso de polos sobre ceros.
   \item \textbf{Forma normal:} $\xi=(h,\dots,L_f^{r-1}h)$ es una cadena de $r$ integradores con $\dot\xi_r=a+bu$; $\dot\eta=q(\xi,\eta)$ no ve la entrada.
   \item \textbf{Linealización entrada--salida:} $u=(v-L_f^rh)/L_gL_f^{r-1}h$ deja $y^{(r)}=v$; un lazo externo lineal estabiliza o sigue referencias con $r$ derivadas. Si $r=n$, linealización entrada--estado.
-  \item \textbf{Dinámica cero:} $\dot\eta=q(0,\eta)$, lo que queda cuando la salida se fuerza a cero; la restricción de $f+gu^*$ a $Z^*$. Depende de la salida, no de las coordenadas ni de la realimentación. En el caso lineal, sus valores propios son los ceros.
+  \item \textbf{Dinámica cero:} $\dot\eta=q(0,\eta)$, lo que queda cuando la salida se fuerza a cero; la restricción de $f+gu^*$ a $Z^*$. Depende de la salida, no de las coordenadas ni de la retroalimentación. En el caso lineal, sus valores propios son los ceros.
   \item \textbf{Estabilidad:} fase mínima con dinámica cero exponencialmente estable da estabilización local; para global hace falta ISS de $\eta$ respecto a $\xi$. Grado relativo uno y fase mínima débil equivalen a poder volver pasivo el sistema.
 \end{enumerate}
 \end{parallevar}
@@ -26,10 +26,6 @@
   \item Dinámica cero globalmente estable no da estabilización global (\cref{tr:fl-global}); no hay que cancelar lo que ayuda (\cref{tr:fl-cancelar}).
 \end{itemize}
 \end{trampa}
-
-\begin{profundiza}[Correcciones respecto a las versiones anteriores (Handout9\_2 y las diapositivas de 2025)]
-(i) En el ejemplo de fase no mínima, $\dot\eta=\xi+\eta+\eta^3$; la versión anterior tenía $\xi+3\eta^2+\eta^3$. (ii) La transformación de la salida es $\bar h(z)=h(\Phi^{-1}(z))$, no $\bigl[\jac\Phi xh(x)\bigr]_{x=\Phi^{-1}(z)}$. (iii) ``Las \emph{zero dynamics} no son una propiedad intrínseca del sistema'' era engañoso: no dependen de las coordenadas ni de la realimentación; sí dependen de la salida (\cref{tr:fl-intrinseca}). (iv) En el ejemplo con $\phi_3=1+x_1-e^{x_2}$, la ecuación de $\eta$ lleva un signo menos: $\dot\eta=-(-1+\eta+e^{\xi_2})(1+\xi_2e^{\xi_2})$. (v) En el ejemplo de fase mínima, la entrada que anula la salida es $u=-a/b$, no $a/b$. (vi) La forma normal de van der Pol con $y=x_1^2+x_2$ tenía erratas ($2z_z^3$, la ecuación de $\dot x_2$ en vez de $\dot z_2$); la correcta está en el \cref{ej:fl-coordvdp}. (vii) Van der Pol se escribe como en el \cref{cap:orbitas}, $\mu(1-x_1^2)x_2$, y no $(1-\epsilon x_1^2)x_2$. (viii) Masa del levitador con una sola letra, $m$. (ix) Se agregaron la condición de rango del control integral, la prueba del teorema local, la necesidad de ISS para un resultado global, las trampas de diseño de Kokotović y Arcak, y el puente con la pasividad.
-\end{profundiza}
 
 %% ---------------------------------------------------------------------
 \section{Problemas}
@@ -110,6 +106,10 @@ Para van der Pol con $y=x_1^2+x_2$ (\cref{ej:fl-coordvdp}), suponga que se aplic
 (a) $\ddot y=\xi_3=g-\frac km\dot y-\frac{L_0a\,i^2}{2m(a+y)^2}$, y el último término es no negativo. (b) La respuesta al escalón de $1/(s+1)^4$ tiene derivada $\tau^3e^{-\tau}/6$ y segunda derivada $(3\tau^2-\tau^3)e^{-\tau}/6$, máxima en $\tau=3-\sqrt3$: $c_4=0.1306$. Con $\tau=pt$, $\ddot y_d=\Delta p^2\cdot(\dots)$. (c) $0.1306\cdot0.15\cdot p^2<g$ da $p<22.4$. En la simulación, con $p=22$ la corriente baja hasta $1.2$\,A y se recupera; con $p=23$ se anula.
 
 \paragraph{Problema~\ref{prob:fl-cancelar}}
-(a) $u=x_1^3+x_2+v$ con $v=-x_1-2x_2$, es decir $u=x_1^3-x_1-x_2$. (b) $u=-x_1-x_2$ da $\dot x_2=-x_1^3-x_1-2x_2$; con $V=\tfrac14x_1^4+\tfrac12x_1^2+\tfrac12x_2^2$ (agregue $\tfrac12x_1^2$ por el resorte lineal que introdujo la ley), $\Vdot=-2x_2^2\le0$, y LaSalle da GAS. (c) La cancelación pide $u(0)=24$ para \emph{quitar} un resorte que empujaba hacia el origen; la otra nunca pide más de $3$ en valor absoluto y llega antes cerca del origen ($\norm{x(2)}=0.74$ contra $1.46$), aunque al principio el resorte la lanza con más velocidad. Lo que pierde la segunda es la respuesta lineal exacta, la que se diseñó.
+(a) $u=x_1^3+x_2+v$ con $v=-x_1-2x_2$, es decir $u=x_1^3-x_1-x_2$. (b) $u=-x_1-x_2$ da $\dot x_2=-x_1^3-x_1-2x_2$; con $V=\tfrac14x_1^4+\tfrac12x_1^2+\tfrac12x_2^2$ (agregue $\tfrac12x_1^2$ por el resorte lineal que introdujo la ley), $\Vdot=-2x_2^2\le0$, y el \cref{cor:iv-gas} da GAS. (c) La cancelación pide $u(0)=24$ para \emph{quitar} un resorte que empujaba hacia el origen; la otra nunca pide más de $3$ en valor absoluto y llega antes cerca del origen ($\norm{x(2)}=0.74$ contra $1.46$), aunque al principio el resorte la lanza con más velocidad. Lo que pierde la segunda es la respuesta lineal exacta, la que se diseñó.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

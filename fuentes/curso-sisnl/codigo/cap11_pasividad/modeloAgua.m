@@ -1,4 +1,5 @@
 function dx = modeloAgua(x, c, Q, r, vm)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % MODELOAGUA  Tanques + dinámica del replicador (sección 11.10; Ramírez-Llanos y Quijano, 2010).
 %   x = [v; q]  (N volúmenes y N caudales),  c: coeficientes de descarga (N x 1)
 %   v_i' = q_i - c_i sqrt(v_i)                      (Torricelli)

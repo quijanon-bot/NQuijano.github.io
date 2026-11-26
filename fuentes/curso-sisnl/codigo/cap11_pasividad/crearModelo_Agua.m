@@ -1,4 +1,5 @@
 %% crearModelo_Agua -- Construye "AguaReplicador.slx" (sección 11.10)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % Tres tanques con descarga de Torricelli y reparto del caudal Q por la
 % dinámica del replicador (modeloAgua.m, el MISMO modelo de C11_Ej13).
 % Un escalón sube la demanda del tanque 3 (c3: 1.4 -> 2.0) en t = 40 s.
@@ -13,6 +14,7 @@ x0 = [0.1; 0.8; 0.3; 0.9; 0.6; 0.5];               % [v; q], sum q = Q
 vars = {'Q', 'r', 'vm', 'c12', 'x0'};
 for i = 1:numel(vars), assignin('base', vars{i}, eval(vars{i})); end
 
+raiz = fileparts(mfilename('fullpath'));
 mdl = 'AguaReplicador';
 if bdIsLoaded(mdl), close_system(mdl, 0); end
 new_system(mdl);  open_system(mdl);
@@ -45,7 +47,7 @@ lin('mux [x; c]/1', 'V = V1 + V2/1');  lin('V = V1 + V2/1', 'V/1');  lin('V = V1
 lin('x = [v; q]/1', 'x a workspace/1');
 try, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end
 set_param(mdl, 'StopTime', '80', 'Solver', 'ode45', 'RelTol', '1e-8', 'AbsTol', '1e-10', 'MaxStep', '0.05');
-save_system(mdl);
+save_system(mdl, fullfile(raiz, [mdl '.slx']));   % junto al script, no en la carpeta actual
 fprintf('Modelo %s.slx creado. Simulando...\n', mdl);
 
 salida = sim(mdl);

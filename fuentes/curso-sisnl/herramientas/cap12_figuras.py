@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 12 (linealización por retroalimentación). PDF y SVG.
 Cada figura reproduce un script de codigo/cap12_linealizacion/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap12_figuras.py
@@ -285,7 +286,7 @@ def dinamica_cero3d():              # C12_Ej11 [tres], C12_Video_DinamicaCero
         s = solve_ivp(lambda t, z: np.r_[-3*z[0], M@z[1:] + np.array([z[0], 0])], (0, 14), [1.2, 1.0, 0.3], t_eval=np.linspace(0, 14, 3000), **o)
         mk = (abs(s.y[1]) < 2.2) & (abs(s.y[2]) < 2.2)
         a_.plot(s.y[1][mk], s.y[2][mk], (s.y[0] + c(s.y[1], s.y[2]))[mk], color=col, lw=1.5)
-        a_.scatter([1.0], [0.3], [0.3 + c(1.0, 0.3)], color=C['noche'], s=10)
+        a_.scatter([1.0], [0.3], [1.2 + c(1.0, 0.3)], color=C['noche'], s=10)
         a_.view_init(25, -35); a_.set_xlabel('$x_1$', labelpad=-6); a_.set_ylabel('$x_2$', labelpad=-6); a_.set_zlabel('$x_3$', labelpad=-6)
         a_.tick_params(labelsize=6, pad=-2); a_.set_title(tit, fontsize=9)
     g(fig, 'f_dinamica_cero3d')

@@ -25,7 +25,7 @@ codigo/
 │   ├── estiloFigura.m        figuras con la paleta del curso
 │   ├── abrirVideo.m          grabar videos en cualquier sistema operativo
 │   ├── respFrec.m            G(jw) sin toolboxes
-│   ├── esPR.m                prueba numérica PR / SPR (Khalil, Lema 6.1)
+│   ├── esPR.m                prueba numérica PR / SPR (Khalil, Def. 6.4 y Lema 6.1)
 │   ├── balanceEnergia.m      V - V(0) = int s - int d sobre una simulación
 │   ├── jacobianoNumerico.m   jacobiano por diferencias centradas
 │   ├── derivadaLie.m         derivada de Lie numérica L_f lambda
@@ -92,11 +92,11 @@ codigo/
 │   ├── crearModelo_RedisenoISS  RedisenoISS.slx
 │   └── verificarCap10.m      45 pruebas de los números del capítulo
 ├── cap11_pasividad/
-│   ├── C11_Ej1 … C11_Ej14    un script por ejemplo del handout
+│   ├── C11_Ej1 … C11_Ej14    un script por ejemplo del capítulo
 │   ├── C11_Video_*           los cinco videos de la parte
 │   ├── crearModelo_*         LazoPasivo.slx, AguaReplicador.slx, PenduloPD.slx
 │   ├── modeloOsciladores.m, modeloAgua.m, energiaAgua.m, energiaAguaSL.m
-│   └── verificarCap11.m      39 pruebas de los números del handout
+│   └── verificarCap11.m      39 pruebas de los números del capítulo
 └── cap12_linealizacion/
     ├── C12_Ej1 … C12_Ej12    levitador (jacobiana, integral, exacta), péndulo, Lie, grado relativo, dinámica cero
     ├── C12_Video_*           levitador, fase no mínima, dinámica cero, difeomorfismo

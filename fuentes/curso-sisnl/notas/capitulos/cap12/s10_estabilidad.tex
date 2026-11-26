@@ -18,11 +18,11 @@ En coordenadas $(\xi,\eta)$, el lazo cerrado es $\dot\xi=(A_c-B_cK)\xi$, $\dot\e
 \[
   J=\begin{bmatrix}A_c-B_cK&0\\[2pt] \dfrac{\partial q}{\partial\xi}(0,\eta^o)&\dfrac{\partial q}{\partial\eta}(0,\eta^o)\end{bmatrix},
 \]
-y sus valores propios son los de $A_c-B_cK$ (Hurwitz por diseño) y los de $\frac{\partial q}{\partial\eta}(0,\eta^o)$ (Hurwitz, porque la estabilidad exponencial de la dinámica cero equivale a que su linealización sea Hurwitz). Por el método indirecto de Lyapunov, $(0,\eta^o)$ es localmente exponencialmente estable, y como $\Phi$ es un difeomorfismo local, también lo es $x^o$.
+y sus valores propios son los de $A_c-B_cK$ (Hurwitz por diseño) y los de $\frac{\partial q}{\partial\eta}(0,\eta^o)$ (Hurwitz, porque la estabilidad exponencial de la dinámica cero equivale a que su linealización sea Hurwitz). Por el método indirecto de Lyapunov (\cref{thm:ly-indirecto}) y la $V$ cuadrática de la \cref{sec:ly-lineales}, que cumple el \cref{thm:ly-exp}, $(0,\eta^o)$ es localmente exponencialmente estable, y como $\Phi$ es un difeomorfismo local, también lo es $x^o$.
 \end{proof}
 
 \begin{cuidado}[Asintótica no es exponencial]
-Si la dinámica cero es asintóticamente estable pero no exponencialmente (por ejemplo $\dot\eta=-\eta^3$), $\frac{\partial q}{\partial\eta}(0,\eta^o)$ tiene un valor propio en el eje imaginario, y el método indirecto no concluye nada. La estabilidad local se puede probar todavía, pero con una función de Lyapunov (o con el teorema de la variedad central); no con la jacobiana.
+Si la dinámica cero es asintóticamente estable pero no exponencialmente (por ejemplo $\dot\eta=-\eta^3$), $\frac{\partial q}{\partial\eta}(0,\eta^o)$ tiene un valor propio en el eje imaginario, y el método indirecto no concluye nada. La estabilidad local se puede probar todavía, pero con una función de Lyapunov (o con el teorema de la variedad central de la \cref{sec:bi-central}); no con la jacobiana.
 \end{cuidado}
 
 \begin{ejemplo}[label=ej:fl-faseminima]{Un sistema de fase mínima}
@@ -42,13 +42,13 @@ y la dinámica cero es $\dot z_3=-z_3$: globalmente exponencialmente estable. El
 
 \subsection{Global pide ISS}
 
-El \cref{thm:fl-local} es local, aunque la dinámica cero sea \emph{globalmente} exponencialmente estable. Para una conclusión global hay que controlar cómo $\xi$ empuja a $\eta$ mientras converge: el lazo cerrado es una cascada, y la herramienta es la estabilidad entrada--estado.
+El \cref{thm:fl-local} es local, aunque la dinámica cero sea \emph{globalmente} exponencialmente estable. Para una conclusión global hay que controlar cómo $\xi$ empuja a $\eta$ mientras converge: el lazo cerrado es una cascada, y la herramienta es la estabilidad entrada--estado (\cref{sec:av-iss}).
 
 \begin{proposicion}[label=prop:fl-global]{Estabilización global \citep[Lema~4.7]{Kha02}}
 Si en coordenadas globales el subsistema $\dot\eta=q(\xi,\eta)$ es ISS con $\xi$ como entrada, la ley del \cref{thm:fl-local} hace el origen globalmente asintóticamente estable.
 \end{proposicion}
 
-La prueba es el resultado de cascadas de la unidad de ISS: $\xi(t)\to0$ exponencialmente, y un sistema ISS con una entrada que tiende a cero tiene su estado acotado y convergente a cero. Sin ISS, la conclusión falla aun en sistemas muy sencillos.
+La prueba es la \cref{prop:av-cascadaiss}: $\xi(t)\to0$ exponencialmente, y un sistema ISS con una entrada que tiende a cero tiene su estado acotado y convergente a cero. Sin ISS, la conclusión falla aun en sistemas muy sencillos.
 
 \begin{trampa}[label=tr:fl-global]{``Dinámica cero globalmente estable, estabilización global''}
 \plausible{En $\dot\xi=-k\xi$, $\dot\eta=-\eta+\eta^2\xi$ la dinámica cero es $\dot\eta=-\eta$ (globalmente exponencialmente estable) y $\xi\to0$ exponencialmente; luego todo converge.}
@@ -56,8 +56,12 @@ El origen es localmente exponencialmente estable (\cref{thm:fl-local}), pero no 
 \[
   w(t)=e^{t}\Bigl(w_0-\frac{\xi_0}{k+1}\Bigr)+\frac{\xi_0}{k+1}\,e^{-kt} .
 \]
-Si $\eta_0\xi_0>k+1$, $w$ se anula en tiempo finito: $\eta$ \emph{escapa a infinito}, en $t_e=\frac{1}{k+1}\ln\dfrac{\xi_0/(k+1)}{\xi_0/(k+1)-1/\eta_0}$. Con $k=1$ y $\xi_0=\eta_0=2$, $t_e=\tfrac12\ln2=0.3466$. Subir $k$ agranda la región que converge, pero nunca la vuelve global (\cref{fig:fl-escape}). Es la misma cascada de la \cref{tr:pa-cascada}: el subsistema $\eta$ no es ISS respecto a $\xi$, porque el término $\eta^2\xi$ crece más rápido de lo que $-\eta$ puede contener.
-\correcto{La estabilidad global de la dinámica cero da estabilización local. Para la global hace falta ISS de $\dot\eta=q(\xi,\eta)$ respecto a $\xi$ (\cref{prop:fl-global}), o una ley que tenga en cuenta el acoplamiento (backstepping, pasivación: la \cref{thm:pa-cascada}).}
+Si $\eta_0\xi_0>k+1$, $w$ se anula en tiempo finito: $\eta$ \emph{escapa a infinito} en
+\[
+  t_e=\frac{1}{k+1}\ln\frac{\xi_0/(k+1)}{\xi_0/(k+1)-1/\eta_0} .
+\]
+Con $k=1$ y $\xi_0=\eta_0=2$, $t_e=\tfrac12\ln2=0.3466$. Subir $k$ agranda la región que converge, pero nunca la vuelve global (\cref{fig:fl-escape}). Es la misma cascada de la \cref{tr:pa-cascada}: el subsistema $\eta$ no es ISS respecto a $\xi$, porque el término $\eta^2\xi$ crece más rápido de lo que $-\eta$ puede contener.
+\correcto{La estabilidad global de la dinámica cero da estabilización local. Para la global hace falta ISS de $\dot\eta=q(\xi,\eta)$ respecto a $\xi$ (\cref{prop:fl-global}), o una ley que tenga en cuenta el acoplamiento (\emph{backstepping}, pasivación: la \cref{thm:pa-cascada}).}
 \end{trampa}
 
 \begin{figure}[ht]
@@ -74,7 +78,7 @@ Si $\eta_0\xi_0>k+1$, $w$ se anula en tiempo finito: $\eta$ \emph{escapa a infin
 \begin{trampa}[label=tr:fl-cancelar]{``Linealizar por retroalimentación es cancelar todas las no linealidades''}
 \plausible{Para $\dot x=x-x^3+u$, la ley natural es cancelar: $u=x^3-2x$ da $\dot x=-x$, un sistema lineal y estable.}
 El término $-x^3$ \emph{ya} estabiliza cuando $\abs x$ es grande. Cancelarlo es pagar por quitar algo que ayudaba. Compare con $u=-2x$, que da $\dot x=-x-x^3$ (también GAS, con $V=\tfrac12x^2$). Desde $x(0)=3$: la cancelación pide $u(0)=21$ (contra $-6$); gasta $\int_0^\infty u^2\,\dif t=117/2=58.5$ (contra $2\ln10=4.6$, unas $12.7$ veces más), y converge más lento: $x(1)=3/e=1.104$ contra $0.372$ (\cref{fig:fl-nocancelar}).
-\correcto{La linealización por retroalimentación es una herramienta de análisis y de diseño, no una obligación de cancelar todo. Los diseños ``constructivos'' (funciones de Lyapunov de control, backstepping, pasivación) conservan las no linealidades útiles~\citep{KoAr01}.}
+\correcto{La linealización por retroalimentación es una herramienta de análisis y de diseño, no una obligación de cancelar todo. Los diseños ``constructivos'' (funciones de Lyapunov de control, \emph{backstepping}, pasivación) conservan las no linealidades útiles~\citep{KoAr01}.}
 \end{trampa}
 
 \begin{figure}[ht]
@@ -88,7 +92,7 @@ El término $-x^3$ \emph{ya} estabiliza cuando $\abs x$ es grande. Cancelarlo es
 
 \subsection{El puente con la pasividad}
 
-El \cref{cap:pasividad} terminó con una pregunta: ¿cuándo se puede volver pasivo un sistema con una realimentación preliminar? La respuesta está escrita en el lenguaje de este capítulo.
+El \cref{cap:pasividad} terminó con una pregunta: ¿cuándo se puede volver pasivo un sistema con una retroalimentación preliminar? La respuesta está escrita en el lenguaje de este capítulo.
 
 \begin{teorema}[label=thm:fl-biw]{Pasividad y fase mínima \citep{BIW91}}
 El sistema \eqref{eq:fl-afin} es equivalente por retroalimentación (con $u=\alpha(x)+\beta(x)v$, $\beta\neq0$) a un sistema pasivo con almacenamiento definido positivo si y solo si tiene grado relativo uno en $x=0$ y es de fase mínima débil.
@@ -102,5 +106,5 @@ Si existe una salida $h$ con grado relativo $n$, el sistema es linealizable entr
   \item la matriz $\bigl[\,g\ \ \mathrm{ad}_fg\ \ \cdots\ \ \mathrm{ad}_f^{n-1}g\,\bigr](x^o)$ tiene rango $n$ (el análogo de la controlabilidad), y
   \item la distribución $\operatorname{span}\{g,\mathrm{ad}_fg,\dots,\mathrm{ad}_f^{n-2}g\}$ es \emph{involutiva} cerca de $x^o$ (cerrada bajo el corchete de Lie),
 \end{enumerate}
-con $\mathrm{ad}_fg=[f,g]=\jac gxf-\jac fxg$ \citep[\S13.2]{Kha02}, \citep[\S4.2]{Isi95}. Aun si existe, $h$ puede no tener sentido físico: la salida que linealiza no tiene por qué ser la que se quiere regular. (Fuera del alcance de la evaluación del curso.)
+con $\mathrm{ad}_fg=[f,g]=\jac gxf-\jac fxg$ \citep[\S13.3]{Kha02}, \citep[\S4.2]{Isi95}. Aun si existe, $h$ puede no tener sentido físico: la salida que linealiza no tiene por qué ser la que se quiere regular. (Fuera del alcance de la evaluación del curso.)
 \end{profundiza}

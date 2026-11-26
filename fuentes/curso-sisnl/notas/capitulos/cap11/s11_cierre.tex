@@ -29,10 +29,6 @@
 \end{itemize}
 \end{trampa}
 
-\begin{profundiza}[Correcciones respecto a la versión anterior del capítulo (Handout8)]
-(i) El criterio de Popov es de 1961 (el handout decía 1962) y el lema KYP se atribuye a Yakubovich (1962) y Kalman (1963), con referencias exactas. (ii) La prueba de estabilidad del lazo \emph{no} usa $\Vdot_1\le0$ y $\Vdot_2\le0$ por separado (\cref{tr:pa-cadauno}). (iii) Se distingue OSP de estrictamente pasivo, con la prueba de que el RLC serie no es estrictamente pasivo con ningún almacenamiento. (iv) Se agregó la observabilidad en estado cero como hipótesis explícita y la prueba de que, con ella, el almacenamiento resulta definido positivo. (v) La notación se unificó con \texttt{notacion.sty}: sin negrillas, $s(u,y)$ para el suministro, $V$ para el almacenamiento, retroalimentación en lugar de realimentación; los términos en inglés (\emph{storage}, \emph{radially unbounded}, \emph{zero-state observable}) se tradujeron. (vi) La figura pendiente de la cascada (``AÑADIR FIGURA'') es la \cref{fig:pa-cascada}, y se agregó la trampa del escape en tiempo finito. (vii) La aplicación de distribución de agua se escribió con la notación del curso ($q_i$, $F_i$, $H_1$, $H_2$) y se agregaron la prueba de $V_2\ge0$ por Jensen y la trampa de las caras. Todos los números se verificaron con \texttt{herramientas/cap11\_numeros.py} (72 de 72) y \cmd{verificarCap11.m} (39 de 39).
-\end{profundiza}
-
 %% ---------------------------------------------------------------------
 \section{Problemas}
 \label{sec:pa-problemas}
@@ -81,7 +77,7 @@ Para $\dot z=u$, $\dot x=-x^3+x\,z$: (a) diseñe la ley de pasivación del \cref
 \subsection*{La aplicación}
 
 \begin{problema}[dos tanques]\label{prob:pa-dostanques}
-Con $N=2$, $Q=1$, $r=1$, $v_m=1$, $c=(0.5,\,1)$: (a) calcule $v^*$ y $q^*$. (b) Use $q_1+q_2=Q$ para escribir el replicador como una sola ecuación para $q_1$ y muestre que es un replicador de dos estrategias como el del capítulo~2. (c) Escriba $V_1$ y $V_2$ y verifique \eqref{eq:pa-Vdotagua}. (d) \etiquetaM{} Adapte \cmd{crearModelo\_Agua.m} a dos tanques y verifique la conservación de $Q$.
+Con $N=2$, $Q=1$, $r=1$, $v_m=1$, $c=(0.5,\,1)$: (a) calcule $v^*$ y $q^*$. (b) Use $q_1+q_2=Q$ para escribir el replicador como una sola ecuación para $q_1$ y muestre que es un replicador de dos estrategias como el de la \cref{sec:un-halcon}. (c) Escriba $V_1$ y $V_2$ y verifique \eqref{eq:pa-Vdotagua}. (d) \etiquetaM{} Adapte \cmd{crearModelo\_Agua.m} a dos tanques y verifique la conservación de $Q$.
 \end{problema}
 
 \begin{problema}[el signo, en Simulink]\label{prob:pa-signoSL}
@@ -105,13 +101,13 @@ $-\int_0^Tu\,y\,\dif t=V(x(0))-V(x(T))$ con $V=\tfrac12(x_1^2+x_2^2)$, máximo c
 (a) $G_1$: $z=1<a=2$, SPR. $G_2$: $z=a=2$, PR y no SPR. (b) $G_1$: $P=\begin{bmatrix}4&1\\1&1\end{bmatrix}$, $PA+A\T P=\diag(-4,-2)$, $\epsilon_{\max}=0.8453$. $G_2$: $P=\begin{bmatrix}6&2\\2&1\end{bmatrix}$, $PA+A\T P=\diag(-8,0)$: la entrada $(2,2)$ es cero, $\epsilon=0$, $L=[2\sqrt2\;\;0]$. (c) El cero estructural aparece exactamente cuando $z=a$.
 
 \paragraph{Problema~\ref{prob:pa-zso}}
-(b) No: con $u=0$, $x_2\equiv0$ deja $x_1$ constante arbitrario. (c) Estable, no AS: $x_1(t)\to x_1(0)+x_2(0)$. (d) Tome $y=x_1+x_2$ (grado relativo uno: $\dot y=u$; dinámica cero $\dot x_1=-x_1$, de fase mínima) y $V=\tfrac12x_1^2+\tfrac12y^2$. Entonces $\Vdot=x_1x_2+y\,u=-x_1^2+y\,(u+x_1)$. Con la retroalimentación preliminar $u=-x_1+v$, el sistema de $v$ a $y$ es pasivo (de hecho, $\Vdot=-x_1^2+y\,v$), y con $v=-ky$, $k>0$, $\Vdot=-x_1^2-ky^2$ es negativa definida: GAS. Es un caso del resultado de \citet{BIW91}.
+(b) No: con $u=0$, $x_2\equiv0$ deja $x_1$ constante arbitrario. (c) Estable, no AS: $x_1(t)\to x_1(0)+x_2(0)$. (d) Tome $y=x_1+x_2$ (grado relativo uno: $\dot y=u$; dinámica cero $\dot x_1=-x_1$, de fase mínima; son conceptos del \cref{cap:linealizacion}) y $V=\tfrac12x_1^2+\tfrac12y^2$. Entonces $\Vdot=x_1x_2+y\,u=-x_1^2+y\,(u+x_1)$. Con la retroalimentación preliminar $u=-x_1+v$, el sistema de $v$ a $y$ es pasivo (de hecho, $\Vdot=-x_1^2+y\,v$), y con $v=-ky$, $k>0$, $\Vdot=-x_1^2-ky^2$ es negativa definida: GAS. Es un caso del resultado de \citet{BIW91}.
 
 \paragraph{Problema~\ref{prob:pa-escasez}}
 (a) $V_1=\tfrac12x^2$: $\Vdot_1=0.5\,y_1^2+e_1y_1$, es decir $e_1y_1=\Vdot_1-0.5\,y_1^2$. $e_2y_2=k\,e_2^2$. (b) $\Vdot_1\le-(k-0.5)\,y_1^2$. (c) $y_2=ky_1$ no es un estado: no hay energía en $H_2$ que disipar. (d) $\dot x=(0.5-k)x$.
 
 \paragraph{Problema~\ref{prob:pa-penduloPBC}}
-(b) No: $\theta=\pi$, $\dot\theta=0$ es otro equilibrio del lazo, y $V=1-\cos\theta+\tfrac12\dot\theta^2$ no es radialmente no acotada ni definida positiva en todo $\R^2$. (d) AS local del origen, con una estimación de la región de atracción dada por $\{V<2\}$ (la energía del equilibrio invertido).
+(b) No: $\theta=\pi$, $\dot\theta=0$ es otro equilibrio del lazo, y $V=1-\cos\theta+\tfrac12\dot\theta^2$ no es radialmente no acotada ni definida positiva en todo $\R^2$. (d) AS local del origen, con una estimación de la región de atracción dada por la componente conexa de $\{V<2\}$ que contiene el origen (la energía del equilibrio invertido).
 
 \paragraph{Problema~\ref{prob:pa-cascada2}}
 (a) $\jac WxF=x\cdot x=x^2$, luego $u=-x^2-kz$. (b) No escapa: $x$ sube hasta $2.76$ y luego decae lentamente ($x(30)\approx0.138$). (c) El acoplamiento $x\,z$ crece linealmente en $x$: $\dot x\le x\,z$ acota $x$ por $x_0\ee^{\int z}$, finito. En el \cref{ej:pa-cascada} crecía como $x^2$.
@@ -120,3 +116,7 @@ $-\int_0^Tu\,y\,\dif t=V(x(0))-V(x(T))$ con $V=\tfrac12(x_1^2+x_2^2)$, máximo c
 (a) $v^*=1/2.25=0.444$, $q^*=(1/3,\,2/3)$.
 
 \respuestaspausas
+
+\begin{parallevar}[Nota de transparencia]
+En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.
+\end{parallevar}

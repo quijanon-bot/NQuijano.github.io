@@ -15,7 +15,7 @@ con $\phi$ localmente Lipschitz, $\phi(0)=0$ y $y\T\phi(y)>0$ para todo $y\neq0$
 \end{teorema}
 
 \begin{proof}
-En lazo cerrado, $\Vdot\le u\T y=-y\T\phi(y)\le0$, y $\Vdot=0$ solo donde $y=0$. Una solución que se queda en $\{y=0\}$ tiene $u=-\phi(0)=0$, y por ZSO es $x\equiv0$. LaSalle, con $V$ radialmente no acotada, da GAS.
+En lazo cerrado, $\Vdot\le u\T y=-y\T\phi(y)\le0$, y $\Vdot=0$ solo donde $y=0$. Una solución que se queda en $\{y=0\}$ tiene $u=-\phi(0)=0$, y por ZSO es $x\equiv0$. Como $V$ es radialmente no acotada, el \cref{cor:iv-gas} da GAS.
 \end{proof}
 
 La función $\phi$ es el ``amortiguador'' y tiene mucha libertad: lineal, saturada, con zona muerta (siempre que $y\T\phi(y)>0$ fuera del origen).
@@ -98,7 +98,7 @@ Con $U=V(z)+W(x)$, la pasividad de $H_1$ da
 \[
   \dot U\le\jac Wxf_a(x)+\jac WxF(x,y)\,y+y\T u=\jac Wxf_a(x)-y\T\phi(y)\le0 ,
 \]
-y $\dot U=0$ solo si $x=0$ y $y=0$. En una solución que se queda allí, $\jac Wx(0)=0$ y $\phi(0)=0$ dan $u\equiv0$, y la observabilidad en estado cero de $H_1$ da $z\equiv0$. LaSalle con $U$ radialmente no acotada termina la prueba.
+y $\dot U=0$ solo si $x=0$ y $y=0$. En una solución que se queda allí, $\jac Wx(0)=0$ y $\phi(0)=0$ dan $u\equiv0$, y la observabilidad en estado cero de $H_1$ da $z\equiv0$. Como $U$ es radialmente no acotada, el \cref{cor:iv-gas} termina la prueba.
 \end{proof}
 
 \begin{ejemplo}[label=ej:pa-cascada]{Una cascada que escapa}
@@ -116,8 +116,12 @@ El término $x^2z$ crece más rápido que lo que $-x$ puede contener. Con $w=1/x
 \[
   w(t)=\ee^{t}\Bigl(w_0-\frac{z_0}{1+k}\Bigr)+\frac{z_0}{1+k}\,\ee^{-kt} .
 \]
-Si $x_0z_0>1+k$, $w$ se anula en tiempo finito: $x$ \emph{escapa a infinito} en $t_e=\frac{1}{1+k}\ln\dfrac{z_0/(1+k)}{z_0/(1+k)-1/x_0}$. Con $x_0=1$, $z_0=3$, $k=1$: $t_e=\tfrac12\ln3=0.5493$, mientras $z$ decae tranquilamente (\cref{fig:pa-cascadafig}, izquierda). Y hacer $k$ más grande no arregla el problema globalmente: solo corre el umbral~\citep{SuKo91}.
-\correcto{La estabilidad asintótica global de cada pieza no garantiza la de la cascada; hace falta una propiedad de la interconexión (ISS de $H_2$ respecto a $y$, o una ley que tenga en cuenta el acoplamiento, como \eqref{eq:pa-leycascada}).}
+Si $x_0z_0>1+k$, $w$ se anula en tiempo finito: $x$ \emph{escapa a infinito} en
+\[
+  t_e=\frac{1}{1+k}\ln\frac{z_0/(1+k)}{z_0/(1+k)-1/x_0} .
+\]
+Con $x_0=1$, $z_0=3$, $k=1$: $t_e=\tfrac12\ln3=0.5493$, mientras $z$ decae tranquilamente (\cref{fig:pa-cascadafig}, izquierda). Y hacer $k$ más grande no arregla el problema globalmente: solo corre el umbral~\citep{SuKo91}.
+\correcto{La estabilidad asintótica global de cada pieza no garantiza la de la cascada; hace falta una propiedad de la interconexión (ISS de $H_2$ respecto a $y$, \cref{prop:av-cascadaiss}, o una ley que tenga en cuenta el acoplamiento, como \eqref{eq:pa-leycascada}).}
 \end{trampa}
 
 \begin{figure}[ht]

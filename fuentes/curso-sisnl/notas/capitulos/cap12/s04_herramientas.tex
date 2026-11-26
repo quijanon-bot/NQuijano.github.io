@@ -19,7 +19,7 @@ Las derivadas sucesivas y mixtas se definen recursivamente:
 \]
 \end{definicion}
 
-Geométricamente, $L_f\lambda$ es la proyección de $f$ sobre el gradiente de $\lambda$; si $f$ es tangente a las curvas de nivel de $\lambda$, $L_f\lambda=0$. Y a lo largo de una solución de $\dot x=f(x)$, $\tfrac{d}{dt}\lambda(x(t))=L_f\lambda(x(t))$: la derivada de Lie es la derivada en el tiempo \emph{sin resolver la ecuación}.
+Geométricamente, $L_f\lambda$ es el producto interno de $f$ con el gradiente de $\lambda$: mide cuánto apunta $f$ en la dirección en que $\lambda$ crece; si $f$ es tangente a las curvas de nivel de $\lambda$, $L_f\lambda=0$. Y a lo largo de una solución de $\dot x=f(x)$, $\tfrac{d}{dt}\lambda(x(t))=L_f\lambda(x(t))$: la derivada de Lie es la derivada en el tiempo \emph{sin resolver la ecuación}.
 
 \begin{ideaclave}
 Ya la usábamos sin nombrarla: para $\dot x=f(x)$, $\Vdot=L_fV$. Toda la teoría de Lyapunov es una colección de desigualdades sobre derivadas de Lie.
@@ -53,7 +53,7 @@ Si $\Phi$ es suave en $D$ y el jacobiano $\jac\Phi x$ es no singular en $x^o\in 
 
 \begin{trampa}[label=tr:fl-difeo]{``Jacobiano no singular en todo punto, difeomorfismo global''}
 \plausible{Si $\det\jac\Phi x\neq0$ en todo $\R^n$, el \cref{thm:fl-inversa} se aplica en todas partes, y $\Phi$ es un difeomorfismo global.}
-El teorema da un difeomorfismo \emph{alrededor de cada punto}, no uno en todo el espacio. Para $\Psi(x)=e^{x_1}(\cos x_2,\ \sin x_2)$, $\det\jac\Psi x=e^{2x_1}>0$ en todo $\R^2$, pero $\Psi(x_1,x_2+2\pi)=\Psi(x_1,x_2)$: no es uno a uno. La franja $\{0\le x_2<4\pi\}$ cubre el anillo dos veces (\cref{fig:fl-difeo}, derecha).
+El teorema da un difeomorfismo \emph{alrededor de cada punto}, no uno en todo el espacio. Para $\Psi(x)=e^{x_1}(\cos x_2,\ \sin x_2)$, $\det\jac\Psi x=e^{2x_1}>0$ en todo $\R^2$, pero $\Psi(x_1,x_2+2\pi)=\Psi(x_1,x_2)$: no es uno a uno. La franja $\{0\le x_2<4\pi\}$ cubre dos veces su imagen, el plano sin el origen (en la figura, un anillo) (\cref{fig:fl-difeo}, derecha).
 \correcto{Para un difeomorfismo global hace falta algo más. El criterio de Hadamard: si $\Phi:\R^n\to\R^n$ es suave, su jacobiano es no singular en todo punto \emph{y} $\norm{\Phi(x)}\to\infty$ cuando $\norm x\to\infty$, entonces $\Phi$ es un difeomorfismo global. $\Psi$ falla la segunda condición: con $x_1\to-\infty$, $\Psi\to0$.}
 \end{trampa}
 

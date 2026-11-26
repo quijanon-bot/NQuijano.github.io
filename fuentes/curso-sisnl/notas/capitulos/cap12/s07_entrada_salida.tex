@@ -20,7 +20,7 @@ Es de la forma $u=\alpha(x)+\beta(x)v$, con $\alpha=-L_f^rh/L_gL_f^{r-1}h$ y $\b
 y el mapa de $v$ a $y$ es una cadena de $r$ integradores: $G(s)=C_c(sI-A_c)^{-1}B_c=1/s^r$.
 
 \begin{ideaclave}
-La realimentación volvió $\eta$ \emph{no observable} desde $y$: la salida obedece $y^{(r)}=v$ sin importar lo que haga $\eta$. Que $y$ se comporte perfectamente no dice nada de $\eta$.
+La retroalimentación volvió $\eta$ \emph{no observable} desde $y$: la salida obedece $y^{(r)}=v$ sin importar lo que haga $\eta$. Que $y$ se comporte perfectamente no dice nada de $\eta$.
 \end{ideaclave}
 
 \subsection{El lazo externo}
@@ -31,7 +31,7 @@ Sobre la cadena de integradores se diseña un controlador lineal.
 Sean $k_1,\dots,k_r$ tales que $s^r+k_rs^{r-1}+\dots+k_2s+k_1$ es Hurwitz, y $K=[k_1\ \cdots\ k_r]$.
 \begin{enumerate}
   \item (Estabilización.) Con $v=-K\xi$, $\dot\xi=(A_c-B_cK)\xi$ y $\xi\to0$ exponencialmente.
-  \item (Seguimiento.) Sea $y_d(t)$ una referencia con $r$ derivadas continuas, y $\bar y_d=(y_d,\dot y_d,\dots,y_d^{(r-1)})$. Con
+  \item (Seguimiento.) Sea $y_d(t)$ una referencia con $r$ derivadas continuas, y $\bar y_d=(y_d,\allowbreak\dot y_d,\allowbreak\dots,\allowbreak y_d^{(r-1)})$. Con
   \begin{equation}
     v=y_d^{(r)}-K\bigl(\xi-\bar y_d\bigr),
     \label{eq:fl-vseguimiento}
@@ -44,7 +44,7 @@ Sean $k_1,\dots,k_r$ tales que $s^r+k_rs^{r-1}+\dots+k_2s+k_1$ es Hurwitz, y $K=
 En 2, $\dot e_i=\xi_{i+1}-y_d^{(i)}=e_{i+1}$ para $i<r$, y $\dot e_r=v-y_d^{(r)}=-Ke$.
 \end{proof}
 
-La \cref{prop:fl-seguimiento} habla solo de $\xi$. Si además $\dot\eta=q(\xi,\eta)$ es ISS con $\xi$ como entrada y las derivadas de $y_d$ están acotadas, entonces $\eta$ también queda acotada y \emph{todas} las señales internas lo están~\citep{Arc18}. Sin esa hipótesis, la salida puede seguir la referencia mientras el estado interno diverge (\cref{sec:fl-cero}).
+La \cref{prop:fl-seguimiento} habla solo de $\xi$. Si además $\dot\eta=q(\xi,\eta)$ es ISS (\cref{def:av-iss}) con $\xi$ como entrada y las derivadas de $y_d$ están acotadas, entonces $\eta$ también queda acotada y \emph{todas} las señales internas lo están~\citep{Arc18}. Sin esa hipótesis, la salida puede seguir la referencia mientras el estado interno diverge (\cref{sec:fl-cero}).
 
 \begin{figure}[ht]
 \centering

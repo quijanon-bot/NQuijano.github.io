@@ -1,4 +1,5 @@
 %% C11_Video_Nyquist -- Video V11_3: de SPR a no PR moviendo un cero
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  G_z(s) = (s+z)/(s^2+3s+2) con z barriendo de 1.2 a 5. Izquierda:
 %              Nyquist cerca del origen (por dónde llega la curva cuando w -> inf).
 %              Derecha: w^2 Re G_z(jw), que tiende a a - z = 3 - z.

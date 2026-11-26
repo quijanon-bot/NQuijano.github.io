@@ -1,4 +1,5 @@
 %% C11_Video_Agua -- Video V11_5: tres tanques, un caudal y un replicador
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Los niveles de los tres tanques, el reparto del caudal q_i y la
 %              función V = V1 + V2. En t = 40 s sube la demanda del tanque 3
 %              (c3: 1.4 -> 2.0): V salta (cambió el equilibrio) y vuelve a decrecer.
@@ -20,7 +21,8 @@ ax1 = subplot(2,2,1); hold(ax1, 'on'); axis(ax1, [0.3 3.7 0 1]); title(ax1, 'vol
 niv = bar(ax1, [0 0 0], 0.6, 'FaceColor', [0.55 0.71 0.90]); grid(ax1, 'on');
 ref = plot(ax1, [0.5 3.5], [1 1]*4/9, 'k--');
 ax2 = subplot(2,2,2); cau = bar(ax2, [0 0 0], 0.6, 'FaceColor', 'flat'); ylim(ax2, [0 1.3]); grid(ax2, 'on');
-cau.CData = [0.12 0.35 0.66; 0.82 0.29 0.36; 0.42 0.29 0.71]; title(ax2, 'caudales $q_i$ ($\sum q_i=Q=2$)');
+try, cau.CData = [0.12 0.35 0.66; 0.82 0.29 0.36; 0.42 0.29 0.71]; catch, end   % (Octave no colorea cada barra)
+title(ax2, 'caudales $q_i$ ($\sum q_i=Q=2$)');
 ax3 = subplot(2,1,2); grid(ax3, 'on'); hold(ax3, 'on'); set(ax3, 'YScale', 'log'); xlim(ax3, [0 80]); ylim(ax3, [1e-8 10]);
 lV = plot(ax3, nan, nan, 'k', 'LineWidth', 2.5); plot(ax3, [40 40], [1e-8 10], 'Color', [0.88 0.62 0.24], 'LineWidth', 2);
 xlabel(ax3, '$t$ (s)'); title(ax3, '$V=V_1+V_2$ respecto al equilibrio vigente');
@@ -30,7 +32,7 @@ if HACER_VIDEO
     vid = abrirVideo(fullfile(raiz, 'videos', 'V11_5_agua'), 30);
 end
 for k = 1:numel(t)
-    niv.YData = X(k,1:3);  cau.YData = X(k,4:6);
+    set(niv, 'YData', X(k,1:3));  set(cau, 'YData', X(k,4:6));
     if t(k) >= 40, set(ref, 'YData', [1 1]*4/12.96); end
     set(lV, 'XData', t(1:k), 'YData', V(1:k));
     title(ax1, sprintf('vol\\''umenes, $t=%.1f$ s, $c_3=%.1f$', t(k), 1.4 + 0.6*(t(k) >= 40)));

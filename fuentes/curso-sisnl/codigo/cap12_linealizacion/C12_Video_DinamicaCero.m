@@ -1,4 +1,5 @@
 %% C12_Video_DinamicaCero -- Video V12_3: después de Z*, solo manda la dinámica cero
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Sistema con n = 3 y r = 1 construido en forma normal:
 %                xi' = -3 xi  (después de la linealización entrada/salida),
 %                eta' = [s -2; 2 s] eta + [xi; 0],
@@ -34,7 +35,8 @@ end
 for i = 1:numel(t)
     for j = 1:2
         z = Z{j}(1:i,:);  x3 = z(:,1) + c(z(:,2), z(:,3));  m = all(abs(z(:,2:3)) < 2.2, 2);
-        set(tr(j), 'XData', z(m,2), 'YData', z(m,3), 'ZData', x3(m));
+        zz = z;  zz(~m,:) = NaN;  x3(~m) = NaN;           % fuera de la caja: se corta la curva
+        set(tr(j), 'XData', zz(:,2), 'YData', zz(:,3), 'ZData', x3);
         if m(end), set(pt(j), 'XData', z(end,2), 'YData', z(end,3), 'ZData', x3(end)); end
     end
     drawnow; if HACER_VIDEO, writeVideo(vid, getframe(fig)); end

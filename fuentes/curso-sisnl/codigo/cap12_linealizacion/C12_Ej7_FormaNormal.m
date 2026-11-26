@@ -1,4 +1,5 @@
 %% C12_Ej7_FormaNormal -- Notas: sección 12.6 (coordenadas adaptadas y forma normal)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Dos ejemplos con r < n. Simula el sistema en las coordenadas originales x
 %            con una entrada arbitraria u(t) = 0.5 sin t y, por separado, la forma normal en
 %            las coordenadas z; compara z(t) con Phi(x(t)).

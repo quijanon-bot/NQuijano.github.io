@@ -10,7 +10,7 @@ Si el sistema \eqref{eq:pa-estado} es pasivo con un almacenamiento $V$ \emph{def
 \end{lema}
 
 \begin{proof}
-Con $u=0$, \eqref{eq:pa-pasivo} da $\Vdot\le u\T y=0$: $V$ es una función de Lyapunov y el origen es estable. Si es estrictamente pasivo, $\Vdot\le-\psi(x)$, negativa definida. Falta ver que $V$ es definida positiva: si $V(x_0)=0$ para algún $x_0$, a lo largo de la solución con $u=0$ se tiene $0\le V(x(t))\le V(x_0)-\int_0^t\psi(x(\tau))\,\dif\tau\le0$, luego $\psi(x(\tau))\equiv0$, $x(\tau)\equiv0$ y $x_0=0$. El teorema de Lyapunov (y el de Barbashin--Krasovskii para la parte global) termina la prueba.
+Con $u=0$, \eqref{eq:pa-pasivo} da $\Vdot\le u\T y=0$: $V$ es una función de Lyapunov y el origen es estable. Si es estrictamente pasivo, $\Vdot\le-\psi(x)$, negativa definida. Falta ver que $V$ es definida positiva: si $V(x_0)=0$ para algún $x_0$, a lo largo de la solución con $u=0$ se tiene $0\le V(x(t))\le V(x_0)-\int_0^t\psi(x(\tau))\,\dif\tau\le0$, luego $\psi(x(\tau))\equiv0$, $x(\tau)\equiv0$ y $x_0=0$. El \cref{thm:ly-directo} (y el \cref{thm:ly-bk} para la parte global) termina la prueba.
 \end{proof}
 
 \begin{cuidado}[Pasividad pide $V\ge0$; estabilidad pide $V>0$]
@@ -33,7 +33,7 @@ Si el sistema \eqref{eq:pa-estado} es OSP y ZSO, el origen de $\dot x=f(x,0)$ es
 \end{lema}
 
 \begin{proof}
-Primero, $V$ es definida positiva: si $V(x_0)=0$, con $u=0$ se tiene $0\le V(x(t))\le V(x_0)-\int_0^ty\T\rho(y)\,\dif\tau\le0$, luego $y\T\rho(y)\equiv0$, $y\equiv0$ y, por ZSO, $x\equiv0$: $x_0=0$. Entonces $V$ es una función de Lyapunov con $\Vdot\le-y\T\rho(y)\le0$. Sea $\Nivel{c}=\{V\le c\}$ un conjunto de nivel compacto alrededor del origen; es positivamente invariante. Por el principio de invarianza de LaSalle, toda solución que empieza en $\Nivel{c}$ converge al mayor conjunto invariante $M$ contenido en $E=\{x\in\Nivel{c}:\Vdot=0\}\subseteq\{y=0\}$. Una solución en $M$ tiene $y(t)\equiv0$ con $u=0$; por ZSO es $x(t)\equiv0$. Luego $M=\{0\}$. Si $V$ es radialmente no acotada, todo conjunto de nivel es compacto y el argumento es global.
+Primero, $V$ es definida positiva: si $V(x_0)=0$, con $u=0$ se tiene $0\le V(x(t))\le V(x_0)-\int_0^ty\T\rho(y)\,\dif\tau\le0$, luego $y\T\rho(y)\equiv0$, $y\equiv0$ y, por ZSO, $x\equiv0$: $x_0=0$. Entonces $V$ es definida positiva, $\Vdot\le-y\T\rho(y)\le0$, y $S=\{\Vdot=0\}\subseteq\{y=0\}$. Una solución que permanece en $S$ tiene $y(t)\equiv0$ con $u=0$ y, por ZSO, es $x(t)\equiv0$. El \cref{cor:iv-as} da la estabilidad asintótica; si $V$ es radialmente no acotada, el \cref{cor:iv-gas} da la global.
 \end{proof}
 
 \begin{ideaclave}
@@ -67,7 +67,7 @@ Falso sin ZSO. Considere
   \dot x_1=0,\qquad \dot x_2=-x_2+u,\qquad y=x_2,\qquad V=\tfrac12(x_1^2+x_2^2),\qquad \Vdot=-y^2+u\,y .
 \]
 El sistema es OSP y $V$ es definida positiva, pero $x_1(t)\equiv x_1(0)$: el origen es estable y \emph{no} asintóticamente estable (\cref{fig:pa-lasalle}, derecha). Falla ZSO: con $u=0$, la solución $x(t)\equiv(x_1(0),0)$ permanece en $\{y=0\}$ sin ser cero.
-\correcto{De ``$\Vdot\le0$'' a ``converge al origen'' hay que pasar por el principio de invarianza: $x(t)$ converge al mayor conjunto invariante dentro de $\{\Vdot=0\}$. ZSO es exactamente la hipótesis que hace que ese conjunto sea el origen.}
+\correcto{De ``$\Vdot\le0$'' a ``converge al origen'' hay que pasar por el principio de invarianza (\cref{thm:iv-lasalle}): $x(t)$ converge al mayor conjunto invariante dentro de $\{\Vdot=0\}$. ZSO es exactamente la hipótesis que hace que ese conjunto sea el origen.}
 \end{trampa}
 
 \begin{profundiza}[Una función de Lyapunov estricta, sin LaSalle]

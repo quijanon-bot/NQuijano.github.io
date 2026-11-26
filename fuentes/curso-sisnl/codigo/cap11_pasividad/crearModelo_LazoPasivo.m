@@ -1,4 +1,5 @@
 %% crearModelo_LazoPasivo -- Construye "LazoPasivo.slx" (sección 11.8)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % Dos osciladores no lineales en la conexión estándar de Khalil (Fig. 6.11):
 %   H1: x1' = x2,  x2' = -a x1^3 - k x2 + e1,  y1 = x2      (OSP y ZSO)
 %   H2: x3' = x4,  x4' = -b x3 - x4^3 + e2,    y2 = x4      (OSP y ZSO)
@@ -13,6 +14,7 @@ a = 1;  k = 0.5;  b = 2;  x0 = [1.5 0 0 0];
 vars = {'a', 'k', 'b', 'x0'};
 for i = 1:numel(vars), assignin('base', vars{i}, eval(vars{i})); end
 
+raiz = fileparts(mfilename('fullpath'));
 mdl = 'LazoPasivo';
 if bdIsLoaded(mdl), close_system(mdl, 0); end
 new_system(mdl);  open_system(mdl);
@@ -56,7 +58,7 @@ lin('V1/1', 'mux V/1');  lin('V2/1', 'mux V/2');  lin('V/1', 'mux V/3');
 lin('mux V/1', 'energias/1');  lin('mux V/1', 'a workspace/1');
 try, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end   % (R2018b o posterior)
 set_param(mdl, 'StopTime', '40', 'Solver', 'ode45', 'RelTol', '1e-8', 'AbsTol', '1e-10', 'MaxStep', '0.01');
-save_system(mdl);
+save_system(mdl, fullfile(raiz, [mdl '.slx']));   % junto al script, no en la carpeta actual
 fprintf('Modelo %s.slx creado. Simulando...\n', mdl);
 
 % --- simular y comparar con ode45

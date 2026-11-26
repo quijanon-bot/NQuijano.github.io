@@ -19,7 +19,7 @@ Hay un equilibrio por cada $\bar y$: la familia está parametrizada por la refer
   B(\bar y)=\begin{bmatrix}0\\0\\ \dfrac{a+\bar y}{D}\end{bmatrix}.
   \label{eq:fl-AB}
 \end{equation}
-Con $\bar y=0.05$, los valores propios de $A$ son $13.641$, $-14.813$ y $-38.838$: por el método indirecto de Lyapunov, el equilibrio es \emph{inestable}. Y lo es para todo $\bar y$: la parte real del valor propio inestable baja con $\bar y$, pero nunca llega a cero (\cref{fig:fl-inestable}, izquierda). Note además que $A$ y $B$ \emph{dependen de} $\bar y$: una ganancia diseñada en un punto se aplica, en otro punto, a otra planta.
+Con $\bar y=0.05$, los valores propios de $A$ son $13.641$, $-14.813$ y $-38.838$: por el método indirecto de Lyapunov (\cref{thm:ly-indirecto}, parte~2), el equilibrio es \emph{inestable}. Y lo es para todo $\bar y$: la parte real del valor propio inestable baja con $\bar y$, pero nunca llega a cero (\cref{fig:fl-inestable}, izquierda). Note además que $A$ y $B$ \emph{dependen de} $\bar y$: una ganancia diseñada en un punto se aplica, en otro punto, a otra planta.
 
 \begin{figure}[ht]
 \centering
@@ -30,19 +30,19 @@ Con $\bar y=0.05$, los valores propios de $A$ son $13.641$, $-14.813$ y $-38.838
 
 \codigorepo{cap12_linealizacion/C12_Ej1_LevitadorJacobiano.m}{equilibrio}{Equilibrio y linealización jacobiana}
 
-\subsection{Método 1: realimentación de estados sobre la jacobiana}
+\subsection{Método 1: retroalimentación de estados sobre la jacobiana}
 
 Si $(A,B)$ es controlable, se escoge $K$ con $A-BK$ Hurwitz y se aplica
 \begin{equation}
-  u=\underbrace{u^*}_{\text{prealimentación}}\ \underbrace{-\,K\,(x-\eq)}_{\text{realimentación}} .
+  u=\underbrace{u^*}_{\text{\emph{feedforward} (prealimentación)}}\ \underbrace{-\,K\,(x-\eq)}_{\text{retroalimentación}} .
   \label{eq:fl-metodo1}
 \end{equation}
-El lazo cerrado no lineal tiene en $\eq$ la linealización $\dot x_\delta=(A-BK)x_\delta$, y el método indirecto de Lyapunov garantiza que $\eq$ es localmente exponencialmente estable. Con los polos en $-20$, $-25$ y $-30$ para $\bar y=0.05$, $K=[-237.17,\ -16.013,\ 0.87475]$.
+El lazo cerrado no lineal tiene en $\eq$ la linealización $\dot x_\delta=(A-BK)x_\delta$, y el método indirecto de Lyapunov (\cref{thm:ly-indirecto}) garantiza que $\eq$ es localmente asintóticamente estable; de hecho, exponencialmente, porque la $V=x_\delta\T Px_\delta$ de la \cref{sec:ly-lineales} cumple las hipótesis del \cref{thm:ly-exp}. Con los polos en $-20$, $-25$ y $-30$ para $\bar y=0.05$, $K=[-237.17,\ -16.013,\ 0.87475]$.
 
 \begin{trampa}[label=tr:fl-local]{``Diseñé los polos; la respuesta es la que calculé''}
 \plausible{Con $A-BK$ Hurwitz, la esfera responde como el modelo lineal $\dot x_\delta=(A-BK)x_\delta$.}
 El método indirecto garantiza estabilidad \emph{local}: existe una vecindad de $\eq$ desde la que las soluciones convergen, pero el teorema no dice cuán grande es, ni cuánto se parece la respuesta a la lineal. Con el mismo $K$ y cuatro condiciones iniciales (\cref{fig:fl-jacobiana}): desde $y_0=0.045$ la diferencia con la predicción lineal es $2.8\times10^{-5}$\,m; desde $0.08$ y $0.01$, alrededor de $1$\,mm; desde $0.15$, $1.07$\,cm, con un voltaje de hasta $30$\,V.
-\correcto{El diseño lineal \emph{predice} la respuesta solo cerca de $\eq$. Para saber desde dónde converge se estima la región de atracción con una función de Lyapunov: $V=x_\delta\T Px_\delta$ con $P(A-BK)+(A-BK)\T P=-Q$ y un conjunto de nivel de $V$ contenido en la zona donde $\Vdot<0$ para la planta \emph{no lineal}.}
+\correcto{El diseño lineal \emph{predice} la respuesta solo cerca de $\eq$. Para saber desde dónde converge se estima la región de atracción con una función de Lyapunov, como en la \cref{sec:ly-region}: $V=x_\delta\T Px_\delta$ con $P(A-BK)+(A-BK)\T P=-Q$ y un conjunto de nivel de $V$ contenido en la zona donde $\Vdot<0$ para la planta \emph{no lineal}.}
 \end{trampa}
 
 \begin{figure}[ht]
@@ -56,7 +56,7 @@ El método indirecto garantiza estabilidad \emph{local}: existe una vecindad de 
 
 \subsection{Método 2: control integral}
 
-El método 1 necesita $u^*$, y $u^*$ sale del modelo. Si la masa real no es la del modelo, la prealimentación está mal y queda un error permanente. El remedio clásico es integrar el error de regulación. Para una planta con parámetros inciertos $w$, $\dot x=f(x,u,w)$, $y=h(x,w)$, y una referencia constante $\bar y$, se agrega el estado
+El método 1 necesita $u^*$, y $u^*$ sale del modelo. Si la masa real no es la del modelo, el \emph{feedforward} está mal y queda un error permanente. El remedio clásico es integrar el error de regulación. Para una planta con parámetros inciertos $w$, $\dot x=f(x,u,w)$, $y=h(x,w)$, y una referencia constante $\bar y$, se agrega el estado
 \begin{equation}
   \dot\sigma=e=y-\bar y
   \label{eq:fl-integrador}
@@ -76,7 +76,7 @@ entonces el par aumentado $\Bigl(\begin{bmatrix}A&0\\ C&0\end{bmatrix},\begin{bm
 Por el criterio de Hautus, hay que ver que $[\,A_a-\lambda I\ \ B_a\,]$ tiene rango $n+p$ para todo $\lambda\in\C$. Para $\lambda\neq0$, sus filas son $\begin{bmatrix}A-\lambda I&0&B\\ C&-\lambda I&0\end{bmatrix}$; el bloque $-\lambda I$ es invertible y $[\,A-\lambda I\ \ B\,]$ tiene rango $n$ por la controlabilidad de $(A,B)$. Para $\lambda=0$, la matriz es $\begin{bmatrix}A&0&B\\ C&0&0\end{bmatrix}$, cuyo rango es el de \eqref{eq:fl-rango}.
 \end{proof}
 
-En una planta de una entrada y una salida, la condición \eqref{eq:fl-rango} dice que la linealización no tiene un cero en $s=0$: un cero en el origen bloquearía exactamente la señal constante que el integrador necesita. En el levitador el rango es $4$, y con los polos aumentados en $-15$, $-20$, $-25$ y $-30$ se obtiene $K_1=[-482.15,\ -24.992,\ 1.2498]$, $K_2=-1795.9$. En $t=0.5$\,s la masa real pasa de $0.10$ a $0.12$\,kg y los dos controladores siguen usando el modelo nominal (\cref{fig:fl-integral}): la realimentación de estados se queda con un error de $1.03$\,cm; con el integrador el error se anula y el voltaje se reajusta a $6.8621$\,V, exactamente $R\,x_3^*$ calculado con $m=0.12$.
+En una planta de una entrada y una salida, la condición \eqref{eq:fl-rango} dice que la linealización no tiene un cero en $s=0$: un cero en el origen bloquearía exactamente la señal constante que el integrador necesita. En el levitador el rango es $4$, y con los polos aumentados en $-15$, $-20$, $-25$ y $-30$ se obtiene $K_1=[-482.15,\ -24.992,\ 1.2498]$, $K_2=-1795.9$. En $t=0.5$\,s la masa real pasa de $0.10$ a $0.12$\,kg y los dos controladores siguen usando el modelo nominal (\cref{fig:fl-integral}): la retroalimentación de estados se queda con un error de $1.03$\,cm; con el integrador el error se anula y el voltaje se reajusta a $6.8621$\,V, exactamente $R\,x_3^*$ calculado con $m=0.12$.
 
 \begin{figure}[ht]
 \centering
@@ -85,7 +85,7 @@ En una planta de una entrada y una salida, la condición \eqref{eq:fl-rango} dic
 \label{fig:fl-integral}
 \end{figure}
 
-\codigorepo{cap12_linealizacion/C12_Ej2_ControlIntegral.m}{carga}{Realimentación de estados contra acción integral}
+\codigorepo{cap12_linealizacion/C12_Ej2_ControlIntegral.m}{carga}{Retroalimentación de estados contra acción integral}
 
 \begin{trampa}[label=tr:fl-integral]{``Con integrador, el controlador es robusto''}
 \plausible{La acción integral elimina el error ante cualquier cambio de la planta.}

@@ -11,7 +11,7 @@ Un sistema **pasivo** no puede crear energía: lo que almacena nunca supera lo q
 
 ```{=html}
 <div class="botones">
-  <a class="boton" href="../pdf/cap11_pasividad.pdf">⬇ Handout en PDF</a>
+  <a class="boton" href="../pdf/cap11_pasividad.pdf">⬇ Capítulo en PDF</a>
   <a class="boton sec" href="https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl/codigo/cap11_pasividad">Códigos en GitHub</a>
   <a class="boton sec" href="#explorador">Explorador interactivo</a>
 </div>
@@ -30,13 +30,13 @@ Un sistema **pasivo** no puede crear energía: lo que almacena nunca supera lo q
 
 ## Ruta de las clases
 
-| Clase | Qué se ve | Handout | Scripts |
+| Clase | Qué se ve | Capítulo | Scripts |
 |:--|:--|:--|:--|
 | 1 | Balance de energía, señales $\Ldos$, disipatividad, almacenamiento disponible, pasividad sin memoria y de modelos de estado, OSP + ZSO + LaSalle | §11.1–11.6 | `C11_Ej1`–`C11_Ej7` |
 | 2 | Funciones reales positivas y KYP, interconexión, aplicación al reparto de agua | §11.7, 11.8, 11.10 | `C11_Ej8`–`C11_Ej10`, `C11_Ej13`, `C11_Ej14`, `crearModelo_LazoPasivo`, `crearModelo_Agua` |
 | lectura | Control basado en pasividad: amortiguamiento, compensación de gravedad, cascadas | §11.9 | `C11_Ej11`, `C11_Ej12`, `crearModelo_Pendulo` |
 
-: Lea la sección del handout **antes** de cada clase. {.striped}
+: Lea la sección del capítulo **antes** de cada clase. {.striped}
 
 ## Lo esencial, en una página
 
@@ -93,7 +93,7 @@ Los tanques son **OSP** (la descarga de Torricelli disipa) y el replicador es **
 
 ## Explorador interactivo {#explorador}
 
-Cuatro pestañas con los modelos del handout. Los cálculos se hacen en su navegador con Runge–Kutta de paso fijo (los mismos modelos de los scripts `C11_Ej1`, `C11_Ej8`, `C11_Ej10` y `C11_Ej13`).
+Cuatro pestañas con los modelos del capítulo. Los cálculos se hacen en su navegador con Runge–Kutta de paso fijo (los mismos modelos de los scripts `C11_Ej1`, `C11_Ej8`, `C11_Ej10` y `C11_Ej13`).
 
 ```{=html}
 <div class="explorador" id="explorador-pasividad"></div>
@@ -200,6 +200,8 @@ Los modelos se **construyen por código**: ejecute el script y se crea, se simul
 
 ## Videos
 
+Los videos están publicados (generados con `herramientas/cap11_videos.py`, los mismos modelos y parámetros); los scripts `C11_Video_*` de MATLAB producen la misma animación para grabarla en su computador.
+
 | Video | Qué muestra | Script |
 |:--|:--|:--|
 | [V11.1 · Balance de energía](../videos/V11_1_balance.mp4) | Energía suministrada, disipada y almacenada de la masa con resorte. | `C11_Video_Balance.m` |
@@ -210,4 +212,8 @@ Los modelos se **construyen por código**: ejecute el script y se crea, se simul
 
 ## Problemas
 
-Los problemas del handout (§11.12) tienen cada uno una trampa; las soluciones seleccionadas están en §11.13.
+Los problemas del capítulo (§11.12) tienen cada uno una trampa; las soluciones seleccionadas están en §11.13 y las respuestas a las pausas al final del capítulo.
+
+---
+
+**Nota de transparencia.** En la redacción de este capítulo y en la escritura y corrección de los códigos que lo acompañan se contó con la asistencia de Claude, un modelo de inteligencia artificial desarrollado por Anthropic. El contenido fue revisado y validado por el autor, quien asume la responsabilidad por lo aquí expuesto.

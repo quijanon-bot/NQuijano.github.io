@@ -1,4 +1,5 @@
 function dx = modeloOsciladores(t, x, a, k, b, u1, u2)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % MODELOOSCILADORES  Dos osciladores no lineales en la conexión estándar (sección 11.8).
 %   H1: x1' = x2,  x2' = -a x1^3 - k x2 + e1,   y1 = x2
 %   H2: x3' = x4,  x4' = -b x3 - x4^3 + e2,     y2 = x4

@@ -14,7 +14,7 @@ el candidato natural a almacenamiento es cuadrático, $V=\tfrac12x\T Px$ con $P=
   \qquad
   u\T y=x\T C\T u+\tfrac12u\T\bigl(D+D\T\bigr)u ,
 \]
-y para que $u\T y-\Vdot\ge0$ hay que \emph{emparejar} el término cruzado ($PB$ frente a $C\T$) y controlar los cuadráticos ($PA+A\T P$ y $D+D\T$). Hay dos lenguajes para decir cuándo se puede: el del estado (existe una $P$ que cumple ciertas igualdades: el lema KYP) y el de la frecuencia (la gráfica de Nyquist no sale del semiplano derecho: función real positiva). \notamargen{\textbf{Ojo con la letra.} En esta sección $s$ es la variable de Laplace, no la tasa de suministro.}
+y para que $u\T y-\Vdot\ge0$ hay que \emph{emparejar} el término cruzado ($PB$ frente a $C\T$) y controlar los cuadráticos ($PA+A\T P$ y $D+D\T$). Hay dos lenguajes para decir cuándo se puede: el del estado (existe una $P$ que cumple ciertas igualdades: el lema KYP) y el de la frecuencia (la curva de Nyquist no sale del semiplano derecho: función real positiva). \notamargen{\textbf{Ojo con la letra.} En esta sección $s$ es la variable de Laplace, no la tasa de suministro.}
 
 %% ---------------------------------------------------------------------
 \subsection{Funciones reales positivas}
@@ -30,7 +30,7 @@ Es \clave{estrictamente real positiva} (SPR) si $G(s-\epsilon)$ es PR para algú
 
 Geométricamente, una función PR lleva el semiplano derecho cerrado al semiplano derecho cerrado. Sobre el eje imaginario, $\abs{\angle G(j\omega)}\le90\grados$: es la fase de una impedancia pasiva, y por eso Brune pudo probar que las funciones racionales PR son exactamente las impedancias de las redes de R, L, C y transformadores~\citep{Bru31}. Algunas consecuencias inmediatas: $G$ es PR (SPR) si y solo si $1/G$ lo es; una función PR tiene grado relativo $-1$, $0$ o $1$ y ceros en $\Re s\le0$; una SPR tiene grado relativo $0$ o $1$ y ceros en $\Re s<0$. La definición pide revisar todo un semiplano; en la práctica se usa una prueba sobre el eje.
 
-\begin{lema}[label=lem:pa-prueba]{Prueba en frecuencia \citep[Lema~6.1]{Kha02}}
+\begin{lema}[label=lem:pa-prueba]{Prueba en frecuencia \citep[Def.~6.4 y Lema~6.1]{Kha02}}
 Sea $G(s)$ escalar, racional y propia, sin factores comunes.
 \begin{itemize}
   \item $G$ es PR si y solo si sus polos están en $\Re s\le0$, los del eje imaginario son simples con residuo real positivo, y $\Re G(j\omega)\ge0$ para todo $\omega$ que no sea un polo.
@@ -62,19 +62,19 @@ $z>a$ ($z=5$) & $\Re G_z<0$ para $\omega^2>zb/(z-a)=5$ & & \textbf{no PR}\\
 \bottomrule
 \end{tabular}
 \end{center}
-Hay que mirar \emph{por dónde llega} la curva de Nyquist al origen: con $z<a$ llega por el cuarto cuadrante, tangente al eje imaginario desde la derecha; con $z>a$ cruza al semiplano izquierdo antes de llegar. (Se excluyen $z=1$ y $z=2$, que cancelan un polo: la prueba supone una realización mínima.)
+Hay que mirar \emph{por dónde llega} la curva de Nyquist al origen: con $z<a$ llega por el cuarto cuadrante, tangente al eje imaginario desde la derecha; con $z>a$ cruza al semiplano izquierdo antes de llegar. (Con $z=1$ o $z=2$ el cero cancela un polo: $G_z$ es $1/(s+2)$ o $1/(s+1)$, también SPR; pero el lema KYP de la \cref{sec:pa-lineales} pide una realización mínima.)
 \end{ejemplo}
 
 \video{V11_3_nyquist}{De SPR a no PR moviendo un cero}
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{cap11/f_nyquist_familia}
-\caption{La familia $G_z$ con $a=3$, $b=2$. Izquierda: Nyquist cerca del origen ($\omega\to\infty$). Derecha: $\omega^2\Re G_z(j\omega)$ tiende a $a-z$ (líneas punteadas); el signo de ese límite separa SPR de PR.}
+\caption{La familia $G_z$ con $a=3$, $b=2$. Izquierda: curva de Nyquist cerca del origen ($\omega\to\infty$). Derecha: $\omega^2\Re G_z(j\omega)$ tiende a $a-z$ (líneas punteadas); el signo de ese límite separa SPR de PR.}
 \label{fig:pa-familia}
 \end{figure}
 
 \begin{trampa}[label=tr:pa-reg]{$\Re G(j\omega)>0$ y Hurwitz no basta}
-\plausible{$G(s)=\dfrac{s+3}{(s+1)(s+2)}$ es Hurwitz y $\Re G(j\omega)=\dfrac{6}{(2-\omega^2)^2+9\omega^2}>0$ para todo $\omega$; luego es SPR.}
+\plausible{$G(s)=\dfrac{s+3}{(s+1)(s+2)}$ es Hurwitz y $\Re G(j\omega)=6/\bigl((2-\omega^2)^2+9\omega^2\bigr)>0$ para todo $\omega$; luego es SPR.}
 Es el caso $z=a$ de la familia: $G(\infty)=0$ y $\omega^2\Re G(j\omega)\to0$. Es PR, pero no SPR. Basta correr el eje un poco, $s\to s-\epsilon$, para que la curva cruce al semiplano izquierdo cerca del origen: con $\epsilon=0.1$, $\min_\omega\Re G(j\omega-0.1)\approx-5\times10^{-4}<0$.
 \correcto{Cuando $G(\infty)=0$, la condición en $\omega\to\infty$ es parte de la definición de SPR y no un detalle técnico: dice que la parte real se anula, a lo sumo, como $1/\omega^2$.}
 \end{trampa}
@@ -107,7 +107,7 @@ Sea $G(s)=C(sI-A)^{-1}B+D$ una función de transferencia $m\times m$, con $(A,B)
 Las mismas ecuaciones con $\epsilon=0$ caracterizan a $G$ PR (\emph{lema real positivo}, \citealp[Lema~6.2]{Kha02}).
 \end{lema}
 
-Es un teorema \emph{converso} con fórmula: la pasividad en frecuencia garantiza una función de almacenamiento cuadrática. La constante $\epsilon$ es el margen: el término $-\epsilon P$ es disipación en \emph{todo} el estado. Si la realización no es mínima (hay cancelaciones polo--cero), se usa la variante de Meyer--Kalman--Yakubovich~\citep{Mey65}.
+Es un teorema \emph{converso} con fórmula: la pasividad en frecuencia garantiza una función de almacenamiento cuadrática. En la \cref{sec:av-conversos} la $V$ existía pero no se podía escribir; aquí sale de las ecuaciones. La constante $\epsilon$ es el margen: el término $-\epsilon P$ es disipación en \emph{todo} el estado. Si la realización no es mínima (hay cancelaciones polo--cero), se usa la variante de Meyer--Kalman--Yakubovich~\citep{Mey65}.
 
 \begin{lema}[label=lem:pa-sprpasivo]{SPR implica estrictamente pasivo \citep[Lema~6.4]{Kha02}}
 Si $G$ es SPR, el sistema \eqref{eq:pa-lti} es estrictamente pasivo con $V=\tfrac12x\T Px$ y $\psi(x)=\tfrac\epsilon2x\T Px$. Si $G$ es PR, es pasivo.

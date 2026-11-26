@@ -24,7 +24,7 @@ Usamos $s^3+60s^2+1100s+6000=(s+10)(s+20)(s+30)$, es decir $K=[6000,\ 1100,\ 60]
 
 \subsection{Seguimiento: exacta contra jacobiana}
 
-La referencia $y_d=0.08+0.03\sin(2\pi t)$\,m recorre de $5$ a $11$\,cm. La ley jacobiana usa la ganancia fija diseñada en $\bar y=0.05$ con la prealimentación $u^*(y_d(t))$ de \eqref{eq:fl-equilibrio}; la exacta usa \eqref{eq:fl-leylev}. Para $t>1$\,s, la jacobiana tiene un error de $2.36$\,cm, con desfase; la exacta, $2\times10^{-6}$\,m, que es el error numérico (\cref{fig:fl-seguimiento}). La linealización exacta conserva la respuesta diseñada en \emph{todo} el rango de operación; la jacobiana, solo cerca del punto de diseño.
+La referencia $y_d=0.08+0.03\sin(2\pi t)$\,m recorre de $5$ a $11$\,cm. La ley jacobiana usa la ganancia fija diseñada en $\bar y=0.05$ con el \emph{feedforward} $u^*(y_d(t))$ de \eqref{eq:fl-equilibrio}; la exacta usa \eqref{eq:fl-leylev}. Para $t>1$\,s, la jacobiana tiene un error de $2.36$\,cm, con desfase; la exacta, $2\times10^{-6}$\,m, que es el error numérico (\cref{fig:fl-seguimiento}). La linealización exacta conserva la respuesta diseñada en \emph{todo} el rango de operación; la jacobiana, solo cerca del punto de diseño.
 
 \begin{figure}[ht]
 \centering
@@ -56,7 +56,7 @@ Para caer $15$\,cm con esos polos, la esfera tendría que acelerar hacia abajo m
 
 \subsection{Error de modelo}
 
-Desde $t=0.5$\,s la masa real es $0.12$\,kg y la ley sigue cancelando con $m=0.10$. Sola, la ley exacta queda con un error permanente de $1.96$\,cm, \emph{peor} que el de la realimentación de estados sobre la jacobiana ($1.03$\,cm, \cref{sec:fl-jacobiana}): la cancelación de la gravedad estaba ``perfectamente'' calculada con la masa equivocada. El remedio es el mismo de la \cref{sec:fl-jacobiana}: se agrega $\dot\sigma=y-\bar y$ al comienzo de la cadena y se diseña sobre $(\sigma,\xi_1,\xi_2,\xi_3)$,
+Desde $t=0.5$\,s la masa real es $0.12$\,kg y la ley sigue cancelando con $m=0.10$. Sola, la ley exacta queda con un error permanente de $1.96$\,cm, \emph{peor} que el de la retroalimentación de estados sobre la jacobiana ($1.03$\,cm, \cref{sec:fl-jacobiana}): la cancelación de la gravedad estaba ``perfectamente'' calculada con la masa equivocada. El remedio es el mismo de la \cref{sec:fl-jacobiana}: se agrega $\dot\sigma=y-\bar y$ al comienzo de la cadena y se diseña sobre $(\sigma,\xi_1,\xi_2,\xi_3)$,
 \[
   v=-k_0\,\sigma-k_1(\xi_1-\bar y)-k_2\,\xi_2-k_3\,\xi_3,
 \]

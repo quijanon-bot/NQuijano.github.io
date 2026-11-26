@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 11 (pasividad). PDF (notas) y SVG (web).
 Cada figura reproduce un script de codigo/cap11_pasividad/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap11_figuras.py
@@ -331,10 +332,12 @@ def agua_caras():
 
 # ---------------------------------------------------------------- historia
 def linea_tiempo():
+    # Ya no se usa en las notas: la figura es el TikZ t_linea_tiempo (herramientas/tikz.sh cap11 t_linea_tiempo);
+    # versión MATLAB en codigo/cap11_pasividad/C11_LineaTiempo.m. Se deja como referencia.
     ev = [(1931, 'Brune', 'funciones reales\npositivas'), (1944, "Lur'e y\nPostnikov", 'estabilidad\nabsoluta'),
           (1961, 'Popov', 'criterio\nfrecuencial'), (1963, 'Yakubovich,\nKalman', 'lema KYP'),
-          (1966, 'Zames', 'pasividad\nentrada-salida'), (1972, 'Willems', 'sistemas\ndisipativos'),
-          (1976, 'Hill y\nMoylan', 'disipativo \u2192\nLyapunov'), (1991, 'Byrnes, Isidori\ny Willems', 'pasivación por\nrealimentación')]
+          (1966, 'Zames', 'pasividad\nentrada\u2013salida'), (1972, 'Willems', 'sistemas\ndisipativos'),
+          (1976, 'Hill y\nMoylan', 'disipativo \u2192\nLyapunov'), (1991, 'Byrnes, Isidori\ny Willems', 'pasivación por\nretroalimentación')]
     fig, a = plt.subplots(figsize=(7.0, 1.9))
     xs = np.arange(len(ev))
     a.plot([-0.6, len(ev) - 0.4], [0, 0], color=C['gris'], lw=1.2)
@@ -353,4 +356,4 @@ def linea_tiempo():
 if __name__ == '__main__':
     masa_resorte(); senales(); sin_memoria(); integrador_filtro(); pasividad_local()
     lasalle_rlc(); nyquist_familia(); interconexion(); control_pasividad(); cascada()
-    agua_fig(); agua_caras(); linea_tiempo()
+    agua_fig(); agua_caras()

@@ -3,12 +3,12 @@
 \label{sec:pa-porque}
 %% ---------------------------------------------------------------------
 
-En el capítulo anterior escribimos la estabilidad entrada--estado en \emph{forma disipativa}: si existe una función ISS-Lyapunov $V$, entonces
+En el \cref{cap:avanzada} escribimos la estabilidad entrada--estado en \emph{forma disipativa}: si existe una función ISS-Lyapunov $V$, entonces
 \begin{equation}
   \Vdot\;\le\;\underbrace{-\alpha_3(\norm{x})}_{\text{disipación}}\;+\;\underbrace{\sigma(\norm{w})}_{\text{inyección}} ,
   \label{eq:pa-iss}
 \end{equation}
-con $\alpha_3,\sigma\in\K$ \citep{SoWa95}. Sin decirlo, ya estábamos leyendo $V$ como una \emph{energía almacenada}: la entrada exógena le inyecta a lo sumo $\sigma(\norm{w})$ por unidad de tiempo y el sistema disipa al menos $\alpha_3(\norm{x})$. En este capítulo cambiamos la inyección por la \emph{potencia} que entra por un puerto,
+con $\alpha_3,\sigma\in\Kinf$ (\cref{thm:av-sontagwang}). Sin decirlo, ya estábamos leyendo $V$ como una \emph{energía almacenada}: la entrada exógena le inyecta a lo sumo $\sigma(\norm{w})$ por unidad de tiempo y el sistema disipa al menos $\alpha_3(\norm{x})$. En este capítulo cambiamos la inyección por la \emph{potencia} que entra por un puerto,
 \begin{center}
 \sffamily\large\color{snlazul}$\Vdot\;\le\;u\T y$
 \end{center}
@@ -43,10 +43,11 @@ y nos preguntamos qué se puede concluir de un \clave{balance de energía} sin r
 \subsection{Un poco de historia: de los circuitos a cualquier sistema}
 
 Antes de 1960, \emph{pasivo} era un adjetivo de los circuitos: una red de resistencias, inductancias y capacitancias no puede entregar más energía de la que recibe. Otto Brune mostró en 1931 que una función racional es la impedancia de una red pasiva de R, L, C (y transformadores) si y solo si es \emph{real positiva}~\citep{Bru31}. La línea que lleva de ahí a la teoría moderna pasa por la estabilidad de los sistemas de control con una no linealidad (\cref{fig:pa-linea}).
+\script{cap11_pasividad/C11_LineaTiempo.m}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\linewidth]{cap11/f_linea_tiempo}
+\includegraphics[width=\linewidth]{cap11/t_linea_tiempo}
 \caption{De Brune a Byrnes, Isidori y Willems. En ámbar, los dos trabajos que convierten la pasividad en una propiedad de cualquier sistema dinámico.}
 \label{fig:pa-linea}
 \end{figure}
@@ -56,6 +57,6 @@ En 1944, Lur'e y Postnikov plantearon el problema de la \emph{estabilidad absolu
 \end{historia}
 
 \begin{pausa}
-Antes de seguir, apueste: un sistema que \emph{no puede crear energía} ---lo que almacena nunca supera lo que tenía más lo que recibió---, ¿tiene necesariamente un equilibrio estable cuando se le quita la entrada?
+Antes de seguir, apueste: un sistema que \emph{no puede crear energía} (lo que almacena nunca supera lo que tenía más lo que recibió), ¿tiene necesariamente un equilibrio estable cuando se le quita la entrada?
 \respuesta{No necesariamente. Pasividad pide un almacenamiento $V\ge0$, no definido positivo; si $V$ ``no ve'' una parte del estado, esa parte puede ser inestable. Ejemplo: $\dot x_1=x_1$, $\dot x_2=u$, $y=x_2$, $V=\tfrac12x_2^2$, que es sin pérdidas y tiene el origen inestable (\cref{sec:pa-estabilidad}). Con $V$ definida positiva sí se obtiene estabilidad (\cref{lem:pa-estable}).}
 \end{pausa}

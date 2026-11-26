@@ -28,7 +28,7 @@ Los caudales viven en el simplex escalado $\simplex_Q=\{q\in\R^N:q_i\ge0,\ \sum_
   \dot q_i=q_i\bigl(F_i-\bar F\bigr) .
   \label{eq:pa-replicador}
 \end{equation}
-Es la dinámica del replicador~\citep{TaJo78}, la misma del juego halcón--paloma del capítulo~2, ahora usada para repartir un recurso escaso: las estrategias con pago \emph{por encima} del promedio ganan caudal.
+Es la dinámica del replicador~\citep{TaJo78}, la misma del juego halcón--paloma de la \cref{sec:un-halcon}, ahora usada para repartir un recurso escaso: las estrategias con pago \emph{por encima} del promedio ganan caudal.
 
 \begin{cuidado}[Notación del artículo y del curso]
 \begin{tabular}{@{}lll@{}}
@@ -147,11 +147,11 @@ El equilibrio $(v^*,q^*)$ de \eqref{eq:pa-tanque}--\eqref{eq:pa-replicador} es a
 \end{teorema}
 
 \begin{proof}
-En $\D$, los conjuntos $\{V\le c\}\cap\D$ son compactos ($V_1$ crece con $\norm{\tilde v}$; $V_2\to\infty$ en las caras) y positivamente invariantes ($\Vdot\le0$; $\sum_iq_i=Q$ se conserva; si $v_i=0$, $\dot v_i=q_i>0$). Por LaSalle, las soluciones convergen al mayor conjunto invariante en $E=\{\Vdot=0\}=\{\tilde v=0\}$. Si $\tilde v\equiv0$, también $\dot{\tilde v}\equiv0$, y \eqref{eq:pa-tanque} da $0=\tilde q_i+q_i^*-c_i\sqrt{v^*}=\tilde q_i$. Luego $\tilde q\equiv0$ y el conjunto invariante es el equilibrio.
+En $\D$, los conjuntos $\{V\le c\}\cap\D$ son compactos ($V_1$ crece con $\norm{\tilde v}$; $V_2\to\infty$ en las caras) y positivamente invariantes ($\Vdot\le0$; $\sum_iq_i=Q$ se conserva; si $v_i=0$, $\dot v_i=q_i>0$). Por el principio de invarianza (\cref{thm:iv-lasalle}), las soluciones convergen al mayor conjunto invariante en $E=\{\Vdot=0\}=\{\tilde v=0\}$. Si $\tilde v\equiv0$, también $\dot{\tilde v}\equiv0$, y \eqref{eq:pa-tanque} da $0=\tilde q_i+q_i^*-c_i\sqrt{v^*}=\tilde q_i$. Luego $\tilde q\equiv0$ y el conjunto invariante es el equilibrio.
 \end{proof}
 
 \begin{ideaclave}
-\begin{tabular}{@{}p{4.2cm}p{8cm}@{}}
+\begin{tabular}{@{}p{4.0cm}p{7.5cm}@{}}
 \textbf{Herramienta} & \textbf{Papel en la prueba}\\
 almacenamiento (\S\ref{sec:pa-disipatividad}) & $V_1$: energía de los errores de volumen; $V_2$: entropía relativa\\
 OSP (\S\ref{sec:pa-modelos}) & los tanques: la descarga de Torricelli disipa\\
@@ -163,7 +163,7 @@ LaSalle + ``ZSO'' (\S\ref{sec:pa-estabilidad}) & de estable a AS: los tanques ha
 \end{tabular}
 \end{ideaclave}
 
-\notamargen{En $v_i=0$, $\sqrt{v_i}$ no es Lipschitz. Pero en $\D$, $q_i>0$ empuja $v_i$ hacia arriba y la solución hacia adelante es única (capítulo~2).}
+\notamargen{En $v_i=0$, $\sqrt{v_i}$ no es Lipschitz. Pero en $\D$, $q_i>0$ empuja $v_i$ hacia arriba y la solución hacia adelante es única (\cref{sec:un-unicidad}).}
 \paragraph{Simulación}
 Con $Q=2$, $r=2$, $v_m=2$ y $c=(0.6,\,1.0,\,1.4)$, en $t=40$\,s aumenta la demanda del tanque 3, $c_3=1.4\to2.0$. El nuevo equilibrio es $v^*=4/12.96\approx0.309$, $q^*=(0.333,\,0.556,\,1.111)$. En la \cref{fig:pa-agua}, $V$ se calcula respecto al equilibrio \emph{vigente}: salta en $t=40$\,s y vuelve a decrecer de forma monótona. Y no hubo cálculo central: cada válvula solo compara su pago con el promedio.
 

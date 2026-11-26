@@ -61,12 +61,12 @@ Si además $V_1$ y $V_2$ son radialmente no acotados, es globalmente asintótica
 \end{teorema}
 
 \begin{proof}[Idea]
-Con $u=0$ y $V=V_1+V_2$, la cancelación da $\Vdot\le-(\text{lo que disipa }H_1)-(\text{lo que disipa }H_2)$. En el caso 2, $\Vdot\le-y_1\T\rho_1(y_1)-y_2\T\rho_2(y_2)$; en $\{\Vdot=0\}$ se tiene $y_1=y_2=0$, luego $e_1=e_2=0$, y la observabilidad en estado cero de cada uno da $x_1=x_2=0$. El resto es el argumento de LaSalle del \cref{lem:pa-ospzso}.
+Con $u=0$ y $V=V_1+V_2$, la cancelación da $\Vdot\le-D_1-D_2$, donde $D_i\ge0$ es lo que disipa $H_i$. En el caso 2, $\Vdot\le-y_1\T\rho_1(y_1)-y_2\T\rho_2(y_2)$; en $\{\Vdot=0\}$ se tiene $y_1=y_2=0$, luego $e_1=e_2=0$, y la observabilidad en estado cero de cada uno da $x_1=x_2=0$. El resto es el \cref{cor:iv-as} (y el \cref{cor:iv-gas} para la parte global).
 \end{proof}
 
 \begin{trampa}[label=tr:pa-cadauno]{``Cada almacenamiento decrece''}
 \plausible{La prueba del \cref{thm:pa-lazoAS} usa que $\Vdot_1\le0$ y $\Vdot_2\le0$.}
-No. Cada almacenamiento puede subir mientras recibe energía del otro; solo la suma es monótona. La versión anterior de estas notas decía lo contrario. La \cref{fig:pa-interconexion} lo muestra: toda la energía empieza en $H_1$, $V_2$ sube de $0$ a casi $0.5$ y $V_1$ también sube en algunos intervalos, pero $V_1+V_2$ nunca crece.
+No. Cada almacenamiento puede subir mientras recibe energía del otro; solo la suma es monótona. La \cref{fig:pa-interconexion} lo muestra: toda la energía empieza en $H_1$, $V_2$ sube de $0$ a casi $0.5$ y $V_1$ también sube en algunos intervalos, pero $V_1+V_2$ nunca crece.
 \correcto{El teorema solo pide $\Vdot_1+\Vdot_2\le0$ en el lazo, que se obtiene de la cancelación de las potencias.}
 \end{trampa}
 
@@ -90,8 +90,10 @@ Basta $\epsilon_2+\delta_1>0$ y $\epsilon_1+\delta_2>0$: una escasez en la salid
 \begin{ejemplo}[label=ej:pa-osciladores]{Dos osciladores no lineales}
 Pruebe que el origen de la conexión estándar de
 \[
-  H_1:\ \dot x_1=x_2,\ \ \dot x_2=-a x_1^3-k x_2+e_1,\ \ y_1=x_2;\qquad
-  H_2:\ \dot x_3=x_4,\ \ \dot x_4=-b x_3-x_4^3+e_2,\ \ y_2=x_4,
+  \begin{aligned}
+  H_1&:\ \dot x_1=x_2,\ \ \dot x_2=-a x_1^3-k x_2+e_1,\ \ y_1=x_2;\\
+  H_2&:\ \dot x_3=x_4,\ \ \dot x_4=-b x_3-x_4^3+e_2,\ \ y_2=x_4,
+  \end{aligned}
 \]
 con $a,b,k>0$, es globalmente asintóticamente estable.
 \solucion Con los almacenamientos (energía de cada oscilador)

@@ -1,4 +1,5 @@
 %% C11_Video_Balance -- Video V11_1: la energía que entra, la que se guarda y la que se pierde
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  La masa con resorte duro de C11_Ej1 moviéndose, y tres barras que
 %              crecen: energía suministrada int u y, disipada int delta y^2 y
 %              almacenada V. En todo instante  almacenada = V(0) + suministrada - disipada.
@@ -23,7 +24,7 @@ resorte = plot(ax1, 0, 0, 'Color', [0.36 0.40 0.49]);
 masa = fill(ax1, [-0.2 0.2 0.2 -0.2], [-0.25 -0.25 0.25 0.25], [0.12 0.35 0.66]);
 flecha = quiver(ax1, 0, 0, 0, 0, 0, 'Color', [0.82 0.29 0.36], 'LineWidth', 2, 'MaxHeadSize', 2);
 ax2 = subplot(2,2,2); barras = bar(ax2, [0 0 0], 'FaceColor', 'flat');
-barras.CData = [0.16 0.62 0.56; 0.42 0.29 0.71; 0.08 0.13 0.24];
+try, barras.CData = [0.16 0.62 0.56; 0.42 0.29 0.71; 0.08 0.13 0.24]; catch, end   % (Octave no colorea cada barra)
 set(ax2, 'XTickLabel', {'suministrada', 'disipada', 'almacenada'}); ylim(ax2, [0 5.5]); grid(ax2, 'on');
 ax3 = subplot(2,1,2); hold(ax3, 'on'); grid(ax3, 'on'); xlim(ax3, [0 30]); ylim(ax3, [0 5.5]);
 lS = plot(ax3, nan, nan); lD = plot(ax3, nan, nan); lV = plot(ax3, nan, nan, 'k', 'LineWidth', 2.5);
@@ -40,7 +41,7 @@ for k = 1:numel(t)
     set(resorte, 'XData', xs, 'YData', 0.12*sin(linspace(0, 16*pi, 200)));
     set(masa, 'XData', xm + [-0.2 0.2 0.2 -0.2]);
     set(flecha, 'XData', xm, 'YData', 0.4, 'UData', 0.5*u(t(k)), 'VData', 0);
-    barras.YData = [S(k) D(k) V(k)];
+    set(barras, 'YData', [S(k) D(k) V(k)]);
     set(lS, 'XData', t(1:k), 'YData', S(1:k)); set(lD, 'XData', t(1:k), 'YData', D(1:k));
     set(lV, 'XData', t(1:k), 'YData', V(1:k));
     title(ax2, sprintf('$t=%.1f$ s:  $V=%.3f=%.3f-%.3f$', t(k), V(k), S(k), D(k)));

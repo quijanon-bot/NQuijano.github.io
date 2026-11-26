@@ -1,4 +1,5 @@
 %% C12_Ej6_GradoRelativo -- Notas: sección 12.5 (grado relativo)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Sistemas lineales: calcula los parámetros de Markov C A^k B de cuatro
 %            funciones de transferencia y mide la pendiente de la respuesta al escalón
 %            cerca de t = 0 en escala log-log. (2) Van der Pol con dos salidas.
@@ -53,13 +54,22 @@ fprintf('b se anula en i = %g: allí el grado relativo no está definido\n', ii(
 % es idénticamente cero cerca de 0: ninguna de las dos condiciones de la definición se cumple.
 % [fin:nodefinido]
 
-fig = estiloFigura(1000, 420);
-subplot(1, 2, 1); hold on;
+
+
+% ---- Figura de las notas (fig:fl-gradolineal) ------------------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;  cl = [201 209 222]/255;
+claro = @(c, a) 1 - a*(1 - c);                            % color pálido, sin transparencia
+fig = estiloFigura(800, 500);  tt = logspace(-3, 0.4, 120);
+nums = {1, 1, 1, [1 2]};  dens = {[1 1], [1 2 1], [1 3 3 1], [1 4 3]};  cs = [az; vi; co; am];  es = {'-', '-', '-', '--'};
 for j = 1:4
-    num = G{j,1}; den = G{j,2}; n = numel(den) - 1;
-    A = [zeros(n-1,1) eye(n-1); -fliplr(den(2:end))]; B = [zeros(n-1,1); 1]; C = zeros(1,n); C(1:numel(num)) = fliplr(num);
-    tt = logspace(-3, 0.3, 60); yy = arrayfun(@(t) sum(arrayfun(@(k) C*A^(k-1)*B*t^k/factorial(k), 1:25)), tt);
-    loglog(tt, abs(yy));
+    den = dens{j};  num = nums{j};  n = numel(den) - 1;
+    A_ = [zeros(n-1, 1) eye(n-1); -fliplr(den(2:end))];  B_ = [zeros(n-1, 1); 1];
+    C_ = zeros(1, n);  C_(1:numel(num)) = fliplr(num);
+    y = zeros(size(tt));
+    for kk = 1:29, y = y + C_*A_^(kk-1)*B_*tt.^kk/factorial(kk); end
+    loglog(tt, abs(y), es{j}, 'Color', cs(j,:));  hold on;
 end
-set(gca, 'XScale', 'log', 'YScale', 'log'); grid on; xlabel('$t$'); ylabel('$y(t)$'); title('Pendiente = $r$');
-subplot(1, 2, 2); plot(ii, bi); grid on; xlabel('$i$ [A]'); ylabel('$L_gL_f^2h$'); title('Levitador, $y=0.05$');
+for r = 1:3, loglog(tt(1:40), tt(1:40).^r/factorial(r), ':', 'Color', gr, 'LineWidth', 0.9); end
+grid on;  box on;  xlabel('$t$');  ylabel('$y(t)$ (escal\''on)');  title('Cerca de $t=0$: $y\approx CA^{r-1}B\,t^r/r!$');
+legend('$1/(s+1)$, $r=1$', '$1/(s+1)^2$, $r=2$', '$1/(s+1)^3$, $r=3$', '$(s+2)/((s+1)(s+3))$, $r=1$', 'Location', 'southeast');

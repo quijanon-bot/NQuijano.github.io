@@ -1,4 +1,5 @@
 function P = parametrosLevitador()
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % PARAMETROSLEVITADOR  Parámetros del levitador magnético (sección 12.1).
 %   Modelo de Khalil (2002). Unidades SI. La inductancia es L(y) = L1 + L0/(1 + y/a);
 %   no confundirla con la derivada de Lie L_f h (siempre lleva subíndice).

@@ -1,4 +1,5 @@
 %% C12_Video_Levitador -- Video V12_1: seguimiento exacto contra jacobiano
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Dos levitadores siguen y_d = 0.08 + 0.03 sin(2 pi t). Izquierda: la ley
 %              jacobiana con ganancia fija (diseñada en 0.05 m); derecha: la
 %              linealización exacta. Abajo, posición y voltaje. Cámara lenta x4.

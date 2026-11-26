@@ -1,4 +1,5 @@
 %% C12_Video_FaseNoMinima -- Video V12_2: la salida converge, el estado escapa
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  x1' = x1 + x2, x2' = 3 x1^2 x2 + x1 + u, y = -x1^3 + x2, con la ley
 %              u = -x1 + 3 x1^3 - 2 y. La trayectoria llega a Z* = {x2 = x1^3} y se
 %              desliza por ella; y -> 0 mientras eta = x1 y el control explotan.

@@ -52,7 +52,7 @@ herramientas/tikz.sh cap11 t_feedback      # recompilar un diagrama TikZ
 
 En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01` (36), `verificarCap02` (37), `verificarCap03` (33), `verificarCap04` (38), `verificarCap05` (34), `verificarCap06` (42), `verificarCap07` (34), `verificarCap08` (39), `verificarCap09` (51), `verificarCap10` (46), `verificarCap11` (39) o `verificarCap12` (37).
 
-## Estado de las pruebas (16 de noviembre de 2026)
+## Estado de las pruebas (26 de noviembre de 2026)
 
 - Capítulo 9: `cap09_numeros.py` 90/90, `verificarCap09` 51/51 en Octave 8.4; los once `C9_Ej*` corren en Octave y los cuatro `C9_Video_*` se probaron sin grabar. Los videos publicados en el sitio se generaron con `herramientas/cap09_videos.py`. **Falta correr en MATLAB** `crearModelo_MathieuAmortiguada` (Simulink).
 - Capítulo 8: `cap08_numeros.py` 99/99, `verificarCap08` 39/39 en Octave 8.4; los quince `C8_Ej*` corren en Octave y los cuatro `C8_Video_*` se probaron sin grabar. Los videos publicados en el sitio se generaron con `herramientas/cap08_videos.py`. **Falta correr en MATLAB** `crearModelo_AdaptativoLaSalle` (Simulink).
@@ -67,14 +67,11 @@ En MATLAB: `run codigo/iniciarCurso.m` y luego `verificarCap01` (36), `verificar
 
 - Capítulo 7: `cap07_numeros.py` 78/78, `verificarCap07` 34/34 en Octave 8.4; los diez `C7_Ej*` y los cuatro `C7_Video_*` (sin grabar) corren en Octave. Los videos publicados en el sitio se generaron con `herramientas/cap07_videos.py`. **Falta correr en MATLAB** `crearModelo_PenduloLyapunov` (Simulink).
 
-- Capítulo 12: `cap12_numeros.py` 88/88, `verificarCap12` 37/37 en Octave 8.4; los doce `C12_Ej*` y los cuatro `C12_Video_*` (sin grabar) corren en Octave. **Falta correr en MATLAB** los videos y `crearModelo_LevitadorFL`.
+- Capítulo 12 (auditado, 26 nov. 2026): `cap12_numeros.py` 88/88, `verificarCap12` 37/37 en Octave 8.4 y en MATLAB R2024b; los doce `C12_Ej*` (con la versión completa de cada figura del libro), los cuatro `C12_Video_*` (grabados) y `crearModelo_LevitadorFL` (Simulink, igual a `ode45` en $5.6\times10^{-17}$ m) corren en MATLAB. Los videos publicados en el sitio se generaron con `herramientas/cap12_videos.py`.
 
 - Capítulos 3 y 5: `cap03_numeros.py` 43/43, `cap05_numeros.py` 59/59, `verificarCap03` 33/33 y `verificarCap05` 34/34 en Octave 8.4. **Falta correr en MATLAB** los `C3_Video_*`, `C5_Video_*` y `crearModelo_VanDerPol`.
 
-- `herramientas/cap11_numeros.py`: 72/72.
-- `verificarCap11.m`: 39/39 en GNU Octave 8.4. Los catorce `C11_Ej*` corren en Octave sin errores.
-- **Falta correr en MATLAB:** los cinco `C11_Video_*` (VideoWriter) y los tres `crearModelo_*` (Simulink no estaba disponible). Cada `crearModelo_*` simula al final y compara con `ode45`: si algo falla, el mensaje dice qué bloque.
-- Las figuras de las notas se generan con Python (`cap11_figuras.py`) con los mismos modelos que los scripts de MATLAB.
+- Capítulo 11 (auditado, 26 nov. 2026): `cap11_numeros.py` 72/72, `verificarCap11` 39/39 en Octave 8.4 y en MATLAB R2024b. Los catorce `C11_Ej*` (con la versión completa de cada figura del libro) y `C11_LineaTiempo` corren en MATLAB; los cinco `C11_Video_*` graban, y los tres `crearModelo_*` (Simulink) coinciden con `ode45`. Las figuras de las notas se generan con Python (`cap11_figuras.py`) y TikZ (`t_linea_tiempo`, entre otras); los videos publicados, con `herramientas/cap11_videos.py`.
 
 ## Publicar en GitHub Pages
 

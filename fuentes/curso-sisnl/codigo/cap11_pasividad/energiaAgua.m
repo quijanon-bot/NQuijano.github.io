@@ -1,4 +1,5 @@
 function [V1, V2, vs, qs] = energiaAgua(X, c, Q, r, vm)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % ENERGIAAGUA  Almacenamientos del lazo tanques-replicador respecto al equilibrio vigente.
 %   X: matriz con una fila por instante, [v q];  c: descargas.
 %   V1 = r/(2 Q vm) sum (v_i - v*)^2          (tanques, OSP)

@@ -1,4 +1,5 @@
 %% C11_Video_LaSalle -- Video V11_2: OSP + ZSO, la trayectoria toca E y no se queda
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  El RLC serie con u = 0 en el plano (x1, x2) con los círculos de nivel
 %              de V y la recta E = {x2 = 0} (donde V' = 0) en rojo. A la derecha,
 %              V(x(t)): cada vez que la trayectoria cruza E, la curva se aplana.

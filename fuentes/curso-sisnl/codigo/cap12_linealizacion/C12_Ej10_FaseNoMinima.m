@@ -1,4 +1,5 @@
 %% C12_Ej10_FaseNoMinima -- Notas: sección 12.9 (un ejemplo que se ve perfecto)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   x1' = x1 + x2,  x2' = 3 x1^2 x2 + x1 + u,  y = -x1^3 + x2  (r = 1).
 %            Con xi = h(x), eta = x1:  xi' = eta - 3 eta^3 + u,  eta' = xi + eta + eta^3.
 %            Ley: u = -eta + 3 eta^3 + v,  v = -k xi  (k = 2)  =>  xi' = -2 xi.
@@ -33,9 +34,21 @@ fprintf('|eta| = 2.2 en t = %.3f s; en ese instante |y| = %.3f (y(0) = %.3f)\n',
 fprintf('dinámica cero sola desde 0.05: escapa en t = %.3f s\n', log(1 + 1/0.05^2)/2);
 % [fin:escape]
 
-fig = estiloFigura(1100, 420);
-subplot(1, 2, 1); xx = linspace(-0.3, 2.4, 200); plot(xx, xx.^3, 'Color', [42 157 143]/255, 'LineWidth', 3); hold on;
-plot(X(:,1), X(:,2)); grid on; axis([-0.3 2.4 -1 12]); xlabel('$x_1=\eta$'); ylabel('$x_2$');
-legend('$Z^*=\{x_2=x_1^3\}$', 'trayectoria', 'Location', 'northwest');
-subplot(1, 2, 2); plot(t, y, t, X(:,1)); grid on; xlabel('$t$'); legend('$y=\xi$', '$\eta=x_1$', 'Location', 'northwest');
-title('La salida converge; el estado escapa');
+
+
+% ---- Figura de las notas (fig:fl-nominima) ---------------------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;  cl = [201 209 222]/255;
+claro = @(c, a) 1 - a*(1 - c);                            % color pálido, sin transparencia
+rhs = @(t, x) [x(1) + x(2); 3*x(1)^2*x(2) + x(1) + (-x(1) + 3*x(1)^3 - 2*(-x(1)^3 + x(2)))];
+[t, X] = ode45(rhs, [0 10], [0.05; 0.6], odeset('RelTol', 1e-10, 'AbsTol', 1e-12, 'MaxStep', 0.002, ...
+               'Events', @(t, x) eventoODE(abs(x(1)) - 2.2, 1, 0)));
+fig = estiloFigura(1200, 460);
+subplot(1, 2, 1);  hold on;  xx = linspace(-0.3, 2.4, 300);
+plot(xx, xx.^3, 'Color', claro(ve, 0.6), 'LineWidth', 4);  plot(X(:,1), X(:,2), 'Color', az);
+plot(0.05, 0.6, 'o', 'Color', no, 'MarkerFaceColor', no, 'MarkerSize', 4);
+axis([-0.3 2.4 -1 11]);  grid on;  box on;  xlabel('$x_1=\eta$');  ylabel('$x_2$');  title('Llega a $Z^*$ y se va por ella');
+legend('$Z^*=\{x_2=x_1^3\}$', 'Location', 'northwest');
+subplot(1, 2, 2);  hold on;  plot(t, -X(:,1).^3 + X(:,2), 'Color', az);  plot(t, X(:,1), 'Color', co);
+grid on;  box on;  xlabel('$t$');  title('$y\to0$ como se dise\~n\''o; $\eta$ escapa');
+legend('$y=\xi$', '$\eta=x_1$', 'Location', 'northwest');

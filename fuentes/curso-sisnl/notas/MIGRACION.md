@@ -65,6 +65,28 @@ El capítulo 11 (pasividad) es el piloto. El esquema es el mismo del curso de Co
 - La foto de Duffing de las diapositivas no se pasó a las notas; si se quiere, va en `notas/figuras/cap04/` con su crédito.
 - Los capítulos 2, 3, 5 y 7 ya citan este capítulo con `\cref{cap:bidimensionales}`.
 
+## Correcciones del capítulo 12 respecto a Handout9_2 y las diapositivas de 2025
+
+Trasladado desde el cierre del capítulo (caja `profundiza`) el 26 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):
+
+(i) En el ejemplo de fase no mínima, $\dot\eta=\xi+\eta+\eta^3$; la versión anterior tenía $\xi+3\eta^2+\eta^3$. (ii) La transformación de la salida es $\bar h(z)=h(\Phi^{-1}(z))$, no $\bigl[\jac\Phi xh(x)\bigr]_{x=\Phi^{-1}(z)}$. (iii) ``Las \emph{zero dynamics} no son una propiedad intrínseca del sistema'' era engañoso: no dependen de las coordenadas ni de la realimentación; sí dependen de la salida (\cref{tr:fl-intrinseca}). (iv) En el ejemplo con $\phi_3=1+x_1-e^{x_2}$, la ecuación de $\eta$ lleva un signo menos: $\dot\eta=-(-1+\eta+e^{\xi_2})(1+\xi_2e^{\xi_2})$. (v) En el ejemplo de fase mínima, la entrada que anula la salida es $u=-a/b$, no $a/b$. (vi) La forma normal de van der Pol con $y=x_1^2+x_2$ tenía erratas ($2z_z^3$, la ecuación de $\dot x_2$ en vez de $\dot z_2$); la correcta está en el \cref{ej:fl-coordvdp}. (vii) Van der Pol se escribe como en el \cref{cap:orbitas}, $\mu(1-x_1^2)x_2$, y no $(1-\epsilon x_1^2)x_2$. (viii) Masa del levitador con una sola letra, $m$. (ix) Se agregaron la condición de rango del control integral, la prueba del teorema local, la necesidad de ISS para un resultado global, las trampas de diseño de Kokotović y Arcak, y el puente con la pasividad.
+
+Comentarios sobre versiones anteriores que estaban dentro del texto, trasladados el 26 de noviembre de 2026 (auditoría, C12-E-01):
+
+- `s06_forma_normal.tex`: (la versión anterior de estas notas lo había perdido)
+- `s09_dinamica_cero.tex`: (La versión anterior de estas notas tenía $\dot\eta=\xi+3\eta^2+\eta^3$; lo correcto es lo de arriba.)
+- `s09_dinamica_cero.tex`, trampa `tr:fl-intrinseca`: Así lo decía la versión anterior de estas notas, y es engañoso.
+
+## Correcciones del capítulo 11 respecto a Handout8
+
+Trasladado desde el cierre del capítulo (caja `profundiza`) el 26 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):
+
+(i) El criterio de Popov es de 1961 (el handout decía 1962) y el lema KYP se atribuye a Yakubovich (1962) y Kalman (1963), con referencias exactas. (ii) La prueba de estabilidad del lazo \emph{no} usa $\Vdot_1\le0$ y $\Vdot_2\le0$ por separado (\cref{tr:pa-cadauno}). (iii) Se distingue OSP de estrictamente pasivo, con la prueba de que el RLC serie no es estrictamente pasivo con ningún almacenamiento. (iv) Se agregó la observabilidad en estado cero como hipótesis explícita y la prueba de que, con ella, el almacenamiento resulta definido positivo. (v) La notación se unificó con \texttt{notacion.sty}: sin negrillas, $s(u,y)$ para el suministro, $V$ para el almacenamiento, retroalimentación en lugar de realimentación; los términos en inglés (\emph{storage}, \emph{radially unbounded}, \emph{zero-state observable}) se tradujeron. (vi) La figura pendiente de la cascada (``AÑADIR FIGURA'') es la \cref{fig:pa-cascada}, y se agregó la trampa del escape en tiempo finito. (vii) La aplicación de distribución de agua se escribió con la notación del curso ($q_i$, $F_i$, $H_1$, $H_2$) y se agregaron la prueba de $V_2\ge0$ por Jensen y la trampa de las caras. Todos los números se verificaron con \texttt{herramientas/cap11\_numeros.py} (72 de 72) y \cmd{verificarCap11.m} (39 de 39).
+
+Comentarios sobre versiones anteriores que estaban dentro del texto, trasladados el 26 de noviembre de 2026 (auditoría, C11-E-01):
+
+- `s08_interconexion.tex`: La versión anterior de estas notas decía lo contrario.
+
 ## Correcciones del capítulo 10 respecto a Handout7 y las diapositivas de estabilidad avanzada
 
 Trasladado desde el cierre del capítulo (caja `profundiza`) el 25 de noviembre de 2026, por decisión del autor durante la auditoría. Se conserva el texto original (LaTeX):
@@ -161,9 +183,9 @@ Además, la trampa `tr:in-cubico` decía "Así lo decían las versiones anterior
 
 ## Pendientes del capítulo 12 (migrado el 9 de noviembre de 2026)
 
-- Correr en MATLAB `C12_Video_*` y `crearModelo_LevitadorFL` (los videos se probaron en Octave sin grabar; el modelo de Simulink no se pudo probar). Los scripts originales de las clases (`FL1_V*`, `FL2_V*`, carpeta `Present2026/FeedbackLinearization2026/matlab`) quedan como están.
-- Confirmar en Khalil (3.ª ed.): el levitador como ejercicio del cap. 1 y sus valores numéricos, §12.2–12.3, §13.2, Lema 4.7; y en Isidori (1995): Lema 4.1.1 y Prop. 4.1.3.
-- Verificar datos de Bro78 (páginas en las memorias de IFAC 1978), JaRe80 y HSM83.
+- Correr en MATLAB `C12_Video_*` y `crearModelo_LevitadorFL` (los videos se probaron en Octave sin grabar; el modelo de Simulink no se pudo probar). *(Hecho el 26 de noviembre de 2026, auditoría.)* Los scripts originales de las clases (`FL1_V*`, `FL2_V*`, carpeta `Present2026/FeedbackLinearization2026/matlab`) quedan como están.
+- Confirmar en Khalil (3.ª ed.): el levitador como ejercicio del cap. 1 y sus valores numéricos, §12.2–12.3, §13.2, Lema 4.7; y en Isidori (1995): Lema 4.1.1 y Prop. 4.1.3. *(Cotejado con el PDF de Khalil el 26 de noviembre de 2026, auditoría: el levitador es el Ej. 1.18 y los valores numéricos están en los Ej. 12.8 y 13.27 (ahora citados); las condiciones de linealización entrada--estado están en §13.3, no en §13.2 (corregido); Lema 4.7 y §12.3 coinciden. Isidori: sin copia digital; la numeración se dejó como estaba.)*
+- Verificar datos de Bro78 (páginas en las memorias de IFAC 1978), JaRe80 y HSM83. *(Revisados el 26 de noviembre de 2026: coinciden con las citas habituales; sin DOI. La aplicación a helicópteros no está en HSM83 sino en trabajos del mismo grupo en NASA Ames (1982--83); el texto de §12.1 se corrigió.)*
 
 ## Pendientes de los capítulos 3 y 5 (migrados el 9 de noviembre de 2026)
 
@@ -174,6 +196,6 @@ Además, la trampa `tr:in-cubico` decía "Así lo decían las versiones anterior
 
 ## Pendientes del piloto
 
-- Correr en MATLAB los `C11_Video_*` y los `crearModelo_*` (no se pudieron probar sin MATLAB/Simulink).
-- Confirmar en la 3.ª edición de Khalil la numeración citada: Def. 6.1, 6.3, 6.4, 6.5; Lemas 6.1–6.4, 6.6, 6.7; Teoremas 6.1 y 6.3; §14.4.
-- Verificar volumen y páginas de las entradas nuevas de `referencias.bib` (LuPo44, Pop61, Yak62 en particular).
+- Correr en MATLAB los `C11_Video_*` y los `crearModelo_*` (no se pudieron probar sin MATLAB/Simulink). *(Hecho el 26 de noviembre de 2026, auditoría.)*
+- Confirmar en la 3.ª edición de Khalil la numeración citada: Def. 6.1, 6.3, 6.4, 6.5; Lemas 6.1–6.4, 6.6, 6.7; Teoremas 6.1 y 6.3; §14.4. *(Cotejado con el PDF el 26 de noviembre de 2026: todo coincide, salvo que la parte PR de la prueba en frecuencia es la Def. 6.4 (el Lema 6.1 es solo SPR; ahora se citan los dos) y el diodo túnel es la §1.2.2, no un ejemplo.)*
+- Verificar volumen y páginas de las entradas nuevas de `referencias.bib` (LuPo44, Pop61, Yak62 en particular). *(Revisados el 26 de noviembre de 2026: coinciden con las citas habituales.)*

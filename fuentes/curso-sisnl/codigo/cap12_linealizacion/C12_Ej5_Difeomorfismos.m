@@ -1,4 +1,5 @@
 %% C12_Ej5_Difeomorfismos -- Notas: sección 12.4 (difeomorfismos y cambio de coordenadas)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) Phi(x) = (x1, x2 + x1^3/2): calcula su inversa y verifica que es un
 %            difeomorfismo global. (2) Phi(x) = (e^x1 cos x2, e^x1 sin x2): jacobiano no
 %            singular en todo punto, pero no es uno a uno. (3) Van der Pol en las
@@ -35,11 +36,23 @@ err = 0;  for i = 1:1000, err = max(err, norm(Phvi(Phv(X(:,i))) - X(:,i))); end
 fprintf('van der Pol, z = (x1^2 + x2, x1): det = -1, error de la inversa %.1e\n', err);
 % [fin:vdp]
 
-fig = estiloFigura(1000, 460);  s = linspace(-2, 2, 200);
-subplot(1, 2, 1); hold on;
-for c = linspace(-2, 2, 11), plot(c*ones(size(s)), s + c^3/2, 'Color', [30 90 168]/255);
-    plot(s, c + s.^3/2, 'Color', [209 73 91]/255); end
-axis([-2 2 -4 4]); title('$(x_1,\ x_2 + x_1^3/2)$: global');
-subplot(1, 2, 2); hold on; th = linspace(0, 4*pi, 800);
-for c = linspace(-0.8, 0.5, 8), plot(exp(c)*cos(th), exp(c)*sin(th)); end
-axis equal; title('$e^{x_1}(\cos x_2, \sin x_2)$: la franja da dos vueltas');
+
+
+% ---- Figura de las notas (fig:fl-difeo) ------------------------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;  cl = [201 209 222]/255;
+claro = @(c, a) 1 - a*(1 - c);                            % color pálido, sin transparencia
+fig = estiloFigura(1200, 520);  s = linspace(-2, 2, 200);
+subplot(1, 2, 1);  hold on;
+for c = linspace(-2, 2, 11)
+    plot(c*ones(size(s)), s + c^3/2, 'Color', az, 'LineWidth', 0.9);  plot(s, c + s.^3/2, 'Color', co, 'LineWidth', 0.9);
+end
+axis([-2.2 2.2 -4.5 4.5]);  box on;  xlabel('$z_1$');  ylabel('$z_2$');  title('$\Phi=(x_1,\ x_2+x_1^3/2)$: global');
+subplot(1, 2, 2);  hold on;  th1 = linspace(0, 2*pi, 300);  th2 = linspace(2*pi, 4*pi, 300);
+for c = linspace(-0.8, 0.5, 6)
+    plot(exp(c)*cos(th1), exp(c)*sin(th1), 'Color', claro(az, 0.6), 'LineWidth', 2.4);
+    plot(exp(c)*cos(th2), exp(c)*sin(th2), '--', 'Color', co, 'LineWidth', 1.2);
+end
+plot(1, 0, 'o', 'Color', no, 'MarkerFaceColor', no, 'MarkerSize', 5);
+plot([0.55 0.97], [-1.3 -0.06], 'Color', no, 'LineWidth', 0.8);  text(0.25, -1.45, '$\Psi(0,0)=\Psi(0,2\pi)$');
+axis equal;  axis([-1.9 1.9 -1.9 1.9]);  box on;  title('$\Psi=e^{x_1}(\cos x_2,\sin x_2)$: dos vueltas');

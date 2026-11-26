@@ -1,4 +1,5 @@
 function [A, B] = jacobianoLevitador(yb, P)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % JACOBIANOLEVITADOR  Linealización jacobiana del levitador en el equilibrio y = yb.
 D = P.L1*(P.a + yb) + P.L0*P.a;
 A = [ 0,                1,          0;

@@ -10,12 +10,12 @@ El sistema $y=h(u)$, $h:\R^m\to\R^m$, es
 \begin{itemize}
   \item \clave{pasivo} si $u\T y\ge0$ para todo $u$;
   \item \clave{sin pérdidas} si $u\T y=0$ para todo $u$;
-  \item \clave{pasivo con prealimentación de la entrada} si $u\T y\ge u\T\varphi(u)$ para alguna función $\varphi$, y \clave{estrictamente pasivo en la entrada} (ISP, \emph{input strictly passive}) si además $u\T\varphi(u)>0$ para todo $u\neq0$;
+  \item \clave{pasivo con \emph{feedforward} (prealimentación) en la entrada} (\emph{input-feedforward passive}) si $u\T y\ge u\T\varphi(u)$ para alguna función $\varphi$, y \clave{estrictamente pasivo en la entrada} (ISP, \emph{input strictly passive}) si además $u\T\varphi(u)>0$ para todo $u\neq0$;
   \item \clave{pasivo con retroalimentación de la salida} si $u\T y\ge y\T\rho(y)$ para alguna función $\rho$, y \clave{estrictamente pasivo en la salida} (OSP, \emph{output strictly passive}) si además $y\T\rho(y)>0$ para todo $y\neq0$.
 \end{itemize}
 \end{definicion}
 
-En el caso escalar, $u\,h(u)\ge0$ quiere decir que la gráfica de $h$ vive en el primer y tercer cuadrantes. El ``exceso'' $\varphi$ o $\rho$ dice cuánta potencia sobra; si $u\T\varphi(u)<0$ para algún $u$, hay \emph{escasez}, y el sistema puede no ser pasivo. Las dos definiciones con $\varphi$ y $\rho$ tienen una lectura de diagrama de bloques (\cref{fig:pa-transformaciones}): una \emph{prealimentación} $-\varphi(u)$ quita el exceso o la escasez en la entrada, y una \emph{retroalimentación positiva} $u=\tilde u+\rho(y)$ quita el de la salida. En ambos casos lo que queda es pasivo:
+En el caso escalar, $u\,h(u)\ge0$ quiere decir que la gráfica de $h$ vive en el primer y tercer cuadrantes. El ``exceso'' $\varphi$ o $\rho$ dice cuánta potencia sobra; si $u\T\varphi(u)<0$ para algún $u$, hay \emph{escasez}, y el sistema puede no ser pasivo. Las dos definiciones con $\varphi$ y $\rho$ tienen una lectura de diagrama de bloques (\cref{fig:pa-transformaciones}): un \emph{feedforward} $-\varphi(u)$ quita el exceso o la escasez en la entrada, y una \emph{retroalimentación positiva} $u=\tilde u+\rho(y)$ quita el de la salida. En ambos casos lo que queda es pasivo:
 \[
   u\T\bigl(y-\varphi(u)\bigr)=u\T y-u\T\varphi(u)\ge0,
   \qquad
@@ -32,8 +32,8 @@ En el caso escalar, $u\,h(u)\ge0$ quiere decir que la gráfica de $h$ vive en el
 \begin{definicion}[label=def:pa-sector]{Sector}
 Una función escalar $h$ está en el \clave{sector} $[\alpha,\beta]$, y se escribe $h\in[\alpha,\beta]$, si
 \begin{equation}
-  \alpha u^2\le u\,h(u)\le\beta u^2\qquad\text{para todo }u,
-  \qquad\text{o, equivalentemente,}\qquad \bigl(h(u)-\alpha u\bigr)\bigl(h(u)-\beta u\bigr)\le0 .
+  \alpha u^2\le u\,h(u)\le\beta u^2\quad\text{para todo }u;
+  \ \ \text{o sea,}\ \ \bigl(h(u)-\alpha u\bigr)\bigl(h(u)-\beta u\bigr)\le0 .
   \label{eq:pa-sector}
 \end{equation}
 Con $\beta=\infty$ se escribe $h\in[\alpha,\infty]$ y se pide solo la primera desigualdad.
@@ -51,13 +51,13 @@ La saturación $\sat(u)$ está en el sector $[0,1]$: es pasiva \emph{y} OSP, con
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{cap11/f_sin_memoria}
-\caption{Tres no linealidades estáticas. Izquierda: la característica del diodo túnel de \citet[ej.~1.2.2]{Kha02}; tiene pendiente negativa y es pasiva. Centro: $h(u)=0.9u+0.25\sin2u$ está en el sector $[0.79,\,1.40]$, dentro de $[\alpha,\beta]=[0.25,\,1.5]$ (en verde). Derecha: la saturación, en el sector $[0,1]$.}
+\caption{Tres no linealidades estáticas. Izquierda: la característica del diodo túnel de \citet[\S1.2.2]{Kha02}; tiene pendiente negativa y es pasiva. Centro: $h(u)=0.9u+0.25\sin2u$ está en el sector $[0.79,\,1.40]$, dentro de $[\alpha,\beta]=[0.25,\,1.5]$ (en verde). Derecha: la saturación, en el sector $[0,1]$.}
 \label{fig:pa-sinmemoria}
 \end{figure}
 
 \begin{trampa}[label=tr:pa-pendiente]{``Pendiente negativa, luego no es pasivo''}
 \plausible{El diodo túnel tiene resistencia diferencial negativa (pendiente negativa) entre $0.14$ y $0.66$\,V; por lo tanto, no es un elemento pasivo.}
-La pasividad mira el \emph{signo de la potencia}, $u\,h(u)$, no la pendiente de $h$. La característica del diodo túnel tiene pendiente negativa en $(0.1381,\,0.6601)$\,V, pero su mínimo local vale $h(0.6601)=0.0683$\,mA$\,>0$: la gráfica nunca sale del primer y tercer cuadrantes y $u\,h(u)\ge0$ para todo $u$. El diodo no entrega energía; lo que hace la pendiente negativa es que, \emph{alrededor de un punto de operación}, las perturbaciones pequeñas vean una resistencia negativa. Por eso el circuito del capítulo~2 tiene un equilibrio inestable.
+La pasividad mira el \emph{signo de la potencia}, $u\,h(u)$, no la pendiente de $h$. La característica del diodo túnel tiene pendiente negativa en $(0.1381,\,0.6601)$\,V, pero su mínimo local vale $h(0.6601)=0.0683$\,mA$\,>0$: la gráfica nunca sale del primer y tercer cuadrantes y $u\,h(u)\ge0$ para todo $u$. El diodo no entrega energía; lo que hace la pendiente negativa es que, \emph{alrededor de un punto de operación}, las perturbaciones pequeñas vean una resistencia negativa. Por eso el circuito de la \cref{sec:un-diodo} tiene un equilibrio inestable.
 \correcto{La propiedad que mira las pendientes es otra: la \emph{pasividad incremental}, $(u_1-u_2)\bigl(h(u_1)-h(u_2)\bigr)\ge0$, que para $h\in\Cont1$ equivale a $h'\ge0$. El diodo túnel es pasivo y no es incrementalmente pasivo.}
 \end{trampa}
 

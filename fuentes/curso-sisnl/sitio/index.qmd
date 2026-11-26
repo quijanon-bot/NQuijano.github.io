@@ -9,7 +9,7 @@ subtitle: "IELE 4311 · Departamento de Ingeniería Eléctrica y Electrónica ·
 
 Este sitio acompaña el curso **Sistemas No Lineales**. Cada parte del curso tiene una página con:
 
-- el **handout** (notas de clase en PDF), escrito para leerse *antes* de la clase;
+- el **capítulo** de las notas (en PDF), escrito para leerse *antes* de la clase;
 - los **códigos de MATLAB y Simulink**, los mismos que aparecen en las notas, con lo que hay que observar y los resultados esperados;
 - **exploradores interactivos** para jugar con los parámetros de los ejemplos;
 - los **videos** que se usan en clase, las **pausas activas** y las **trampas**: conclusiones plausibles pero falsas que distinguen el dominio de un tema de la aplicación de recetas.
@@ -35,7 +35,7 @@ Este sitio acompaña el curso **Sistemas No Lineales**. Cada parte del curso tie
 
 ## Cómo usar este material
 
-1. **Antes de la clase:** lea el handout de la parte. Las cajas azules son definiciones y resultados; las rojas, trampas.
+1. **Antes de la clase:** lea el capítulo de la parte. Las cajas azules son definiciones y resultados; las rojas, trampas.
 2. **En clase:** traiga MATLAB listo. Ejecute una vez `iniciarCurso` (carpeta `codigo/` del [repositorio](https://github.com/quijanon-bot/NQuijano.github.io/tree/main/fuentes/curso-sisnl)) y podrá correr cualquier script desde cualquier carpeta.
 3. **Después:** resuelva los problemas. Los marcados **[M]** se hacen en MATLAB/Simulink; los marcados **(\*)** son de profundización.
 

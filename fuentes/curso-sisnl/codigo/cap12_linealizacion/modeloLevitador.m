@@ -1,4 +1,5 @@
 function dx = modeloLevitador(x, u, P, mReal)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % MODELOLEVITADOR  Dinámica del levitador.  x = [y; ydot; i] (y hacia abajo),  u = voltaje.
 %   dx = modeloLevitador(x, u, P)          planta con la masa del modelo, P.m
 %   dx = modeloLevitador(x, u, P, mReal)   planta con otra masa (error de modelo)

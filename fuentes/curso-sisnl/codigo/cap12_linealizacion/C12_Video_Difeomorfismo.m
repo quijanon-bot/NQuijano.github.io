@@ -1,4 +1,5 @@
 %% C12_Video_Difeomorfismo -- Video V12_4: local en todo punto no es global
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  Izquierda: la rejilla se deforma continuamente bajo el difeomorfismo
 %              global Phi(x) = (x1, x2 + x1^3/2). Derecha: Psi(x) = e^x1 (cos x2, sin x2)
 %              barre la franja x2 en [0, 4 pi]; tiene jacobiano no singular en todo punto,

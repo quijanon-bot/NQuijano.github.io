@@ -1,4 +1,5 @@
 %% C11_Ej9_KYP -- Notas: sección 11.7 (lema de Kalman-Yakubovich-Popov)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Verifica las ecuaciones KYP de Khalil (Lema 6.3)
 %              P A + A' P = -L' L - eps P,   P B = C' - L' W,   W' W = D + D'
 %            en tres ejemplos: el RLC serie s/(s^2+s+1) (PR), (s+3)/((s+1)(s+2))

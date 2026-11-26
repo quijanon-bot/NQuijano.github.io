@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente de los números del capítulo 11 (pasividad).
 Cada número que aparece en las notas, en las láminas o en los comentarios
 de los códigos se recalcula aquí (sympy para lo exacto, scipy para lo
@@ -164,10 +165,10 @@ revisar('V1 sube en algún instante', float(np.max(np.diff(V1)) > 1e-4), 1, 0)
 print(f'     V(10) = {Vs[np.searchsorted(t, 10)]:.4f}, V(40) = {Vs[-1]:.5f}, max V2 = {V2.max():.4f}')
 dVnum = np.gradient(Vs, t); dVteo = -0.5*X[1]**2 - X[3]**4
 revisar('Vdot = -k y1^2 - y2^4 (error numérico máx.)', np.max(abs(dVnum - dVteo)[5:-5]), 0, 1e-4)
-# trampa del signo: realimentación positiva
+# trampa del signo: retroalimentación positiva
 e1, e2, y1, y2 = sp.symbols('e1 e2 y1 y2'); u1, u2 = sp.symbols('u1 u2')
 revisar('cancelación con signos correctos', sp.expand((u1 - y2)*y1 + (u2 + y1)*y2 - u1*y1 - u2*y2), 0)
-revisar('con realimentación positiva sobra 2 y1 y2 (y1=y2=1)', sp.expand((u1 + y2)*y1 + (u2 + y1)*y2 - u1*y1 - u2*y2).subs({y1: 1, y2: 1}), 2)
+revisar('con retroalimentación positiva sobra 2 y1 y2 (y1=y2=1)', sp.expand((u1 + y2)*y1 + (u2 + y1)*y2 - u1*y1 - u2*y2).subs({y1: 1, y2: 1}), 2)
 
 # ------------------------------------------------------------------ 11.9
 print('11.9  Control basado en pasividad')

@@ -1,4 +1,5 @@
 %% crearModelo_Pendulo -- Construye "PenduloPD.slx" (sección 11.9)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % Péndulo  m l^2 q'' + b q' + m g l sin q = u  con la ley
 %   u = compensa * m g l sin q - Kp (q - qr) - Kd q'
 % (PD + compensación de gravedad si compensa = 1; PD solo si compensa = 0).
@@ -12,6 +13,7 @@ m = 1;  l = 1;  g = 9.81;  bf = 0.5;  Kp = 20;  Kd = 5;  qr = pi/3;  compensa = 
 vars = {'m', 'l', 'g', 'bf', 'Kp', 'Kd', 'qr', 'compensa'};
 for i = 1:numel(vars), assignin('base', vars{i}, eval(vars{i})); end
 
+raiz = fileparts(mfilename('fullpath'));
 mdl = 'PenduloPD';
 if bdIsLoaded(mdl), close_system(mdl, 0); end
 new_system(mdl);  open_system(mdl);
@@ -37,7 +39,7 @@ lin('mux q dq/1', 'V/1');  lin('q/1', 'mux salida/1');  lin('V/1', 'mux salida/2
 lin('mux salida/1', 'q y V/1');  lin('mux salida/1', 'a workspace/1');
 try, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end
 set_param(mdl, 'StopTime', '10', 'Solver', 'ode45', 'RelTol', '1e-8', 'MaxStep', '0.01');
-save_system(mdl);
+save_system(mdl, fullfile(raiz, [mdl '.slx']));   % junto al script, no en la carpeta actual
 fprintf('Modelo %s.slx creado.\n', mdl);
 
 for c = [1 0]

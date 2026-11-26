@@ -18,9 +18,9 @@ El sistema \eqref{eq:pa-estado} es \clave{pasivo} si existe una función $V\in\C
 \end{equation}
 Además, es
 \begin{center}\small
-\begin{tabular}{@{}p{4.9cm}p{7.3cm}@{}}
+\begin{tabular}{@{}p{4.6cm}p{6.9cm}@{}}
 \clave{sin pérdidas} (\emph{lossless}) & si $u\T y=\Vdot$;\\
-\clave{pasivo con prealimentación} & si $u\T y\ge\Vdot+u\T\varphi(u)$ para alguna $\varphi$;\\
+\clave{pasivo con \emph{feedforward}} & si $u\T y\ge\Vdot+u\T\varphi(u)$ para alguna $\varphi$;\\
 \clave{estrictamente pasivo en la entrada} (ISP) & si lo anterior vale con $u\T\varphi(u)>0$ para todo $u\neq0$;\\
 \clave{pasivo con retroalimentación de la salida} & si $u\T y\ge\Vdot+y\T\rho(y)$ para alguna $\rho$;\\
 \clave{estrictamente pasivo en la salida} (OSP) & si lo anterior vale con $y\T\rho(y)>0$ para todo $y\neq0$;\\
@@ -31,15 +31,16 @@ Además, es
 
 En todos los casos, la desigualdad debe valer \alerta{para todo} $(x,u)$; la palabra \emph{pasivo} sin calificativos es global. La lectura física es siempre la del \cref{ej:pa-masa}: la energía se puede disipar en la entrada (ISP), en la salida (OSP) o en todo el estado (estrictamente pasivo).
 
+\notamargen{\textbf{Curva de Nyquist.} Es la imagen de $\omega\mapsto G(j\omega)$, $\omega\in\R$, en el plano complejo: $\Re G$ en el eje horizontal e $\Im G$ en el vertical. Lleva la misma información que el diagrama de Bode (magnitud y fase) en una sola curva. Aquí se usa solo para ver el signo de $\Re G(j\omega)$; el criterio de Nyquist no hace falta.}
 \begin{ejemplo}[label=ej:pa-intfiltro]{Integrador frente a filtro}
 Con el mismo almacenamiento $V=\tfrac12x^2$, clasifique $1/s$ ($\dot x=u$, $y=x$) y $1/(s+1)$ ($\dot x=-x+u$, $y=x$).
-\solucion Para el integrador, $\Vdot=x\,u=u\,y$: es \emph{sin pérdidas}. Para el filtro, $\Vdot=-x^2+x\,u=-y^2+u\,y$: es OSP con $\rho(y)=y$ y, como aquí $y=x$, también estrictamente pasivo con $\psi(x)=x^2$. En frecuencia (\cref{fig:pa-intfiltro}), el integrador tiene fase $-90\grados$ exacta y su gráfica de Nyquist recorre el eje imaginario; el filtro tiene menos desfase y su gráfica queda estrictamente en el semiplano derecho. El ``exceso'' de pasividad del filtro es el margen de fase que al integrador le falta. Esa conexión se hace precisa en la \cref{sec:pa-lineales}.
+\solucion Para el integrador, $\Vdot=x\,u=u\,y$: es \emph{sin pérdidas}. Para el filtro, $\Vdot=-x^2+x\,u=-y^2+u\,y$: es OSP con $\rho(y)=y$ y, como aquí $y=x$, también estrictamente pasivo con $\psi(x)=x^2$. En frecuencia (\cref{fig:pa-intfiltro}), el integrador tiene fase $-90\grados$ exacta y su curva de Nyquist recorre el eje imaginario; el filtro tiene menos desfase y su gráfica queda estrictamente en el semiplano derecho. El ``exceso'' de pasividad del filtro se ve en la fase: nunca llega a $-90\grados$, mientras que el integrador está siempre en $-90\grados$, en el borde. Esa conexión se hace precisa en la \cref{sec:pa-lineales}.
 \end{ejemplo}
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{cap11/f_integrador_filtro}
-\caption{Integrador y filtro. Izquierda: Nyquist; el integrador vive en la frontera del semiplano derecho. Derecha: la fase del filtro nunca llega a $-90\grados$.}
+\caption{Integrador y filtro. Izquierda: curva de Nyquist ($\Re G$ contra $\Im G$); el integrador vive en la frontera del semiplano derecho. Derecha: la fase del filtro nunca llega a $-90\grados$.}
 \label{fig:pa-intfiltro}
 \end{figure}
 
@@ -64,7 +65,7 @@ Como $u\,y=u\,x_1+u\,h_1(u)$,
 \end{equation}
 la potencia de entrada es el cambio de energía más la potencia que consume cada resistor. De aquí sale la clasificación:
 \begin{center}\small
-\begin{tabular}{@{}p{6.2cm}p{3.6cm}p{2.4cm}@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.6cm}p{3.2cm}>{\raggedright\arraybackslash}p{2.3cm}@{}}
 \toprule
 \textbf{Resistores} & \textbf{Desigualdad} & \textbf{Tipo}\\
 \midrule

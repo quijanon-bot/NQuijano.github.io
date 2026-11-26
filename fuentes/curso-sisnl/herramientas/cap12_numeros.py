@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente (sympy/scipy) de los números del capítulo 12
 (linealización por retroalimentación).   Ejecutar:  python3 herramientas/cap12_numeros.py
 Los mismos números se comprueban en MATLAB/Octave con codigo/cap12_linealizacion/verificarCap12.m.

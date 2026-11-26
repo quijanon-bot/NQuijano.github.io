@@ -1,4 +1,5 @@
 function [u, xi, b] = leyExactaLevitador(x, yd, K, P)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % LEYEXACTALEVITADOR  Linealización exacta del levitador (grado relativo r = n = 3).
 %   [u, xi, b] = leyExactaLevitador(x, yd, K, P)
 %   yd = [y_d, y_d', y_d'', y_d''']  (referencia y sus tres derivadas),  K = [k1 k2 k3].

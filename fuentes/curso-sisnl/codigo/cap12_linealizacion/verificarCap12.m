@@ -1,4 +1,5 @@
 function verificarCap12()
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % VERIFICARCAP12  Pruebas automáticas de los números del capítulo 12
 % (linealización por retroalimentación).   >> verificarCap12
 % (Los mismos números se verificaron de forma independiente con sympy y

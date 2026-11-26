@@ -17,7 +17,7 @@ diseñe una ley que lleve $y$ a cero exponencialmente y estudie qué pasa con $x
   \dot\xi=L_fh+u=\eta-3\eta^3+u,\qquad
   \dot\eta=x_1+x_2=\xi+\eta+\eta^3 .
 \]
-(La versión anterior de estas notas tenía $\dot\eta=\xi+3\eta^2+\eta^3$; lo correcto es lo de arriba.) Con $u=-\eta+3\eta^3+v$ y $v=-2\xi$, $\dot\xi=-2\xi$: la salida va a cero como $e^{-2t}$, como se diseñó. Pero $\eta$ obedece $\dot\eta=\xi+\eta+\eta^3$, y cuando $\xi\approx0$ queda $\dot\eta\approx\eta+\eta^3$, que escapa en tiempo finito. Desde $x(0)=(0.05,\ 0.6)$, la trayectoria llega a la curva $\{x_2=x_1^3\}$ (donde $y=0$), se desliza por ella y $\abs\eta$ alcanza $2.2$ en $t=1.394$, cuando $\abs y$ ya vale $0.037$ (\cref{fig:fl-nominima}); el control explota con ella.
+Con $u=-\eta+3\eta^3+v$ y $v=-2\xi$, $\dot\xi=-2\xi$: la salida va a cero como $e^{-2t}$, como se diseñó. Pero $\eta$ obedece $\dot\eta=\xi+\eta+\eta^3$, y cuando $\xi\approx0$ queda $\dot\eta\approx\eta+\eta^3$, que escapa en tiempo finito. Desde $x(0)=(0.05,\ 0.6)$, la trayectoria llega a la curva $\{x_2=x_1^3\}$ (donde $y=0$), se desliza por ella y $\abs\eta$ alcanza $2.2$ en $t=1.394$, cuando $\abs y$ ya vale $0.037$ (\cref{fig:fl-nominima}); el control explota con ella.
 \end{ejemplo}
 
 \begin{figure}[ht]
@@ -31,7 +31,7 @@ diseñe una ley que lleve $y$ a cero exponencialmente y estudie qué pasa con $x
 
 \codigorepo{cap12_linealizacion/C12_Ej10_FaseNoMinima.m}{escape}{Linealización perfecta, estado que escapa}
 
-La realimentación hizo el conjunto $\{x:h(x)=L_fh(x)=\dots=L_f^{r-1}h(x)=0\}$ \emph{invariante y atractivo}. Lo que pasa dentro de él decide la estabilidad.
+La retroalimentación hizo el conjunto $\{x:h(x)=L_fh(x)=\dots=L_f^{r-1}h(x)=0\}$ \emph{invariante y atractivo}. Lo que pasa dentro de él decide la estabilidad.
 
 \subsection{Anular la salida}
 
@@ -75,8 +75,8 @@ La dinámica cero es la restricción del campo $f^*(x)=f(x)+g(x)\,u^*(x)$ a la v
 
 \begin{trampa}[label=tr:fl-intrinseca]{``La dinámica cero no es una propiedad del sistema''}
 \plausible{La dinámica cero aparece porque escogimos una entrada particular, $u^*$; es una consecuencia del controlador, no del sistema.}
-Así lo decía la versión anterior de estas notas, y es engañoso. Para una terna $(f,g,h)$ dada, la dinámica cero \emph{no} depende de las coordenadas (\cref{prop:fl-ceroorig}) ni de la realimentación: si se aplica $u=\alpha(x)+\beta(x)v$ con $\beta\neq0$ y después se anula la salida, se llega a la misma variedad y a la misma dinámica. No se puede cambiar con control. Lo que sí la cambia es \emph{la salida}: van der Pol con $y=x_1$ no tiene dinámica cero ($r=n$); con $y=x_1^2+x_2$ ($r=1$, $\xi=x_1^2+x_2$, $\eta=x_1$) se tiene $\dot\eta=x_2=\xi-\eta^2$, y la dinámica cero es $\dot\eta=-\eta^2$, cuyo origen es estable solo desde un lado: no es de fase mínima.
-\correcto{La dinámica cero es una propiedad del par planta--salida, como los ceros de una función de transferencia. Kokotović y Arcak lo subrayan: ni el grado relativo ni la dinámica cero se pueden modificar con realimentación~\citep{KoAr01}.}
+Es engañoso. Para una terna $(f,g,h)$ dada, la dinámica cero \emph{no} depende de las coordenadas (\cref{prop:fl-ceroorig}) ni de la retroalimentación: si se aplica $u=\alpha(x)+\beta(x)v$ con $\beta\neq0$ y después se anula la salida, se llega a la misma variedad y a la misma dinámica. No se puede cambiar con control. Lo que sí la cambia es \emph{la salida}: van der Pol con $y=x_1$ no tiene dinámica cero ($r=n$); con $y=x_1^2+x_2$ ($r=1$, $\xi=x_1^2+x_2$, $\eta=x_1$) se tiene $\dot\eta=x_2=\xi-\eta^2$, y la dinámica cero es $\dot\eta=-\eta^2$, cuyo origen es inestable: desde $\eta_0>0$ la solución tiende a cero, pero desde $\eta_0<0$, por pequeño que sea, escapa a $-\infty$ en $t=1/\abs{\eta_0}$ (\cref{prob:fl-vdpcero}). Es de fase no mínima.
+\correcto{La dinámica cero es una propiedad del par planta--salida, como los ceros de una función de transferencia. Kokotović y Arcak lo subrayan: ni el grado relativo ni la dinámica cero se pueden modificar con retroalimentación~\citep{KoAr01}.}
 \end{trampa}
 
 \subsection{El caso lineal: la dinámica cero son los ceros}

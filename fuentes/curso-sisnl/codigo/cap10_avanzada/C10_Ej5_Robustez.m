@@ -1,4 +1,5 @@
 %% C10_Ej5_Robustez -- Notas: sección 10.3 (robustez frente a perturbaciones que se anulan)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para x' = A x + g_p, A = [0 1; -1 -1]: calcula c3 = 1, c4 = 2 lmax(P) y el
 %            margen nu* = c3/c4 del lema de Khalil 9.1. Simula la perturbación particular
 %            g_p = nu [0; x1] con nu = 0.27, 0.9 y 1.05.

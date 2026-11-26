@@ -94,7 +94,7 @@ En $\R^n$ y con $V(t,x)$, las hipótesis son $\alpha_1(\norm x)\le V\le\alpha_2(
   \label{eq:av-cadena}
 \end{equation}
 
-\begin{teorema}[label=thm:av-uub]{Acotamiento último \citep[Teorema~4.18]{Kha02}}
+\begin{teorema}[label=thm:av-uub]{Acotamiento último \citep[Teo.~4.18]{Kha02}}
 Sea $D\subset\R^n$ un dominio que contiene al origen y $V:[0,\infty)\times D\to\R$ de clase $\Cont1$ con
 \[
   \alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x),\qquad \jac Vt+\jac Vxf(t,x)\le-W_3(x)\quad\forall\,\norm x\ge\mu>0,
@@ -108,7 +108,7 @@ Si $D=\R^n$ y $\alpha_1\in\Kinf$, valen para toda condición inicial y todo $\mu
 \end{teorema}
 
 \begin{demostracion}
-(a) Con $c=\alpha_1(r)$, $\Nivel{t,c}\subset\Bola r\subset D$, y la condición inicial está en $\Nivel{t_0,c}$. (b) Con $\eta=\alpha_2(\mu)<c$, en la corona $\{\eta\le V\le c\}$ se tiene $\norm x\ge\mu$, luego $\Vdot\le-W_3(x)$. (c) En las fronteras $V=c$ y $V=\eta$, $\Vdot<0$: los dos conjuntos son positivamente invariantes y la solución existe para todo $t$. (d) $W_3$ tiene un mínimo $k>0$ en el compacto $\{\mu\le\norm x\le r\}$, así que la trayectoria entra a $\Nivel{t,\eta}$ antes de $T=(V(t_0,x(t_0))-\eta)/k$ y no sale; por \eqref{eq:av-cadena} vale \eqref{eq:av-ultima}. (e) Con $W_3\ge\alpha_3(\norm x)$, en la corona $\Vdot\le-\alpha_3(\alpha_2^{-1}(V))$, y el lema de comparación da $V\le\sigma(V(t_0),t-t_0)$, de donde $\beta(s,\tau)=\alpha_1^{-1}(\sigma(\alpha_2(s),\tau))$. Como las $\alpha_i$ no dependen de $t$, nada depende de $t_0$. (f) Si $\alpha_1\in\Kinf$, $r$ se puede tomar tan grande como haga falta.
+(a) Con $c=\alpha_1(r)$, $\Nivel{t,c}\subset\Bola r\subset D$, y la condición inicial está en $\Nivel{t_0,c}$. (b) Con $\eta=\alpha_2(\mu)<c$, en la corona $\{\eta\le V\le c\}$ se tiene $\norm x\ge\mu$, luego $\Vdot\le-W_3(x)$. (c) En las fronteras $V=c$ y $V=\eta$, $\Vdot<0$: los dos conjuntos son positivamente invariantes y la solución existe para todo $t$. (d) $W_3$ tiene un mínimo $k>0$ en el compacto $\{\mu\le\norm x\le r\}$, así que la trayectoria entra a $\Nivel{t,\eta}$ antes de $T=\max\{0,(V(t_0,x(t_0))-\eta)/k\}$ y no sale; por \eqref{eq:av-cadena} vale \eqref{eq:av-ultima}. (e) Como $W_3$ es continua y definida positiva, hay $\alpha_3\in\K$ con $W_3(x)\ge\alpha_3(\norm x)$ en $\Bola r$ (H1). En la corona $\Vdot\le-\alpha_3(\alpha_2^{-1}(V))$, y el lema de comparación da $V\le\sigma(V(t_0),t-t_0)$, de donde $\beta(s,\tau)=\alpha_1^{-1}(\sigma(\alpha_2(s),\tau))$. Como las $\alpha_i$ no dependen de $t$, nada depende de $t_0$. (f) Si $\alpha_1\in\Kinf$, $r$ se puede tomar tan grande como haga falta.
 \end{demostracion}
 
 Cada hipótesis tiene su razón: $\mu<\alpha_2^{-1}(\alpha_1(r))$ garantiza que el conjunto trampa quepa donde $V$ está definida; la restricción sobre $x(t_0)$ pone la condición inicial en un conjunto de nivel dentro de $\Bola r$; que las $\alpha_i$ no dependan de $t$ da la uniformidad.
@@ -125,13 +125,13 @@ Para el oscilador poco amortiguado $\dot x=Ax+Bw$, $A=\bigl[\begin{smallmatrix}0
 \[
   \Vdot\le-(1-\theta)\norm x^2\qquad\forall\,\norm x\ge\mu=\frac{2\norm{PB}\cdot0.2}{\theta}.
 \]
-Con $\theta=\tfrac12$, $\mu=2.50$ y $b=\mu\sqrt{\lmax/\lmin}=5.01$ (con $\theta=0.9$, $\mu=1.39$). Una trayectoria que nace en $(2.45,0)$, dentro de $\Bola\mu$, con $w=0.2\sin1.3t$, sube hasta $\norm x=4.50$ y nunca sale de $\Nivel\eta$ (\cref{fig:av-conjuntos}). La excursión ocurre \emph{incluso con $w\equiv0$}: el oscilador sigue una elipse casi conservativa de semiejes $2.45$ y $\approx4.9$. El problema es la excentricidad de los conjuntos de nivel ($\lmax/\lmin\approx4$), no la perturbación.
+Con $\theta=\tfrac12$, $\mu=2.50$ y $b=\mu\sqrt{\lmax/\lmin}=5.01$ (con $\theta=0.9$, $\mu=1.39$). Una trayectoria que nace en $(2.45,0)$, dentro de $\Bola\mu$, con $w=0.2\sin1.3t$, sube hasta $\norm x=4.50$ y nunca sale de $\Nivel\eta$ (\cref{fig:av-conjuntos}). La excursión ocurre \emph{incluso con $w\equiv0$}: el oscilador sigue casi la elipse conservativa de semiejes $2.45$ y $4.9$ (con el amortiguamiento, $\abs{x_2}$ llega a $4.54$). El problema es la excentricidad de los conjuntos de nivel ($\lmax/\lmin\approx4$), no la perturbación.
 \end{ejemplo}
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{cap10/f_conjuntos}
-\caption{Izquierda: el \cref{ej:av-oscilador}. $\Bola\mu$ (coral), $\Nivel\eta$ (azul) y $\Bola b$ (verde); la trayectoria (negra) nace dentro de $\Bola\mu$, sale de ella y nunca abandona $\Nivel\eta$. Derecha: el resorte endurecido del \cref{ej:av-resorte}, $\norm{x(t)}$ con $w=0.3\cos t$ frente a $\mu=0.745$ y la cota garantizada $b=1.30$.}
+\caption{Izquierda: el \cref{ej:av-oscilador}. $\Bola\mu$ (coral), $\Nivel\eta$ (azul) y $\Bola b$ (verde); la trayectoria (negra) nace dentro de $\Bola\mu$, sale de ella y nunca abandona $\Nivel\eta$. Derecha: el resorte endurecido del \cref{ej:av-resorte}, $\norm{x(t)}$ con $w=0.3\cos t$, $w=0.3\cos2t$ y $w\equiv0.3$ (azul, violeta y ámbar) frente a $\mu=0.745$ y la cota garantizada $b=1.30$.}
 \label{fig:av-conjuntos}
 \end{figure}
 
@@ -139,7 +139,7 @@ Con $\theta=\tfrac12$, $\mu=2.50$ y $b=\mu\sqrt{\lmax/\lmin}=5.01$ (con $\theta=
 
 \video{V10_2_bola_no_invariante}{La bola no es invariante; el conjunto de nivel sí}
 
-\begin{ejemplo}[label=ej:av-resorte]{Resorte endurecido forzado \citep[Ejemplo~4.23]{Kha02}}
+\begin{ejemplo}[label=ej:av-resorte]{Resorte endurecido forzado \citep[Ej.~4.24]{Kha02}}
 Para $\dot x_1=x_2$, $\dot x_2=-(1+x_1^2)x_1-x_2+w(t)$, $\abs{w}\le M$, encuentre una cota última.
 \solucion Con $w=0$ el origen es GAS. Se prueba $V=x\T Px+\tfrac12x_1^4$ (el término cuártico es la energía del resorte endurecido). Al derivar aparecen términos cruzados $x_1x_2$ y $x_1^3x_2$ sin signo; se anulan con $p_{22}=1$ y $p_{11}=p_{12}+1$, y con $p_{12}=\tfrac12$ queda $P=\bigl[\begin{smallmatrix}3/2&1/2\\1/2&1\end{smallmatrix}\bigr]$ y
 \[
@@ -154,7 +154,7 @@ Con $M=0.3$ y $\theta=0.9$: $\mu=0.745$ y $b=1.30$. La simulación con $w=0.3\co
 
 \codigorepo{cap10_avanzada/C10_Ej2_Conjuntos.m}{resorte}{El resorte endurecido: $\mu$, $b$ y el $\limsup$ simulado para tres perturbaciones}
 
-Dos corolarios se usan a menudo. Con las mismas cotas sobre $V$: si $\Vdot\le0$ para $\norm x\ge\mu$, las soluciones que nacen en $\Nivel{t_0,\eta}$, $\eta\ge\alpha_2(\mu)$, cumplen $\norm{x(t)}\le\alpha_1^{-1}(\eta)$ (UB); si $\Vdot\le-W(x)$ con $W>0$ para $\norm x>\mu$, son UUB con $\limsup\norm{x(t)}\le\alpha_1^{-1}(\alpha_2(\mu))$. En los dos hay que decir \emph{para qué condiciones iniciales} valen; en el caso local, sin esa restricción, son falsos.
+Dos corolarios se usan a menudo. Con las mismas cotas sobre $V$: si $\Vdot\le0$ para $\norm x\ge\mu$, las soluciones que nacen en $\Nivel{t_0,\eta}$, $\eta\ge\alpha_2(\mu)$, cumplen $\norm{x(t)}\le\alpha_1^{-1}(\eta)$ (UB); si $\Vdot\le-W(x)$ con $W$ continua y positiva para $\norm x>\mu$, son UUB con $\limsup\norm{x(t)}\le\alpha_1^{-1}(\alpha_2(\mu))$. En los dos hay que decir \emph{para qué condiciones iniciales} valen; en el caso local, sin esa restricción, son falsos.
 
 \begin{pausa}
 Para $\dot x=\delta\sin t$, ¿son las soluciones UB? ¿UUB? ¿Qué hipótesis del \cref{thm:av-uub} falla?

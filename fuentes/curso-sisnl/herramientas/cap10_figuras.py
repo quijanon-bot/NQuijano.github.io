@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Figuras del capítulo 10 (UUB, conversos, CLF, Barbalat, ISS). PDF (notas) y SVG (web).
 Cada figura reproduce un script de codigo/cap10_avanzada/ (se indica cuál).
 Ejecutar:  python3 herramientas/cap10_figuras.py   [nombre_de_función ...]

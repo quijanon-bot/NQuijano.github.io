@@ -1,4 +1,5 @@
 %% crearModelo_RedisenoISS -- Construye "RedisenoISS.slx" (secciones 10.4 y 10.6)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % Lazo x' = x + (x^2 + 1)(u + w) con un selector entre tres leyes de control:
 %   ley = 1: cancelación exacta       u = -2x/(x^2 + 1)
 %   ley = 2: con amortiguamiento      u = -2x/(x^2 + 1) - x(x^2 + 1)      (- L_gV, V = x^2/2)
@@ -55,7 +56,7 @@ lin('x/1', 'abs/1');  lin('abs/1', 'escape/1');  lin('escape/1', 'parar/1');
 lin('reloj/1', 'mux2/1');  lin('x/1', 'mux2/2');  lin('mux2/1', 'registro/1');
 try, Simulink.BlockDiagram.arrangeSystem(mdl); catch, end
 set_param(mdl, 'StopTime', '12', 'Solver', 'ode45', 'RelTol', '1e-9', 'MaxStep', '0.01');
-save_system(mdl);
+save_system(mdl, fullfile(raiz, [mdl '.slx']));
 fprintf('Modelo %s.slx creado.\n', mdl);
 
 nombres = {'cancelación', 'con -L_gV', 'Sontag kappa'};

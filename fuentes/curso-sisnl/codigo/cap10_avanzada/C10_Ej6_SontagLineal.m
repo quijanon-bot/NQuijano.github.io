@@ -1,4 +1,5 @@
 %% C10_Ej6_SontagLineal -- Notas: sección 10.4 (planta lineal escalar)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Aplica la fórmula de Sontag (leySontag, en comun/) a x' = f0 x + g0 u con
 %            V = x^2/2 y compara la ganancia con -(f0 + sqrt(f0^2 + g0^4))/g0.
 % OBSERVE    Si f0 < 0 (planta estable), la ganancia tiende a cero: Sontag no se molesta.

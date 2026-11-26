@@ -1,4 +1,5 @@
 %% C10_Video_RedisenoISS -- Video V10_4: estabilizar no es robustecer
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  x' = x + (x^2 + 1)(u + w) con el error de actuador w subiendo de 0.05 a 1.
 %              Cancelación exacta, k = -2x/(x^2+1): para w > 1/2 el campo no tiene ceros y
 %              x escapa desde 0. Con -L_gV (k1 = k - x(x^2+1)) siempre hay un equilibrio.

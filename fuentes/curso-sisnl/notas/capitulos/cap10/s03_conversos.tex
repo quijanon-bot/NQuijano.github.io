@@ -6,13 +6,13 @@
 El teorema directo de Lyapunov dice: \emph{si existe $V$, hay estabilidad}. Un teorema converso dice lo contrario: \emph{si hay estabilidad de cierto tipo, existe una $V$ con ciertas propiedades}. Tiene tres usos, en este orden de importancia práctica:
 \begin{enumerate}
   \item \textbf{No buscar en vano.} Si el origen es UAS, alguna $V$ existe: si no la encuentro, el problema es mi candidata, no el sistema.
-  \item \textbf{Robustez.} La $V$ que garantiza el converso tiene propiedades \emph{cuantitativas}, como $\norm{\partial V/\partial x}\le c_4\norm x$, que permiten probar que la estabilidad sobrevive a perturbaciones (\cref{lem:av-robustez}).
+  \item \textbf{Robustez.} La $V$ que garantiza el converso tiene propiedades \emph{cuantitativas}, como la cota $\norm{\partial V/\partial x}\le c_4\norm x$, que permiten probar que la estabilidad sobrevive a perturbaciones (\cref{lem:av-robustez}).
   \item \textbf{Diseño modular.} En CLF, \emph{backstepping} o ISS se supone ``un subsistema ya estabilizado, con su función de Lyapunov''. El converso garantiza que esa función existe; el rediseño ISS de la \S\ref{sec:av-iss} lo invoca explícitamente.
 \end{enumerate}
 
 \begin{trampa}[label=tr:av-converso]{``El converso me da la $V$''}
 \plausible{Si el teorema garantiza que $V$ existe, su demostración me dice cómo calcularla.}
-Las demostraciones construyen $V$ \emph{integrando las soluciones del sistema}, que es justamente lo que se quería evitar al usar Lyapunov. Salvo en el caso lineal, la $V$ existe pero no se puede escribir. \citet[\S2.5]{KeBr23} lo dicen sin rodeos: la prueba no ofrece un punto de partida para construir una función de Lyapunov.
+Las demostraciones construyen $V$ \emph{integrando las soluciones del sistema}, que es justamente lo que se quería evitar al usar Lyapunov. En general (el caso lineal es la excepción), la $V$ existe pero no se puede escribir en forma cerrada. \citet[\S2.5]{KeBr23} lo dicen sin rodeos: la prueba no ofrece un punto de partida para construir una función de Lyapunov.
 \correcto{El converso sirve para razonar (qué propiedades tiene $V$, qué robustez implican), no para calcular. Para calcular siguen haciendo falta ingenio, energía física, el gradiente variable o la ecuación de Lyapunov de la linealización.}
 \end{trampa}
 
@@ -50,7 +50,7 @@ que es exactamente el área bajo $\norm{\sol(\tau;x)}^2$ desde $x=(1,0.5)$ (\cre
 
 \subsection{El converso exponencial}
 
-\begin{teorema}[label=thm:av-converso]{Converso exponencial \citep[Teorema~4.14]{Kha02}}
+\begin{teorema}[label=thm:av-converso]{Converso exponencial \citep[Teo.~4.14]{Kha02}}
 Sea $f:[0,\infty)\times D\to\R^n$ de clase $\Cont1$, $D=\Bola r$, con $\norm{\partial f/\partial x}\le L$ en $D$ uniformemente en $t$ y $f(t,0)=0$. Sean $k,\lambda,r_0>0$ con $r_0<r/k$. Si
 \[
   \norm{x(t)}\le k\norm{x(t_0)}e^{-\lambda(t-t_0)}\qquad\forall\,x(t_0)\in\Bola{r_0},\ t\ge t_0\ge0,
@@ -79,7 +79,7 @@ y cada constante sale de una hipótesis distinta:
 
 \begin{table}[ht]
 \centering\small
-\begin{tabular}{@{}p{3.4cm}p{6.6cm}p{2.6cm}@{}}
+\begin{tabular}{@{}p{3.4cm}p{6.0cm}p{2.6cm}@{}}
 \toprule
 Hipótesis sobre el origen & Se garantiza una $V$ con\ldots & Referencia\\
 \midrule
@@ -111,7 +111,7 @@ con $f(0)=0$, muestre que el origen es estable y que no existe una $V(x)$ contin
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.75\linewidth]{cap10/f_sinV}
-\caption{El \cref{ej:av-sinV}: órbitas periódicas $\Gamma_1,\Gamma_2,\Gamma_3$ (azul) y una trayectoria que espirala de $\Gamma_3$ hacia $\Gamma_2$. El origen es estable, pero ninguna $V(x)$ continua decrece a lo largo de todas las trayectorias.}
+\caption{El \cref{ej:av-sinV}: órbitas periódicas $\Gamma_1,\dots,\Gamma_4$ (azul) y una trayectoria que espirala de $\Gamma_3$ hacia $\Gamma_2$. El origen es estable, pero ninguna $V(x)$ continua decrece a lo largo de todas las trayectorias.}
 \label{fig:av-sinV}
 \end{figure}
 

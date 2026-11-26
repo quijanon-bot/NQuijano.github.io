@@ -1,8 +1,9 @@
 %% C10_Ej8_ControlPequeno -- Notas: sección 10.4 (cuando falla la propiedad de control pequeño)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para x' = x + x^2 u con V = x^2/2 (CLF): aplica Sontag,
 %            k(x) = -(1 + sqrt(1 + x^8))/x, y simula desde x(0) = 1.
 % OBSERVE    x(t) -> 0 pero |u(t)| crece sin cota: la ley no es continua en el origen.
-%            Por Artstein, ninguna realimentación continua estabiliza este sistema.
+%            Por Artstein, ninguna retroalimentación continua estabiliza este sistema.
 % ESPERADO   x(8) = 3.2e-4 (~ e^{-8}); |u(8)| = 6249.
 % EXPLORE    Cambie a x' = x^3 + x^2 u (sí hay control pequeño). ¿Qué pasa con |u|?
 clear; close all; clc;

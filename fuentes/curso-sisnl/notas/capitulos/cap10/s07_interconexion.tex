@@ -19,7 +19,7 @@ si y solo si $x_{10}x_{20}>2$. Desde $(2,2)$, $t_e=\tfrac12\ln2=0.347$ (\cref{fi
 \end{ejemplo}
 
 \begin{trampa}[label=tr:av-cascadaerr]{``$\dot x_1=-x_1+x_1x_2^2$ también escapa''}
-\plausible{Si $x_1^2x_2$ produce escape, $x_1x_2^2$ debería producirlo también; así lo decían Handout~7 y las diapositivas.}
+\plausible{Si $x_1^2x_2$ produce escape, $x_1x_2^2$ debería producirlo también.}
 Es falso. La ecuación de $x_1$ es lineal en $x_1$ y
 \[
   x_1(t)=x_{10}\exp\Bigl(-t+\frac{x_{20}^2}{2}\bigl(1-e^{-2t}\bigr)\Bigr)\to0 ,
@@ -28,7 +28,7 @@ con $\abs{x_1(t)}\le\abs{x_{10}}e^{x_{20}^2/2}$: el origen es GAS. El transitori
 \correcto{Sin embargo el subsistema $x_1$ no es ISS respecto a $x_2$: con $x_2\equiv c>1$, $\dot x_1=(c^2-1)x_1$ crece. ISS de $x_1$ es \emph{suficiente} para que la cascada sea GAS, no necesaria.}
 \end{trampa}
 
-\begin{proposicion}[label=prop:av-cascadaiss]{Cascadas ISS \citep{Son89a}; \citep[Teorema~7.9]{KeBr23}}
+\begin{proposicion}[label=prop:av-cascadaiss]{Cascadas ISS \citep{Son89a}; \citep[Teo.~7.9]{KeBr23}}
 Si en $\dot x_1=f_1(x_1,x_2)$, $\dot x_2=f_2(x_2,w)$ el subsistema $x_1$ es ISS con $x_2$ como entrada y el subsistema $x_2$ es ISS con $w$ como entrada, la cascada es ISS con entrada $w$.
 \end{proposicion}
 
@@ -38,7 +38,10 @@ Si el origen de $\dot x_2=f_2(x_2)$ es GUAS y $\dot x_1=f_1(x_1,x_2)$ es ISS res
 
 \begin{demostracion}
 Por ISS de $x_1$, para todo $s\in[t_0,t]$,
-$\norm{x_1(t)}\le\beta_1(\norm{x_1(s)},t-s)+\gamma_1\bigl(\sup_{s\le\tau\le t}\norm{x_2(\tau)}\bigr)$, y $\norm{x_2(\tau)}\le\beta_2(\norm{x_2(t_0)},\tau-t_0)$. Con $s=t_0$ sale el acotamiento (y la estabilidad): $\norm{x_1(t)}\le\beta_1(\norm{x_1(t_0)},0)+\gamma_1(\beta_2(\norm{x_2(t_0)},0))$. Con $s=(t+t_0)/2$, \emph{el punto medio},
+\[
+  \norm{x_1(t)}\le\beta_1(\norm{x_1(s)},t-s)+\gamma_1\Bigl(\sup_{s\le\tau\le t}\norm{x_2(\tau)}\Bigr),
+\]
+y $\norm{x_2(\tau)}\le\beta_2(\norm{x_2(t_0)},\tau-t_0)$. Con $s=t_0$ sale el acotamiento (y la estabilidad): $\norm{x_1(t)}\le\beta_1(\norm{x_1(t_0)},0)+\gamma_1(\beta_2(\norm{x_2(t_0)},0))$. Con $s=(t+t_0)/2$, \emph{el punto medio},
 \[
   \norm{x_1(t)}\le\beta_1\Bigl(\norm{x_1(s)},\tfrac{t-t_0}2\Bigr)+\gamma_1\Bigl(\beta_2\bigl(\norm{x_2(t_0)},\tfrac{t-t_0}2\bigr)\Bigr)\to0 :
 \]
@@ -52,7 +55,7 @@ la mitad del tiempo para que $x_2$ se apague y la otra mitad para que $x_1$ olvi
 \label{fig:av-cascada}
 \end{figure}
 
-\begin{ejemplo}[label=ej:av-cascadaiss]{$\dot x_1=-x_1+x_2^2$, $\dot x_2=-x_2+w$}
+\begin{ejemplo}[label=ej:av-cascadaiss]{$\dot x_1=-x_1+x_2^2$, $\dot x_2=-x_2+w$ \citep[Lec.~14, Ej.~3]{Arc18}}
 Pruebe que es ISS de dos maneras: por cascada y con una función de Lyapunov compuesta.
 \solucion \emph{Por cascada.} Con $V=\tfrac12x_1^2$, $\Vdot=-x_1^2+x_1x_2^2\le-(1-\theta)x_1^2$ si $\abs{x_1}\ge x_2^2/\theta$: el subsistema $x_1$ es ISS respecto a $x_2$ con $\gamma_1(r)=r^2/\theta$; el $x_2$ lo es respecto a $w$. Por la \cref{prop:av-cascadaiss}, la cascada es ISS.
 \emph{Con $V$ compuesta.} Se prueba $V=\tfrac12x_1^2+\tfrac a4x_2^4$ (cuártica en $x_2$ porque el acoplamiento $x_1x_2^2$ es de orden~4 al completar el cuadrado). Con $w=0$,
@@ -63,7 +66,7 @@ negativa definida si $a>\tfrac14$. Con $a=2$ y $w$, $\Vdot=-x_1^2+x_1x_2^2-2x_2^
 \[
   \Vdot\le-\tfrac12x_1^2-\tfrac12x_2^4+\tfrac{27}{16}w^4 ,
 \]
-la forma disipativa: ISS. (Con $a=1$, Handout~7 tenía un signo duplicado; lo correcto es $\Vdot=-\tfrac12(x_1-x_2^2)^2-\tfrac12(x_1^2+x_2^4)+x_2^3w$.)
+la forma disipativa: ISS. (Con $a=1$, $\Vdot=-\tfrac12(x_1-x_2^2)^2-\tfrac12(x_1^2+x_2^4)+x_2^3w$.)
 \end{ejemplo}
 
 \codigorepo{cap10_avanzada/C10_Ej14_Cascadas.m}{cascadas}{Escape, transitorio grande y cascada ISS}
@@ -76,7 +79,7 @@ Si en lugar de una cascada hay una \emph{retroalimentación}, $\dot x_1=f_1(x_1,
 Si $\gamma_1\circ\gamma_2(r)<r$ para todo $r>0$, el origen de la interconexión es GAS.
 \end{teorema}
 
-La parte fácil de la prueba muestra la idea. Si las soluciones están acotadas y $L_i=\limsup\norm{x_i(t)}$, reiniciando el reloj como en la \cref{prop:av-issconsec}, $L_1\le\gamma_1(L_2)$ y $L_2\le\gamma_2(L_1)$, así que $L_1\le\gamma_1(\gamma_2(L_1))<L_1$ si $L_1>0$: imposible. \alerta{Una vuelta completa por el lazo contrae.} Lo difícil es probar el acotamiento y la estabilidad.
+La parte fácil de la prueba muestra la idea. Si las soluciones están acotadas y $L_i$ es el $\limsup$ de $\norm{x_i(t)}$, reiniciando el reloj como en la \cref{prop:av-issconsec}, $L_1\le\gamma_1(L_2)$ y $L_2\le\gamma_2(L_1)$, así que $L_1\le\gamma_1(\gamma_2(L_1))<L_1$ si $L_1>0$: imposible. \alerta{Una vuelta completa por el lazo contrae.} Lo difícil es probar el acotamiento y la estabilidad.
 
 \begin{ejemplo}[label=ej:av-pequenaganancia]{$\dot x_1=-x_1+a\,x_2$, $\dot x_2=-x_2+b\sin x_1$}
 ¿Para qué $a,b$ es GAS el origen?

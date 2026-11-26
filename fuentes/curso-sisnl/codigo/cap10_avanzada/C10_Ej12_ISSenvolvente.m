@@ -1,4 +1,5 @@
 %% C10_Ej12_ISSenvolvente -- Notas: sección 10.6 (funciones ISS-Lyapunov)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para x' = -x^3 + w con w = 0.5 sin 2t: ganancia gamma(r) = (r/theta)^{1/3},
 %            gamma(0.5) con theta = 1/2, y el limsup simulado desde x(0) = +-3.
 % OBSERVE    La ganancia no es lineal: gamma(0.01) = 0.27 >> 0.01. El limsup real queda

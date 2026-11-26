@@ -16,11 +16,11 @@ Estudie $\dot x=-3x+(1+2x^2)w$ con $w\equiv1$ y $x(0)=2$.
 \[
   x(t)=\frac{3-e^t}{3-2e^t} ,
 \]
-cuyo denominador se anula en $t_e=\ln\tfrac32=0.405$: \alerta{escape en tiempo finito con una entrada constante de tamaño $1$}. (Handout~7 tenía $3-e^{-t}$ en el numerador.) Más simple aún: $\dot x=-x+xw$ con $w\equiv c>1$ crece exponencialmente.
+cuyo denominador se anula en $t_e=\ln\tfrac32=0.405$: \alerta{escape en tiempo finito con una entrada constante de tamaño $1$}. Más simple aún: $\dot x=-x+xw$ con $w\equiv c>1$ crece exponencialmente.
 \end{ejemplo}
 
 \begin{definicion}[label=def:av-iss]{ISS \citep{Son89a}; \citep[Def.~4.7]{Kha02}}
-$\dot x=f(t,x,w)$, con $f$ continua a trozos en $t$ y localmente Lipschitz en $(x,w)$, es \clave{estable entrada--estado (ISS)} si existen $\beta\in\KL$ y $\gamma\in\K$ tales que, para toda condición inicial y toda entrada $w$ continua a trozos y acotada, la solución existe para todo $t\ge t_0$ y
+$\dot x=f(t,x,w)$, con $f$ continua a trozos en $t$ y localmente Lipschitz en $(x,w)$, es \clave{estable entrada--estado} (\emph{input-to-state stable}, ISS) si existen $\beta\in\KL$ y $\gamma\in\K$ tales que, para toda condición inicial y toda entrada $w$ continua a trozos y acotada, la solución existe para todo $t\ge t_0$ y
 \begin{equation}
   \norm{x(t)}\le\beta\bigl(\norm{x(t_0)},t-t_0\bigr)+\gamma\Bigl(\sup_{t_0\le\tau\le t}\norm{w(\tau)}\Bigr)\qquad\forall\,t\ge t_0\ge0 .
   \label{eq:av-iss}
@@ -37,7 +37,7 @@ Si $\dot x=f(t,x,w)$ es ISS: (1) con $w\equiv0$ el origen es GUAS; (2) si $w$ es
 (1) y (2) se leen en \eqref{eq:av-iss}. (3) \emph{Reiniciar el reloj:} dado $\varepsilon$, sea $T_1$ con $\gamma(\norm{w(t)})\le\varepsilon/2$ para $t\ge T_1$. Como la definición vale para todo $t_0$, desde $T_1$, $\norm{x(t)}\le\beta(\norm{x(T_1)},t-T_1)+\varepsilon/2$, y basta esperar a que el primer término baje de $\varepsilon/2$ \citep[Lec.~14]{Arc18}.
 \end{demostracion}
 
-\begin{teorema}[label=thm:av-isslyap]{Funciones ISS-Lyapunov \citep[Teorema~4.19]{Kha02}}
+\begin{teorema}[label=thm:av-isslyap]{Funciones ISS-Lyapunov \citep[Teo.~4.19]{Kha02}}
 Sea $V:[0,\infty)\times\R^n\to\R$ de clase $\Cont1$ con
 \[
   \alpha_1(\norm x)\le V(t,x)\le\alpha_2(\norm x),\qquad\norm x\ge\rho(\norm w)\implica\jac Vt+\jac Vxf(t,x,w)\le-W_3(x),
@@ -53,9 +53,9 @@ $\alpha_1,\alpha_2\in\Kinf$, $\rho\in\K$ y $W_3$ continua y definida positiva. E
 \alerta{Es el teorema de UUB disfrazado.} Fije $w$ y $t$, y sea $\bar w=\sup_{[t_0,t]}\norm w$. Para esa entrada, $\dot x=f(s,x,w(s))$ es un sistema variante en el tiempo \emph{sin entrada}, con $\Vdot\le-W_3$ para $\norm x\ge\mu=\rho(\bar w)$: es la hipótesis del \cref{thm:av-uub} en forma global. Luego $\norm{x(s)}\le\max\{\beta(\norm{x(t_0)},s-t_0),\ \alpha_1^{-1}(\alpha_2(\rho(\bar w)))\}$. La $\beta$ del \cref{thm:av-uub} se construyó con $\alpha_1,\alpha_2,\alpha_3$ y no depende de $\mu$: es la misma para todas las entradas.
 \end{demostracion}
 
-ISS es UUB con un radio que depende de la entrada, y la \cref{tr:av-cota} reaparece: la ganancia no es $\rho$ sino $\alpha_1^{-1}\circ\alpha_2\circ\rho\ge\rho$. (Handout~7 pedía $\rho\in\Kinf$ y $W_3\in\K$; bastan $\rho\in\K$ y $W_3$ definida positiva.)
+ISS es UUB con un radio que depende de la entrada, y la \cref{tr:av-cota} reaparece: la ganancia no es $\rho$ sino $\alpha_1^{-1}\circ\alpha_2\circ\rho\ge\rho$.
 
-\begin{teorema}[label=thm:av-sontagwang]{Sontag--Wang \citep{SoWa95}; \citep[Teorema~7.4]{KeBr23}}
+\begin{teorema}[label=thm:av-sontagwang]{Sontag--Wang \citep{SoWa95}; \citep[Teo.~7.4]{KeBr23}}
 $\dot x=f(x,w)$ es ISS si y solo si existen $V\in\Cont1$ y $\alpha_1,\alpha_2,\alpha_3,\chi\in\Kinf$ con $\alpha_1(\norm x)\le V(x)\le\alpha_2(\norm x)$ y $\norm x\ge\chi(\norm w)\implica\nabla V\cdot f(x,w)\le-\alpha_3(\norm x)$. Equivalentemente (\clave{forma disipativa}), existen $\alpha_3,\sigma\in\Kinf$ con
 \begin{equation}
   \nabla V(x)\cdot f(x,w)\le-\alpha_3(\norm x)+\sigma(\norm w) .
@@ -67,14 +67,14 @@ En la forma disipativa, $V$ es un almacenamiento que se disipa a ritmo $\alpha_3
 
 \begin{ejemplo}[label=ej:av-issej]{Dos funciones ISS-Lyapunov}
 Muestre que (a) $\dot x=-x^3+w$ y (b) $\dot x=-x-2x^3+(1+x^2)w^2$ son ISS y calcule sus ganancias.
-\solucion (a) Con $V=\tfrac12x^2$ y $0<\theta<1$, $\Vdot=-(1-\theta)x^4-\theta x^4+xw\le-(1-\theta)x^4$ si $\abs x\ge(\abs w/\theta)^{1/3}$. Como $\alpha_1=\alpha_2$, $\gamma(r)=(r/\theta)^{1/3}$; con $\theta=\tfrac12$, $\gamma(0.5)=1$. La ganancia no es lineal: entradas pequeñas producen estados relativamente grandes ($r^{1/3}\gg r$ si $r\ll1$), el precio de no tener parte lineal en la disipación. Con $w=0.5\sin2t$, $\limsup\abs x$ queda por debajo de $1$.
-(b) Si $\abs x\ge w^2$, $x(1+x^2)w^2\le\abs x(1+x^2)\abs x=x^2+x^4$ y $\Vdot\le-x^4$: $\rho(r)=r^2=\gamma(r)$. (Handout~7 partía de ``$u^2\le x$''; debe ser $w^2\le\abs x$, porque si $x<0$ la otra desigualdad es imposible.)
+\solucion (a) Con $V=\tfrac12x^2$ y $0<\theta<1$, $\Vdot=-(1-\theta)x^4-\theta x^4+xw\le-(1-\theta)x^4$ si $\abs x\ge(\abs w/\theta)^{1/3}$. Como $\alpha_1=\alpha_2$, $\gamma(r)=(r/\theta)^{1/3}$; con $\theta=\tfrac12$, $\gamma(0.5)=1$. La ganancia no es lineal: entradas pequeñas producen estados relativamente grandes ($r^{1/3}\gg r$ si $r\ll1$), el precio de no tener parte lineal en la disipación. Con $w=0.5\sin2t$, $\limsup\abs x=0.25$, muy por debajo de $1$.
+(b) Si $\abs x\ge w^2$, $x(1+x^2)w^2\le\abs x(1+x^2)\abs x=x^2+x^4$ y $\Vdot\le-x^4$: $\rho(r)=r^2=\gamma(r)$. (La condición es $w^2\le\abs x$, no $w^2\le x$: si $x<0$, esta última es imposible.)
 \end{ejemplo}
 
 \codigorepo{cap10_avanzada/C10_Ej11_ISScontraejemplos.m}{contra}{GES con entrada cero y escape con entrada acotada}
 \codigorepo{cap10_avanzada/C10_Ej12_ISSenvolvente.m}{envolvente}{La envolvente $\beta+\gamma$ y el $\limsup$ simulado}
 
-Un atajo útil \citep[Lema~4.6]{Kha02}: si $f(t,x,w)$ es $\Cont1$ y \emph{globalmente} Lipschitz en $(x,w)$ y el origen de $\dot x=f(t,x,0)$ es GES, el sistema es ISS. La prueba es la del \cref{lem:av-robustez}: el converso da $\norm{\partial V/\partial x}\le c_4\norm x$ y $\Vdot\le-c_3\norm x^2+c_4L\norm x\norm w$. Sin Lipschitz global no hay atajo: el término $2x^2w$ del \cref{ej:av-riccati} lo rompe. Para la familia $\dot x=-x^r+x^sw$, con $r$ impar y $s\ge0$ enteros, hay una regla limpia: \alerta{es ISS si y solo si $r>s$} \citep[Lec.~14]{Arc18}; la disipación debe crecer más rápido que el acoplamiento con la entrada. (Si $s\ge r$, con $w\equiv c>1$ y $x(0)$ grande, $\dot x=x^r(cx^{s-r}-1)>0$.)
+Un atajo útil \citep[Lema~4.6]{Kha02}: si $f(t,x,w)$ es $\Cont1$ y \emph{globalmente} Lipschitz en $(x,w)$, uniformemente en $t$, y el origen de $\dot x=f(t,x,0)$ es GES, el sistema es ISS. La prueba es la del \cref{lem:av-robustez}: el converso da $\norm{\partial V/\partial x}\le c_4\norm x$ y $\Vdot\le-c_3\norm x^2+c_4L\norm x\norm w$. Sin Lipschitz global no hay atajo: el término $2x^2w$ del \cref{ej:av-riccati} lo rompe. Para la familia $\dot x=-x^r+x^sw$, con $r$ impar y $s\ge0$ enteros, hay una regla limpia: \alerta{es ISS si y solo si $r>s$}: la suficiencia está en \citet[Lec.~14]{Arc18}, y el contraejemplo del final da la necesidad; la disipación debe crecer más rápido que el acoplamiento con la entrada. (Si $s\ge r$, con $w\equiv c>1$ y $x(0)$ grande, $\dot x=x^r(cx^{s-r}-1)>0$.)
 
 \subsection{Estabilizar no es robustecer}
 
@@ -103,7 +103,7 @@ por Young, que es la forma disipativa \eqref{eq:av-issdisip}: el lazo rediseñad
 
 \video{V10_4_rediseno_iss}{Estabilizar no es robustecer}
 
-El procedimiento general \citep[\S9.2]{KeBr23}: si $k$ estabiliza con función de Lyapunov $V$ (que existe por un converso), entonces $u=k(x)-\Lie gV(x)$ es ISS respecto a errores aditivos en el actuador, porque
+El procedimiento general \citep[\S9.2]{KeBr23}: si $k$ estabiliza con función de Lyapunov $V$ (que existe por un converso), con $\Lie fV+\Lie gV\,k\le-\alpha(\norm x)$ y $\alpha\in\Kinf$, entonces $u=k(x)-\Lie gV(x)$ es ISS respecto a errores aditivos en el actuador, porque
 \[
   \Vdot=\Lie fV+\Lie gV\,k-(\Lie gV)^2+\Lie gV\,w\le-\alpha(\norm x)-\tfrac12(\Lie gV)^2+\tfrac12w^2 .
 \]

@@ -21,7 +21,7 @@ Hay un hilo que une las respuestas, y conviene decirlo desde el principio: \aler
 \label{fig:av-mapa}
 \end{figure}
 
-\notamargen{\textbf{Ruta de las clases.} Semana~11 (21 de octubre): UUB, \S\ref{sec:av-uub}. Semana~12 (26 y 28 de octubre): conversos de apoyo, CLF y Sontag, Barbalat, ISS e interconexiones, \S\ref{sec:av-conversos}--\ref{sec:av-inter}. El 28 de octubre la clase se concentró en CLF e ISS; las demás secciones se leen por cuenta propia.}
+\notamargen{\textbf{Ruta de las clases.} Semana~13: acotamiento último y conversos (\S\ref{sec:av-uub}--\ref{sec:av-conversos}). Semana~14: CLF y Sontag, Barbalat en el análisis tipo Lyapunov, ISS e interconexiones (\S\ref{sec:av-clf}--\ref{sec:av-inter}).}
 
 \begin{ideaclave}
 \textbf{``Existe $u$'' contra ``para todo $w$''.} La letra de la entrada cambia de papel en el capítulo. En las CLF (\S\ref{sec:av-clf}), $u$ es un \emph{control que se diseña}, y la pregunta es si \emph{existe} un $u$ que haga bajar a $V$. En ISS (\S\ref{sec:av-iss}), $w$ es una \emph{entrada exógena} que no se controla (perturbación, error de actuador), y la pregunta es si el estado queda acotado \emph{para toda} $w$ acotada. En las interconexiones (\S\ref{sec:av-inter}), la entrada de un subsistema es el estado del otro. Se escribe $u$ para lo que se diseña y $w$ para lo que se sufre, como en las convenciones del curso; \citet{Kha02} escribe $u$ en los dos casos.
@@ -32,7 +32,7 @@ Hay un hilo que une las respuestas, y conviene decirlo desde el principio: \aler
 Cuatro herramientas aparecen en todo el capítulo. Las funciones de comparación y la estabilidad uniforme se estudian en el \cref{cap:variantes}; aquí se recuerda lo indispensable.
 
 \begin{definicion}[label=def:av-comparacion]{Funciones de comparación (recordatorio de la \cref{def:vt-clases})}
-$\alpha:[0,r)\to[0,\infty)$ es de \clave{clase $\K$} si es continua, estrictamente creciente y $\alpha(0)=0$; es de \clave{clase $\Kinf$} si además $r=\infty$ y $\alpha(s)\to\infty$ cuando $s\to\infty$. $\beta:[0,r)\times[0,\infty)\to[0,\infty)$ es de \clave{clase $\KL$} si $\beta(\cdot,s)\in\K$ para cada $s$ y $\beta(r,\cdot)$ es decreciente con $\beta(r,s)\to0$ cuando $s\to\infty$.
+$\alpha:[0,a)\to[0,\infty)$ es de \clave{clase $\K$} si es continua, estrictamente creciente y $\alpha(0)=0$; es de \clave{clase $\Kinf$} si además $a=\infty$ y $\alpha(s)\to\infty$ cuando $s\to\infty$. $\beta:[0,a)\times[0,\infty)\to[0,\infty)$ es de \clave{clase $\KL$} si $\beta(\cdot,s)\in\K$ para cada $s$ y $\beta(r,\cdot)$ es decreciente con $\beta(r,s)\to0$ cuando $s\to\infty$.
 \end{definicion}
 
 \begin{enumerate}
@@ -57,7 +57,7 @@ $\alpha:[0,r)\to[0,\infty)$ es de \clave{clase $\K$} si es continua, estrictamen
 \end{enumerate}
 
 \begin{historia}[De la estabilidad al diseño robusto]
-La idea de que la estabilidad implica la existencia de una función de Lyapunov es de Massera (1949 y 1956)~\citep{Mas56} y de Kurzweil; las versiones que se usan hoy están en \citet[\S4.7]{Kha02} y en \citet[cap.~2]{KeBr23}. Artstein mostró en 1983 que la existencia de una realimentación continua equivale a la de una función de control de Lyapunov~\citep{Ars83}, y Sontag dio en 1989 la fórmula explícita~\citep{Son89}. El mismo año, Sontag propuso la estabilidad entrada--estado~\citep{Son89a}, que con la caracterización de Sontag y Wang~\citep{SoWa95} y el teorema de pequeña ganancia de Jiang, Teel y Praly~\citep{JTP94} cambió la manera de diseñar controladores no lineales. Barbălat publicó su lema en 1959~\citep{Bar59}, en un artículo sobre sistemas de ecuaciones diferenciales no lineales.
+La idea de que la estabilidad implica la existencia de una función de Lyapunov es de Massera (1949 y 1956)~\citep{Mas49,Mas56} y de Kurzweil~\citep{Kur56}; las versiones que se usan hoy están en \citet[\S4.7]{Kha02} y en \citet[cap.~2]{KeBr23}. Artstein mostró en 1983 que la existencia de una retroalimentación continua equivale a la de una función de control de Lyapunov~\citep{Ars83}, y Sontag dio en 1989 la fórmula explícita~\citep{Son89}. El mismo año, Sontag propuso la estabilidad entrada--estado~\citep{Son89a}, que con la caracterización de Sontag y Wang~\citep{SoWa95} y el teorema de pequeña ganancia de Jiang, Teel y Praly~\citep{JTP94} cambió la manera de diseñar controladores no lineales. Barbalat publicó su lema en 1959~\citep{Bar59}, en un artículo sobre sistemas de ecuaciones diferenciales no lineales.
 \end{historia}
 
 \begin{pausa}

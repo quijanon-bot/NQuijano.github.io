@@ -1,3 +1,4 @@
+# Transparencia: escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 """Verificación independiente (sympy/scipy) de los números del capítulo 10
 (estabilidad avanzada: UUB, conversos, CLF, Barbalat e ISS).
 Ejecutar:  python3 herramientas/cap10_numeros.py
@@ -57,6 +58,7 @@ revisar('oscilador: max ||x|| = 4.50 (w = 0.2 sin 1.3t)', r2.max(), 4.50, 1e-2)
 revisar('oscilador: nunca sale de Omega_eta (V <= lambda_max mu^2)', Vt.max() <= lm[1]*mu**2, 1)
 s3 = solve_ivp(lambda tt, z: A @ z, (0, 10), [2.45, 0], max_step=0.01, **o)
 revisar('oscilador con w = 0: también sale de B_mu (excursión ~4.9)', np.linalg.norm(s3.y, axis=0).max() > mu, 1)
+revisar('oscilador con w = 0: max |x2| = 4.54 (4.9 sin amortiguamiento)', np.abs(s3.y[1]).max(), 4.54, 5e-3)
 # resorte endurecido (Khalil Ej. 4.23)
 V = sp.Rational(3, 2)*x1**2 + x1*x2 + x2**2 + x1**4/2
 Vd = sp.expand(sp.diff(V, x1)*x2 + sp.diff(V, x2)*(-(1 + x1**2)*x1 - x2 + w))
@@ -167,6 +169,8 @@ def limsup_iss(x0_):
     return np.abs(s_.sol(np.linspace(20, 40, 4001))[0]).max()
 revisar('ISS -x^3 + w: gamma(0.5) con theta = 0.5 = 1', (0.5/0.5)**(1/3), 1)
 revisar('ISS -x^3 + 0.5 sin 2t: limsup real < gamma', limsup_iss(3.0) < 1, 1)
+s_ = solve_ivp(lambda tt, z: [-z[0]**3 + 0.5*np.sin(2*tt)], (0, 200), [3.0], dense_output=True, **o)
+revisar('ISS -x^3 + 0.5 sin 2t: limsup = 0.25 (régimen, t en [150, 200])', np.abs(s_.sol(np.linspace(150, 200, 10001))[0]).max(), 0.25, 5e-3)
 revisar('ISS ejemplo (b): Vdot <= -x^4 si |x| >= w^2 (x = 1.2, w = 1)', (-1.2**2 - 2*1.2**4 + 1.2*(1 + 1.2**2)*1) <= -1.2**4, 1)
 # rediseño
 ev = lambda tt, z: z[0] - 1e8; ev.terminal = True
@@ -230,6 +234,16 @@ for nom, uu, esf, tt01 in [('Sontag', kc, 1.46, 4.0), ('cancelación', lambda xx
     revisar(f'P10.6: esfuerzo {nom} = {esf}', s_.y[1, -1], esf, 0.01)
     revisar(f'P10.6: {nom} llega a |x| < 0.01 en t = {tt01}', tq[np.argmax(np.abs(xq) < 0.01)], tt01, 0.06)
 revisar('P10.6: Sontag u(0) = -0.19', kc(3.0), -0.19, 5e-3)
+def kdi(xx):                                   # P10.5: Sontag para el doble integrador
+    lf, lg = (2*xx[0] + xx[1])*xx[1], xx[0] + 2*xx[1]
+    return -(lf + np.sqrt(lf**2 + lg**4))/lg
+for xx in ([1, 0], [0, 1], [1, 1], [0.3, -0.7]):
+    xx = np.array(xx, float)
+    revisar(f'P10.5: k(s x)/s = k(x) con s = 1e-4, x = {tuple(xx)}', kdi(1e-4*xx)/1e-4, kdi(xx), 1e-9)
+revisar('P10.5: k(1,0) = -1', kdi(np.array([1., 0])), -1, 1e-12)
+revisar('P10.5: k(0,1) = -(1 + sqrt17)/2 = -2.56', kdi(np.array([0., 1])), -(1 + np.sqrt(17))/2, 1e-12)
+revisar('P10.5: k(1,1) = -(3 + sqrt90)/3 = -4.16, no lineal', kdi(np.array([1., 1])), -(3 + np.sqrt(90))/3, 1e-12)
+revisar('10.4: lazo abierto x(10) = 2 e^10 = 4.4e4', 2*np.exp(10), 4.4e4, 100)
 def kk(xx):
     lf, lg = xx**2, xx*(xx**2 + 1)
     return 0.0 if abs(lg) < 1e-14 else -(1 + (lf + np.sqrt(lf**2 + lg**4))/lg**2)*lg

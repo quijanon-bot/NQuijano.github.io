@@ -1,4 +1,5 @@
 function verificarCap10()
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % VERIFICARCAP10  Pruebas automáticas de los números del capítulo 10
 % (UUB, conversos, CLF, Barbalat, ISS).   >> verificarCap10
 % (Los mismos números se verificaron de forma independiente con sympy y
@@ -33,6 +34,8 @@ revisar('oscilador: b = 5.01', mu*sqrt(max(l)/min(l)), 5.01, 5e-3);
 [t, X] = ode45(@(t, x) A*x + B*0.2*sin(1.3*t), linspace(0, 40, 8001), [2.45; 0], opc);
 revisar('oscilador: max ||x|| = 4.50', max(sqrt(sum(X.^2, 2))), 4.50, 5e-3);
 revisar('oscilador: max V/eta < 1', max(sum((X*P).*X, 2))/(max(l)*mu^2) < 1, 1, 0);
+[~, X0] = ode45(@(t, x) A*x, linspace(0, 10, 4001), [2.45; 0], opc);
+revisar('oscilador con w = 0: max |x2| = 4.54', max(abs(X0(:, 2))), 4.54, 5e-3);
 Pr = [1.5 0.5; 0.5 1];  lr = eig(Pr);  mur = sqrt(5)*0.3/0.9;
 revisar('resorte: mu = 0.745', mur, 0.745, 1e-3);
 revisar('resorte: b = 1.30', sqrt((max(lr)*mur^2 + mur^4/2)/min(lr)), 1.30, 5e-3);
@@ -77,6 +80,11 @@ o2 = odeset(opc, 'Events', @(t, x) eventoODE(x - 1e6, 1, 1));
 [~, ~, te] = ode45(@(t, x) -3*x + 1 + 2*x^2, [0 1], 2, o2);
 revisar('Riccati: escape en ln 1.5 = 0.405', te(1), log(1.5), 1e-5);
 revisar('-x^3 + w: gamma(0.5) = 1 con theta = 1/2', (0.5/0.5)^(1/3), 1, 0);
+[t, X] = ode45(@(t, x) -x^3 + 0.5*sin(2*t), linspace(0, 200, 20001), 3, opc);
+revisar('-x^3 + 0.5 sin 2t: limsup = 0.25 (t >= 150)', max(abs(pasado(t, X, 150))), 0.25, 5e-3);
+kdi = @(x) -(((2*x(1) + x(2))*x(2)) + sqrt(((2*x(1) + x(2))*x(2))^2 + (x(1) + 2*x(2))^4))/(x(1) + 2*x(2));
+revisar('P10.5: k(s x)/s = k(x) (homogénea), x = (1, 1)', kdi(1e-4*[1; 1])/1e-4, kdi([1; 1]), 1e-9);
+revisar('P10.5: k(1,1) = -(3 + sqrt90)/3', kdi([1; 1]), -(3 + sqrt(90))/3, 1e-12);
 k = @(x) -2*x/(x^2 + 1);  k1 = @(x) k(x) - x*(x^2 + 1);
 [~, ~, te] = ode45(@(t, x) x + (x^2 + 1)*(k(x) + 1), [0 5], 0, o2);
 revisar('rediseño: escape en 4 pi/(3 sqrt3) = 2.42', te(1), 4*pi/(3*sqrt(3)), 1e-4);

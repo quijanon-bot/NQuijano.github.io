@@ -1,4 +1,5 @@
 %% C10_Video_BolaNoInvariante -- Video V10_2: la bola no es invariante; el conjunto de nivel sí
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  El oscilador x' = A x + B w, A = [0 1; -4 -0.2], w = 0.2 sin 1.3t, desde
 %              (2.45, 0), dentro de B_mu (mu = 2.50). La trayectoria sale de la bola
 %              (||x||/mu > 1) pero V/eta nunca pasa de 1.

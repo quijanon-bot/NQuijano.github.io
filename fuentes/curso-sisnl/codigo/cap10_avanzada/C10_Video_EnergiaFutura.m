@@ -1,4 +1,5 @@
 %% C10_Video_EnergiaFutura -- Video V10_3: la energía futura se gasta en el presente
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  x' = A x, A = [0 1; -1 -1], desde (1, 0.5). A la izquierda, el área bajo
 %              ||x(s)||^2 desde s = t (la energía futura V(x(t))); a la derecha, V(x(t)) y
 %              su recta tangente de pendiente -||x(t)||^2.

@@ -1,4 +1,5 @@
 %% C10_Ej4_EstableSinV -- Notas: sección 10.3 (estable, invariante en el tiempo y sin V(x))
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para x1' = x2, x2' = sin^2(pi/|x|^2) x2 - x1 (Kellett-Braun, ec. 2.51):
 %            (1) verifica que los círculos |x|^2 = 1/n son órbitas (el radio no cambia);
 %            (2) simula una trayectoria entre Gamma_3 y Gamma_2 y mide hacia dónde va.
@@ -23,6 +24,17 @@ fprintf('desde |x| = 0.6: |x(400)| = %.4f  (Gamma_2: %.4f);  ¿r creciente? %d\n
         r(end), 1/sqrt(2), all(diff(r) > -1e-9));
 % [fin:sinV]
 
-fig = estiloFigura(560, 540);  th = linspace(0, 2*pi, 300);  hold on;
-for n = 1:4, plot(cos(th)/sqrt(n), sin(th)/sqrt(n)); end
-plot(X(:, 1), X(:, 2), 'k', 'LineWidth', 0.6);  axis equal;  grid on;  xlabel('$x_1$');  ylabel('$x_2$');
+% ---- Figura de las notas (fig:av-sinV) ------------------------------------------
+az = [30 90 168]/255;  co = [209 73 91]/255;  vi = [108 74 182]/255;  am = [224 159 62]/255;
+ve = [42 157 143]/255;  no = [20 33 61]/255;  gr = [92 103 125]/255;
+claro = @(c, a) 1 - a*(1 - c);                            % color pálido, sin transparencia
+fig = estiloFigura(600, 580);  hold on;  an = linspace(0, 2*pi, 400);
+for n = 1:4
+    r = 1/sqrt(n);  plot(r*cos(an), r*sin(an), 'Color', az, 'LineWidth', 1.8 - 0.8*(n == 4));
+    text(0.72*r, 0.72*r, sprintf('$\\Gamma_%d$', n), 'Color', az);
+end
+[~, Xs] = ode45(f, [0 80], [0.6; 0], opc);
+plot(Xs(:, 1), Xs(:, 2), 'Color', co, 'LineWidth', 0.7);  plot(0.6, 0, 'o', 'Color', co, 'MarkerFaceColor', co, 'MarkerSize', 4);
+plot(0, 0, 'o', 'MarkerSize', 7, 'MarkerEdgeColor', no, 'MarkerFaceColor', no);
+axis equal;  axis([-1.15 1.15 -1.15 1.15]);  grid on;  box on;  xlabel('$x_1$');  ylabel('$x_2$');
+title('\''orbitas en $\|x\|^2=1/n$');

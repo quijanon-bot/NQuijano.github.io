@@ -19,8 +19,8 @@ Sea $x(t)$ una solución y $v(t)=V(t,x(t))$. Si (1) $V$ está acotada por debajo
 
 \begin{trampa}[label=tr:av-barbalat]{``Barbalat da estabilidad asintótica''}
 \plausible{Si $\Vdot\to0$ y $\Vdot=-2e^2$, entonces el estado converge al origen.}
-El lema no pide $V$ definida positiva (basta acotada por debajo) y por eso la conclusión es \emph{parcial}: $\Vdot\to0$, no $x\to0$. No da estabilidad ni uniformidad: solo la convergencia de una señal.
-\correcto{Barbalat dice qué señales convergen. Para las demás variables hace falta información adicional, como la excitación persistente del \cref{ej:av-adaptativo}. Y ``$\Vdot(t,x)$ uniformemente continua en $t$'' (como decían Handout~7 y las diapositivas) debe leerse como una propiedad de la señal $t\mapsto\Vdot(t,x(t))$, no de la función de dos variables.}
+La conclusión es \emph{parcial}: $\Vdot\to0$, no $x\to0$; aquí $\Vdot=-2e^2$ solo habla de $e$. El lema ni siquiera pide $V$ definida positiva (basta acotada por debajo). No da estabilidad ni uniformidad: solo la convergencia de una señal.
+\correcto{Barbalat dice qué señales convergen. Para las demás variables hace falta información adicional, como la excitación persistente del \cref{ej:av-adaptativo}. Y ``$\Vdot(t,x)$ uniformemente continua en $t$'' debe leerse como una propiedad de la señal $t\mapsto\Vdot(t,x(t))$, no de la función de dos variables.}
 \end{trampa}
 
 \begin{ejemplo}[label=ej:av-adaptativo]{Control adaptativo \citep[Ej.~4.13]{SlLi91}}

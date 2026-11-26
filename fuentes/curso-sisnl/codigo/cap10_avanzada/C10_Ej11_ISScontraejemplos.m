@@ -1,4 +1,5 @@
 %% C10_Ej11_ISScontraejemplos -- Notas: sección 10.6 (GES con w = 0 no basta)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   (1) x' = -x + x w con w = 2: crecimiento exponencial.
 %            (2) x' = -3x + (1 + 2x^2) w con w = 1, x(0) = 2: compara la simulación con
 %            la solución cerrada x(t) = (3 - e^t)/(3 - 2e^t) y mide el escape.

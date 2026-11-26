@@ -1,4 +1,5 @@
 %% C10_Video_BandaUUB -- Video V10_1: afinar la cota última cuesta tiempo
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ MUESTRA  x' = -x + sin t desde x(0) = 4, -4 y 2. La cota pedida b baja de 3 a 1.05
 %              y la banda |x| <= b se dibuja desde T(4, b) = ln(3/(b - 1)). A la derecha,
 %              T(4, b) crece sin cota cuando b -> delta = 1.

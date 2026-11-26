@@ -1,4 +1,5 @@
 %% C10_Ej15_PequenaGanancia -- Notas: sección 10.7 (retroalimentación y pequeña ganancia)
+% TRANSPARENCIA  Escrito y corregido con la asistencia de Claude (Anthropic); revisado y validado por el autor.
 % QUÉ HACE   Para x1' = -x1 + a x2, x2' = -x2 + b sin x1, con a = 1:
 %            b = 0.8 (|ab| < 1), b = 1.2 (ab > 1) y b = -3 (|ab| > 1 pero GAS).
 %            Calcula equilibrios y valores propios, y simula desde varios puntos.
@@ -25,3 +26,14 @@ for i = 1:3
     axis equal;  axis([-3 3 -3 3]);  grid on;  title(sprintf('$ab=%g$', a*b));
 end
 % [fin:ganancia]
+
+% ---- Figura de las notas (fig:av-pequenaganancia) -------------------------------
+clf(fig);  set(fig, 'Position', [80 80 1350 480]);         % reemplaza la gráfica del bloque
+X0 = [-2.8 2.5; 2.8 -2.5; 2.8 2.5; -2.8 -2.5; 0.3 0.05; -0.3 -0.05; -0.3 2.8; 0.3 -2.8]';
+for i = 1:3
+    b = bs(i);  F = @(x) [-x(1) + a*x(2); -x(2) + b*sin(x(1))];
+    eqs = [0; 0];  if b == 1.2, eqs = [eqs, [xs; xs], -[xs; xs]]; end
+    ax = subplot(1, 3, i);
+    retratoFase(ax, F, [-3 3], [-3 3], 'X0', X0, 'T', 15, 'N', 15, 'Equilibrios', eqs);
+    axis(ax, 'equal');  axis(ax, [-3 3 -3 3]);  box(ax, 'on');  title(ax, sprintf('$ab=%g$', a*b));
+end
